@@ -1,0 +1,51 @@
+{
+    "name": "Portfólio 3D - Leandro Saturnino Barbosa",
+    "short_name": "Portfólio 3D",
+    "description": "Portfólio interativo 3D com React, Three.js e Tailwind",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#0a0a0a",
+    "theme_color": "#0a0a0a",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ],
+    "categories": [
+        "portfolio",
+        "productivity",
+        "developer"
+    ],
+    "lang": "pt-BR",
+    "dir": "ltr",
+    "prefer_related_applications": false
+}
