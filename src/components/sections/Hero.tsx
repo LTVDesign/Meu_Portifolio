@@ -16,7 +16,7 @@ const Hero = () => {
 
         <div className="mt-2">
           <h1 className={styles.heroHeadText}>
-            Olá, eu sou <span className="text-[#915EFF]">Leandro Barbosa</span>
+            Olá, eu sou <span className="text-[#915EFF]">Leandro Saturnino Barbosa</span>
           </h1>
           <p className={`${styles.heroSubText} mt-2`}>
             {config.hero.p[0]} <br className="hidden sm:block" />

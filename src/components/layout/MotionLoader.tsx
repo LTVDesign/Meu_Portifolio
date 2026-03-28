@@ -1,10 +1,13 @@
-import type React from 'react';
+interface MotionLoaderProps {
+  isSection?: boolean;
+}
 
-const MotionLoader: React.FC = () => {
+const MotionLoader: React.FC<MotionLoaderProps> = ({ isSection }) => {
   return (
     <div
-      className="fixed inset-0 z-[100] flex h-screen w-screen items-center justify-center bg-black"
-      style={{ animation: 'colorRot 5000ms linear infinite' }}
+      className={`${
+        isSection ? 'relative is-section' : 'fixed inset-0 z-[100] h-screen w-screen'
+      } motion-loader-container`}
     >
       <div className="motion-loader"></div>
     </div>

@@ -5,6 +5,7 @@ import { config } from '../../constants/config';
 import { SectionWrapper } from '../../hoc';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms/Header';
+import MotionLoader from '../layout/MotionLoader';
 
 const EducationModal = ({ education, onClose }: { education: any; onClose: () => void }) => {
   // Prevent scrolling when modal is open
@@ -171,15 +172,14 @@ const EducationModal = ({ education, onClose }: { education: any; onClose: () =>
                     >
                       Conferir Autenticidade do Diploma
                     </a>
-                    <p className="text-[12px] text-gray-500 text-center uppercase tracking-tighter italic">
-                      Código de Controle: {Math.random().toString(36).substring(7).toUpperCase()}
-                    </p>
                   </div>
                 </div>
               ) : (
                 <div className="bg-white/5 rounded-[30px] p-10 border border-white/10 flex flex-col items-center justify-center text-center gap-6 min-h-[300px]">
                   <div className="w-20 h-20 rounded-full bg-[#915EFF]/20 flex items-center justify-center shadow-[0_0_20px_#915EFF33]">
-                    <div className="w-10 h-10 rounded-full border-4 border-[#915EFF] border-t-transparent animate-spin" />
+                    <div className="scale-x-[-0.4] scale-y-[0.4]">
+                      <MotionLoader isSection />
+                    </div>
                   </div>
                   <div>
                     <h4 className="text-[20px] font-bold text-white mb-2 uppercase tracking-widest">
@@ -234,13 +234,16 @@ const Formacao = () => {
       status: 'CONCLUÍDO',
       statusColor: '#00cea8',
       description:
-        'Formação superior voltada para o ciclo completo de desenvolvimento de software e engenharia de sistemas.',
+        'Formação completa em desenvolvimento de software, combinando teoria e prática para criar soluções tecnológicas inovadoras e eficientes.',
       fullDescription:
-        'Uma jornada acadêmica profunda focada em transformar requisitos de negócio em arquiteturas de software robustas. O curso proporcionou uma base sólida em algoritmos, estruturas de dados e desenvolvimento ágil, preparando-me para desafios complexos em engenharia de sistemas e desenvolvimento Full Stack.',
+        'Durante essa jornada acadêmica, mergulhei no universo da computação e do desenvolvimento de sistemas, onde cada desafio foi uma oportunidade de crescimento. Aprendi a transformar ideias complexas em código limpo e funcional, desenvolvendo não apenas habilidades técnicas, mas também uma mentalidade voltada para a resolução de problemas reais. O curso me preparou para atuar em um mercado em constante evolução, com foco em inovação, colaboração e entrega de valor através da tecnologia.',
       points: [
-        'Ciclo completo de desenvolvimento e engenharia de software.',
-        'Administração de Bancos de Dados e lógica de programação.',
-        'Aplicação prática de Metodologias Ágeis (Scrum/XP).',
+        'Desenvolvimento Full Stack com foco em React, Node.js e bancos de dados',
+        'Arquitetura de software e design patterns para sistemas escaláveis',
+        'Metodologias Ágeis aplicadas em projetos reais (Scrum, Kanban)',
+        'Integração de APIs e desenvolvimento de microserviços',
+        'Testes automatizados e garantia de qualidade de software',
+        'Deploy e DevOps com Docker e CI/CD',
       ],
       subjects: [
         { name: 'Engenharia De Software', grade: '8,7' },
@@ -276,7 +279,20 @@ const Formacao = () => {
         'https://diplomas.cogna.com.br/diploma-digital/validador/documento/academico/298.298.ed35015ba174',
       certificateLink: '/formacao/DiplomaDigital.pdf',
       certificatePreview: '/formacao/diploma.png',
-      highlights: ['Engenharia de Software', 'Web Design', 'Banco de Dados', 'Clean Code'],
+      highlights: [
+        'Engenharia de Software',
+        'Desenvolvimento Full Stack',
+        'Web Design & UX',
+        'Banco de Dados',
+        'Clean Code',
+        'Metodologias Ágeis',
+        'Testes Automatizados',
+        'DevOps',
+        'Arquitetura de Sistemas',
+        'Integração de APIs',
+        'React & Node.js',
+        'Cloud Computing',
+      ],
     },
     {
       title: 'Pós-Graduação em Inteligência Artificial e Data Science',
@@ -285,13 +301,20 @@ const Formacao = () => {
       status: 'EM ANDAMENTO',
       statusColor: '#915EFF',
       description:
-        'Especialização em modelos inteligentes e análise preditiva focada em extrair valor de big data.',
+        'Especialização avançada em IA e ciência de dados, transformando dados em inteligência estratégica para o futuro.',
       fullDescription:
-        'Formação prática e avançada voltada ao desenvolvimento de soluções inteligentes e inovadoras. Foco em IA Generativa, Machine Learning e Big Data para automação de processos e suporte estratégico em decisões complexas, abrangendo setores como Cibersegurança, Finanças e Saúde Pública.',
+        'Esta pós-graduação representa um mergulho profundo nas fronteiras da tecnologia, onde estou aprendendo a criar sistemas inteligentes que podem aprender, prever e tomar decisões. Cada módulo é uma porta de entrada para um novo universo: desde a criação de modelos de machine learning que detectam padrões invisíveis até o desenvolvimento de redes neurais que simulam o pensamento humano. Estou construindo não apenas conhecimento técnico, mas uma visão estratégica de como a IA pode transformar negócios, salvar vidas e moldar o futuro da humanidade.',
       points: [
-        'Foco em Machine Learning e Modelos Preditivos.',
-        'Processamento e análise de grandes volumes de dados (Big Data).',
-        'Automação de processos e geração de insights estratégicos.',
+        'Desenvolvimento de modelos de Machine Learning e Deep Learning',
+        'Processamento de Linguagem Natural (NLP) e visão computacional',
+        'Arquiteturas de redes neurais e modelos generativos (GANs, VAEs)',
+        'Big Data com Spark, Hadoop e ecossistema moderno',
+        'Data Engineering: ETL, pipelines e data lakes',
+        'IA ética, governança de dados e LGPD',
+        'Deploy de modelos em produção com MLOps',
+        'Visualização de dados e storytelling com Tableau/Power BI',
+        'Cloud AI: serviços de IA na AWS, Azure e GCP',
+        'Projetos reais de IA para setores como saúde, finanças e cibersegurança',
       ],
       subjects: [
         { name: 'Inteligência Artificial: Conceitos e Aplicações', grade: '10,0' },
@@ -307,7 +330,24 @@ const Formacao = () => {
         { name: 'Governança de Dados & LGPD', grade: 'Cursando' },
         { name: 'Big Data & Cloud Computing', grade: 'Cursando' },
       ],
-      highlights: ['IA Generativa', 'Big Data', 'Machine Learning', 'Data Strategy'],
+      highlights: [
+        'Machine Learning',
+        'Deep Learning',
+        'IA Generativa',
+        'Processamento de Linguagem Natural (NLP)',
+        'Visão Computacional',
+        'Big Data & Spark',
+        'Data Engineering',
+        'Redes Neurais',
+        'Modelos Preditivos',
+        'Cloud AI',
+        'MLOps',
+        'Ética em IA',
+        'Data Science',
+        'Python para Data Science',
+        'TensorFlow & PyTorch',
+        'Governança de Dados',
+      ],
     },
   ];
 
@@ -315,8 +355,8 @@ const Formacao = () => {
     <>
       <Header useMotion={true} {...config.sections.formacao} />
 
-      <div className="mt-20 flex flex-col items-center w-full">
-        <div className="flex flex-wrap gap-10 justify-center items-stretch w-full">
+      <div className="mt-40 flex flex-col items-center w-full">
+        <div className="flex flex-wrap gap-28 justify-center items-stretch w-full px-4 sm:px-10">
           {educations.map((education, index) => (
             <motion.div
               key={education.title}
@@ -327,10 +367,10 @@ const Formacao = () => {
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') setSelectedEducation(education);
               }}
-              className="w-full relative rounded-[40px] bg-tertiary border border-white/[0.05] p-10 py-16 shadow-2xl sm:w-[500px] min-w-0 break-words group flex flex-col cursor-pointer hover:border-[#915EFF]/50 transition-all active:scale-[0.98]"
+              className="w-full relative rounded-[40px] bg-tertiary border border-white/[0.05] p-12 py-14 shadow-2xl sm:w-[500px] min-w-0 break-words group flex flex-col cursor-pointer hover:border-[#915EFF]/50 transition-all active:scale-[0.98] animate-in fade-in slide-in-from-bottom-5"
             >
               {/* Card Header: Status & Logo */}
-              <div className="flex justify-between items-center mb-20 w-full mt-2">
+              <div className="flex justify-between items-center mb-12 w-full mt-2">
                 <span
                   style={{ backgroundColor: education.statusColor }}
                   className="text-[10px] font-extrabold text-white px-4 py-2 rounded-full shadow-lg tracking-wider"
@@ -346,11 +386,11 @@ const Formacao = () => {
                   {education.title}
                 </h3>
 
-                <div className="flex flex-col mb-10">
-                  <span className="text-[13px] font-semibold text-[#915EFF] opacity-90 uppercase tracking-widest">
+                <div className="flex flex-col mb-8 mt-2">
+                  <span className="text-[13px] font-bold text-[#915EFF] uppercase tracking-widest bg-[#915EFF]/10 w-fit px-3 py-1 rounded-lg">
                     {education.institution}
                   </span>
-                  <span className="text-[12px] text-[var(--dynamic-text-secondary)] opacity-70 mt-1">
+                  <span className="text-[12px] text-[var(--dynamic-text-secondary)] opacity-70 mt-2 font-medium">
                     {education.period}
                   </span>
                 </div>
@@ -367,10 +407,10 @@ const Formacao = () => {
                     {education.points.map((point, idx) => (
                       <li
                         key={`discipline-${idx}`}
-                        className="text-[13px] text-[var(--dynamic-text-secondary)] flex items-start gap-3 px-4"
+                        className="text-[13.5px] text-[var(--dynamic-text-secondary)] flex items-start gap-5 px-6 py-1 hover:translate-x-1 transition-transform"
                       >
-                        <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#915EFF] shrink-0 shadow-[0_0_8px_#915EFF]" />
-                        <span className="leading-snug">{point}</span>
+                        <div className="mt-2 h-1.5 w-1.5 rounded-full bg-[#915EFF] shrink-0 shadow-[0_0_8px_#915EFF]" />
+                        <span className="leading-relaxed">{point}</span>
                       </li>
                     ))}
                   </ul>

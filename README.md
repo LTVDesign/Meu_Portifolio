@@ -26,8 +26,8 @@ Portfólio interativo e imersivo em 3D desenvolvido com React, Three.js e Tailwi
 
 ```bash
 # Clone o repositório
-git clone https://github.com/leandrobarbosa/portfolio-3d.git
-cd portfolio-3d
+git clone https://github.com/lelebrr/Meu_Portifolio.git
+cd Meu_Portifolio
 
 # Instale as dependências
 npm install
@@ -107,7 +107,6 @@ portfolio-3d/
 ├── package.json           # Dependências
 ├── vite.config.js         # Configuração Vite
 ├── tsconfig.json          # Configuração TypeScript
-├── tailwind.config.js     # Configuração Tailwind
 ├── biome.json             # Linter/Formatter
 └── README.md              # Este arquivo
 ```
@@ -163,8 +162,8 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 **Leandro Saturnino Barbosa**
 
-- GitHub: [@leandrobarbosa](https://github.com/leandrobarbosa)
-- LinkedIn: [linkedin.com/in/leandrobarbosa](https://linkedin.com/in/leandrobarbosa)
+- GitHub: [@lelebrr](https://github.com/lelebrr)
+- LinkedIn: [linkedin.com/in/lelebrr](https://linkedin.com/in/lelebrr)
 - Site: [https://leandrobarbosa.dev](https://leandrobarbosa.dev)
 
 ## 🙌 Agradecimentos

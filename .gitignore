@@ -29,3 +29,6 @@ dist-ssr
 # env
 .env
 
+# Biome error logs
+biome_errors*.txt
+

@@ -1,5 +1,7 @@
 import backend from './backend.png';
 import carrent from './carrent.png';
+import comptester from './comptester.png';
+import getnexo from './getnexo.png';
 import close from './close.svg';
 import meta from './company/meta.png';
 import shopify from './company/shopify.png';
@@ -25,11 +27,14 @@ import tailwind from './tech/tailwind.png';
 import threejs from './tech/threejs.svg';
 import typescript from './tech/typescript.png';
 import tripguide from './tripguide.webp';
+import willy from './willy.png';
 import web from './web.png';
 
 export {
   backend,
   carrent,
+  comptester,
+  getnexo,
   close,
   creator,
   css,
@@ -55,5 +60,6 @@ export {
   threejs,
   tripguide,
   typescript,
+  willy,
   web,
 };

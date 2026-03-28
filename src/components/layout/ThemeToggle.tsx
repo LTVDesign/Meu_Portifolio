@@ -27,13 +27,15 @@ const SliderControl: React.FC<SliderControlProps> = ({
 }) => {
   const id = `slider-${label.replace(/\s+/g, '-').toLowerCase()}`;
   return (
-    <div className="block mb-1.5">
+    <div className="block mb-3 last:mb-0 group/slider">
       <label
         htmlFor={id}
-        className="flex justify-between text-gray-300 text-[10px] uppercase tracking-wider mb-1 font-medium"
+        className="flex justify-between text-gray-400 group-hover/slider:text-[#915EFF] text-[10px] uppercase tracking-widest mb-1.5 font-bold transition-colors"
       >
         <span>{label}</span>
-        <span className="text-[#915EFF] font-mono">{value.toFixed(decimals)}</span>
+        <span className="text-[#915EFF] font-mono bg-[#915EFF]/10 px-1.5 rounded">
+          {value.toFixed(decimals)}
+        </span>
       </label>
       <input
         id={id}
@@ -43,7 +45,7 @@ const SliderControl: React.FC<SliderControlProps> = ({
         step={step}
         value={value}
         onChange={(e) => onChange(parseFloat(e.target.value))}
-        className="w-full h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-[#915EFF] hover:accent-[#a17fff] transition-all"
+        className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#915EFF] hover:accent-[#a17fff] transition-all"
       />
     </div>
   );
@@ -58,14 +60,14 @@ interface ColorControlProps {
 const ColorControl: React.FC<ColorControlProps> = ({ label, value, onChange }) => {
   const id = `color-${label.replace(/\s+/g, '-').toLowerCase()}`;
   return (
-    <div className="flex flex-col mb-2">
+    <div className="flex flex-col mb-3 group/color">
       <label
         htmlFor={id}
-        className="text-gray-300 text-[10px] uppercase tracking-wider mb-1 font-semibold"
+        className="text-gray-400 group-hover/color:text-[#915EFF] text-[10px] uppercase tracking-widest mb-1.5 font-bold transition-colors"
       >
         {label}
       </label>
-      <div className="relative flex items-center bg-gray-800/80 border border-gray-600/50 rounded-md p-1 hover:border-[#915EFF] transition-colors group">
+      <div className="relative flex items-center bg-black/40 border border-white/10 rounded-lg p-1.5 hover:border-[#915EFF] transition-all group">
         <input
           id={id}
           type="color"
@@ -74,10 +76,10 @@ const ColorControl: React.FC<ColorControlProps> = ({ label, value, onChange }) =
           className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
         />
         <div
-          className="w-5 h-5 rounded shadow-sm border border-white/10 group-hover:scale-105 transition-transform"
+          className="w-6 h-6 rounded-md shadow-inner border border-white/10 group-hover:scale-105 transition-transform"
           style={{ backgroundColor: value }}
         />
-        <span className="ml-2 text-xs text-gray-300 font-mono uppercase tracking-widest">
+        <span className="ml-2 text-[10px] text-gray-300 font-mono uppercase tracking-[0.2em]">
           {value}
         </span>
       </div>
@@ -91,7 +93,7 @@ const ParticlesEditor: React.FC<{ config: any; updateConfig: any }> = ({
   config,
   updateConfig,
 }) => (
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8">
     <div className="space-y-3">
       <ColorControl
         label="Cor Pontos"
@@ -183,10 +185,10 @@ const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
       .padStart(6, '0');
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-[11px]">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8 text-[11px]">
       <div className="space-y-2.5">
         <div>
-          <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-1.5 font-bold border-b border-white/5 pb-0.5">
+          <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-4 font-bold border-b border-white/5 pb-2">
             Dinâmica e Fluxo
           </h4>
           <div className="space-y-1">
@@ -229,7 +231,7 @@ const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
         </div>
 
         <div>
-          <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-1.5 font-bold border-b border-white/5 pb-0.5">
+          <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-4 font-bold border-b border-white/5 pb-2">
             Propriedades do Fluido
           </h4>
           <div className="space-y-1">
@@ -272,7 +274,7 @@ const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
 
       <div className="space-y-2.5">
         <div>
-          <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-1.5 font-bold border-b border-white/5 pb-0.5">
+          <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-4 font-bold border-b border-white/5 pb-2">
             Ultra Rendering
           </h4>
           <div className="space-y-1">
@@ -312,7 +314,7 @@ const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
         </div>
 
         <div>
-          <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-1.5 font-bold border-b border-white/5 pb-0.5">
+          <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-4 font-bold border-b border-white/5 pb-2">
             Espectro de Cores
           </h4>
           <div className="grid grid-cols-2 gap-2 mb-3">
@@ -351,10 +353,10 @@ const ParticulateEditor: React.FC<{ config: any; updateConfig: any }> = ({
   config,
   updateConfig,
 }) => (
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-[11px]">
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8 text-[11px]">
     <div className="space-y-4">
       <div>
-        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-3 font-bold border-b border-white/5 pb-1">
+        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-5 font-bold border-b border-white/5 pb-2">
           Geral e Foco
         </h4>
         <div className="space-y-2">
@@ -387,7 +389,7 @@ const ParticulateEditor: React.FC<{ config: any; updateConfig: any }> = ({
       </div>
 
       <div>
-        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-3 font-bold border-b border-white/5 pb-1">
+        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-5 font-bold border-b border-white/5 pb-2">
           Movimento Orgânico (Wander)
         </h4>
         <div className="space-y-2">
@@ -413,7 +415,7 @@ const ParticulateEditor: React.FC<{ config: any; updateConfig: any }> = ({
       </div>
 
       <div>
-        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-3 font-bold border-b border-white/5 pb-1">
+        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-5 font-bold border-b border-white/5 pb-2">
           Interação
         </h4>
         <div className="flex gap-1.5 mt-1">
@@ -437,7 +439,7 @@ const ParticulateEditor: React.FC<{ config: any; updateConfig: any }> = ({
 
     <div className="space-y-4">
       <div>
-        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-3 font-bold border-b border-white/5 pb-1">
+        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-5 font-bold border-b border-white/5 pb-2">
           Física de Retorno
         </h4>
         <div className="space-y-2">
@@ -471,7 +473,7 @@ const ParticulateEditor: React.FC<{ config: any; updateConfig: any }> = ({
       </div>
 
       <div>
-        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-3 font-bold border-b border-white/5 pb-1">
+        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-5 font-bold border-b border-white/5 pb-2">
           Cores dos Pontos
         </h4>
         <div className="space-y-3">
@@ -518,10 +520,10 @@ const CyberpunkEditor: React.FC<{ config: any; updateConfig: any }> = ({
   config,
   updateConfig,
 }) => (
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-[11px]">
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8 text-[11px]">
     <div className="space-y-4">
       <div>
-        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-3 font-bold border-b border-white/5 pb-1">
+        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-5 font-bold border-b border-white/5 pb-2">
           Atmosfera e Bloom
         </h4>
         <div className="space-y-2">
@@ -554,7 +556,7 @@ const CyberpunkEditor: React.FC<{ config: any; updateConfig: any }> = ({
       </div>
 
       <div>
-        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-3 font-bold border-b border-white/5 pb-1">
+        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-5 font-bold border-b border-white/5 pb-2">
           Movimento e Rotação
         </h4>
         <div className="space-y-2">
@@ -580,7 +582,7 @@ const CyberpunkEditor: React.FC<{ config: any; updateConfig: any }> = ({
 
     <div className="space-y-4">
       <div>
-        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-3 font-bold border-b border-white/5 pb-1">
+        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-5 font-bold border-b border-white/5 pb-2">
           Geometria do Túnel
         </h4>
         <div className="space-y-2">
@@ -613,7 +615,7 @@ const CyberpunkEditor: React.FC<{ config: any; updateConfig: any }> = ({
       </div>
 
       <div>
-        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-3 font-bold border-b border-white/5 pb-1">
+        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-5 font-bold border-b border-white/5 pb-2">
           Cores Cyber
         </h4>
         <div className="grid grid-cols-2 gap-2">
@@ -644,10 +646,10 @@ const WavefieldEditor: React.FC<{ config: any; updateConfig: any }> = ({
   config,
   updateConfig,
 }) => (
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-[11px]">
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8 text-[11px]">
     <div className="space-y-4">
       <div>
-        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-3 font-bold border-b border-white/5 pb-1">
+        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-5 font-bold border-b border-white/5 pb-2">
           Geral e Ondulação
         </h4>
         <div className="space-y-2">
@@ -687,7 +689,7 @@ const WavefieldEditor: React.FC<{ config: any; updateConfig: any }> = ({
       </div>
 
       <div>
-        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-3 font-bold border-b border-white/5 pb-1">
+        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-5 font-bold border-b border-white/5 pb-2">
           Interação e Mouse
         </h4>
         <div className="space-y-2">
@@ -713,7 +715,7 @@ const WavefieldEditor: React.FC<{ config: any; updateConfig: any }> = ({
 
     <div className="space-y-4">
       <div>
-        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-3 font-bold border-b border-white/5 pb-1">
+        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-5 font-bold border-b border-white/5 pb-2">
           Cores e Brilho
         </h4>
         <div className="space-y-3">
@@ -746,7 +748,7 @@ const WavefieldEditor: React.FC<{ config: any; updateConfig: any }> = ({
       </div>
 
       <div>
-        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-3 font-bold border-b border-white/5 pb-1">
+        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-5 font-bold border-b border-white/5 pb-2">
           Ambientação (Estrelas)
         </h4>
         <div className="space-y-2">
@@ -765,7 +767,7 @@ const WavefieldEditor: React.FC<{ config: any; updateConfig: any }> = ({
 );
 
 const SolidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, updateConfig }) => (
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8">
     <div className="block mb-2">
       <label
         htmlFor="solid-type"
@@ -995,9 +997,9 @@ const ThemeToggle = () => {
           <span className="shape diamond"></span>
           <span className="shape star"></span>
 
-          {/* Main menu — opens to the right */}
+          {/* Main menu — opens to the right with massive margin to clear icon */}
           {isOpen && (
-            <div className="absolute top-0 left-full ml-3 bg-tertiary/98 backdrop-blur-xl rounded-xl shadow-2xl p-6 min-w-[280px] max-w-[90vw] z-50 border border-white/10 ring-1 ring-white/5">
+            <div className="absolute top-0 left-full ml-64 bg-tertiary/75 backdrop-blur-xl rounded-2xl shadow-2xl p-10 min-w-[320px] max-w-[90vw] z-50 border border-white/10 ring-1 ring-white/5 transition-all duration-300 animate-in fade-in slide-in-from-left-4">
               <h3 className="text-white font-bold mb-4 text-xs uppercase tracking-[0.2em] border-b border-white/5 pb-2">
                 Configurações
               </h3>
@@ -1007,7 +1009,7 @@ const ThemeToggle = () => {
               </div>
 
               {/* Background type buttons in 2 columns */}
-              <div className="grid grid-cols-2 gap-2 mb-3">
+              <div className="grid grid-cols-2 gap-3 mb-6">
                 {BG_TYPES.map((type) => (
                   <button
                     type="button"
@@ -1054,11 +1056,11 @@ const ThemeToggle = () => {
             </div>
           )}
 
-          {/* Background editor panel */}
+          {/* Background editor panel — even larger margin */}
           {isEditorOpen && (
-            <div className="absolute top-1/2 -translate-y-1/2 left-full ml-4 bg-tertiary/95 backdrop-blur-md rounded-2xl shadow-2xl p-4 min-w-[320px] sm:min-w-[480px] md:min-w-[540px] max-w-[95vw] z-50 max-h-[85vh] flex flex-col border border-white/10 ring-1 ring-white/5">
-              <div className="flex items-center justify-between mb-5 shrink-0 border-b border-white/5 pb-3">
-                <h3 className="text-white font-bold text-xs uppercase tracking-[0.15em]">
+            <div className="absolute top-1/2 -translate-y-1/2 left-full ml-80 bg-tertiary/70 backdrop-blur-xl rounded-3xl shadow-2xl p-10 min-w-[360px] sm:min-w-[540px] md:min-w-[620px] max-w-[95vw] z-50 max-h-[85vh] flex flex-col border border-white/10 ring-1 ring-white/5 transition-all duration-300 animate-in fade-in slide-in-from-left-6">
+              <div className="flex items-center justify-between mb-6 shrink-0 border-b border-white/10 pb-4">
+                <h3 className="text-white font-bold text-sm uppercase tracking-[0.2em]">
                   {BG_LABELS[selectedBg] || 'Background'}
                 </h3>
                 <button
@@ -1067,9 +1069,9 @@ const ThemeToggle = () => {
                     setIsEditorOpen(false);
                     setIsOpen(true);
                   }}
-                  className="text-gray-400 hover:text-white text-[10px] uppercase tracking-widest font-bold transition-colors"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white text-[10px] uppercase tracking-widest font-bold transition-all"
                 >
-                  ← Voltar
+                  <span className="text-xs">←</span> Voltar
                 </button>
               </div>
 
@@ -1080,9 +1082,11 @@ const ThemeToggle = () => {
               <button
                 type="button"
                 onClick={() => setIsEditorOpen(false)}
-                className="w-full mt-4 px-3 py-2 bg-red-600/20 hover:bg-red-600/40 border border-red-500/50 text-red-400 hover:text-white font-bold tracking-[0.2em] uppercase text-[10px] rounded transition-all shrink-0 shadow-lg backdrop-blur-sm"
+                className="w-full mt-6 px-4 py-3 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 hover:text-white font-bold tracking-[0.3em] uppercase text-[10px] rounded-xl transition-all shrink-0 shadow-lg backdrop-blur-sm group"
               >
-                Fechar
+                <span className="group-hover:scale-110 transition-transform inline-block">
+                  Fechar Painel
+                </span>
               </button>
             </div>
           )}

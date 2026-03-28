@@ -100,7 +100,9 @@ const Works = ({ setViewMode }: { setViewMode?: (mode: string) => void }) => {
       <div className="mt-10 flex justify-center">
         <button
           type="button"
-          onClick={() => setViewMode?.('allworks')}
+          onClick={() => {
+            window.open('https://github.com/lelebrr?tab=repositories', '_blank', 'noopener,noreferrer');
+          }}
           className="glass-btn px-6 py-3 rounded-lg font-bold tracking-wider"
         >
           Ver Todos

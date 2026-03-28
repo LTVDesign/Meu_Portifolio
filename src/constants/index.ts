@@ -1,14 +1,14 @@
 import {
   backend,
-  carrent,
+  comptester,
   creator,
   css,
   docker,
   figma,
   git,
+  getnexo,
   html,
   javascript,
-  jobit,
   mobile,
   mongodb,
   nodejs,
@@ -16,8 +16,8 @@ import {
   redux,
   tailwind,
   threejs,
-  tripguide,
   typescript,
+  willy,
   web,
 } from '../assets';
 import type {
@@ -44,11 +44,7 @@ export const navLinks: TNavLink[] = [
   },
   {
     id: 'cursos',
-    title: 'Cursos',
-  },
-  {
-    id: 'certificados',
-    title: 'Certificados',
+    title: 'Cursos & Certificados',
   },
   {
     id: 'curriculo',
@@ -144,22 +140,23 @@ const technologies: TTechnology[] = [
 
 const experiences: TExperience[] = [
   {
-    title: 'Desenvolvedor Full Stack',
-    companyName: 'Terabyte',
-    icon: web,
+    title: 'Técnico de Informática N2',
+    companyName: 'Terabyte Soluções em TI',
+    icon: '/empresas/terabyte.png',
     iconBg: '#E6DEDD',
     date: '2024 - 2025',
     points: [
-      'Desenvolvimento de aplicações web modernas',
-      'Integração de APIs e bancos de dados',
-      'Colaboração em equipe ágil',
-      'Otimização de performance e segurança',
+      'Suporte técnico especializado N2 para infraestrutura de TI',
+      'Administração de sistemas e servidores',
+      'Gestão de redes e segurança da informação',
+      'Monitoramento e manutenção de ambientes computacionais',
+      'Resolução de incidentes complexos e atendimento a clientes',
     ],
   },
   {
     title: 'Gerente Geral',
     companyName: "Abra Kebab's",
-    icon: creator,
+    icon: '/empresas/abrakebab.png',
     iconBg: '#E6DEDD',
     date: '2022 - Present',
     points: [
@@ -185,7 +182,7 @@ const experiences: TExperience[] = [
   {
     title: 'Tecnologia da Informação',
     companyName: 'Colonial Racing',
-    icon: backend,
+    icon: '/empresas/colonial.png',
     iconBg: '#E6DEDD',
     date: '2012 - 2013',
     points: [
@@ -239,67 +236,79 @@ const testimonials: TTestimonial[] = [
 
 const projects: TProject[] = [
   {
-    name: 'Aluguel de Carros',
+    name: 'GetNexo v1.0+',
     description:
-      'Plataforma web que permite aos usuários pesquisar, reservar e gerenciar aluguéis de carros de vários provedores, oferecendo uma solução conveniente e eficiente para necessidades de transporte.',
+      'Plataforma All-in-One de automação de vendas e inteligência de atendimento que transforma o WhatsApp em um canal de alta performance com IA Generativa e Realidade Aumentada.',
     tags: [
+      {
+        name: 'astro',
+        color: 'blue-text-gradient',
+      },
       {
         name: 'react',
-        color: 'blue-text-gradient',
-      },
-      {
-        name: 'mongodb',
         color: 'green-text-gradient',
       },
       {
-        name: 'tailwind',
+        name: 'ai-engine',
         color: 'pink-text-gradient',
       },
+      {
+        name: 'ar-3d',
+        color: 'orange-text-gradient',
+      },
     ],
-    image: carrent,
-    sourceCodeLink: 'https://github.com/lelebrr',
+    image: getnexo,
+    sourceCodeLink: 'https://github.com/lelebrr/GetNexo',
   },
   {
-    name: 'Job IT',
+    name: 'Component Tester PRO v2.0',
     description:
-      'Aplicação web que permite aos usuários pesquisar vagas de emprego, visualizar faixas salariais estimadas para posições e localizar empregos disponíveis com base na localização atual.',
+      'Ecossistema avançado de diagnóstico para componentes eletrônicos com Arduino Uno e interface Pixel Art em TFT.',
     tags: [
       {
-        name: 'react',
+        name: 'c++',
         color: 'blue-text-gradient',
       },
       {
-        name: 'restapi',
+        name: 'arduino',
         color: 'green-text-gradient',
       },
       {
-        name: 'scss',
+        name: 'embedded',
         color: 'pink-text-gradient',
       },
+      {
+        name: 'pixel-art-ui',
+        color: 'orange-text-gradient',
+      },
     ],
-    image: jobit,
-    sourceCodeLink: 'https://github.com/lelebrr',
+    image: comptester,
+    sourceCodeLink: 'https://github.com/lelebrr/Component_Tester',
   },
   {
-    name: 'Guia de Viagens',
+    name: 'Willy Cyber-Multitool',
     description:
-      'Uma plataforma abrangente de reserva de viagens que permite aos usuários reservar voos, hotéis e carros de aluguel, e oferece recomendações curadas para destinos populares.',
+      'Multi-ferramenta portátil de segurança com ESP32, protocolos RF multi-banda (Sub-GHz, NFC, IR) e interface LVGL moderna.',
     tags: [
       {
-        name: 'nextjs',
+        name: 'esp32',
         color: 'blue-text-gradient',
       },
       {
-        name: 'supabase',
+        name: 'cybersecurity',
         color: 'green-text-gradient',
       },
       {
-        name: 'css',
+        name: 'lvgl-gui',
         color: 'pink-text-gradient',
       },
+      {
+        name: 'rf-protocols',
+        color: 'orange-text-gradient',
+      },
     ],
-    image: tripguide,
-    sourceCodeLink: 'https://github.com/lelebrr',
+    image: willy,
+    sourceCodeLink: 'https://github.com/lelebrr/Willy',
   },
 ];
 

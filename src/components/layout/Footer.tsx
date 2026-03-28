@@ -20,7 +20,7 @@ const Footer: React.FC = () => {
           {/* Top Section - Branding and Socials */}
           <div className="flex flex-col items-center w-full">
             <h2 className="text-2xl font-bold text-[var(--dynamic-text-color)] transition-colors duration-500 mb-4 text-center">
-              Leandro Barbosa
+              Leandro Saturnino Barbosa
             </h2>
             <p className="text-[var(--dynamic-text-secondary)] text-center text-sm max-w-sm transition-colors duration-500">
               Construindo experiências digitais modernas, fluidas e ultra imersivas focadas na
@@ -66,7 +66,7 @@ const Footer: React.FC = () => {
 
         <div className="border-t border-white/10 mt-10 pt-6 text-center">
           <p className="text-xs text-[var(--dynamic-text-secondary)] font-medium tracking-wide transition-colors duration-500">
-            © {currentYear} Leandro Barbosa. Desenvolvido com React & Tailwind.
+            © {currentYear} Leandro Saturnino Barbosa. Desenvolvido com React & Tailwind.
           </p>
         </div>
       </div>
