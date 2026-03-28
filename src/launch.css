@@ -1,0 +1,182 @@
+@property --ga {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --gb {
+  syntax: "<angle>";
+  initial-value: 180deg;
+  inherits: false;
+}
+
+:root {
+  --rainbow:
+    oklch(72% 0.33 12), oklch(78% 0.3 55), oklch(88% 0.26 100), oklch(80% 0.3 155),
+    oklch(72% 0.33 210), oklch(68% 0.32 270), oklch(74% 0.34 320), oklch(72% 0.33 12);
+
+  --rainbow-saturated: #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000;
+
+  --spin-a: spinA 4s linear infinite;
+  --spin-b: spinB 4s linear infinite;
+
+  --glow-blur-tight: clamp(5px, 0.8vw, 20px);
+  --glow-blur-wide: clamp(12px, 2vw, 56px);
+  --glow-blur-bloom: clamp(24px, 4vw, 120px);
+  --glow-inset-tight: clamp(-2px, -0.3vw, -6px);
+  --glow-inset-mid: clamp(-1px, -0.2vw, -4px);
+  --glow-inset-bloom: clamp(-6px, -0.8vw, -20px);
+
+  --btn-bg-dark-start: oklch(14% 0.015 260);
+  --btn-bg-dark-end: oklch(10% 0.012 260);
+}
+
+#particles-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 49;
+  pointer-events: none;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.launch-btn-wrap {
+  position: relative;
+  z-index: 50;
+  display: inline-flex;
+  animation: gear-heartbeat 2s infinite alternate ease-in-out;
+}
+
+@keyframes gear-heartbeat {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2))
+      drop-shadow(0 0 25px rgba(255, 0, 255, 0.6)) drop-shadow(0 0 50px rgba(0, 255, 255, 0.4))
+      drop-shadow(0 0 80px rgba(255, 255, 0, 0.3));
+  }
+
+  100% {
+    transform: scale(1.3);
+    filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.8))
+      drop-shadow(0 0 50px rgba(255, 0, 255, 1)) drop-shadow(0 0 100px rgba(0, 255, 255, 0.8))
+      drop-shadow(0 0 150px rgba(255, 255, 0, 0.6));
+  }
+}
+
+.launch-btn-wrap:hover {
+  animation: none;
+  transform: scale(1.15);
+}
+
+.launch-btn-wrap::before,
+.launch-btn-wrap::after,
+.launch-btn-wrap .bloom {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 9999px;
+  background: conic-gradient(from var(--ga), var(--rainbow));
+  transition:
+    filter 0.2s ease,
+    opacity 0.2s ease,
+    background 0.2s ease,
+    inset 0.2s ease;
+}
+
+.launch-btn-wrap::before {
+  inset: var(--glow-inset-tight);
+  filter: blur(var(--glow-blur-tight));
+  opacity: 0;
+  animation: var(--spin-a);
+  transition: all 0.2s ease;
+}
+
+.launch-btn-wrap::after {
+  inset: var(--glow-inset-mid);
+  filter: blur(var(--glow-blur-wide));
+  opacity: 0;
+  animation: var(--spin-b);
+}
+
+.launch-btn-wrap:hover::before {
+  background: conic-gradient(from var(--ga), var(--rainbow-saturated));
+  filter: blur(clamp(6px, 1vw, 24px));
+  opacity: 1;
+  inset: calc(var(--glow-inset-tight) * 1.5);
+}
+
+.launch-btn-wrap:hover::after {
+  background: conic-gradient(from var(--ga), var(--rainbow-saturated));
+  filter: blur(clamp(12px, 2.5vw, 66px));
+  opacity: 1;
+  inset: calc(var(--glow-inset-mid) * 1.5);
+}
+
+.launch-btn-wrap:hover .bloom {
+  background: conic-gradient(from var(--ga), var(--rainbow-saturated));
+  opacity: 1;
+  inset: calc(var(--glow-inset-bloom) * 1.5);
+  filter: blur(calc(var(--glow-blur-bloom) * 2));
+}
+
+.launch-btn-wrap .bloom {
+  inset: var(--glow-inset-bloom);
+  filter: blur(calc(var(--glow-blur-bloom) * 1.5));
+  opacity: 1;
+  /* Much brighter idle visibility */
+  animation: var(--spin-a);
+}
+
+.launch-btn {
+  position: relative;
+  z-index: 10;
+  border: 3px solid transparent;
+  border-radius: 9999px;
+  outline: none;
+  cursor: pointer;
+  background:
+    linear-gradient(var(--btn-bg-dark-start), var(--btn-bg-dark-end)) padding-box,
+    conic-gradient(from var(--ga), var(--rainbow)) border-box;
+  animation: var(--spin-a);
+  transform-origin: center;
+  transition:
+    filter 0.2s ease,
+    transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+
+.launch-btn::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 1px;
+  inset-inline: 8%;
+  height: 38%;
+  border-radius: 9999px;
+  background: linear-gradient(to bottom, oklch(100% 0 0 / 0.12), oklch(100% 0 0 / 0.02));
+  pointer-events: none;
+}
+
+.launch-btn:hover {
+  filter: brightness(1.12);
+  transform: scale(1.045);
+}
+
+.launch-btn:active {
+  filter: brightness(0.95);
+  transform: scale(0.95);
+  transition:
+    filter 0.07s ease,
+    transform 0.07s cubic-bezier(0.3, 0, 0.6, 1);
+}
+
+@keyframes spinA {
+  to {
+    --ga: 360deg;
+  }
+}
+
+@keyframes spinB {
+  to {
+    --gb: 540deg;
+  }
+}

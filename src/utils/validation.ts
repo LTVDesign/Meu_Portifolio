@@ -1,0 +1,419 @@
+/**
+ * Utilitários de validação e sanitização
+ */
+
+// Schema para configurações de partículas (versão simplificada sem zod)
+export interface ParticleConfig {
+  particleColor: string;
+  speed: number;
+  intensity: number;
+  quantity: number;
+  zoom: number;
+  backgroundType: string;
+  liquidResolution: number;
+  liquidOctaves: number;
+  liquidSpeed: number;
+  liquidScale: number;
+  liquidComplexity: number;
+  liquidExpansion: number;
+  liquidTwist: number;
+  liquidGrain: number;
+  liquidSmoothing: number;
+  liquidColor1: string;
+  liquidColor2: string;
+  liquidColor3: string;
+  liquidColor4: string;
+  liquidColor5: string;
+  liquidColor6: string;
+  liquidIntensity: number;
+  liquidNoiseScale: number;
+  liquidGloss: number;
+  liquidRefraction: number;
+  particulateSpeed: number;
+  particulateIntensity: number;
+  particulateColor: string;
+  particulateMode: string;
+  particulateQuantity: number;
+  particulateSize: number;
+  particulateFriction: number;
+  particulateSpring: number;
+  particulatePalette: string;
+  particulateColor1: string;
+  particulateColor2: string;
+  particulateColor3: string;
+  particulateColor4: string;
+  particulateColor5: string;
+  particulateColor6: string;
+  cyberpunkBloomStrength: number;
+  cyberpunkFogDensity: number;
+  cyberpunkSpeed: number;
+  cyberpunkColor1: string;
+  cyberpunkColor2: string;
+  cyberpunkColor3: string;
+  cyberpunkRotationSpeed: number;
+  cyberpunkTunnelRadius: number;
+  cyberpunkPointSize: number;
+  cyberpunkLineOpacity: number;
+  cyberpunkCameraFOV: number;
+  wavefieldSpeed: number;
+  wavefieldAmplitude: number;
+  wavefieldColor: string;
+  solidType: string;
+  solidColor1: string;
+  solidColor2: string;
+  solidColor3: string;
+  solidAngle: number;
+  solidAnimationSpeed: number;
+  solidGrain: boolean;
+  solidOpacity: number;
+  solidBlur: number;
+  particleSize: number;
+  particleConnectDistance: number;
+  lineThickness: number;
+  particleOpacity: number;
+  particleLineColor: string;
+  particulateWanderSpeed: number;
+  particulateWanderStrength: number;
+  wavefieldFrequency: number;
+  wavefieldComplexity: number;
+  wavefieldGlow: number;
+  wavefieldStarIntensity: number;
+  wavefieldColor2: string;
+  wavefieldColor3: string;
+  wavefieldRotationSpeed: number;
+  wavefieldMouseStrength: number;
+}
+
+const defaultConfig: ParticleConfig = {
+  particleColor: '#915EFF',
+  speed: 1,
+  intensity: 0.7,
+  quantity: 50,
+  zoom: 1,
+  backgroundType: 'particles',
+  liquidResolution: 0.5,
+  liquidOctaves: 3,
+  liquidSpeed: 0.5,
+  liquidScale: 0.05,
+  liquidComplexity: 3.0,
+  liquidExpansion: 1.6,
+  liquidTwist: 0.0,
+  liquidGrain: 0.018,
+  liquidSmoothing: 0.6,
+  liquidColor1: '#339cff',
+  liquidColor2: '#384fff',
+  liquidColor3: '#261985',
+  liquidColor4: '#3623c7',
+  liquidColor5: '#cce9ff',
+  liquidColor6: '#ffffff',
+  liquidIntensity: 1.0,
+  liquidNoiseScale: 1.0,
+  liquidGloss: 0.6,
+  liquidRefraction: 0.5,
+  particulateSpeed: 1,
+  particulateIntensity: 0.8,
+  particulateColor: '#ffffff',
+  particulateMode: 'blow',
+  particulateQuantity: 1000,
+  particulateSize: 3,
+  particulateFriction: 0.94,
+  particulateSpring: 0.01,
+  particulatePalette: 'abstract',
+  particulateColor1: '#FF6B6B',
+  particulateColor2: '#4ECDC4',
+  particulateColor3: '#45B7D1',
+  particulateColor4: '#96CEB4',
+  particulateColor5: '#FFEAA7',
+  particulateColor6: '#DDA0DD',
+  cyberpunkBloomStrength: 5,
+  cyberpunkFogDensity: 0.7,
+  cyberpunkSpeed: 1,
+  cyberpunkColor1: '#00ff00',
+  cyberpunkColor2: '#ffff00',
+  cyberpunkColor3: '#4499ff',
+  cyberpunkRotationSpeed: 1.0,
+  cyberpunkTunnelRadius: 0.65,
+  cyberpunkPointSize: 0.015,
+  cyberpunkLineOpacity: 0.5,
+  cyberpunkCameraFOV: 75,
+  wavefieldSpeed: 1,
+  wavefieldAmplitude: 1,
+  wavefieldColor: '#00ffff',
+  solidType: 'solid',
+  solidColor1: '#08080c',
+  solidColor2: '#915EFF',
+  solidColor3: '#ff0055',
+  solidAngle: 135,
+  solidAnimationSpeed: 10,
+  solidGrain: false,
+  solidOpacity: 1,
+  solidBlur: 0,
+  particleSize: 1.5,
+  particleConnectDistance: 120,
+  lineThickness: 1.0,
+  particleOpacity: 0.8,
+  particleLineColor: '#915EFF',
+  particulateWanderSpeed: 0.02,
+  particulateWanderStrength: 0.05,
+  wavefieldFrequency: 2.0,
+  wavefieldComplexity: 1.0,
+  wavefieldGlow: 0.8,
+  wavefieldStarIntensity: 0.7,
+  wavefieldColor2: '#ff00ff',
+  wavefieldColor3: '#ff0055',
+  wavefieldRotationSpeed: 1.0,
+  wavefieldMouseStrength: 1.0,
+};
+
+/**
+ * Valida e sanitiza dados do localStorage
+ */
+export function validateLocalStorageData(data: unknown): ParticleConfig | null {
+  try {
+    if (typeof data !== 'object' || data === null) {
+      console.warn('Dados inválidos no localStorage: não é um objeto');
+      return null;
+    }
+
+    // Faz uma cópia do objeto para evitar mutações indesejadas
+    const validatedData = { ...defaultConfig, ...data };
+
+    // Validação de tipos e valores
+    if (
+      typeof validatedData.particleColor !== 'string' ||
+      !isValidHexColor(validatedData.particleColor)
+    ) {
+      validatedData.particleColor = defaultConfig.particleColor;
+    }
+
+    if (
+      typeof validatedData.speed !== 'number' ||
+      validatedData.speed < 0 ||
+      validatedData.speed > 10
+    ) {
+      validatedData.speed = defaultConfig.speed;
+    }
+
+    if (
+      typeof validatedData.intensity !== 'number' ||
+      validatedData.intensity < 0 ||
+      validatedData.intensity > 1
+    ) {
+      validatedData.intensity = defaultConfig.intensity;
+    }
+
+    if (
+      typeof validatedData.quantity !== 'number' ||
+      validatedData.quantity < 0 ||
+      validatedData.quantity > 5000
+    ) {
+      validatedData.quantity = defaultConfig.quantity;
+    }
+
+    if (
+      typeof validatedData.zoom !== 'number' ||
+      validatedData.zoom < 0.1 ||
+      validatedData.zoom > 5
+    ) {
+      validatedData.zoom = defaultConfig.zoom;
+    }
+
+    if (typeof validatedData.backgroundType !== 'string') {
+      validatedData.backgroundType = defaultConfig.backgroundType;
+    }
+
+    // Validação de cores líquidas
+    const liquidColors = [
+      'liquidColor1',
+      'liquidColor2',
+      'liquidColor3',
+      'liquidColor4',
+      'liquidColor5',
+      'liquidColor6',
+      'particulateColor1',
+      'particulateColor2',
+      'particulateColor3',
+      'particulateColor4',
+      'particulateColor5',
+      'particulateColor6',
+      'cyberpunkColor1',
+      'cyberpunkColor2',
+      'cyberpunkColor3',
+      'wavefieldColor',
+      'wavefieldColor2',
+      'wavefieldColor3',
+      'solidColor1',
+      'solidColor2',
+      'solidColor3',
+      'particleLineColor',
+    ];
+
+    for (const colorKey of liquidColors) {
+      const colorValue = validatedData[colorKey as keyof ParticleConfig];
+      if (typeof colorValue !== 'string' || !isValidHexColor(colorValue as string)) {
+        validatedData[colorKey as keyof ParticleConfig] = defaultConfig[
+          colorKey as keyof ParticleConfig
+        ] as never;
+      }
+    }
+
+    // Validação de modos
+    if (!['blow', 'magnet', 'freeze'].includes(validatedData.particulateMode)) {
+      validatedData.particulateMode = defaultConfig.particulateMode;
+    }
+
+    // Validação de tipos de fundo sólido
+    if (!['solid', 'linear', 'radial', 'conic', 'animated'].includes(validatedData.solidType)) {
+      validatedData.solidType = defaultConfig.solidType;
+    }
+
+    // Validação de números
+    const numericFields: Array<keyof ParticleConfig> = [
+      'liquidResolution',
+      'liquidOctaves',
+      'liquidSpeed',
+      'liquidScale',
+      'liquidComplexity',
+      'liquidExpansion',
+      'liquidTwist',
+      'liquidGrain',
+      'liquidSmoothing',
+      'liquidIntensity',
+      'liquidNoiseScale',
+      'liquidGloss',
+      'liquidRefraction',
+      'particulateSpeed',
+      'particulateIntensity',
+      'particulateQuantity',
+      'particulateSize',
+      'particulateFriction',
+      'particulateSpring',
+      'cyberpunkBloomStrength',
+      'cyberpunkFogDensity',
+      'cyberpunkSpeed',
+      'cyberpunkRotationSpeed',
+      'cyberpunkTunnelRadius',
+      'cyberpunkPointSize',
+      'cyberpunkLineOpacity',
+      'cyberpunkCameraFOV',
+      'wavefieldSpeed',
+      'wavefieldAmplitude',
+      'wavefieldRotationSpeed',
+      'wavefieldMouseStrength',
+      'solidAngle',
+      'solidAnimationSpeed',
+      'solidOpacity',
+      'solidBlur',
+      'particleSize',
+      'particleConnectDistance',
+      'lineThickness',
+      'particleOpacity',
+    ];
+
+    for (const field of numericFields) {
+      const value = validatedData[field];
+      if (typeof value !== 'number' || Number.isNaN(value)) {
+        validatedData[field] = defaultConfig[field] as never;
+      }
+    }
+
+    // Validação de booleanos
+    if (typeof validatedData.solidGrain !== 'boolean') {
+      validatedData.solidGrain = defaultConfig.solidGrain;
+    }
+
+    return validatedData;
+  } catch (error) {
+    console.warn('Erro ao validar dados do localStorage:', error);
+    return null;
+  }
+}
+
+/**
+ * Verifica se uma string é uma cor hexadecimal válida
+ */
+function isValidHexColor(color: string): boolean {
+  return /^#[0-9A-Fa-f]{6}$/.test(color);
+}
+
+/**
+ * Sanitiza URLs para evitar ataques de XSS via window.open
+ */
+export function sanitizeUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url, window.location.origin);
+    // Apenas permite URLs com protocolos http/https e mesmo origem
+    const allowedProtocols = ['http:', 'https:'];
+    const allowedHosts = [window.location.hostname, 'localhost', '127.0.0.1'];
+
+    if (!allowedProtocols.includes(parsed.protocol)) {
+      return false;
+    }
+
+    // Verifica se é mesmo origem ou domínio permitido
+    if (!allowedHosts.includes(parsed.hostname)) {
+      // Pode adicionar allowlist de domínios externos confiáveis
+      // Por segurança, apenas permite mesmo origem por padrão
+      return false;
+    }
+
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Sanitiza string para prevenir XSS
+ */
+export function sanitizeString(input: string): string {
+  return input
+    .replace(/&/g, '&')
+    .replace(/</g, '<')
+    .replace(/>/g, '>')
+    .replace(/"/g, '"')
+    .replace(/'/g, '&#039;');
+}
+
+/**
+ * Valida email com regex mais rigorosa
+ */
+export function validateEmail(email: string): boolean {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailRegex.test(email);
+}
+
+/**
+ * Valida telefone brasileiro
+ */
+export function validatePhone(phone: string): boolean {
+  // Remove não dígitos
+  const digits = phone.replace(/\D/g, '');
+  // Aceita 10 ou 11 dígitos (com DDD)
+  return /^(\d{10}|\d{11})$/.test(digits);
+}
+
+/**
+ * Função para limpar dados do localStorage
+ */
+export function clearInvalidLocalStorage(): void {
+  const keys = ['particleConfig', 'theme'];
+  for (const key of keys) {
+    try {
+      const item = localStorage.getItem(key);
+      if (item) {
+        const parsed = JSON.parse(item);
+        if (key === 'particleConfig') {
+          const validated = validateLocalStorageData(parsed);
+          if (!validated) {
+            localStorage.removeItem(key);
+            console.warn(`Item inválido removido do localStorage: ${key}`);
+          }
+        }
+      }
+    } catch (e) {
+      localStorage.removeItem(key);
+      console.warn(`Item inválido removido do localStorage: ${key}`, e);
+    }
+  }
+}

@@ -1,0 +1,43 @@
+# Arquivos e pastas ignorados pelo Vite durante desenvolvimento
+# Isso melhora significativamente a performance do HMR
+
+# Arquivos 3D pesados (apenas para produção/build)
+public/desktop_pc/**
+public/planet/**
+public/wavefield-shader/**
+public/cyberpunk-tunnel/**
+public/loader-motion/**
+
+# Imagens grandes desnecessárias para desenvolvimento
+public/assets/herobg.png
+public/assets/carrent.png
+public/assets/jobit.png
+public/assets/backend.png
+public/assets/creator.png
+public/assets/tripguide.webp
+
+# Certificados e cursos (muitos PDFs)
+public/certificados/**
+public/cursos/**
+
+# Arquivos de build
+dist/
+node_modules/
+
+# Arquivos de log
+*.log
+biome_*.txt
+
+# Arquivos de configuração do IDE
+.vscode/
+.idea/
+
+# Arquivos do Git
+.git/
+.gitignore
+
+# Arquivos de documentação
+README.md
+LICENSE
+implementation_plan.md.resolved
+task.md.resolved

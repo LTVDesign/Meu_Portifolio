@@ -1,0 +1,368 @@
+src\components\Background.tsx:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × The imports and exports are not sorted.
+  
+  > 1 │ import { lazy, Suspense } from 'react';
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    2 │ import { useParticleConfig } from '../contexts/ParticleConfigContext';
+    3 │ 
+  
+  i Safe fix: Organize Imports (Biome)
+  
+      1     │ - import·{·lazy,·Suspense·}·from·'react';␍
+      2     │ - import·{·useParticleConfig·}·from·'../contexts/ParticleConfigContext';␍
+      3     │ - ␍
+      4     │ - import·CyberpunkUltraBackground·from·'./canvas/CyberpunkUltraBackground';␍
+      5     │ - import·LiquidUltraBackground·from·'./canvas/LiquidUltraBackground';␍
+      6     │ - import·WavefieldUltraBackground·from·'./canvas/WavefieldUltraBackground';␍
+      7     │ - ␍
+      8     │ - import·type·React·from·'react';␍
+          1 │ + import·type·React·from·'react';
+          2 │ + import·{·lazy,·Suspense·}·from·'react';␍
+          3 │ + import·{·useParticleConfig·}·from·'../contexts/ParticleConfigContext';␍
+          4 │ + import·CyberpunkUltraBackground·from·'./canvas/CyberpunkUltraBackground';␍
+          5 │ + import·LiquidUltraBackground·from·'./canvas/LiquidUltraBackground';␍
+          6 │ + import·WavefieldUltraBackground·from·'./canvas/WavefieldUltraBackground';␍
+          7 │ + ␍
+      9   8 │   const SolidColorBackground = lazy(() => import('./canvas/SolidColorBackground'));␍
+     10   9 │   const Background: React.FC = () => {␍
+  
+
+src\components\Background.tsx format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Formatter would have printed the following content:
+  
+      1     │ - import·{·lazy,·Suspense·}·from·'react';␍
+      2     │ - import·{·useParticleConfig·}·from·'../contexts/ParticleConfigContext';␍
+      3     │ - ␍
+      4     │ - import·CyberpunkUltraBackground·from·'./canvas/CyberpunkUltraBackground';␍
+      5     │ - import·LiquidUltraBackground·from·'./canvas/LiquidUltraBackground';␍
+      6     │ - import·WavefieldUltraBackground·from·'./canvas/WavefieldUltraBackground';␍
+      7     │ - ␍
+      8     │ - import·type·React·from·'react';␍
+      9     │ - const·SolidColorBackground·=·lazy(()·=>·import('./canvas/SolidColorBackground'));␍
+     10     │ - const·Background:·React.FC·=·()·=>·{␍
+     11     │ - ··const·{·config·}·=·useParticleConfig();␍
+     12     │ - ␍
+     13     │ - ··return·(␍
+     14     │ - ····<Suspense·fallback={null}>␍
+     15     │ - ······{(()·=>·{␍
+     16     │ - ········switch·(config.backgroundType)·{␍
+     17     │ - ··········case·'particles':␍
+     18     │ - ············return·(␍
+     19     │ - ··············<ParticleBackground␍
+     20     │ - ················particleColor={config.particleColor}␍
+     21     │ - ················speed={config.speed}␍
+     22     │ - ················intensity={config.intensity}␍
+     23     │ - ················quantity={config.quantity}␍
+     24     │ - ················zoom={config.zoom}␍
+     25     │ - ················particleSize={config.particleSize}␍
+     26     │ - ················particleConnectDistance={config.particleConnectDistance}␍
+     27     │ - ················lineThickness={config.lineThickness}␍
+     28     │ - ················particleOpacity={config.particleOpacity}␍
+     29     │ - ················particleLineColor={config.particleLineColor}␍
+     30     │ - ··············/>␍
+     31     │ - ············);␍
+     32     │ - ··········case·'liquid':␍
+     33     │ - ············return·(␍
+     34     │ - ··············<LiquidUltraBackground␍
+     35     │ - ················resolution={config.liquidResolution}␍
+     36     │ - ················octaves={config.liquidOctaves}␍
+     37     │ - ················speed={config.liquidSpeed}␍
+     38     │ - ················scale={config.liquidScale}␍
+     39     │ - ················complexity={config.liquidComplexity}␍
+     40     │ - ················expansion={config.liquidExpansion}␍
+     41     │ - ················twist={config.liquidTwist}␍
+     42     │ - ················grain={config.liquidGrain}␍
+     43     │ - ················smoothing={config.liquidSmoothing}␍
+     44     │ - ················color1={config.liquidColor1}␍
+     45     │ - ················color2={config.liquidColor2}␍
+     46     │ - ················color3={config.liquidColor3}␍
+     47     │ - ················color4={config.liquidColor4}␍
+     48     │ - ················color5={config.liquidColor5}␍
+     49     │ - ················color6={config.liquidColor6}␍
+     50     │ - ················intensity={config.liquidIntensity}␍
+     51     │ - ················noiseScale={config.liquidNoiseScale}␍
+     52     │ - ················gloss={config.liquidGloss}␍
+     53     │ - ················refraction={config.liquidRefraction}␍
+     54     │ - ··············/>␍
+     55     │ - ············);␍
+     56     │ - ··········case·'particulate':␍
+     57     │ - ············return·(␍
+     58     │ - ··············<ParticulateShatterBackground␍
+     59     │ - ················speed={config.particulateSpeed}␍
+     60     │ - ················intensity={config.particulateIntensity}␍
+     61     │ - ················color={config.particulateColor}␍
+     62     │ - ················mode={config.particulateMode}␍
+     63     │ - ················quantity={config.particulateQuantity}␍
+     64     │ - ················size={config.particulateSize}␍
+     65     │ - ················friction={config.particulateFriction}␍
+     66     │ - ················spring={config.particulateSpring}␍
+     67     │ - ················palette={config.particulatePalette}␍
+     68     │ - ················color1={config.particulateColor1}␍
+     69     │ - ················color2={config.particulateColor2}␍
+     70     │ - ················color3={config.particulateColor3}␍
+     71     │ - ················color4={config.particulateColor4}␍
+     72     │ - ················color5={config.particulateColor5}␍
+     73     │ - ················color6={config.particulateColor6}␍
+     74     │ - ················wanderSpeed={config.particulateWanderSpeed}␍
+     75     │ - ················wanderStrength={config.particulateWanderStrength}␍
+     76     │ - ··············/>␍
+     77     │ - ············);␍
+     78     │ - ··········case·'wavefield':␍
+     79     │ - ············return·(␍
+     80     │ - ··············<WavefieldUltraBackground␍
+     81     │ - ················speed={config.wavefieldSpeed}␍
+     82     │ - ················amplitude={config.wavefieldAmplitude}␍
+     83     │ - ················color={config.wavefieldColor}␍
+     84     │ - ················color2={config.wavefieldColor2}␍
+     85     │ - ················color3={config.wavefieldColor3}␍
+     86     │ - ················frequency={config.wavefieldFrequency}␍
+     87     │ - ················complexity={config.wavefieldComplexity}␍
+     88     │ - ················glow={config.wavefieldGlow}␍
+     89     │ - ················starIntensity={config.wavefieldStarIntensity}␍
+     90     │ - ················rotationSpeed={config.wavefieldRotationSpeed}␍
+     91     │ - ················mouseStrength={config.wavefieldMouseStrength}␍
+     92     │ - ··············/>␍
+     93     │ - ············);␍
+     94     │ - ··········case·'cyberpunk':␍
+     95     │ - ············return·(␍
+     96     │ - ··············<CyberpunkUltraBackground␍
+     97     │ - ················bloomStrength={config.cyberpunkBloomStrength}␍
+     98     │ - ················fogDensity={config.cyberpunkFogDensity}␍
+     99     │ - ················speed={config.cyberpunkSpeed}␍
+    100     │ - ················color1={config.cyberpunkColor1}␍
+    101     │ - ················color2={config.cyberpunkColor2}␍
+    102     │ - ················color3={config.cyberpunkColor3}␍
+    103     │ - ················rotationSpeed={config.cyberpunkRotationSpeed}␍
+    104     │ - ················tunnelRadius={config.cyberpunkTunnelRadius}␍
+    105     │ - ················pointSize={config.cyberpunkPointSize}␍
+    106     │ - ················lineOpacity={config.cyberpunkLineOpacity}␍
+    107     │ - ················cameraFOV={config.cyberpunkCameraFOV}␍
+    108     │ - ··············/>␍
+    109     │ - ············);␍
+    110     │ - ··········case·'solid':␍
+    111     │ - ············return·(␍
+    112     │ - ··············<SolidColorBackground␍
+    113     │ - ················type={config.solidType}␍
+    114     │ - ················color1={config.solidColor1}␍
+    115     │ - ················color2={config.solidColor2}␍
+    116     │ - ················color3={config.solidColor3}␍
+    117     │ - ················angle={config.solidAngle}␍
+    118     │ - ················animationSpeed={config.solidAnimationSpeed}␍
+    119     │ - ················grain={config.solidGrain}␍
+    120     │ - ················opacity={config.solidOpacity}␍
+    121     │ - ················blur={config.solidBlur}␍
+    122     │ - ··············/>␍
+    123     │ - ············);␍
+    124     │ - ··········default:␍
+    125     │ - ············return·(␍
+    126     │ - ··············<ParticleBackground␍
+    127     │ - ················particleColor={config.particleColor}␍
+    128     │ - ················speed={config.speed}␍
+    129     │ - ················intensity={config.intensity}␍
+    130     │ - ················quantity={config.quantity}␍
+    131     │ - ················zoom={config.zoom}␍
+    132     │ - ··············/>␍
+    133     │ - ············);␍
+    134     │ - ········}␍
+    135     │ - ······})()}␍
+    136     │ - ····</Suspense>␍
+    137     │ - ··);␍
+    138     │ - };␍
+    139     │ - ␍
+    140     │ - export·default·Background;␍
+          1 │ + import·{·lazy,·Suspense·}·from·'react';
+          2 │ + import·{·useParticleConfig·}·from·'../contexts/ParticleConfigContext';
+          3 │ + 
+          4 │ + import·CyberpunkUltraBackground·from·'./canvas/CyberpunkUltraBackground';
+          5 │ + import·LiquidUltraBackground·from·'./canvas/LiquidUltraBackground';
+          6 │ + import·WavefieldUltraBackground·from·'./canvas/WavefieldUltraBackground';
+          7 │ + 
+          8 │ + import·type·React·from·'react';
+          9 │ + const·SolidColorBackground·=·lazy(()·=>·import('./canvas/SolidColorBackground'));
+         10 │ + const·Background:·React.FC·=·()·=>·{
+  131 more lines truncated
+  
+
+src\components\layout\ThemeToggle.tsx:479:13 lint/a11y/noLabelWithoutControl ━━━━━━━━━━━━━━━━━━━━━━━
+
+  × A form label must be associated with an input.
+  
+    477 │         <div className="space-y-3">
+    478 │           <div className="block">
+  > 479 │             <label className="text-[9px] uppercase tracking-widest text-gray-400 mb-1.5 block">
+        │             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  > 480 │               Paleta Predefinida
+  > 481 │             </label>
+        │             ^^^^^^^^
+    482 │             <select
+    483 │               value={config.particulatePalette}
+  
+  i Consider adding a `for` or `htmlFor` attribute to the label element or moving the input element to inside the label element.
+  
+
+src\components\layout\ThemeToggle.tsx format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Formatter would have printed the following content:
+  
+       1      │ - import·{·useEffect,·useRef,·useState·}·from·'react';␍
+       2      │ - import·{·useParticleConfig·}·from·'../../contexts/ParticleConfigContext';␍
+       3      │ - //·@ts-expect-error␍
+       4      │ - import·{·initLaunchParticles·}·from·'../../utils/launchParticles.js';␍
+       5      │ - import·'../../launch.css';␍
+       6      │ - ␍
+       7      │ - //·---·Sub-components·for·cleaner·structure·(#29)·---␍
+       8      │ - ␍
+       9      │ - interface·SliderControlProps·{␍
+      10      │ - ··label:·string;␍
+      11      │ - ··value:·number;␍
+      12      │ - ··min:·string;␍
+      13      │ - ··max:·string;␍
+      14      │ - ··step:·string;␍
+      15      │ - ··onChange:·(val:·number)·=>·void;␍
+      16      │ - ··decimals?:·number;␍
+      17      │ - }␍
+      18      │ - ␍
+      19      │ - const·SliderControl:·React.FC<SliderControlProps>·=·({␍
+      20      │ - ··label,␍
+      21      │ - ··value,␍
+      22      │ - ··min,␍
+      23      │ - ··max,␍
+      24      │ - ··step,␍
+      25      │ - ··onChange,␍
+      26      │ - ··decimals·=·1,␍
+      27      │ - })·=>·{␍
+      28      │ - ··const·id·=·`slider-${label.replace(/\s+/g,·'-').toLowerCase()}`;␍
+      29      │ - ··return·(␍
+      30      │ - ····<div·className="block·mb-1.5">␍
+      31      │ - ······<label␍
+      32      │ - ········htmlFor={id}␍
+      33      │ - ········className="flex·justify-between·text-gray-300·text-[10px]·uppercase·tracking-wider·mb-1·font-medium"␍
+      34      │ - ······>␍
+      35      │ - ········<span>{label}</span>␍
+      36      │ - ········<span·className="text-[#915EFF]·font-mono">{value.toFixed(decimals)}</span>␍
+      37      │ - ······</label>␍
+      38      │ - ······<input␍
+      39      │ - ········id={id}␍
+      40      │ - ········type="range"␍
+      41      │ - ········min={min}␍
+      42      │ - ········max={max}␍
+      43      │ - ········step={step}␍
+      44      │ - ········value={value}␍
+      45      │ - ········onChange={(e)·=>·onChange(parseFloat(e.target.value))}␍
+      46      │ - ········className="w-full·h-1·bg-gray-700·rounded-lg·appearance-none·cursor-pointer·accent-[#915EFF]·hover:accent-[#a17fff]·transition-all"␍
+      47      │ - ······/>␍
+      48      │ - ····</div>␍
+      49      │ - ··);␍
+      50      │ - };␍
+      51      │ - ␍
+      52      │ - interface·ColorControlProps·{␍
+      53      │ - ··label:·string;␍
+      54      │ - ··value:·string;␍
+      55      │ - ··onChange:·(val:·string)·=>·void;␍
+      56      │ - }␍
+      57      │ - ␍
+      58      │ - const·ColorControl:·React.FC<ColorControlProps>·=·({·label,·value,·onChange·})·=>·{␍
+      59      │ - ··const·id·=·`color-${label.replace(/\s+/g,·'-').toLowerCase()}`;␍
+      60      │ - ··return·(␍
+      61      │ - ····<div·className="flex·flex-col·mb-2">␍
+      62      │ - ······<label␍
+      63      │ - ········htmlFor={id}␍
+      64      │ - ········className="text-gray-300·text-[10px]·uppercase·tracking-wider·mb-1·font-semibold"␍
+      65      │ - ······>␍
+      66      │ - ········{label}␍
+      67      │ - ······</label>␍
+      68      │ - ······<div·className="relative·flex·items-center·bg-gray-800/80·border·border-gray-600/50·rounded-md·p-1·hover:border-[#915EFF]·transition-colors·group">␍
+      69      │ - ········<input␍
+      70      │ - ··········id={id}␍
+      71      │ - ··········type="color"␍
+      72      │ - ··········value={value}␍
+      73      │ - ··········onChange={(e)·=>·onChange(e.target.value)}␍
+      74      │ - ··········className="absolute·inset-0·opacity-0·cursor-pointer·w-full·h-full"␍
+      75      │ - ········/>␍
+      76      │ - ········<div␍
+      77      │ - ··········className="w-5·h-5·rounded·shadow-sm·border·border-white/10·group-hover:scale-105·transition-transform"␍
+      78      │ - ··········style={{·backgroundColor:·value·}}␍
+      79      │ - ········/>␍
+      80      │ - ········<span·className="ml-2·text-xs·text-gray-300·font-mono·uppercase·tracking-widest">␍
+      81      │ - ··········{value}␍
+      82      │ - ········</span>␍
+      83      │ - ······</div>␍
+      84      │ - ····</div>␍
+      85      │ - ··);␍
+      86      │ - };␍
+      87      │ - ␍
+      88      │ - //·---·Background·Editor·Panels·(#29)·---␍
+      89      │ - ␍
+      90      │ - const·ParticlesEditor:·React.FC<{·config:·any;·updateConfig:·any·}>·=·({␍
+      91      │ - ··config,␍
+      92      │ - ··updateConfig,␍
+      93      │ - })·=>·(␍
+      94      │ - ··<div·className="grid·grid-cols-1·sm:grid-cols-2·gap-x-6·gap-y-2">␍
+      95      │ - ····<div·className="space-y-3">␍
+      96      │ - ······<ColorControl␍
+      97      │ - ········label="Cor·Pontos"␍
+      98      │ - ········value={config.particleColor}␍
+      99      │ - ········onChange={(v)·=>·updateConfig({·particleColor:·v·})}␍
+     100      │ - ······/>␍
+     101      │ - ······<ColorControl␍
+     102      │ - ········label="Cor·Linhas"␍
+     103      │ - ········value={config.particleLineColor}␍
+     104      │ - ········onChange={(v)·=>·updateConfig({·particleLineColor:·v·})}␍
+     105      │ - ······/>␍
+     106      │ - ······<SliderControl␍
+     107      │ - ········label="Velocidade"␍
+     108      │ - ········value={config.speed}␍
+     109      │ - ········min="0"␍
+     110      │ - ········max="3"␍
+     111      │ - ········step="0.1"␍
+     112      │ - ········onChange={(v)·=>·updateConfig({·speed:·v·})}␍
+     113      │ - ······/>␍
+     114      │ - ······<SliderControl␍
+     115      │ - ········label="Intensidade·(Alpha)"␍
+     116      │ - ········value={config.intensity}␍
+     117      │ - ········min="0.1"␍
+     118      │ - ········max="1"␍
+     119      │ - ········step="0.1"␍
+     120      │ - ········onChange={(v)·=>·updateConfig({·intensity:·v·})}␍
+     121      │ - ······/>␍
+     122      │ - ······<SliderControl␍
+     123      │ - ········label="Quantidade"␍
+     124      │ - ········value={config.quantity}␍
+     125      │ - ········min="10"␍
+     126      │ - ········max="300"␍
+     127      │ - ········step="10"␍
+     128      │ - ········onChange={(v)·=>·updateConfig({·quantity:·v·})}␍
+     129      │ - ········decimals={0}␍
+     130      │ - ······/>␍
+     131      │ - ····</div>␍
+     132      │ - ····<div·className="space-y-3">␍
+     133      │ - ······<SliderControl␍
+     134      │ - ········label="Tamanho"␍
+     135      │ - ········value={config.particleSize}␍
+     136      │ - ········min="0.5"␍
+     137      │ - ········max="10"␍
+     138      │ - ········step="0.5"␍
+     139      │ - ········onChange={(v)·=>·updateConfig({·particleSize:·v·})}␍
+     140      │ - ······/>␍
+     141      │ - ······<SliderControl␍
+     142      │ - ········label="Dist.·Conexão"␍
+     143      │ - ········value={config.particleConnectDistance}␍
+     144      │ - ········min="50"␍
+     145      │ - ········max="300"␍
+     146      │ - ········step="10"␍
+     147      │ - ········onChange={(v)·=>·updateConfig({·particleConnectDistance:·v·})}␍
+     148      │ - ········decimals={0}␍
+     149      │ - ······/>␍
+     150      │ - ······<SliderControl␍
+  2033 more lines truncated
+  
+
+Checked 63 files in 49ms. No fixes applied.
+Found 4 errors.
+check ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Some errors were emitted while running checks.
+  
+
