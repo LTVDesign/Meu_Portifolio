@@ -10,7 +10,6 @@ import {
   html,
   javascript,
   mobile,
-  mongodb,
   nodejs,
   reactjs,
   redux,
@@ -19,6 +18,20 @@ import {
   typescript,
   willy,
   web,
+  // Novas tecnologias
+  linux,
+  windows,
+  esp32,
+  arduino,
+  android,
+  python,
+  sql,
+  kali,
+  daytek,
+  microsoft365,
+  ubiquiti,
+  sonicwall,
+  vscode,
 } from '../assets';
 import type {
   TExperience,
@@ -39,16 +52,16 @@ export const navLinks: TNavLink[] = [
     title: 'Formação',
   },
   {
-    id: 'work',
-    title: 'Trabalhos',
-  },
-  {
     id: 'cursos',
     title: 'Cursos & Certificados',
   },
   {
     id: 'curriculo',
     title: 'Currículo',
+  },
+  {
+    id: 'projects',
+    title: 'Projetos',
   },
   {
     id: 'contact',
@@ -84,73 +97,208 @@ const services: TService[] = [
 ];
 
 const technologies: TTechnology[] = [
+  // Sistemas e Infraestrutura
   {
-    name: 'HTML 5',
-    icon: html,
+    name: 'Linux',
+    icon: linux,
+    category: 'Sistemas & Infraestrutura',
   },
   {
-    name: 'CSS 3',
-    icon: css,
+    name: 'Windows',
+    icon: windows,
+    category: 'Sistemas & Infraestrutura',
+  },
+  {
+    name: 'Docker',
+    icon: docker,
+    category: 'Sistemas & Infraestrutura',
+  },
+  // Microsoft 365
+  {
+    name: 'Microsoft 365',
+    icon: microsoft365,
+    category: 'Sistemas & Infraestrutura',
+  },
+  // Hardware e Projetos Autorais
+  {
+    name: 'ESP32',
+    icon: esp32,
+    category: 'Hardware & IoT',
+  },
+  {
+    name: 'Arduino',
+    icon: arduino,
+    category: 'Hardware & IoT',
+  },
+  {
+    name: 'Android',
+    icon: android,
+    category: 'Hardware & IoT',
+  },
+  // Linguagens e Desenvolvimento
+  {
+    name: 'Python',
+    icon: python,
+    category: 'Linguagens & Backend',
   },
   {
     name: 'JavaScript',
     icon: javascript,
+    category: 'Linguagens & Backend',
+  },
+  {
+    name: 'HTML5',
+    icon: html,
+    category: 'Front-end & Design',
+  },
+  {
+    name: 'CSS3',
+    icon: css,
+    category: 'Front-end & Design',
   },
   {
     name: 'TypeScript',
     icon: typescript,
+    category: 'Linguagens & Backend',
   },
   {
-    name: 'React JS',
+    name: 'SQL',
+    icon: sql,
+    category: 'Linguagens & Backend',
+  },
+  // Segurança e Redes
+  {
+    name: 'Kali Linux',
+    icon: kali,
+    category: 'Segurança & Redes',
+  },
+  {
+    name: 'DrayTek/Redes',
+    icon: daytek,
+    category: 'Segurança & Redes',
+  },
+  {
+    name: 'Ubiquiti',
+    icon: ubiquiti,
+    category: 'Segurança & Redes',
+  },
+  {
+    name: 'SonicWall',
+    icon: sonicwall,
+    category: 'Segurança & Redes',
+  },
+  // Frameworks e Bibliotecas
+  {
+    name: 'React',
     icon: reactjs,
+    category: 'Front-end & Design',
   },
   {
     name: 'Redux Toolkit',
     icon: redux,
+    category: 'Front-end & Design',
   },
   {
     name: 'Tailwind CSS',
     icon: tailwind,
+    category: 'Front-end & Design',
   },
   {
-    name: 'Node JS',
-    icon: nodejs,
-  },
-  {
-    name: 'MongoDB',
-    icon: mongodb,
-  },
-  {
-    name: 'Three JS',
+    name: 'Three.js',
     icon: threejs,
+    category: 'Front-end & Design',
   },
+  // Ferramentas
   {
     name: 'git',
     icon: git,
+    category: 'Ferramentas & DevOps',
   },
   {
     name: 'figma',
     icon: figma,
+    category: 'Front-end & Design',
   },
   {
-    name: 'docker',
-    icon: docker,
+    name: 'Node.js',
+    icon: nodejs,
+    category: 'Linguagens & Backend',
+  },
+  {
+    name: 'VS Code',
+    icon: vscode,
+    category: 'Ferramentas & DevOps',
+  },
+  // Plataforma do Site
+  {
+    name: 'Vite',
+    icon: threejs,
+    category: 'Ferramentas & DevOps',
   },
 ];
 
 const experiences: TExperience[] = [
   {
     title: 'Técnico de Informática N2',
-    companyName: 'Terabyte Soluções em TI',
+    companyName: 'Terabyte Consultoria em TI',
     icon: '/empresas/terabyte.png',
     iconBg: '#E6DEDD',
-    date: '2024 - 2025',
+    date: 'Março 2024 - Dezembro 2025',
     points: [
-      'Suporte técnico especializado N2 para infraestrutura de TI',
-      'Administração de sistemas e servidores',
-      'Gestão de redes e segurança da informação',
-      'Monitoramento e manutenção de ambientes computacionais',
-      'Resolução de incidentes complexos e atendimento a clientes',
+      'Suporte técnico N2 presencial e remoto para incidentes complexos com alta taxa de resolução no primeiro contato',
+      'Administração de redes, servidores e sistemas corporativos',
+      'Gestão de acessos e usuários via Microsoft 365 e Entra ID',
+      'Deploy e instalação de sistemas operacionais Windows e Linux',
+      'Configuração de infraestrutura de rede, incluindo roteadores DrayTek e switches',
+      'Implementação de firewalls, proteção contra ataques e atualizações críticas de segurança',
+      'Manutenção de sistemas de câmeras e som',
+      'Atendimento consultivo ao cliente via WhatsApp e redes sociais com registro preciso de chamados',
+    ],
+  },
+  {
+    title: 'Web Master',
+    companyName: 'DotKom (Autônomo)',
+    icon: web,
+    iconBg: '#383E56',
+    date: 'Junho 2023 - Janeiro 2024',
+    points: [
+      'Desenvolvimento de websites e plataformas de E-commerce utilizando WordPress, Tray, Nuvemshop e Shopify',
+      'Integração de sistemas ERP como Bling!, Alterdata e Linx',
+      'Configuração e integração de meios de pagamento, incluindo Mercado Pago, PagSeguro e Vindi',
+      'Integração e configuração de ferramentas de CRM como Wake, CRM&Bonus e RD Station',
+    ],
+  },
+  {
+    title: 'Técnico de Manutenção de Computadores',
+    companyName: 'Autônomo',
+    icon: '/empresas/terabyte.png',
+    iconBg: '#E6DEDD',
+    date: 'Janeiro 2023 - Presente',
+    points: [
+      'Diagnóstico avançado de falhas, reparo de ineficiências e otimização de hardware e software',
+      'Instalação e configuração de hardwares, softwares e drivers',
+      'Implementação de soluções de acesso remoto e VPN (AnyDesk/TeamViewer)',
+      'Gerenciamento de redes LAN/WAN, servidores e IPs',
+      'Gestão de segurança e privacidade de dados, incluindo proteção contra ataques',
+      'Execução de melhorias regulares para assegurar a atualização dos sistemas',
+      'Manutenção de registros de reparos e correções para referência futura',
+      'Instrução técnica de usuários sobre o uso correto de hardware e software',
+    ],
+  },
+  {
+    title: 'Responsável Técnico de TI / Suporte Técnico',
+    companyName: 'Mercedito',
+    icon: '/empresas/terabyte.png',
+    iconBg: '#E6DEDD',
+    date: 'Março 2022 - Dezembro 2022',
+    points: [
+      'Manutenção integral do parque tecnológico: computadores, internet, softwares e sistemas de monitoramento',
+      'Treinamento e orientação de colaboradores para uso eficiente de dispositivos e resolução de problemas de acesso',
+      'Suporte operacional ao cadastramento de produtos e atualização de sistemas de vendas e cardápios',
+      'Manutenção periódica de sistemas de câmeras e som',
+      'Configuração e monitoramento de VPN',
+      'Criação e atualização diária de ChatBot para suporte a clientes via WhatsApp',
+      'Gestão de SEO em redes sociais e Google My Place',
     ],
   },
   {
@@ -158,51 +306,91 @@ const experiences: TExperience[] = [
     companyName: "Abra Kebab's",
     icon: '/empresas/abrakebab.png',
     iconBg: '#E6DEDD',
-    date: '2022 - Present',
+    date: '2022',
     points: [
-      'Administração geral do restaurante.',
-      'Controle de caixa e estoque.',
-      'Gestão de equipe e operações diárias.',
-      'Implementação de melhorias em processos.',
+      'Gestão completa da operação da unidade, incluindo financeiro, estoque e liderança de equipe',
+      'Controle de fluxo de caixa e análise de indicadores de desempenho',
     ],
   },
   {
-    title: 'CEO e Desenvolvedor Web',
+    title: 'Gerente de Atendimento ao Cliente',
+    companyName: 'Mundo Trader',
+    icon: web,
+    iconBg: '#383E56',
+    date: 'Março 2016 - Fevereiro 2021',
+    points: [
+      'Liderança de Customer Experience e gestão de equipe de atendimento e suporte',
+      'Gestão de SLA, resolução de conflitos e estratégias de fidelização',
+      'Otimização de processos internos baseada em feedbacks e registros de pedidos',
+      'Manutenção da comunicação com clientes sobre mudanças nos serviços e tendências de mercado',
+      'Criação de Landing Pages para captação de clientes e recuperação de carrinhos abandonados',
+      'Organização de vendas, reembolsos e gestão do sucesso do cliente com a solução contratada',
+    ],
+  },
+  {
+    title: 'Técnico de TI / Gerente Técnico / Designer',
+    companyName: 'Blitz Haus',
+    icon: web,
+    iconBg: '#383E56',
+    date: 'Março 2015 - Fevereiro 2016',
+    points: [
+      'Planejamento, implantação de sistemas e avaliação de operações de dados eletrônicos',
+      'Garantia da segurança de dados, estabilidade das redes locais e sistemas de backup',
+      'Manutenção e configuração integral de hardware e software da empresa',
+      'Treinamento de funcionários em procedimentos padrões e uso de softwares/periféricos',
+      'Identificação de áreas problemáticas e implementação de soluções estratégicas',
+      'Criação de artes para eventos e publicidade em mídias impressas e redes sociais',
+    ],
+  },
+  {
+    title: 'CEO / Fundador e Gestor',
     companyName: 'Garagemod',
     icon: web,
     iconBg: '#383E56',
-    date: '2014 - 2015',
+    date: 'Maio 2014 - Fevereiro 2015',
     points: [
-      'Criação de design para loja virtual de acessórios automotivos.',
-      'Gerenciamento de Fan Page e redes sociais.',
-      'Cadastro de produtos e otimização SEO.',
-      'Atendimento ao público e gestão geral.',
+      'Desenvolvimento e programação completa da plataforma de e-commerce utilizando Magento',
+      'Gestão operacional de logística, meios de pagamento, antifraude e controle de estoque',
+      'Definição estratégica de mix de produtos, linguagem de comunicação e investimentos',
+      'Acompanhamento de métricas, indicadores de vendas e campanhas promocionais',
+      'Responsabilidade por funções administrativas, contábeis e de recursos humanos',
     ],
   },
   {
-    title: 'Tecnologia da Informação',
+    title: 'Analista de TI / Técnico em Informática / Logística',
     companyName: 'Colonial Racing',
     icon: '/empresas/colonial.png',
     iconBg: '#E6DEDD',
-    date: '2012 - 2013',
+    date: 'Março 2012 - Maio 2014',
     points: [
-      'Modernização da empresa com 18 computadores conectados em rede.',
-      'Implantação de sistema Cauto para gestão.',
-      'Manutenção e suporte técnico de infraestrutura de TI.',
-      'Otimização de processos tecnológicos para eficiência.',
+      'Projeto e implantação de infraestrutura de rede para 18 computadores',
+      'Implementação do sistema ERP Cauto, otimizando a operação da empresa',
+      'Suporte técnico contínuo em hardware (CPUs, impressoras, roteadores) e configuração de software',
+      'Gerenciamento de opções de segurança e proteção de rede contra ataques',
+      'Diagnóstico e execução de melhorias para restauração de funcionalidades do sistema',
     ],
   },
   {
-    title: 'Web Designer',
+    title: 'Web Designer / Web Master',
     companyName: 'LTV Design',
     icon: web,
     iconBg: '#383E56',
-    date: '2009 - 2012',
+    date: 'Fevereiro 2009 - Fevereiro 2012',
     points: [
-      'Criação de sites utilizando Flash, HTML, CSS, PHP e JavaScript.',
-      'Desenvolvimento de interfaces web responsivas e compatíveis com navegadores.',
-      'Colaboração com equipes para criar produtos de alta qualidade.',
-      'Participação em revisões de código e feedback construtivo.',
+      'Desenvolvimento de sites utilizando Flash, HTML, CSS, PHP, SQL, JavaScript, Magento e WordPress',
+      'Design gráfico, tratamento de imagens via Photoshop e criação de banners, folders e cartões',
+      'Desenvolvimento da navegação e interface visual das aplicações',
+    ],
+  },
+  {
+    title: 'Subgerente de Vendas / Operador de Caixa',
+    companyName: 'Cafe Beach / Açai Beach',
+    icon: web,
+    iconBg: '#383E56',
+    date: 'Fevereiro 2007 - Fevereiro 2009',
+    points: [
+      'Planejamento e controle de vendas e faturamento',
+      'Gestão de equipe e controle de indicadores de estoque',
     ],
   },
 ];
@@ -259,6 +447,8 @@ const projects: TProject[] = [
     ],
     image: getnexo,
     sourceCodeLink: 'https://github.com/lelebrr/GetNexo',
+    status: 'v1.0+ (Full Release)',
+    category: 'SaaS & Automação AI',
   },
   {
     name: 'Component Tester PRO v2.0',
@@ -284,6 +474,8 @@ const projects: TProject[] = [
     ],
     image: comptester,
     sourceCodeLink: 'https://github.com/lelebrr/Component_Tester',
+    status: 'v2.0 (Finalizado)',
+    category: 'Hardware & IoT',
   },
   {
     name: 'Willy Cyber-Multitool',
@@ -309,6 +501,8 @@ const projects: TProject[] = [
     ],
     image: willy,
     sourceCodeLink: 'https://github.com/lelebrr/Willy',
+    status: 'v1.0 (Protótipo)',
+    category: 'Cibersegurança & Hardware',
   },
 ];
 

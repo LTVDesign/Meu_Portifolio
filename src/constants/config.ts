@@ -94,18 +94,14 @@ Mais do que resolver problemas técnicos, busco transformar dados em decisões e
       h2: 'Depoimentos.',
     },
     works: {
-      p: 'Meu trabalho',
+      p: 'Criações & Experimentos',
       h2: 'Projetos.',
-      content: `Os seguintes projetos mostram minhas habilidades e experiência através
-    de exemplos do mundo real do meu trabalho. Cada projeto é brevemente descrito com
-    links para repositórios de código e demos ao vivo. Reflete minha
-    capacidade de resolver problemas complexos, trabalhar com diferentes tecnologias
-    e gerenciar projetos de forma eficaz.`,
+      content: `Uma vitrine de projetos que desenvolvi por paixão, hobby e para aprofundar meus conhecimentos técnicos. Cada iniciativa reflete minha curiosidade em explorar novas fronteiras, desde hardware modding até automações inteligentes com IA.`,
     },
     cursos: {
       p: 'Meus cursos',
       h2: 'Cursos.',
-      content: `Aqui estão os cursos que completei para aprimorar minhas habilidades e conhecimentos em diversas áreas da tecnologia e desenvolvimento.`,
+      content: `Uma curadoria das minhas principais formações técnico-estratégicas, certificações profissionais e especializações em gestão de produtos e cibersegurança.`,
     },
     certificados: {
       p: 'Meus certificados',

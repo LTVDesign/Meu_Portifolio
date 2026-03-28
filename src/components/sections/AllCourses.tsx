@@ -6,8 +6,9 @@ import { LinkAnimado } from '../atoms';
 import { Header } from '../atoms/Header';
 
 const AllCourses = ({ setViewMode }: { setViewMode?: (mode: string) => void }) => {
-  // Lista completa de arquivos de cursos
+  // Lista completa de arquivos de cursos e certificados
   const cursosFiles = [
+    // Especialização em Gerenciamento de Produtos de Software - University of Alberta
     {
       name: 'Introdução ao Gerenciamento de Produtos de Software',
       path: '/cursos/gerenciamento de produtos de software/introducao ao gps 2.2.pdf',
@@ -17,12 +18,12 @@ const AllCourses = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =
       path: '/cursos/gerenciamento de produtos de software/-Software-Processes-and-Agile-Practices---Course-Map.pdf',
     },
     {
-      name: 'Agile Planning for Software Products',
-      path: '/cursos/gerenciamento de produtos de software/Agile-Planning-for-Software-Products---Course-Map.pdf',
-    },
-    {
       name: 'Client Needs and Software Requirements',
       path: '/cursos/gerenciamento de produtos de software/Client-Needs-and-Software-Requirements---Course-Map.pdf',
+    },
+    {
+      name: 'Agile Planning for Software Products',
+      path: '/cursos/gerenciamento de produtos de software/Agile-Planning-for-Software-Products---Course-Map.pdf',
     },
     {
       name: 'Reviews and Metrics for Software Improvements',
@@ -31,6 +32,95 @@ const AllCourses = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =
     {
       name: 'Software Product Management Capstone',
       path: '/cursos/gerenciamento de produtos de software/Software-Product-Management-Capstone---Course-Map.pdf',
+    },
+    // Google IT Support
+    {
+      name: 'Certificado Profissional de Suporte em TI (Completo)',
+      path: '/certificados/TechnicalSupportBasics_Badge20230225-28-ldlr1j.pdf',
+    },
+    {
+      name: 'Os Aspectos Básicos do Suporte Técnico',
+      path: '/certificados/TechnicalSupportBasics_Badge20230225-28-ldlr1j.pdf',
+    },
+    {
+      name: 'Estrutura e Funcionamento das Redes de Computadores',
+      path: '/certificados/Estrutura e Funcionamento das Redes de computadores.pdf',
+    },
+    {
+      name: 'Sistemas Operacionais e Você: Tornando-se um Usuário de Poder',
+      path: '/certificados/Sistemas Operacionais e Você - Google.pdf',
+    },
+    {
+      name: 'Administração de Sistemas e Serviços de Infraestrutura de TI',
+      path: '/certificados/Administração de Sistemas e Serviços de Infraestrutura de TI.pdf',
+    },
+    {
+      name: 'Segurança de TI: Defesa Contra as Artes Obscuras do Mundo Digital',
+      path: '/certificados/Defesa Contra as Artes Obscuras.pdf',
+    },
+    // Cybersecurity & Tech
+    {
+      name: 'Foundations of Cybersecurity',
+      path: '/certificados/Foundations of Cybersecurity.pdf',
+    },
+    {
+      name: 'Nivelamento (Cibersegurança)',
+      path: '/certificados/Certificado - Nivelamento.pdf',
+    },
+    {
+      name: 'Introduction to Technical Support (IBM)',
+      path: '/certificados/Introduction to Technical Support IBM.pdf',
+    },
+    {
+      name: 'Introduction to Scrum Master Profession (IBM)',
+      path: '/certificados/Introduction to Scrum Master Profession.pdf',
+    },
+    {
+      name: 'HTML, CSS, and Javascript for Web Developers',
+      path: '/certificados/HTML, CSS, and Javascript for Web Developers.pdf',
+    },
+    // Fundação Bradesco
+    {
+      name: 'Fundamentos de TI: Hardware e Software',
+      path: '/certificados/fundamentos de ti - Fundação Bradesco.pdf',
+    },
+    {
+      name: 'Implementando Banco de Dados',
+      path: '/certificados/Implementando Banco de Dados - Fundação Bradesco.pdf',
+    },
+    {
+      name: 'Administrando Banco de Dados',
+      path: '/certificados/Administrando Banco de Dados - Fundação Bradesco.pdf',
+    },
+    {
+      name: 'Segurança em Tecnologia da Informação',
+      path: '/certificados/Segurança em Tecnologia da Informação - Fundação Bradesco.pdf',
+    },
+    // Marketing & Skillshop
+    {
+      name: 'Exame de Certificação no Search Ads 360',
+      path: '/certificados/Exame de certificação no Search Ads 360  Google.pdf',
+    },
+    {
+      name: 'Google My Business (Perfil da Empresa)',
+      path: '/certificados/Google My Business  Google.pdf',
+    },
+    {
+      name: 'Waze Ads Fundamentals',
+      path: '/certificados/Waze Ads Fundamentals  Google certificado.pdf',
+    },
+    // IPED
+    {
+      name: 'Satisfação de Clientes e Atendimento ao Cliente',
+      path: '/certificados/Satistação de clientes IPED.pdf',
+    },
+    {
+      name: 'Ética, Política e Cidadania',
+      path: '/certificados/etica politica e cidadania.pdf',
+    },
+    {
+      name: 'Boas Práticas de Manipulação de Alimentos',
+      path: '/certificados/Boas Práticas de Manipulação de Alimentos.pdf',
     },
   ];
 

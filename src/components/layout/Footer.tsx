@@ -1,72 +1,118 @@
 import type React from 'react';
-import { FaFacebook, FaGithub, FaInstagram, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
+import { FaFacebook, FaGithub, FaInstagram, FaLinkedin, FaWhatsapp, FaArrowUp, FaEnvelope } from 'react-icons/fa';
 import { navLinks } from '../../constants';
+import { config } from '../../constants/config';
+import { motion } from 'framer-motion';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const socialLinks = [
-    { icon: FaLinkedin, url: 'https://www.linkedin.com/in/leleltv', label: 'LinkedIn' },
-    { icon: FaGithub, url: 'https://github.com/lelebrr', label: 'GitHub' },
-    { icon: FaInstagram, url: 'http://instagram.com/lelebrr', label: 'Instagram' },
-    { icon: FaFacebook, url: 'https://www.facebook.com/lelebrr', label: 'Facebook' },
-    { icon: FaWhatsapp, url: '#', label: 'WhatsApp' },
+    { icon: FaLinkedin, url: 'https://www.linkedin.com/in/leleltv', label: 'LinkedIn', color: 'hover:text-[#0077b5]' },
+    { icon: FaGithub, url: 'https://github.com/lelebrr', label: 'GitHub', color: 'hover:text-white' },
+    { icon: FaInstagram, url: 'http://instagram.com/lelebrr', label: 'Instagram', color: 'hover:text-[#e1306c]' },
+    { icon: FaFacebook, url: 'https://www.facebook.com/lelebrr', label: 'Facebook', color: 'hover:text-[#1877f2]' },
+    { icon: FaWhatsapp, url: '#', label: 'WhatsApp', color: 'hover:text-[#25d366]' },
   ];
 
   return (
-    <footer className="bg-tertiary/80 backdrop-blur-xl border-t border-white/10 text-[var(--dynamic-text-color)] py-12 mt-16 sm:mt-24 transition-colors duration-500 relative z-30">
-      <div className="w-full px-4">
-        <div className="flex flex-col items-center gap-12 sm:gap-16">
-          {/* Top Section - Branding and Socials */}
-          <div className="flex flex-col items-center w-full">
-            <h2 className="text-2xl font-bold text-[var(--dynamic-text-color)] transition-colors duration-500 mb-4 text-center">
-              Leandro Saturnino Barbosa
+    <footer className="relative mt-20 pt-20 pb-10 overflow-hidden">
+      {/* Glow Effect de Fundo */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[100%] h-[1px] bg-gradient-to-r from-transparent via-[#915EFF] to-transparent opacity-30" />
+      <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-full max-w-4xl h-48 bg-[#915EFF]/10 blur-[120px] rounded-full pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-6 lg:px-8 relative z-10 w-full">
+        {/* Grid Principal Centralizado */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 justify-items-center">
+          
+          {/* Coluna 1: Identidade & Redes */}
+          <div className="flex flex-col items-center text-center w-full max-w-[300px]">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent mb-4">
+              {config.html.fullName}
             </h2>
-            <p className="text-[var(--dynamic-text-secondary)] text-center text-sm max-w-sm transition-colors duration-500">
-              Construindo experiências digitais modernas, fluidas e ultra imersivas focadas na
-              interação do usuário.
+            <p className="text-[var(--dynamic-text-secondary)] text-sm leading-relaxed mb-6">
+              Especialista em TI, Infraestrutura e Segurança, transformando dados em inteligência e sistemas em plataformas ultra-performativas.
             </p>
-            <div className="flex justify-center space-x-5 mt-6">
-              {socialLinks.map(({ icon: Icon, url, label }) => (
-                <a
+            <div className="flex gap-5">
+              {socialLinks.map(({ icon: Icon, url, label, color }) => (
+                <motion.a
                   key={label}
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-black-100 border border-white/10 flex items-center justify-center text-gray-300 hover:text-white hover:border-[#915EFF] hover:shadow-[0_0_15px_rgba(145,94,255,0.4)] hover:-translate-y-1 transition-all duration-300"
+                  whileHover={{ y: -5, scale: 1.1 }}
+                  className={`text-gray-400 ${color} transition-all duration-300`}
                   aria-label={label}
                 >
-                  <Icon size={20} />
-                </a>
+                  <Icon size={24} title={label} />
+                </motion.a>
               ))}
             </div>
           </div>
 
-          {/* Bottom Section - Navigation Links */}
-          <div className="flex flex-col items-center w-full">
-            <h3 className="text-lg font-semibold text-[var(--dynamic-text-color)] mb-4 text-center w-full">
+          {/* Coluna 2: Navegação */}
+          <div className="flex flex-col items-center text-center w-full max-w-[300px]">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-[#915EFF] mb-6">
               Acesso Rápido
             </h3>
-            <ul className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-x-8 sm:gap-x-12 gap-y-3 text-center w-full justify-items-center">
-              {navLinks
-                .filter((link) => link.id !== 'contact')
-                .map((link) => (
-                  <li key={link.id} className="flex justify-center whitespace-nowrap">
-                    <a
-                      href={`#${link.id}`}
-                      className="text-[var(--dynamic-text-secondary)] hover:text-[#915EFF] text-sm font-medium transition-colors"
-                    >
-                      {link.title}
-                    </a>
-                  </li>
-                ))}
+            <ul className="grid grid-cols-2 gap-x-8 gap-y-3">
+              {navLinks.map((link) => (
+                <li key={link.id}>
+                  <a
+                    href={`#${link.id}`}
+                    className="text-[var(--dynamic-text-secondary)] hover:text-white text-sm transition-colors flex items-center gap-2 group"
+                  >
+                    <span className="w-1 h-1 rounded-full bg-[#915EFF] opacity-0 group-hover:opacity-100 transition-opacity" />
+                    {link.title}
+                  </a>
+                </li>
+              ))}
             </ul>
+          </div>
+
+          {/* Coluna 3: Contato */}
+          <div className="flex flex-col items-center text-center w-full max-w-[300px]">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-[#915EFF] mb-6">
+              Contato
+            </h3>
+            <div className="flex flex-col items-center gap-5">
+              <a 
+                href={`mailto:${config.html.email}`}
+                className="flex items-center gap-4 text-sm text-[var(--dynamic-text-secondary)] hover:text-white transition-colors group"
+              >
+                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-[#915EFF]/20 transition-colors border border-white/5 shrink-0">
+                  <FaEnvelope className="text-[#915EFF]" />
+                </div>
+                <span className="truncate">{config.html.email}</span>
+              </a>
+              <div className="flex items-center gap-4 text-sm text-[var(--dynamic-text-secondary)]">
+                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/5 text-xs shrink-0">
+                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                </div>
+                Disponível para novos desafios
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="border-t border-white/10 mt-10 pt-6 text-center">
-          <p className="text-xs text-[var(--dynamic-text-secondary)] font-medium tracking-wide transition-colors duration-500">
-            © {currentYear} Leandro Saturnino Barbosa. Desenvolvido com React & Tailwind.
+        {/* Linha Final - Direitos e Voltar ao Topo Integrados */}
+        <div className="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+          <button
+            onClick={scrollToTop}
+            className="group flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--dynamic-text-secondary)] hover:text-white transition-all order-2 md:order-1"
+          >
+            <div className="w-10 h-10 rounded-xl border border-white/10 flex items-center justify-center group-hover:border-[#915EFF] group-hover:shadow-[0_0_20px_rgba(145,94,255,0.3)] transition-all bg-white/5 shadow-lg">
+              <FaArrowUp className="text-xs group-hover:animate-bounce text-[#915EFF]" />
+            </div>
+            <span>Voltar ao Topo</span>
+          </button>
+
+          <p className="text-[10px] text-[var(--dynamic-text-secondary)] uppercase tracking-[0.2em] opacity-60 font-medium text-center md:text-right order-1 md:order-2">
+            © {currentYear} {config.html.fullName} • Todos os direitos reservados
           </p>
         </div>
       </div>
