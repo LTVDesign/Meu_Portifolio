@@ -6,8 +6,9 @@ import type * as THREE from 'three';
 const Stars = (props: any) => {
   const ref = useRef<THREE.Points>(null);
   const [sphere] = useState<Float32Array>(() => {
-    const positions = new Float32Array(2000 * 3);
-    for (let i = 0; i < 2000; i++) {
+    const count = 1000; // Reduzido de 2000 para 1000 para melhor performance
+    const positions = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
       const r = 1.0;
@@ -25,8 +26,8 @@ const Stars = (props: any) => {
 
   useFrame((_state, delta) => {
     if (ref.current) {
-      ref.current.rotation.x -= delta / 10;
-      ref.current.rotation.y -= delta / 15;
+      ref.current.rotation.x -= delta / 12;
+      ref.current.rotation.y -= delta / 18;
     }
   });
 

@@ -1,37 +1,37 @@
 import {
+  android,
+  arduino,
   backend,
   comptester,
   creator,
   css,
+  daytek,
   docker,
+  esp32,
   figma,
-  git,
   getnexo,
+  git,
   html,
   javascript,
+  kali,
+  // Novas tecnologias
+  linux,
+  microsoft365,
   mobile,
   nodejs,
+  python,
   reactjs,
   redux,
+  sonicwall,
+  sql,
   tailwind,
   threejs,
   typescript,
-  willy,
-  web,
-  // Novas tecnologias
-  linux,
-  windows,
-  esp32,
-  arduino,
-  android,
-  python,
-  sql,
-  kali,
-  daytek,
-  microsoft365,
   ubiquiti,
-  sonicwall,
   vscode,
+  web,
+  willy,
+  windows,
 } from '../assets';
 import type {
   TExperience,
@@ -53,7 +53,7 @@ export const navLinks: TNavLink[] = [
   },
   {
     id: 'cursos',
-    title: 'Cursos & Certificados',
+    title: 'Cursos',
   },
   {
     id: 'curriculo',
@@ -257,8 +257,8 @@ const experiences: TExperience[] = [
   },
   {
     title: 'Web Master',
-    companyName: 'DotKom (Autônomo)',
-    icon: web,
+    companyName: 'DotKom',
+    icon: '/empresas/dotkom.png',
     iconBg: '#383E56',
     date: 'Junho 2023 - Janeiro 2024',
     points: [
@@ -271,7 +271,7 @@ const experiences: TExperience[] = [
   {
     title: 'Técnico de Manutenção de Computadores',
     companyName: 'Autônomo',
-    icon: '/empresas/terabyte.png',
+    icon: '/empresas/autonomo.png',
     iconBg: '#E6DEDD',
     date: 'Janeiro 2023 - Presente',
     points: [
@@ -288,7 +288,7 @@ const experiences: TExperience[] = [
   {
     title: 'Responsável Técnico de TI / Suporte Técnico',
     companyName: 'Mercedito',
-    icon: '/empresas/terabyte.png',
+    icon: '/empresas/mercedito.png',
     iconBg: '#E6DEDD',
     date: 'Março 2022 - Dezembro 2022',
     points: [
@@ -315,7 +315,7 @@ const experiences: TExperience[] = [
   {
     title: 'Gerente de Atendimento ao Cliente',
     companyName: 'Mundo Trader',
-    icon: web,
+    icon: '/empresas/trader.png',
     iconBg: '#383E56',
     date: 'Março 2016 - Fevereiro 2021',
     points: [
@@ -330,7 +330,7 @@ const experiences: TExperience[] = [
   {
     title: 'Técnico de TI / Gerente Técnico / Designer',
     companyName: 'Blitz Haus',
-    icon: web,
+    icon: '/empresas/blitz.png',
     iconBg: '#383E56',
     date: 'Março 2015 - Fevereiro 2016',
     points: [
@@ -345,7 +345,7 @@ const experiences: TExperience[] = [
   {
     title: 'CEO / Fundador e Gestor',
     companyName: 'Garagemod',
-    icon: web,
+    icon: '/empresas/garage.png',
     iconBg: '#383E56',
     date: 'Maio 2014 - Fevereiro 2015',
     points: [
@@ -373,7 +373,7 @@ const experiences: TExperience[] = [
   {
     title: 'Web Designer / Web Master',
     companyName: 'LTV Design',
-    icon: web,
+    icon: '/empresas/ltv.png',
     iconBg: '#383E56',
     date: 'Fevereiro 2009 - Fevereiro 2012',
     points: [
@@ -385,7 +385,7 @@ const experiences: TExperience[] = [
   {
     title: 'Subgerente de Vendas / Operador de Caixa',
     companyName: 'Cafe Beach / Açai Beach',
-    icon: web,
+    icon: '/empresas/acai.png',
     iconBg: '#383E56',
     date: 'Fevereiro 2007 - Fevereiro 2009',
     points: [

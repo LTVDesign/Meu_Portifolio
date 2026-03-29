@@ -35,28 +35,33 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
         tiltMaxAngleX={15}
         tiltMaxAngleY={15}
         glareColor="#ffffff20"
-        className="relative group p-[1px] rounded-3xl overflow-hidden bg-gradient-to-br from-white/20 to-transparent"
+        className="relative group p-[1px] rounded-3xl overflow-hidden bg-gradient-to-br from-white/20 to-transparent m-4"
       >
         {/* Glow de Fundo */}
-        <div className={`absolute -inset-0.5 bg-gradient-to-br ${getGlowColor(category)} opacity-10 group-hover:opacity-30 blur-xl transition duration-500`} />
+        <div
+          className={`absolute -inset-0.5 bg-gradient-to-br ${getGlowColor(category)} opacity-10 group-hover:opacity-30 blur-xl transition duration-500`}
+        />
 
-        <div className="bg-[#151030]/95 backdrop-blur-xl w-full rounded-3xl p-6 sm:w-[360px] relative z-10 border border-white/5 h-full flex flex-col">
-          <div className="relative h-[200px] w-full group/img overflow-hidden rounded-2xl shadow-2xl">
+        <div className="bg-[#151030]/95 backdrop-blur-xl w-[clamp(260px,90vw,400px)] rounded-3xl p-[clamp(1rem,5vw,2rem)] relative z-10 border border-white/5 h-full flex flex-col">
+          <div className="relative h-[clamp(160px,30vh,220px)] w-full group/img overflow-hidden rounded-2xl shadow-2xl">
             <img
               src={image}
               alt={name}
               className="h-full w-full object-cover transition-transform duration-700 group-hover/img:scale-110"
               loading="lazy"
             />
-            
+
             {/* Overlay link ao GitHub */}
             <div className="absolute inset-0 flex justify-end m-3">
-              <div
-                onClick={() => window.open(sourceCodeLink, "_blank")}
+              <button
+                type="button"
+                onClick={() => window.open(sourceCodeLink, '_blank')}
+                onKeyDown={(e) => e.key === 'Enter' && window.open(sourceCodeLink, '_blank')}
                 className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer hover:scale-110 transition shadow-card"
+                aria-label="Ver código no GitHub"
               >
                 <img src={github} alt="github" className="w-1/2 h-1/2 object-contain" />
-              </div>
+              </button>
             </div>
 
             {/* Status Badge */}
@@ -75,8 +80,8 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
                 {category || 'Projeto'}
               </span>
             </div>
-            <h3 className="text-white font-bold text-[24px] mb-2">{name}</h3>
-            <p className="text-[var(--dynamic-text-secondary)] text-[14px] leading-relaxed line-clamp-3">
+            <h3 className="text-white font-bold text-[clamp(1.2rem,4vw,1.5rem)] mb-2">{name}</h3>
+            <p className="text-[var(--dynamic-text-secondary)] text-[clamp(0.85rem,2.5vw,1rem)] leading-relaxed line-clamp-3">
               {description}
             </p>
           </div>
@@ -92,12 +97,13 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
             ))}
           </div>
 
-          <div className="mt-6">
+          <div className="mt-auto pt-6">
             <button
-               onClick={() => window.open(sourceCodeLink, "_blank")}
-               className="w-full glass-btn py-3 rounded-xl text-[14px] font-bold flex items-center justify-center gap-2 hover:bg-white/10 transition-colors"
+              type="button"
+              onClick={() => window.open(sourceCodeLink, '_blank')}
+              className="w-full glass-btn py-[clamp(0.75rem,2vh,1rem)] rounded-xl text-[clamp(0.8rem,2vw,0.9rem)] font-bold flex items-center justify-center gap-2 hover:bg-white/10 transition-colors"
             >
-              <img src={github} alt="github" className="w-4 h-4" />
+              <img src={github} alt="github" className="w-5 h-5" />
               Ver Código Fonte
             </button>
           </div>
@@ -127,15 +133,20 @@ const Works = () => {
         ))}
       </div>
 
-      <div className="mt-40 flex justify-center">
+      <div className="mt-16 pb-10 flex justify-center w-full relative z-20 px-4">
         <button
           type="button"
           onClick={() => {
-            window.open('https://github.com/lelebrr?tab=repositories', '_blank', 'noopener,noreferrer');
+            window.open(
+              'https://github.com/lelebrr?tab=repositories',
+              '_blank',
+              'noopener,noreferrer'
+            );
           }}
-          className="glass-btn px-10 py-4 rounded-2xl font-bold tracking-wider text-sm uppercase hover:scale-105 transition-all shadow-xl"
+          className="px-[clamp(2rem,8vw,4rem)] py-[clamp(1rem,3vh,1.5rem)] rounded-2xl font-black tracking-widest text-[clamp(0.9rem,3vw,1.1rem)] uppercase hover:scale-[1.03] transition-all shadow-[0_0_30px_rgba(145,94,255,0.4)] bg-gradient-to-r from-[#915EFF] to-[#00FFFF] text-white border-none group relative overflow-hidden"
         >
-          Explorar todos repositórios
+          <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+          <span className="relative z-10 drop-shadow-md">Explorar todos repositórios</span>
         </button>
       </div>
     </>

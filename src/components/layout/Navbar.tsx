@@ -3,7 +3,7 @@ import { memo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { close, logo, menu } from '../../assets';
 import { navLinks } from '../../constants';
-import { config } from '../../constants/config';
+
 import { styles } from '../../constants/styles';
 import { LinkAnimado } from '../atoms';
 
@@ -15,9 +15,19 @@ const Navbar = memo(() => {
 
   useEffect(() => {
     let ticking = false;
+    let lastScrollTop = 0;
+    const scrollThreshold = 50; // Threshold para reduzir atualizações
 
     const updateScrollState = () => {
       const scrollTop = window.scrollY;
+
+      // Otimização: só atualiza se a diferença for significativa
+      if (Math.abs(scrollTop - lastScrollTop) < scrollThreshold && ticking) {
+        ticking = false;
+        return;
+      }
+
+      lastScrollTop = scrollTop;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
       setScrollProgress(progress);
@@ -29,18 +39,21 @@ const Navbar = memo(() => {
         setActive('');
       }
 
-      // Navbar highlighter
+      // Otimização: Navbar highlighter com throttle
       const sections = document.querySelectorAll('section[id]');
-      sections.forEach((current) => {
+      for (const current of sections) {
         const sectionId = current.getAttribute('id');
         const el = current as HTMLElement;
         const sectionHeight = el.offsetHeight;
         const sectionTop = current.getBoundingClientRect().top - sectionHeight * 0.2;
 
         if (sectionTop < 0 && sectionTop + sectionHeight > 0) {
-          setActive(sectionId);
+          if (active !== sectionId) {
+            setActive(sectionId);
+          }
+          break; // Sai do loop quando encontra a seção ativa
         }
-      });
+      }
 
       ticking = false;
     };
@@ -52,62 +65,63 @@ const Navbar = memo(() => {
       }
     };
 
+    // Usa passive listener para melhor performance
     window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [active]);
 
   return (
     <nav
       className={`${
         styles.paddingX
-      } fixed top-0 z-20 flex w-full items-center py-6 will-change-[background-color] ${
+      } fixed top-0 z-20 flex w-full items-center py-[clamp(0.5rem,2vh,1.5rem)] will-change-[background-color] ${
         scrolled ? 'bg-primary' : 'bg-transparent'
       }`}
     >
       {/* Horizontal Scroll Progress Bar */}
       <div className="absolute bottom-0 left-0 w-full h-[3px] bg-white/5 pointer-events-none">
-        <motion.div
+        <div
           className="h-full bg-gradient-to-r from-[#915EFF33] via-[#915EFF] to-[#915EFF] relative overflow-hidden ring-1 ring-[#915EFF]/20"
-          style={{ width: `${scrollProgress}%` }}
-          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          style={{ width: `${scrollProgress}%`, transition: 'width 0.1s ease-out' }}
         >
-          {/* Scanning Glow Light */}
-          {scrollProgress > 0 && (
-            <motion.div
-              className="absolute top-0 bottom-0 w-1/3 bg-gradient-to-r from-transparent via-white/40 to-transparent z-40"
-              animate={{
-                left: ['-100%', '100%'],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: 'linear',
-              }}
-            />
-          )}
-
+          {/* Scanning Light Effect for Progress Bar */}
+          <motion.div
+            className="absolute top-0 bottom-0 w-24 bg-gradient-to-r from-transparent via-white/40 to-transparent z-10"
+            animate={{
+              left: ['-100%', '100%'],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: 'linear',
+            }}
+          />
           {/* End-point Bead Glow */}
           <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[8px] h-full bg-white shadow-[0_0_15px_#fff,0_0_5px_#915EFF]" />
-        </motion.div>
+        </div>
       </div>
-      <div className="flex w-full items-center justify-between">
+      <div className="max-w-7xl mx-auto flex w-full items-center justify-between">
         <Link
           to="/"
-          className="flex items-center gap-3 max-w-[70vw] sm:max-w-none"
+          className="flex items-center gap-[clamp(0.5rem,2vw,1rem)] max-w-[70vw] sm:max-w-none hover:scale-105 transition-transform duration-500"
           onClick={() => {
             window.scrollTo(0, 0);
           }}
         >
-          <img src={logo} alt="logo" className="h-16 w-16 object-contain sm:h-24 sm:w-24" />
-          <p className="flex text-[16px] font-bold text-[var(--dynamic-text-color)] sm:text-[24px] truncate transition-colors duration-500">
-            {config.html.title}
+          <img
+            src={logo}
+            alt="logo"
+            className="h-[clamp(40px,8vw,80px)] w-[clamp(40px,8vw,80px)] object-contain drop-shadow-[0_0_15px_rgba(145,94,255,0.5)]"
+          />
+          <p className="hidden text-[clamp(14px,2vw,22px)] font-bold text-white xs:block tracking-tight ml-2">
+            Leandro
           </p>
         </Link>
 
-        <ul className="hidden list-none flex-row gap-14 sm:flex">
+        <ul className="hidden list-none flex-row gap-6 lg:gap-8 sm:flex">
           {navLinks.map((nav) => {
             const isSectionActive = active === nav.id;
             return (
@@ -121,47 +135,38 @@ const Navbar = memo(() => {
                     isSectionActive
                       ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)] scale-110'
                       : 'text-[var(--dynamic-text-secondary)] hover:text-white'
-                  } transition-all duration-300 block pb-1`}
+                  } transition-all duration-300 block pb-1 text-[16px] lg:text-[18px]`}
                 >
                   {nav.title}
                 </LinkAnimado>
 
                 {isSectionActive && (
                   <>
-                    {/* Primary Underline with Gradient and Scanning Light */}
+                    {/* Primary Underline with Gradient and Layout Transition */}
                     <motion.div
-                      layoutId="active-nav-underline"
+                      layoutId="active-nav-desktop"
                       className="absolute bottom-[-4px] left-0 right-0 h-[3px] bg-gradient-to-r from-[#915EFF33] via-[#915EFF] to-[#915EFF] rounded-full z-10 shadow-[0_0_15px_#915EFF] overflow-hidden"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     >
+                      {/* Scanning Light Effect for Active Underline */}
                       <motion.div
-                        className="absolute top-0 bottom-0 w-1/2 bg-gradient-to-r from-transparent via-white/40 to-transparent z-40"
+                        className="absolute top-0 bottom-0 w-1/2 bg-gradient-to-r from-transparent via-white/40 to-transparent z-20"
                         animate={{
                           left: ['-100%', '100%'],
                         }}
                         transition={{
-                          duration: 2.5,
+                          duration: 2,
                           repeat: Infinity,
                           ease: 'linear',
                         }}
                       />
                     </motion.div>
-                    {/* Projected Glow / Spotlight */}
+                    
+                    {/* Projected Glow / Spotlight that slides with the link */}
                     <motion.div
-                      layoutId="active-nav-glow"
+                      layoutId="active-nav-desktop-glow"
                       className="absolute bottom-[-20px] left-1/2 -translate-x-1/2 w-24 h-12 bg-[#915EFF]/20 blur-[20px] rounded-full pointer-events-none"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{
-                        opacity: [0.3, 0.6, 0.3],
-                        scale: [0.8, 1.2, 0.8],
-                      }}
-                      transition={{
-                        opacity: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
-                        scale: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
-                        layout: { type: 'spring', stiffness: 300, damping: 30 },
-                      }}
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   </>
                 )}
@@ -173,7 +178,7 @@ const Navbar = memo(() => {
         <div className="flex flex-1 items-center justify-end sm:hidden">
           <button
             type="button"
-            className="flex items-center justify-center focus:outline-none"
+            className="flex items-center justify-center focus:outline-none p-2"
             onClick={() => setToggle(!toggle)}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
@@ -185,7 +190,7 @@ const Navbar = memo(() => {
             <img
               src={toggle ? close : menu}
               alt="menu"
-              className="h-[28px] w-[28px] object-contain"
+              className="h-[clamp(24px,5vw,32px)] w-[clamp(24px,5vw,32px)] object-contain"
             />
           </button>
 

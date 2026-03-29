@@ -19,37 +19,43 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
       name: 'Introdução ao Gerenciamento de Produtos de Software',
       path: '/certificados/Introdução ao Gerenciamento de produtos  ALBERTA.pdf',
       institution: 'University of Alberta',
-      description: 'Apresenta o papel do gerente de produto, focando em fornecer o produto certo, feito corretamente e gerenciado de forma eficaz, utilizando os valores do Manifesto Ágil.',
+      description:
+        'Apresenta o papel do gerente de produto, focando em fornecer o produto certo, feito corretamente e gerenciado de forma eficaz, utilizando os valores do Manifesto Ágil.',
     },
     {
       name: 'Software Processes and Agile Practices',
       path: '/certificados/Introdução ao Gerenciamento de produtos  ALBERTA.pdf',
       institution: 'University of Alberta',
-      description: 'Explora modelos de processo como Waterfall, V-Model, Spiral e práticas ágeis como Scrum (sprints, backlog) e Extreme Programming (XP).',
+      description:
+        'Explora modelos de processo como Waterfall, V-Model, Spiral e práticas ágeis como Scrum (sprints, backlog) e Extreme Programming (XP).',
     },
     {
       name: 'Client Needs and Software Requirements',
       path: '/certificados/Introdução ao Gerenciamento de produtos  ALBERTA.pdf',
       institution: 'University of Alberta',
-      description: 'Ensina técnicas para elicitar requisitos, criar User Stories, protótipos (wireframes e storyboards) e gerenciar o backlog do produto.',
+      description:
+        'Ensina técnicas para elicitar requisitos, criar User Stories, protótipos (wireframes e storyboards) e gerenciar o backlog do produto.',
     },
     {
       name: 'Agile Planning for Software Products',
       path: '/certificados/Introdução ao Gerenciamento de produtos  ALBERTA.pdf',
       institution: 'University of Alberta',
-      description: 'Cobre estimativas de tempo (Story Points), cálculo de velocidade da equipe, gerenciamento de riscos, cronogramas (Gantt) e planejamento de iterações e releases.',
+      description:
+        'Cobre estimativas de tempo (Story Points), cálculo de velocidade da equipe, gerenciamento de riscos, cronogramas (Gantt) e planejamento de iterações e releases.',
     },
     {
       name: 'Reviews and Metrics for Software Improvements',
       path: '/certificados/Introdução ao Gerenciamento de produtos  ALBERTA.pdf',
       institution: 'University of Alberta',
-      description: 'Foca no monitoramento de progresso através de gráficos de Burndown, métricas de qualidade (GQM), análise de defeitos e reuniões de retrospectiva.',
+      description:
+        'Foca no monitoramento de progresso através de gráficos de Burndown, métricas de qualidade (GQM), análise de defeitos e reuniões de retrospectiva.',
     },
     {
       name: 'Software Product Management Capstone',
       path: '/certificados/Introdução ao Gerenciamento de produtos  ALBERTA.pdf',
       institution: 'University of Alberta',
-      description: 'Simulação prática de gerenciamento onde o aluno aplica todas as técnicas anteriores (requisitos, priorização, planos de release e retrospectivas) em um cenário real.',
+      description:
+        'Simulação prática de gerenciamento onde o aluno aplica todas as técnicas anteriores (requisitos, priorização, planos de release e retrospectivas) em um cenário real.',
     },
 
     // Certificações Google - Suporte em TI
@@ -63,7 +69,8 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
       name: 'Suporte em TI do Google',
       path: '/certificados/Suporte em TI do Google.pdf',
       institution: 'Google (via Coursera)',
-      description: 'Introdução ao mundo da computação, cobrindo hardware, software, redes e atendimento ao cliente.',
+      description:
+        'Introdução ao mundo da computação, cobrindo hardware, software, redes e atendimento ao cliente.',
     },
     {
       name: 'Technical Support Basics',
@@ -75,25 +82,29 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
       name: 'Estrutura e Funcionamento das Redes de Computadores',
       path: '/certificados/Estrutura e Funcionamento das Redes de computadores.pdf',
       institution: 'Google (via Coursera)',
-      description: 'Mergulho profundo em protocolos de rede (TCP/IP), serviços como DNS e DHCP, e ferramentas de solução de problemas de conectividade.',
+      description:
+        'Mergulho profundo em protocolos de rede (TCP/IP), serviços como DNS e DHCP, e ferramentas de solução de problemas de conectividade.',
     },
     {
       name: 'Sistemas Operacionais e Você: Tornando-se um Usuário de Poder',
       path: '/certificados/Sistemas Operacionais e Você - Google.pdf',
       institution: 'Google (via Coursera)',
-      description: 'Gerenciamento de diretórios, usuários, permissões e processos nos sistemas Windows e Linux.',
+      description:
+        'Gerenciamento de diretórios, usuários, permissões e processos nos sistemas Windows e Linux.',
     },
     {
       name: 'Administração de Sistemas e Serviços de Infraestrutura de TI',
       path: '/certificados/Administração de Sistemas e Serviços de Infraestrutura de TI.pdf',
       institution: 'Google (via Coursera)',
-      description: 'Focado em serviços de infraestrutura como Active Directory, gerenciamento de frotas e backup de dados.',
+      description:
+        'Focado em serviços de infraestrutura como Active Directory, gerenciamento de frotas e backup de dados.',
     },
     {
       name: 'Segurança de TI: Defesa Contra as Artes Obscuras do Mundo Digital',
       path: '/certificados/Defesa Contra as Artes Obscuras.pdf',
       institution: 'Google (via Coursera)',
-      description: 'Cobre conceitos de criptografia, autenticação, tipos de ataques e como proteger redes e sistemas.',
+      description:
+        'Cobre conceitos de criptografia, autenticação, tipos de ataques e como proteger redes e sistemas.',
     },
 
     // Certificações IBM
@@ -101,13 +112,15 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
       name: 'Introduction to Technical Support',
       path: '/certificados/Introduction to Technical Support IBM.pdf',
       institution: 'IBM (via Coursera)',
-      description: 'Aborda as habilidades essenciais para fornecer suporte técnico eficaz, incluindo metodologias de resolução de problemas e comunicação.',
+      description:
+        'Aborda as habilidades essenciais para fornecer suporte técnico eficaz, incluindo metodologias de resolução de problemas e comunicação.',
     },
     {
       name: 'Introduction to Scrum Master Profession',
       path: '/certificados/Introduction to Scrum Master Profession.pdf',
       institution: 'IBM (via Coursera)',
-      description: 'Explora a mentalidade ágil e o papel específico do Scrum Master na facilitação de equipes de alto desempenho.',
+      description:
+        'Explora a mentalidade ágil e o papel específico do Scrum Master na facilitação de equipes de alto desempenho.',
     },
 
     // Desenvolvimento Web
@@ -115,7 +128,8 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
       name: 'HTML, CSS, and Javascript for Web Developers',
       path: '/certificados/HTML, CSS, and Javascript for Web Developers.pdf',
       institution: 'Johns Hopkins University (via Coursera)',
-      description: 'Ensina o desenvolvimento de páginas web modernas e responsivas utilizando as tecnologias fundamentais do front-end.',
+      description:
+        'Ensina o desenvolvimento de páginas web modernas e responsivas utilizando as tecnologias fundamentais do front-end.',
     },
 
     // Cibersegurança
@@ -123,13 +137,15 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
       name: 'Foundations of Cybersecurity',
       path: '/certificados/Foundations of Cybersecurity.pdf',
       institution: 'Google (via Coursera)',
-      description: 'Base fundamental sobre ameaças, riscos e as principais ferramentas utilizadas por profissionais de segurança digital.',
+      description:
+        'Base fundamental sobre ameaças, riscos e as principais ferramentas utilizadas por profissionais de segurança digital.',
     },
     {
       name: 'Nivelamento (Cibersegurança)',
       path: '/certificados/Certificado - Nivelamento.pdf',
       institution: 'Hackers do Bem (SENAI/RNP)',
-      description: 'Introdução técnica à área de segurança da informação para nivelamento em programas avançados.',
+      description:
+        'Introdução técnica à área de segurança da informação para nivelamento em programas avançados.',
     },
 
     // Banco de Dados - Fundação Bradesco
@@ -137,25 +153,29 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
       name: 'Fundamentos de TI',
       path: '/certificados/fundamentos de ti - Fundação Bradesco.pdf',
       institution: 'Fundação Bradesco',
-      description: 'Conceitos essenciais de arquitetura de computadores, hardware e lógica de funcionamento.',
+      description:
+        'Conceitos essenciais de arquitetura de computadores, hardware e lógica de funcionamento.',
     },
     {
       name: 'Implementando Banco de Dados',
       path: '/certificados/Implementando Banco de Dados - Fundação Bradesco.pdf',
       institution: 'Fundação Bradesco',
-      description: 'Focado na criação física de bancos de dados, utilizando linguagens de consulta e estruturação.',
+      description:
+        'Focado na criação física de bancos de dados, utilizando linguagens de consulta e estruturação.',
     },
     {
       name: 'Administrando Banco de Dados',
       path: '/certificados/Administrando Banco de Dados - Fundação Bradesco.pdf',
       institution: 'Fundação Bradesco',
-      description: 'Gerenciamento de segurança, usuários, integridade e manutenção de sistemas de banco de dados.',
+      description:
+        'Gerenciamento de segurança, usuários, integridade e manutenção de sistemas de banco de dados.',
     },
     {
       name: 'Segurança em Tecnologia da Informação',
       path: '/certificados/Segurança em Tecnologia da Informação - Fundação Bradesco.pdf',
       institution: 'Fundação Bradesco',
-      description: 'Princípios de segurança de dados, políticas de segurança e defesa de perímetros.',
+      description:
+        'Princípios de segurança de dados, políticas de segurança e defesa de perímetros.',
     },
 
     // Marketing Digital - Google
@@ -163,7 +183,8 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
       name: 'Exame de Certificação no Search Ads 360',
       path: '/certificados/Exame de certificação no Search Ads 360  Google.pdf',
       institution: 'Google Skillshop',
-      description: 'Certificação avançada para gerenciar e otimizar campanhas de anúncios em larga escala.',
+      description:
+        'Certificação avançada para gerenciar e otimizar campanhas de anúncios em larga escala.',
     },
     {
       name: 'Waze Ads Fundamentals',
@@ -175,13 +196,15 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
       name: 'Google My Business (Perfil da Empresa)',
       path: '/certificados/Google My Business  Google.pdf',
       institution: 'Google Skillshop',
-      description: 'Ferramentas para otimizar a presença de negócios locais no Google Maps e na busca.',
+      description:
+        'Ferramentas para otimizar a presença de negócios locais no Google Maps e na busca.',
     },
     {
       name: 'Creative Certification Exam',
       path: '/certificados/Creative Certification Exam _ Google.pdf',
       institution: 'Google Skillshop',
-      description: 'Teste de conhecimento sobre o desenvolvimento de criativos publicitários eficazes para plataformas Google.',
+      description:
+        'Teste de conhecimento sobre o desenvolvimento de criativos publicitários eficazes para plataformas Google.',
     },
 
     // Atendimento e Ética - IPED
@@ -189,19 +212,22 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
       name: 'Satisfação de Clientes',
       path: '/certificados/Satisfação de clientes IPED.pdf',
       institution: 'IPED',
-      description: 'Métodos para medir e melhorar o índice de contentamento dos clientes com produtos e serviços.',
+      description:
+        'Métodos para medir e melhorar o índice de contentamento dos clientes com produtos e serviços.',
     },
     {
       name: 'Atendimento ao Cliente',
       path: '/certificados/Atendimento ao cliente IPED.pdf',
       institution: 'IPED',
-      description: 'Técnicas de abordagem, postura profissional e resolução ágil de problemas durante o suporte.',
+      description:
+        'Técnicas de abordagem, postura profissional e resolução ágil de problemas durante o suporte.',
     },
     {
       name: 'Ética, Política e Cidadania',
       path: '/certificados/etica politica e cidadania.pdf',
       institution: 'IPED',
-      description: 'Estudo da conduta ética no ambiente de trabalho e o papel social do profissional.',
+      description:
+        'Estudo da conduta ética no ambiente de trabalho e o papel social do profissional.',
     },
     {
       name: 'Boas Práticas de Manipulação de Alimentos',

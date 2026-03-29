@@ -21,14 +21,16 @@ const ExperienceCard: React.FC<TExperience> = ({
   return (
     <VerticalTimelineElement
       contentStyle={{
-        background: 'var(--tertiary)',
+        background: 'rgba(21, 16, 48, 0.7)',
         color: 'var(--dynamic-text-color)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        border: '1px solid rgba(255, 255, 255, 0.15)',
-        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1), 0 0 20px rgba(145, 94, 255, 0.2)',
+        backdropFilter: 'blur(24px)',
+        WebkitBackdropFilter: 'blur(24px)',
+        border: '1px solid rgba(145, 94, 255, 0.2)',
+        borderRadius: '24px',
+        boxShadow:
+          '0 10px 40px -10px rgba(145, 94, 255, 0.15), inset 0 0 20px rgba(255, 255, 255, 0.02)',
       }}
-      contentArrowStyle={{ borderRight: '7px solid var(--tertiary)' }}
+      contentArrowStyle={{ borderRight: '7px solid rgba(145, 94, 255, 0.2)' }}
       date={date}
       iconStyle={{ background: iconBg }}
       icon={
@@ -44,9 +46,9 @@ const ExperienceCard: React.FC<TExperience> = ({
       }
     >
       <div className="text-center flex flex-col items-center">
-        <h3 className="text-[24px] font-bold text-[var(--dynamic-text-color)]">{title}</h3>
+        <h3 className="text-[clamp(1.2rem,4vw,1.5rem)] font-bold text-[var(--dynamic-text-color)]">{title}</h3>
         <p
-          className="text-[var(--dynamic-text-secondary)] text-[16px] font-semibold"
+          className="text-[var(--dynamic-text-secondary)] text-[clamp(0.9rem,2vw,1.1rem)] font-semibold"
           style={{ margin: 0 }}
         >
           {companyName}
@@ -57,7 +59,7 @@ const ExperienceCard: React.FC<TExperience> = ({
         {points.map((point, index) => (
           <li
             key={index}
-            className="text-[var(--dynamic-text-secondary)] pl-1 text-[14px] leading-snug tracking-normal"
+            className="text-[var(--dynamic-text-secondary)] pl-1 text-[clamp(0.8rem,2vw,0.9rem)] leading-snug tracking-normal"
           >
             {point}
           </li>

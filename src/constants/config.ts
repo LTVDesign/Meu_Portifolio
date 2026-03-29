@@ -54,7 +54,7 @@ export const config: TConfig = {
   },
   contact: {
     p: 'Entre em contato',
-    h2: 'Contato.',
+    h2: 'Contato',
     form: {
       name: {
         span: 'Seu Nome',
@@ -69,7 +69,7 @@ export const config: TConfig = {
   },
   sections: {
     about: {
-      p: 'Tecnólogo em ADS e Pós-Graduando em IA & Data Science com mais de 20 anos de TI.',
+      p: 'Engenheiro de Software • Tecnólogo em ADS • Pós-Graduando em IA & Data Science',
       h2: 'Experiência Consolidada, Olhar no Futuro.',
       content: `Sou um profissional de tecnologia com uma trajetória sólida, unindo a resiliência do suporte técnico de alto nível à inovação da análise de dados. Recentemente, consolidei minha base acadêmica com o título de Tecnólogo em Análise e Desenvolvimento de Sistemas e estou em fase de especialização em Inteligência Artificial e Data Science pela Anhanguera.
 
@@ -82,12 +82,12 @@ Mais do que resolver problemas técnicos, busco transformar dados em decisões e
     },
     formacao: {
       p: 'Minha formação acadêmica',
-      h2: 'Formação.',
+      h2: 'Formação',
       content: `Aqui estão minhas qualificações acadêmicas e formações complementares.`,
     },
     experience: {
       p: 'O que fiz até agora',
-      h2: 'Experiência Profissional.',
+      h2: 'Experiência Profissional',
     },
     feedbacks: {
       p: 'O que os outros dizem',
@@ -95,12 +95,12 @@ Mais do que resolver problemas técnicos, busco transformar dados em decisões e
     },
     works: {
       p: 'Criações & Experimentos',
-      h2: 'Projetos.',
+      h2: 'Projetos',
       content: `Uma vitrine de projetos que desenvolvi por paixão, hobby e para aprofundar meus conhecimentos técnicos. Cada iniciativa reflete minha curiosidade em explorar novas fronteiras, desde hardware modding até automações inteligentes com IA.`,
     },
     cursos: {
       p: 'Meus cursos',
-      h2: 'Cursos.',
+      h2: 'Cursos',
       content: `Uma curadoria das minhas principais formações técnico-estratégicas, certificações profissionais e especializações em gestão de produtos e cibersegurança.`,
     },
     certificados: {
@@ -110,7 +110,7 @@ Mais do que resolver problemas técnicos, busco transformar dados em decisões e
     },
     curriculo: {
       p: 'Meu currículo',
-      h2: 'Currículo.',
+      h2: 'Currículo',
       content: `Confira meu currículo completo com todas as minhas qualificações, experiências e habilidades técnicas.`,
     },
   },

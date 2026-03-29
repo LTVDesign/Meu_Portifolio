@@ -26,7 +26,7 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
           onClick={() => setViewMode?.('allcurriculo')}
           className="glass-btn px-6 py-3 rounded-lg font-bold tracking-wider"
         >
-          Ver Todos
+          Ver Currículo completo
         </button>
       </div>
     </>
