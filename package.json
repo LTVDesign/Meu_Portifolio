@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "postinstall": "npm install --legacy-peer-deps --no-audit --no-fund"
+    "test": "jest"
   },
   "dependencies": {
     "@emailjs/browser": "^3.12.1",
