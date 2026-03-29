@@ -28,12 +28,12 @@ const Contact = () => {
     if (value.length > 11) value = value.slice(0, 11);
     if (value.length > 2) value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
     if (value.length > 9) value = `${value.slice(0, 10)}-${value.slice(10)}`;
-    setForm({ ...form, phone: value });
+    setForm((prev) => ({ ...prev, phone: value }));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    setForm((prev) => ({ ...prev, [name]: value }));
     if (error) setError(null);
   };
 
@@ -41,23 +41,14 @@ const Contact = () => {
     e.preventDefault();
     setError(null);
 
-    if (!form.name?.trim()) {
-      setError('Por favor, preencha o seu nome.');
-      return;
-    }
+    // Validação acessível
+    if (!form.name?.trim()) return setError('Por favor, preencha o seu nome.');
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(form.email)) {
-      setError('Por favor, informe um email válido.');
-      return;
-    }
-    const phoneDigits = form.phone.replace(/\D/g, '');
-    if (phoneDigits.length < 10) {
-      setError('Por favor, informe um telefone válido.');
-      return;
-    }
+    if (!emailRegex.test(form.email)) return setError('Por favor, informe um email válido.');
+    if (form.phone.replace(/\D/g, '').length < 10)
+      return setError('Por favor, informe um telefone válido.');
     if (!form.message?.trim() || form.message.trim().length < 20) {
-      setError('A mensagem deve ter no mínimo 20 caracteres.');
-      return;
+      return setError('A mensagem deve ter no mínimo 20 caracteres.');
     }
 
     setLoading(true);
@@ -77,7 +68,7 @@ const Contact = () => {
       } else {
         setError(result.message);
       }
-    } catch (_err) {
+    } catch {
       setError('Algo deu errado. Tente novamente mais tarde.');
     } finally {
       setLoading(false);
@@ -85,133 +76,141 @@ const Contact = () => {
   };
 
   return (
-    <div className="flex flex-col xl:flex-row gap-8 xl:gap-16 overflow-hidden items-center relative z-10 w-full max-w-6xl mx-auto mb-0 pb-0">
-      {/* Container do Formulário (Glassmorphism) */}
-      <motion.div
-        variants={slideIn('left', 'tween', 0.2, 1)}
-        className="relative flex-1 w-full group"
-      >
-        {/* Border Glow Effect */}
-        <div className="absolute -inset-[1px] bg-gradient-to-r from-[#915EFF] to-[#00FFFF] rounded-3xl blur-[2px] opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
+    <SectionWrapper id="contact">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex flex-col xl:flex-row gap-8 xl:gap-16 items-center">
+          {/* FORMULÁRIO */}
+          <motion.div variants={slideIn('left', 'tween', 0.2, 1)} className="flex-1 w-full">
+            <div className="glass p-8 sm:p-10 relative group">
+              <Header useMotion={true} {...config.contact} />
 
-        <div className="bg-[#151030]/80 backdrop-blur-xl p-[clamp(1rem,5vw,2rem)] sm:p-8 rounded-3xl border border-white/5 relative z-10 shadow-2xl">
-          <Header useMotion={true} {...config.contact} />
-
-          <form ref={formRef} onSubmit={handleSubmit} className="mt-8 flex flex-col gap-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Nome */}
-              <div className="flex flex-col gap-3 group/field">
-                <span className="text-white text-[clamp(0.7rem,2vw,0.85rem)] font-bold uppercase tracking-widest flex items-center gap-2 opacity-60">
-                  <FaUser className="text-[#915EFF] text-xs" /> Seu Nome
-                </span>
-                <input
-                  type="text"
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  placeholder="Seu nome completo"
-                  className="bg-white/5 border border-white/10 rounded-2xl px-6 py-[clamp(0.75rem,2vh,1rem)] outline-none hover:border-white/20 focus:border-[#915EFF] focus:bg-[#915EFF]/5 transition-all placeholder:text-white/20 text-white font-medium shadow-inner text-[clamp(0.9rem,2.5vw,1rem)]"
-                />
-              </div>
-
-              {/* Email */}
-              <div className="flex flex-col gap-3 group/field">
-                <span className="text-white text-[clamp(0.7rem,2vw,0.85rem)] font-bold uppercase tracking-widest flex items-center gap-2 opacity-60">
-                  <FaEnvelope className="text-[#915EFF] text-xs" /> Seu Email
-                </span>
-                <input
-                  type="email"
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="exemplo@email.com"
-                  className="bg-white/5 border border-white/10 rounded-2xl px-6 py-[clamp(0.75rem,2vh,1rem)] outline-none hover:border-white/20 focus:border-[#915EFF] focus:bg-[#915EFF]/5 transition-all placeholder:text-white/20 text-white font-medium shadow-inner text-[clamp(0.9rem,2.5vw,1rem)]"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Telefone */}
-              <div className="flex flex-col gap-3 group/field">
-                <span className="text-white text-sm font-bold uppercase tracking-widest flex items-center gap-2 opacity-60">
-                  <FaPhone className="text-[#915EFF] text-xs" /> Telefone
-                </span>
-                <input
-                  type="text"
-                  name="phone"
-                  value={form.phone}
-                  onChange={handlePhoneChange}
-                  placeholder="(XX) XXXXX-XXXX"
-                  className="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none hover:border-white/20 focus:border-[#915EFF] focus:bg-[#915EFF]/5 transition-all placeholder:text-white/20 text-white font-medium shadow-inner"
-                />
-              </div>
-
-              {/* Empresa */}
-              <div className="flex flex-col gap-3 group/field">
-                <span className="text-white text-sm font-bold uppercase tracking-widest flex items-center gap-2 opacity-60">
-                  <FaBuilding className="text-[#915EFF] text-xs" /> Empresa
-                </span>
-                <input
-                  type="text"
-                  name="company"
-                  value={form.company}
-                  onChange={handleChange}
-                  placeholder="Onde você trabalha?"
-                  className="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none hover:border-white/20 focus:border-[#915EFF] focus:bg-[#915EFF]/5 transition-all placeholder:text-white/20 text-white font-medium shadow-inner"
-                />
-              </div>
-            </div>
-
-            {/* Mensagem */}
-            <div className="flex flex-col gap-2 group/field">
-              <span className="text-white text-sm font-bold uppercase tracking-widest flex items-center gap-2 opacity-60">
-                <FaPaperPlane className="text-[#915EFF] text-xs" /> Mensagem
-              </span>
-              <textarea
-                rows={5}
-                name="message"
-                value={form.message}
-                onChange={handleChange}
-                placeholder="Como posso te ajudar hoje?"
-                className="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none hover:border-white/20 focus:border-[#915EFF] focus:bg-[#915EFF]/5 transition-all placeholder:text-white/20 text-white font-medium shadow-inner resize-none h-[150px]"
-              />
-            </div>
-
-            {error && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-red-400 text-sm font-bold"
+              <form
+                ref={formRef}
+                onSubmit={handleSubmit}
+                className="mt-8 flex flex-col gap-6"
+                noValidate
               >
-                * {error}
-              </motion.p>
-            )}
+                {/* Nome + Email */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="flex flex-col">
+                    <label htmlFor="name" className="form-label">
+                      <FaUser className="text-[#915EFF]" /> Seu Nome{' '}
+                      <span className="text-red-400">*</span>
+                    </label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      value={form.name}
+                      onChange={handleChange}
+                      required
+                      aria-required="true"
+                      className="form-input"
+                      placeholder="Seu nome completo"
+                    />
+                  </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="mt-6 w-full py-5 rounded-2xl font-bold text-white uppercase tracking-widest flex items-center justify-center gap-4 bg-gradient-to-r from-[#915EFF] to-[#00FFFF] hover:opacity-90 transition-opacity shadow-[0_0_20px_rgba(145,94,255,0.3)] disabled:opacity-50 group/btn"
-            >
-              <FaPaperPlane
-                className={`transition-transform duration-500 ${loading ? 'animate-ping' : 'group-hover:translate-x-2 group-hover:-translate-y-2'}`}
-              />
-              {loading ? 'Enviando...' : 'Enviar Mensagem'}
-            </button>
-          </form>
+                  <div className="flex flex-col">
+                    <label htmlFor="email" className="form-label">
+                      <FaEnvelope className="text-[#915EFF]" /> Seu Email{' '}
+                      <span className="text-red-400">*</span>
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={form.email}
+                      onChange={handleChange}
+                      required
+                      aria-required="true"
+                      className="form-input"
+                      placeholder="exemplo@email.com"
+                    />
+                  </div>
+                </div>
+
+                {/* Telefone + Empresa */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="flex flex-col">
+                    <label htmlFor="phone" className="form-label">
+                      <FaPhone className="text-[#915EFF]" /> Telefone
+                    </label>
+                    <input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      value={form.phone}
+                      onChange={handlePhoneChange}
+                      className="form-input"
+                      placeholder="(XX) XXXXX-XXXX"
+                    />
+                  </div>
+
+                  <div className="flex flex-col">
+                    <label htmlFor="company" className="form-label">
+                      <FaBuilding className="text-[#915EFF]" /> Empresa
+                    </label>
+                    <input
+                      id="company"
+                      name="company"
+                      type="text"
+                      value={form.company}
+                      onChange={handleChange}
+                      className="form-input"
+                      placeholder="Onde você trabalha?"
+                    />
+                  </div>
+                </div>
+
+                {/* Mensagem */}
+                <div className="flex flex-col">
+                  <label htmlFor="message" className="form-label">
+                    <FaPaperPlane className="text-[#915EFF]" /> Mensagem{' '}
+                    <span className="text-red-400">*</span>
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
+                    required
+                    aria-required="true"
+                    rows={6}
+                    className="form-input resize-y min-h-[160px]"
+                    placeholder="Escreva sua mensagem aqui..."
+                  />
+                </div>
+
+                {/* Erro acessível */}
+                {error && (
+                  <div role="alert" aria-live="assertive" className="error-alert">
+                    ⚠️ {error}
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="mt-4 bg-gradient-to-r from-[#915EFF] to-[#00FFFF] text-white font-bold py-5 rounded-3xl hover:scale-[1.03] active:scale-95 transition-all disabled:opacity-50 flex items-center justify-center gap-3 text-lg focus-visible:ring-4 focus-visible:ring-offset-4 focus-visible:ring-[#915EFF]"
+                >
+                  {loading ? 'Enviando...' : 'Enviar Mensagem'}
+                  <FaPaperPlane />
+                </button>
+              </form>
+            </div>
+          </motion.div>
+
+          {/* Canvas 3D */}
+          <motion.div
+            variants={slideIn('right', 'tween', 0.2, 1)}
+            className="flex-1 w-full xl:w-1/2"
+          >
+            <EarthCanvas />
+          </motion.div>
         </div>
-      </motion.div>
-
-      {/* Earth Canvas Section */}
-      <motion.div
-        variants={slideIn('right', 'tween', 0.2, 1)}
-        className="xl:flex-1 h-[clamp(250px,50vh,550px)] w-full flex justify-center items-center relative overflow-visible"
-      >
-        {/* Glow behind globe */}
-        <div className="absolute inset-0 bg-[#915EFF]/5 blur-[120px] rounded-full" />
-        <EarthCanvas />
-      </motion.div>
-    </div>
+      </div>
+    </SectionWrapper>
   );
 };
 
-export default SectionWrapper(Contact, 'contact');
+export default Contact;

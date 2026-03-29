@@ -46,7 +46,9 @@ const ExperienceCard: React.FC<TExperience> = ({
       }
     >
       <div className="text-center flex flex-col items-center">
-        <h3 className="text-[clamp(1.2rem,4vw,1.5rem)] font-bold text-[var(--dynamic-text-color)]">{title}</h3>
+        <h3 className="text-[clamp(1.2rem,4vw,1.5rem)] font-bold text-[var(--dynamic-text-color)]">
+          {title}
+        </h3>
         <p
           className="text-[var(--dynamic-text-secondary)] text-[clamp(0.9rem,2vw,1.1rem)] font-semibold"
           style={{ margin: 0 }}

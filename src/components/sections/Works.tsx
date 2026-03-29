@@ -133,7 +133,7 @@ const Works = () => {
         ))}
       </div>
 
-      <div className="mt-16 pb-10 flex justify-center w-full relative z-20 px-4">
+      <div className="mt-12 mb-8 flex justify-center w-full relative z-20 px-4">
         <button
           type="button"
           onClick={() => {

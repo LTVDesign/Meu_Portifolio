@@ -367,7 +367,7 @@ const Formacao = () => {
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') setSelectedEducation(education);
               }}
-              className="relative rounded-[24px] bg-gradient-to-br from-[rgba(29,24,54,0.9)] to-[rgba(21,16,48,0.7)] backdrop-blur-xl border border-white/[0.08] p-8 sm:p-12 shadow-[0_10px_50px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.05)] group flex flex-col cursor-pointer hover:border-[#915EFF]/40 hover:shadow-[0_10px_50px_rgba(145,94,255,0.2)] transition-all duration-500 active:scale-[0.98] overflow-hidden"
+              className="relative rounded-[24px] bg-gradient-to-br from-[rgba(29,24,54,0.9)] to-[rgba(21,16,48,0.7)] backdrop-blur-xl border border-white/[0.08] p-8 shadow-[0_10px_50px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.05)] group flex flex-col cursor-pointer hover:border-[#915EFF]/40 hover:shadow-[0_10px_50px_rgba(145,94,255,0.2)] transition-all duration-500 active:scale-[0.98] overflow-hidden"
             >
               {/* Decorative gradient orb */}
               <div

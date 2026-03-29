@@ -69,7 +69,12 @@ const ComputersCanvas = () => {
         shadows={false} // Desabilitado sombras para melhor performance
         camera={{
           position: [20, 3, 5],
-          fov: screenSize === 'desktop' || screenSize === 'cinema' ? 25 : screenSize === 'watch' ? 55 : 45,
+          fov:
+            screenSize === 'desktop' || screenSize === 'cinema'
+              ? 25
+              : screenSize === 'watch'
+                ? 55
+                : 45,
         }}
         gl={{
           preserveDrawingBuffer: false, // Desabilitado para melhor performance

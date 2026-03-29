@@ -62,8 +62,8 @@ const CredentialCard: React.FC<{ index: number } & Credential> = ({
   };
 
   return (
-    <motion.div 
-      variants={fadeIn('up', 'spring', index * 0.15, 0.75)} 
+    <motion.div
+      variants={fadeIn('up', 'spring', index * 0.15, 0.75)}
       className="w-full flex justify-center"
     >
       <Tilt
@@ -226,11 +226,11 @@ const Cursos = ({ setViewMode }: { setViewMode: (mode: string) => void }) => {
       <div className="w-full h-px bg-white/5 my-10" />
 
       {/* Área do Botão Ultra Espaçada */}
-      <div className="w-full flex justify-center pt-48 pb-40 relative z-10">
+      <div className="w-full flex justify-center mt-12 mb-8 relative z-10">
         <div className="relative group">
           {/* Brilho de Fundo Sutil e Elegante */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[200px] bg-[#915EFF]/20 blur-[100px] rounded-full group-hover:bg-[#915EFF]/30 transition-colors duration-700 pointer-events-none" />
-          
+
           <button
             type="button"
             onClick={() => setViewMode('allcourses')}
@@ -238,16 +238,16 @@ const Cursos = ({ setViewMode }: { setViewMode: (mode: string) => void }) => {
           >
             {/* Fundo de Vidro Puro e Sólido */}
             <div className="absolute inset-0 bg-[#0a0a20]/90 backdrop-blur-2xl z-0" />
-            
+
             {/* Borda de Gradiente em Neon */}
             <div className="absolute inset-0 p-[2px] rounded-3xl bg-gradient-to-r from-[#915EFF]/40 via-cyan-500/40 to-[#915EFF]/40 group-hover:bg-gradient-to-r group-hover:from-[#915EFF] group-hover:via-cyan-400 group-hover:to-[#915EFF] transition-all duration-500 z-10" />
-            
+
             {/* Overlay Interno para manter o fundo escuro */}
             <div className="absolute inset-[2px] bg-[#0a0a20] rounded-[22px] z-10" />
 
             <span className="relative z-20 text-white flex items-center justify-center gap-8 text-center leading-none">
-               Explorar todos Cursos e certificações 
-               <FaArrowRight className="group-hover:translate-x-5 transition-transform duration-500 text-[1.4em] text-[#915EFF]" />
+              Explorar todos Cursos e certificações
+              <FaArrowRight className="group-hover:translate-x-5 transition-transform duration-500 text-[1.4em] text-[#915EFF]" />
             </span>
           </button>
         </div>

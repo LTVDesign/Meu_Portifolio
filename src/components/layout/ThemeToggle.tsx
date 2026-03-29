@@ -999,7 +999,7 @@ const ThemeToggle = () => {
 
           {/* Main menu — opens to the right with massive margin to clear icon */}
           {isOpen && (
-            <div className="absolute top-0 left-full ml-64 bg-tertiary/75 backdrop-blur-xl rounded-2xl shadow-2xl p-10 min-w-[320px] max-w-[90vw] z-50 border border-white/10 ring-1 ring-white/5 transition-all duration-300 animate-in fade-in slide-in-from-left-4">
+            <div className="absolute left-[calc(100%+16px)] top-1/2 -translate-y-1/2 bg-tertiary/75 backdrop-blur-xl rounded-2xl shadow-2xl p-10 min-w-[320px] max-w-[90vw] z-50 border border-white/10 ring-1 ring-white/5 transition-all duration-300 animate-in fade-in slide-in-from-left-4">
               <h3 className="text-white font-bold mb-4 text-xs uppercase tracking-[0.2em] border-b border-white/5 pb-2">
                 Configurações
               </h3>
@@ -1058,7 +1058,7 @@ const ThemeToggle = () => {
 
           {/* Background editor panel — even larger margin */}
           {isEditorOpen && (
-            <div className="absolute top-1/2 -translate-y-1/2 left-full ml-80 bg-tertiary/70 backdrop-blur-xl rounded-3xl shadow-2xl p-10 min-w-[360px] sm:min-w-[540px] md:min-w-[620px] max-w-[95vw] z-50 max-h-[85vh] flex flex-col border border-white/10 ring-1 ring-white/5 transition-all duration-300 animate-in fade-in slide-in-from-left-6">
+            <div className="absolute left-[calc(100%+16px)] top-1/2 -translate-y-1/2 bg-tertiary/70 backdrop-blur-xl rounded-3xl shadow-2xl p-10 min-w-[360px] sm:min-w-[540px] md:min-w-[620px] max-w-[95vw] z-50 max-h-[85vh] flex flex-col border border-white/10 ring-1 ring-white/5 transition-all duration-300 animate-in fade-in slide-in-from-left-6">
               <div className="flex items-center justify-between mb-6 shrink-0 border-b border-white/10 pb-4">
                 <h3 className="text-white font-bold text-sm uppercase tracking-[0.2em]">
                   {BG_LABELS[selectedBg] || 'Background'}
