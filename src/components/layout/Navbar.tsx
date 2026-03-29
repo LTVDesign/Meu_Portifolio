@@ -9,13 +9,13 @@ const Navbar = memo(() => {
   const [active, setActive] = useState<string | null>(null);
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [_scrollProgress, setScrollProgress] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     let ticking = false;
     let lastScrollY = 0;
 
-    const update = () => {
+    const updateScroll = () => {
       const scrollY = window.scrollY;
       if (Math.abs(scrollY - lastScrollY) < 20) return;
 
@@ -25,8 +25,9 @@ const Navbar = memo(() => {
       setScrollProgress(height > 0 ? (scrollY / height) * 100 : 0);
       setScrolled(scrollY > 80);
 
+      // Detect active section
       const sections = document.querySelectorAll('section[id]');
-      for (const section of sections) {
+      for (const section of Array.from(sections)) {
         const rect = section.getBoundingClientRect();
         if (rect.top <= 180 && rect.bottom >= 180) {
           setActive(section.getAttribute('id'));
@@ -38,7 +39,7 @@ const Navbar = memo(() => {
 
     const onScroll = () => {
       if (!ticking) {
-        requestAnimationFrame(update);
+        requestAnimationFrame(updateScroll);
         ticking = true;
       }
     };
@@ -49,13 +50,20 @@ const Navbar = memo(() => {
 
   return (
     <nav
+      role="navigation"
       aria-label="Navegação principal"
-      className={`fixed top-0 left-0 right-0 z-50 glass transition-all duration-300 ${
-        scrolled ? 'shadow-2xl' : ''
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 glass transition-all duration-300 ${scrolled ? 'shadow-2xl' : ''}`}
     >
+      {/* Progress Bar Neon */}
+      <div className="absolute bottom-0 left-0 h-px w-full bg-white/10">
+        <motion.div
+          className="h-px bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)]"
+          style={{ width: `${scrollProgress}%` }}
+        />
+      </div>
+
       <div className="max-w-screen-2xl mx-auto px-6 md:px-12 lg:px-16 py-5 flex items-center justify-between">
-        {/* LOGO */}
+        {/* Logo */}
         <Link
           to="/"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -65,14 +73,12 @@ const Navbar = memo(() => {
           <img
             src={logo}
             alt="Logo Leandro Saturnino Barbosa"
-            className="h-12 w-12 md:h-14 md:w-14 transition-transform group-hover:scale-110 drop-shadow-[0_0_20px_var(--cyber-purple)]"
+            className="h-12 w-12 md:h-14 md:w-14 object-contain transition-transform group-hover:scale-110 drop-shadow-[0_0_20px_var(--cyber-purple)]"
           />
-          <span className="hidden xs:inline text-2xl md:text-3xl font-bold tracking-tighter text-white">
-            Leandro
-          </span>
+          <span className="hidden xs:inline text-2xl md:text-3xl font-bold tracking-tighter text-white">Leandro</span>
         </Link>
 
-        {/* MENU DESKTOP */}
+        {/* Desktop Menu */}
         <ul className="hidden sm:flex items-center gap-8 lg:gap-10">
           {navLinks.map((nav) => {
             const isActive = active === nav.id;
@@ -80,14 +86,14 @@ const Navbar = memo(() => {
               <li key={nav.id} className="relative">
                 <LinkAnimado
                   href={`#${nav.id}`}
-                  className={`navbar-link ${isActive ? 'text-white scale-105' : 'text-white/80 hover:text-white'}`}
+                  className={`navbar-link ${isActive ? 'text-white scale-105' : ''}`}
                 >
                   {nav.title}
                 </LinkAnimado>
                 {isActive && (
                   <motion.div
                     layoutId="active-underline"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-glow)] rounded-full"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)] rounded-full"
                   />
                 )}
               </li>
@@ -95,14 +101,14 @@ const Navbar = memo(() => {
           })}
         </ul>
 
-        {/* MENU MOBILE */}
+        {/* Mobile Menu Button */}
         <button
           type="button"
           aria-expanded={toggle}
           aria-controls="mobile-menu"
           aria-label={toggle ? 'Fechar menu' : 'Abrir menu'}
           onClick={() => setToggle(!toggle)}
-          className="sm:hidden w-12 h-12 rounded-3xl hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)]"
+          className="sm:hidden w-12 h-12 rounded-3xl hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] transition-colors"
         >
           <img src={toggle ? close : menu} alt="" className="h-8 w-8" />
         </button>
@@ -111,7 +117,7 @@ const Navbar = memo(() => {
       {/* Mobile Menu */}
       <div
         id="mobile-menu"
-        className={`sm:hidden absolute top-full left-0 right-0 glass border-t border-white/10 px-6 py-8 transition-all ${toggle ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}`}
+        className={`sm:hidden absolute top-full left-0 right-0 glass border-t border-white/10 px-6 py-8 transition-all duration-300 ${toggle ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-6 pointer-events-none'}`}
       >
         <ul className="flex flex-col gap-6 text-lg">
           {navLinks.map((nav) => (

@@ -1,22 +1,25 @@
 import { motion } from 'framer-motion';
+import type { ReactNode } from 'react';
 
-import { styles } from '../constants/styles';
+interface SectionWrapperProps {
+  children: ReactNode;
+  id?: string;
+  className?: string;
+}
 
-const SectionWrapper = (Component: React.ComponentType<any>, idName: string) =>
-  function HOC(props: any) {
-    return (
-      <motion.section
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.25 }}
-        className={`${styles.padding} relative z-0 w-full flex flex-col items-center scroll-mt-24 sm:scroll-mt-32`}
-        id={idName}
-      >
-        <span className="hash-span">&nbsp;</span>
-
-        <Component {...props} />
-      </motion.section>
-    );
-  };
+const SectionWrapper = ({ children, id, className = '' }: SectionWrapperProps) => {
+  return (
+    <motion.section
+      id={id}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      viewport={{ once: true, amount: 0.25 }}
+      className={`relative py-[clamp(5rem,10vw,8rem)] ${className}`}
+    >
+      {children}
+    </motion.section>
+  );
+};
 
 export default SectionWrapper;
