@@ -7,7 +7,7 @@ import { PerformanceProvider } from './contexts/PerformanceContext';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ThemeToggle from './components/layout/ThemeToggle';
-import { ParticleBackground } from './components/canvas';
+import ParticleBackground from './components/canvas/ParticleBackground';
 
 // Lazy loading + code splitting
 const Hero = lazy(() => import('./components/sections/Hero'));
