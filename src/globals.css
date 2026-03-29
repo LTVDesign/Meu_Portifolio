@@ -28,7 +28,8 @@
   }
 
   .form-label {
-    @apply text-white text-[clamp(0.75rem,2vw,0.85rem)] font-bold uppercase tracking-widest flex items-center gap-2 opacity-75;
+    @apply text-white font-bold uppercase tracking-widest flex items-center gap-2 opacity-75;
+    font-size: clamp(0.75rem, 2vw, 0.85rem);
   }
 
   .form-input {
@@ -38,6 +39,14 @@
   .error-alert {
     @apply text-red-400 text-sm flex items-center gap-2 mt-2;
   }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
 }
 
 @layer utilities {
@@ -91,14 +100,6 @@
   --black-200: #090325;
   --white-100: #f3f3f3;
   --text-white: #ffffff;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-  scroll-behavior: smooth;
 }
 
 .dark {
@@ -201,6 +202,7 @@ footer,
 
 /* Loader simplificado para melhor performance */
 @keyframes mulShdSpin {
+
   0%,
   100% {
     box-shadow:
@@ -363,18 +365,16 @@ footer,
   width: 10px;
   height: 10px;
   background: #ff00ff;
-  clip-path: polygon(
-    50% 0%,
-    61% 35%,
-    98% 35%,
-    68% 57%,
-    79% 91%,
-    50% 70%,
-    21% 91%,
-    32% 57%,
-    2% 35%,
-    39% 35%
-  );
+  clip-path: polygon(50% 0%,
+      61% 35%,
+      98% 35%,
+      68% 57%,
+      79% 91%,
+      50% 70%,
+      21% 91%,
+      32% 57%,
+      2% 35%,
+      39% 35%);
 }
 
 /* Dynamic Outline for Vertical Timeline */

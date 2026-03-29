@@ -9,7 +9,7 @@ const Navbar = memo(() => {
   const [active, setActive] = useState<string | null>(null);
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [_scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     let ticking = false;
@@ -49,7 +49,6 @@ const Navbar = memo(() => {
 
   return (
     <nav
-      role="navigation"
       aria-label="Navegação principal"
       className={`fixed top-0 left-0 right-0 z-50 glass transition-all duration-300 ${
         scrolled ? 'shadow-2xl' : ''

@@ -76,141 +76,139 @@ const Contact = () => {
   };
 
   return (
-    <SectionWrapper id="contact">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col xl:flex-row gap-8 xl:gap-16 items-center">
-          {/* FORMULÁRIO */}
-          <motion.div variants={slideIn('left', 'tween', 0.2, 1)} className="flex-1 w-full">
-            <div className="glass p-8 sm:p-10 relative group">
-              <Header useMotion={true} {...config.contact} />
+    <div className="max-w-7xl mx-auto px-6">
+      <div className="flex flex-col xl:flex-row gap-8 xl:gap-16 items-center">
+        {/* FORMULÁRIO */}
+        <motion.div variants={slideIn('left', 'tween', 0.2, 1)} className="flex-1 w-full">
+          <div className="glass p-8 sm:p-10 relative group">
+            <Header useMotion={true} {...config.contact} />
 
-              <form
-                ref={formRef}
-                onSubmit={handleSubmit}
-                className="mt-8 flex flex-col gap-6"
-                noValidate
-              >
-                {/* Nome + Email */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="flex flex-col">
-                    <label htmlFor="name" className="form-label">
-                      <FaUser className="text-[#915EFF]" /> Seu Nome{' '}
-                      <span className="text-red-400">*</span>
-                    </label>
-                    <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      value={form.name}
-                      onChange={handleChange}
-                      required
-                      aria-required="true"
-                      className="form-input"
-                      placeholder="Seu nome completo"
-                    />
-                  </div>
-
-                  <div className="flex flex-col">
-                    <label htmlFor="email" className="form-label">
-                      <FaEnvelope className="text-[#915EFF]" /> Seu Email{' '}
-                      <span className="text-red-400">*</span>
-                    </label>
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={form.email}
-                      onChange={handleChange}
-                      required
-                      aria-required="true"
-                      className="form-input"
-                      placeholder="exemplo@email.com"
-                    />
-                  </div>
-                </div>
-
-                {/* Telefone + Empresa */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="flex flex-col">
-                    <label htmlFor="phone" className="form-label">
-                      <FaPhone className="text-[#915EFF]" /> Telefone
-                    </label>
-                    <input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      value={form.phone}
-                      onChange={handlePhoneChange}
-                      className="form-input"
-                      placeholder="(XX) XXXXX-XXXX"
-                    />
-                  </div>
-
-                  <div className="flex flex-col">
-                    <label htmlFor="company" className="form-label">
-                      <FaBuilding className="text-[#915EFF]" /> Empresa
-                    </label>
-                    <input
-                      id="company"
-                      name="company"
-                      type="text"
-                      value={form.company}
-                      onChange={handleChange}
-                      className="form-input"
-                      placeholder="Onde você trabalha?"
-                    />
-                  </div>
-                </div>
-
-                {/* Mensagem */}
+            <form
+              ref={formRef}
+              onSubmit={handleSubmit}
+              className="mt-8 flex flex-col gap-6"
+              noValidate
+            >
+              {/* Nome + Email */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col">
-                  <label htmlFor="message" className="form-label">
-                    <FaPaperPlane className="text-[#915EFF]" /> Mensagem{' '}
+                  <label htmlFor="name" className="form-label">
+                    <FaUser className="text-[#915EFF]" /> Seu Nome{' '}
                     <span className="text-red-400">*</span>
                   </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={form.message}
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    value={form.name}
                     onChange={handleChange}
                     required
                     aria-required="true"
-                    rows={6}
-                    className="form-input resize-y min-h-[160px]"
-                    placeholder="Escreva sua mensagem aqui..."
+                    className="form-input"
+                    placeholder="Seu nome completo"
                   />
                 </div>
 
-                {/* Erro acessível */}
-                {error && (
-                  <div role="alert" aria-live="assertive" className="error-alert">
-                    ⚠️ {error}
-                  </div>
-                )}
+                <div className="flex flex-col">
+                  <label htmlFor="email" className="form-label">
+                    <FaEnvelope className="text-[#915EFF]" /> Seu Email{' '}
+                    <span className="text-red-400">*</span>
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    required
+                    aria-required="true"
+                    className="form-input"
+                    placeholder="exemplo@email.com"
+                  />
+                </div>
+              </div>
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="mt-4 bg-gradient-to-r from-[#915EFF] to-[#00FFFF] text-white font-bold py-5 rounded-3xl hover:scale-[1.03] active:scale-95 transition-all disabled:opacity-50 flex items-center justify-center gap-3 text-lg focus-visible:ring-4 focus-visible:ring-offset-4 focus-visible:ring-[#915EFF]"
-                >
-                  {loading ? 'Enviando...' : 'Enviar Mensagem'}
-                  <FaPaperPlane />
-                </button>
-              </form>
-            </div>
-          </motion.div>
+              {/* Telefone + Empresa */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="flex flex-col">
+                  <label htmlFor="phone" className="form-label">
+                    <FaPhone className="text-[#915EFF]" /> Telefone
+                  </label>
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    value={form.phone}
+                    onChange={handlePhoneChange}
+                    className="form-input"
+                    placeholder="(XX) XXXXX-XXXX"
+                  />
+                </div>
 
-          {/* Canvas 3D */}
-          <motion.div
-            variants={slideIn('right', 'tween', 0.2, 1)}
-            className="flex-1 w-full xl:w-1/2"
-          >
-            <EarthCanvas />
-          </motion.div>
-        </div>
+                <div className="flex flex-col">
+                  <label htmlFor="company" className="form-label">
+                    <FaBuilding className="text-[#915EFF]" /> Empresa
+                  </label>
+                  <input
+                    id="company"
+                    name="company"
+                    type="text"
+                    value={form.company}
+                    onChange={handleChange}
+                    className="form-input"
+                    placeholder="Onde você trabalha?"
+                  />
+                </div>
+              </div>
+
+              {/* Mensagem */}
+              <div className="flex flex-col">
+                <label htmlFor="message" className="form-label">
+                  <FaPaperPlane className="text-[#915EFF]" /> Mensagem{' '}
+                  <span className="text-red-400">*</span>
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
+                  required
+                  aria-required="true"
+                  rows={6}
+                  className="form-input resize-y min-h-[160px]"
+                  placeholder="Escreva sua mensagem aqui..."
+                />
+              </div>
+
+              {/* Erro acessível */}
+              {error && (
+                <div role="alert" aria-live="assertive" className="error-alert">
+                  ⚠️ {error}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="mt-4 bg-gradient-to-r from-[#915EFF] to-[#00FFFF] text-white font-bold py-5 rounded-3xl hover:scale-[1.03] active:scale-95 transition-all disabled:opacity-50 flex items-center justify-center gap-3 text-lg focus-visible:ring-4 focus-visible:ring-offset-4 focus-visible:ring-[#915EFF]"
+              >
+                {loading ? 'Enviando...' : 'Enviar Mensagem'}
+                <FaPaperPlane />
+              </button>
+            </form>
+          </div>
+        </motion.div>
+
+        {/* Canvas 3D */}
+        <motion.div
+          variants={slideIn('right', 'tween', 0.2, 1)}
+          className="flex-1 w-full xl:w-1/2"
+        >
+          <EarthCanvas />
+        </motion.div>
       </div>
-    </SectionWrapper>
+    </div>
   );
 };
 
-export default Contact;
+export default SectionWrapper(Contact, 'contact');
