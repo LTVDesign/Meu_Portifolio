@@ -1,15 +1,16 @@
 import { motion } from 'framer-motion';
-import { config } from '../../constants/config';
+import { useTranslation } from 'react-i18next';
 import { SectionWrapper } from '../../hoc';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms';
 import { projects } from '../../constants';
 
 const Works = () => {
+  const { t } = useTranslation();
 
   return (
     <div className="max-w-7xl mx-auto px-6">
-      <Header useMotion={true} {...config.sections.works} />
+      <Header useMotion={true} p={t('works.p')} h2={t('works.h2')} />
 
       <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project, index) => (
@@ -56,7 +57,7 @@ const Works = () => {
                   rel="noopener noreferrer"
                   className="btn-primary w-full py-4 text-center justify-center text-sm font-bold uppercase tracking-widest shadow-[0_0_20px_rgba(145,94,255,0.3)] transition-all hover:scale-[1.02]"
                 >
-                  Visualizar Código Fonte
+                  {t('works.viewCode')}
                 </a>
               </div>
             </div>
@@ -66,7 +67,7 @@ const Works = () => {
 
       <div className="mt-16 flex justify-center">
         <a href="/cursos" className="btn-primary text-xs px-16 py-5 uppercase tracking-[0.4em] font-black group shadow-[0_0_25px_rgba(145,94,255,0.3)]">
-          Ver Meus Projetos
+          {t('works.viewProjects')}
           <span className="group-hover:translate-x-2 transition-transform ml-2">→</span>
         </a>
       </div>

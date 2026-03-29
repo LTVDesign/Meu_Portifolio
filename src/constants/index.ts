@@ -241,7 +241,7 @@ const experiences: TExperience[] = [
   {
     title: 'Técnico de Informática N2',
     companyName: 'Terabyte Consultoria em TI',
-    icon: '/empresas/terabyte.png',
+    icon: '/empresas/terabyte.webp',
     iconBg: '#E6DEDD',
     date: 'Março 2024 - Dezembro 2025',
     points: [
@@ -258,7 +258,7 @@ const experiences: TExperience[] = [
   {
     title: 'Web Master',
     companyName: 'DotKom',
-    icon: '/empresas/dotkom.png',
+    icon: '/empresas/dotkom.webp',
     iconBg: '#383E56',
     date: 'Junho 2023 - Janeiro 2024',
     points: [
@@ -271,7 +271,7 @@ const experiences: TExperience[] = [
   {
     title: 'Técnico de Manutenção de Computadores',
     companyName: 'Autônomo',
-    icon: '/empresas/autonomo.png',
+    icon: '/empresas/autonomo.webp',
     iconBg: '#E6DEDD',
     date: 'Janeiro 2023 - Presente',
     points: [
@@ -288,7 +288,7 @@ const experiences: TExperience[] = [
   {
     title: 'Responsável Técnico de TI / Suporte Técnico',
     companyName: 'Mercedito',
-    icon: '/empresas/mercedito.png',
+    icon: '/empresas/mercedito.webp',
     iconBg: '#E6DEDD',
     date: 'Março 2022 - Dezembro 2022',
     points: [
@@ -304,7 +304,7 @@ const experiences: TExperience[] = [
   {
     title: 'Gerente Geral',
     companyName: "Abra Kebab's",
-    icon: '/empresas/abrakebab.png',
+    icon: '/empresas/abrakebab.webp',
     iconBg: '#E6DEDD',
     date: '2022',
     points: [
@@ -315,7 +315,7 @@ const experiences: TExperience[] = [
   {
     title: 'Gerente de Atendimento ao Cliente',
     companyName: 'Mundo Trader',
-    icon: '/empresas/trader.png',
+    icon: '/empresas/trader.webp',
     iconBg: '#383E56',
     date: 'Março 2016 - Fevereiro 2021',
     points: [
@@ -330,7 +330,7 @@ const experiences: TExperience[] = [
   {
     title: 'Técnico de TI / Gerente Técnico / Designer',
     companyName: 'Blitz Haus',
-    icon: '/empresas/blitz.png',
+    icon: '/empresas/blitz.webp',
     iconBg: '#383E56',
     date: 'Março 2015 - Fevereiro 2016',
     points: [
@@ -345,7 +345,7 @@ const experiences: TExperience[] = [
   {
     title: 'CEO / Fundador e Gestor',
     companyName: 'Garagemod',
-    icon: '/empresas/garage.png',
+    icon: '/empresas/garage.webp',
     iconBg: '#383E56',
     date: 'Maio 2014 - Fevereiro 2015',
     points: [
@@ -359,7 +359,7 @@ const experiences: TExperience[] = [
   {
     title: 'Analista de TI / Técnico em Informática / Logística',
     companyName: 'Colonial Racing',
-    icon: '/empresas/colonial.png',
+    icon: '/empresas/colonial.webp',
     iconBg: '#E6DEDD',
     date: 'Março 2012 - Maio 2014',
     points: [
@@ -373,7 +373,7 @@ const experiences: TExperience[] = [
   {
     title: 'Web Designer / Web Master',
     companyName: 'LTV Design',
-    icon: '/empresas/ltv.png',
+    icon: '/empresas/ltv.webp',
     iconBg: '#383E56',
     date: 'Fevereiro 2009 - Fevereiro 2012',
     points: [
@@ -385,7 +385,7 @@ const experiences: TExperience[] = [
   {
     title: 'Subgerente de Vendas / Operador de Caixa',
     companyName: 'Cafe Beach / Açai Beach',
-    icon: '/empresas/acai.png',
+    icon: '/empresas/acai.webp',
     iconBg: '#383E56',
     date: 'Fevereiro 2007 - Fevereiro 2009',
     points: [

@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import Tilt from 'react-parallax-tilt';
+import { useTranslation } from 'react-i18next';
 
 import { github } from '../../assets';
 import { projects } from '../../constants';
-import { config } from '../../constants/config';
 import { SectionWrapper } from '../../hoc';
 import type { TProject } from '../../types';
 import { fadeIn } from '../../utils/motion';
@@ -79,16 +79,18 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
 
 const AllWorks = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
   return (
     <>
-      <Header useMotion={true} {...config.sections.works} />
+      <Header useMotion={true} p={t('works.p')} h2={t('works.h2')} />
 
       <div className="flex w-full justify-between items-center">
         <motion.p
-          variants={fadeIn('', '', 0.1, 1)}
+          variants={fadeIn('up', 'tween', 0.1, 1)}
           className="text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-3 text-[17px] leading-[30px]"
         >
-          {config.sections.works.content}
+          {t('works.content')}
         </motion.p>
         <button
           type="button"

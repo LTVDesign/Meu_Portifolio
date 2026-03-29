@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import close from '../../assets/close.svg';
 import ThemeToggle from '../layout/ThemeToggle';
 import type { Curso } from '../../types';
@@ -15,6 +16,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
     const [sortBy, setSortBy] = useState<'year' | 'duration' | 'company'>('year');
     const modalRef = useRef<HTMLDivElement>(null);
     const lastFocusedElement = useRef<HTMLElement | null>(null);
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (isOpen) {
@@ -107,7 +109,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                 <div className="sticky top-0 z-20 flex items-center justify-between p-6 border-b border-white/10 bg-black/80 backdrop-blur-md">
                     <div className="flex items-center gap-4">
                         <h2 id={modalTitleId} className="text-2xl font-bold text-white">
-                            Todos os Cursos
+                            {t('courses.allTitle')}
                         </h2>
                     </div>
                     <div className="flex items-center gap-4">
@@ -115,7 +117,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                         <button
                             onClick={onClose}
                             className="p-2 rounded-lg hover:bg-white/10 transition-colors"
-                            aria-label="Fechar modal"
+                            aria-label={t('common.close')}
                         >
                             <img src={close} alt="" className="w-6 h-6" />
                         </button>
@@ -126,6 +128,9 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                 <div
                     ref={modalRef}
                     className="flex-1 overflow-y-auto p-6"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby={modalTitleId}
                     tabIndex={-1}
                 >
                     <div className="max-w-7xl mx-auto">
@@ -134,26 +139,26 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                             <div className="relative w-full md:w-96">
                                 <input
                                     type="text"
-                                    placeholder="Buscar cursos..."
+                                    placeholder={t('courses.filterPlaceholder')}
                                     value={filter}
                                     onChange={(e) => setFilter(e.target.value)}
                                     className="w-full px-6 py-3 pl-12 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:border-[var(--cyber-cyan)] transition-colors"
-                                    aria-label="Buscar cursos"
+                                    aria-label={t('courses.filterPlaceholder')}
                                 />
                                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50">🔍</span>
                             </div>
 
                             <div className="flex items-center gap-4 w-full md:w-auto">
-                                <span className="text-white/60 text-sm whitespace-nowrap">Organizar por:</span>
+                                <span className="text-white/60 text-sm whitespace-nowrap">{t('courses.sortBy')}:</span>
                                 <select
                                     value={sortBy}
                                     onChange={(e) => setSortBy(e.target.value as 'year' | 'duration' | 'company')}
                                     className="px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[var(--cyber-cyan)] transition-colors"
-                                    aria-label="Organizar cursos por"
+                                    aria-label={t('courses.sortBy')}
                                 >
-                                    <option value="year">Ano</option>
-                                    <option value="duration">Duração</option>
-                                    <option value="company">Empresa</option>
+                                    <option value="year">{t('courses.sortYear')}</option>
+                                    <option value="duration">{t('courses.sortDuration')}</option>
+                                    <option value="company">{t('courses.sortCompany')}</option>
                                 </select>
                             </div>
                         </div>
@@ -190,7 +195,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                                             rel="noopener noreferrer"
                                             className="inline-flex items-center gap-2 text-[var(--cyber-cyan)] hover:text-white font-bold uppercase tracking-widest transition-all group/btn"
                                         >
-                                            Ver Certificado
+                                            {t('courses.viewCertificate')}
                                             <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
                                         </a>
                                     </div>
@@ -200,7 +205,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
 
                         {sortedCursos.length === 0 && (
                             <div className="text-center py-20">
-                                <p className="text-white/50 text-lg">Nenhum curso encontrado.</p>
+                                <p className="text-white/50 text-lg">{t('courses.noResults')}</p>
                             </div>
                         )}
                     </div>

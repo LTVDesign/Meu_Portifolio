@@ -1,9 +1,12 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { SectionWrapper } from '../../hoc';
 import { textVariant } from '../../utils/motion';
 import { Header } from '../atoms';
 
 const AllCertificados = () => {
+  const { t } = useTranslation();
+
   const allCertificados = [
     {
       id: '1',
@@ -59,7 +62,7 @@ const AllCertificados = () => {
     <div className="pt-20 pb-32">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div variants={textVariant()} className="text-center mb-16">
-          <Header useMotion={false} p="Certificações" h2="Todas as Certificações" />
+          <Header useMotion={false} p={t('allCertificados.subtitle')} h2={t('allCertificados.title')} />
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -84,7 +87,7 @@ const AllCertificados = () => {
                 rel="noopener noreferrer"
                 className="mt-8 btn-primary text-sm px-8 py-3"
               >
-                Ver Certificado
+                {t('courses.viewCertificate')}
               </a>
             </motion.div>
           ))}

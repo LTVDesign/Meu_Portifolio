@@ -1,0 +1,161 @@
+{
+    "common": {
+        "name": "Leandro Barbosa",
+        "email": "leandro@garagemod.com.br",
+        "language": "Idioma",
+        "close": "Fechar"
+    },
+    "tech": {
+        "arsenal": "Meu Arsenal",
+        "stackTitle": "Stack Tecnológica"
+    },
+    "nav": {
+        "about": "Sobre",
+        "formacao": "Formação",
+        "cursos": "Cursos",
+        "curriculo": "Currículo",
+        "projects": "Projetos",
+        "contact": "Contato"
+    },
+    "hero": {
+        "title": "Olá, eu sou Leandro Barbosa",
+        "subtitle": [
+            "Bem-vindo à minha vida profissional",
+            "Desenvolvedor Full Stack & Especialista em IA",
+            "Transformando dados em decisões inteligentes",
+            "Construindo infraestruturas seguras e inovadoras"
+        ],
+        "titleMeta": "Leandro Saturnino Barbosa | Portfólio 3D Cyberpunk",
+        "descriptionMeta": "Portfólio interativo 3D com React, Three.js e Tailwind. Especialista em IA, Segurança e Desenvolvimento Full Stack."
+    },
+    "about": {
+        "p": "Engenheiro de Software • Tecnólogo em ADS • Pós-Graduando em IA & Data Science",
+        "h2": "Experiência Consolidada, Olhar no Futuro.",
+        "content": "Sou um profissional de tecnologia com uma trajetória sólida, unindo a resiliência do suporte técnico de alto nível à inovação da análise de dados. Recentemente, consolidei minha base acadêmica com o título de Tecnólogo em Análise e Desenvolvimento de Sistemas e estou em fase de especialização em Inteligência Artificial e Data Science pela Anhanguera.\n\nMinha bagagem inclui:\n• Domínio Técnico: Vasta experiência como Técnico de Informática Nível 2, com expertise em infraestrutura de redes, Microsoft Entra ID e gestão de ambientes 365.\n• Visão Estratégica: Certificado em Product Management pela University of Alberta e Scrum Master, focado em entregar valor real através de metodologias ágeis.\n• Segurança e Dados: Formação avançada em Cibersegurança pelo programa Hackers do Bem e certificações profissionais da Google e IBM.\n\nMais do que resolver problemas técnicos, busco transformar dados em decisões e infraestruturas em plataformas seguras e inteligentes. Sou um aprendiz constante, entusiasta de hardware modding e sempre pronto para o próximo desafio complexo."
+    },
+    "formacao": {
+        "p": "Minha formação acadêmica",
+        "h2": "Formação",
+        "content": "Aqui estão minhas qualificações acadêmicas e formações complementares.",
+        "viewDetails": "Ver Detalhes"
+    },
+    "experience": {
+        "p": "O que fiz até agora",
+        "h2": "Experiência Profissional",
+        "verMais": "Ver Mais Experiências"
+    },
+    "feedbacks": {
+        "p": "O que os outros dizem",
+        "h2": "Depoimentos."
+    },
+    "works": {
+        "p": "Criações & Experimentos",
+        "h2": "Projetos",
+        "content": "Uma vitrine de projetos que desenvolvi por paixão, hobby e para aprofundar meus conhecimentos técnicos. Cada iniciativa reflete minha curiosidade em explorar novas fronteiras, desde hardware modding até automações inteligentes com IA.",
+        "viewCode": "Visualizar Código Fonte",
+        "viewProjects": "Ver Meus Projetos"
+    },
+    "cursos": {
+        "p": "Cursos & Certificados",
+        "h2": "Cursos",
+        "viewDetails": "Ver Detalhes"
+    },
+    "certificados": {
+        "p": "Certificados",
+        "h2": "Certificados"
+    },
+    "curriculo": {
+        "p": "Currículo",
+        "h2": "Currículo",
+        "content": "Aqui está um resumo da minha formação acadêmica e experiência profissional.",
+        "viewFull": "Ver Currículo completo"
+    },
+    "contact": {
+        "p": "Entre em contato",
+        "h2": "Contato",
+        "form": {
+            "name": {
+                "span": "Seu Nome",
+                "placeholder": "Qual é o seu nome?"
+            },
+            "email": {
+                "span": "Seu Email",
+                "placeholder": "Qual é o seu email?"
+            },
+            "phone": {
+                "span": "Seu Telefone",
+                "placeholder": "Qual é o seu telefone?"
+            },
+            "company": {
+                "span": "Sua Empresa",
+                "placeholder": "Qual é a sua empresa?"
+            },
+            "message": {
+                "span": "Sua Mensagem",
+                "placeholder": "O que você quer dizer?"
+            }
+        },
+        "submit": "Enviar Mensagem",
+        "sending": "Enviando...",
+        "success": "Mensagem enviada com sucesso!",
+        "error": "Erro ao enviar mensagem. Tente novamente.",
+        "validationErrors": {
+            "nameRequired": "Nome é obrigatório",
+            "nameTooLong": "Nome muito longo",
+            "emailInvalid": "Email inválido",
+            "phoneTooLong": "Telefone muito longo",
+            "companyTooLong": "Empresa muito longa",
+            "messageTooShort": "Mensagem muito curta",
+            "messageTooLong": "Mensagem muito longa"
+        }
+    },
+    "footer": {
+        "quickAccess": "Acesso Rápido",
+        "allRightsReserved": "Todos os direitos reservados",
+        "backToTop": "Voltar ao Topo"
+    },
+    "services": {
+        "infraestrutura": "Infraestrutura",
+        "infraestruturaDesc": "Especialista em suporte N2 e redes, com domínio em ambientes Microsoft 365, servidores e infraestrutura física/nuvem",
+        "ciberseguranca": "Cibersegurança",
+        "cibersegurancaDesc": "Focado em defesa digital, proteção de ativos e mitigação de vulnerabilidades, com base sólida em segurança de redes e compliance",
+        "iaDados": "IA & Dados",
+        "iaDadosDesc": "Desenvolvimento de soluções inteligentes e análise preditiva, utilizando algoritmos para transformar dados em decisões estratégicas",
+        "gestao": "Gestão",
+        "gestaoDesc": "Liderança de times através de frameworks ágeis (Scrum) e visão de produto focada na experiência do usuário e entrega de valor"
+    },
+    "status": {
+        "concluido": "CONCLUÍDO",
+        "emAndamento": "EM ANDAMENTO"
+    },
+    "courses": {
+        "allTitle": "Todos os Cursos e Especializações",
+        "viewCertificate": "Ver Certificado",
+        "filterPlaceholder": "Filtrar cursos...",
+        "sortBy": "Ordenar por",
+        "sortYear": "Ano",
+        "sortDuration": "Duração",
+        "sortCompany": "Instituição",
+        "noResults": "Nenhum curso encontrado.",
+        "p": "Cursos & Especializações",
+        "h2": "Formação Acadêmica"
+    },
+    "allFormacao": {
+        "title": "Formação Acadêmica Completa",
+        "subtitle": "Educação & Certificados"
+    },
+    "allCurriculo": {
+        "title": "Currículo Completo",
+        "subtitle": "Experiência & Habilidades",
+        "downloadCV": "Fazer Download",
+        "viewFull": "Ver Currículo completo"
+    },
+    "allWorks": {
+        "title": "Todos os Projetos",
+        "subtitle": "Portfólio Completo"
+    },
+    "allCertificados": {
+        "title": "Todos os Certificados",
+        "subtitle": "Certificados & Credenciais"
+    }
+}

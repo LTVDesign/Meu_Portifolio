@@ -288,7 +288,7 @@ export type TService = Required<Omit<TCommonProps, 'name'>> & {
 // Tipos para Motion
 export type TMotion = {
     direction: 'up' | 'down' | 'left' | 'right' | '';
-    type: 'tween' | 'spring' | 'just' | '';
+    type: 'tween' | 'spring';
     delay: number;
     duration: number;
 };

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { config } from '../../constants/config';
+import { useTranslation } from 'react-i18next';
 import { SectionWrapper } from '../../hoc';
 import { fadeIn } from '../../utils/motion';
 import { LinkAnimado } from '../atoms';
@@ -8,6 +8,8 @@ import { Header } from '../atoms/Header';
 
 const AllFormacao = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
   const educations = [
     {
       title: 'Pós-Graduação em Inteligência Artificial e Data Science',
@@ -27,14 +29,14 @@ const AllFormacao = () => {
 
   return (
     <>
-      <Header useMotion={true} {...config.sections.formacao} />
+      <Header useMotion={true} p={t('formacao.p')} h2={t('formacao.h2')} />
 
       <div className="flex w-full justify-between items-center">
         <motion.p
-          variants={fadeIn('', '', 0.1, 1)}
+          variants={fadeIn('up', 'tween', 0.1, 1)}
           className="text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-3 max-w-3xl text-[17px] leading-[30px]"
         >
-          {config.sections.formacao.content}
+          {t('formacao.content')}
         </motion.p>
         <button
           type="button"

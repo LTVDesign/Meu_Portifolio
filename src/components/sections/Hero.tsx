@@ -1,22 +1,16 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { ComputersCanvas } from '../canvas';
 import { TerminalText } from '../atoms';
 
-const TITLE_WORDS = ['Olá, eu sou Leandro Barbosa'];
-const SUBTITLE_WORDS = [
-  'Bem-vindo à minha vida profissional',
-  'Desenvolvedor Full Stack & Especialista em IA',
-  'Transformando dados em decisões inteligentes',
-  'Construindo infraestruturas seguras e inovadoras'
-];
-
 const Hero = () => {
   const [showSubtitle, setShowSubtitle] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
-    const titleLength = TITLE_WORDS[0].length;
+    const titleLength = t('hero.title').length;
     const typingSpeed = 80;
     const pauseTime = 3000;
     const totalTime = (titleLength * typingSpeed) + pauseTime;
@@ -26,7 +20,7 @@ const Hero = () => {
     }, totalTime);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [t]);
 
   return (
     <motion.section
@@ -38,35 +32,13 @@ const Hero = () => {
       className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden"
     >
       <Helmet>
-        <title>Leandro Saturnino Barbosa | Portfólio 3D Cyberpunk</title>
-        <meta name="description" content="Portfólio interativo 3D com React, Three.js e Tailwind. Especialista em IA, Segurança e Desenvolvimento Full Stack." />
-
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Leandro Saturnino Barbosa",
-            "jobTitle": "Desenvolvedor Full Stack & Especialista em IA",
-            "url": "https://lelebrr.github.io/Meu_Portifolio/",
-            "sameAs": [
-              "https://github.com/lelebrr",
-              "https://linkedin.com/in/leandro-saturnino-barbosa"
-            ],
-            "knowsAbout": [
-              "React",
-              "TypeScript",
-              "Three.js",
-              "Inteligência Artificial",
-              "Cibersegurança",
-              "Desenvolvimento Full Stack"
-            ]
-          })}
-        </script>
+        <title>{t('hero.titleMeta')}</title>
+        <meta name="description" content={t('hero.descriptionMeta')} />
       </Helmet>
 
       <div className="max-w-7xl mx-auto px-6 z-10 w-full flex flex-col items-center text-center">
         <TerminalText
-          words={TITLE_WORDS}
+          words={[t('hero.title')]}
           colors={['#a855f7', '#06b6d4', '#ffffff']}
           typingSpeed={80}
           pauseTime={3000}
@@ -83,7 +55,7 @@ const Hero = () => {
             className="mt-4 max-w-2xl"
           >
             <TerminalText
-              words={SUBTITLE_WORDS}
+              words={t('hero.subtitle', { returnObjects: true }) as string[]}
               colors={['#06b6d4', '#a855f7', '#ffffff']}
               typingSpeed={60}
               pauseTime={3000}

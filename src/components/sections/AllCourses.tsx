@@ -130,7 +130,7 @@ const AllCourses = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =
 
       <div className="flex w-full justify-between items-center">
         <motion.p
-          variants={fadeIn('', '', 0.1, 1)}
+          variants={fadeIn('up', 'tween', 0.1, 1)}
           className="text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-3 text-[17px] leading-[30px]"
         >
           {config.sections.cursos.content}

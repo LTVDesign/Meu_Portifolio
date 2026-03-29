@@ -1,16 +1,17 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { config } from '../../constants/config';
+import { useTranslation } from 'react-i18next';
 import { SectionWrapper } from '../../hoc';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms';
 import Modal from '../atoms/Modal';
-import facul from '../../assets/facul.png';
+import facul from '../../assets/facul.webp';
 import type { FormacaoData } from '../../types';
 
 const Formacao = () => {
   const [selectedFormation, setSelectedFormation] = useState<FormacaoData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { t } = useTranslation();
 
   const formacoes: FormacaoData[] = [
     {
@@ -73,7 +74,7 @@ const Formacao = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-6">
-      <Header useMotion={true} {...config.sections.formacao} />
+      <Header useMotion={true} p={t('formacao.p')} h2={t('formacao.h2')} />
 
       <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
         {formacoes.map((item, index) => (

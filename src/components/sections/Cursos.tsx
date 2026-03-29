@@ -1,20 +1,21 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { config } from '../../constants/config';
+import { useTranslation } from 'react-i18next';
 import { SectionWrapper } from '../../hoc';
 import { fadeIn, textVariant } from '../../utils/motion';
 import { Header } from '../atoms';
 import CursosModal from '../atoms/CursosModal';
-import albertaImg from '../../logos/alberta.png';
-import googleImg from '../../logos/google.png';
-import ibmImg from '../../logos/ibm.png';
-import hackersImg from '../../logos/hackers.png';
-import johnsImg from '../../logos/johns.png';
-import bradescoImg from '../../logos/bradesco.png';
-import cateImg from '../../logos/cate.png';
+import albertaImg from '../../logos/alberta.webp';
+import googleImg from '../../logos/google.webp';
+import ibmImg from '../../logos/ibm.webp';
+import hackersImg from '../../logos/hackers.webp';
+import johnsImg from '../../logos/johns.webp';
+import bradescoImg from '../../logos/bradesco.webp';
+import cateImg from '../../logos/cate.webp';
 
 const Cursos = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { t } = useTranslation();
 
   const featuredCursos = [
     {
@@ -252,7 +253,7 @@ const Cursos = () => {
   return (
     <div className="max-w-7xl mx-auto px-6 font-primary">
       <motion.div variants={textVariant()} className="text-center mb-16">
-        <Header useMotion={true} {...config.sections.cursos} />
+        <Header useMotion={true} p={t('courses.p')} h2={t('courses.h2')} />
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">

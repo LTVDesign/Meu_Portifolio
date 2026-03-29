@@ -1,6 +1,6 @@
 import { m, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import { config } from '../../constants/config';
+import { useTranslation } from 'react-i18next';
 import { SectionWrapper } from '../../hoc';
 import { fadeIn, textVariant } from '../../utils/motion';
 import { Header } from '../atoms';
@@ -49,12 +49,13 @@ const ExperienceCard = ({ experience, index }: { experience: TExperience; index:
 
 const Experience = () => {
   const [showAll, setShowAll] = useState(false);
+  const { t } = useTranslation();
   const displayedExperiences = showAll ? experiences : experiences.slice(0, 4);
 
   return (
     <div className="max-w-5xl mx-auto px-6">
       <m.div variants={textVariant()} className="text-center mb-20">
-        <Header useMotion={true} {...config.sections.experience} />
+        <Header useMotion={true} p={t('experience.p')} h2={t('experience.h2')} />
       </m.div>
 
       <div className="relative pt-4">
@@ -76,7 +77,7 @@ const Experience = () => {
             onClick={() => setShowAll(true)}
             className="btn-primary px-12 py-5 text-base shadow-[0_0_35px_rgba(145,94,255,0.4)] font-black uppercase tracking-[0.2em]"
           >
-            Ver Mais Experiências
+            {t('experience.verMais')}
           </m.button>
         </div>
       )}

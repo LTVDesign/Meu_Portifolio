@@ -3,18 +3,20 @@ import { SectionWrapper } from '../../hoc';
 import { textVariant } from '../../utils/motion';
 import { Header } from '../atoms';
 import { useState } from 'react';
-import albertaImg from '../../logos/alberta.png';
-import googleImg from '../../logos/google.png';
-import ibmImg from '../../logos/ibm.png';
-import hackersImg from '../../logos/hackers.png';
-import johnsImg from '../../logos/johns.png';
-import bradescoImg from '../../logos/bradesco.png';
-import cateImg from '../../logos/cate.png';
+import { useTranslation } from 'react-i18next';
+import albertaImg from '../../logos/alberta.webp';
+import googleImg from '../../logos/google.webp';
+import ibmImg from '../../logos/ibm.webp';
+import hackersImg from '../../logos/hackers.webp';
+import johnsImg from '../../logos/johns.webp';
+import bradescoImg from '../../logos/bradesco.webp';
+import cateImg from '../../logos/cate.webp';
 import type { Curso } from '../../types';
 
 const AllCursos = () => {
     const [filter, setFilter] = useState('');
     const [sortBy, setSortBy] = useState<'year' | 'duration' | 'company'>('year');
+    const { t } = useTranslation();
 
     const allCursos: Curso[] = [
         {
@@ -277,7 +279,7 @@ const AllCursos = () => {
         <div className="pt-20 pb-32">
             <div className="max-w-7xl mx-auto px-6">
                 <motion.div variants={textVariant()} className="text-center mb-16">
-                    <Header useMotion={false} p="Cursos Realizados" h2="Todos os Cursos e Especializações" />
+                    <Header useMotion={false} p={t('courses.allTitle')} h2={t('courses.allTitle')} />
                 </motion.div>
 
                 {/* Barra de Filtros e Organização */}

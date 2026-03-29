@@ -1,0 +1,161 @@
+{
+    "common": {
+        "name": "Leandro Barbosa",
+        "email": "leandro@garagemod.com.br",
+        "language": "Language",
+        "close": "Close"
+    },
+    "tech": {
+        "arsenal": "My Arsenal",
+        "stackTitle": "Tech Stack"
+    },
+    "nav": {
+        "about": "About",
+        "formacao": "Education",
+        "cursos": "Courses",
+        "curriculo": "Resume",
+        "projects": "Projects",
+        "contact": "Contact"
+    },
+    "hero": {
+        "title": "Hello, I'm Leandro Barbosa",
+        "subtitle": [
+            "Welcome to my professional life",
+            "Full Stack Developer & AI Specialist",
+            "Turning data into intelligent decisions",
+            "Building secure and innovative infrastructures"
+        ],
+        "titleMeta": "Leandro Saturnino Barbosa | 3D Cyberpunk Portfolio",
+        "descriptionMeta": "Interactive 3D portfolio with React, Three.js and Tailwind. Specialist in AI, Security and Full Stack Development."
+    },
+    "about": {
+        "p": "Software Engineer • ADS Technologist • AI & Data Science Postgraduate Student",
+        "h2": "Consolidated Experience, Future-Focused.",
+        "content": "I'm a technology professional with a solid trajectory, combining the resilience of high-level technical support with the innovation of data analysis. Recently, I consolidated my academic foundation with the title of Technologist in Systems Analysis and Development and I'm currently specializing in Artificial Intelligence and Data Science at Anhanguera.\n\nMy background includes:\n• Technical Mastery: Extensive experience as a Level 2 IT Technician, with expertise in network infrastructure, Microsoft Entra ID, and 365 environment management.\n• Strategic Vision: Certified in Product Management from the University of Alberta and Scrum Master, focused on delivering real value through agile methodologies.\n• Security and Data: Advanced training in Cybersecurity through the Hackers do Bem program and professional certifications from Google and IBM.\n\nMore than solving technical problems, I seek to transform data into decisions and infrastructures into secure, intelligent platforms. I'm a constant learner, hardware modding enthusiast, and always ready for the next complex challenge."
+    },
+    "formacao": {
+        "p": "My academic background",
+        "h2": "Education",
+        "content": "Here are my academic qualifications and complementary training.",
+        "viewDetails": "View Details"
+    },
+    "experience": {
+        "p": "What I've done so far",
+        "h2": "Professional Experience",
+        "verMais": "View More Experiences"
+    },
+    "feedbacks": {
+        "p": "What others say",
+        "h2": "Testimonials."
+    },
+    "works": {
+        "p": "Creations & Experiments",
+        "h2": "Projects",
+        "content": "A showcase of projects I've developed out of passion, hobby, and to deepen my technical knowledge. Each initiative reflects my curiosity to explore new frontiers, from hardware modding to intelligent automations with AI.",
+        "viewCode": "View Source Code",
+        "viewProjects": "View My Projects"
+    },
+    "cursos": {
+        "p": "Courses & Certificates",
+        "h2": "Courses",
+        "viewDetails": "View Details"
+    },
+    "certificados": {
+        "p": "Certificates",
+        "h2": "Certificates"
+    },
+    "curriculo": {
+        "p": "Resume",
+        "h2": "Resume",
+        "content": "Here's a summary of my academic background and professional experience.",
+        "viewFull": "View full resume"
+    },
+    "contact": {
+        "p": "Get in touch",
+        "h2": "Contact",
+        "form": {
+            "name": {
+                "span": "Your Name",
+                "placeholder": "What's your name?"
+            },
+            "email": {
+                "span": "Your Email",
+                "placeholder": "What's your email?"
+            },
+            "phone": {
+                "span": "Your Phone",
+                "placeholder": "What's your phone number?"
+            },
+            "company": {
+                "span": "Your Company",
+                "placeholder": "What's your company?"
+            },
+            "message": {
+                "span": "Your Message",
+                "placeholder": "What do you want to say?"
+            }
+        },
+        "submit": "Send Message",
+        "sending": "Sending...",
+        "success": "Message sent successfully!",
+        "error": "Error sending message. Please try again.",
+        "validationErrors": {
+            "nameRequired": "Name is required",
+            "nameTooLong": "Name too long",
+            "emailInvalid": "Invalid email",
+            "phoneTooLong": "Phone number too long",
+            "companyTooLong": "Company name too long",
+            "messageTooShort": "Message too short",
+            "messageTooLong": "Message too long"
+        }
+    },
+    "footer": {
+        "quickAccess": "Quick Access",
+        "allRightsReserved": "All rights reserved",
+        "backToTop": "Back to Top"
+    },
+    "services": {
+        "infraestrutura": "Infrastructure",
+        "infraestruturaDesc": "Specialist in N2 support and networks, with mastery of Microsoft 365 environments, servers, and physical/cloud infrastructure",
+        "ciberseguranca": "Cybersecurity",
+        "cibersegurancaDesc": "Focused on digital defense, asset protection, and vulnerability mitigation, with a solid foundation in network security and compliance",
+        "iaDados": "AI & Data",
+        "iaDadosDesc": "Development of intelligent solutions and predictive analytics, using algorithms to transform data into strategic decisions",
+        "gestao": "Management",
+        "gestaoDesc": "Team leadership through agile frameworks (Scrum) and product vision focused on user experience and value delivery"
+    },
+    "status": {
+        "concluido": "COMPLETED",
+        "emAndamento": "IN PROGRESS"
+    },
+    "courses": {
+        "allTitle": "All Courses and Specializations",
+        "viewCertificate": "View Certificate",
+        "filterPlaceholder": "Filter courses...",
+        "sortBy": "Sort by",
+        "sortYear": "Year",
+        "sortDuration": "Duration",
+        "sortCompany": "Institution",
+        "noResults": "No courses found.",
+        "p": "Courses & Specializations",
+        "h2": "Academic Background"
+    },
+    "allFormacao": {
+        "title": "Complete Academic Background",
+        "subtitle": "Education & Certificates"
+    },
+    "allCurriculo": {
+        "title": "Complete Resume",
+        "subtitle": "Experience & Skills",
+        "downloadCV": "Download CV",
+        "viewFull": "View full resume"
+    },
+    "allWorks": {
+        "title": "All Projects",
+        "subtitle": "Complete Portfolio"
+    },
+    "allCertificados": {
+        "title": "All Certificates",
+        "subtitle": "Certificates & Credentials"
+    }
+}

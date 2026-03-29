@@ -3,14 +3,13 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { InstancedMesh, Object3D } from 'three';
 import { Detailed } from '@react-three/drei';
 import { usePerformance } from '../../contexts/PerformanceContext';
-import type { ReactNode } from 'react';
 
 interface InstancedLODProps {
     count: number;
     positions: [number, number, number][];
-    highModel: ReactNode;
-    mediumModel: ReactNode;
-    lowModel: ReactNode;
+    highModel: unknown;
+    mediumModel: unknown;
+    lowModel: unknown;
     distanceThresholds?: [number, number];
 }
 
@@ -61,9 +60,9 @@ const InstancedLOD = ({
     return (
         <group>
             <Detailed distances={[0, thresholds[0], thresholds[1]]}>
-                {highModel}
-                {mediumModel}
-                {lowModel}
+                {highModel as any}
+                {mediumModel as any}
+                {lowModel as any}
             </Detailed>
 
             {isLowPerformance && (

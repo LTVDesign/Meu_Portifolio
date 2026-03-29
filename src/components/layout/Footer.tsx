@@ -9,13 +9,35 @@ import {
   FaLinkedin,
   FaWhatsapp,
 } from 'react-icons/fa';
+import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { navLinks } from '../../constants';
 import { config } from '../../constants/config';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
+  const location = useLocation();
+  const isHome = location.pathname === '/';
+  const { t } = useTranslation();
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  const getNavLink = (navId: string) => {
+    if (navId === 'curriculo') {
+      return '/formacao';
+    }
+    if (isHome) {
+      return `#${navId}`;
+    }
+    const routeMap: Record<string, string> = {
+      'about': '/',
+      'formacao': '/formacao',
+      'cursos': '/cursos',
+      'projects': '/projetos',
+      'contact': '/contato',
+    };
+    return routeMap[navId] || '/';
+  };
 
   const socialLinks = [
     {
@@ -65,17 +87,25 @@ const Footer: React.FC = () => {
           {/* Coluna 2 - Acesso Rápido */}
           <div className="flex flex-col items-center text-center max-w-sm">
             <h3 className="text-[clamp(0.7rem,2vw,0.85rem)] font-bold uppercase tracking-widest text-[var(--cyber-purple)] mb-6">
-              Acesso Rápido
+              {t('footer.quickAccess')}
             </h3>
             <ul className="grid grid-cols-2 gap-x-8 gap-y-4 justify-items-center">
               {navLinks.map((link) => (
                 <li key={link.id}>
-                  <a
-                    href={`#${link.id}`}
+                  <Link
+                    to={getNavLink(link.id)}
+                    onClick={() => {
+                      if (isHome && link.id !== 'curriculo') {
+                        const element = document.getElementById(link.id);
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }
+                    }}
                     className="text-[var(--dynamic-text-secondary)] hover:text-white text-[clamp(0.8rem,2vw,0.9rem)] transition-colors focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-xl px-3 py-1"
                   >
-                    {link.title}
-                  </a>
+                    {t(`nav.${link.id}`)}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -84,7 +114,7 @@ const Footer: React.FC = () => {
           {/* Coluna 3 - Contato */}
           <div className="flex flex-col items-center text-center max-w-sm">
             <h3 className="text-[clamp(0.7rem,2vw,0.85rem)] font-bold uppercase tracking-widest text-[var(--cyber-purple)] mb-6">
-              Contato
+              {t('nav.contact')}
             </h3>
             <a
               href={`mailto:${config.html.email}`}
@@ -116,7 +146,7 @@ const Footer: React.FC = () => {
           </div>
 
           <p className="text-xs text-[var(--dynamic-text-secondary)] uppercase tracking-widest opacity-60 text-center">
-            © {currentYear} {config.html.fullName} • Todos os direitos reservados
+            © {currentYear} {config.html.fullName} • {t('footer.allRightsReserved')}
           </p>
 
           <button
@@ -124,7 +154,7 @@ const Footer: React.FC = () => {
             onClick={scrollToTop}
             className="group flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-[var(--dynamic-text-secondary)] hover:text-white focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)]"
           >
-            Voltar ao Topo
+            {t('common.backToTop')}
             <div className="rounded-2xl border border-white/10 bg-white/5 p-3 group-hover:border-[var(--cyber-purple)] transition-all">
               <FaArrowUp className="text-xs group-active:animate-bounce" />
             </div>

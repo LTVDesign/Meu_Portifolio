@@ -1,14 +1,17 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { SectionWrapper } from '../../hoc';
 import { fadeIn, textVariant } from '../../utils/motion';
 import { technologies } from '../../constants';
 
 const Tech = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="max-w-7xl mx-auto px-6">
       <motion.div variants={textVariant()} className="text-center mb-16">
-        <p className="text-[var(--cyber-purple)] uppercase tracking-widest text-sm font-bold opacity-60">Meu Arsenal</p>
-        <h2 className="section-title mt-3 drop-shadow-[0_0_15px_rgba(145,94,255,0.4)]">Stack Tecnológica</h2>
+        <p className="text-[var(--cyber-purple)] uppercase tracking-widest text-sm font-bold opacity-60">{t('tech.arsenal')}</p>
+        <h2 className="section-title mt-3 drop-shadow-[0_0_15px_rgba(145,94,255,0.4)]">{t('tech.stackTitle')}</h2>
       </motion.div>
 
       {/* Grid optimized for 13 items per row on desktop */}
@@ -21,13 +24,13 @@ const Tech = () => {
           >
             {/* Glass Icon Container */}
             <div className="w-14 h-14 glass-card p-3 flex items-center justify-center rounded-2xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_25px_rgba(0,255,255,0.6)] border border-white/10 group-hover:border-[var(--cyber-cyan)] relative z-10 bg-black/40">
-              <img 
-                src={tech.icon} 
-                alt={tech.name} 
-                className="w-8 h-8 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500" 
+              <img
+                src={tech.icon}
+                alt={tech.name}
+                className="w-8 h-8 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500"
               />
             </div>
-            
+
             {/* Label name - Floating reveal on hover with intense neon glow */}
             <p className="absolute bottom-2 text-[10px] font-black text-white uppercase tracking-[0.2em] transform translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 drop-shadow-[0_0_12px_rgba(0,255,255,1)] pointer-events-none text-center leading-none">
               {tech.name}

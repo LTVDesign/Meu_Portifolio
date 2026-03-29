@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FaBuilding, FaEnvelope, FaPaperPlane, FaPhone, FaUser } from 'react-icons/fa';
 import { z } from 'zod';
-import { config } from '../../constants/config';
 import { SectionWrapper } from '../../hoc';
 import { emailService } from '../../utils/emailService';
 import { slideIn } from '../../utils/motion';
@@ -34,6 +34,7 @@ const Contact = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<keyof ContactForm, string>>>({});
+  const { t } = useTranslation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -65,7 +66,7 @@ const Contact = () => {
           }
         });
         setFieldErrors(errors);
-        setError('Por favor, corrija os erros no formulário.');
+        setError(t('contact.validationErrors.correctForm'));
       }
       return false;
     }
@@ -109,50 +110,55 @@ const Contact = () => {
           {/* Formulário */}
           <motion.div variants={slideIn('left', 'tween', 0.2, 1)} className="flex-1 w-full">
             <div className="glass p-8 sm:p-10 md:p-12">
-              <Header useMotion={true} {...config.contact} />
+              <Header useMotion={true} p={t('contact.p')} h2={t('contact.h2')} />
 
               <form ref={formRef} onSubmit={handleSubmit} className="mt-10 space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="form-label">
-                      <FaUser className="text-[var(--cyber-purple)]" /> Nome <span className="text-red-400">*</span>
+                      <FaUser className="text-[var(--cyber-purple)]" /> {t('contact.form.name.span')} <span className="text-red-400">*</span>
                     </label>
                     <input id="name" name="name" type="text" value={form.name} onChange={handleChange} required className="form-input w-full" />
+                    {fieldErrors.name && <p role="alert" className="text-red-400 text-sm mt-1">{fieldErrors.name}</p>}
                   </div>
                   <div>
                     <label htmlFor="email" className="form-label">
-                      <FaEnvelope className="text-[var(--cyber-purple)]" /> Email <span className="text-red-400">*</span>
+                      <FaEnvelope className="text-[var(--cyber-purple)]" /> {t('contact.form.email.span')} <span className="text-red-400">*</span>
                     </label>
                     <input id="email" name="email" type="email" value={form.email} onChange={handleChange} required className="form-input w-full" />
+                    {fieldErrors.email && <p role="alert" className="text-red-400 text-sm mt-1">{fieldErrors.email}</p>}
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="phone" className="form-label">
-                      <FaPhone className="text-[var(--cyber-purple)]" /> Telefone
+                      <FaPhone className="text-[var(--cyber-purple)]" /> {t('contact.form.phone.span')}
                     </label>
                     <input id="phone" name="phone" type="tel" value={form.phone} onChange={handlePhoneChange} className="form-input w-full" />
+                    {fieldErrors.phone && <p role="alert" className="text-red-400 text-sm mt-1">{fieldErrors.phone}</p>}
                   </div>
                   <div>
                     <label htmlFor="company" className="form-label">
-                      <FaBuilding className="text-[var(--cyber-purple)]" /> Empresa
+                      <FaBuilding className="text-[var(--cyber-purple)]" /> {t('contact.form.company.span')}
                     </label>
                     <input id="company" name="company" type="text" value={form.company} onChange={handleChange} className="form-input w-full" />
+                    {fieldErrors.company && <p role="alert" className="text-red-400 text-sm mt-1">{fieldErrors.company}</p>}
                   </div>
                 </div>
 
                 <div>
                   <label htmlFor="message" className="form-label">
-                    <FaPaperPlane className="text-[var(--cyber-purple)]" /> Mensagem <span className="text-red-400">*</span>
+                    <FaPaperPlane className="text-[var(--cyber-purple)]" /> {t('contact.form.message.span')} <span className="text-red-400">*</span>
                   </label>
                   <textarea id="message" name="message" value={form.message} onChange={handleChange} rows={7} required className="form-input w-full resize-y min-h-[180px]" />
+                  {fieldErrors.message && <p role="alert" className="text-red-400 text-sm mt-1">{fieldErrors.message}</p>}
                 </div>
 
                 {error && <p role="alert" className="text-red-400 text-sm">{error}</p>}
 
                 <button type="submit" disabled={loading} className="btn-primary w-full text-lg">
-                  {loading ? 'Enviando...' : 'Enviar Mensagem'} <FaPaperPlane />
+                  {loading ? t('contact.sending') : t('contact.submit')} <FaPaperPlane />
                 </button>
               </form>
             </div>

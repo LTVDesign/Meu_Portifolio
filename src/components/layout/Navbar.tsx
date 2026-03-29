@@ -1,6 +1,7 @@
 import { m, useScroll, useSpring } from 'framer-motion';
 import { memo, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { close, logo, menu } from '../../assets';
 import { navLinks } from '../../constants';
 import { LinkAnimado } from '../atoms';
@@ -9,6 +10,9 @@ const Navbar = memo(() => {
   const [active, setActive] = useState<string | null>(null);
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === '/';
+  const { t, i18n } = useTranslation();
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -24,13 +28,17 @@ const Navbar = memo(() => {
       const scrollY = window.scrollY;
       setScrolled(scrollY > 80);
 
-      const sections = document.querySelectorAll('section[id]');
-      for (const section of Array.from(sections)) {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= 180 && rect.bottom >= 180) {
-          setActive(section.getAttribute('id'));
-          break;
+      if (isHome) {
+        const sections = document.querySelectorAll('section[id]');
+        for (const section of Array.from(sections)) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= 180 && rect.bottom >= 180) {
+            setActive(section.getAttribute('id'));
+            break;
+          }
         }
+      } else {
+        setActive(null);
       }
       ticking = false;
     };
@@ -44,17 +52,38 @@ const Navbar = memo(() => {
 
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [isHome]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setActive(id);
+    if (isHome) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        setActive(id);
+        setToggle(false);
+        window.history.pushState(null, '', `#${id}`);
+      }
+    } else {
       setToggle(false);
-      window.history.pushState(null, '', `#${id}`);
     }
+  };
+
+  const getNavLink = (navId: string) => {
+    if (navId === 'curriculo') {
+      return '/formacao';
+    }
+    if (isHome) {
+      return `#${navId}`;
+    }
+    const routeMap: Record<string, string> = {
+      'about': '/',
+      'formacao': '/formacao',
+      'cursos': '/cursos',
+      'projects': '/projetos',
+      'contact': '/contato',
+    };
+    return routeMap[navId] || '/';
   };
 
   return (
@@ -112,13 +141,17 @@ const Navbar = memo(() => {
             return (
               <li key={nav.id} className="relative group">
                 <LinkAnimado
-                  href={nav.id === 'curriculo' ? '/formacao' : `#${nav.id}`}
+                  href={getNavLink(nav.id)}
                   onClick={(e) => {
-                    if (nav.id !== 'curriculo') handleNavClick(e, nav.id);
+                    if (isHome && nav.id !== 'curriculo') {
+                      handleNavClick(e, nav.id);
+                    } else {
+                      setToggle(false);
+                    }
                   }}
                   className={`navbar-link py-2 px-1 text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:text-[var(--cyber-cyan)] ${isActive ? 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]' : 'text-white/60'}`}
                 >
-                  {nav.title}
+                  {t(`nav.${nav.id}`)}
                 </LinkAnimado>
 
                 {/* Underline for active/hover focus */}
@@ -130,6 +163,28 @@ const Navbar = memo(() => {
           })}
         </ul>
 
+        {/* Language Selector */}
+        <div className="hidden sm:flex items-center gap-2">
+          <button
+            onClick={() => i18n.changeLanguage('pt')}
+            className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg transition-all ${i18n.language === 'pt'
+              ? 'bg-[var(--cyber-purple)] text-white shadow-[0_0_15px_rgba(145,94,255,0.5)]'
+              : 'bg-white/5 text-white/60 hover:text-white hover:bg-white/10'
+              }`}
+          >
+            PT
+          </button>
+          <button
+            onClick={() => i18n.changeLanguage('en')}
+            className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg transition-all ${i18n.language === 'en'
+              ? 'bg-[var(--cyber-cyan)] text-white shadow-[0_0_15px_rgba(0,255,255,0.5)]'
+              : 'bg-white/5 text-white/60 hover:text-white hover:bg-white/10'
+              }`}
+          >
+            EN
+          </button>
+        </div>
+
         <button
           onClick={() => setToggle(!toggle)}
           className="sm:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/10"
@@ -140,19 +195,46 @@ const Navbar = memo(() => {
 
       {/* Mobile Menu */}
       <div className={`sm:hidden absolute top-full left-0 right-0 glass border-t border-white/10 px-6 py-8 transition-all duration-300 ${toggle ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-6 pointer-events-none'}`}>
-        <ul className="flex flex-col gap-6 font-bold uppercase tracking-widest text-sm">
+        <ul className="flex flex-col gap-6 font-bold uppercase tracking-widest text-sm mb-6">
           {navLinks.map((nav) => (
             <li key={nav.id}>
               <Link
-                to={nav.id === 'curriculo' ? '/formacao' : `#${nav.id}`}
+                to={getNavLink(nav.id)}
                 onClick={() => setToggle(false)}
                 className="text-white/70 hover:text-white transition-colors block"
               >
-                {nav.title}
+                {t(`nav.${nav.id}`)}
               </Link>
             </li>
           ))}
         </ul>
+        {/* Language Selector Mobile */}
+        <div className="flex items-center justify-center gap-3 pt-4 border-t border-white/10">
+          <button
+            onClick={() => {
+              i18n.changeLanguage('pt');
+              setToggle(false);
+            }}
+            className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all ${i18n.language === 'pt'
+              ? 'bg-[var(--cyber-purple)] text-white shadow-[0_0_15px_rgba(145,94,255,0.5)]'
+              : 'bg-white/5 text-white/60 hover:text-white hover:bg-white/10'
+              }`}
+          >
+            PT
+          </button>
+          <button
+            onClick={() => {
+              i18n.changeLanguage('en');
+              setToggle(false);
+            }}
+            className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all ${i18n.language === 'en'
+              ? 'bg-[var(--cyber-cyan)] text-white shadow-[0_0_15px_rgba(0,255,255,0.5)]'
+              : 'bg-white/5 text-white/60 hover:text-white hover:bg-white/10'
+              }`}
+          >
+            EN
+          </button>
+        </div>
       </div>
     </nav>
   );
