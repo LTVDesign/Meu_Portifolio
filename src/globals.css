@@ -20,6 +20,12 @@
 }
 
 @layer components {
+
+  /* Navbar link */
+  .navbar-link {
+    @apply text-base lg:text-lg font-medium text-white/80 hover:text-white transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-xl px-3 py-1;
+  }
+
   .glass {
     background-color: var(--bg-glass);
     backdrop-filter: blur(40px);

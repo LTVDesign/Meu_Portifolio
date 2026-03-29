@@ -6,6 +6,8 @@ import { PerformanceProvider } from './contexts/PerformanceContext';
 
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
+import ThemeToggle from './components/layout/ThemeToggle';
+import { ParticleBackground } from './components/canvas';
 
 // Lazy loading + code splitting
 const Hero = lazy(() => import('./components/sections/Hero'));
@@ -29,8 +31,10 @@ const App = () => {
         <LazyMotion features={domAnimation} strict>
           <Router>
             <div className="relative z-0 bg-primary">
+              <ParticleBackground />
               <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center">
                 <Navbar />
+                <ThemeToggle />
 
                 <main className="relative min-h-screen">
                   <Suspense fallback={
