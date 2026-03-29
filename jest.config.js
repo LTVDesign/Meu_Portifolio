@@ -7,6 +7,7 @@ export default {
         '\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/src/__tests__/__mocks__/fileMock.ts',
         '^@/(.*)$': '<rootDir>/src/$1',
         '^src/(.*)$': '<rootDir>/src/$1',
+        '^three$': '<rootDir>/src/__tests__/__mocks__/threeMock.ts',
         '^three/examples/jsm/(.*)$': '<rootDir>/src/__tests__/__mocks__/threeMock.ts'
     },
     setupFilesAfterEnv: ['<rootDir>/src/__tests__/setupTests.ts'],

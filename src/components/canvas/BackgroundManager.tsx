@@ -149,7 +149,7 @@ const BackgroundManager = memo(() => {
   };
 
   return (
-    <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden select-none bg-primary">
+    <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden select-none bg-[#050816]">
       <Suspense fallback={<div className="w-full h-full bg-primary" />}>
         {renderBackground()}
       </Suspense>

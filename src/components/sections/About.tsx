@@ -22,7 +22,7 @@ const About = () => {
             variants={fadeIn('up', 'tween', 0.3, 1)}
             className="prose prose-invert max-w-none mt-10 text-[var(--text-secondary)] leading-relaxed text-lg"
           >
-            {t('about.content').split('\n').map((paragraph, i) => (
+            {(t('about.content') as string).split('\n').map((paragraph, i) => (
               <p key={i}>{paragraph}</p>
             ))}
           </motion.div>

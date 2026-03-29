@@ -12,6 +12,7 @@
     "nav": {
         "about": "About",
         "formacao": "Education",
+        "experiencia": "Experience",
         "cursos": "Courses",
         "curriculo": "Resume",
         "projects": "Projects",
@@ -65,10 +66,12 @@
         "h2": "Certificates"
     },
     "curriculo": {
-        "p": "Resume",
-        "h2": "Resume",
-        "content": "Here's a summary of my academic background and professional experience.",
-        "viewFull": "View full resume"
+        "p": "My professional journey",
+        "h2": "Resume.",
+        "content": "Access my full resume to learn in detail about my academic background, professional experiences, and the technical skills I've developed throughout my career. I'm always looking for new challenges and opportunities to apply my knowledge in infrastructure, networking, and development.",
+        "viewOnline": "View Online Resume",
+        "downloadPDF": "Download PDF",
+        "viewFull": "View Details"
     },
     "contact": {
         "p": "Get in touch",
@@ -138,7 +141,8 @@
         "sortCompany": "Institution",
         "noResults": "No courses found.",
         "p": "Courses & Specializations",
-        "h2": "Academic Background"
+        "h2": "Academic Background",
+        "viewAll": "View All Courses"
     },
     "allFormacao": {
         "title": "Complete Academic Background",

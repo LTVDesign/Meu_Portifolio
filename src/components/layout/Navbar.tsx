@@ -79,6 +79,7 @@ const Navbar = memo(() => {
     const routeMap: Record<string, string> = {
       'about': '/',
       'formacao': '/formacao',
+      'experiencia': '/',
       'cursos': '/cursos',
       'projects': '/projetos',
       'contact': '/contato',
@@ -106,7 +107,7 @@ const Navbar = memo(() => {
             ease: "easeInOut"
           }
         }}
-        className="absolute left-6 md:left-12 top-2 z-[60] h-32 w-32 md:h-40 md:w-40 pointer-events-none"
+        className="absolute left-2 md:left-6 top-2 z-[60] h-32 w-32 md:h-40 md:w-40 pointer-events-none"
       >
         <img
           src={logo}
@@ -114,15 +115,17 @@ const Navbar = memo(() => {
           className="w-full h-full object-contain drop-shadow-[0_0_20px_rgba(145,94,255,0.8)]"
         />
       </m.div>
-      {/* Heavy Neon Progress Bar */}
       <div className="absolute bottom-0 left-0 h-[3px] w-full bg-white/5 overflow-hidden">
         <m.div
-          className="h-full bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] origin-left shadow-[0_0_20px_rgba(0,255,255,0.8)]"
+          className="h-full bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] origin-left shadow-[0_0_20px_rgba(0,255,255,0.8)] relative overflow-hidden"
           style={{ scaleX }}
-        />
+        >
+          {/* Shine effect that moves left to right */}
+          <div className="absolute top-0 left-0 h-full w-[30%] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 shine-anim" />
+        </m.div>
       </div>
 
-      <div className="max-w-screen-2xl mx-auto px-6 md:px-12 lg:px-16 py-4 flex items-center justify-between ml-20 md:ml-32">
+      <div className="max-w-screen-2xl mx-auto px-6 md:px-12 lg:px-16 py-4 flex items-center justify-between ml-28 md:ml-44">
         <Link
           to="/"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -156,8 +159,10 @@ const Navbar = memo(() => {
 
                 {/* Underline for active/hover focus */}
                 <m.div
-                  className={`absolute -bottom-1 left-0 right-0 h-[2px] bg-[var(--cyber-cyan)] rounded-full shadow-[0_0_10px_rgba(0,255,255,0.8)] transition-all duration-500 ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'}`}
-                />
+                  className={`absolute -bottom-1 left-0 right-0 h-[2px] bg-[var(--cyber-cyan)] rounded-full shadow-[0_0_10px_rgba(0,255,255,0.8)] transition-all duration-500 overflow-hidden ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'}`}
+                >
+                  <div className="absolute top-0 left-0 h-full w-[30%] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 shine-anim" />
+                </m.div>
               </li>
             );
           })}

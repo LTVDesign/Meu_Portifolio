@@ -23,7 +23,7 @@ const AllFormacao = () => {
       institution: 'Universidade Pitágoras Unopar Anhanguera',
       period: 'Concluído em Dezembro de 2025',
       description:
-        'Formação superior voltada para o ciclo completo de desenvolvimento de software, incluindo análise de requisitos, arquitetura de sistemas e programação. Experiência prática na implementação de bancos de dados, engenharia de software e utilização de metodologias ágeis para garantir a qualidade e escalabilidade das entregas técnicas.',
+        'Formação superior com carga horária total de 2100h, voltada para o ciclo completo de desenvolvimento de software, incluindo análise de requisitos, arquitetura de sistemas e programação. Experiência prática na implementação de bancos de dados, engenharia de software e utilização de metodologias ágeis para garantir a qualidade e escalabilidade das entregas técnicas.',
     },
   ];
 

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { SectionWrapper } from '../../hoc';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms/Header';
+import { FiDownload, FiExternalLink } from 'react-icons/fi';
 
 const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) => {
   const { t } = useTranslation();
@@ -13,23 +14,32 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
 
       <motion.p
         variants={fadeIn('up', 'tween', 0.1, 1)}
-        className="text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-4 text-[17px] leading-[30px] text-center"
+        className="text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-4 text-[17px] leading-[30px] text-center max-w-3xl mx-auto"
       >
         {t('curriculo.content')}
       </motion.p>
 
-      <div className="mt-8 flex flex-col items-center sm:items-start justify-center">
-        {/* O conteúdo principal do currículo agora será visto na página 'Ver Todos'. Opcionalmente, pode-se colocar um card resumido aqui, mas deixaremos limpo para não duplicar Visão Geral. */}
-      </div>
-
-      <div className="mt-10 flex justify-center">
-        <button
-          type="button"
+      <div className="mt-12 flex flex-wrap items-center justify-center gap-6">
+        <motion.button
+          variants={fadeIn('right', 'spring', 0.3, 0.75)}
           onClick={() => setViewMode?.('allcurriculo')}
-          className="glass-btn px-6 py-3 rounded-lg font-bold tracking-wider"
+          className="btn-primary flex items-center gap-3 px-8 py-4 rounded-xl font-bold tracking-wider group shadow-[0_0_20px_rgba(145,94,255,0.3)]"
         >
-          {t('curriculo.viewFull')}
-        </button>
+          <FiExternalLink className="text-xl group-hover:scale-110 transition-transform" />
+          {t('curriculo.viewOnline')}
+        </motion.button>
+
+        <motion.a
+          variants={fadeIn('left', 'spring', 0.4, 0.75)}
+          href="/assets/curriculo.pdf"
+          download
+          className="glass-card flex items-center gap-3 px-8 py-4 rounded-xl font-bold tracking-wider group border border-white/10 hover:border-[var(--cyber-cyan)]/50 transition-all shadow-lg"
+        >
+          <FiDownload className="text-xl text-[var(--cyber-cyan)] group-hover:animate-bounce transition-transform" />
+          <span className="text-white group-hover:text-[var(--cyber-cyan)] transition-colors">
+            {t('curriculo.downloadPDF')}
+          </span>
+        </motion.a>
       </div>
     </>
   );

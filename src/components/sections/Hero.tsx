@@ -10,17 +10,13 @@ const Hero = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    const titleLength = t('hero.title').length;
-    const typingSpeed = 80;
-    const pauseTime = 3000;
-    const totalTime = (titleLength * typingSpeed) + pauseTime;
-
+    // Title is static now, so start the subtitle sooner
     const timer = setTimeout(() => {
       setShowSubtitle(true);
-    }, totalTime);
+    }, 1500);
 
     return () => clearTimeout(timer);
-  }, [t]);
+  }, []);
 
   return (
     <motion.section
@@ -36,16 +32,14 @@ const Hero = () => {
         <meta name="description" content={t('hero.descriptionMeta')} />
       </Helmet>
 
-      <div className="max-w-7xl mx-auto px-6 z-10 w-full flex flex-col items-center text-center">
-        <TerminalText
-          words={[t('hero.title')]}
-          colors={['#a855f7', '#06b6d4', '#ffffff']}
-          typingSpeed={80}
-          pauseTime={3000}
-          typeOnce={true}
-          loop={false}
-          className="text-[clamp(2rem,5vw,3.5rem)] leading-tight font-bold tracking-tight text-white neon-text whitespace-nowrap"
-        />
+      <div className="max-w-7xl mx-auto px-6 z-10 w-full flex flex-col items-center text-center relative -top-32 md:-top-40">
+        <h1 className="text-[clamp(2rem,5vw,3.5rem)] leading-tight font-bold tracking-tight text-white whitespace-nowrap mb-2">
+          Olá, eu sou{" "}
+          <span className="text-[var(--cyber-cyan)] neon-text relative inline-block group cursor-default">
+            <span className="absolute -inset-1 animate-pulse blur-md bg-[var(--cyber-cyan)] opacity-20 group-hover:opacity-60 transition-opacity"></span>
+            Leandro Barbosa
+          </span>
+        </h1>
 
         {showSubtitle && (
           <motion.div
@@ -70,6 +64,25 @@ const Hero = () => {
         <ComputersCanvas />
       </div>
 
+      {/* Scroll / Interact Icon */}
+      <div className="absolute bottom-10 w-full flex justify-center items-center z-20 pointer-events-none">
+        <div className="flex flex-col items-center opacity-70">
+          <div className="w-[30px] h-[50px] rounded-3xl border-2 border-white/50 flex justify-center p-2 mb-2">
+            <motion.div
+              animate={{
+                y: [0, 16, 0],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                repeatType: "loop",
+              }}
+              className="w-2 h-2 rounded-full bg-[var(--cyber-cyan)] mb-1 shadow-[0_0_10px_rgba(0,255,255,0.8)]"
+            />
+          </div>
+          <span className="text-white/60 text-xs font-medium tracking-widest uppercase shadow-[0_0_10px_rgba(0,255,255,0.2)]">Arraste p/ Girar</span>
+        </div>
+      </div>
     </motion.section>
   );
 };

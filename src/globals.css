@@ -24,15 +24,25 @@
   }
 
   body {
-    @apply bg-black text-white font-sans antialiased;
+    @apply bg-transparent text-white font-sans antialiased;
   }
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 100px;
   }
 }
 
 @layer components {
+  /* Shine animation for neon lines */
+  .shine-anim {
+    animation: shine 2s infinite ease-in-out;
+  }
+
+  @keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(800%); }
+  }
 
   /* Navbar link */
   .navbar-link {

@@ -14,7 +14,7 @@ const ExperienceCard = ({ experience, index }: { experience: TExperience; index:
   >
     {/* Line & Circle */}
     <div className="absolute left-[31px] top-0 h-full w-[2px] bg-gradient-to-b from-[var(--cyber-cyan)] via-white/10 to-transparent group-last:h-16" />
-    <div className="absolute left-0 top-0 w-16 h-16 rounded-full bg-black border-2 border-[var(--cyber-cyan)] shadow-[0_0_20px_rgba(0,255,255,0.4)] z-10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(0,255,255,0.7)]">
+    <div className="absolute left-0 top-0 w-16 h-16 rounded-full bg-white border-2 border-[var(--cyber-cyan)] shadow-[0_0_20px_rgba(0,255,255,0.4)] z-10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(0,255,255,0.7)]">
       <img src={experience.icon} alt={experience.companyName} className="w-12 h-12 object-contain" />
     </div>
 

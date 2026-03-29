@@ -52,16 +52,20 @@ export const navLinks: TNavLink[] = [
     title: 'Formação',
   },
   {
+    id: 'experiencia',
+    title: 'Experiência Profissional',
+  },
+  {
     id: 'cursos',
     title: 'Cursos',
   },
   {
-    id: 'curriculo',
-    title: 'Currículo',
-  },
-  {
     id: 'projects',
     title: 'Projetos',
+  },
+  {
+    id: 'curriculo',
+    title: 'Currículo',
   },
   {
     id: 'contact',

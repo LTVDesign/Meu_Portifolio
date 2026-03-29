@@ -23,7 +23,7 @@ const Tech = () => {
             className="flex flex-col items-center justify-center group relative h-24 w-16"
           >
             {/* Glass Icon Container */}
-            <div className="w-14 h-14 glass-card p-3 flex items-center justify-center rounded-2xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_25px_rgba(0,255,255,0.6)] border border-white/10 group-hover:border-[var(--cyber-cyan)] relative z-10 bg-black/40">
+            <div className="w-14 h-14 p-3 flex items-center justify-center rounded-2xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_25px_rgba(0,255,255,0.6)] border border-white/10 group-hover:border-[var(--cyber-cyan)] relative z-10 bg-white shadow-lg">
               <img
                 src={tech.icon}
                 alt={tech.name}

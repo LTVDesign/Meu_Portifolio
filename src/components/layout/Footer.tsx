@@ -32,6 +32,7 @@ const Footer: React.FC = () => {
     const routeMap: Record<string, string> = {
       'about': '/',
       'formacao': '/formacao',
+      'experiencia': '/',
       'cursos': '/cursos',
       'projects': '/projetos',
       'contact': '/contato',

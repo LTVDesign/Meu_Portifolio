@@ -12,6 +12,7 @@
     "nav": {
         "about": "Sobre",
         "formacao": "Formação",
+        "experiencia": "Experiência",
         "cursos": "Cursos",
         "curriculo": "Currículo",
         "projects": "Projetos",
@@ -65,10 +66,12 @@
         "h2": "Certificados"
     },
     "curriculo": {
-        "p": "Currículo",
-        "h2": "Currículo",
-        "content": "Aqui está um resumo da minha formação acadêmica e experiência profissional.",
-        "viewFull": "Ver Currículo completo"
+        "p": "Minha trajetória profissional",
+        "h2": "Currículo.",
+        "content": "Acesse meu currículo completo para conhecer em detalhes minha formação acadêmica, experiências profissionais e as competências técnicas que desenvolvi ao longo da minha carreira. Estou sempre em busca de novos desafios e oportunidades para aplicar meu conhecimento em infraestrutura, redes e desenvolvimento.",
+        "viewOnline": "Ver Currículo Online",
+        "downloadPDF": "Download PDF",
+        "viewFull": "Ver Detalhes"
     },
     "contact": {
         "p": "Entre em contato",
@@ -138,7 +141,8 @@
         "sortCompany": "Instituição",
         "noResults": "Nenhum curso encontrado.",
         "p": "Cursos & Especializações",
-        "h2": "Formação Acadêmica"
+        "h2": "Formação Acadêmica",
+        "viewAll": "Veja Todos Cursos"
     },
     "allFormacao": {
         "title": "Formação Acadêmica Completa",

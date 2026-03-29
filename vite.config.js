@@ -10,6 +10,10 @@ export default defineConfig({
     react(),
     /* ViteImageOptimizer({...}) temporarily disabled */
   ],
+  define: {
+    "process.env": {},
+    "__DEFINES__": "{}",
+  },
   build: {
     minify: 'terser',
     terserOptions: {

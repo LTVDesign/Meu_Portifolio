@@ -13,11 +13,11 @@ import johnsImg from '../../logos/johns.webp';
 import bradescoImg from '../../logos/bradesco.webp';
 import cateImg from '../../logos/cate.webp';
 
-const Cursos = () => {
+const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { t } = useTranslation();
 
-  const featuredCursos = [
+  const allCursos = [
     {
       id: '1',
       title: 'Software Product Management Capstone',
@@ -250,6 +250,8 @@ const Cursos = () => {
     }
   ];
 
+  const displayedCursos = isHomePage ? allCursos.slice(0, 6) : allCursos;
+
   return (
     <div className="max-w-7xl mx-auto px-6 font-primary">
       <motion.div variants={textVariant()} className="text-center mb-16">
@@ -257,7 +259,7 @@ const Cursos = () => {
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {featuredCursos.map((curso, index) => (
+        {displayedCursos.map((curso, index) => (
           <motion.div
             key={index}
             variants={fadeIn('up', 'spring', index * 0.1, 0.75)}
@@ -299,7 +301,7 @@ const Cursos = () => {
           onClick={() => setIsModalOpen(true)}
           className="btn-primary text-xs px-16 py-5 uppercase tracking-[0.4em] font-black group shadow-[0_0_25px_rgba(145,94,255,0.3)]"
         >
-          Veja Todos Cursos
+          {t('courses.viewAll') || 'Veja Todos Cursos'}
           <span className="group-hover:translate-x-2 transition-transform ml-2">→</span>
         </button>
       </div>
@@ -308,7 +310,7 @@ const Cursos = () => {
       <CursosModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        cursos={featuredCursos}
+        cursos={allCursos}
       />
     </div>
   );
