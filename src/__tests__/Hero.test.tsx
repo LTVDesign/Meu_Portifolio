@@ -1,5 +1,4 @@
-import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { renderWithI18n } from './test-utils';
 import Hero from '../components/sections/Hero';
 
