@@ -7,15 +7,11 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "biome check .",
-    "format": "biome format --write .",
-    "ts:check": "tsc --noEmit",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "postinstall": "npm install --legacy-peer-deps --no-audit --no-fund"
   },
   "dependencies": {
     "@emailjs/browser": "^3.12.1",
+    "@exodus/bytes": "^1.15.0",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@tailwindcss/vite": "^4.2.2",
@@ -57,8 +53,9 @@
     "vite-plugin-image-optimizer": "^2.0.3"
   },
   "overrides": {
-    "glob": "^13.0.6",
-    "inflight": "^1.0.6",
-    "whatwg-encoding": "^3.1.1"
+    "whatwg-encoding": "@exodus/bytes"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
