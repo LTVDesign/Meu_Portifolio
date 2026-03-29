@@ -29,11 +29,16 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
+            // Priority 1: React must be loaded first
             if (id.includes('react/') || id.includes('react-dom/')) return 'react';
-            // Split framer-motion more aggressively for better code splitting
+            // Priority 2: React Router and Helmet
+            if (id.includes('react-router') || id.includes('react-helmet')) return 'react-vendor';
+            // Priority 3: Framer Motion
             if (id.includes('framer-motion/dom')) return 'motion-dom';
             if (id.includes('framer-motion') && !id.includes('dom')) return 'motion-core';
-            // Split Three.js into much smaller chunks for better tree shaking
+            // Priority 4: Three.js and React Three (must load after React)
+            if (id.includes('@react-three/fiber')) return 'react-three-fiber';
+            if (id.includes('@react-three/drei')) return 'react-three-drei';
             if (id.includes('three/examples/jsm/controls')) return 'three-controls';
             if (id.includes('three/examples/jsm/loaders')) return 'three-loaders';
             if (id.includes('three/examples/jsm/postprocessing')) return 'three-postprocessing';
@@ -42,7 +47,6 @@ export default defineConfig({
             if (id.includes('three/examples/jsm/lights')) return 'three-lights';
             if (id.includes('three/examples/jsm/helpers')) return 'three-helpers';
             if (id.includes('three/examples/jsm/')) return 'three-extras';
-            // Core Three.js modules
             if (id.includes('three/src/math')) return 'three-math';
             if (id.includes('three/src/core')) return 'three-core-utils';
             if (id.includes('three/src/renderers')) return 'three-renderers';
@@ -54,8 +58,6 @@ export default defineConfig({
             if (id.includes('three/src/lights')) return 'three-core-lights';
             if (id.includes('three/src/textures')) return 'three-textures';
             if (id.includes('three')) return 'three-core';
-            if (id.includes('@react-three/fiber')) return 'react-three-fiber';
-            if (id.includes('@react-three/drei')) return 'react-three-drei';
           }
         },
       },
