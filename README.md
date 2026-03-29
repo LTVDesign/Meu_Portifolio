@@ -84,7 +84,7 @@ Os arquivos otimizados serão gerados na pasta `dist/`.
 ## 📁 Estrutura de Pastas
 
 ```
-portfolio-3d/
+Meu_Portifolio/
 ├── public/                 # Arquivos estáticos
 │   ├── certificados/      # PDFs de certificados
 │   ├── formacao/          # Imagens de formação
