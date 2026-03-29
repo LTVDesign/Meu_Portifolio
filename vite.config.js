@@ -15,10 +15,28 @@ export default defineConfig({
     }),
   ],
 
+  resolve: {
+    alias: {
+      react: 'react',
+      'react-dom': 'react-dom',
+    },
+  },
 
   build: {
     outDir: 'dist',
-    sourcemap: false,
+    chunkSizeWarningLimit: 1200,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react/') || id.includes('react-dom/')) return 'react';
+            if (id.includes('framer-motion')) return 'motion';
+            if (id.includes('three')) return 'three';
+            if (id.includes('@react-three')) return 'react-three';
+          }
+        },
+      },
+    },
     minify: 'terser',
     terserOptions: {
       compress: {
@@ -26,31 +44,20 @@ export default defineConfig({
         drop_debugger: true,
       },
     },
-    rollupOptions: {
-      output: {
-        manualChunks: (id) => {
-          if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
-              return 'vendor-react';
-            }
-            if (id.includes('three') || id.includes('@react-three/fiber') || id.includes('@react-three/drei')) {
-              return 'vendor-three';
-            }
-            if (id.includes('framer-motion')) {
-              return 'vendor-motion';
-            }
-            if (id.includes('i18next') || id.includes('react-i18next') || id.includes('zod')) {
-              return 'vendor-utils';
-            }
-          }
-        },
-      },
-    },
-    chunkSizeWarningLimit: 1000,
     cssCodeSplit: true,
   },
+
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'framer-motion', '@react-three/fiber', '@react-three/drei'],
+  },
+
+  define: {
+    // Ensuring internal Vite defines are handled correctly
+  },
+
   server: {
     port: 5173,
   },
 })
+
 

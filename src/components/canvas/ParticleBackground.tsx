@@ -42,6 +42,7 @@ const ParticleBackground = ({
   const mouseInteractionRadius = isLowPerformance ? 100 : 150;
   const mouseForce = isLowPerformance ? 0.1 : 0.2;
   const lastMouseMoveRef = useRef(0);
+  const canvasRectRef = useRef<DOMRect | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -176,8 +177,6 @@ const ParticleBackground = ({
       drawParticles();
       animationRef.current = requestAnimationFrame(animate);
     };
-
-    const canvasRectRef = useRef<DOMRect | null>(null);
 
     const updateCanvasRect = () => {
       if (canvas) {
