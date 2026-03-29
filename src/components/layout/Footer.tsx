@@ -119,6 +119,7 @@ const Footer: React.FC = () => {
             </h3>
             <a
               href={`mailto:${config.html.email}`}
+              aria-label={t('footer.emailUs')}
               className="flex items-center gap-4 text-[clamp(0.8rem,2vw,0.9rem)] text-[var(--dynamic-text-secondary)] hover:text-white focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-2xl px-4 py-2 transition-colors"
             >
               <FaEnvelope className="text-[var(--cyber-purple)]" />
@@ -153,9 +154,10 @@ const Footer: React.FC = () => {
           <button
             type="button"
             onClick={scrollToTop}
+            aria-label={t('footer.backToTopLabel')}
             className="group flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-[var(--dynamic-text-secondary)] hover:text-white focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)]"
           >
-            {t('common.backToTop')}
+            {t('footer.backToTop')}
             <div className="rounded-2xl border border-white/10 bg-white/5 p-3 group-hover:border-[var(--cyber-purple)] transition-all">
               <FaArrowUp className="text-xs group-active:animate-bounce" />
             </div>

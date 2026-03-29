@@ -22,6 +22,8 @@ export default defineConfig({
         drop_debugger: true,
         passes: 2, // Duas passadas para melhor minificação
         pure_funcs: ['console.log', 'console.debug'], // Remove funções específicas
+        dead_code: true, // Remove código morto
+        unused: true, // Remove variáveis não usadas
       },
       mangle: {
         safari10: true, // Compatibilidade com Safari
@@ -31,20 +33,39 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
+            // Separação mais granular das dependências
             if (id.includes('react') || id.includes('react-dom')) {
-              return 'vendor';
+              return 'react-vendor';
             }
             if (id.includes('three') || id.includes('@react-three')) {
-              return 'three';
+              return 'three-vendor';
             }
             if (id.includes('framer-motion')) {
-              return 'framer';
+              return 'framer-vendor';
             }
             if (id.includes('react-router-dom')) {
-              return 'router';
+              return 'router-vendor';
             }
             if (id.includes('react-icons')) {
-              return 'icons';
+              return 'icons-vendor';
+            }
+            if (id.includes('react-helmet-async')) {
+              return 'helmet-vendor';
+            }
+            if (id.includes('react-i18next') || id.includes('i18next')) {
+              return 'i18n-vendor';
+            }
+            if (id.includes('@emailjs')) {
+              return 'email-vendor';
+            }
+            if (id.includes('react-parallax-tilt')) {
+              return 'tilt-vendor';
+            }
+            if (id.includes('react-vertical-timeline-component')) {
+              return 'timeline-vendor';
+            }
+            if (id.includes('zod')) {
+              return 'validation-vendor';
             }
             // Outras dependências vão para vendor
             return 'vendor';
@@ -55,13 +76,22 @@ export default defineConfig({
         entryFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]',
       },
+      // Configuração para tree shaking mais agressivo
+      treeshake: {
+        moduleSideEffects: false,
+        propertyReadSideEffects: false,
+        tryCatchDeoptimization: false,
+      },
     },
     // Compressão de imagens
     assetsInlineLimit: 4096,
     // Otimizações adicionais
     chunkSizeWarningLimit: 1000,
-    sourcemap: false, // Desabilita sourcemaps em produção
+    sourcemap: true, // Habilita sourcemaps em produção para depuração
     reportCompressedSize: false, // Desabilita report de tamanho comprimido para build mais rápido
+    // Otimização de CSS
+    cssCodeSplit: true,
+    cssMinify: true,
   },
   preview: {
     // Desativa compressão no preview para melhor performance

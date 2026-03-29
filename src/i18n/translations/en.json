@@ -16,7 +16,12 @@
         "cursos": "Courses",
         "curriculo": "Resume",
         "projects": "Projects",
-        "contact": "Contact"
+        "contact": "Contact",
+        "menu_open": "Open Menu",
+        "menu_close": "Close Menu",
+        "logo": "Leandro Barbosa - Home",
+        "switch_to_pt": "Switch to Portuguese",
+        "switch_to_en": "Switch to English"
     },
     "hero": {
         "title": "Hello, I'm Leandro Barbosa",
@@ -54,6 +59,7 @@
         "h2": "Projects",
         "content": "A showcase of projects I've developed out of passion, hobby, and to deepen my technical knowledge. Each initiative reflects my curiosity to explore new frontiers, from hardware modding to intelligent automations with AI.",
         "viewCode": "View Source Code",
+        "viewDemo": "View Demo",
         "viewProjects": "View My Projects"
     },
     "cursos": {
@@ -115,7 +121,9 @@
     "footer": {
         "quickAccess": "Quick Access",
         "allRightsReserved": "All rights reserved",
-        "backToTop": "Back to Top"
+        "backToTop": "Back to Top",
+        "backToTopLabel": "Back to top",
+        "emailUs": "Email Leandro Barbosa"
     },
     "services": {
         "infraestrutura": "Infrastructure",

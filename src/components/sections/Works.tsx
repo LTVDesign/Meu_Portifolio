@@ -55,6 +55,7 @@ const Works = () => {
                   href={project.sourceCodeLink}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`${t('works.viewCode')} - ${project.name}`}
                   className="btn-primary w-full py-4 text-center justify-center text-sm font-bold uppercase tracking-widest shadow-[0_0_20px_rgba(145,94,255,0.3)] transition-all hover:scale-[1.02]"
                 >
                   {t('works.viewCode')}

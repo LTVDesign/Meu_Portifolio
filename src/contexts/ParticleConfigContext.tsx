@@ -173,7 +173,7 @@ export const ParticleConfigProvider: React.FC<ParticleConfigProviderProps> = ({ 
 
     const root = document.documentElement;
     root.style.setProperty('--dynamic-text-color', isLight ? '#050816' : '#ffffff');
-    root.style.setProperty('--dynamic-text-secondary', isLight ? '#111111' : '#aaa6c3');
+    root.style.setProperty('--dynamic-text-secondary', isLight ? '#111111' : '#d1d5db');
   }, [config]);
 
   // Listener para mudanças de tema

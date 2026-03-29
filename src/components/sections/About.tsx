@@ -3,6 +3,7 @@ import { SectionWrapper } from '../../hoc';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms';
 import { useTranslation } from 'react-i18next';
+import { willy } from '../../assets';
 
 const About = () => {
   const { t } = useTranslation();
@@ -35,7 +36,7 @@ const About = () => {
         >
           <div className="glass-card aspect-square rounded-3xl overflow-hidden border border-[var(--cyber-purple)]/30">
             <img
-              src="/assets/about-image.jpg"
+              src={willy}
               alt="Leandro Saturnino Barbosa"
               className="w-full h-full object-cover"
             />

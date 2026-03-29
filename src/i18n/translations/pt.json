@@ -16,7 +16,12 @@
         "cursos": "Cursos",
         "curriculo": "Currículo",
         "projects": "Projetos",
-        "contact": "Contato"
+        "contact": "Contato",
+        "menu_open": "Abrir Menu",
+        "menu_close": "Fechar Menu",
+        "logo": "Leandro Barbosa - Início",
+        "switch_to_pt": "Mudar para Português",
+        "switch_to_en": "Mudar para Inglês"
     },
     "hero": {
         "title": "Olá, eu sou Leandro Barbosa",
@@ -54,6 +59,7 @@
         "h2": "Projetos",
         "content": "Uma vitrine de projetos que desenvolvi por paixão, hobby e para aprofundar meus conhecimentos técnicos. Cada iniciativa reflete minha curiosidade em explorar novas fronteiras, desde hardware modding até automações inteligentes com IA.",
         "viewCode": "Visualizar Código Fonte",
+        "viewDemo": "Ver Demo",
         "viewProjects": "Ver Meus Projetos"
     },
     "cursos": {
@@ -115,7 +121,9 @@
     "footer": {
         "quickAccess": "Acesso Rápido",
         "allRightsReserved": "Todos os direitos reservados",
-        "backToTop": "Voltar ao Topo"
+        "backToTop": "Voltar ao Topo",
+        "backToTopLabel": "Voltar ao topo",
+        "emailUs": "Enviar e-mail para Leandro Barbosa"
     },
     "services": {
         "infraestrutura": "Infraestrutura",

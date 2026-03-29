@@ -130,6 +130,7 @@ const Navbar = memo(() => {
           to="/"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="flex items-center gap-3 md:gap-4 group relative"
+          aria-label={t('nav.logo')}
         >
           <span className="hidden xs:inline text-4xl md:text-5xl font-black navbar-brand-text uppercase tracking-tighter">
             Leandro <span className="text-[var(--cyber-cyan)]">Barbosa</span>
@@ -172,6 +173,7 @@ const Navbar = memo(() => {
         <div className="hidden sm:flex items-center gap-2">
           <button
             onClick={() => i18n.changeLanguage('pt')}
+            aria-label={t('nav.switch_to_pt')}
             className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg transition-all ${i18n.language === 'pt'
               ? 'bg-[var(--cyber-purple)] text-white shadow-[0_0_15px_rgba(145,94,255,0.5)]'
               : 'bg-white/5 text-white/60 hover:text-white hover:bg-white/10'
@@ -181,6 +183,7 @@ const Navbar = memo(() => {
           </button>
           <button
             onClick={() => i18n.changeLanguage('en')}
+            aria-label={t('nav.switch_to_en')}
             className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg transition-all ${i18n.language === 'en'
               ? 'bg-[var(--cyber-cyan)] text-white shadow-[0_0_15px_rgba(0,255,255,0.5)]'
               : 'bg-white/5 text-white/60 hover:text-white hover:bg-white/10'
@@ -193,6 +196,7 @@ const Navbar = memo(() => {
         <button
           onClick={() => setToggle(!toggle)}
           className="sm:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/10"
+          aria-label={toggle ? t('nav.menu_close') : t('nav.menu_open')}
         >
           <img src={toggle ? close : menu} alt="" className="h-6 w-6" />
         </button>
@@ -220,6 +224,7 @@ const Navbar = memo(() => {
               i18n.changeLanguage('pt');
               setToggle(false);
             }}
+            aria-label={t('nav.switch_to_pt')}
             className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all ${i18n.language === 'pt'
               ? 'bg-[var(--cyber-purple)] text-white shadow-[0_0_15px_rgba(145,94,255,0.5)]'
               : 'bg-white/5 text-white/60 hover:text-white hover:bg-white/10'
@@ -232,6 +237,7 @@ const Navbar = memo(() => {
               i18n.changeLanguage('en');
               setToggle(false);
             }}
+            aria-label={t('nav.switch_to_en')}
             className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all ${i18n.language === 'en'
               ? 'bg-[var(--cyber-cyan)] text-white shadow-[0_0_15px_rgba(0,255,255,0.5)]'
               : 'bg-white/5 text-white/60 hover:text-white hover:bg-white/10'

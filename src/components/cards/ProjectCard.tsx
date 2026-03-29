@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { fadeIn } from '../../utils/motion';
 
 interface ProjectCardProps {
@@ -15,6 +16,8 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ project, index }: ProjectCardProps) => {
+    const { t } = useTranslation();
+
     return (
         <motion.div
             variants={fadeIn('up', 'spring', index * 0.07, 0.8)}
@@ -53,18 +56,20 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
                         href={project.sourceCode}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`${t('works.viewCode')} - ${project.title}`}
                         className="flex-1 py-4 text-center border border-white/20 hover:border-[var(--cyber-purple)] rounded-2xl text-sm font-medium transition-all"
                     >
-                        Código Fonte
+                        {t('works.viewCode')}
                     </a>
                     {project.liveDemo && (
                         <a
                             href={project.liveDemo}
                             target="_blank"
                             rel="noopener noreferrer"
+                            aria-label={`${t('works.viewDemo')} - ${project.title}`}
                             className="flex-1 py-4 text-center bg-gradient-to-r from-[var(--cyber-purple)]/20 hover:from-[var(--cyber-purple)]/40 border border-[var(--cyber-purple)]/30 rounded-2xl text-sm font-medium transition-all"
                         >
-                            Ver Demo
+                            {t('works.viewDemo')}
                         </a>
                     )}
                 </div>

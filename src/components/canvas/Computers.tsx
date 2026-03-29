@@ -5,6 +5,9 @@ import { Suspense, useEffect, useState } from 'react';
 
 import CanvasLoader from '../layout/Loader';
 
+// Preload do modelo para melhor performance
+useGLTF.preload('./desktop_pc/scene-compressed.compressed.gltf');
+
 const Computers: React.FC<{ screenSize: string }> = ({ screenSize }) => {
   const computer = useGLTF('./desktop_pc/scene-compressed.compressed.gltf');
 

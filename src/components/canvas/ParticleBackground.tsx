@@ -41,6 +41,7 @@ const ParticleBackground = ({
   const mouseRef = useRef({ x: 0, y: 0 });
   const mouseInteractionRadius = isLowPerformance ? 100 : 150;
   const mouseForce = isLowPerformance ? 0.1 : 0.2;
+  const lastMouseMoveRef = useRef(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -177,6 +178,11 @@ const ParticleBackground = ({
     };
 
     const handleMouseMove = (e: MouseEvent) => {
+      const now = Date.now();
+      // Throttle mousemove para 60fps (16ms)
+      if (now - lastMouseMoveRef.current < 16) return;
+      lastMouseMoveRef.current = now;
+
       const rect = canvas.getBoundingClientRect();
       mouseRef.current.x = e.clientX - rect.left;
       mouseRef.current.y = e.clientY - rect.top;
