@@ -1,8 +1,6 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { config } from '../../constants/config';
-import { fadeIn } from '../../utils/motion';
 import { ComputersCanvas } from '../canvas';
 import { TerminalText } from '../atoms';
 
@@ -37,7 +35,7 @@ const Hero = () => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
       viewport={{ once: true, amount: 0.25 }}
-      className="relative min-h-screen flex items-start pt-4 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden"
     >
       <Helmet>
         <title>Leandro Saturnino Barbosa | Portfólio 3D Cyberpunk</title>
@@ -66,7 +64,7 @@ const Hero = () => {
         </script>
       </Helmet>
 
-      <div className="max-w-7xl mx-auto px-6 z-10 w-full">
+      <div className="max-w-7xl mx-auto px-6 z-10 w-full flex flex-col items-center text-center">
         <TerminalText
           words={TITLE_WORDS}
           colors={['#a855f7', '#06b6d4', '#ffffff']}
@@ -74,7 +72,7 @@ const Hero = () => {
           pauseTime={3000}
           typeOnce={true}
           loop={false}
-          className="text-[clamp(2rem,5vw,3rem)] leading-none font-bold tracking-tight text-white neon-text whitespace-nowrap"
+          className="text-[clamp(2rem,5vw,3.5rem)] leading-tight font-bold tracking-tight text-white neon-text whitespace-nowrap"
         />
 
         {showSubtitle && (
@@ -82,7 +80,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-4"
+            className="mt-4 max-w-2xl"
           >
             <TerminalText
               words={SUBTITLE_WORDS}
@@ -100,9 +98,6 @@ const Hero = () => {
         <ComputersCanvas />
       </div>
 
-      <div className="absolute bottom-10 right-10 hidden xl:block text-[12rem] font-black text-white/5 tracking-[-0.05em] pointer-events-none select-none">
-        LSB
-      </div>
     </motion.section>
   );
 };

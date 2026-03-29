@@ -11,7 +11,7 @@ const Works = () => {
     <div className="max-w-7xl mx-auto px-6">
       <Header useMotion={true} {...config.sections.works} />
 
-      <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project, index) => (
           <motion.div
             key={project.name}
@@ -25,7 +25,7 @@ const Works = () => {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent" />
-              
+
               {/* Category Badge */}
               <div className="absolute top-4 left-4 px-4 py-1.5 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[10px] font-bold text-[var(--cyber-cyan)] uppercase tracking-widest shadow-xl">
                 {project.category}
@@ -62,6 +62,13 @@ const Works = () => {
             </div>
           </motion.div>
         ))}
+      </div>
+
+      <div className="mt-16 flex justify-center">
+        <a href="/cursos" className="btn-primary text-xs px-16 py-5 uppercase tracking-[0.4em] font-black group shadow-[0_0_25px_rgba(145,94,255,0.3)]">
+          Ver Meus Projetos
+          <span className="group-hover:translate-x-2 transition-transform ml-2">→</span>
+        </a>
       </div>
     </div>
   );

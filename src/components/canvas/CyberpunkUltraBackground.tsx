@@ -34,7 +34,7 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
 
-  const bloomPassRef = useRef<any>(null);
+  const bloomPassRef = useRef<UnrealBloomPass | null>(null);
   const fogRef = useRef<THREE.FogExp2 | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const speedRef = useRef(speed);

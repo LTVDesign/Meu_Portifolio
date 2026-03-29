@@ -3,7 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Suspense, useRef, useState } from 'react';
 import type * as THREE from 'three';
 
-const Stars = (props: any) => {
+const Stars = (props: {}) => {
   const ref = useRef<THREE.Points>(null);
   const [sphere] = useState<Float32Array>(() => {
     const count = 1000; // Reduzido de 2000 para 1000 para melhor performance

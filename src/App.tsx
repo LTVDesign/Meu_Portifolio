@@ -10,6 +10,7 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ThemeToggle from './components/layout/ThemeToggle';
 import BackgroundManager from './components/canvas/BackgroundManager';
+import MotionLoader from './components/layout/MotionLoader';
 
 // Lazy loading + code splitting
 const Hero = lazy(() => import('./components/sections/Hero'));
@@ -34,42 +35,38 @@ const App = () => {
         <PerformanceProvider>
           <ParticleConfigProvider>
             <Router>
-            {/* Sistema dinâmico de backgrounds */}
-            <BackgroundManager />
+              {/* Sistema dinâmico de backgrounds */}
+              <BackgroundManager />
 
-            <Navbar />
-            <ThemeToggle />
+              <Navbar />
+              <ThemeToggle />
 
-            <main className="relative">
-              <Suspense fallback={
-                <div className="min-h-screen flex items-center justify-center text-white/40">
-                  Carregando portfólio 3D...
-                </div>
-              }>
-                <Routes>
-                  <Route path="/" element={
-                    <>
-                      <Hero />
-                      <About />
-                      <Formacao />
-                      <Experience />
-                      <Cursos />
-                      <Works />
-                      <Tech />
-                      <Contact />
-                    </>
-                  } />
+              <main className="relative">
+                <Suspense fallback={<MotionLoader isSection={false} />}>
+                  <Routes>
+                    <Route path="/" element={
+                      <>
+                        <Hero />
+                        <About />
+                        <Formacao />
+                        <Experience />
+                        <Cursos />
+                        <Works />
+                        <Tech />
+                        <Contact />
+                      </>
+                    } />
 
-                  <Route path="/formacao" element={<AllFormacao />} />
-                  <Route path="/projetos" element={<AllWorks />} />
-                  <Route path="/cursos" element={<AllCursos />} />
-                  <Route path="/certificados" element={<AllCertificados />} />
-                </Routes>
-              </Suspense>
-            </main>
+                    <Route path="/formacao" element={<AllFormacao />} />
+                    <Route path="/projetos" element={<AllWorks />} />
+                    <Route path="/cursos" element={<AllCursos />} />
+                    <Route path="/certificados" element={<AllCertificados />} />
+                  </Routes>
+                </Suspense>
+              </main>
 
-            <Footer />
-          </Router>
+              <Footer />
+            </Router>
           </ParticleConfigProvider>
         </PerformanceProvider>
       </LazyMotion>

@@ -3,13 +3,14 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { InstancedMesh, Object3D } from 'three';
 import { Detailed } from '@react-three/drei';
 import { usePerformance } from '../../contexts/PerformanceContext';
+import type { ReactNode } from 'react';
 
 interface InstancedLODProps {
     count: number;
     positions: [number, number, number][];
-    highModel: any;
-    mediumModel: any;
-    lowModel: any;
+    highModel: ReactNode;
+    mediumModel: ReactNode;
+    lowModel: ReactNode;
     distanceThresholds?: [number, number];
 }
 

@@ -10,7 +10,7 @@ export default function NotFoundModel() {
     return (
         <group scale={viewport.width / 1.5}>
             {nodes.Scene.children.map((mesh, i) => (
-                <Mesh key={i} data={mesh} />
+                <Mesh key={i} data={mesh as THREE.Mesh} />
             ))}
             <Font />
         </group>
@@ -34,7 +34,7 @@ function Font() {
     );
 }
 
-function Mesh({ data }: { data: any }) {
+function Mesh({ data }: { data: unknown }) {
     const meshRef = useRef<THREE.Mesh>(null);
     const { viewport } = useThree();
 
@@ -57,6 +57,7 @@ function Mesh({ data }: { data: any }) {
         <Float>
             <mesh
                 ref={meshRef}
+                // @ts-expect-error - Spread de propriedades do mesh do GLTF
                 {...data}
             />
         </Float>

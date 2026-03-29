@@ -1,6 +1,7 @@
 import type React from 'react';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import type { WavefieldUniforms } from '../../types';
 
 interface WavefieldUltraBackgroundProps {
   speed: number;
@@ -30,7 +31,7 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
   mouseStrength,
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
-  const uniformsRef = useRef<any>(null);
+  const uniformsRef = useRef<WavefieldUniforms | null>(null);
 
   // Reactive uniform updates — avoids full WebGL rebuild
   useEffect(() => {
@@ -38,12 +39,12 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
     const hexToRgb = (hex: string) => {
       const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
       return result
-        ? new THREE.Vector3(
-            parseInt(result[1], 16) / 255,
-            parseInt(result[2], 16) / 255,
-            parseInt(result[3], 16) / 255
-          )
-        : new THREE.Vector3(0, 1, 1);
+        ? new THREE.Color(
+          parseInt(result[1], 16) / 255,
+          parseInt(result[2], 16) / 255,
+          parseInt(result[3], 16) / 255
+        )
+        : new THREE.Color(0, 1, 1);
     };
     uniformsRef.current.speed.value = speed;
     uniformsRef.current.amplitude.value = amplitude;
@@ -84,10 +85,10 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
       const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
       return result
         ? new THREE.Vector3(
-            parseInt(result[1], 16) / 255,
-            parseInt(result[2], 16) / 255,
-            parseInt(result[3], 16) / 255
-          )
+          parseInt(result[1], 16) / 255,
+          parseInt(result[2], 16) / 255,
+          parseInt(result[3], 16) / 255
+        )
         : new THREE.Vector3(0, 1, 1);
     };
     const uniforms = {

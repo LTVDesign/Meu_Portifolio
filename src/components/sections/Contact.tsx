@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { FaBuilding, FaEnvelope, FaPaperPlane, FaPhone, FaUser } from 'react-icons/fa';
+import { z } from 'zod';
 import { config } from '../../constants/config';
 import { SectionWrapper } from '../../hoc';
 import { emailService } from '../../utils/emailService';
@@ -8,17 +9,39 @@ import { slideIn } from '../../utils/motion';
 import { Header } from '../atoms';
 import { EarthCanvas } from '../canvas';
 
-const INITIAL_FORM = { name: '', email: '', phone: '', company: '', message: '' };
+// Schema de validação com Zod
+const contactSchema = z.object({
+  name: z.string().min(1, 'Nome é obrigatório').max(100, 'Nome muito longo'),
+  email: z.string().email('Email inválido'),
+  phone: z.string().max(20, 'Telefone muito longo').default(''),
+  company: z.string().max(100, 'Empresa muito longa').default(''),
+  message: z.string().min(20, 'Mensagem muito curta').max(1000, 'Mensagem muito longa')
+});
+
+type ContactForm = z.infer<typeof contactSchema>;
+
+const INITIAL_FORM: ContactForm = {
+  name: '',
+  email: '',
+  phone: '',
+  company: '',
+  message: ''
+};
 
 const Contact = () => {
   const formRef = useRef<HTMLFormElement>(null);
-  const [form, setForm] = useState(INITIAL_FORM);
+  const [form, setForm] = useState<ContactForm>(INITIAL_FORM);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<keyof ContactForm, string>>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
     if (error) setError(null);
+    if (fieldErrors[name as keyof ContactForm]) {
+      setFieldErrors(prev => ({ ...prev, [name]: undefined }));
+    }
   };
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,21 +51,47 @@ const Contact = () => {
     setForm(prev => ({ ...prev, phone: val }));
   };
 
+  const validateForm = (): boolean => {
+    try {
+      contactSchema.parse(form);
+      setFieldErrors({});
+      return true;
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        const errors: Partial<Record<keyof ContactForm, string>> = {};
+        err.issues.forEach(issue => {
+          if (issue.path[0]) {
+            errors[issue.path[0] as keyof ContactForm] = issue.message;
+          }
+        });
+        setFieldErrors(errors);
+        setError('Por favor, corrija os erros no formulário.');
+      }
+      return false;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    // Validações
-    if (!form.name.trim()) return setError('Nome é obrigatório');
-    if (!form.email.includes('@')) return setError('Email inválido');
-    if (!form.message.trim() || form.message.length < 20) return setError('Mensagem muito curta');
+    if (!validateForm()) {
+      return;
+    }
 
     setLoading(true);
     try {
-      const res = await emailService.sendContactForm(form);
+      // Garantir que phone e company sejam strings (não undefined)
+      const formData = {
+        ...form,
+        phone: form.phone || '',
+        company: form.company || ''
+      };
+      const res = await emailService.sendContactForm(formData);
       if (res.success) {
         alert('Mensagem enviada com sucesso!');
         setForm(INITIAL_FORM);
+        setFieldErrors({});
       } else {
         setError(res.message);
       }
@@ -110,8 +159,8 @@ const Contact = () => {
           </motion.div>
 
           {/* Canvas 3D */}
-          <motion.div 
-            variants={slideIn('right', 'tween', 0.2, 1)} 
+          <motion.div
+            variants={slideIn('right', 'tween', 0.2, 1)}
             className="flex-1 w-full xl:w-1/2 h-[350px] sm:h-[450px] md:h-[550px] xl:h-[600px] flex items-center justify-center relative overflow-hidden"
           >
             <div className="w-full h-full">

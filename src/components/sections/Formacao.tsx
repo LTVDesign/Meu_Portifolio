@@ -1,36 +1,82 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { config } from '../../constants/config';
 import { SectionWrapper } from '../../hoc';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms';
+import Modal from '../atoms/Modal';
 import facul from '../../assets/facul.png';
+import type { FormacaoData } from '../../types';
 
 const Formacao = () => {
+  const [selectedFormation, setSelectedFormation] = useState<FormacaoData | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const formacoes: FormacaoData[] = [
+    {
+      id: '1',
+      title: 'Tecnólogo em Análise e Desenvolvimento de Sistemas',
+      institution: 'Anhanguera',
+      date: '2022 - 2024',
+      status: 'CONCLUÍDO',
+      icon: facul,
+      logo: facul,
+      period: '2022 - 2024',
+      description: 'Formação completa em desenvolvimento de software, análise de sistemas e gestão de projetos de TI voltados para o mercado corporativo.',
+      link: '#',
+      disciplinas: [
+        'Algoritmos e Lógica de Programação',
+        'Estrutura de Dados',
+        'Desenvolvimento Web Frontend',
+        'Desenvolvimento Web Backend',
+        'Banco de Dados',
+        'Engenharia de Software',
+        'Projeto Final',
+        'Segurança da Informação',
+        'Gestão de Projetos',
+        'Sistemas Operacionais'
+      ]
+    },
+    {
+      id: '2',
+      title: 'Pós-Graduação em IA & Data Science',
+      institution: 'Anhanguera',
+      date: '2024 - Em andamento',
+      status: 'EM ANDAMENTO',
+      icon: facul,
+      logo: facul,
+      period: '2024 - Em andamento',
+      description: 'Especialização focada em Inteligência Artificial Generativa, Machine Learning e análise estatística para decisões baseadas em dados.',
+      link: '#',
+      disciplinas: [
+        'Introdução à Inteligência Artificial',
+        'Machine Learning',
+        'Deep Learning',
+        'Processamento de Linguagem Natural',
+        'Big Data e Analytics',
+        'Estatística Aplicada',
+        'Visualização de Dados',
+        'Ética em IA'
+      ]
+    }
+  ];
+
+  const openModal = (formacao: FormacaoData) => {
+    setSelectedFormation(formacao);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedFormation(null);
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-6">
       <Header useMotion={true} {...config.sections.formacao} />
 
       <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {[
-          {
-            title: 'Tecnólogo em Análise e Desenvolvimento de Sistemas',
-            institution: 'Anhanguera',
-            period: '2022 - 2024',
-            status: 'CONCLUÍDO',
-            logo: facul,
-            description: 'Formação completa em desenvolvimento de software, análise de sistemas e gestão de projetos de TI voltados para o mercado corporativo.',
-            link: '#'
-          },
-          {
-            title: 'Pós-Graduação em IA & Data Science',
-            institution: 'Anhanguera',
-            period: '2024 - Em andamento',
-            status: 'EM ANDAMENTO',
-            logo: facul,
-            description: 'Especialização focada em Inteligência Artificial Generativa, Machine Learning e análise estatística para decisões baseadas em dados.',
-            link: '#'
-          }
-        ].map((item, index) => (
+        {formacoes.map((item, index) => (
           <motion.div
             key={item.title}
             variants={fadeIn('up', 'spring', index * 0.1, 0.75)}
@@ -62,19 +108,83 @@ const Formacao = () => {
             </div>
 
             <div className="mt-auto pt-10">
-              <a
-                href={item.link}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => openModal(item)}
                 className="btn-primary w-full text-xs font-bold uppercase tracking-widest py-4 justify-center gap-3 group/btn rounded-2xl shadow-[0_0_20px_rgba(145,94,255,0.2)]"
               >
                 Ver Detalhes do Certificado
                 <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
-              </a>
+              </button>
             </div>
           </motion.div>
         ))}
       </div>
+
+      {/* Modal de Detalhes da Formação */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        title={selectedFormation?.title || ''}
+      >
+        {selectedFormation && (
+          <div className="space-y-8">
+            {/* Informações Gerais */}
+            <div className="flex items-start gap-6 p-6 rounded-xl bg-white/5 border border-white/10">
+              <div className="w-24 h-24 flex-shrink-0 rounded-2xl overflow-hidden border border-white/10 bg-black/50 p-4 flex items-center justify-center">
+                <img src={selectedFormation.logo} alt={selectedFormation.institution} className="w-16 h-16 object-contain" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-2xl font-bold text-white mb-2">{selectedFormation.title}</h3>
+                <p className="text-[var(--cyber-purple)] font-bold uppercase tracking-widest mb-2">{selectedFormation.institution}</p>
+                <div className="text-white/50 text-sm font-mono mb-4">
+                  Período: {selectedFormation.period}
+                </div>
+                <div className="inline-block px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded-full bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)] text-white">
+                  {selectedFormation.status}
+                </div>
+              </div>
+            </div>
+
+            {/* Lista de Disciplinas */}
+            <div>
+              <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <span className="text-[var(--cyber-cyan)]">▶</span> Matérias Cursadas
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {selectedFormation.disciplinas.map((disc: string, idx: number) => (
+                  <div
+                    key={idx}
+                    className="p-4 rounded-lg bg-white/5 border border-white/10"
+                  >
+                    <h5 className="text-white font-bold mb-2">{disc}</h5>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Links Úteis */}
+            {selectedFormation.diplomaLink && (
+              <div className="grid grid-cols-1 gap-4">
+                <a
+                  href={selectedFormation.diplomaLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[var(--cyber-cyan)]/50 transition-all group"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">🎓</span>
+                    <div className="text-left">
+                      <h5 className="text-white font-bold">Diploma Digital</h5>
+                      <p className="text-white/50 text-xs">Clique para visualizar</p>
+                    </div>
+                  </div>
+                  <span className="text-[var(--cyber-cyan)] group-hover:translate-x-1 transition-transform">→</span>
+                </a>
+              </div>
+            )}
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };

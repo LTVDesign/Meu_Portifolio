@@ -5,8 +5,9 @@ import { SectionWrapper } from '../../hoc';
 import { fadeIn, textVariant } from '../../utils/motion';
 import { Header } from '../atoms';
 import { experiences } from '../../constants';
+import type { TExperience } from '../../types';
 
-const ExperienceCard = ({ experience, index }: { experience: any; index: number }) => (
+const ExperienceCard = ({ experience, index }: { experience: TExperience; index: number }) => (
   <m.div
     variants={fadeIn('up', 'spring', index * 0.1, 0.75)}
     className="relative pl-24 pb-12 last:pb-0 group"
@@ -18,7 +19,7 @@ const ExperienceCard = ({ experience, index }: { experience: any; index: number 
     </div>
 
     {/* Content Card */}
-    <m.div 
+    <m.div
       whileHover={{ y: -5 }}
       className="glass-card p-8 neon-hover relative overflow-hidden"
     >
@@ -59,7 +60,7 @@ const Experience = () => {
       <div className="relative pt-4">
         {/* Timeline Line (Background) */}
         <div className="absolute left-[31px] top-4 bottom-0 w-[2px] bg-white/5" />
-        
+
         <AnimatePresence mode="popLayout">
           {displayedExperiences.map((exp, index) => (
             <ExperienceCard key={exp.title + exp.date} experience={exp} index={index} />

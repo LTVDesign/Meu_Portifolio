@@ -4,6 +4,7 @@ import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 // @ts-expect-error
 import { initLaunchParticles } from '../../utils/launchParticles.js';
 import '../../launch.css';
+import type { ParticleConfig } from '../../types';
 
 // --- Sub-components for cleaner structure (#29) ---
 
@@ -90,7 +91,7 @@ const ColorControl: React.FC<ColorControlProps> = ({ label, value, onChange }) =
 
 // --- Background Editor Panels (#29) ---
 
-const BolhasEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, updateConfig }) => (
+const BolhasEditor: React.FC<{ config: ParticleConfig; updateConfig: (newConfig: Partial<ParticleConfig>) => void }> = ({ config, updateConfig }) => (
   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8 text-[11px]">
     <div className="space-y-2.5">
       <div>
@@ -104,7 +105,7 @@ const BolhasEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
             min="1000"
             max="100000"
             step="1000"
-            onChange={(v) => updateConfig({ bolhasCount: v })}
+            onChange={(v) => updateConfig({ bolhasCount: v as number })}
             decimals={0}
           />
           <SliderControl
@@ -113,7 +114,7 @@ const BolhasEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
             min="0"
             max="2"
             step="0.1"
-            onChange={(v) => updateConfig({ bolhasSpeed: v })}
+            onChange={(v) => updateConfig({ bolhasSpeed: v as number })}
             decimals={1}
           />
           <SliderControl
@@ -122,7 +123,7 @@ const BolhasEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
             min="0.01"
             max="0.1"
             step="0.01"
-            onChange={(v) => updateConfig({ bolhasSize: v })}
+            onChange={(v) => updateConfig({ bolhasSize: v as number })}
             decimals={2}
           />
           <SliderControl
@@ -131,7 +132,7 @@ const BolhasEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
             min="10"
             max="200"
             step="5"
-            onChange={(v) => updateConfig({ bolhasSpread: v })}
+            onChange={(v) => updateConfig({ bolhasSpread: v as number })}
             decimals={0}
           />
         </div>
@@ -146,17 +147,17 @@ const BolhasEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
           <ColorControl
             label="Cor 1"
             value={config.bolhasColor1}
-            onChange={(v) => updateConfig({ bolhasColor1: v })}
+            onChange={(v) => updateConfig({ bolhasColor1: v as string })}
           />
           <ColorControl
             label="Cor 2"
             value={config.bolhasColor2}
-            onChange={(v) => updateConfig({ bolhasColor2: v })}
+            onChange={(v) => updateConfig({ bolhasColor2: v as string })}
           />
           <ColorControl
             label="Cor 3"
             value={config.bolhasColor3}
-            onChange={(v) => updateConfig({ bolhasColor3: v })}
+            onChange={(v) => updateConfig({ bolhasColor3: v as string })}
           />
         </div>
       </div>
@@ -165,7 +166,7 @@ const BolhasEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
 );
 
 
-const ParticlesEditor: React.FC<{ config: any; updateConfig: any }> = ({
+const ParticlesEditor: React.FC<{ config: ParticleConfig; updateConfig: (newConfig: Partial<ParticleConfig>) => void }> = ({
   config,
   updateConfig,
 }) => (
@@ -174,12 +175,12 @@ const ParticlesEditor: React.FC<{ config: any; updateConfig: any }> = ({
       <ColorControl
         label="Cor Pontos"
         value={config.particleColor}
-        onChange={(v) => updateConfig({ particleColor: v })}
+        onChange={(v) => updateConfig({ particleColor: v as string })}
       />
       <ColorControl
         label="Cor Linhas"
         value={config.particleLineColor}
-        onChange={(v) => updateConfig({ particleLineColor: v })}
+        onChange={(v) => updateConfig({ particleLineColor: v as string })}
       />
       <SliderControl
         label="Velocidade"
@@ -187,7 +188,7 @@ const ParticlesEditor: React.FC<{ config: any; updateConfig: any }> = ({
         min="0"
         max="3"
         step="0.1"
-        onChange={(v) => updateConfig({ speed: v })}
+        onChange={(v) => updateConfig({ speed: v as number })}
       />
       <SliderControl
         label="Intensidade (Alpha)"
@@ -195,7 +196,7 @@ const ParticlesEditor: React.FC<{ config: any; updateConfig: any }> = ({
         min="0.1"
         max="1"
         step="0.1"
-        onChange={(v) => updateConfig({ intensity: v })}
+        onChange={(v) => updateConfig({ intensity: v as number })}
       />
       <SliderControl
         label="Quantidade"
@@ -203,7 +204,7 @@ const ParticlesEditor: React.FC<{ config: any; updateConfig: any }> = ({
         min="10"
         max="300"
         step="10"
-        onChange={(v) => updateConfig({ quantity: v })}
+        onChange={(v) => updateConfig({ quantity: v as number })}
         decimals={0}
       />
     </div>
@@ -214,7 +215,7 @@ const ParticlesEditor: React.FC<{ config: any; updateConfig: any }> = ({
         min="0.5"
         max="10"
         step="0.5"
-        onChange={(v) => updateConfig({ particleSize: v })}
+        onChange={(v) => updateConfig({ particleSize: v as number })}
       />
       <SliderControl
         label="Dist. Conexão"
@@ -222,7 +223,7 @@ const ParticlesEditor: React.FC<{ config: any; updateConfig: any }> = ({
         min="50"
         max="300"
         step="10"
-        onChange={(v) => updateConfig({ particleConnectDistance: v })}
+        onChange={(v) => updateConfig({ particleConnectDistance: v as number })}
         decimals={0}
       />
       <SliderControl
@@ -231,7 +232,7 @@ const ParticlesEditor: React.FC<{ config: any; updateConfig: any }> = ({
         min="0.1"
         max="3"
         step="0.1"
-        onChange={(v) => updateConfig({ lineThickness: v })}
+        onChange={(v) => updateConfig({ lineThickness: v as number })}
       />
       <SliderControl
         label="Opacidade Extra"
@@ -239,7 +240,7 @@ const ParticlesEditor: React.FC<{ config: any; updateConfig: any }> = ({
         min="0.1"
         max="1"
         step="0.1"
-        onChange={(v) => updateConfig({ particleOpacity: v })}
+        onChange={(v) => updateConfig({ particleOpacity: v as number })}
       />
       <SliderControl
         label="Zoom Câmera"
@@ -247,13 +248,13 @@ const ParticlesEditor: React.FC<{ config: any; updateConfig: any }> = ({
         min="0.5"
         max="3"
         step="0.1"
-        onChange={(v) => updateConfig({ zoom: v })}
+        onChange={(v) => updateConfig({ zoom: v as number })}
       />
     </div>
   </div>
 );
 
-const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, updateConfig }) => {
+const LiquidEditor: React.FC<{ config: ParticleConfig; updateConfig: (newConfig: Partial<ParticleConfig>) => void }> = ({ config, updateConfig }) => {
   const randomHex = () =>
     '#' +
     Math.floor(Math.random() * 16777215)
@@ -274,7 +275,7 @@ const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
               min="0.5"
               max="2"
               step="0.1"
-              onChange={(v) => updateConfig({ liquidResolution: v })}
+              onChange={(v) => updateConfig({ liquidResolution: v as number })}
             />
             <SliderControl
               label="Detalhe (Octavas)"
@@ -282,7 +283,7 @@ const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
               min="1"
               max="5"
               step="1"
-              onChange={(v) => updateConfig({ liquidOctaves: v })}
+              onChange={(v) => updateConfig({ liquidOctaves: v as number })}
               decimals={0}
             />
             <SliderControl
@@ -291,7 +292,7 @@ const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
               min="0"
               max="1"
               step="0.01"
-              onChange={(v) => updateConfig({ liquidSpeed: v })}
+              onChange={(v) => updateConfig({ liquidSpeed: v as number })}
               decimals={2}
             />
             <SliderControl
@@ -300,7 +301,7 @@ const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
               min="0.01"
               max="0.2"
               step="0.01"
-              onChange={(v) => updateConfig({ liquidScale: v })}
+              onChange={(v) => updateConfig({ liquidScale: v as number })}
               decimals={2}
             />
           </div>
@@ -317,7 +318,7 @@ const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
               min="0"
               max="1"
               step="0.1"
-              onChange={(v) => updateConfig({ liquidSmoothing: v })}
+              onChange={(v) => updateConfig({ liquidSmoothing: v as number })}
             />
             <SliderControl
               label="Granulação"
@@ -325,7 +326,7 @@ const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
               min="0"
               max="0.2"
               step="0.001"
-              onChange={(v) => updateConfig({ liquidGrain: v })}
+              onChange={(v) => updateConfig({ liquidGrain: v as number })}
               decimals={3}
             />
             <SliderControl
@@ -334,7 +335,7 @@ const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
               min="0"
               max="5"
               step="0.1"
-              onChange={(v) => updateConfig({ liquidTwist: v })}
+              onChange={(v) => updateConfig({ liquidTwist: v as number })}
             />
             <SliderControl
               label="Complexidade"
@@ -342,7 +343,7 @@ const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
               min="0.1"
               max="8"
               step="0.1"
-              onChange={(v) => updateConfig({ liquidComplexity: v })}
+              onChange={(v) => updateConfig({ liquidComplexity: v as number })}
             />
           </div>
         </div>
@@ -360,7 +361,7 @@ const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
               min="0.1"
               max="2"
               step="0.1"
-              onChange={(v) => updateConfig({ liquidIntensity: v })}
+              onChange={(v) => updateConfig({ liquidIntensity: v as number })}
             />
             <SliderControl
               label="Brilho (Gloss)"
@@ -368,7 +369,7 @@ const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
               min="0"
               max="2"
               step="0.1"
-              onChange={(v) => updateConfig({ liquidGloss: v })}
+              onChange={(v) => updateConfig({ liquidGloss: v as number })}
             />
             <SliderControl
               label="Escala Ruído"
@@ -376,7 +377,7 @@ const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
               min="0.1"
               max="3"
               step="0.1"
-              onChange={(v) => updateConfig({ liquidNoiseScale: v })}
+              onChange={(v) => updateConfig({ liquidNoiseScale: v as number })}
             />
             <SliderControl
               label="Refração"
@@ -384,7 +385,7 @@ const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
               min="0"
               max="1"
               step="0.1"
-              onChange={(v) => updateConfig({ liquidRefraction: v })}
+              onChange={(v) => updateConfig({ liquidRefraction: v as number })}
             />
           </div>
         </div>
@@ -398,8 +399,8 @@ const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
               <ColorControl
                 key={i}
                 label={`Nó ${i}`}
-                value={(config as any)[`liquidColor${i}`]}
-                onChange={(v) => updateConfig({ [`liquidColor${i}`]: v })}
+                value={config[`liquidColor${i}` as keyof ParticleConfig] as string}
+                onChange={(v) => updateConfig({ [`liquidColor${i}`]: v as string })}
               />
             ))}
           </div>
@@ -407,12 +408,12 @@ const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
             type="button"
             onClick={() => {
               updateConfig({
-                liquidColor1: randomHex(),
-                liquidColor2: randomHex(),
-                liquidColor3: randomHex(),
-                liquidColor4: randomHex(),
-                liquidColor5: randomHex(),
-                liquidColor6: randomHex(),
+                liquidColor1: randomHex() as string,
+                liquidColor2: randomHex() as string,
+                liquidColor3: randomHex() as string,
+                liquidColor4: randomHex() as string,
+                liquidColor5: randomHex() as string,
+                liquidColor6: randomHex() as string,
               });
             }}
             className="w-full py-2 bg-blue-600/30 hover:bg-blue-600/50 border border-blue-500/40 text-blue-200 hover:text-white text-[9px] font-bold uppercase tracking-widest rounded transition-all shadow-md backdrop-blur-sm"
@@ -425,7 +426,7 @@ const LiquidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
   );
 };
 
-const ParticulateEditor: React.FC<{ config: any; updateConfig: any }> = ({
+const ParticulateEditor: React.FC<{ config: ParticleConfig; updateConfig: (newConfig: Partial<ParticleConfig>) => void }> = ({
   config,
   updateConfig,
 }) => (
@@ -442,7 +443,7 @@ const ParticulateEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0.1"
             max="3"
             step="0.1"
-            onChange={(v) => updateConfig({ particulateSpeed: v })}
+            onChange={(v) => updateConfig({ particulateSpeed: v as number })}
           />
           <SliderControl
             label="Intensidade Foco"
@@ -450,7 +451,7 @@ const ParticulateEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0.1"
             max="2"
             step="0.1"
-            onChange={(v) => updateConfig({ particulateIntensity: v })}
+            onChange={(v) => updateConfig({ particulateIntensity: v as number })}
           />
           <SliderControl
             label="Quantidade"
@@ -458,7 +459,7 @@ const ParticulateEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="500"
             max="8000"
             step="100"
-            onChange={(v) => updateConfig({ particulateQuantity: v })}
+            onChange={(v) => updateConfig({ particulateQuantity: v as number })}
             decimals={0}
           />
         </div>
@@ -475,7 +476,7 @@ const ParticulateEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0.001"
             max="0.1"
             step="0.001"
-            onChange={(v) => updateConfig({ particulateWanderSpeed: v })}
+            onChange={(v) => updateConfig({ particulateWanderSpeed: v as number })}
             decimals={3}
           />
           <SliderControl
@@ -484,7 +485,7 @@ const ParticulateEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0.01"
             max="0.5"
             step="0.01"
-            onChange={(v) => updateConfig({ particulateWanderStrength: v })}
+            onChange={(v) => updateConfig({ particulateWanderStrength: v as number })}
             decimals={2}
           />
         </div>
@@ -499,7 +500,7 @@ const ParticulateEditor: React.FC<{ config: any; updateConfig: any }> = ({
             <button
               type="button"
               key={m}
-              onClick={() => updateConfig({ particulateMode: m })}
+              onClick={() => updateConfig({ particulateMode: m as 'blow' | 'magnet' | 'freeze' })}
               className={`flex-1 py-2 text-[9px] font-bold uppercase tracking-wider rounded transition-all border ${config.particulateMode === m
                 ? 'bg-secondary/40 border-[#915EFF] text-white'
                 : 'bg-gray-800/40 border-white/5 text-gray-400 hover:text-white'
@@ -524,7 +525,7 @@ const ParticulateEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="1"
             max="8"
             step="0.5"
-            onChange={(v) => updateConfig({ particulateSize: v })}
+            onChange={(v) => updateConfig({ particulateSize: v as number })}
           />
           <SliderControl
             label="Fricção"
@@ -532,7 +533,7 @@ const ParticulateEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0.85"
             max="0.99"
             step="0.01"
-            onChange={(v) => updateConfig({ particulateFriction: v })}
+            onChange={(v) => updateConfig({ particulateFriction: v as number })}
             decimals={2}
           />
           <SliderControl
@@ -541,7 +542,7 @@ const ParticulateEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0.001"
             max="0.05"
             step="0.001"
-            onChange={(v) => updateConfig({ particulateSpring: v })}
+            onChange={(v) => updateConfig({ particulateSpring: v as number })}
             decimals={3}
           />
         </div>
@@ -562,7 +563,7 @@ const ParticulateEditor: React.FC<{ config: any; updateConfig: any }> = ({
             <select
               id="particulate-palette"
               value={config.particulatePalette}
-              onChange={(e) => updateConfig({ particulatePalette: e.target.value })}
+              onChange={(e) => updateConfig({ particulatePalette: e.target.value as string })}
               className="w-full bg-gray-900/60 text-white border border-white/10 rounded px-2 py-1.5 text-[10px] focus:border-[#915EFF] outline-none transition-colors"
             >
               <option value="custom">Personalizada</option>
@@ -579,8 +580,8 @@ const ParticulateEditor: React.FC<{ config: any; updateConfig: any }> = ({
                 <ColorControl
                   key={i}
                   label={`Cor ${i}`}
-                  value={(config as any)[`particulateColor${i}`]}
-                  onChange={(v) => updateConfig({ [`particulateColor${i}`]: v })}
+                  value={config[`particulateColor${i}` as keyof ParticleConfig] as string}
+                  onChange={(v) => updateConfig({ [`particulateColor${i}`]: v as string })}
                 />
               ))}
             </div>
@@ -591,7 +592,7 @@ const ParticulateEditor: React.FC<{ config: any; updateConfig: any }> = ({
   </div>
 );
 
-const CyberpunkEditor: React.FC<{ config: any; updateConfig: any }> = ({
+const CyberpunkEditor: React.FC<{ config: ParticleConfig; updateConfig: (newConfig: Partial<ParticleConfig>) => void }> = ({
   config,
   updateConfig,
 }) => (
@@ -608,7 +609,7 @@ const CyberpunkEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0"
             max="15"
             step="0.5"
-            onChange={(v) => updateConfig({ cyberpunkBloomStrength: v })}
+            onChange={(v) => updateConfig({ cyberpunkBloomStrength: v as number })}
           />
           <SliderControl
             label="Névoa (Fog)"
@@ -616,7 +617,7 @@ const CyberpunkEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0"
             max="1"
             step="0.05"
-            onChange={(v) => updateConfig({ cyberpunkFogDensity: v })}
+            onChange={(v) => updateConfig({ cyberpunkFogDensity: v as number })}
           />
           <SliderControl
             label="FOV (Zoom)"
@@ -624,7 +625,7 @@ const CyberpunkEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="40"
             max="120"
             step="5"
-            onChange={(v) => updateConfig({ cyberpunkCameraFOV: v })}
+            onChange={(v) => updateConfig({ cyberpunkCameraFOV: v as number })}
             decimals={0}
           />
         </div>
@@ -641,7 +642,7 @@ const CyberpunkEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0.1"
             max="5"
             step="0.1"
-            onChange={(v) => updateConfig({ cyberpunkSpeed: v })}
+            onChange={(v) => updateConfig({ cyberpunkSpeed: v as number })}
           />
           <SliderControl
             label="Vel. Rotação"
@@ -649,7 +650,7 @@ const CyberpunkEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0"
             max="5"
             step="0.1"
-            onChange={(v) => updateConfig({ cyberpunkRotationSpeed: v })}
+            onChange={(v) => updateConfig({ cyberpunkRotationSpeed: v as number })}
           />
         </div>
       </div>
@@ -667,7 +668,7 @@ const CyberpunkEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0.2"
             max="2.5"
             step="0.1"
-            onChange={(v) => updateConfig({ cyberpunkTunnelRadius: v })}
+            onChange={(v) => updateConfig({ cyberpunkTunnelRadius: v as number })}
           />
           <SliderControl
             label="Tamanho Pontos"
@@ -675,7 +676,7 @@ const CyberpunkEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0.005"
             max="0.05"
             step="0.005"
-            onChange={(v) => updateConfig({ cyberpunkPointSize: v })}
+            onChange={(v) => updateConfig({ cyberpunkPointSize: v as number })}
             decimals={3}
           />
           <SliderControl
@@ -684,7 +685,7 @@ const CyberpunkEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0"
             max="1"
             step="0.1"
-            onChange={(v) => updateConfig({ cyberpunkLineOpacity: v })}
+            onChange={(v) => updateConfig({ cyberpunkLineOpacity: v as number })}
           />
         </div>
       </div>
@@ -697,18 +698,18 @@ const CyberpunkEditor: React.FC<{ config: any; updateConfig: any }> = ({
           <ColorControl
             label="Nó 1"
             value={config.cyberpunkColor1}
-            onChange={(v) => updateConfig({ cyberpunkColor1: v })}
+            onChange={(v) => updateConfig({ cyberpunkColor1: v as string })}
           />
           <ColorControl
             label="Nó 2"
             value={config.cyberpunkColor2}
-            onChange={(v) => updateConfig({ cyberpunkColor2: v })}
+            onChange={(v) => updateConfig({ cyberpunkColor2: v as string })}
           />
           <div className="col-span-2">
             <ColorControl
               label="Linhas e Brilho"
               value={config.cyberpunkColor3}
-              onChange={(v) => updateConfig({ cyberpunkColor3: v })}
+              onChange={(v) => updateConfig({ cyberpunkColor3: v as string })}
             />
           </div>
         </div>
@@ -717,7 +718,7 @@ const CyberpunkEditor: React.FC<{ config: any; updateConfig: any }> = ({
   </div>
 );
 
-const WavefieldEditor: React.FC<{ config: any; updateConfig: any }> = ({
+const WavefieldEditor: React.FC<{ config: ParticleConfig; updateConfig: (newConfig: Partial<ParticleConfig>) => void }> = ({
   config,
   updateConfig,
 }) => (
@@ -734,7 +735,7 @@ const WavefieldEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0.1"
             max="3"
             step="0.1"
-            onChange={(v) => updateConfig({ wavefieldSpeed: v })}
+            onChange={(v) => updateConfig({ wavefieldSpeed: v as number })}
           />
           <SliderControl
             label="Amplitude"
@@ -742,7 +743,7 @@ const WavefieldEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0.1"
             max="5"
             step="0.1"
-            onChange={(v) => updateConfig({ wavefieldAmplitude: v })}
+            onChange={(v) => updateConfig({ wavefieldAmplitude: v as number })}
           />
           <SliderControl
             label="Frequência"
@@ -750,7 +751,7 @@ const WavefieldEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0.1"
             max="10"
             step="0.1"
-            onChange={(v) => updateConfig({ wavefieldFrequency: v })}
+            onChange={(v) => updateConfig({ wavefieldFrequency: v as number })}
           />
           <SliderControl
             label="Vel. Rotação"
@@ -758,7 +759,7 @@ const WavefieldEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0"
             max="3"
             step="0.1"
-            onChange={(v) => updateConfig({ wavefieldRotationSpeed: v })}
+            onChange={(v) => updateConfig({ wavefieldRotationSpeed: v as number })}
           />
         </div>
       </div>
@@ -774,7 +775,7 @@ const WavefieldEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0"
             max="3"
             step="0.1"
-            onChange={(v) => updateConfig({ wavefieldMouseStrength: v })}
+            onChange={(v) => updateConfig({ wavefieldMouseStrength: v as number })}
           />
           <SliderControl
             label="Complexidade"
@@ -782,7 +783,7 @@ const WavefieldEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0.1"
             max="5"
             step="0.1"
-            onChange={(v) => updateConfig({ wavefieldComplexity: v })}
+            onChange={(v) => updateConfig({ wavefieldComplexity: v as number })}
           />
         </div>
       </div>
@@ -798,18 +799,18 @@ const WavefieldEditor: React.FC<{ config: any; updateConfig: any }> = ({
             <ColorControl
               label="Onda Principal"
               value={config.wavefieldColor}
-              onChange={(v) => updateConfig({ wavefieldColor: v })}
+              onChange={(v) => updateConfig({ wavefieldColor: v as string })}
             />
             <ColorControl
               label="Onda Secundária"
               value={config.wavefieldColor2}
-              onChange={(v) => updateConfig({ wavefieldColor2: v })}
+              onChange={(v) => updateConfig({ wavefieldColor2: v as string })}
             />
           </div>
           <ColorControl
             label="Acento/Glow"
             value={config.wavefieldColor3}
-            onChange={(v) => updateConfig({ wavefieldColor3: v })}
+            onChange={(v) => updateConfig({ wavefieldColor3: v as string })}
           />
           <SliderControl
             label="Intensidade Glow"
@@ -817,7 +818,7 @@ const WavefieldEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0.1"
             max="2"
             step="0.1"
-            onChange={(v) => updateConfig({ wavefieldGlow: v })}
+            onChange={(v) => updateConfig({ wavefieldGlow: v as number })}
           />
         </div>
       </div>
@@ -833,7 +834,7 @@ const WavefieldEditor: React.FC<{ config: any; updateConfig: any }> = ({
             min="0"
             max="1"
             step="0.05"
-            onChange={(v) => updateConfig({ wavefieldStarIntensity: v })}
+            onChange={(v) => updateConfig({ wavefieldStarIntensity: v as number })}
           />
         </div>
       </div>
@@ -841,7 +842,7 @@ const WavefieldEditor: React.FC<{ config: any; updateConfig: any }> = ({
   </div>
 );
 
-const SolidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, updateConfig }) => (
+const SolidEditor: React.FC<{ config: ParticleConfig; updateConfig: (newConfig: Partial<ParticleConfig>) => void }> = ({ config, updateConfig }) => (
   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8">
     <div className="block mb-2">
       <label
@@ -853,7 +854,7 @@ const SolidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, upd
       <select
         id="solid-type"
         value={config.solidType}
-        onChange={(e) => updateConfig({ solidType: e.target.value })}
+        onChange={(e) => updateConfig({ solidType: e.target.value as string })}
         className="w-full bg-gray-800 text-white border border-gray-600 focus:border-[#915EFF] outline-none rounded px-2 py-1.5 text-xs mb-1 transition-colors"
       >
         <option value="solid">Cor Sólida Única</option>
@@ -868,20 +869,20 @@ const SolidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, upd
       <ColorControl
         label={config.solidType === 'solid' ? 'Cor' : 'Cor 1'}
         value={config.solidColor1}
-        onChange={(v) => updateConfig({ solidColor1: v })}
+        onChange={(v) => updateConfig({ solidColor1: v as string })}
       />
       {config.solidType !== 'solid' && (
         <>
           <ColorControl
             label="Cor 2"
             value={config.solidColor2}
-            onChange={(v) => updateConfig({ solidColor2: v })}
+            onChange={(v) => updateConfig({ solidColor2: v as string })}
           />
           <div className="col-span-2">
             <ColorControl
               label="Cor 3"
               value={config.solidColor3}
-              onChange={(v) => updateConfig({ solidColor3: v })}
+              onChange={(v) => updateConfig({ solidColor3: v as string })}
             />
           </div>
         </>
@@ -895,7 +896,7 @@ const SolidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, upd
         min="0"
         max="360"
         step="1"
-        onChange={(v) => updateConfig({ solidAngle: v })}
+        onChange={(v) => updateConfig({ solidAngle: v as number })}
         decimals={0}
       />
     )}
@@ -907,7 +908,7 @@ const SolidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, upd
         min="2"
         max="30"
         step="1"
-        onChange={(v) => updateConfig({ solidAnimationSpeed: v })}
+        onChange={(v) => updateConfig({ solidAnimationSpeed: v as number })}
         decimals={0}
       />
     )}
@@ -916,7 +917,7 @@ const SolidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, upd
       <input
         type="checkbox"
         checked={config.solidGrain}
-        onChange={(e) => updateConfig({ solidGrain: e.target.checked })}
+        onChange={(e) => updateConfig({ solidGrain: e.target.checked as boolean })}
         className="mr-3 accent-[#915EFF] w-4 h-4 cursor-pointer"
       />
       <span className="text-gray-300 group-hover:text-white transition-colors uppercase tracking-wider font-semibold text-[10px]">
@@ -930,7 +931,7 @@ const SolidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, upd
       min="0"
       max="1"
       step="0.01"
-      onChange={(v) => updateConfig({ solidOpacity: v })}
+      onChange={(v) => updateConfig({ solidOpacity: v as number })}
       decimals={2}
     />
 
@@ -940,13 +941,13 @@ const SolidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, upd
       min="0"
       max="20"
       step="0.5"
-      onChange={(v) => updateConfig({ solidBlur: v })}
+      onChange={(v) => updateConfig({ solidBlur: v as number })}
       decimals={1}
     />
   </div>
 );
 
-const MatrixEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, updateConfig }) => (
+const MatrixEditor: React.FC<{ config: ParticleConfig; updateConfig: (newConfig: Partial<ParticleConfig>) => void }> = ({ config, updateConfig }) => (
   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8 text-[11px]">
     <div className="space-y-2.5">
       <div>
@@ -960,7 +961,7 @@ const MatrixEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
             min="1"
             max="200"
             step="1"
-            onChange={(v) => updateConfig({ matrixDensity: v })}
+            onChange={(v) => updateConfig({ matrixDensity: v as number })}
             decimals={0}
           />
           <SliderControl
@@ -969,7 +970,7 @@ const MatrixEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
             min="1"
             max="200"
             step="1"
-            onChange={(v) => updateConfig({ matrixSpeed: v })}
+            onChange={(v) => updateConfig({ matrixSpeed: v as number })}
             decimals={0}
           />
           <SliderControl
@@ -978,7 +979,7 @@ const MatrixEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
             min="0.5"
             max="10"
             step="0.5"
-            onChange={(v) => updateConfig({ matrixFontSize: v })}
+            onChange={(v) => updateConfig({ matrixFontSize: v as number })}
           />
           <SliderControl
             label="Comprimento Trilha"
@@ -986,7 +987,7 @@ const MatrixEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
             min="5"
             max="100"
             step="1"
-            onChange={(v) => updateConfig({ trailLength: v })}
+            onChange={(v) => updateConfig({ trailLength: v as number })}
             decimals={0}
           />
           <SliderControl
@@ -995,7 +996,7 @@ const MatrixEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
             min="0"
             max="50"
             step="1"
-            onChange={(v) => updateConfig({ columnSpacing: v })}
+            onChange={(v) => updateConfig({ columnSpacing: v as number })}
             decimals={0}
           />
           <SliderControl
@@ -1020,7 +1021,7 @@ const MatrixEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
           </label>
           <select
             value={config.matrixCharSet || 'matrix'}
-            onChange={(e) => updateConfig({ matrixCharSet: e.target.value })}
+            onChange={(e) => updateConfig({ matrixCharSet: e.target.value as 'matrix' | 'binary' | 'japanese' | 'mixed' })}
             className="w-full bg-gray-800 text-white border border-gray-600 focus:border-[#915EFF] outline-none rounded px-2 py-1.5 text-xs transition-colors"
           >
             <option value="matrix">Matrix (Hiragana/Katakana)</option>
@@ -1041,12 +1042,12 @@ const MatrixEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, up
           <ColorControl
             label="Cor dos Caracteres"
             value={config.matrixColor}
-            onChange={(v) => updateConfig({ matrixColor: v })}
+            onChange={(v) => updateConfig({ matrixColor: v as string })}
           />
           <ColorControl
             label="Cor de Fundo"
             value={config.matrixBackgroundColor}
-            onChange={(v) => updateConfig({ matrixBackgroundColor: v })}
+            onChange={(v) => updateConfig({ matrixBackgroundColor: v as string })}
           />
         </div>
       </div>

@@ -36,7 +36,7 @@ export const fadeIn = (
       y: 0,
       opacity: 1,
       transition: {
-        type: (type === '' ? 'tween' : type) as any,
+        type: (type === '' ? 'tween' : type) as 'tween' | 'spring' | 'just',
         delay,
         duration,
         ease: 'easeOut',
@@ -79,7 +79,7 @@ export const slideIn = (
       x: 0,
       y: 0,
       transition: {
-        type: (type === '' ? 'tween' : type) as any,
+        type: (type === '' ? 'tween' : type) as 'tween' | 'spring' | 'just',
         delay,
         duration,
         ease: 'easeOut',

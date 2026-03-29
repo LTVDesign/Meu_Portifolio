@@ -61,6 +61,30 @@ const Navbar = memo(() => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 glass transition-all duration-300 ${scrolled ? 'shadow-2xl' : ''}`}
     >
+      {/* Logo Flutuante Maior */}
+      <m.div
+        initial={{ scale: 0, y: -20 }}
+        animate={{
+          scale: 1,
+          y: [0, -10, 0]
+        }}
+        transition={{
+          scale: { duration: 0.5 },
+          y: {
+            duration: 5,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut"
+          }
+        }}
+        className="absolute left-6 md:left-12 top-2 z-[60] h-32 w-32 md:h-40 md:w-40 pointer-events-none"
+      >
+        <img
+          src={logo}
+          alt="Logo"
+          className="w-full h-full object-contain drop-shadow-[0_0_20px_rgba(145,94,255,0.8)]"
+        />
+      </m.div>
       {/* Heavy Neon Progress Bar */}
       <div className="absolute bottom-0 left-0 h-[3px] w-full bg-white/5 overflow-hidden">
         <m.div
@@ -69,31 +93,12 @@ const Navbar = memo(() => {
         />
       </div>
 
-      <div className="max-w-screen-2xl mx-auto px-6 md:px-12 lg:px-16 py-4 flex items-center justify-between">
+      <div className="max-w-screen-2xl mx-auto px-6 md:px-12 lg:px-16 py-4 flex items-center justify-between ml-20 md:ml-32">
         <Link
           to="/"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="flex items-center gap-3 md:gap-4 group"
+          className="flex items-center gap-3 md:gap-4 group relative"
         >
-          <m.img
-            src={logo}
-            alt="Logo"
-            initial={{ scale: 0, y: -20 }}
-            animate={{
-              scale: 1,
-              y: [0, -10, 0]
-            }}
-            transition={{
-              scale: { duration: 0.5 },
-              y: {
-                duration: 5,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut"
-              }
-            }}
-            className="h-28 w-28 md:h-32 md:w-32 object-contain transition-transform group-hover:scale-110 drop-shadow-[0_0_15px_rgba(145,94,255,0.6)]"
-          />
           <span className="hidden xs:inline text-4xl md:text-5xl font-black navbar-brand-text uppercase tracking-tighter">
             Leandro <span className="text-[var(--cyber-cyan)]">Barbosa</span>
           </span>

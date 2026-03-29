@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { config } from '../../constants/config';
 import { SectionWrapper } from '../../hoc';
 import { fadeIn } from '../../utils/motion';
 import { LinkAnimado } from '../atoms';
 import { Header } from '../atoms/Header';
 
-const AllFormacao = ({ setViewMode }: { setViewMode: (mode: string) => void }) => {
+const AllFormacao = () => {
+  const navigate = useNavigate();
   const educations = [
     {
       title: 'Pós-Graduação em Inteligência Artificial e Data Science',
@@ -36,7 +38,7 @@ const AllFormacao = ({ setViewMode }: { setViewMode: (mode: string) => void }) =
         </motion.p>
         <button
           type="button"
-          onClick={() => setViewMode?.('main')}
+          onClick={() => navigate('/')}
           className="bg-primary text-[var(--dynamic-text-color)] px-6 py-3 rounded-lg hover:bg-primary/80 transition-colors mt-3"
         >
           Voltar

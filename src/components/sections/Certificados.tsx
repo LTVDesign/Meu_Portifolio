@@ -4,10 +4,11 @@ import { SectionWrapper } from '../../hoc';
 import { fadeIn } from '../../utils/motion';
 import { LinkAnimado } from '../atoms';
 import { Header } from '../atoms/Header';
+import type { Certificado } from '../../types';
 
 const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void }) => {
   // Lista de arquivos de certificados organizados por categoria
-  const certificadosFiles = [
+  const certificadosFiles: Certificado[] = [
     // Gerenciamento de Produtos - University of Alberta
     {
       name: 'Especialização em Gerenciamento de Produtos de Software',
@@ -261,14 +262,14 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
               <h3 className="text-[16px] font-bold text-[var(--dynamic-text-color)] sm:text-[18px] text-center">
                 {certificado.name}
               </h3>
-              {(certificado as any).institution && (
+              {certificado.institution && (
                 <p className="text-[var(--dynamic-text-secondary)] text-[13px] text-center mt-2">
-                  {(certificado as any).institution}
+                  {certificado.institution}
                 </p>
               )}
-              {(certificado as any).description && (
+              {certificado.description && (
                 <p className="text-[var(--dynamic-text-secondary)] text-[12px] text-center mt-2 leading-relaxed">
-                  {(certificado as any).description}
+                  {certificado.description}
                 </p>
               )}
               <div className="mt-4 flex w-full justify-center">

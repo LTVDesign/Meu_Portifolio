@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import type { ReactNode, ComponentType } from 'react';
+import type { ReactNode, ComponentType, PropsWithChildren } from 'react';
 
 interface SectionWrapperProps {
   children: ReactNode;
@@ -24,8 +24,8 @@ const SectionWrapperComponent = ({ children, id, className = '' }: SectionWrappe
 };
 
 // HOC pattern para compatibilidade com código existente
-const SectionWrapper = (Component: ComponentType<any>, idName: string) => {
-  return function HOC(props: any) {
+const SectionWrapper = <P extends object>(Component: ComponentType<P>, idName: string) => {
+  return function HOC(props: PropsWithChildren<P>) {
     return (
       <SectionWrapperComponent id={idName}>
         <Component {...props} />

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import Tilt from 'react-parallax-tilt';
 
 import { github } from '../../assets';
@@ -76,7 +77,8 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
   );
 };
 
-const AllWorks = ({ setViewMode }: { setViewMode: (mode: string) => void }) => {
+const AllWorks = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Header useMotion={true} {...config.sections.works} />
@@ -90,7 +92,7 @@ const AllWorks = ({ setViewMode }: { setViewMode: (mode: string) => void }) => {
         </motion.p>
         <button
           type="button"
-          onClick={() => setViewMode?.('main')}
+          onClick={() => navigate('/')}
           className="bg-primary text-[var(--dynamic-text-color)] px-6 py-3 rounded-lg hover:bg-primary/80 transition-colors mt-3"
         >
           Voltar
