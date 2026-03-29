@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { usePerformance } from '../../contexts/PerformanceContext';
 
 interface Particle {
   x: number;
@@ -33,12 +34,13 @@ const ParticleBackground = ({
   particleOpacity = 0.8,
   particleLineColor = '#915EFF',
 }: ParticleBackgroundProps) => {
+  const { isLowPerformance } = usePerformance();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number | null>(null);
   const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef({ x: 0, y: 0 });
-  const mouseInteractionRadius = 150;
-  const mouseForce = 0.2;
+  const mouseInteractionRadius = isLowPerformance ? 100 : 150;
+  const mouseForce = isLowPerformance ? 0.1 : 0.2;
 
   useEffect(() => {
     const canvas = canvasRef.current;
