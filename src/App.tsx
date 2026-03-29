@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
-import { ComputersCanvas } from './components/canvas';
+// Background removido - usando componente separado
 
 // Lazy loading para melhor performance
 const Hero = lazy(() => import('./components/sections/Hero'));

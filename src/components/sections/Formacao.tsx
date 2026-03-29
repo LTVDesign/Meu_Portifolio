@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { config } from '../../constants/config';
 import { SectionWrapper } from '../../hoc';
-import { fadeIn, textVariant } from '../../utils/motion';
+import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms';
 
 const Formacao = () => {
