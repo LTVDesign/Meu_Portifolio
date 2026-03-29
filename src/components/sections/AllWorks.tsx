@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import Tilt from 'react-parallax-tilt';
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 
 import { github } from '../../assets';
 import { projects } from '../../constants';
@@ -19,60 +19,60 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
   sourceCodeLink,
 }) => {
   return (
-    <motion.div variants={fadeIn('up', 'spring', index * 0.5, 0.75)}>
-      <Tilt glareEnable tiltEnable tiltMaxAngleX={30} tiltMaxAngleY={30} glareColor="#aaa6c3">
-        <div className="bg-tertiary w-full rounded-2xl p-5 sm:w-[300px]">
-          <div className="relative h-[230px] w-full">
+    <motion.div
+      variants={fadeIn('up', 'spring', index * 0.5, 0.75)}
+      className="glass-card p-5 sm:w-[300px]"
+    >
+      <div className="relative h-[230px] w-full">
+        <img
+          src={image}
+          alt={name}
+          className="h-full w-full rounded-2xl object-cover"
+          loading="lazy"
+          decoding="async"
+          width={300}
+          height={230}
+        />
+        <div className="card-img_hover absolute inset-0 m-3 flex justify-end">
+          <button
+            type="button"
+            onClick={() => {
+              if (sourceCodeLink) {
+                try {
+                  const url = new URL(sourceCodeLink);
+                  if (['http:', 'https:'].includes(url.protocol)) {
+                    window.open(sourceCodeLink, '_blank', 'noopener,noreferrer');
+                  } else {
+                    console.warn('Protocolo inválido detectado:', url.protocol);
+                  }
+                } catch (_e) {
+                  console.warn('URL inválida detectada:', sourceCodeLink);
+                }
+              }
+            }}
+            className="black-gradient flex h-10 w-10 cursor-pointer items-center justify-center rounded-full"
+          >
             <img
-              src={image}
-              alt={name}
-              className="h-full w-full rounded-2xl object-cover"
+              src={github}
+              alt="github"
+              className="h-1/2 w-1/2 object-contain"
               loading="lazy"
               decoding="async"
             />
-            <div className="card-img_hover absolute inset-0 m-3 flex justify-end">
-              <button
-                type="button"
-                onClick={() => {
-                  if (sourceCodeLink) {
-                    try {
-                      const url = new URL(sourceCodeLink);
-                      // Permitir apenas HTTP e HTTPS
-                      if (['http:', 'https:'].includes(url.protocol)) {
-                        window.open(sourceCodeLink, '_blank', 'noopener,noreferrer');
-                      } else {
-                        console.warn('Protocolo inválido detectado:', url.protocol);
-                      }
-                    } catch (_e) {
-                      console.warn('URL inválida detectada:', sourceCodeLink);
-                    }
-                  }
-                }}
-                className="black-gradient flex h-10 w-10 cursor-pointer items-center justify-center rounded-full"
-              >
-                <img
-                  src={github}
-                  alt="github"
-                  className="h-1/2 w-1/2 object-contain"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </button>
-            </div>
-          </div>
-          <div className="mt-5">
-            <h3 className="text-[24px] font-bold text-[var(--dynamic-text-color)]">{name}</h3>
-            <p className="text-[var(--dynamic-text-secondary)] mt-2 text-[14px]">{description}</p>
-          </div>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {tags.map((tag) => (
-              <p key={tag.name} className={`text-[14px] ${tag.color}`}>
-                #{tag.name}
-              </p>
-            ))}
-          </div>
+          </button>
         </div>
-      </Tilt>
+      </div>
+      <div className="mt-5">
+        <h3 className="text-[24px] font-bold text-[var(--dynamic-text-color)]">{name}</h3>
+        <p className="text-[var(--dynamic-text-secondary)] mt-2 text-[14px]">{description}</p>
+      </div>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {tags.map((tag) => (
+          <p key={tag.name} className={`text-[14px] ${tag.color}`}>
+            #{tag.name}
+          </p>
+        ))}
+      </div>
     </motion.div>
   );
 };
@@ -80,6 +80,14 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
 const AllWorks = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [visibleCount, setVisibleCount] = useState(6);
+
+  const handleLoadMore = () => {
+    setVisibleCount(prev => prev + 3);
+  };
+
+  const visibleProjects = projects.slice(0, visibleCount);
+  const hasMore = visibleCount < projects.length;
 
   return (
     <>
@@ -102,10 +110,22 @@ const AllWorks = () => {
       </div>
 
       <div className="mt-20 flex flex-wrap gap-7">
-        {projects.map((project, index) => (
-          <ProjectCard key={`project-${index}`} index={index} {...project} />
+        {visibleProjects.map((project, index) => (
+          <ProjectCard key={`project-${project.name}`} index={index} {...project} />
         ))}
       </div>
+
+      {hasMore && (
+        <div className="mt-12 flex justify-center">
+          <button
+            type="button"
+            onClick={handleLoadMore}
+            className="glass-btn px-8 py-3 rounded-lg font-bold tracking-wider hover:scale-105 transition-transform"
+          >
+            Carregar Mais
+          </button>
+        </div>
+      )}
     </>
   );
 };

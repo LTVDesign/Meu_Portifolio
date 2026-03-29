@@ -35,7 +35,7 @@ const App = () => {
               <Navbar />
               <ThemeToggle />
 
-              <main className="relative">
+              <main className="relative" style={{ minHeight: '100vh' }}>
                 <Suspense fallback={<MotionLoader isSection={false} />}>
                   <Routes>
                     <Route path="/" element={<HomePage />} />

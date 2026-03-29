@@ -11,7 +11,10 @@
   <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png" />
   <link rel="manifest" href="/manifest.json" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Preconnect removido - não está sendo usado pelo PageSpeed Insights -->
+  <!-- Preconnect para origens externas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
   <link rel="canonical" href="https://leandrobarbosa.dev" />
   <meta name="description"
     content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial — Desenvolvedor Full Stack especializado em React, Node.js, Three.js e aplicações web modernas de alto desempenho." />
@@ -30,9 +33,65 @@
     content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial — Desenvolvedor Full Stack" />
   <meta name="twitter:image" content="https://leandrobarbosa.dev/logo.webp" />
   <title>Leandro Saturnino Barbosa | Portfólio 3D - React & Three.js</title>
-  <!-- Content Security Policy -->
-  <!-- <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://unpkg.com https://cdn.jsdelivr.net https://*.emailjs.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' blob: ws://localhost:* ws://127.0.0.1:* https://*.emailjs.com https://raw.githack.com; worker-src 'self' blob:; frame-src 'self' https://www.google.com/recaptcha/; object-src 'none'; base-uri 'self'; form-action 'self';"> -->
+
+  <!-- Preload Assets Críticos -->
+  <link rel="preload" href="/logo.svg" as="image" fetchpriority="high" />
+
+  <!-- Critical CSS inline para LCP mais rápida -->
+  <style>
+    /* Critical: Prevenir layout shift e mostrar conteúdo rapidamente */
+    :root {
+      --cyber-purple: #915EFF;
+      --bg-dark: #050816;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg-dark);
+      color: #fff;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    #root {
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    .critical-navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      z-index: 50;
+      background: rgba(21, 16, 48, 0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Esqueleto da Hero Section para evitar layout shift */
+    .hero-skeleton {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 10%;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+
+  <!-- CSS principal injetado pelo Vite via main.tsx -->
+
+
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",

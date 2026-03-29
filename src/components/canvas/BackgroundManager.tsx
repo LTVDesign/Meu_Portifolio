@@ -1,4 +1,4 @@
-import { Suspense, lazy, memo } from 'react';
+import { Suspense, lazy, memo, useEffect, useState } from 'react';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 
 // Lazy load heavy backgrounds
@@ -13,10 +13,20 @@ const MatrixRainBackground = lazy(() => import('./MatrixRainBackground'));
 
 /**
  * Centrally manages and switches between different background types based on user configuration.
- * Using Suspense and lazy loading to prevent initial bundle bloat.
+ * Lazy loads backgrounds only when they are visible to improve LCP.
  */
 const BackgroundManager = memo(() => {
   const { config } = useParticleConfig();
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Small delay to ensure background loads after initial paint
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const renderBackground = () => {
     switch (config.backgroundType) {
@@ -150,9 +160,11 @@ const BackgroundManager = memo(() => {
 
   return (
     <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden select-none bg-[#050816]">
-      <Suspense fallback={<div className="w-full h-full bg-primary" />}>
-        {renderBackground()}
-      </Suspense>
+      {isVisible && (
+        <Suspense fallback={<div className="w-full h-full bg-[#050816]" style={{ minHeight: '100vh', minWidth: '100vw' }} />}>
+          {renderBackground()}
+        </Suspense>
+      )}
     </div>
   );
 });

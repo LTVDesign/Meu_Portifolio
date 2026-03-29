@@ -41,26 +41,28 @@ const Hero = () => {
           </span>
         </h1>
 
-        {showSubtitle && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-4 max-w-2xl"
-          >
-            <TerminalText
-              words={t('hero.subtitle', { returnObjects: true }) as string[]}
-              colors={['#06b6d4', '#a855f7', '#ffffff']}
-              typingSpeed={60}
-              pauseTime={3000}
-              className="text-[clamp(1rem,2vw,1.25rem)] text-[var(--text-secondary)]"
-            />
-          </motion.div>
-        )}
+        {/* Reserva espaço para o TerminalText para evitar CLS */}
+        <div className="mt-4 max-w-2xl min-h-[2.5rem]">
+          {showSubtitle && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <TerminalText
+                words={t('hero.subtitle', { returnObjects: true }) as string[]}
+                colors={['#06b6d4', '#a855f7', '#ffffff']}
+                typingSpeed={60}
+                pauseTime={3000}
+                className="text-[clamp(1rem,2vw,1.25rem)] text-[var(--text-secondary)]"
+              />
+            </motion.div>
+          )}
+        </div>
       </div>
 
-      {/* Decorative neon element & 3D Model */}
-      <div className="absolute inset-0 z-0 opacity-40 xl:opacity-100">
+      {/* Decorative neon element & 3D Model - com dimensões fixas para evitar CLS */}
+      <div className="absolute inset-0 z-0 opacity-40 xl:opacity-100" style={{ minHeight: '100vh', minWidth: '100vw' }}>
         <ComputersCanvas />
       </div>
 

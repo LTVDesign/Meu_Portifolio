@@ -2,7 +2,7 @@ import { m, useScroll, useSpring } from 'framer-motion';
 import { memo, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { close, logo, menu } from '../../assets';
+import { close, menu } from '../../assets';
 import { navLinks } from '../../constants';
 import { LinkAnimado } from '../atoms';
 
@@ -22,37 +22,42 @@ const Navbar = memo(() => {
   });
 
   useEffect(() => {
-    let ticking = false;
-
-    const updateScroll = () => {
-      const scrollY = window.scrollY;
-      setScrolled(scrollY > 80);
-
-      if (isHome) {
-        const sections = document.querySelectorAll('section[id]');
-        for (const section of Array.from(sections)) {
-          const rect = section.getBoundingClientRect();
-          if (rect.top <= 180 && rect.bottom >= 180) {
-            setActive(section.getAttribute('id'));
-            break;
-          }
-        }
-      } else {
-        setActive(null);
-      }
-      ticking = false;
-    };
-
+    // Scroll state for navbar glass effect
     const onScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(updateScroll);
-        ticking = true;
-      }
+      setScrolled(window.scrollY > 80);
     };
+
+    // IntersectionObserver for active section detection (Reflow-free)
+    const observerOptions = {
+      root: null,
+      rootMargin: '-180px 0px -20% 0px',
+      threshold: 0,
+    };
+
+    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+      if (!isHome) return;
+
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActive(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersect, observerOptions);
+
+    if (isHome) {
+      const sections = document.querySelectorAll('section[id]');
+      sections.forEach((section) => observer.observe(section));
+    }
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      observer.disconnect();
+    };
   }, [isHome]);
+
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -91,7 +96,7 @@ const Navbar = memo(() => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 glass transition-all duration-300 ${scrolled ? 'shadow-2xl' : ''}`}
     >
-      {/* Logo Flutuante Maior */}
+      {/* Logo Flutuante Maior - com dimensões fixas para evitar CLS */}
       <m.div
         initial={{ scale: 0, y: -20 }}
         animate={{
@@ -108,11 +113,15 @@ const Navbar = memo(() => {
           }
         }}
         className="absolute left-2 md:left-6 top-2 z-[60] h-32 w-32 md:h-40 md:w-40 pointer-events-none"
+        style={{ minHeight: '128px', minWidth: '128px' }}
       >
         <img
-          src={logo}
+          src="/logo.svg"
           alt="Logo"
           className="w-full h-full object-contain drop-shadow-[0_0_20px_rgba(145,94,255,0.8)]"
+          loading="eager"
+          width="128"
+          height="128"
         />
       </m.div>
       <div className="absolute bottom-0 left-0 h-[3px] w-full bg-white/5 overflow-hidden">
@@ -153,7 +162,7 @@ const Navbar = memo(() => {
                       setToggle(false);
                     }
                   }}
-                  className={`navbar-link py-2 px-1 text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:text-[var(--cyber-cyan)] ${isActive ? 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]' : 'text-white/60'}`}
+                  className={`navbar-link py-2 px-1 text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:text-[var(--cyber-cyan)] ${isActive ? 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]' : 'text-white/80'}`}
                 >
                   {t(`nav.${nav.id}`)}
                 </LinkAnimado>
@@ -176,7 +185,7 @@ const Navbar = memo(() => {
             aria-label={t('nav.switch_to_pt')}
             className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg transition-all ${i18n.language === 'pt'
               ? 'bg-[var(--cyber-purple)] text-white shadow-[0_0_15px_rgba(145,94,255,0.5)]'
-              : 'bg-white/5 text-white/60 hover:text-white hover:bg-white/10'
+              : 'bg-white/5 text-white/80 hover:text-white hover:bg-white/10'
               }`}
           >
             PT
@@ -186,7 +195,7 @@ const Navbar = memo(() => {
             aria-label={t('nav.switch_to_en')}
             className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg transition-all ${i18n.language === 'en'
               ? 'bg-[var(--cyber-cyan)] text-white shadow-[0_0_15px_rgba(0,255,255,0.5)]'
-              : 'bg-white/5 text-white/60 hover:text-white hover:bg-white/10'
+              : 'bg-white/5 text-white/80 hover:text-white hover:bg-white/10'
               }`}
           >
             EN
@@ -210,7 +219,7 @@ const Navbar = memo(() => {
               <Link
                 to={getNavLink(nav.id)}
                 onClick={() => setToggle(false)}
-                className="text-white/70 hover:text-white transition-colors block"
+                className="text-white/80 hover:text-white transition-colors block"
               >
                 {t(`nav.${nav.id}`)}
               </Link>
@@ -227,7 +236,7 @@ const Navbar = memo(() => {
             aria-label={t('nav.switch_to_pt')}
             className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all ${i18n.language === 'pt'
               ? 'bg-[var(--cyber-purple)] text-white shadow-[0_0_15px_rgba(145,94,255,0.5)]'
-              : 'bg-white/5 text-white/60 hover:text-white hover:bg-white/10'
+              : 'bg-white/5 text-white/80 hover:text-white hover:bg-white/10'
               }`}
           >
             PT
@@ -240,7 +249,7 @@ const Navbar = memo(() => {
             aria-label={t('nav.switch_to_en')}
             className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all ${i18n.language === 'en'
               ? 'bg-[var(--cyber-cyan)] text-white shadow-[0_0_15px_rgba(0,255,255,0.5)]'
-              : 'bg-white/5 text-white/60 hover:text-white hover:bg-white/10'
+              : 'bg-white/5 text-white/80 hover:text-white hover:bg-white/10'
               }`}
           >
             EN

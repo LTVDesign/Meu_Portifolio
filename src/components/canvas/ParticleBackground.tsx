@@ -177,23 +177,37 @@ const ParticleBackground = ({
       animationRef.current = requestAnimationFrame(animate);
     };
 
+    const canvasRectRef = useRef<DOMRect | null>(null);
+
+    const updateCanvasRect = () => {
+      if (canvas) {
+        canvasRectRef.current = canvas.getBoundingClientRect();
+      }
+    };
+
     const handleMouseMove = (e: MouseEvent) => {
       const now = Date.now();
       // Throttle mousemove para 60fps (16ms)
       if (now - lastMouseMoveRef.current < 16) return;
       lastMouseMoveRef.current = now;
 
-      const rect = canvas.getBoundingClientRect();
-      mouseRef.current.x = e.clientX - rect.left;
-      mouseRef.current.y = e.clientY - rect.top;
+      if (!canvasRectRef.current) updateCanvasRect();
+      const rect = canvasRectRef.current;
+      
+      if (rect) {
+        mouseRef.current.x = e.clientX - rect.left;
+        mouseRef.current.y = e.clientY - rect.top;
+      }
     };
 
     const handleResize = () => {
       resizeCanvas();
+      updateCanvasRect();
       createParticles();
     };
 
     resizeCanvas();
+    updateCanvasRect();
     createParticles();
     animate();
 

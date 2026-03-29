@@ -66,7 +66,7 @@ const ComputersCanvas = () => {
   }, []);
 
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-full w-full" style={{ minHeight: '100%', minWidth: '100%' }}>
       <Canvas
         frameloop="demand"
         shadows={false} // Desabilitado sombras para melhor performance

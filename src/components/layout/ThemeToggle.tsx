@@ -1155,7 +1155,7 @@ const ThemeToggle = () => {
   return (
     <>
       <canvas id="particles-canvas" ref={canvasRef} />
-      <div className="fixed left-2 sm:left-4 top-1/2 -translate-y-1/2 z-50 theme-toggle-container scale-110 sm:scale-125 origin-top-left transition-all duration-300">
+      <div className="fixed left-2 sm:left-4 top-1/2 -translate-y-1/2 z-50 theme-toggle-container scale-110 sm:scale-125 origin-top-left transition-all duration-300" style={{ minWidth: '60px', minHeight: '60px' }}>
         <div className="relative group/gear">
           {/* Label that appears on hover or subtly */}
           <div className="absolute -top-10 left-0 whitespace-nowrap opacity-0 group-hover/gear:opacity-100 transition-opacity duration-300 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-[10px] text-white font-bold tracking-widest border border-white/10 uppercase">

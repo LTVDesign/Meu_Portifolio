@@ -1,8 +1,7 @@
 import { motion } from 'framer-motion';
 import { SectionWrapper } from '../../hoc';
 import { textVariant } from '../../utils/motion';
-import { Header } from '../atoms';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import albertaImg from '../../logos/alberta.webp';
 import googleImg from '../../logos/google.webp';
@@ -11,11 +10,13 @@ import hackersImg from '../../logos/hackers.webp';
 import johnsImg from '../../logos/johns.webp';
 import bradescoImg from '../../logos/bradesco.webp';
 import cateImg from '../../logos/cate.webp';
+import { Header } from '../atoms/Header';
 import type { Curso } from '../../types';
 
 const AllCursos = () => {
     const [filter, setFilter] = useState('');
     const [sortBy, setSortBy] = useState<'year' | 'duration' | 'company'>('year');
+    const [visibleCount, setVisibleCount] = useState(6);
     const { t } = useTranslation();
 
     const allCursos: Curso[] = [
@@ -256,24 +257,33 @@ const AllCursos = () => {
         curso.platform.toLowerCase().includes(filter.toLowerCase())
     );
 
-    const sortedCursos = [...filteredCursos].sort((a, b) => {
-        if (sortBy === 'year') {
-            return parseInt(b.date) - parseInt(a.date);
-        } else if (sortBy === 'company') {
-            return a.platform.localeCompare(b.platform);
-        } else if (sortBy === 'duration') {
-            // Função segura para extrair número da duração
-            const extractNumber = (duration: string | undefined): number => {
-                if (!duration) return 0;
-                const match = duration.match(/(\d+)/);
-                return match ? parseInt(match[1]) : 0;
-            };
-            const durationA = extractNumber(a.duration);
-            const durationB = extractNumber(b.duration);
-            return durationB - durationA;
-        }
-        return 0;
-    });
+    const sortedCursos = useMemo(() => {
+        const sorted = [...filteredCursos].sort((a, b) => {
+            if (sortBy === 'year') {
+                return parseInt(b.date) - parseInt(a.date);
+            } else if (sortBy === 'company') {
+                return a.platform.localeCompare(b.platform);
+            } else if (sortBy === 'duration') {
+                const extractNumber = (duration: string | undefined): number => {
+                    if (!duration) return 0;
+                    const match = duration.match(/(\d+)/);
+                    return match ? parseInt(match[1]) : 0;
+                };
+                const durationA = extractNumber(a.duration);
+                const durationB = extractNumber(b.duration);
+                return durationB - durationA;
+            }
+            return 0;
+        });
+        return sorted;
+    }, [filteredCursos, sortBy]);
+
+    const visibleCursos = sortedCursos.slice(0, visibleCount);
+    const hasMore = visibleCount < sortedCursos.length;
+
+    const handleLoadMore = () => {
+        setVisibleCount(prev => prev + 6);
+    };
 
     return (
         <div className="pt-20 pb-32">
@@ -282,7 +292,6 @@ const AllCursos = () => {
                     <Header useMotion={false} p={t('courses.allTitle')} h2={t('courses.allTitle')} />
                 </motion.div>
 
-                {/* Barra de Filtros e Organização */}
                 <div className="mb-12 flex flex-col md:flex-row gap-4 items-center justify-between">
                     <div className="relative w-full md:w-96">
                         <input
@@ -310,7 +319,7 @@ const AllCursos = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {sortedCursos.map((curso) => (
+                    {visibleCursos.map((curso) => (
                         <motion.div
                             key={curso.id}
                             variants={textVariant()}
@@ -348,6 +357,18 @@ const AllCursos = () => {
                         </motion.div>
                     ))}
                 </div>
+
+                {hasMore && (
+                    <div className="mt-12 flex justify-center">
+                        <button
+                            type="button"
+                            onClick={handleLoadMore}
+                            className="glass-btn px-8 py-3 rounded-lg font-bold tracking-wider hover:scale-105 transition-transform"
+                        >
+                            Carregar Mais ({sortedCursos.length - visibleCount} restantes)
+                        </button>
+                    </div>
+                )}
 
                 {sortedCursos.length === 0 && (
                     <div className="text-center py-20">

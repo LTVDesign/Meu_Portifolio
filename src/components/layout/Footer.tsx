@@ -69,7 +69,7 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="relative mt-8 pt-12 pb-10 overflow-hidden" role="contentinfo">
+    <footer className="relative mt-8 pt-12 pb-10 overflow-hidden" role="contentinfo" style={{ minHeight: '200px' }}>
       <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-full max-w-4xl h-48 bg-[#915EFF]/10 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-16 relative z-10">
@@ -140,14 +140,14 @@ const Footer: React.FC = () => {
                 rel="noopener noreferrer"
                 whileHover={{ y: -4, scale: 1.1 }}
                 aria-label={label}
-                className={`text-gray-400 ${color} transition-colors focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)]`}
+                className={`text-[var(--dynamic-text-secondary)] ${color} transition-colors focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)]`}
               >
                 <Icon size={26} />
               </motion.a>
             ))}
           </div>
 
-          <p className="text-xs text-[var(--dynamic-text-secondary)] uppercase tracking-widest opacity-60 text-center">
+          <p className="text-xs text-[var(--dynamic-text-secondary)] uppercase tracking-widest text-center">
             © {currentYear} {config.html.fullName} • {t('footer.allRightsReserved')}
           </p>
 

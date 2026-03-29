@@ -10,7 +10,7 @@
     --cyber-cyan: #00FFFF;
     --cyber-glow: #A78BFA;
     --text-primary: #ffffff;
-    --text-secondary: #9ca3af;
+    --text-secondary: #d1d5db;
     --bg-glass: rgba(21, 16, 48, 0.88);
 
     /* Animation & Transition Variables */
@@ -25,6 +25,9 @@
 
   body {
     @apply bg-transparent text-white font-sans antialiased;
+    /* Prevenir layout shift */
+    min-height: 100vh;
+    overflow-x: hidden;
   }
 
   html {

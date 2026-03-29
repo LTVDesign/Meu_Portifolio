@@ -211,24 +211,32 @@ export const initLaunchParticles = (canvas, btn) => {
     animationId = requestAnimationFrame(tick);
   };
 
-  const enterHover = () => (isHovered = true);
+  const enterHover = () => {
+    syncLayout();
+    isHovered = true;
+  };
   const leaveHover = () => (isHovered = false);
-  const onClick = (e) => burst(e.clientX, e.clientY, hueAt(e.clientX, e.clientY));
-  const onTouch = (e) =>
+  const onClick = (e) => {
+    syncLayout();
+    burst(e.clientX, e.clientY, hueAt(e.clientX, e.clientY));
+  };
+  const onTouch = (e) => {
+    syncLayout();
     burst(
       e.touches[0].clientX,
       e.touches[0].clientY,
       hueAt(e.touches[0].clientX, e.touches[0].clientY)
     );
+  };
 
   btn.addEventListener('mouseenter', enterHover);
   btn.addEventListener('mouseleave', leaveHover);
   btn.addEventListener('click', onClick);
   btn.addEventListener('touchstart', onTouch);
   window.addEventListener('resize', syncLayout);
-  window.addEventListener('scroll', syncLayout);
 
   syncLayout();
+
   tick();
 
   return () => {
@@ -237,7 +245,7 @@ export const initLaunchParticles = (canvas, btn) => {
     btn.removeEventListener('click', onClick);
     btn.removeEventListener('touchstart', onTouch);
     window.removeEventListener('resize', syncLayout);
-    window.removeEventListener('scroll', syncLayout);
     cancelAnimationFrame(animationId);
   };
 };
+
