@@ -115,6 +115,14 @@ export interface Curso {
 }
 
 // Tipos para Formação
+export interface Disciplina {
+    materia: string;
+    nota: string | number;
+    cargaHoraria: string;
+    professor: string;
+    semestre?: string;
+}
+
 export interface FormacaoData {
     id: string;
     title: string;
@@ -125,8 +133,14 @@ export interface FormacaoData {
     icon: string;
     logo: string;
     period: string;
-    disciplinas: string[];
+    disciplinas: (string | Disciplina)[];
+    cargaHorariaGeral?: string;
+    dataConclusao?: string;
     diplomaLink?: string;
+    diplomaPreview?: string;
+    diplomaDownload?: string;
+    authLink?: string;
+    qrCode?: string;
     link: string;
 }
 

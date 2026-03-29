@@ -1,6 +1,7 @@
 import type React from 'react';
 import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+// Tree-shakeable Three.js imports for better performance
+import { Scene, OrthographicCamera, WebGLRenderer, PlaneGeometry, ShaderMaterial, Mesh, Color, Vector2 } from 'three';
 
 interface LiquidUltraBackgroundProps {
   resolution: number;
@@ -46,7 +47,7 @@ const LiquidUltraBackground: React.FC<LiquidUltraBackgroundProps> = ({
   refraction,
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
-  const materialRef = useRef<THREE.ShaderMaterial | null>(null);
+  const materialRef = useRef<ShaderMaterial | null>(null);
 
   // Reactive uniform updates — avoids full WebGL rebuild
   useEffect(() => {
@@ -261,10 +262,10 @@ const LiquidUltraBackground: React.FC<LiquidUltraBackgroundProps> = ({
       }
     `;
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+    const scene = new Scene();
+    const camera = new OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
     camera.position.z = 1;
-    const renderer = new THREE.WebGLRenderer({
+    const renderer = new WebGLRenderer({
       antialias: false,
       alpha: true,
       powerPreference: 'high-performance',
@@ -276,12 +277,12 @@ const LiquidUltraBackground: React.FC<LiquidUltraBackgroundProps> = ({
     canvas.setAttribute('data-bg-type', 'liquid-ultra');
     mountRef.current.appendChild(canvas);
 
-    const material = new THREE.ShaderMaterial({
+    const material = new ShaderMaterial({
       vertexShader,
       fragmentShader,
       uniforms: {
         u_time: { value: 0.0 },
-        u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+        u_resolution: { value: new Vector2(window.innerWidth, window.innerHeight) },
         u_speed: { value: speed },
         u_scale: { value: scale },
         u_complexity: { value: complexity },
@@ -294,20 +295,20 @@ const LiquidUltraBackground: React.FC<LiquidUltraBackgroundProps> = ({
         u_noiseScale: { value: noiseScale },
         u_gloss: { value: gloss },
         u_refraction: { value: refraction },
-        u_color1: { value: new THREE.Color(color1) },
-        u_color2: { value: new THREE.Color(color2) },
-        u_color3: { value: new THREE.Color(color3) },
-        u_color4: { value: new THREE.Color(color4) },
-        u_color5: { value: new THREE.Color(color5) },
-        u_color6: { value: new THREE.Color(color6) },
+        u_color1: { value: new Color(color1) },
+        u_color2: { value: new Color(color2) },
+        u_color3: { value: new Color(color3) },
+        u_color4: { value: new Color(color4) },
+        u_color5: { value: new Color(color5) },
+        u_color6: { value: new Color(color6) },
       },
       depthWrite: false,
       depthTest: false,
     });
     materialRef.current = material;
 
-    const geometry = new THREE.PlaneGeometry(2, 2);
-    const mesh = new THREE.Mesh(geometry, material);
+    const geometry = new PlaneGeometry(2, 2);
+    const mesh = new Mesh(geometry, material);
     scene.add(mesh);
 
     const startTime = performance.now();

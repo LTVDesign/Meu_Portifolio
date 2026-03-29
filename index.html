@@ -35,59 +35,10 @@
   <title>Leandro Saturnino Barbosa | Portfólio 3D - React & Three.js</title>
 
   <!-- Preload Assets Críticos -->
-  <link rel="preload" href="/logo.svg" as="image" fetchpriority="high" />
+  <link rel="preload" href="/logo.png" as="image" fetchpriority="high" />
 
-  <!-- Critical CSS inline para LCP mais rápida -->
-  <style>
-    /* Critical: Prevenir layout shift e mostrar conteúdo rapidamente */
-    :root {
-      --cyber-purple: #915EFF;
-      --bg-dark: #050816;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, sans-serif;
-      background: var(--bg-dark);
-      color: #fff;
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
-
-    #root {
-      min-height: 100vh;
-      width: 100%;
-    }
-
-    .critical-navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 80px;
-      z-index: 50;
-      background: rgba(21, 16, 48, 0.88);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    /* Esqueleto da Hero Section para evitar layout shift */
-    .hero-skeleton {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 10%;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      * {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-  </style>
+  <!-- Critical CSS importado para LCP mais rápida -->
+  <link rel="stylesheet" href="/src/critical.css" />
 
   <!-- CSS principal injetado pelo Vite via main.tsx -->
 

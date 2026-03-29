@@ -1,16 +1,17 @@
 import { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
+// Tree-shakeable Three.js imports for better performance
+import { BufferGeometry, Material, Vector3, Color, Object3D, InstancedMesh } from 'three';
 import { usePerformance } from '../../contexts/PerformanceContext';
 
 interface OptimizedInstancedMeshProps {
     count: number;
-    geometry: THREE.BufferGeometry;
-    material: THREE.Material;
-    positions?: THREE.Vector3[];
-    colors?: THREE.Color[];
-    scales?: THREE.Vector3[];
-    onUpdate?: (mesh: THREE.InstancedMesh, delta: number) => void;
+    geometry: BufferGeometry;
+    material: Material;
+    positions?: Vector3[];
+    colors?: Color[];
+    scales?: Vector3[];
+    onUpdate?: (mesh: InstancedMesh, delta: number) => void;
 }
 
 const OptimizedInstancedMesh = ({
@@ -22,10 +23,10 @@ const OptimizedInstancedMesh = ({
     scales,
     onUpdate,
 }: OptimizedInstancedMeshProps) => {
-    const meshRef = useRef<THREE.InstancedMesh>(null!);
+    const meshRef = useRef<InstancedMesh>(null!);
     const { isLowPerformance } = usePerformance();
 
-    const dummy = useMemo(() => new THREE.Object3D(), []);
+    const dummy = useMemo(() => new Object3D(), []);
 
     // Configuração inicial das instâncias
     useEffect(() => {
@@ -36,7 +37,7 @@ const OptimizedInstancedMesh = ({
         mesh.count = finalCount;
 
         for (let i = 0; i < finalCount; i++) {
-            const pos = positions[i] || new THREE.Vector3(
+            const pos = positions[i] || new Vector3(
                 (Math.random() - 0.5) * 100,
                 (Math.random() - 0.5) * 60,
                 (Math.random() - 0.5) * 120

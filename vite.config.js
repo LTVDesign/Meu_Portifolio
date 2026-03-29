@@ -30,9 +30,32 @@ export default defineConfig({
         manualChunks(id) {
           if (id.includes('node_modules')) {
             if (id.includes('react/') || id.includes('react-dom/')) return 'react';
-            if (id.includes('framer-motion')) return 'motion';
-            if (id.includes('three')) return 'three';
-            if (id.includes('@react-three')) return 'react-three';
+            // Split framer-motion more aggressively for better code splitting
+            if (id.includes('framer-motion/dom')) return 'motion-dom';
+            if (id.includes('framer-motion') && !id.includes('dom')) return 'motion-core';
+            // Split Three.js into much smaller chunks for better tree shaking
+            if (id.includes('three/examples/jsm/controls')) return 'three-controls';
+            if (id.includes('three/examples/jsm/loaders')) return 'three-loaders';
+            if (id.includes('three/examples/jsm/postprocessing')) return 'three-postprocessing';
+            if (id.includes('three/examples/jsm/geometries')) return 'three-geometries';
+            if (id.includes('three/examples/jsm/materials')) return 'three-materials';
+            if (id.includes('three/examples/jsm/lights')) return 'three-lights';
+            if (id.includes('three/examples/jsm/helpers')) return 'three-helpers';
+            if (id.includes('three/examples/jsm/')) return 'three-extras';
+            // Core Three.js modules
+            if (id.includes('three/src/math')) return 'three-math';
+            if (id.includes('three/src/core')) return 'three-core-utils';
+            if (id.includes('three/src/renderers')) return 'three-renderers';
+            if (id.includes('three/src/scenes')) return 'three-scenes';
+            if (id.includes('three/src/cameras')) return 'three-cameras';
+            if (id.includes('three/src/geometries')) return 'three-core-geometries';
+            if (id.includes('three/src/materials')) return 'three-core-materials';
+            if (id.includes('three/src/objects')) return 'three-objects';
+            if (id.includes('three/src/lights')) return 'three-core-lights';
+            if (id.includes('three/src/textures')) return 'three-textures';
+            if (id.includes('three')) return 'three-core';
+            if (id.includes('@react-three/fiber')) return 'react-three-fiber';
+            if (id.includes('@react-three/drei')) return 'react-three-drei';
           }
         },
       },
@@ -42,17 +65,28 @@ export default defineConfig({
       compress: {
         drop_console: true,
         drop_debugger: true,
+        pure_funcs: ['console.log', 'console.debug'],
+        passes: 3, // Additional pass for better minification
+        unsafe_math: true, // Optimize math expressions
+        unsafe_methods: true, // Optimize object methods
+      },
+      mangle: {
+        safari10: true,
+        properties: {
+          regex: /^_/, // Mangle private properties starting with _
+        },
+      },
+      output: {
+        comments: false, // Remove all comments
       },
     },
     cssCodeSplit: true,
+    reportCompressedSize: false,
+    sourcemap: false, // Disable sourcemaps for production
   },
 
   optimizeDeps: {
     include: ['react', 'react-dom', 'framer-motion', '@react-three/fiber', '@react-three/drei'],
-  },
-
-  define: {
-    // Ensuring internal Vite defines are handled correctly
   },
 
   server: {

@@ -1,6 +1,28 @@
 import type React from 'react';
 import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+// Tree-shakeable Three.js imports for better performance
+import {
+  Scene,
+  PerspectiveCamera,
+  WebGLRenderer,
+  FogExp2,
+  Color,
+  Vector2,
+  Vector3,
+  CatmullRomCurve3,
+  TubeGeometry,
+  PointsMaterial,
+  Points,
+  BufferGeometry,
+  BufferAttribute,
+  EdgesGeometry,
+  LineBasicMaterial,
+  LineSegments,
+  MeshBasicMaterial,
+  ACESFilmicToneMapping,
+  SRGBColorSpace,
+  AdditiveBlending
+} from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
@@ -35,12 +57,12 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
   const mountRef = useRef<HTMLDivElement>(null);
 
   const bloomPassRef = useRef<UnrealBloomPass | null>(null);
-  const fogRef = useRef<THREE.FogExp2 | null>(null);
-  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+  const fogRef = useRef<FogExp2 | null>(null);
+  const cameraRef = useRef<PerspectiveCamera | null>(null);
   const speedRef = useRef(speed);
   const rotationSpeedRef = useRef(rotationSpeed);
-  const lineMatRef = useRef<THREE.LineBasicMaterial | null>(null);
-  const pointMaterialsRef = useRef<THREE.MeshBasicMaterial[]>([]);
+  const lineMatRef = useRef<LineBasicMaterial | null>(null);
+  const pointMaterialsRef = useRef<MeshBasicMaterial[]>([]);
 
   // Reactive updates — avoids full WebGL rebuild
   useEffect(() => {
@@ -91,17 +113,17 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
 
     const w = window.innerWidth;
     const h = window.innerHeight;
-    const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x000000, fogDensity);
-    fogRef.current = scene.fog as THREE.FogExp2;
-    const camera = new THREE.PerspectiveCamera(cameraFOV, w / h, 0.01, 2000);
+    const scene = new Scene();
+    scene.fog = new FogExp2(0x000000, fogDensity);
+    fogRef.current = scene.fog as FogExp2;
+    const camera = new PerspectiveCamera(cameraFOV, w / h, 0.01, 2000);
     camera.position.z = 5;
     cameraRef.current = camera;
-    const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+    const renderer = new WebGLRenderer({ antialias: false, alpha: true });
     renderer.setClearAlpha(0);
     renderer.setSize(w, h);
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = ACESFilmicToneMapping;
+    renderer.outputColorSpace = SRGBColorSpace;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
     // Ajuste da posição inicial da câmera para dentro do túnel
@@ -118,7 +140,7 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
     // REMOVED OrbitControls as it conflicts with the path animation
 
     const renderScene = new RenderPass(scene, camera);
-    const bloomPass = new UnrealBloomPass(new THREE.Vector2(w, h), 1.5, 0.4, 100);
+    const bloomPass = new UnrealBloomPass(new Vector2(w, h), 1.5, 0.4, 100);
     bloomPass.threshold = 0.002;
     bloomPass.strength = bloomStrength;
     bloomPass.radius = 0;
@@ -157,24 +179,24 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
     const pointst = [];
     const len = curvePath.length;
     for (let p = 0; p < len; p += 3) {
-      pointst.push(new THREE.Vector3(curvePath[p], curvePath[p + 1], curvePath[p + 2]));
+      pointst.push(new Vector3(curvePath[p], curvePath[p + 1], curvePath[p + 2]));
     }
 
-    const spline = new THREE.CatmullRomCurve3(pointst, true); // Ensure closed
-    const run = new THREE.TubeGeometry(spline, 400, tunnelRadius, 32, true);
+    const spline = new CatmullRomCurve3(pointst, true); // Ensure closed
+    const run = new TubeGeometry(spline, 400, tunnelRadius, 32, true);
 
     // Efficient Points rendering
-    const pointMat = new THREE.PointsMaterial({
+    const pointMat = new PointsMaterial({
       size: pointSize,
       transparent: true,
       opacity: 0.8,
-      blending: THREE.AdditiveBlending,
+      blending: AdditiveBlending,
       vertexColors: true,
     });
 
     const posAttr = run.attributes.position;
     const colorsAttr = new Float32Array(posAttr.count * 3);
-    const colorNodes = [new THREE.Color(color1), new THREE.Color(color2), new THREE.Color(color3)];
+    const colorNodes = [new Color(color1), new Color(color2), new Color(color3)];
 
     for (let i = 0; i < posAttr.count; i++) {
       const c = colorNodes[i % 3];
@@ -183,23 +205,23 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
       colorsAttr[i * 3 + 2] = c.b;
     }
 
-    const pointGeo = new THREE.BufferGeometry();
+    const pointGeo = new BufferGeometry();
     pointGeo.setAttribute('position', posAttr);
-    pointGeo.setAttribute('color', new THREE.BufferAttribute(colorsAttr, 3));
+    pointGeo.setAttribute('color', new BufferAttribute(colorsAttr, 3));
 
-    const tunnelPoints = new THREE.Points(pointGeo, pointMat);
+    const tunnelPoints = new Points(pointGeo, pointMat);
     scene.add(tunnelPoints);
 
-    const edges = new THREE.EdgesGeometry(run, 0.35);
-    const lineMat = new THREE.LineBasicMaterial({
+    const edges = new EdgesGeometry(run, 0.35);
+    const lineMat = new LineBasicMaterial({
       color: color3,
       transparent: true,
       opacity: lineOpacity,
-      blending: THREE.AdditiveBlending,
+      blending: AdditiveBlending,
     });
     lineMatRef.current = lineMat;
 
-    const tunnelLines = new THREE.LineSegments(edges, lineMat);
+    const tunnelLines = new LineSegments(edges, lineMat);
     scene.add(tunnelLines);
 
     function updateCamera(elapsedTime: number) {
@@ -211,7 +233,7 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
       const tangent = spline.getTangentAt(p).normalize();
 
       // Ajuste para manter a câmera dentro do túnel com uma pequena distância do centro
-      const offset = new THREE.Vector3(0, 0, 0.5); // Pequeno offset para dentro do túnel
+      const offset = new Vector3(0, 0, 0.5); // Pequeno offset para dentro do túnel
 
       // Aplica rotação ao offset para criar movimento dentro do túnel
       const angle = elapsedTime * 0.5 * rotationSpeedRef.current;

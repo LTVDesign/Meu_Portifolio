@@ -16,8 +16,8 @@ const HomePage = () => {
             <Formacao />
             <Experience />
             <Cursos isHomePage={true} />
-            <Tech />
             <Works />
+            <Tech />
             <Curriculo />
             <Contact />
         </>

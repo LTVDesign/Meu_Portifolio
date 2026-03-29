@@ -116,7 +116,7 @@ const Navbar = memo(() => {
         style={{ minHeight: '128px', minWidth: '128px' }}
       >
         <img
-          src="/logo.svg"
+          src="/logo.webp"
           alt="Logo"
           className="w-full h-full object-contain drop-shadow-[0_0_20px_rgba(145,94,255,0.8)]"
           loading="eager"

@@ -150,6 +150,9 @@ const Footer: React.FC = () => {
           <p className="text-xs text-[var(--dynamic-text-secondary)] uppercase tracking-widest text-center">
             © {currentYear} {config.html.fullName} • {t('footer.allRightsReserved')}
           </p>
+          <p className="text-[8px] text-[var(--dynamic-text-secondary)] uppercase tracking-widest text-center mt-2">
+            ↑ ↑ ↓ ↓ ← → ← → B A
+          </p>
 
           <button
             type="button"

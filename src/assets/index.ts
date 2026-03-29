@@ -41,6 +41,10 @@ import windows from './tech/windows.webp';
 import tripguide from './tripguide.webp';
 import web from './web.webp';
 import willy from './willy.webp';
+// Formação
+import diploma from './formacao/diploma.png';
+import qrcode from './formacao/qrcode.png';
+import diplomaPdf from './formacao/DiplomaDigital.pdf?url';
 
 export {
   android,
@@ -86,4 +90,7 @@ export {
   web,
   willy,
   windows,
+  diploma,
+  qrcode,
+  diplomaPdf,
 };

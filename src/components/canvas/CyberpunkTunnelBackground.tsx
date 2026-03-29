@@ -1,6 +1,25 @@
 import type React from 'react';
 import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+// Tree-shakeable Three.js imports for better performance
+import {
+  Scene,
+  PerspectiveCamera,
+  WebGLRenderer,
+  FogExp2,
+  Vector2,
+  Vector3,
+  CatmullRomCurve3,
+  TubeGeometry,
+  SphereGeometry,
+  MeshBasicMaterial,
+  Mesh,
+  EdgesGeometry,
+  LineBasicMaterial,
+  LineSegments,
+  ACESFilmicToneMapping,
+  SRGBColorSpace,
+  Timer
+} from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
@@ -26,10 +45,10 @@ const CyberpunkTunnelBackground: React.FC<CyberpunkTunnelBackgroundProps> = ({
   const mountRef = useRef<HTMLDivElement>(null);
 
   const bloomPassRef = useRef<UnrealBloomPass | null>(null);
-  const fogRef = useRef<THREE.FogExp2 | null>(null);
+  const fogRef = useRef<FogExp2 | null>(null);
   const speedRef = useRef(speed);
-  const pointMaterialsRef = useRef<THREE.MeshBasicMaterial[]>([]);
-  const lineMatRef = useRef<THREE.LineBasicMaterial | null>(null);
+  const pointMaterialsRef = useRef<MeshBasicMaterial[]>([]);
+  const lineMatRef = useRef<LineBasicMaterial | null>(null);
 
   // Reactive updates — avoids full WebGL rebuild
   useEffect(() => {
@@ -58,15 +77,15 @@ const CyberpunkTunnelBackground: React.FC<CyberpunkTunnelBackgroundProps> = ({
 
     const w = window.innerWidth;
     const h = window.innerHeight;
-    const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x000000, fogDensity);
-    fogRef.current = scene.fog as THREE.FogExp2;
-    const camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 1000);
+    const scene = new Scene();
+    scene.fog = new FogExp2(0x000000, fogDensity);
+    fogRef.current = scene.fog as FogExp2;
+    const camera = new PerspectiveCamera(60, w / h, 0.1, 1000);
     camera.position.z = 3;
-    const renderer = new THREE.WebGLRenderer({ antialias: false }); // Desativado para performance
+    const renderer = new WebGLRenderer({ antialias: false }); // Desativado para performance
     renderer.setSize(w, h);
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = ACESFilmicToneMapping;
+    renderer.outputColorSpace = SRGBColorSpace;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Limita o pixel ratio
     mountRef.current.appendChild(renderer.domElement);
 
@@ -75,7 +94,7 @@ const CyberpunkTunnelBackground: React.FC<CyberpunkTunnelBackgroundProps> = ({
     controls.dampingFactor = 0.03;
 
     const renderScene = new RenderPass(scene, camera);
-    const bloomPass = new UnrealBloomPass(new THREE.Vector2(w, h), 1.5, 0.4, 100);
+    const bloomPass = new UnrealBloomPass(new Vector2(w, h), 1.5, 0.4, 100);
     bloomPass.threshold = 0.002;
     bloomPass.strength = bloomStrength;
     bloomPass.radius = 0;
@@ -206,20 +225,20 @@ const CyberpunkTunnelBackground: React.FC<CyberpunkTunnelBackgroundProps> = ({
     const pointst = [];
     const len = curvePath.length;
     for (let p = 0; p < len; p += 3) {
-      pointst.push(new THREE.Vector3(curvePath[p], curvePath[p + 1], curvePath[p + 2]));
+      pointst.push(new Vector3(curvePath[p], curvePath[p + 1], curvePath[p + 2]));
     }
 
-    const spline = new THREE.CatmullRomCurve3(pointst);
+    const spline = new CatmullRomCurve3(pointst);
 
-    const run = new THREE.TubeGeometry(spline, 222, 2.5, 16, true);
+    const run = new TubeGeometry(spline, 222, 2.5, 16, true);
 
     const vertices = run.attributes.position;
-    const pointGeometry = new THREE.SphereGeometry(0.01, 0.01, 0.01);
+    const pointGeometry = new SphereGeometry(0.01, 0.01, 0.01);
 
     const colors = [color1, color2, color3];
 
     // Create one shared material per color
-    const sharedMaterials = colors.map((c) => new THREE.MeshBasicMaterial({ color: c }));
+    const sharedMaterials = colors.map((c) => new MeshBasicMaterial({ color: c }));
 
     for (let i = 0; i < vertices.count; i++) {
       const x = vertices.getX(i);
@@ -229,19 +248,19 @@ const CyberpunkTunnelBackground: React.FC<CyberpunkTunnelBackgroundProps> = ({
       const colorIndex = i % colors.length;
       const pointMaterial = sharedMaterials[colorIndex];
 
-      const pointMesh = new THREE.Mesh(pointGeometry, pointMaterial);
+      const pointMesh = new Mesh(pointGeometry, pointMaterial);
       pointMesh.position.set(x, y, z);
       scene.add(pointMesh);
     }
     pointMaterialsRef.current = sharedMaterials;
 
-    const edges = new THREE.EdgesGeometry(run, 0.35);
-    const lineMat = new THREE.LineBasicMaterial({
+    const edges = new EdgesGeometry(run, 0.35);
+    const lineMat = new LineBasicMaterial({
       color: color3,
     });
     lineMatRef.current = lineMat;
 
-    const line2 = new THREE.LineSegments(edges, lineMat);
+    const line2 = new LineSegments(edges, lineMat);
     scene.add(line2);
 
     function updateCamera(t: number) {
@@ -254,7 +273,7 @@ const CyberpunkTunnelBackground: React.FC<CyberpunkTunnelBackgroundProps> = ({
       camera.lookAt(lookAt);
     }
 
-    const timer = new THREE.Timer();
+    const timer = new Timer();
     let animationId: number;
     function animate() {
       animationId = requestAnimationFrame(animate);

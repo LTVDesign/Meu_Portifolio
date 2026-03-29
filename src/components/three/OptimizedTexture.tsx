@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useTexture } from '@react-three/drei';
-import * as THREE from 'three';
+// Tree-shakeable Three.js imports for better performance
+import { LinearMipmapLinearFilter, LinearFilter, NearestFilter, RGBAFormat, SRGBColorSpace } from 'three';
 import { usePerformance } from '../../contexts/PerformanceContext';
 
 interface OptimizedTextureProps {
@@ -24,26 +25,26 @@ const OptimizedTexture = ({
 
             // Configurações base
             tex.generateMipmaps = true;
-            tex.minFilter = THREE.LinearMipmapLinearFilter;
-            tex.magFilter = THREE.LinearFilter;
+            tex.minFilter = LinearMipmapLinearFilter;
+            tex.magFilter = LinearFilter;
             tex.anisotropy = isLowPerformance ? 2 : (anisotropy || 8);
 
             // Otimizações por tipo
             switch (type) {
                 case 'normal':
-                    tex.format = THREE.RGBAFormat;
+                    tex.format = RGBAFormat;
                     tex.anisotropy = isLowPerformance ? 4 : 12;
                     break;
                 case 'noise':
-                    tex.minFilter = THREE.NearestFilter;
-                    tex.magFilter = THREE.NearestFilter;
+                    tex.minFilter = NearestFilter;
+                    tex.magFilter = NearestFilter;
                     tex.anisotropy = 2;
                     break;
                 case 'emissive':
-                    tex.format = THREE.RGBAFormat;
+                    tex.format = RGBAFormat;
                     break;
                 default:
-                    tex.colorSpace = THREE.SRGBColorSpace;
+                    tex.colorSpace = SRGBColorSpace;
             }
 
             if (isLowPerformance) {

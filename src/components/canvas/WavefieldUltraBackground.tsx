@@ -1,6 +1,7 @@
 import type React from 'react';
 import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+// Tree-shakeable Three.js imports for better performance
+import { Scene, OrthographicCamera, WebGLRenderer, PlaneGeometry, ShaderMaterial, Mesh, Color, Vector2 } from 'three';
 import type { WavefieldUniforms } from '../../types';
 
 interface WavefieldUltraBackgroundProps {
@@ -39,12 +40,12 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
     const hexToRgb = (hex: string) => {
       const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
       return result
-        ? new THREE.Color(
+        ? new Color(
           parseInt(result[1], 16) / 255,
           parseInt(result[2], 16) / 255,
           parseInt(result[3], 16) / 255
         )
-        : new THREE.Color(0, 1, 1);
+        : new Color(0, 1, 1);
     };
     uniformsRef.current.speed.value = speed;
     uniformsRef.current.amplitude.value = amplitude;
@@ -74,27 +75,27 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
   useEffect(() => {
     if (!mountRef.current) return;
 
-    let scene: THREE.Scene,
-      camera: THREE.OrthographicCamera,
-      renderer: THREE.WebGLRenderer,
-      material: THREE.ShaderMaterial;
+    let scene: Scene,
+      camera: OrthographicCamera,
+      renderer: WebGLRenderer,
+      material: ShaderMaterial;
 
-    const mouse = new THREE.Vector2(0.5, 0.5);
-    const targetMouse = new THREE.Vector2(0.5, 0.5);
+    const mouse = new Vector2(0.5, 0.5);
+    const targetMouse = new Vector2(0.5, 0.5);
     const hexToRgb = (hex: string) => {
       const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
       return result
-        ? new THREE.Color(
+        ? new Color(
           parseInt(result[1], 16) / 255,
           parseInt(result[2], 16) / 255,
           parseInt(result[3], 16) / 255
         )
-        : new THREE.Color(0, 1, 1);
+        : new Color(0, 1, 1);
     };
     const uniforms = {
       t: { value: 0.0 },
-      r: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
-      mouse: { value: new THREE.Vector2(0.5, 0.5) },
+      r: { value: new Vector2(window.innerWidth, window.innerHeight) },
+      mouse: { value: new Vector2(0.5, 0.5) },
       speed: { value: speed },
       amplitude: { value: amplitude },
       color: { value: hexToRgb(color) },
@@ -126,10 +127,10 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
         }
       }
 
-      scene = new THREE.Scene();
-      camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+      scene = new Scene();
+      camera = new OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
       camera.position.z = 1;
-      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer = new WebGLRenderer({ antialias: true, alpha: true });
       renderer.setClearAlpha(0);
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(window.devicePixelRatio);
@@ -138,8 +139,8 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
       canvas.setAttribute('data-bg-type', 'wavefield-bg');
       mountRef.current!.appendChild(canvas);
 
-      const geometry = new THREE.PlaneGeometry(2, 2);
-      material = new THREE.ShaderMaterial({
+      const geometry = new PlaneGeometry(2, 2);
+      material = new ShaderMaterial({
         uniforms: uniforms,
         vertexShader: `
           varying vec2 vUv;
@@ -288,7 +289,7 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
           }
         `,
       });
-      const mesh = new THREE.Mesh(geometry, material);
+      const mesh = new Mesh(geometry, material);
       scene.add(mesh);
     }
 
