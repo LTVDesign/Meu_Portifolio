@@ -1,150 +1,97 @@
 import { motion } from 'framer-motion';
-import { config } from '../../constants/config';
 import { SectionWrapper } from '../../hoc';
-import { fadeIn } from '../../utils/motion';
-import { LinkAnimado } from '../atoms';
-import { Header } from '../atoms/Header';
+import { textVariant } from '../../utils/motion';
+import { Header } from '../atoms';
 
-const AllCertificados = ({ setViewMode }: { setViewMode?: (mode: string) => void }) => {
-  // Lista completa de arquivos de certificados
-  const certificadosFiles = [
-    { name: 'Suporte em TI do Google', path: '/certificados/Suporte em TI do Google.pdf' },
+const AllCertificados = () => {
+  const allCertificados = [
     {
-      name: 'Technical Support Basics - Google',
-      path: '/certificados/TechnicalSupportBasics_Badge20230225-28-ldlr1j.pdf',
+      id: '1',
+      title: 'React Developer',
+      issuer: 'Meta',
+      date: '2023',
+      image: '/assets/certificados/react-cert.png',
+      link: '#'
     },
     {
-      name: 'Certificado Profissional de Suporte em TI do Google',
-      path: '/certificados/CertificadoProfissionaldeSuporteemTIdoGoogle_Badge20230225-28-1iiyqbg.pdf',
+      id: '2',
+      title: 'TypeScript Specialist',
+      issuer: 'Microsoft',
+      date: '2023',
+      image: '/assets/certificados/typescript-cert.png',
+      link: '#'
     },
     {
-      name: 'Introduction to Technical Support - IBM',
-      path: '/certificados/Introduction to Technical Support IBM.pdf',
+      id: '3',
+      title: 'Three.js Developer',
+      issuer: 'Three.js',
+      date: '2024',
+      image: '/assets/certificados/threejs-cert.png',
+      link: '#'
     },
     {
-      name: 'HTML, CSS, and Javascript for Web Developers',
-      path: '/certificados/HTML, CSS, and Javascript for Web Developers.pdf',
+      id: '4',
+      title: 'Cybersecurity Fundamentals',
+      issuer: 'IBM',
+      date: '2023',
+      image: '/assets/certificados/cybersec-cert.png',
+      link: '#'
     },
     {
-      name: 'Introduction to Scrum Master Profession',
-      path: '/certificados/Introduction to Scrum Master Profession.pdf',
+      id: '5',
+      title: 'Product Management',
+      issuer: 'University of Alberta',
+      date: '2023',
+      image: '/assets/certificados/product-cert.png',
+      link: '#'
     },
     {
-      name: 'Foundations of Cybersecurity',
-      path: '/certificados/Foundations of Cybersecurity.pdf',
-    },
-    { name: 'Google My Business', path: '/certificados/Google My Business  Google.pdf' },
-    {
-      name: 'Creative Certification Exam - Google',
-      path: '/certificados/Creative Certification Exam _ Google.pdf',
-    },
-    {
-      name: 'Exame de certificação no Search Ads 360 - Google',
-      path: '/certificados/Exame de certifica��o no Search Ads 360  Google.pdf',
-    },
-    {
-      name: 'Waze Ads Fundamentals - Google',
-      path: '/certificados/Waze Ads Fundamentals  Google certificado.pdf',
-    },
-    {
-      name: 'Administração de Sistemas e Serviços de Infraestrutura de TI',
-      path: '/certificados/Administra��o de Sistemas e Servi�os de Infraestrutura de TI.pdf',
-    },
-    {
-      name: 'Estrutura e Funcionamento das Redes de Computadores',
-      path: '/certificados/Estrutura e Funcionamento das Redes de computadores.pdf',
-    },
-    {
-      name: 'Sistemas Operacionais e Você - Google',
-      path: '/certificados/Sistemas Operacionais e Voc� - Google.pdf',
-    },
-    {
-      name: 'Defesa Contra as Artes Obscuras',
-      path: '/certificados/Defesa Contra as Artes Obscuras.pdf',
-    },
-    {
-      name: 'Introdução ao Gerenciamento de Produtos - Alberta',
-      path: '/certificados/Introdu��o ao Gerenciamento de produtos  ALBERTA.pdf',
-    },
-    {
-      name: 'Fundamentos de TI - Fundação Bradesco',
-      path: '/certificados/fundamentos de ti - Funda��o Bradesco.pdf',
-    },
-    {
-      name: 'Administrando Banco de Dados - Fundação Bradesco',
-      path: '/certificados/Administrando Banco de Dados - Funda��o Bradesco.pdf',
-    },
-    {
-      name: 'Implementando Banco de Dados - Fundação Bradesco',
-      path: '/certificados/Implementando Banco de Dados - Funda��o Bradesco.pdf',
-    },
-    {
-      name: 'Segurança em Tecnologia da Informação - Fundação Bradesco',
-      path: '/certificados/Seguran�a em Tecnologia da Informa��o - Funda��o Bradesco.pdf',
-    },
-    {
-      name: 'Atendimento ao Cliente - IPED',
-      path: '/certificados/Atendimento ao cliente IPED.pdf',
-    },
-    {
-      name: 'Satisfação de Clientes - IPED',
-      path: '/certificados/Satista��o de clientes IPED.pdf',
-    },
-    { name: 'Ética, Política e Cidadania', path: '/certificados/etica politica e cidadania.pdf' },
-    {
-      name: 'Boas Práticas de Manipulação de Alimentos',
-      path: '/certificados/Boas Pr�ticas de Manipula��o de Alimentos.pdf',
-    },
-    { name: 'Certificado - Nivelamento', path: '/certificados/Certificado - Nivelamento.pdf' },
+      id: '6',
+      title: 'Node.js Backend',
+      issuer: 'OpenJS Foundation',
+      date: '2024',
+      image: '/assets/certificados/nodejs-cert.png',
+      link: '#'
+    }
   ];
 
   return (
-    <>
-      <Header useMotion={true} {...config.sections.certificados} />
+    <div className="pt-20 pb-32">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div variants={textVariant()} className="text-center mb-16">
+          <Header useMotion={false} p="Certificações" h2="Todas as Certificações" />
+        </motion.div>
 
-      <div className="flex w-full justify-between items-center">
-        <motion.p
-          variants={fadeIn('', '', 0.1, 1)}
-          className="text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-3 text-[17px] leading-[30px]"
-        >
-          {config.sections.certificados.content}
-        </motion.p>
-        <button
-          type="button"
-          onClick={() => setViewMode?.('default')}
-          className="bg-primary text-[var(--dynamic-text-color)] px-6 py-3 rounded-lg hover:bg-primary/80 transition-colors mt-3"
-        >
-          Voltar
-        </button>
-      </div>
-
-      <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-items-center">
-        {certificadosFiles.map((certificado, index) => (
-          <motion.div
-            key={`certificado-${index}`}
-            variants={fadeIn('up', 'spring', index * 0.5, 0.75)}
-            className="bg-tertiary w-full rounded-2xl p-8 hover:scale-105 transition-transform shadow-card"
-          >
-            <div className="mt-5">
-              <h3 className="text-[16px] font-bold text-[var(--dynamic-text-color)] sm:text-[18px]">
-                {certificado.name}
-              </h3>
-              <div className="mt-4 flex w-full justify-center">
-                <LinkAnimado
-                  href={certificado.path}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="glass-btn mt-4 text-[14px] px-6 py-2 text-center font-medium rounded-full"
-                >
-                  Ver Diploma
-                </LinkAnimado>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {allCertificados.map((cert, index) => (
+            <motion.div
+              key={cert.id}
+              variants={textVariant()}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="glass-card p-8 neon-hover flex flex-col items-center text-center"
+            >
+              <div className="w-24 h-24 mb-6 rounded-2xl overflow-hidden border border-white/10">
+                <img src={cert.image} alt={cert.title} className="w-full h-full object-contain" />
               </div>
-            </div>
-          </motion.div>
-        ))}
+              <h3 className="text-xl font-bold">{cert.title}</h3>
+              <p className="text-[var(--cyber-purple)] mt-2">{cert.issuer}</p>
+              <p className="text-sm text-white/70 mt-1">{cert.date}</p>
+              <a
+                href={cert.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-8 btn-primary text-sm px-8 py-3"
+              >
+                Ver Certificado
+              </a>
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default SectionWrapper(AllCertificados, 'allcertificados');
+export default SectionWrapper(AllCertificados, 'all-certificados');

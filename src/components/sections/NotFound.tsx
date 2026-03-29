@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { SectionWrapper } from '../../hoc';
 import { fadeIn } from '../../utils/motion';
 import NotFoundScene from '../canvas/NotFoundScene';
 
 const NotFound = ({ setViewMode }: { setViewMode?: (mode: string) => void }) => {
+    const navigate = useNavigate();
+
     return (
         <div className="h-[70vh] w-full flex flex-col justify-center items-center relative overflow-hidden">
             <div className="absolute inset-0 z-0">
@@ -29,9 +32,8 @@ const NotFound = ({ setViewMode }: { setViewMode?: (mode: string) => void }) => 
                         onClick={() => {
                           if (setViewMode) {
                             setViewMode('default');
-                          } else {
-                            window.location.href = '/';
                           }
+                          navigate('/');
                         }}
                         className="mt-12 glass-btn px-10 py-4 rounded-2xl font-bold tracking-widest uppercase hover:scale-105 transition-all pointer-events-auto"
                     >
