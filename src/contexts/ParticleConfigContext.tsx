@@ -1,13 +1,4 @@
-import type React from 'react';
-import {
-  createContext,
-  type ReactNode,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import * as React from 'react';
 import { type ParticleConfig, validateLocalStorageData } from '../utils/validation';
 
 // Importamos o tipo do arquivo de validação
@@ -98,10 +89,10 @@ interface ParticleConfigContextType {
   updateConfig: (newConfig: Partial<ParticleConfig>) => void;
 }
 
-const ParticleConfigContext = createContext<ParticleConfigContextType | undefined>(undefined);
+const ParticleConfigContext = React.createContext<ParticleConfigContextType | undefined>(undefined);
 
 export const useParticleConfig = () => {
-  const context = useContext(ParticleConfigContext);
+  const context = React.useContext(ParticleConfigContext);
   if (!context) {
     throw new Error('useParticleConfig must be used within a ParticleConfigProvider');
   }
@@ -109,13 +100,13 @@ export const useParticleConfig = () => {
 };
 
 interface ParticleConfigProviderProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 export const ParticleConfigProvider: React.FC<ParticleConfigProviderProps> = ({ children }) => {
-  const [config, setConfig] = useState<ParticleConfig>(defaultConfig);
+  const [config, setConfig] = React.useState<ParticleConfig>(defaultConfig);
 
-  useEffect(() => {
+  React.useEffect(() => {
     // Carregar e validar configurações do localStorage
     const savedConfig = localStorage.getItem('particleConfig');
     if (savedConfig) {
@@ -137,7 +128,7 @@ export const ParticleConfigProvider: React.FC<ParticleConfigProviderProps> = ({ 
   }, []);
 
   // Dynamic Text Contrast Tracker
-  useEffect(() => {
+  React.useEffect(() => {
     const getLuminance = (hex: string) => {
       if (!hex?.startsWith('#')) return 0;
       const rgb = parseInt(hex.replace('#', ''), 16);
@@ -170,7 +161,7 @@ export const ParticleConfigProvider: React.FC<ParticleConfigProviderProps> = ({ 
   }, [config]);
 
   // Listener para mudanças de tema
-  useEffect(() => {
+  React.useEffect(() => {
     const updateParticleColorBasedOnTheme = () => {
       const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
       const currentTheme =
@@ -205,7 +196,7 @@ export const ParticleConfigProvider: React.FC<ParticleConfigProviderProps> = ({ 
     };
   }, [config.particleColor]);
 
-  const updateConfig = useCallback((newConfig: Partial<ParticleConfig>) => {
+  const updateConfig = React.useCallback((newConfig: Partial<ParticleConfig>) => {
     setConfig((prevConfig: ParticleConfig) => {
       const updatedConfig = { ...prevConfig, ...newConfig };
       localStorage.setItem('particleConfig', JSON.stringify(updatedConfig));
@@ -213,7 +204,7 @@ export const ParticleConfigProvider: React.FC<ParticleConfigProviderProps> = ({ 
     });
   }, []);
 
-  const contextValue = useMemo(() => ({ config, updateConfig }), [config, updateConfig]);
+  const contextValue = React.useMemo(() => ({ config, updateConfig }), [config, updateConfig]);
 
   return (
     <ParticleConfigContext.Provider value={contextValue}>{children}</ParticleConfigContext.Provider>

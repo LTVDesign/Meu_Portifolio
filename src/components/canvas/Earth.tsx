@@ -7,9 +7,9 @@ import CanvasLoader from '../layout/Loader';
 
 const Earth = () => {
   const earth = useGLTF('./planet/scene.gltf');
-  // Nota: Otimizar texturas do planeta se necessário
 
-  return <primitive object={earth.scene} scale={2.5} position-y={0} rotation-y={0} />;
+  // Escala balanceada (12.0) para preencher a tela harmoniosamente sem cortes
+  return <primitive object={earth.scene} scale={12.0} position-y={0} rotation-y={0} />;
 };
 
 const EarthCanvas = () => {
@@ -17,17 +17,17 @@ const EarthCanvas = () => {
     <Canvas
       shadows={{ type: THREE.PCFShadowMap }}
       frameloop="demand"
-      dpr={1} // Reduzido para melhor performance
+      dpr={[1, 2]}
       gl={{
         preserveDrawingBuffer: true,
-        antialias: false, // Desativado para melhor performance
+        antialias: false,
         powerPreference: 'high-performance',
       }}
       camera={{
         fov: 45,
         near: 0.1,
         far: 200,
-        position: [-4, 3, 6],
+        position: [0, 0, 6], // Vista frontal centralizada
       }}
     >
       <Suspense fallback={<CanvasLoader />}>

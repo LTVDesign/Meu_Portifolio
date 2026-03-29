@@ -1,13 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
-import { LazyMotion, domAnimation } from 'framer-motion';
+import { LazyMotion, domMax } from 'framer-motion';
 import { HelmetProvider } from 'react-helmet-async';
 import { PerformanceProvider } from './contexts/PerformanceContext';
 
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ThemeToggle from './components/layout/ThemeToggle';
-import ParticleBackground from './components/canvas/ParticleBackground';
+import BackgroundManager from './components/canvas/BackgroundManager';
+import { ParticleConfigProvider } from './contexts/ParticleConfigContext';
 
 // Lazy loading + code splitting
 const Hero = lazy(() => import('./components/sections/Hero'));
@@ -26,12 +27,13 @@ const AllCertificados = lazy(() => import('./components/sections/AllCertificados
 
 const App = () => {
   return (
-    <HelmetProvider>
-      <PerformanceProvider>
-        <LazyMotion features={domAnimation} strict>
+    <PerformanceProvider>
+      <HelmetProvider>
+        <ParticleConfigProvider>
+          <LazyMotion features={domMax} strict>
           <Router>
-            <div className="relative z-0 bg-primary">
-              <ParticleBackground />
+            <div className="relative z-0 bg-primary min-h-screen">
+              <BackgroundManager />
               <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center">
                 <Navbar />
                 <ThemeToggle />
@@ -47,11 +49,11 @@ const App = () => {
                         <>
                           <Hero />
                           <About />
-                          <Tech />
                           <Formacao />
                           <Experience />
                           <Cursos />
                           <Works />
+                          <Tech />
                           <Contact />
                         </>
                       } />
@@ -68,9 +70,10 @@ const App = () => {
               </div>
             </div>
           </Router>
-        </LazyMotion>
-      </PerformanceProvider>
-    </HelmetProvider>
+          </LazyMotion>
+        </ParticleConfigProvider>
+      </HelmetProvider>
+    </PerformanceProvider>
   );
 };
 

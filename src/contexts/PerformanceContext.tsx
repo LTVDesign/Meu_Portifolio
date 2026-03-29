@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import * as React from 'react';
 
 type PerformanceLevel = 'high' | 'medium' | 'low';
 
@@ -10,24 +10,28 @@ interface PerformanceContextType {
     quality: number;
 }
 
-const PerformanceContext = createContext<PerformanceContextType | null>(null);
+const PerformanceContext = React.createContext<PerformanceContextType | null>(null);
 
-export const PerformanceProvider = ({ children }: { children: ReactNode }) => {
-    const [level, setLevel] = useState<PerformanceLevel>('high');
+export const PerformanceProvider = ({ children }: { children: React.ReactNode }) => {
+    const [level, setLevel] = React.useState<PerformanceLevel>('high');
 
     const isLowPerformance = level === 'low';
     const particleCount = level === 'high' ? 5000 : level === 'medium' ? 2000 : 500;
     const quality = level === 'high' ? 2 : level === 'medium' ? 1.5 : 1;
 
+    const value = React.useMemo(() => ({
+      level, setLevel, isLowPerformance, particleCount, quality
+    }), [level, isLowPerformance, particleCount, quality]);
+
     return (
-        <PerformanceContext.Provider value={{ level, setLevel, isLowPerformance, particleCount, quality }}>
+        <PerformanceContext.Provider value={value}>
             {children}
         </PerformanceContext.Provider>
     );
 };
 
 export const usePerformance = () => {
-    const context = useContext(PerformanceContext);
+    const context = React.useContext(PerformanceContext);
     if (!context) throw new Error('usePerformance must be used within PerformanceProvider');
     return context;
 };

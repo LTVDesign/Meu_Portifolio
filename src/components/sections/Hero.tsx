@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { config } from '../../constants/config';
 import { SectionWrapper } from '../../hoc';
 import { fadeIn, textVariant } from '../../utils/motion';
+import { ComputersCanvas } from '../canvas';
 
 const Hero = () => {
   return (
@@ -38,8 +39,12 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Elemento decorativo neon */}
-      <div className="absolute bottom-10 right-10 hidden xl:block text-[12rem] font-black text-white/5 tracking-[-0.05em] pointer-events-none">
+      {/* Decorative neon element & 3D Model */}
+      <div className="absolute inset-0 z-0 opacity-40 xl:opacity-100">
+        <ComputersCanvas />
+      </div>
+
+      <div className="absolute bottom-10 right-10 hidden xl:block text-[12rem] font-black text-white/5 tracking-[-0.05em] pointer-events-none select-none">
         LSB
       </div>
     </div>

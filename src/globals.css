@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-xs: 480px;
+}
+
 @layer base {
   :root {
     --cyber-purple: #915EFF;
@@ -24,6 +28,16 @@
   /* Navbar link */
   .navbar-link {
     @apply text-base lg:text-lg font-medium text-white/80 hover:text-white transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-xl px-3 py-1;
+  }
+
+  .navbar-brand-text {
+    @apply font-bold tracking-tighter text-white;
+    text-shadow: 0 0 10px rgba(145, 94, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3);
+    background: linear-gradient(to right, #fff, var(--cyber-glow), #fff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 8px rgba(145, 94, 255, 0.4));
   }
 
   .glass {
@@ -63,6 +77,15 @@
   .neon-hover:hover {
     box-shadow: 0 0 30px rgba(145, 94, 255, 0.5);
     transform: translateY(-4px);
+  }
+
+  /* Form Elements */
+  .form-label {
+    @apply flex items-center gap-2 text-white font-bold text-sm mb-3 uppercase tracking-widest;
+  }
+
+  .form-input {
+    @apply bg-black/40 border border-white/20 rounded-2xl py-5 px-6 text-white placeholder:text-white/30 transition-all duration-300 focus:border-[var(--cyber-purple)] focus:ring-4 focus:ring-[var(--cyber-purple)]/20 focus:outline-none backdrop-blur-md;
   }
 }
 

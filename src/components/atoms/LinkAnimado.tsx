@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import type { ReactNode } from 'react';
 
 interface LinkAnimadoProps {
@@ -12,17 +12,21 @@ interface LinkAnimadoProps {
 
 const LinkAnimado = ({ href, children, className, target, rel, onClick }: LinkAnimadoProps) => {
   return (
-    <motion.a
+    <m.a
       href={href}
       target={target}
       rel={rel}
       className={className}
       onClick={onClick}
+      whileHover={{ 
+        scale: 1.05, 
+        textShadow: "0 0 8px rgba(255, 255, 255, 0.8), 0 0 15px rgba(145, 94, 255, 0.5)"
+      }}
       whileTap={{ scale: 0.95, opacity: 0.8 }}
-      transition={{ duration: 0.1 }}
+      transition={{ type: "spring", stiffness: 400, damping: 17 }}
     >
       {children}
-    </motion.a>
+    </m.a>
   );
 };
 
