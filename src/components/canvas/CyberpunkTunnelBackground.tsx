@@ -17,8 +17,7 @@ import {
   LineBasicMaterial,
   LineSegments,
   ACESFilmicToneMapping,
-  SRGBColorSpace,
-  Timer
+  SRGBColorSpace
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
@@ -273,12 +272,12 @@ const CyberpunkTunnelBackground: React.FC<CyberpunkTunnelBackgroundProps> = ({
       camera.lookAt(lookAt);
     }
 
-    const timer = new Timer();
+    const startTime = performance.now();
     let animationId: number;
     function animate() {
       animationId = requestAnimationFrame(animate);
-      timer.update();
-      updateCamera(timer.getElapsed());
+      const elapsedTime = (performance.now() - startTime) * 0.001;
+      updateCamera(elapsedTime);
       composer.render();
       controls.update();
     }

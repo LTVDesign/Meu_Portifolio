@@ -1,7 +1,7 @@
 import type React from 'react';
 import { useEffect, useRef } from 'react';
 // Tree-shakeable Three.js imports for better performance
-import { Scene, OrthographicCamera, WebGLRenderer, ShaderMaterial, Mesh, Color, Vector2, PlaneGeometry, Timer } from 'three';
+import { Scene, OrthographicCamera, WebGLRenderer, ShaderMaterial, Mesh, Color, Vector2, PlaneGeometry } from 'three';
 
 interface LiquidBackgroundProps {
   resolution: number;
@@ -312,10 +312,10 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
     scene.add(mesh);
 
     // Animation loop
-    const timer = new Timer();
+    const startTime = performance.now();
     const animate = () => {
-      timer.update();
-      material.uniforms.u_time.value = timer.getElapsed();
+      const elapsedTime = (performance.now() - startTime) * 0.001;
+      material.uniforms.u_time.value = elapsedTime;
       renderer.render(scene, camera);
       requestAnimationFrame(animate);
     };

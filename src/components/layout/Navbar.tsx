@@ -78,6 +78,9 @@ const Navbar = memo(() => {
     if (navId === 'curriculo') {
       return '/formacao';
     }
+    if (navId === 'doom') {
+      return '/doom';
+    }
     if (isHome) {
       return `#${navId}`;
     }

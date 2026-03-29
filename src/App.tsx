@@ -18,6 +18,7 @@ const CursosPage = lazy(() => import('./pages/CursosPage'));
 const ExperiencePage = lazy(() => import('./pages/ExperiencePage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const CertificadosPage = lazy(() => import('./pages/CertificadosPage'));
+const DoomPage = lazy(() => import('./pages/DoomPage'));
 
 // Lazy load BackgroundManager with Three.js - only load when needed
 const BackgroundManager = lazy(() => import('./components/canvas/BackgroundManager'));
@@ -35,6 +36,30 @@ const App = () => {
     return () => {
       clearTimeout(backgroundTimer);
     };
+  }, []);
+
+  // Easter Egg: Konami Code (funciona em qualquer página)
+  useEffect(() => {
+    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let keyIndex = 0;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const key = e.key.toLowerCase();
+
+      if (key === konamiCode[keyIndex]) {
+        keyIndex++;
+        if (keyIndex === konamiCode.length) {
+          // Easter egg ativado!
+          window.open('https://github.com/thedoggybrad/doom_on_js-dos.git', '_blank');
+          keyIndex = 0;
+        }
+      } else {
+        keyIndex = 0;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   return (
@@ -61,6 +86,7 @@ const App = () => {
                   <Route path="/cursos" element={<CursosPage />} />
                   <Route path="/certificados" element={<CertificadosPage />} />
                   <Route path="/contato" element={<ContactPage />} />
+                  <Route path="/doom" element={<DoomPage />} />
                 </Routes>
               </Suspense>
             </main>

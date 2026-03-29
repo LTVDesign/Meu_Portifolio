@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import type React from 'react';
+import React from 'react';
 import {
   FaArrowUp,
   FaEnvelope,
@@ -25,6 +25,9 @@ const Footer: React.FC = () => {
   const getNavLink = (navId: string) => {
     if (navId === 'curriculo') {
       return '/formacao';
+    }
+    if (navId === 'doom') {
+      return '/doom';
     }
     if (isHome) {
       return `#${navId}`;

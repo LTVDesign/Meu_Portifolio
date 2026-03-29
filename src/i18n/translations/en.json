@@ -16,6 +16,7 @@
         "cursos": "Courses",
         "curriculo": "Resume",
         "projects": "Projects",
+        "doom": "DOOM",
         "contact": "Contact",
         "menu_open": "Open Menu",
         "menu_close": "Close Menu",
@@ -169,5 +170,9 @@
     "allCertificados": {
         "title": "All Certificates",
         "subtitle": "Certificates & Credentials"
+    },
+    "doom": {
+        "p": "Easter Egg - DOOM in Browser",
+        "h2": "DOOM"
     }
 }

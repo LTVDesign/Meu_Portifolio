@@ -17,9 +17,11 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      react: 'react',
+      // Ensure consistent React instance
+      'react': 'react',
       'react-dom': 'react-dom',
     },
+    dedupe: ['react', 'react-dom', '@react-three/fiber'],
   },
 
   build: {
