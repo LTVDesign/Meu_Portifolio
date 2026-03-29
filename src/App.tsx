@@ -1,14 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import { Suspense, lazy } from 'react';
-import { LazyMotion, domMax } from 'framer-motion';
+import { LazyMotion, domAnimation } from 'framer-motion';
 import { HelmetProvider } from 'react-helmet-async';
 import { PerformanceProvider } from './contexts/PerformanceContext';
+import { ParticleConfigProvider } from './contexts/ParticleConfigContext';
 
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ThemeToggle from './components/layout/ThemeToggle';
 import BackgroundManager from './components/canvas/BackgroundManager';
-import { ParticleConfigProvider } from './contexts/ParticleConfigContext';
 
 // Lazy loading + code splitting
 const Hero = lazy(() => import('./components/sections/Hero'));
@@ -26,54 +27,53 @@ const AllCursos = lazy(() => import('./components/sections/AllCursos'));
 const AllCertificados = lazy(() => import('./components/sections/AllCertificados'));
 
 const App = () => {
+  console.log('App: Rendering...');
   return (
-    <PerformanceProvider>
-      <HelmetProvider>
-        <ParticleConfigProvider>
-          <LazyMotion features={domMax} strict>
-          <Router>
-            <div className="relative z-0 bg-primary min-h-screen">
-              <BackgroundManager />
-              <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center">
-                <Navbar />
-                <ThemeToggle />
+    <HelmetProvider>
+      <LazyMotion features={domAnimation}>
+        <PerformanceProvider>
+          <ParticleConfigProvider>
+            <Router>
+            {/* Sistema dinâmico de backgrounds */}
+            <BackgroundManager />
 
-                <main className="relative min-h-screen">
-                  <Suspense fallback={
-                    <div className="min-h-[60vh] flex items-center justify-center text-white/60">
-                      Carregando portfólio...
-                    </div>
-                  }>
-                    <Routes>
-                      <Route path="/" element={
-                        <>
-                          <Hero />
-                          <About />
-                          <Formacao />
-                          <Experience />
-                          <Cursos />
-                          <Works />
-                          <Tech />
-                          <Contact />
-                        </>
-                      } />
+            <Navbar />
+            <ThemeToggle />
 
-                      <Route path="/formacao" element={<AllFormacao />} />
-                      <Route path="/projetos" element={<AllWorks />} />
-                      <Route path="/cursos" element={<AllCursos />} />
-                      <Route path="/certificados" element={<AllCertificados />} />
-                    </Routes>
-                  </Suspense>
-                </main>
+            <main className="relative">
+              <Suspense fallback={
+                <div className="min-h-screen flex items-center justify-center text-white/40">
+                  Carregando portfólio 3D...
+                </div>
+              }>
+                <Routes>
+                  <Route path="/" element={
+                    <>
+                      <Hero />
+                      <About />
+                      <Formacao />
+                      <Experience />
+                      <Cursos />
+                      <Works />
+                      <Tech />
+                      <Contact />
+                    </>
+                  } />
 
-                <Footer />
-              </div>
-            </div>
+                  <Route path="/formacao" element={<AllFormacao />} />
+                  <Route path="/projetos" element={<AllWorks />} />
+                  <Route path="/cursos" element={<AllCursos />} />
+                  <Route path="/certificados" element={<AllCertificados />} />
+                </Routes>
+              </Suspense>
+            </main>
+
+            <Footer />
           </Router>
-          </LazyMotion>
-        </ParticleConfigProvider>
-      </HelmetProvider>
-    </PerformanceProvider>
+          </ParticleConfigProvider>
+        </PerformanceProvider>
+      </LazyMotion>
+    </HelmetProvider>
   );
 };
 

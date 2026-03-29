@@ -8,6 +8,8 @@ const CyberpunkBackground = lazy(() => import('./CyberpunkUltraBackground'));
 const WavefieldBackground = lazy(() => import('./WavefieldUltraBackground'));
 const ParticulateBackground = lazy(() => import('./ParticulateShatterBackground'));
 const SolidBackground = lazy(() => import('./SolidColorBackground'));
+const BolhasBackground = lazy(() => import('./BolhasBackground'));
+const MatrixRainBackground = lazy(() => import('./MatrixRainBackground'));
 
 /**
  * Centrally manages and switches between different background types based on user configuration.
@@ -123,6 +125,22 @@ const BackgroundManager = memo(() => {
             grain={config.solidGrain}
             opacity={config.solidOpacity}
             blur={config.solidBlur}
+          />
+        );
+      case 'bolhas':
+        return <BolhasBackground />;
+      case 'matrix':
+        return (
+          <MatrixRainBackground
+            density={config.matrixDensity}
+            speed={config.matrixSpeed}
+            fontSize={config.matrixFontSize}
+            color={config.matrixColor}
+            backgroundColor={config.matrixBackgroundColor}
+            charSet={config.matrixCharSet}
+            glowIntensity={config.glowIntensity}
+            trailLength={config.trailLength}
+            columnSpacing={config.columnSpacing}
           />
         );
       default:

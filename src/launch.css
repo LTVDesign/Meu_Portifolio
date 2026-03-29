@@ -1,15 +1,3 @@
-@property --ga {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@property --gb {
-  syntax: "<angle>";
-  initial-value: 180deg;
-  inherits: false;
-}
-
 :root {
   --rainbow:
     oklch(72% 0.33 12), oklch(78% 0.3 55), oklch(88% 0.26 100), oklch(80% 0.3 155),
@@ -17,8 +5,8 @@
 
   --rainbow-saturated: #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000;
 
-  --spin-a: spinA 4s linear infinite;
-  --spin-b: spinB 4s linear infinite;
+  --spin-a: spinA 3s linear infinite;
+  --spin-b: spinB 3s linear infinite;
 
   --glow-blur-tight: clamp(5px, 0.8vw, 20px);
   --glow-blur-wide: clamp(12px, 2vw, 56px);
@@ -44,17 +32,6 @@
   position: relative;
   z-index: 50;
   display: inline-flex;
-  animation: gear-heartbeat 2s infinite alternate ease-in-out;
-}
-
-@keyframes gear-heartbeat {
-  0% {
-    transform: scale(1);
-  }
-
-  100% {
-    transform: scale(1.15);
-  }
 }
 
 .launch-btn-wrap:hover {
@@ -69,7 +46,7 @@
   position: absolute;
   z-index: -1;
   border-radius: 9999px;
-  background: conic-gradient(from var(--ga), var(--rainbow));
+  background: conic-gradient(var(--rainbow));
   transition:
     filter 0.2s ease,
     opacity 0.2s ease,
@@ -77,37 +54,42 @@
     inset 0.2s ease;
 }
 
+/* 1. Neon Glow (Blurred underlying layer) */
 .launch-btn-wrap::before {
   inset: var(--glow-inset-tight);
-  filter: blur(var(--glow-blur-tight));
-  opacity: 0;
-  animation: var(--spin-a);
-  transition: all 0.2s ease;
+  filter: blur(var(--glow-blur-tight)) brightness(1.2);
+  opacity: 0.95;
+  animation: spinA 3s linear infinite;
+  transition: all 0.3s ease;
 }
 
+/* 2. Sharp External Border (100% Opacity, No Blur) */
 .launch-btn-wrap::after {
-  inset: var(--glow-inset-mid);
-  filter: blur(var(--glow-blur-wide));
-  opacity: 0;
-  animation: var(--spin-b);
+  content: "";
+  inset: 0; /* Resetting to match the button size exactly */
+  filter: none; /* No blur, 100% strong */
+  opacity: 1;
+  background: conic-gradient(var(--rainbow));
+  animation: spinB 4s linear infinite reverse;
+  z-index: 1; /* Above the glow but behind the button */
 }
 
 .launch-btn-wrap:hover::before {
-  background: conic-gradient(from var(--ga), var(--rainbow-saturated));
+  background: conic-gradient(var(--rainbow-saturated));
   filter: blur(clamp(6px, 1vw, 24px));
   opacity: 1;
   inset: calc(var(--glow-inset-tight) * 1.5);
 }
 
 .launch-btn-wrap:hover::after {
-  background: conic-gradient(from var(--ga), var(--rainbow-saturated));
+  background: conic-gradient(var(--rainbow-saturated));
   filter: blur(clamp(12px, 2.5vw, 66px));
   opacity: 1;
   inset: calc(var(--glow-inset-mid) * 1.5);
 }
 
 .launch-btn-wrap:hover .bloom {
-  background: conic-gradient(from var(--ga), var(--rainbow-saturated));
+  background: conic-gradient(var(--rainbow-saturated));
   opacity: 1;
   inset: calc(var(--glow-inset-bloom) * 1.5);
   filter: blur(calc(var(--glow-blur-bloom) * 2));
@@ -118,21 +100,19 @@
   filter: blur(calc(var(--glow-blur-bloom) * 1.5));
   opacity: 1;
   /* Much brighter idle visibility */
-  animation: var(--spin-a);
+  animation: spinA 4s linear infinite;
 }
 
+/* Base shape that acts as the dark center */
 .launch-btn {
   position: relative;
   z-index: 10;
-  border: 3px solid transparent;
-  border-radius: 9999px;
   outline: none;
   cursor: pointer;
-  background:
-    linear-gradient(var(--btn-bg-dark-start), var(--btn-bg-dark-end)) padding-box,
-    conic-gradient(from var(--ga, 0deg), var(--rainbow)) border-box;
-  animation: var(--spin-a);
-  transform-origin: center;
+  background: linear-gradient(var(--btn-bg-dark-start), var(--btn-bg-dark-end)) padding-box;
+  border-radius: 9999px;
+  /* Making the border transparent so the pseudo background leaks through */
+  border: 1.5px solid transparent; 
   transition:
     filter 0.2s ease,
     transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -164,13 +144,52 @@
 }
 
 @keyframes spinA {
-  to {
-    --ga: 360deg;
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @keyframes spinB {
-  to {
-    --gb: 540deg;
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+/* Wide Glow Layer (Bloom) */
+.launch-btn-wrap .bloom {
+  inset: -10px;
+  filter: blur(30px) brightness(1.5);
+  opacity: 0.7;
+  animation: spinA 5s linear infinite;
+  z-index: -2;
+}
+
+/* Floating Shapes (Eye-catching Burst) */
+.shape {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--rainbow-saturated);
+  filter: blur(1px) drop-shadow(0 0 5px var(--cyber-cyan));
+  z-index: 40;
+  opacity: 0.6;
+  pointer-events: none;
+  animation: orbit 6s linear infinite;
+}
+
+.shape.square { top: -15px; left: 50%; border-radius: 2px; animation-delay: 0s; }
+.shape.triangle { top: 50%; right: -15px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 8px solid var(--cyber-purple); background: none; animation-delay: -1.2s; }
+.shape.circle-shape { bottom: -15px; left: 50%; border-radius: 50%; animation-delay: -2.4s; }
+.shape.diamond { top: 50%; left: -15px; transform: rotate(45deg); animation-delay: -3.6s; }
+.shape.star { top: -5px; right: -5px; scale: 0.8; animation-delay: -4.8s; }
+
+@keyframes orbit {
+  0% { transform: rotate(0deg) translateX(45px) rotate(0deg); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: rotate(360deg) translateX(45px) rotate(-360deg); opacity: 0; }
+}
+
+.launch-btn:hover ~ .shape {
+  animation-duration: 2s;
+  filter: brightness(2) blur(0px);
+  opacity: 1;
 }

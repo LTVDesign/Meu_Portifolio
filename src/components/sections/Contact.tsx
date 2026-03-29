@@ -110,8 +110,13 @@ const Contact = () => {
           </motion.div>
 
           {/* Canvas 3D */}
-          <motion.div variants={slideIn('right', 'tween', 0.2, 1)} className="flex-1 w-full xl:w-auto">
-            <EarthCanvas />
+          <motion.div 
+            variants={slideIn('right', 'tween', 0.2, 1)} 
+            className="flex-1 w-full xl:w-1/2 h-[350px] sm:h-[450px] md:h-[550px] xl:h-[600px] flex items-center justify-center relative overflow-hidden"
+          >
+            <div className="w-full h-full">
+              <EarthCanvas />
+            </div>
           </motion.div>
         </div>
       </div>

@@ -104,6 +104,13 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
+    // Ajuste da posição inicial da câmera para dentro do túnel
+    camera.position.set(0, 0, 0);
+
+    // Ajuste fino do campo de visão para melhor efeito de túnel
+    camera.fov = cameraFOV;
+    camera.updateProjectionMatrix();
+
     const canvas = renderer.domElement;
     canvas.setAttribute('data-bg-type', 'cyberpunk-bg');
     mountRef.current.appendChild(canvas);
@@ -154,7 +161,7 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
     }
 
     const spline = new THREE.CatmullRomCurve3(pointst, true); // Ensure closed
-    const run = new THREE.TubeGeometry(spline, 400, tunnelRadius * 10, 32, true);
+    const run = new THREE.TubeGeometry(spline, 400, tunnelRadius, 32, true);
 
     // Efficient Points rendering
     const pointMat = new THREE.PointsMaterial({
@@ -201,14 +208,26 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
       const p = (time % loopTime) / loopTime;
 
       const pos = spline.getPointAt(p);
-      const lookAt = spline.getPointAt((p + 0.001) % 1); // Very close lookAt
+      const tangent = spline.getTangentAt(p).normalize();
 
-      camera.position.copy(pos);
+      // Ajuste para manter a câmera dentro do túnel com uma pequena distância do centro
+      const offset = new THREE.Vector3(0, 0, 0.5); // Pequeno offset para dentro do túnel
+
+      // Aplica rotação ao offset para criar movimento dentro do túnel
+      const angle = elapsedTime * 0.5 * rotationSpeedRef.current;
+      offset.applyAxisAngle(tangent, angle);
+
+      const cameraPos = pos.clone().add(offset);
+      const lookAt = pos.clone().add(tangent.multiplyScalar(1));
+
+      camera.position.copy(cameraPos);
       camera.lookAt(lookAt);
 
-      // Rotate camera around its own Z axis instead of rotating the whole scene
-      // This keeps the tunnel walls relative to the camera path
-      camera.rotation.z = elapsedTime * 0.2 * rotationSpeedRef.current;
+      // Ajuste da rotação da câmera para manter a orientação correta
+      camera.up.set(0, 0, 1); // Mantém o "up" consistente
+
+      // Pequeno ajuste de rotação adicional se necessário
+      camera.rotateZ(-elapsedTime * 0.2 * rotationSpeedRef.current);
     }
 
     const startTime = performance.now();

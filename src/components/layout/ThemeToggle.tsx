@@ -90,6 +90,81 @@ const ColorControl: React.FC<ColorControlProps> = ({ label, value, onChange }) =
 
 // --- Background Editor Panels (#29) ---
 
+const BolhasEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, updateConfig }) => (
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8 text-[11px]">
+    <div className="space-y-2.5">
+      <div>
+        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-4 font-bold border-b border-white/5 pb-2">
+          Dinâmica
+        </h4>
+        <div className="space-y-1">
+          <SliderControl
+            label="Quantidade"
+            value={config.bolhasCount}
+            min="1000"
+            max="100000"
+            step="1000"
+            onChange={(v) => updateConfig({ bolhasCount: v })}
+            decimals={0}
+          />
+          <SliderControl
+            label="Velocidade"
+            value={config.bolhasSpeed}
+            min="0"
+            max="2"
+            step="0.1"
+            onChange={(v) => updateConfig({ bolhasSpeed: v })}
+            decimals={1}
+          />
+          <SliderControl
+            label="Tamanho"
+            value={config.bolhasSize}
+            min="0.01"
+            max="0.1"
+            step="0.01"
+            onChange={(v) => updateConfig({ bolhasSize: v })}
+            decimals={2}
+          />
+          <SliderControl
+            label="Alcance (Spread)"
+            value={config.bolhasSpread}
+            min="10"
+            max="200"
+            step="5"
+            onChange={(v) => updateConfig({ bolhasSpread: v })}
+            decimals={0}
+          />
+        </div>
+      </div>
+    </div>
+    <div className="space-y-2.5">
+      <div>
+        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-4 font-bold border-b border-white/5 pb-2">
+          Cores Variadas
+        </h4>
+        <div className="space-y-3">
+          <ColorControl
+            label="Cor 1"
+            value={config.bolhasColor1}
+            onChange={(v) => updateConfig({ bolhasColor1: v })}
+          />
+          <ColorControl
+            label="Cor 2"
+            value={config.bolhasColor2}
+            onChange={(v) => updateConfig({ bolhasColor2: v })}
+          />
+          <ColorControl
+            label="Cor 3"
+            value={config.bolhasColor3}
+            onChange={(v) => updateConfig({ bolhasColor3: v })}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+
 const ParticlesEditor: React.FC<{ config: any; updateConfig: any }> = ({
   config,
   updateConfig,
@@ -425,11 +500,10 @@ const ParticulateEditor: React.FC<{ config: any; updateConfig: any }> = ({
               type="button"
               key={m}
               onClick={() => updateConfig({ particulateMode: m })}
-              className={`flex-1 py-2 text-[9px] font-bold uppercase tracking-wider rounded transition-all border ${
-                config.particulateMode === m
-                  ? 'bg-secondary/40 border-[#915EFF] text-white'
-                  : 'bg-gray-800/40 border-white/5 text-gray-400 hover:text-white'
-              }`}
+              className={`flex-1 py-2 text-[9px] font-bold uppercase tracking-wider rounded transition-all border ${config.particulateMode === m
+                ? 'bg-secondary/40 border-[#915EFF] text-white'
+                : 'bg-gray-800/40 border-white/5 text-gray-400 hover:text-white'
+                }`}
             >
               {m === 'blow' ? 'Soprar' : m === 'magnet' ? 'Atrair' : 'Congelar'}
             </button>
@@ -872,14 +946,139 @@ const SolidEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, upd
   </div>
 );
 
+const MatrixEditor: React.FC<{ config: any; updateConfig: any }> = ({ config, updateConfig }) => (
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8 text-[11px]">
+    <div className="space-y-2.5">
+      <div>
+        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-5 font-bold border-b border-white/5 pb-2">
+          Configurações Básicas
+        </h4>
+        <div className="space-y-2">
+          <SliderControl
+            label="Densidade"
+            value={config.matrixDensity}
+            min="1"
+            max="200"
+            step="1"
+            onChange={(v) => updateConfig({ matrixDensity: v })}
+            decimals={0}
+          />
+          <SliderControl
+            label="Velocidade (ms)"
+            value={config.matrixSpeed}
+            min="1"
+            max="200"
+            step="1"
+            onChange={(v) => updateConfig({ matrixSpeed: v })}
+            decimals={0}
+          />
+          <SliderControl
+            label="Tamanho Fonte (vmin)"
+            value={config.matrixFontSize}
+            min="0.5"
+            max="10"
+            step="0.5"
+            onChange={(v) => updateConfig({ matrixFontSize: v })}
+          />
+          <SliderControl
+            label="Comprimento Trilha"
+            value={config.trailLength}
+            min="5"
+            max="100"
+            step="1"
+            onChange={(v) => updateConfig({ trailLength: v })}
+            decimals={0}
+          />
+          <SliderControl
+            label="Espaçamento Colunas (px)"
+            value={config.columnSpacing}
+            min="0"
+            max="50"
+            step="1"
+            onChange={(v) => updateConfig({ columnSpacing: v })}
+            decimals={0}
+          />
+          <SliderControl
+            label="Intensidade Brilho"
+            value={config.glowIntensity}
+            min="0"
+            max="1"
+            step="0.05"
+            onChange={(v) => updateConfig({ glowIntensity: v })}
+            decimals={2}
+          />
+        </div>
+      </div>
+
+      <div>
+        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-5 font-bold border-b border-white/5 pb-2">
+          Conjunto de Caracteres
+        </h4>
+        <div className="space-y-2">
+          <label className="block text-gray-400 text-[10px] uppercase tracking-widest mb-1.5 font-bold">
+            Tipo de Caracteres
+          </label>
+          <select
+            value={config.matrixCharSet || 'matrix'}
+            onChange={(e) => updateConfig({ matrixCharSet: e.target.value })}
+            className="w-full bg-gray-800 text-white border border-gray-600 focus:border-[#915EFF] outline-none rounded px-2 py-1.5 text-xs transition-colors"
+          >
+            <option value="matrix">Matrix (Hiragana/Katakana)</option>
+            <option value="binary">Binary (0-9, A-Z, a-z)</option>
+            <option value="japanese">Japanese (Hiragana/Katakana/Kanji)</option>
+            <option value="mixed">Mixed (Todos os conjuntos)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div className="space-y-2.5">
+      <div>
+        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-5 font-bold border-b border-white/5 pb-2">
+          Cores
+        </h4>
+        <div className="space-y-3">
+          <ColorControl
+            label="Cor dos Caracteres"
+            value={config.matrixColor}
+            onChange={(v) => updateConfig({ matrixColor: v })}
+          />
+          <ColorControl
+            label="Cor de Fundo"
+            value={config.matrixBackgroundColor}
+            onChange={(v) => updateConfig({ matrixBackgroundColor: v })}
+          />
+        </div>
+      </div>
+
+      <div>
+        <h4 className="text-gray-400 text-[9px] uppercase tracking-widest mb-5 font-bold border-b border-white/5 pb-2">
+          Prévia
+        </h4>
+        <div className="bg-black/40 rounded-lg p-4 border border-white/10">
+          <div className="text-[10px] text-gray-400 space-y-1">
+            <p>• Densidade: {config.matrixDensity} colunas</p>
+            <p>• Velocidade: {config.matrixSpeed}ms</p>
+            <p>• Tamanho: {config.matrixFontSize}vmin</p>
+            <p>• Trilha: {config.trailLength} caracteres</p>
+            <p>• Brilho: {(config.glowIntensity * 100).toFixed(0)}%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 // --- Background type labels (#30 — all PT-BR) ---
 const BG_LABELS: Record<string, string> = {
+  bolhas: 'Bolhas',
   particles: 'Partículas',
   liquid: 'Líquido',
   particulate: 'Pontos',
   cyberpunk: 'Túnel',
   wavefield: 'Ondas',
   solid: 'Cor Sólida',
+  matrix: 'Matrix',
 };
 
 const BG_TYPES = Object.keys(BG_LABELS);
@@ -889,8 +1088,8 @@ const BG_TYPES = Object.keys(BG_LABELS);
 const ThemeToggle = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
-  const [selectedBg, setSelectedBg] = useState('particles');
   const { config, updateConfig } = useParticleConfig();
+  const [selectedBg, setSelectedBg] = useState(config.backgroundType || 'bolhas');
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -930,6 +1129,8 @@ const ThemeToggle = () => {
   const renderEditor = () => {
     const props = { config, updateConfig };
     switch (selectedBg) {
+      case 'bolhas':
+        return <BolhasEditor {...props} />;
       case 'particles':
         return <ParticlesEditor {...props} />;
       case 'liquid':
@@ -942,6 +1143,8 @@ const ThemeToggle = () => {
         return <WavefieldEditor {...props} />;
       case 'solid':
         return <SolidEditor {...props} />;
+      case 'matrix':
+        return <MatrixEditor {...props} />;
       default:
         return null;
     }
@@ -962,11 +1165,11 @@ const ThemeToggle = () => {
           <m.div
             className="launch-btn-wrap"
             animate={{
-              scale: [1, 1.08, 1],
-              opacity: [0.7, 1, 0.7],
+              scale: [1, 1.12, 1],
+              opacity: [0.9, 1, 0.9],
             }}
             transition={{
-              duration: 8,
+              duration: 3,
               repeat: Infinity,
               ease: "easeInOut"
             }}
@@ -976,11 +1179,13 @@ const ThemeToggle = () => {
               type="button"
               ref={btnRef}
               onClick={() => setIsOpen(!isOpen)}
-              className="launch-btn flex items-center justify-center p-4 shadow-[0_0_30px_rgba(145,94,255,0.5)]"
+              className="launch-btn flex items-center justify-center p-4 shadow-[0_0_40px_rgba(145,94,255,0.6)]"
               aria-label="Ajustar Background"
             >
-              <svg
-                className="w-8 h-8 transition-transform duration-200 hover:rotate-90 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]"
+              <m.svg
+                animate={{ rotate: 360 }}
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                className="w-8 h-8 text-white drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -998,7 +1203,7 @@ const ThemeToggle = () => {
                   strokeWidth={2}
                   d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                 />
-              </svg>
+              </m.svg>
             </button>
           </m.div>
 
@@ -1033,11 +1238,10 @@ const ThemeToggle = () => {
                       type="button"
                       key={type}
                       onClick={() => updateConfig({ backgroundType: type })}
-                      className={`w-full text-center px-1 py-2.5 text-[10px] font-bold uppercase tracking-wider rounded transition-all duration-200 border ${
-                        config.backgroundType === type
-                          ? 'bg-secondary/40 border-[#915EFF] text-white shadow-[0_0_10px_rgba(145,94,255,0.15)]'
-                          : 'bg-gray-800/60 border-gray-600/30 text-gray-300 hover:border-gray-500 hover:text-white'
-                      }`}
+                      className={`w-full text-center px-1 py-2.5 text-[10px] font-bold uppercase tracking-wider rounded transition-all duration-200 border ${config.backgroundType === type
+                        ? 'bg-secondary/40 border-[#915EFF] text-white shadow-[0_0_10px_rgba(145,94,255,0.15)]'
+                        : 'bg-gray-800/60 border-gray-600/30 text-gray-300 hover:border-gray-500 hover:text-white'
+                        }`}
                     >
                       {BG_LABELS[type]}
                     </button>

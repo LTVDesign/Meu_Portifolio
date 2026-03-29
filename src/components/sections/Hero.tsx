@@ -1,42 +1,98 @@
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { config } from '../../constants/config';
-import { SectionWrapper } from '../../hoc';
-import { fadeIn, textVariant } from '../../utils/motion';
+import { fadeIn } from '../../utils/motion';
 import { ComputersCanvas } from '../canvas';
+import { TerminalText } from '../atoms';
+
+const TITLE_WORDS = ['Olá, eu sou Leandro Barbosa'];
+const SUBTITLE_WORDS = [
+  'Bem-vindo à minha vida profissional',
+  'Desenvolvedor Full Stack & Especialista em IA',
+  'Transformando dados em decisões inteligentes',
+  'Construindo infraestruturas seguras e inovadoras'
+];
 
 const Hero = () => {
+  const [showSubtitle, setShowSubtitle] = useState(false);
+
+  useEffect(() => {
+    const titleLength = TITLE_WORDS[0].length;
+    const typingSpeed = 80;
+    const pauseTime = 3000;
+    const totalTime = (titleLength * typingSpeed) + pauseTime;
+
+    const timer = setTimeout(() => {
+      setShowSubtitle(true);
+    }, totalTime);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="min-h-screen flex items-center pt-20 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 z-10">
-        <div className="max-w-3xl">
-          <motion.div variants={textVariant()}>
-            <h1 className="text-[clamp(3.5rem,8vw,6.5rem)] leading-none font-bold tracking-tighter text-white neon-text">
-              Olá, eu sou<br />
-              <span className="bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-white bg-clip-text text-transparent">
-                {config.hero.name}
-              </span>
-            </h1>
-          </motion.div>
+    <motion.section
+      id="hero"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      viewport={{ once: true, amount: 0.25 }}
+      className="relative min-h-screen flex items-start pt-4 overflow-hidden"
+    >
+      <Helmet>
+        <title>Leandro Saturnino Barbosa | Portfólio 3D Cyberpunk</title>
+        <meta name="description" content="Portfólio interativo 3D com React, Three.js e Tailwind. Especialista em IA, Segurança e Desenvolvimento Full Stack." />
 
-          <motion.p
-            variants={fadeIn('up', 'tween', 0.3, 1)}
-            className="mt-8 text-[clamp(1.1rem,2.5vw,1.35rem)] text-[var(--text-secondary)] max-w-lg"
-          >
-            {config.hero.p[0]}
-          </motion.p>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Leandro Saturnino Barbosa",
+            "jobTitle": "Desenvolvedor Full Stack & Especialista em IA",
+            "url": "https://lelebrr.github.io/Meu_Portifolio/",
+            "sameAs": [
+              "https://github.com/lelebrr",
+              "https://linkedin.com/in/leandro-saturnino-barbosa"
+            ],
+            "knowsAbout": [
+              "React",
+              "TypeScript",
+              "Three.js",
+              "Inteligência Artificial",
+              "Cibersegurança",
+              "Desenvolvimento Full Stack"
+            ]
+          })}
+        </script>
+      </Helmet>
 
+      <div className="max-w-7xl mx-auto px-6 z-10 w-full">
+        <TerminalText
+          words={TITLE_WORDS}
+          colors={['#a855f7', '#06b6d4', '#ffffff']}
+          typingSpeed={80}
+          pauseTime={3000}
+          typeOnce={true}
+          loop={false}
+          className="text-[clamp(2rem,5vw,3rem)] leading-none font-bold tracking-tight text-white neon-text whitespace-nowrap"
+        />
+
+        {showSubtitle && (
           <motion.div
-            variants={fadeIn('up', 'tween', 0.6, 1)}
-            className="mt-12 flex flex-wrap gap-5"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-4"
           >
-            <a href="#projetos" className="btn-primary text-lg px-12 py-6">
-              Ver Meus Projetos
-            </a>
-            <a href="#contact" className="border border-white/30 hover:border-white/60 text-white font-medium px-10 py-6 rounded-3xl transition-all">
-              Entrar em Contato
-            </a>
+            <TerminalText
+              words={SUBTITLE_WORDS}
+              colors={['#06b6d4', '#a855f7', '#ffffff']}
+              typingSpeed={60}
+              pauseTime={3000}
+              className="text-[clamp(1rem,2vw,1.25rem)] text-[var(--text-secondary)]"
+            />
           </motion.div>
-        </div>
+        )}
       </div>
 
       {/* Decorative neon element & 3D Model */}
@@ -47,8 +103,8 @@ const Hero = () => {
       <div className="absolute bottom-10 right-10 hidden xl:block text-[12rem] font-black text-white/5 tracking-[-0.05em] pointer-events-none select-none">
         LSB
       </div>
-    </div>
+    </motion.section>
   );
 };
 
-export default SectionWrapper(Hero, 'hero');
+export default Hero;

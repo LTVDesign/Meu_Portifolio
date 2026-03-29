@@ -82,6 +82,22 @@ export interface ParticleConfig {
   wavefieldColor3: string;
   wavefieldRotationSpeed: number;
   wavefieldMouseStrength: number;
+  bolhasCount: number;
+  bolhasSpeed: number;
+  bolhasSize: number;
+  bolhasSpread: number;
+  bolhasColor1: string;
+  bolhasColor2: string;
+  bolhasColor3: string;
+  matrixDensity: number;
+  matrixSpeed: number;
+  matrixFontSize: number;
+  matrixColor: string;
+  matrixBackgroundColor: string;
+  glowIntensity: number;
+  trailLength: number;
+  columnSpacing: number;
+  matrixCharSet: 'matrix' | 'binary' | 'japanese' | 'mixed';
 }
 
 const defaultConfig: ParticleConfig = {
@@ -90,7 +106,7 @@ const defaultConfig: ParticleConfig = {
   intensity: 0.7,
   quantity: 50,
   zoom: 1,
-  backgroundType: 'particles',
+  backgroundType: 'cyberpunk',
   liquidResolution: 0.5,
   liquidOctaves: 3,
   liquidSpeed: 0.5,
@@ -163,6 +179,22 @@ const defaultConfig: ParticleConfig = {
   wavefieldColor3: '#ff0055',
   wavefieldRotationSpeed: 1.0,
   wavefieldMouseStrength: 1.0,
+  bolhasCount: 15000,
+  bolhasSpeed: 0.5,
+  bolhasSize: 0.02,
+  bolhasSpread: 50,
+  bolhasColor1: '#915EFF',
+  bolhasColor2: '#00D4FF',
+  bolhasColor3: '#FF6B9D',
+  matrixDensity: 50,
+  matrixSpeed: 50,
+  matrixFontSize: 2,
+  matrixColor: '#00ff00',
+  matrixBackgroundColor: '#000000',
+  glowIntensity: 0.5,
+  trailLength: 20,
+  columnSpacing: 0,
+  matrixCharSet: 'matrix',
 };
 
 /**
@@ -246,6 +278,11 @@ export function validateLocalStorageData(data: unknown): ParticleConfig | null {
       'solidColor2',
       'solidColor3',
       'particleLineColor',
+      'bolhasColor1',
+      'bolhasColor2',
+      'bolhasColor3',
+      'matrixColor',
+      'matrixBackgroundColor'
     ];
 
     for (const colorKey of liquidColors) {
@@ -262,9 +299,24 @@ export function validateLocalStorageData(data: unknown): ParticleConfig | null {
       validatedData.particulateMode = defaultConfig.particulateMode;
     }
 
+    // Validação de conjuntos de caracteres da Matrix
+    if (!['matrix', 'binary', 'japanese', 'mixed'].includes(validatedData.matrixCharSet)) {
+      validatedData.matrixCharSet = defaultConfig.matrixCharSet;
+    }
+
     // Validação de tipos de fundo sólido
     if (!['solid', 'linear', 'radial', 'conic', 'animated'].includes(validatedData.solidType)) {
       validatedData.solidType = defaultConfig.solidType;
+    }
+
+    // Validação de tipos de fundo sólido
+    if (!['solid', 'linear', 'radial', 'conic', 'animated'].includes(validatedData.solidType)) {
+      validatedData.solidType = defaultConfig.solidType;
+    }
+
+    // Validação de tipos de background
+    if (!['particles', 'liquid', 'cyberpunk', 'wavefield', 'particulate', 'solid', 'bolhas', 'matrix'].includes(validatedData.backgroundType)) {
+      validatedData.backgroundType = defaultConfig.backgroundType;
     }
 
     // Validação de números
@@ -308,7 +360,34 @@ export function validateLocalStorageData(data: unknown): ParticleConfig | null {
       'particleConnectDistance',
       'lineThickness',
       'particleOpacity',
+      'bolhasCount',
+      'bolhasSpeed',
+      'bolhasSize',
+      'bolhasSpread',
+      'matrixDensity',
+      'matrixSpeed',
+      'matrixFontSize'
     ];
+
+    // Validação de propriedades da Matrix (cores já estão no array de cores)
+    if (typeof validatedData.matrixDensity !== 'number' || validatedData.matrixDensity < 1 || validatedData.matrixDensity > 200) {
+      validatedData.matrixDensity = defaultConfig.matrixDensity;
+    }
+    if (typeof validatedData.matrixSpeed !== 'number' || validatedData.matrixSpeed < 1 || validatedData.matrixSpeed > 200) {
+      validatedData.matrixSpeed = defaultConfig.matrixSpeed;
+    }
+    if (typeof validatedData.matrixFontSize !== 'number' || validatedData.matrixFontSize < 0.5 || validatedData.matrixFontSize > 10) {
+      validatedData.matrixFontSize = defaultConfig.matrixFontSize;
+    }
+    if (typeof validatedData.glowIntensity !== 'number' || validatedData.glowIntensity < 0 || validatedData.glowIntensity > 1) {
+      validatedData.glowIntensity = defaultConfig.glowIntensity;
+    }
+    if (typeof validatedData.trailLength !== 'number' || validatedData.trailLength < 5 || validatedData.trailLength > 100) {
+      validatedData.trailLength = defaultConfig.trailLength;
+    }
+    if (typeof validatedData.columnSpacing !== 'number' || validatedData.columnSpacing < 0 || validatedData.columnSpacing > 50) {
+      validatedData.columnSpacing = defaultConfig.columnSpacing;
+    }
 
     for (const field of numericFields) {
       const value = validatedData[field];

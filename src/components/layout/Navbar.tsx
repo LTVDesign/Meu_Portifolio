@@ -78,12 +78,24 @@ const Navbar = memo(() => {
           <m.img
             src={logo}
             alt="Logo"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            className="h-12 w-12 md:h-14 md:w-14 object-contain transition-transform group-hover:scale-110 drop-shadow-[0_0_15px_rgba(145,94,255,0.6)]"
+            initial={{ scale: 0, y: -20 }}
+            animate={{
+              scale: 1,
+              y: [0, -10, 0]
+            }}
+            transition={{
+              scale: { duration: 0.5 },
+              y: {
+                duration: 5,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut"
+              }
+            }}
+            className="h-28 w-28 md:h-32 md:w-32 object-contain transition-transform group-hover:scale-110 drop-shadow-[0_0_15px_rgba(145,94,255,0.6)]"
           />
-          <span className="hidden xs:inline text-2xl md:text-3xl font-black navbar-brand-text uppercase tracking-tighter">
-            Leandro
+          <span className="hidden xs:inline text-4xl md:text-5xl font-black navbar-brand-text uppercase tracking-tighter">
+            Leandro <span className="text-[var(--cyber-cyan)]">Barbosa</span>
           </span>
         </Link>
 
@@ -103,9 +115,9 @@ const Navbar = memo(() => {
                 >
                   {nav.title}
                 </LinkAnimado>
-                
+
                 {/* Underline for active/hover focus */}
-                <m.div 
+                <m.div
                   className={`absolute -bottom-1 left-0 right-0 h-[2px] bg-[var(--cyber-cyan)] rounded-full shadow-[0_0_10px_rgba(0,255,255,0.8)] transition-all duration-500 ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'}`}
                 />
               </li>

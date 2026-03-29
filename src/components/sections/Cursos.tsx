@@ -3,6 +3,9 @@ import { config } from '../../constants/config';
 import { SectionWrapper } from '../../hoc';
 import { fadeIn, textVariant } from '../../utils/motion';
 import { Header } from '../atoms';
+import albertaImg from '../../logos/alberta.png';
+import hackersImg from '../../logos/hackers.png';
+import skillImg from '../../logos/skill.png';
 
 const Cursos = () => {
   const featuredCursos = [
@@ -10,7 +13,7 @@ const Cursos = () => {
       title: 'Product Management',
       platform: 'University of Alberta',
       date: '2023',
-      icon: '📊',
+      icon: albertaImg,
       description: 'Gestão de produtos digitais, metodologias ágeis (Scrum/Kanban) e estratégias de mercado para software.',
       link: '#'
     },
@@ -18,7 +21,7 @@ const Cursos = () => {
       title: 'Cibersegurança - Hackers do Bem',
       platform: 'Hackers do Bem / RNP',
       date: '2023',
-      icon: '🛡️',
+      icon: hackersImg,
       description: 'Treinamento em defesa cibernética, análise de vulnerabilidades, segurança ofensiva e conformidade.',
       link: '#'
     },
@@ -26,7 +29,7 @@ const Cursos = () => {
       title: 'Ethical Hacking Avançado',
       platform: 'Udemy / InfoSec',
       date: '2023',
-      icon: '🔐',
+      icon: skillImg,
       description: 'Análise de redes, testes de intrusão, segurança em sistemas e resposta rápida a incidentes.',
       link: '#'
     }
@@ -46,8 +49,8 @@ const Cursos = () => {
             className="glass-card p-10 group neon-hover flex flex-col h-full border border-white/10"
           >
             <div className="flex items-center gap-6 mb-8">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/5 transition-transform group-hover:scale-110">
-                <span className="text-4xl filter drop-shadow-[0_0_12px_rgba(0,255,255,0.8)]">{curso.icon}</span>
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/5 transition-transform group-hover:scale-110 overflow-hidden p-2">
+                <img src={curso.icon} alt={curso.platform} className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]" />
               </div>
               <div className="flex-1">
                 <h3 className="text-xl font-black text-white group-hover:text-[var(--cyber-cyan)] transition-colors leading-tight">

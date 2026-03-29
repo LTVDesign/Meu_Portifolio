@@ -32,3 +32,38 @@ dist-ssr
 # Biome error logs
 biome_errors*.txt
 
+# Temporary files
+temp_list.txt
+*.tmp
+*.temp
+*.bak
+*.backup
+*.orig
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Build artifacts
+*.tsbuildinfo
+.cache
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# IDE specific
+*.code-workspace
+.history/
+.sass-cache/
+
+# Backup files
+*~
+*.swp
+*.swo
+
+# Package manager locks (keep only one)
+yarn.lock
+pnpm-lock.yaml
+
