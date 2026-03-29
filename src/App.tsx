@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { Background, ErrorBoundary, MotionLoader, ThemeToggle } from './components';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Background, ErrorBoundary, MotionLoader, NotFound, ThemeToggle } from './components';
 import { config } from './constants/config';
 import { ParticleConfigProvider } from './contexts/ParticleConfigContext';
 
@@ -59,65 +59,56 @@ const App = () => {
     }
   }, []);
 
-  if (viewMode === 'allcourses') {
-    return (
-      <ParticleConfigProvider>
-        <ThemeToggle />
-        <Background />
-        <div className="relative z-0 w-full overflow-x-hidden">
-          <Suspense fallback={null}>
-            <Navbar setViewMode={setViewMode} />
-          </Suspense>
-          <Suspense fallback={<MotionLoader isSection />}>
-            <AllCourses setViewMode={setViewMode} />
-          </Suspense>
-          <Suspense fallback={null}>
-            <Footer />
-          </Suspense>
-        </div>
-      </ParticleConfigProvider>
-    );
-  }
+  const Layout = ({ children }: { children: React.ReactNode }) => (
+    <div className="relative z-0 w-full overflow-x-hidden">
+      <Suspense fallback={null}>
+        <Navbar setViewMode={setViewMode} />
+      </Suspense>
+      {children}
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
+    </div>
+  );
 
-  if (viewMode === 'allcurriculo') {
-    return (
-      <ParticleConfigProvider>
-        <ThemeToggle />
-        <Background />
-        <div className="relative z-0 w-full overflow-x-hidden">
-          <Suspense fallback={null}>
-            <Navbar setViewMode={setViewMode} />
-          </Suspense>
-          <Suspense fallback={<MotionLoader isSection />}>
-            <AllCurriculo setViewMode={setViewMode} />
-          </Suspense>
-          <Suspense fallback={null}>
-            <Footer />
-          </Suspense>
-        </div>
-      </ParticleConfigProvider>
-    );
-  }
-
-  if (viewMode === 'allcertificados') {
-    return (
-      <ParticleConfigProvider>
-        <ThemeToggle />
-        <Background />
-        <div className="relative z-0 w-full overflow-x-hidden">
-          <Suspense fallback={null}>
-            <Navbar setViewMode={setViewMode} />
-          </Suspense>
-          <Suspense fallback={<MotionLoader isSection />}>
-            <AllCertificados setViewMode={setViewMode} />
-          </Suspense>
-          <Suspense fallback={null}>
-            <Footer />
-          </Suspense>
-        </div>
-      </ParticleConfigProvider>
-    );
-  }
+  const Home = () => (
+    <>
+      <div>
+        <Suspense fallback={<MotionLoader isSection />}>
+          <Hero />
+        </Suspense>
+      </div>
+      <Suspense fallback={<MotionLoader isSection />}>
+        <About />
+      </Suspense>
+      <Suspense fallback={<MotionLoader isSection />}>
+        <Formacao />
+      </Suspense>
+      <Suspense fallback={<MotionLoader isSection />}>
+        <Experience />
+      </Suspense>
+      <Suspense fallback={<MotionLoader isSection />}>
+        <Cursos setViewMode={setViewMode} />
+      </Suspense>
+      <Suspense fallback={<MotionLoader isSection />}>
+        <Curriculo setViewMode={setViewMode} />
+      </Suspense>
+      <Suspense fallback={<MotionLoader isSection />}>
+        <Tech />
+      </Suspense>
+      <Suspense fallback={<MotionLoader isSection />}>
+        <Works />
+      </Suspense>
+      <div className="relative z-0 w-full overflow-x-hidden">
+        <Suspense fallback={<MotionLoader isSection />}>
+          <Contact />
+        </Suspense>
+        <Suspense fallback={null}>
+          <StarsCanvas />
+        </Suspense>
+      </div>
+    </>
+  );
 
   return (
     <ErrorBoundary>
@@ -125,48 +116,41 @@ const App = () => {
         <BrowserRouter>
           <ThemeToggle />
           <Background />
-          <div className="relative z-0 w-full overflow-x-hidden">
-            <div>
-              <Suspense fallback={null}>
-                <Navbar setViewMode={setViewMode} />
-              </Suspense>
-              <Suspense fallback={<MotionLoader isSection />}>
-                <Hero />
-              </Suspense>
-            </div>
-            <Suspense fallback={<MotionLoader isSection />}>
-              <About />
-            </Suspense>
-            <Suspense fallback={<MotionLoader isSection />}>
-              <Formacao />
-            </Suspense>
-            <Suspense fallback={<MotionLoader isSection />}>
-              <Experience />
-            </Suspense>
-            <Suspense fallback={<MotionLoader isSection />}>
-              <Cursos setViewMode={setViewMode} />
-            </Suspense>
-            <Suspense fallback={<MotionLoader isSection />}>
-              <Curriculo setViewMode={setViewMode} />
-            </Suspense>
-            <Suspense fallback={<MotionLoader isSection />}>
-              <Tech />
-            </Suspense>
-            <Suspense fallback={<MotionLoader isSection />}>
-              <Works />
-            </Suspense>
-            <div className="relative z-0 w-full overflow-x-hidden">
-              <Suspense fallback={<MotionLoader isSection />}>
-                <Contact />
-              </Suspense>
-              <Suspense fallback={null}>
-                <StarsCanvas />
-              </Suspense>
-            </div>
-            <Suspense fallback={null}>
-              <Footer />
-            </Suspense>
-          </div>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Layout>
+                  {viewMode === 'allcourses' ? (
+                    <Suspense fallback={<MotionLoader isSection />}>
+                      <AllCourses setViewMode={setViewMode} />
+                    </Suspense>
+                  ) : viewMode === 'allcurriculo' ? (
+                    <Suspense fallback={<MotionLoader isSection />}>
+                      <AllCurriculo setViewMode={setViewMode} />
+                    </Suspense>
+                  ) : viewMode === 'allcertificados' ? (
+                    <Suspense fallback={<MotionLoader isSection />}>
+                      <AllCertificados setViewMode={setViewMode} />
+                    </Suspense>
+                  ) : (
+                    <Home />
+                  )}
+                </Layout>
+              }
+            />
+            {/* Catch-all route for 404 */}
+            <Route
+              path="*"
+              element={
+                <Layout>
+                  <Suspense fallback={<MotionLoader isSection />}>
+                    <NotFound setViewMode={setViewMode} />
+                  </Suspense>
+                </Layout>
+              }
+            />
+          </Routes>
         </BrowserRouter>
       </ParticleConfigProvider>
     </ErrorBoundary>

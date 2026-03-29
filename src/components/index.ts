@@ -12,6 +12,8 @@ import {
   StarsCanvas,
   WavefieldUltraBackground,
 } from './canvas';
+import NotFoundScene from './canvas/NotFoundScene';
+import NotFoundModel from './canvas/NotFoundModel';
 import ErrorBoundary from './ErrorBoundary';
 import Footer from './layout/Footer';
 import CanvasLoader from './layout/Loader';
@@ -31,6 +33,7 @@ import Cursos from './sections/Cursos';
 import Experience from './sections/Experience';
 import Formacao from './sections/Formacao';
 import Hero from './sections/Hero';
+import NotFound from './sections/NotFound';
 import Tech from './sections/Tech';
 import Works from './sections/Works';
 
@@ -60,6 +63,9 @@ export {
   LiquidBackground,
   MotionLoader,
   Navbar,
+  NotFound,
+  NotFoundScene,
+  NotFoundModel,
   ParticleBackground,
   ParticulateShatterBackground,
   SolidColorBackground,
