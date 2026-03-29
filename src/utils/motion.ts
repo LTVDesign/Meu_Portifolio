@@ -87,3 +87,15 @@ export const slideIn = (
     },
   };
 };
+
+export const staggerContainer = (staggerChildren?: number, delayChildren?: number): Variants => {
+  return {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: staggerChildren || 0.1,
+        delayChildren: delayChildren || 0,
+      },
+    },
+  };
+};
