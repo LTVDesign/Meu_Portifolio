@@ -1,101 +1,77 @@
-import type React from 'react';
-import { useState } from 'react';
-import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
-
-import 'react-vertical-timeline-component/style.min.css';
-
-import { experiences } from '../../constants';
+import { motion } from 'framer-motion';
 import { config } from '../../constants/config';
 import { SectionWrapper } from '../../hoc';
-import type { TExperience } from '../../types';
-import { Header } from '../atoms/Header';
-
-const ExperienceCard: React.FC<TExperience> = ({
-  title,
-  companyName,
-  icon,
-  iconBg,
-  date,
-  points,
-}) => {
-  return (
-    <VerticalTimelineElement
-      contentStyle={{
-        background: 'rgba(21, 16, 48, 0.7)',
-        color: 'var(--dynamic-text-color)',
-        backdropFilter: 'blur(24px)',
-        WebkitBackdropFilter: 'blur(24px)',
-        border: '1px solid rgba(145, 94, 255, 0.2)',
-        borderRadius: '24px',
-        boxShadow:
-          '0 10px 40px -10px rgba(145, 94, 255, 0.15), inset 0 0 20px rgba(255, 255, 255, 0.02)',
-      }}
-      contentArrowStyle={{ borderRight: '7px solid rgba(145, 94, 255, 0.2)' }}
-      date={date}
-      iconStyle={{ background: iconBg }}
-      icon={
-        <div className="flex h-full w-full items-center justify-center">
-          <img
-            src={icon}
-            alt={companyName}
-            className="h-[60%] w-[60%] object-contain"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-      }
-    >
-      <div className="text-center flex flex-col items-center">
-        <h3 className="text-[clamp(1.2rem,4vw,1.5rem)] font-bold text-[var(--dynamic-text-color)]">
-          {title}
-        </h3>
-        <p
-          className="text-[var(--dynamic-text-secondary)] text-[clamp(0.9rem,2vw,1.1rem)] font-semibold"
-          style={{ margin: 0 }}
-        >
-          {companyName}
-        </p>
-      </div>
-
-      <ul className="ml-5 mt-4 list-disc space-y-1">
-        {points.map((point, index) => (
-          <li
-            key={index}
-            className="text-[var(--dynamic-text-secondary)] pl-1 text-[clamp(0.8rem,2vw,0.9rem)] leading-snug tracking-normal"
-          >
-            {point}
-          </li>
-        ))}
-      </ul>
-    </VerticalTimelineElement>
-  );
-};
+import { fadeIn, textVariant } from '../../utils/motion';
+import { Header } from '../atoms';
 
 const Experience = () => {
-  const [showAll, setShowAll] = useState(false);
-
   return (
-    <>
-      <Header useMotion={true} {...config.sections.experience} />
+    <div className="max-w-7xl mx-auto px-6">
+      <motion.div variants={textVariant()} className="text-center mb-16">
+        <Header useMotion={true} {...config.sections.experience} />
+      </motion.div>
 
-      <div className="mt-20 flex flex-col">
-        <VerticalTimeline>
-          {experiences.slice(0, showAll ? experiences.length : 4).map((experience, index) => (
-            <ExperienceCard key={index} {...experience} />
-          ))}
-        </VerticalTimeline>
-        {experiences.length > 4 && (
-          <button
-            type="button"
-            onClick={() => setShowAll(!showAll)}
-            className="mt-10 self-center px-6 py-3 bg-tertiary text-[var(--dynamic-text-color)] rounded-lg hover:bg-secondary transition-colors"
+      <div className="space-y-8">
+        {[
+          {
+            title: 'Técnico de Informática Nível 2',
+            company: 'Autônomo',
+            period: '2020 - Presente',
+            description: 'Suporte técnico de alto nível, infraestrutura de redes, Microsoft Entra ID e gestão de ambientes 365. Resolução de problemas complexos e implementação de soluções tecnológicas.',
+            technologies: ['Microsoft 365', 'Entra ID', 'Redes', 'Suporte Técnico']
+          },
+          {
+            title: 'Desenvolvedor Full Stack',
+            company: 'Freelancer',
+            period: '2022 - Presente',
+            description: 'Desenvolvimento de aplicações web modernas com React, Node.js e TypeScript. Criação de soluções inovadoras e interfaces responsivas.',
+            technologies: ['React', 'Node.js', 'TypeScript', 'Tailwind CSS']
+          },
+          {
+            title: 'Especialista em Cibersegurança',
+            company: 'Programa Hackers do Bem',
+            period: '2023',
+            description: 'Formação avançada em cibersegurança, ethical hacking e proteção de infraestruturas digitais. Análise de vulnerabilidades e implementação de medidas de segurança.',
+            technologies: ['Cibersegurança', 'Ethical Hacking', 'Análise de Vulnerabilidades']
+          }
+        ].map((exp, index) => (
+          <motion.div
+            key={index}
+            variants={fadeIn('up', 'spring', index * 0.1, 0.75)}
+            className="glass-card p-8 md:p-10 neon-hover flex flex-col md:flex-row gap-8 relative overflow-hidden"
           >
-            {showAll ? 'Ver menos' : 'Ver mais'}
-          </button>
-        )}
+            {/* Período */}
+            <div className="md:w-52 flex-shrink-0">
+              <div className="text-sm font-mono text-[var(--cyber-cyan)] tracking-widest">
+                {exp.period}
+              </div>
+              <div className="mt-2 text-white/70 text-sm">{exp.company}</div>
+            </div>
+
+            {/* Conteúdo */}
+            <div className="flex-1">
+              <h3 className="text-2xl font-bold text-white">{exp.title}</h3>
+
+              <p className="mt-4 text-[var(--text-secondary)] leading-relaxed">
+                {exp.description}
+              </p>
+
+              <div className="mt-6 flex flex-wrap gap-2">
+                {exp.technologies.map((tech: string, i: number) => (
+                  <span
+                    key={i}
+                    className="text-xs px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-white/80"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 
-export default SectionWrapper(Experience, 'work');
+export default SectionWrapper(Experience, 'experiencia');

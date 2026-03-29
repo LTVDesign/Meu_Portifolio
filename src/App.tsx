@@ -43,6 +43,9 @@ const Navbar = lazy(() =>
 const StarsCanvas = lazy(() =>
   import('./components/canvas/Stars').then((module) => ({ default: module.default }))
 );
+const AllCurriculo = lazy(() =>
+  import('./components/sections/AllCurriculo').then((module) => ({ default: module.default }))
+);
 const Footer = lazy(() =>
   import('./components/layout/Footer').then((module) => ({ default: module.default }))
 );
@@ -61,9 +64,37 @@ const App = () => {
       <ParticleConfigProvider>
         <ThemeToggle />
         <Background />
-        <Suspense fallback={<MotionLoader isSection />}>
-          <AllCourses setViewMode={setViewMode} />
-        </Suspense>
+        <div className="relative z-0 w-full overflow-x-hidden">
+          <Suspense fallback={null}>
+            <Navbar setViewMode={setViewMode} />
+          </Suspense>
+          <Suspense fallback={<MotionLoader isSection />}>
+            <AllCourses setViewMode={setViewMode} />
+          </Suspense>
+          <Suspense fallback={null}>
+            <Footer />
+          </Suspense>
+        </div>
+      </ParticleConfigProvider>
+    );
+  }
+
+  if (viewMode === 'allcurriculo') {
+    return (
+      <ParticleConfigProvider>
+        <ThemeToggle />
+        <Background />
+        <div className="relative z-0 w-full overflow-x-hidden">
+          <Suspense fallback={null}>
+            <Navbar setViewMode={setViewMode} />
+          </Suspense>
+          <Suspense fallback={<MotionLoader isSection />}>
+            <AllCurriculo setViewMode={setViewMode} />
+          </Suspense>
+          <Suspense fallback={null}>
+            <Footer />
+          </Suspense>
+        </div>
       </ParticleConfigProvider>
     );
   }
@@ -73,9 +104,17 @@ const App = () => {
       <ParticleConfigProvider>
         <ThemeToggle />
         <Background />
-        <Suspense fallback={<MotionLoader isSection />}>
-          <AllCertificados setViewMode={setViewMode} />
-        </Suspense>
+        <div className="relative z-0 w-full overflow-x-hidden">
+          <Suspense fallback={null}>
+            <Navbar setViewMode={setViewMode} />
+          </Suspense>
+          <Suspense fallback={<MotionLoader isSection />}>
+            <AllCertificados setViewMode={setViewMode} />
+          </Suspense>
+          <Suspense fallback={null}>
+            <Footer />
+          </Suspense>
+        </div>
       </ParticleConfigProvider>
     );
   }
@@ -89,7 +128,7 @@ const App = () => {
           <div className="relative z-0 w-full overflow-x-hidden">
             <div>
               <Suspense fallback={null}>
-                <Navbar />
+                <Navbar setViewMode={setViewMode} />
               </Suspense>
               <Suspense fallback={<MotionLoader isSection />}>
                 <Hero />
@@ -108,7 +147,7 @@ const App = () => {
               <Cursos setViewMode={setViewMode} />
             </Suspense>
             <Suspense fallback={<MotionLoader isSection />}>
-              <Curriculo />
+              <Curriculo setViewMode={setViewMode} />
             </Suspense>
             <Suspense fallback={<MotionLoader isSection />}>
               <Tech />
