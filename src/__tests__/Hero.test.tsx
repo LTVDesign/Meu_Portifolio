@@ -26,10 +26,10 @@ describe('Hero Component', () => {
         expect(screen.getByTestId('computers-canvas')).toBeInTheDocument();
     });
 
-    it('exibe o título principal', () => {
+    it('exibe o título principal', async () => {
         renderWithI18n(<Hero />);
 
-        const terminalText = screen.getByTestId('terminal-text');
+        const terminalText = await screen.findByTestId('terminal-text', {}, { timeout: 3000 });
         expect(terminalText).toBeInTheDocument();
     });
 

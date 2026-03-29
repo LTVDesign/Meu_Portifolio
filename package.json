@@ -55,5 +55,10 @@
     "typescript": "^5.2.2",
     "vite": "^5.4.11",
     "vite-plugin-image-optimizer": "^2.0.3"
+  },
+  "overrides": {
+    "glob": "^13.0.6",
+    "inflight": "^1.0.6",
+    "whatwg-encoding": "^3.1.1"
   }
 }

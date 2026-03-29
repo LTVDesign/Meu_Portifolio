@@ -1,6 +1,80 @@
 // @ts-nocheck
 import '@testing-library/jest-dom';
 
+// Mock completo para @react-three/fiber
+jest.mock('@react-three/fiber', () => {
+    const React = require('react');
+    return {
+        Canvas: ({ children, ...props }: any) => React.createElement('div', { 'data-testid': 'r3f-canvas', ...props }, children),
+        useFrame: jest.fn(() => () => { }),
+        useThree: jest.fn(() => ({
+            scene: {},
+            camera: {},
+            gl: { domElement: document.createElement('canvas') },
+            size: { width: 800, height: 600 },
+            viewport: { width: 10, height: 7.5 },
+        })),
+        useLoader: jest.fn(() => ({})),
+        useGraph: jest.fn(() => ({ nodes: {}, materials: {} })),
+        extend: jest.fn(),
+        ThreeEvent: {},
+    };
+});
+
+// Mock completo para @react-three/drei
+jest.mock('@react-three/drei', () => {
+    const React = require('react');
+    return {
+        OrbitControls: () => null,
+        Preload: () => null,
+        Float: ({ children }: any) => React.createElement('div', null, children),
+        Decal: () => null,
+        useTexture: jest.fn(() => ({})),
+        useGLTF: Object.assign(
+            jest.fn(() => ({
+                scene: {
+                    clone: jest.fn(() => ({})),
+                    traverse: jest.fn(),
+                },
+                nodes: {},
+                materials: {},
+            })),
+            { preload: jest.fn() }
+        ),
+        AdaptiveDpr: () => null,
+        AdaptiveEvents: () => null,
+        Html: ({ children }: any) => React.createElement('div', null, children),
+        Text: ({ children }: any) => React.createElement('div', null, children),
+        Center: ({ children }: any) => React.createElement('div', null, children),
+        Environment: () => null,
+        Lightformer: () => null,
+        ContactShadows: () => null,
+        Stars: () => null,
+        Sky: () => null,
+        Sparkles: () => null,
+        MeshDistortMaterial: () => null,
+        MeshWobbleMaterial: () => null,
+        Sphere: () => null,
+        Box: () => null,
+        Torus: () => null,
+        Cylinder: () => null,
+        Plane: () => null,
+        Circle: () => null,
+        Ring: () => null,
+        Cone: () => null,
+        Tube: () => null,
+        TorusKnot: () => null,
+        Icosahedron: () => null,
+        Octahedron: () => null,
+        Dodecahedron: () => null,
+        Tetrahedron: () => null,
+        RoundedBox: () => null,
+        Extrude: () => null,
+        Lathe: () => null,
+        Shape: () => null,
+    };
+});
+
 // Mock manual para o módulo 'three' e 'three-stdlib'
 jest.mock('three', () => {
     class Vector2 {
@@ -86,18 +160,51 @@ jest.mock('three', () => {
     class Camera extends Object3D { }
     class PerspectiveCamera extends Camera { }
     class OrthographicCamera extends Camera { }
-    class BufferGeometry {
-        constructor() {
-            this.attributes = {};
-        }
-        setAttribute(name, attr) { this.attributes[name] = attr; }
-        getAttribute(name) { return this.attributes[name] || null; }
-        dispose() { }
-    }
     class BufferAttribute {
         constructor(array, itemSize) {
             this.array = array;
             this.itemSize = itemSize;
+            this.count = array ? array.length / itemSize : 0;
+        }
+    }
+    class InstancedBufferAttribute extends BufferAttribute {
+        constructor(array, itemSize, meshPerAttribute) {
+            super(array, itemSize);
+            this.meshPerAttribute = meshPerAttribute;
+        }
+    }
+    class InterleavedBuffer {
+        constructor(array, stride) {
+            this.array = array;
+            this.stride = stride;
+            this.count = array ? array.length / stride : 0;
+        }
+        setUsage() { return this; }
+    }
+    class InstancedInterleavedBuffer extends InterleavedBuffer { }
+    class InterleavedBufferAttribute {
+        constructor(interleavedBuffer, itemSize, offset) {
+            this.data = interleavedBuffer;
+            this.itemSize = itemSize;
+            this.offset = offset;
+        }
+    }
+    class BufferGeometry {
+        constructor() {
+            this.attributes = {};
+            this.index = null;
+        }
+        setAttribute(name, attr) { this.attributes[name] = attr; return this; }
+        getAttribute(name) { return this.attributes[name] || null; }
+        setIndex(index) { this.index = index; return this; }
+        dispose() { }
+        computeBoundingSphere() { }
+        computeBoundingBox() { }
+    }
+    class InstancedBufferGeometry extends BufferGeometry {
+        constructor() {
+            super();
+            this.instanceCount = Infinity;
         }
     }
     class Float32BufferAttribute extends BufferAttribute {
@@ -112,6 +219,15 @@ jest.mock('three', () => {
             this.material = material || new Material();
         }
     }
+    class Points extends Object3D {
+        constructor(geometry, material) {
+            super();
+            this.geometry = geometry || new BufferGeometry();
+            this.material = material || new Material();
+        }
+    }
+    class Line extends Object3D { }
+    class LineSegments extends Line { }
     class Material {
         dispose() { }
     }
@@ -129,6 +245,22 @@ jest.mock('three', () => {
             this.metalness = 0;
         }
     }
+    class ShaderMaterial extends Material {
+        constructor(params) {
+            super();
+            this.uniforms = params?.uniforms || {};
+            this.vertexShader = params?.vertexShader || '';
+            this.fragmentShader = params?.fragmentShader || '';
+        }
+    }
+    class PointsMaterial extends Material {
+        constructor() {
+            super();
+            this.color = new Color();
+            this.size = 1;
+        }
+    }
+    class Sprite extends Object3D { }
     class Texture {
         constructor() {
             this.image = null;
@@ -402,6 +534,23 @@ jest.mock('three', () => {
         Loader,
         FileLoader,
         MD2Loader,
+        InstancedBufferGeometry,
+        InstancedBufferAttribute,
+        InterleavedBuffer,
+        InstancedInterleavedBuffer,
+        InterleavedBufferAttribute,
+        Points,
+        Line,
+        LineSegments,
+        Raycaster: class {
+            setFromCamera() { }
+            intersectObjects() { return []; }
+        },
+        ShaderMaterial,
+        PointsMaterial,
+        Sprite,
+        AdditiveBlending: 1,
+        NormalBlending: 0,
         REVISION: 'mock',
         VERSION: { REVISION: 'mock', VERSION: 'mock' },
         FrontSide: 0,
@@ -417,6 +566,10 @@ jest.mock('three', () => {
             DEG2RAD: Math.PI / 180,
             RAD2DEG: 180 / Math.PI,
         },
+        NoColorSpace: 'srgb',
+        SRGBColorSpace: 'srgb',
+        LinearSRGBColorSpace: 'srgb-linear',
+        __esModule: true,
     };
 
     return THREE;
