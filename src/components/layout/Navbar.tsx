@@ -5,7 +5,7 @@ import { close, logo, menu } from '../../assets';
 import { navLinks } from '../../constants';
 import { LinkAnimado } from '../atoms';
 
-const Navbar = memo(({ setViewMode }: { setViewMode?: (mode: string) => void }) => {
+const Navbar = memo(() => {
   const [active, setActive] = useState<string | null>(null);
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -81,9 +81,9 @@ const Navbar = memo(({ setViewMode }: { setViewMode?: (mode: string) => void }) 
         {/* Desktop Menu */}
         <ul className="hidden sm:flex items-center gap-8 lg:gap-10">
           {navLinks.map((nav) => {
-            const isActive = 
-              active === nav.id || 
-              (nav.id === 'curriculo' && active === 'allcurriculo') || 
+            const isActive =
+              active === nav.id ||
+              (nav.id === 'curriculo' && active === 'allcurriculo') ||
               (nav.id === 'cursos' && active === 'allcourses');
 
             return (
@@ -93,10 +93,7 @@ const Navbar = memo(({ setViewMode }: { setViewMode?: (mode: string) => void }) 
                   onClick={(e) => {
                     if (nav.id === 'curriculo') {
                       e.preventDefault();
-                      setViewMode?.('allcurriculo');
                       window.scrollTo({ top: 0, behavior: 'smooth' });
-                    } else {
-                      setViewMode?.('default');
                     }
                   }}
                   className={`navbar-link ${isActive ? 'text-white scale-105' : ''}`}
@@ -141,10 +138,7 @@ const Navbar = memo(({ setViewMode }: { setViewMode?: (mode: string) => void }) 
                   setToggle(false);
                   if (nav.id === 'curriculo') {
                     e.preventDefault();
-                    setViewMode?.('allcurriculo');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
-                  } else {
-                    setViewMode?.('default');
                   }
                 }}
                 className="block py-3 px-4 text-white/90 hover:text-white rounded-2xl focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)]"
