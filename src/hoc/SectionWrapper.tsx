@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import type { ReactNode } from 'react';
+import type { ReactNode, ComponentType } from 'react';
 
 interface SectionWrapperProps {
   children: ReactNode;
@@ -7,7 +7,8 @@ interface SectionWrapperProps {
   className?: string;
 }
 
-const SectionWrapper = ({ children, id, className = '' }: SectionWrapperProps) => {
+// Componente JSX
+const SectionWrapperComponent = ({ children, id, className = '' }: SectionWrapperProps) => {
   return (
     <motion.section
       id={id}
@@ -22,4 +23,17 @@ const SectionWrapper = ({ children, id, className = '' }: SectionWrapperProps) =
   );
 };
 
+// HOC pattern para compatibilidade com código existente
+const SectionWrapper = (Component: ComponentType<any>, idName: string) => {
+  return function HOC(props: any) {
+    return (
+      <SectionWrapperComponent id={idName}>
+        <Component {...props} />
+      </SectionWrapperComponent>
+    );
+  };
+};
+
+// Exportar ambos para compatibilidade
+export { SectionWrapperComponent };
 export default SectionWrapper;

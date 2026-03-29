@@ -29,20 +29,38 @@
 
   /* Glassmorphism padrão do portfólio */
   .glass {
-    @apply bg-[var(--bg-glass)] backdrop-blur-2xl border border-white/10 shadow-2xl rounded-3xl;
+    background-color: var(--bg-glass);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border-radius: 1.5rem;
   }
 
   .glass-card {
-    @apply glass transition-all duration-300 hover:border-[var(--cyber-purple)]/50 hover:shadow-[0_0_30px_rgba(145, 94, 255, 0.2)];
+    background-color: var(--bg-glass);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border-radius: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .glass-card:hover {
+    border-color: rgba(145, 94, 255, 0.5);
+    box-shadow: 0 0 30px rgba(145, 94, 255, 0.2);
   }
 
   /* Títulos de seção */
   .section-title {
-    @apply text-[clamp(2.25rem, 6vw, 3.5rem)] font-bold tracking-tighter bg-gradient-to-r from-white via-white to-white/70 bg-clip-text text-transparent;
+    font-size: clamp(2.25rem, 6vw, 3.5rem);
+    @apply font-bold tracking-tighter bg-gradient-to-r from-white via-white to-white/70 bg-clip-text text-transparent;
   }
 
   .section-subtitle {
-    @apply text-[clamp(1.1rem, 2.5vw, 1.25rem)] text-[var(--text-secondary)] max-w-2xl;
+    font-size: clamp(1.1rem, 2.5vw, 1.25rem);
+    @apply text-[var(--text-secondary)] max-w-2xl;
   }
 
   /* Navbar link */
@@ -52,7 +70,8 @@
 
   /* Formulário */
   .form-label {
-    @apply text-[clamp(0.75rem, 2vw, 0.85rem)] font-bold uppercase tracking-widest flex items-center gap-2 text-white/75;
+    font-size: clamp(0.75rem, 2vw, 0.85rem);
+    @apply font-bold uppercase tracking-widest flex items-center gap-2 text-white/75;
   }
 
   .form-input {

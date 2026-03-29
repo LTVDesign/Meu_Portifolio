@@ -54,7 +54,7 @@ const Contact = () => {
   };
 
   return (
-    <SectionWrapper id="contact" className="py-24">
+    <div className="py-24">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col xl:flex-row gap-12 xl:gap-20 items-center">
           {/* Formulário */}
@@ -115,8 +115,8 @@ const Contact = () => {
           </motion.div>
         </div>
       </div>
-    </SectionWrapper>
+    </div>
   );
 };
 
-export default Contact;
+export default SectionWrapper(Contact, 'contact');
