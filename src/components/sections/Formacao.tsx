@@ -137,16 +137,6 @@ const Formacao = () => {
     return { average, totalCH, chartData, semesterData };
   }, [selectedFormation]);
 
-  const openModal = (formacao: FormacaoData) => {
-    setSelectedFormation(formacao);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedFormation(null);
-  };
-
   return (
     <div className="max-w-7xl mx-auto px-6">
       <Header useMotion={true} p={t('formacao.p')} h2={t('formacao.h2')} />
