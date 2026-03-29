@@ -17,7 +17,7 @@ const Hero = () => {
         <div className="mt-2">
           <h1 className={styles.heroHeadText}>
             Olá, eu sou <br className="sm:hidden" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#915EFF] to-[#00FFFF] drop-shadow-[0_0_15px_rgba(145,94,255,0.4)] font-extrabold uppercase tracking-tight">
+            <span className="neon-text font-extrabold uppercase tracking-tight">
               Leandro S. Barbosa
             </span>
           </h1>

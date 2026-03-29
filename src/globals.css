@@ -5,8 +5,12 @@
 @layer base {
   :root {
     --cyber-purple: #915eff;
+    --cyber-cyan: #00ffff;
     --cyber-glow: #a78bfa;
-    --dynamic-text-secondary: rgb(156 163 175);
+    --text-primary: #ffffff;
+    --text-secondary: #9ca3af;
+    --bg-glass: rgba(21, 16, 48, 0.8);
+    --bg-glass-hover: rgba(21, 16, 48, 0.9);
   }
 }
 
@@ -27,6 +31,46 @@
     @apply bg-[#151030]/80 backdrop-blur-2xl border border-white/10 shadow-2xl rounded-3xl;
   }
 
+  .glass-card {
+    @apply bg-[var(--bg-glass)] backdrop-blur-2xl border border-white/10 shadow-2xl rounded-3xl transition-all duration-300 hover:bg-[var(--bg-glass-hover)] hover:border-[var(--cyber-purple)]/30 hover:shadow-[0_0_30px_rgba(145, 94, 255, 0.2)];
+  }
+
+  .neon-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)] drop-shadow-[0_0_15px_rgba(145, 94, 255, 0.4)];
+  }
+
+  .neon-text-subtle {
+    @apply text-[var(--cyber-purple)] drop-shadow-[0_0_10px_rgba(145, 94, 255, 0.3)];
+  }
+
+  .neon-border {
+    @apply border-[var(--cyber-purple)]/50 shadow-[0_0_15px_rgba(145, 94, 255, 0.3)];
+  }
+
+  .neon-glow {
+    @apply shadow-[0_0_20px_rgba(145, 94, 255, 0.5)];
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)] text-white font-bold py-5 px-10 rounded-3xl hover:scale-[1.03] active:scale-95 transition-all focus-visible:ring-4 focus-visible:ring-offset-4 focus-visible:ring-[var(--cyber-purple)] min-h-[56px];
+  }
+
+  .btn-secondary {
+    @apply glass-btn py-4 px-8 rounded-3xl font-semibold min-h-[56px];
+  }
+
+  .section-title {
+    @apply text-[clamp(2rem, 5vw, 3.5rem)] font-bold tracking-tighter neon-text;
+  }
+
+  .section-subtitle {
+    @apply text-[clamp(1rem, 2vw, 1.25rem)] text-[var(--text-secondary)] font-medium;
+  }
+
+  .card-padding {
+    @apply p-8 md:p-10;
+  }
+
   .form-label {
     @apply text-white font-bold uppercase tracking-widest flex items-center gap-2 opacity-75;
     font-size: clamp(0.75rem, 2vw, 0.85rem);
@@ -38,6 +82,18 @@
 
   .error-alert {
     @apply text-red-400 text-sm flex items-center gap-2 mt-2;
+  }
+
+  .badge-status {
+    @apply absolute -top-3 -right-3 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider;
+  }
+
+  .badge-concluido {
+    @apply badge-status bg-green-500/20 text-green-400 border border-green-500/30;
+  }
+
+  .badge-andamento {
+    @apply badge-status bg-yellow-500/20 text-yellow-400 border border-yellow-500/30;
   }
 }
 
