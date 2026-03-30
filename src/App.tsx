@@ -108,50 +108,57 @@ const AppContent = () => {
           defaultColorMode="auto"
         >
           <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-            {/* Background 3D - carregado após paint inicial */}
-            {backgroundLoaded && (
-              <Suspense fallback={null}>
-                <BackgroundManager />
-              </Suspense>
-            )}
-
-            {/* Canvas de partículas - sempre visível */}
-            <ParticlesCanvas />
-
-            <Navbar />
-            <GearButton onClick={() => setIsGearOpen(!isGearOpen)} isOpen={isGearOpen} />
-
-            {isGearOpen && <BackgroundMenu onEdit={handleEdit} onClose={() => setIsGearOpen(false)} />}
-
-            <BackgroundEditorModal
-              isOpen={isEditorOpen}
-              selectedBg={selectedBg}
-              onClose={handleCloseEditor}
-            />
-
-            <main className="relative min-h-screen" style={{ zIndex: 10 }} data-content="true">
-              <ErrorBoundary>
-                <Suspense fallback={
-                  <div className="flex items-center justify-center min-h-[70vh]">
-                    <div className="text-white/60 text-lg">Carregando conteúdo...</div>
-                  </div>
-                }>
-                  <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/formacao" element={<FormacaoPage />} />
-                    <Route path="/projetos" element={<ExperiencePage />} />
-                    <Route path="/cursos" element={<CursosPage />} />
-                    <Route path="/certificados" element={<CertificadosPage />} />
-                    <Route path="/contato" element={<ContactPage />} />
-                    <Route path="/doom" element={<DoomPage />} />
-                    <Route path="/dynamic-text-demo" element={<DynamicTextDemoPage />} />
-                    <Route path="*" element={<NotFoundPage />} />
-                  </Routes>
+            {/* BACKGROUND 3D - sempre atrás */}
+            <div className="fixed inset-0 z-0 pointer-events-none">
+              {backgroundLoaded && (
+                <Suspense fallback={null}>
+                  <BackgroundManager />
                 </Suspense>
-              </ErrorBoundary>
-            </main>
+              )}
+            </div>
 
-            <Footer />
+            {/* Canvas de partículas - sempre atrás */}
+            <div className="fixed inset-0 z-0 pointer-events-none">
+              <ParticlesCanvas />
+            </div>
+
+            {/* CONTEÚDO - sempre na frente */}
+            <div className="relative z-10">
+              <Navbar />
+              <GearButton onClick={() => setIsGearOpen(!isGearOpen)} isOpen={isGearOpen} />
+
+              {isGearOpen && <BackgroundMenu onEdit={handleEdit} onClose={() => setIsGearOpen(false)} />}
+
+              <BackgroundEditorModal
+                isOpen={isEditorOpen}
+                selectedBg={selectedBg}
+                onClose={handleCloseEditor}
+              />
+
+              <main className="relative z-10 min-h-screen" data-content="true">
+                <ErrorBoundary>
+                  <Suspense fallback={
+                    <div className="flex items-center justify-center min-h-[70vh]">
+                      <div className="text-white/60 text-lg">Carregando conteúdo...</div>
+                    </div>
+                  }>
+                    <Routes>
+                      <Route path="/" element={<HomePage />} />
+                      <Route path="/formacao" element={<FormacaoPage />} />
+                      <Route path="/projetos" element={<ExperiencePage />} />
+                      <Route path="/cursos" element={<CursosPage />} />
+                      <Route path="/certificados" element={<CertificadosPage />} />
+                      <Route path="/contato" element={<ContactPage />} />
+                      <Route path="/doom" element={<DoomPage />} />
+                      <Route path="/dynamic-text-demo" element={<DynamicTextDemoPage />} />
+                      <Route path="*" element={<NotFoundPage />} />
+                    </Routes>
+                  </Suspense>
+                </ErrorBoundary>
+              </main>
+
+              <Footer />
+            </div>
           </Router>
         </DynamicTextProvider>
       </PerformanceProvider>

@@ -55,6 +55,10 @@
   "overrides": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "framer-motion": {
+      "react": "^18.3.1",
+      "react-dom": "^18.3.1"
+    },
     "glob": "^10.4.5",
     "inflight": "npm:lru-cache@latest",
     "three-mesh-bvh": "^0.9.9"

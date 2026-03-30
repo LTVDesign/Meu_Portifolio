@@ -125,7 +125,7 @@ const ComputeInstancedLODParticles = ({
     useEffect(() => {
         if (meshRef.current) {
             meshRef.current.frustumCulled = true;
-            meshRef.current.renderOrder = -1;
+            meshRef.current.renderOrder = -999;
         }
     }, []);
 

@@ -1,24 +1,22 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 export default defineConfig({
     plugins: [
-        react({
-            jsxImportSource: '@emotion/react',
-            babel: {
-                plugins: ['@emotion/babel-plugin'],
-            },
-        }),
+        tailwindcss(),
+        react(),
+        ViteImageOptimizer({ /* suas opções */ }),
     ],
 
     resolve: {
         dedupe: [
             'react',
             'react-dom',
+            'framer-motion',
             '@react-three/fiber',
             '@react-three/drei',
-            'three',
-            'three-mesh-bvh',
         ],
     },
 
@@ -26,7 +24,6 @@ export default defineConfig({
         rollupOptions: {
             output: {
                 manualChunks: {
-                    // React + React Router + i18n (mantido unificado para evitar múltiplas cópias)
                     'react-vendor': [
                         'react',
                         'react-dom',
@@ -36,63 +33,21 @@ export default defineConfig({
                         'i18next',
                         'i18next-browser-languagedetector',
                     ],
-                    // Three.js e R3F separados (mas React deduplicado)
+                    'framer-motion': ['framer-motion'],
                     'three': [
                         'three',
                         '@react-three/fiber',
                         '@react-three/drei',
                         'three-mesh-bvh',
                     ],
-                    'framer-motion': ['framer-motion'],
-                    'icons': ['react-icons'],
-                    'parallax': ['react-parallax-tilt'],
-                    'timeline': ['react-vertical-timeline-component'],
                 },
             },
         },
-        chunkSizeWarningLimit: 1500,
-        terserOptions: {
-            compress: {
-                drop_console: true,
-                drop_debugger: true,
-                pure_funcs: ['console.log', 'console.debug'],
-            },
-            mangle: {
-                reserved: ['React', 'ReactDOM', 'THREE', 'drei', 'fiber'],
-            },
-        },
-    },
-
-    server: {
-        port: 3000,
-        host: true,
+        chunkSizeWarningLimit: 1600,
     },
 
     optimizeDeps: {
-        include: [
-            'react',
-            'react-dom',
-            '@react-three/fiber',
-            '@react-three/drei',
-            'three',
-            'three-mesh-bvh',
-        ],
+        include: ['react', 'react-dom', 'framer-motion', '@react-three/fiber', '@react-three/drei'],
     },
+});
 
-    css: {
-        modules: {
-            localsConvention: 'camelCase',
-        },
-    },
-
-    json: {
-        stringify: true,
-    },
-
-    envPrefix: 'VITE_',
-
-    define: {
-        __APP_VERSION__: JSON.stringify(process.env.npm_package_version || '1.0.0'),
-        __APP_NAME__: JSON.stringify('Meu Portfólio'),
-    },
-})
