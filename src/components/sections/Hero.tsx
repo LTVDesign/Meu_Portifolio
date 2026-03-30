@@ -78,6 +78,96 @@ const Hero = () => {
         <ComputersCanvas />
       </div>
 
+      {/* Engrenagem flutuante esquerda - Gear button */}
+      <motion.button
+        onClick={() => window.location.reload()}
+        className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-20 cursor-pointer group"
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.95 }}
+        aria-label="Reiniciar página"
+      >
+        <div className="relative w-20 h-20">
+          {/* Glow externo */}
+          <motion.div
+            className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 via-purple-500 to-pink-500 blur-xl opacity-60"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          />
+
+          {/* Glow interno */}
+          <motion.div
+            className="absolute inset-2 rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-cyan-400 blur-md opacity-80"
+            animate={{ rotate: -360 }}
+            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          />
+
+          {/* Engrenagem SVG */}
+          <svg width="80" height="80" viewBox="0 0 100 100" className="drop-shadow-2xl">
+            <defs>
+              <linearGradient id="gearGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#00FFFF" />
+                <stop offset="50%" stopColor="#915EFF" />
+                <stop offset="100%" stopColor="#FF00FF" />
+              </linearGradient>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+                <feMerge>
+                  <feMergeNode in="coloredBlur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            <g filter="url(#glow)">
+              <circle cx="50" cy="50" r="18" fill="none" stroke="url(#gearGrad)" strokeWidth="6" />
+              {[...Array(12)].map((_, i) => {
+                const angle = (i * 30) * (Math.PI / 180);
+                const x1 = 50 + 26 * Math.cos(angle);
+                const y1 = 50 + 26 * Math.sin(angle);
+                const x2 = 50 + 37 * Math.cos(angle);
+                const y2 = 50 + 37 * Math.sin(angle);
+                return (
+                  <line
+                    key={i}
+                    x1={x1} y1={y1}
+                    x2={x2} y2={y2}
+                    stroke="url(#gearGrad)"
+                    strokeWidth="5"
+                    strokeLinecap="round"
+                  />
+                );
+              })}
+            </g>
+          </svg>
+
+          {/* Anéis pulsantes */}
+          <motion.div
+            className="absolute inset-0 rounded-full border-2 border-[var(--cyber-cyan)]/30"
+            animate={{
+              scale: [0.8, 1.2, 0.8],
+              opacity: [0.5, 0, 0.5]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          <motion.div
+            className="absolute inset-2 rounded-full border border-[var(--cyber-purple)]/30"
+            animate={{
+              scale: [1.2, 0.8, 1.2],
+              opacity: [0, 0.5, 0]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        </div>
+      </motion.button>
+
       {/* Engrenagem flutuante direita - Background selector */}
       <motion.button
         onClick={handleBackgroundClick}
@@ -176,8 +266,7 @@ const Hero = () => {
           <motion.span
             className="text-xs font-black tracking-[0.3em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] via-white to-[var(--cyber-purple)] bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(0,255,255,0.7)]"
             style={{
-              filter: 'drop-shadow(0 0 10px rgba(0,255,255,0.8)) drop-shadow(0 0 20px rgba(145,94,255,0.5))',
-              textShadow: '0 0 20px rgba(0,255,255,0.5), 0 0 40px rgba(145,94,255,0.3)'
+              filter: 'drop-shadow(0 0 10px rgba(0,255,255,0.8)) drop-shadow(0 0 20px rgba(145,94,255,0.5))'
             }}
             animate={{
               opacity: [0.7, 1, 0.7],

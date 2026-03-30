@@ -29,19 +29,17 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
       opacity: 0,
       scale: 0.8,
       y: 40,
-      filter: 'blur(20px)',
-      textShadow: '0 0 0px rgba(145,94,255,0)'
+      filter: 'drop-shadow(0 0 0px rgba(145,94,255,0))'
     },
     visible: {
       opacity: 1,
       scale: 1,
       y: 0,
-      filter: 'blur(0px)',
-      textShadow: [
-        '0 0 10px rgba(145,94,255,0.5)',
-        '0 0 20px rgba(145,94,255,0.8)',
-        '0 0 40px rgba(0,255,255,0.6)',
-        '0 0 10px rgba(145,94,255,0.5)'
+      filter: [
+        'drop-shadow(0 0 10px rgba(145,94,255,0.5))',
+        'drop-shadow(0 0 20px rgba(145,94,255,0.8))',
+        'drop-shadow(0 0 40px rgba(0,255,255,0.6))',
+        'drop-shadow(0 0 10px rgba(145,94,255,0.5))'
       ],
       transition: {
         scale: {
@@ -53,9 +51,6 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
           ease: [0.25, 0.46, 0.45, 0.94]
         },
         filter: {
-          duration: 0.5
-        },
-        textShadow: {
           duration: 2,
           repeat: Infinity,
           ease: "easeInOut"
@@ -95,12 +90,11 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
           variants={nameVariants}
           className="mb-6 relative"
           style={{
-            textShadow: '0 0 20px rgba(145,94,255,0.6), 0 0 40px rgba(0,255,255,0.4)'
+            filter: 'drop-shadow(0 0 20px rgba(145,94,255,0.6)) drop-shadow(0 0 40px rgba(0,255,255,0.4))'
           }}
         >
           <h2 className={`${styles.sectionHeadText} relative z-10`} style={{
-            textShadow: '0 0 20px rgba(145,94,255,0.6), 0 0 40px rgba(0,255,255,0.4), 0 0 60px rgba(145,94,255,0.3)',
-            filter: 'drop-shadow(0 0 10px rgba(145,94,255,0.5))'
+            filter: 'drop-shadow(0 0 20px rgba(145,94,255,0.6)) drop-shadow(0 0 40px rgba(0,255,255,0.4)) drop-shadow(0 0 60px rgba(145,94,255,0.3))'
           }}>
             <DynamicText colorMode="auto">{h2}</DynamicText>
           </h2>
@@ -116,8 +110,7 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
         </motion.div>
         <motion.div variants={subtitleVariants}>
           <p className={`${styles.sectionSubText} relative`} style={{
-            textShadow: '0 0 10px rgba(0,255,255,0.4), 0 0 20px rgba(145,94,255,0.3)',
-            filter: 'drop-shadow(0 0 5px rgba(0,255,255,0.3))'
+            filter: 'drop-shadow(0 0 10px rgba(0,255,255,0.4)) drop-shadow(0 0 20px rgba(145,94,255,0.3))'
           }}>
             <DynamicText colorMode="auto">{p}</DynamicText>
             {/* Linha animada abaixo do subtítulo */}
@@ -138,8 +131,7 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
     <div className="text-center flex flex-col items-center justify-center">
       <div className="mb-4 relative">
         <h2 className={`${styles.sectionHeadText} relative z-10`} style={{
-          textShadow: '0 0 20px rgba(145,94,255,0.6), 0 0 40px rgba(0,255,255,0.4)',
-          filter: 'drop-shadow(0 0 10px rgba(145,94,255,0.5))'
+          filter: 'drop-shadow(0 0 20px rgba(145,94,255,0.6)) drop-shadow(0 0 40px rgba(0,255,255,0.4))'
         }}>
           <DynamicText colorMode="auto">{h2}</DynamicText>
         </h2>
@@ -148,8 +140,7 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
         </div>
       </div>
       <p className={`${styles.sectionSubText} relative`} style={{
-        textShadow: '0 0 10px rgba(0,255,255,0.4), 0 0 20px rgba(145,94,255,0.3)',
-        filter: 'drop-shadow(0 0 5px rgba(0,255,255,0.3))'
+        filter: 'drop-shadow(0 0 10px rgba(0,255,255,0.4)) drop-shadow(0 0 20px rgba(145,94,255,0.3))'
       }}>
         <DynamicText colorMode="auto">{p}</DynamicText>
         <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)] to-transparent w-0 group-hover:w-full transition-all duration-500" />
