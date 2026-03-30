@@ -1119,21 +1119,8 @@ const ThemeToggle = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Element;
-      // Only close if clicking completely outside both the container and the editor panel
-      if (!target.closest('.theme-toggle-container') && !target.closest('.bg-editor-panel')) {
-        setIsOpen(false);
-        setIsEditorOpen(false);
-      }
-    };
-
-    if (isOpen || isEditorOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isOpen, isEditorOpen]);
+  // handleClickOutside removido temporariamente para evitar conflito com o portal
+  // O fechamento agora é feito manualmente pelos botões FECHAR
 
   const renderEditor = () => {
     const props = { config, updateConfig };
