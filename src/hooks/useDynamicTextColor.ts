@@ -492,11 +492,33 @@ export function useDynamicTextColor(
             }
         }
 
-        // Se não conseguiu do Three.js, usa DOM
+        // Se não conseguiu do Three.js, tenta amostrar de canvas 2D no elemento
         if (!detectedColor) {
+            // Primeiro, tenta detectar background do elemento ou seus pais
             const result = detectBackground(ref.current);
             detectedColor = result.color;
             detectedType = result.type;
+
+            // Se ainda não tem cor ou está usando fallback, tenta encontrar canvas dentro do elemento
+            const fallbackColor = fallbackMode === 'dark' ? '#1a1a1a' : '#ffffff';
+            if (!detectedColor || detectedColor === fallbackColor) {
+                const canvas = ref.current.querySelector('canvas');
+                if (canvas) {
+                    try {
+                        const ctx = canvas.getContext('2d');
+                        if (ctx) {
+                            const imageData = ctx.getImageData(0, 0, 1, 1);
+                            const pixel = imageData.data;
+                            if (pixel[3] > 0) { // Se não for transparente
+                                detectedColor = rgbToHex(pixel[0], pixel[1], pixel[2]);
+                                detectedType = 'image';
+                            }
+                        }
+                    } catch {
+                        // Ignora erros de canvas
+                    }
+                }
+            }
         }
 
         if (!detectedColor) {
@@ -535,6 +557,7 @@ export function useDynamicTextColor(
         calculateTextColor,
         updateInterval,
         fallbackMode,
+        rgbToHex,
     ]);
 
     /**

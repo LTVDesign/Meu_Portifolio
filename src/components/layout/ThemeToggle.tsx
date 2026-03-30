@@ -1213,51 +1213,53 @@ const ThemeToggle = () => {
         </div>
       </div>
 
-      {/* ===================== PAINEL COM PORTAL (INVENCÍVEL) ===================== */}
+      {/* ===================== PAINEL FLUTUANTE MODERNO ===================== */}
       {isEditorOpen && createPortal(
-        <m.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[9999999] flex items-center justify-center bg-black/90 backdrop-blur-3xl p-4"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div
-            className="bg-[#0a0820] border-4 border-[#915EFF] rounded-3xl shadow-2xl w-full max-w-3xl max-h-[94vh] overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Header */}
-            <div className="px-8 py-6 border-b border-white/10 flex justify-between items-center bg-black/70">
-              <h2 className="text-3xl font-black text-white tracking-widest">
-                ✏️ EDITANDO: {BG_LABELS[selectedBg] || selectedBg.toUpperCase()}
-              </h2>
+        <div className="fixed inset-0 z-[99999999] flex items-center justify-center bg-black/70 backdrop-blur-2xl p-4">
+          <div className="bg-[#0a0820] border border-[#915EFF]/70 rounded-3xl w-full max-w-2xl max-h-[85vh] overflow-hidden shadow-2xl">
+
+            {/* Header elegante */}
+            <div className="px-7 py-5 border-b border-white/10 flex items-center justify-between bg-gradient-to-r from-[#1a1433] to-black">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-[#915EFF] to-[#00FFFF] rounded-2xl flex items-center justify-center text-lg shadow-lg">
+                  ✏️
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-white tracking-tight">
+                    Editando Background
+                  </h2>
+                  <p className="text-[#915EFF] text-sm font-medium">
+                    {BG_LABELS[selectedBg] || selectedBg}
+                  </p>
+                </div>
+              </div>
+
               <button
                 onClick={() => {
                   setIsEditorOpen(false);
                   setIsOpen(true);
                 }}
-                className="px-10 py-4 bg-red-600 hover:bg-red-700 text-white font-bold uppercase rounded-3xl text-sm transition-all"
+                className="w-9 h-9 flex items-center justify-center text-white hover:bg-white/10 rounded-full transition-all hover:scale-110"
               >
-                FECHAR
+                ✕
               </button>
             </div>
 
-            {/* Debug gigante (para confirmar) */}
-            <div className="bg-yellow-400 text-black p-8 text-center font-black text-4xl border-b-4 border-yellow-400">
-              PAINEL ABRIU COM PORTAL! 🎉<br />
-              <span className="text-red-700 text-3xl">Background atual: {selectedBg}</span>
-            </div>
-
-            {/* Editor real */}
-            <div className="p-10 overflow-y-auto max-h-[calc(94vh-180px)]">
+            {/* Corpo do painel - mais compacto */}
+            <div className="p-7 overflow-y-auto max-h-[calc(85vh-70px)] custom-scrollbar">
               {renderEditor() || (
-                <div className="text-center py-20 text-red-400 text-3xl font-bold">
-                  Editor ainda não criado para este background
+                <div className="text-center py-16 text-gray-400">
+                  Editor para "{selectedBg}" ainda não implementado
                 </div>
               )}
             </div>
+
+            {/* Footer sutil */}
+            <div className="px-7 py-3 border-t border-white/10 text-[10px] text-white/40 text-center">
+              Alterações em tempo real • Clique fora para fechar
+            </div>
           </div>
-        </m.div>,
+        </div>,
         document.body
       )}
     </>

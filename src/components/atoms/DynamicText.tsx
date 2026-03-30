@@ -195,7 +195,23 @@ export function DynamicText({
  * Utilitário para converter hex para RGB
  */
 function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    if (!hex || typeof hex !== 'string') {
+        return null;
+    }
+
+    // Remove # se presente
+    const cleanHex = hex.replace(/^#/, '');
+
+    // Expande forma curta #RGB para #RRGGBB
+    const hexNormalized = cleanHex.length === 3
+        ? cleanHex.split('').map(c => c + c).join('')
+        : cleanHex;
+
+    if (hexNormalized.length !== 6) {
+        return null;
+    }
+
+    const result = /^([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hexNormalized);
     return result
         ? {
             r: parseInt(result[1], 16),
