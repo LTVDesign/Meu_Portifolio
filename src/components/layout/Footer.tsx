@@ -36,9 +36,9 @@ const Footer: React.FC = () => {
     const routeMap: Record<string, string> = {
       'about': '/',
       'formacao': '/formacao',
-      'experiencia': '/',
+      'experience': '/',
       'cursos': '/cursos',
-      'projects': '/projetos',
+      'works': '/projetos',
       'contact': '/contato',
     };
     return routeMap[navId] || '/';

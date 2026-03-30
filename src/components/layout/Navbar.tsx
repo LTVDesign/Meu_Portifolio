@@ -2,15 +2,16 @@ import { m, useScroll, useSpring } from 'framer-motion';
 import { memo, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { logo } from '../../assets';
 import { navLinks } from '../../constants';
 import { LinkAnimado } from '../atoms';
 import DynamicText from '../atoms/DynamicText';
 
+// Logo da raiz (public) - servido estaticamente
+const logo = '/logo.svg';
+
 const Navbar = memo(() => {
   const [active, setActive] = useState<string | null>(null);
   const [toggle, setToggle] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === '/';
   const { t, i18n } = useTranslation();
@@ -23,11 +24,6 @@ const Navbar = memo(() => {
   });
 
   useEffect(() => {
-    // Scroll state for navbar glass effect
-    const onScroll = () => {
-      setScrolled(window.scrollY > 80);
-    };
-
     // IntersectionObserver for active section detection (Reflow-free)
     const observerOptions = {
       root: null,
@@ -56,14 +52,11 @@ const Navbar = memo(() => {
 
       return () => {
         clearTimeout(timer);
-        window.removeEventListener('scroll', onScroll);
         observer.disconnect();
       };
     }
 
-    window.addEventListener('scroll', onScroll, { passive: true });
     return () => {
-      window.removeEventListener('scroll', onScroll);
       observer.disconnect();
     };
   }, [isHome]);
@@ -97,9 +90,9 @@ const Navbar = memo(() => {
     const routeMap: Record<string, string> = {
       'about': '/',
       'formacao': '/formacao',
-      'experiencia': '/',
+      'experience': '/',
       'cursos': '/cursos',
-      'projects': '/projetos',
+      'works': '/projetos',
       'contact': '/contato',
     };
     return routeMap[navId] || '/';
@@ -107,7 +100,10 @@ const Navbar = memo(() => {
 
   return (
     <nav
-      className={`critical-navbar glass transition-all duration-300 ${scrolled ? 'shadow-2xl' : ''}`}
+      className="critical-navbar glass transition-all duration-300"
+      style={{
+        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5)'
+      }}
     >
       {/* Logo Flutuante Maior - com dimensões fixas para evitar CLS */}
       <m.div
@@ -132,7 +128,7 @@ const Navbar = memo(() => {
           src={logo}
           alt="Logo"
           className="w-full h-full object-contain drop-shadow-[0_0_20px_rgba(145,94,255,0.8)]"
-          loading="eager"
+          fetchPriority="high"
           width="128"
           height="128"
         />
@@ -169,8 +165,8 @@ const Navbar = memo(() => {
           </span>
         </Link>
 
-        {/* Desktop Menu with specific glows - moved to right */}
-        <ul className="hidden sm:flex items-center gap-3 lg:gap-4 ml-auto">
+        {/* Desktop Menu with specific glows - reduced gap and aligned right */}
+        <ul className="hidden sm:flex items-center gap-2 lg:gap-3 ml-auto">
           {navLinks.map((nav) => {
             const isActive = active === nav.id;
 
@@ -206,57 +202,48 @@ const Navbar = memo(() => {
           })}
         </ul>
 
-        {/* Language Selector - Right side */}
-        <div className="hidden sm:flex items-center gap-3 ml-auto">
-          {/* PT Button */}
+        {/* Language Selector - Right side - 60% smaller */}
+        <div className="hidden sm:flex items-center gap-2 ml-auto">
+          {/* PT Button - Brazilian Flag - sem sombras/efeitos */}
           <m.button
             onClick={() => i18n.changeLanguage('pt')}
             aria-label={t('nav.switch_to_pt')}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className={`group relative px-3 py-2 text-sm font-black uppercase tracking-wider rounded-lg transition-all overflow-hidden ${i18n.language === 'pt'
-              ? 'bg-gradient-to-r from-[var(--cyber-purple)] to-purple-600 text-white shadow-[0_0_10px_rgba(145,94,255,0.5),0_0_20px_rgba(145,94,255,0.2)] ring-1 ring-[var(--cyber-purple)]/30'
-              : 'bg-white/10 text-white hover:text-white hover:bg-white/20 hover:shadow-[0_0_8px_rgba(145,94,255,0.3)]'
+            className={`group relative px-1.5 py-1 text-xs font-black uppercase tracking-wider rounded-lg transition-all overflow-hidden ${i18n.language === 'pt'
+              ? 'bg-transparent text-white'
+              : 'bg-transparent text-white/80 hover:text-white'
               }`}
           >
-            {/* Brazilian flag background - sem filtro roxo para mostrar cores reais */}
+            {/* Brazilian flag background - sem efeitos */}
             <div
-              className="absolute inset-0 opacity-80 bg-cover bg-center rounded-lg group-hover:opacity-100 transition-opacity"
+              className="absolute inset-0 opacity-100 bg-cover bg-center rounded-lg"
               style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 700'%3E%3Crect fill='%23009c3b' width='1000' height='700'/%3E%3Cpolygon fill='%23ffdf00' points='500,80 920,350 500,620 80,350'/%3E%3Ccircle fill='%23002776' cx='500' cy='350' r='170'/%3E%3Cpath fill='white' d='M500,180 a170,170 0 1,0 0,340 a130,130 0 1,1 0,-340'/%3E%3C/svg%3E")`
               }}
             />
-            <span className="relative z-10 font-black text-base">PT</span>
-            {/* Glow effect */}
-            {i18n.language === 'pt' && (
-              <m.div
-                className="absolute inset-0 rounded-lg bg-[var(--cyber-purple)]"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: [0.3, 0.6, 0.3] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-            )}
+            <span className="relative z-10 font-black text-sm">PT</span>
           </m.button>
 
-          {/* EN Button */}
+          {/* EN Button - US Flag */}
           <m.button
             onClick={() => i18n.changeLanguage('en')}
             aria-label={t('nav.switch_to_en')}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className={`group relative px-3 py-2 text-sm font-black uppercase tracking-wider rounded-lg transition-all overflow-hidden ${i18n.language === 'en'
+            className={`group relative px-1.5 py-1 text-xs font-black uppercase tracking-wider rounded-lg transition-all overflow-hidden ${i18n.language === 'en'
               ? 'bg-gradient-to-r from-[var(--cyber-cyan)] to-cyan-400 text-white shadow-[0_0_10px_rgba(0,255,255,0.5),0_0_20px_rgba(0,255,255,0.2)] ring-1 ring-[var(--cyber-cyan)]/30'
               : 'bg-white/10 text-white hover:text-white hover:bg-white/20 hover:shadow-[0_0_8px_rgba(0,255,255,0.3)]'
               }`}
           >
-            {/* US flag background */}
+            {/* US flag background - stronger colors */}
             <div
-              className="absolute inset-0 opacity-80 bg-cover bg-center rounded-lg group-hover:opacity-100 transition-opacity"
+              className="absolute inset-0 opacity-90 bg-cover bg-center rounded-lg group-hover:opacity-100 transition-opacity"
               style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 700'%3E%3Crect fill='%23bf0a30' width='1000' height='700'/%3E%3Cpath fill='white' d='M0,100 h1000 M0,200 h1000 M0,300 h1000 M0,400 h1000 M0,500 h1000 M0,600 h1000' stroke='white' stroke-width='50'/%3E%3Crect fill='%23002868' width='400' height='350'/%3E%3Cg fill='white'%3E%3Cpolygon points='50,30 53,45 68,45 56,54 60,69 50,60 40,69 44,54 32,45 47,45'/%3E%3C/g%3E%3C/svg%3E")`
               }}
             />
-            <span className="relative z-10 font-black text-base">EN</span>
+            <span className="relative z-10 font-black text-sm">EN</span>
             {/* Glow effect */}
             {i18n.language === 'en' && (
               <m.div

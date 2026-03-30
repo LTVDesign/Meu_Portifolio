@@ -145,4 +145,4 @@ const Works = () => {
   );
 };
 
-export default SectionWrapper(Works, 'projetos');
+export default SectionWrapper(Works, 'works');

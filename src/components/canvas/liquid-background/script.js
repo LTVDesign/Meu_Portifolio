@@ -350,9 +350,14 @@ window.onload = () => {
   };
   animate();
 
-  // --- RESIZE HANDLER ---
+  // --- RESIZE HANDLER COM DEBOUNCE ---
+  // Evita reflows forçados múltiplos durante redimensionamento
+  let resizeTimeout;
   window.addEventListener('resize', () => {
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
+    clearTimeout(resizeTimeout);
+    resizeTimeout = requestAnimationFrame(() => {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
+    });
   });
 };

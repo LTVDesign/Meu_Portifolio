@@ -1,6 +1,6 @@
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
 interface BackgroundSelectorModalProps {
     isOpen: boolean;
@@ -18,14 +18,11 @@ const backgrounds = [
 
 const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = ({ isOpen, onClose }) => {
     const { t } = useTranslation();
-    const navigate = useNavigate();
 
     const handleSelectBackground = (bgId: string) => {
         // Salvar no localStorage ou context
         localStorage.setItem('selectedBackground', bgId);
         onClose();
-        // Pode navegar para uma página de preview ou aplicar diretamente
-        navigate('/');
     };
 
     return (

@@ -44,7 +44,7 @@ import type {
 
 export const navLinks: TNavLink[] = [
   {
-    id: 'sobre',
+    id: 'about',
     title: 'Sobre',
   },
   {
@@ -52,7 +52,7 @@ export const navLinks: TNavLink[] = [
     title: 'Formação',
   },
   {
-    id: 'experiencia',
+    id: 'experience',
     title: 'Experiência Profissional',
   },
   {
@@ -60,7 +60,7 @@ export const navLinks: TNavLink[] = [
     title: 'Cursos',
   },
   {
-    id: 'projetos',
+    id: 'works',
     title: 'Projetos',
   },
   {

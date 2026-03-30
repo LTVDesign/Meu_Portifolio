@@ -6,204 +6,181 @@ O relatório do Lighthouse/DevTools indicou **reflows forçados** nos seguintes 
 
 | Arquivo | Tempo de Reflow | Origem |
 |---------|----------------|--------|
-| `react-vendor.js:955:145` | 18 ms | React/ReactDOM |
-| `three-C4q5Ox0d.js:1202:15` | 16 ms | Three.js |
-| `[sem atribuição]` | 14 ms | Código próprio |
-| `framer-motion.js:93:577` | 3 ms | Framer Motion |
-| `ParticleBackground.js:11:28` | 2 ms | Código próprio |
+| `vendor-mo….js:19:96` | 58 ms | Framer Motion / React |
+| `vendor-mo….js:884:581` | 58 ms | Framer Motion / React |
+| `vendor-three-fiber-ClOXwkwk.js:192:15` | 43 ms | Three.js / React Three Fiber |
+| `index-Qsx4uWUF.js:111:145` | 14 ms | Código da aplicação |
+| `vendor-three-fiber-ClOXwkwk.js:185:80` | 3 ms | Three.js / React Three Fiber |
+| `[sem atribuição]` | 7 ms | Vários |
+
+**Tempo total de reflow reportado: ~183 ms**
 
 ## 🔍 Causas Raiz
 
-### 1. **ParticleBackground.tsx** - `getBoundingClientRect()` no resize
-O canvas de partículas chama `getBoundingClientRect()` após modificar o estilo do canvas:
+### 1. **launchParticles.ts** - `getBoundingClientRect()` no hover/click
+O sistema de partículas do botão chamava `getBoundingClientRect()` após modificações no canvas, causando reflow forçado.
 
-```tsx
-const resizeCanvas = () => {
-  const canvas = canvasRef.current;
-  if (!canvas) return;
+### 2. **ParticleBackground.tsx** - `getBoundingClientRect()` no mousemove
+O handler de movimento do mouse chamava `getBoundingClientRect()` condicionalmente, potencialmente causando reflows durante a interação.
 
-  canvas.width = window.innerWidth * dpr;
-  canvas.height = window.innerHeight * dpr;
-  canvas.style.width = `${window.innerWidth}px`;  // ← Escrita de estilo
-  canvas.style.height = `${window.innerHeight}px`; // ← Escrita de estilo
+### 3. **liquid-background/script.js** - Resize handler sem debounce
+O evento de resize chamava `renderer.setSize()` imediatamente, potencialmente causando múltiplos reflows durante o redimensionamento.
 
-  // ... 
-
-  canvasRectRef.current = canvas.getBoundingClientRect(); // ← Leitura após escrita = REFLOW FORÇADO!
-};
-```
-
-### 2. **launchParticles.ts** - `getBoundingClientRect()` após modificações
-Similar ao ParticleBackground, o sistema de partículas de clique chama `getBoundingClientRect()` após modificações no canvas.
-
-### 3. **React/Three.js** - Layout thrashing genérico
-O React e Three.js podem estar causando reflows devido a:
-- Múltiplas atualizações de estado que disparam re-renderizações
-- Leitura de propriedades de layout após atualizações de DOM
+### 4. **Framer Motion** - Múltiplas animações simultâneas
+O GearButton e BackgroundMenu usam múltiplas animações Framer Motion que podem causar layout thrashing.
 
 ## ✅ Soluções Implementadas
 
-### 1. Otimizar ParticleBackground.tsx
+### 1. Otimizar launchParticles.ts
 
-**Problema:** `getBoundingClientRect()` chamado após escrita de estilos.
+**Problema:** `getBoundingClientRect()` chamado após escrita de estilos no canvas.
 
-**Solução:** Usar `window.innerWidth/Height` diretamente em vez de `getBoundingClientRect()`.
+**Solução:** Implementar cache de posição do botão com duração de 1 segundo e separar leituras de escritas usando `requestAnimationFrame`.
 
-```tsx
+```typescript
 // ANTES (causa reflow)
-canvas.style.width = `${window.innerWidth}px`;
-canvas.style.height = `${window.innerHeight}px`;
-canvasRectRef.current = canvas.getBoundingClientRect();
-
-// DEPOIS (evita reflow)
-canvas.style.width = `${window.innerWidth}px`;
-canvas.style.height = `${window.innerHeight}px`;
-// Usa valores já conhecidos em vez de consultar o DOM
-canvasRectRef.current = {
-  left: 0,
-  top: 0,
-  width: window.innerWidth,
-  height: window.innerHeight,
-  right: window.innerWidth,
-  bottom: window.innerHeight,
-  x: 0,
-  y: 0,
-  toJSON: () => {}
-};
-```
-
-### 2. Otimizar launchParticles.ts
-
-**Problema:** `getBoundingClientRect()` chamado no `syncLayout()` após modificações.
-
-**Solução:** Cachear a posição do botão e atualizar apenas quando necessário.
-
-```tsx
-// Usar requestAnimationFrame para batch de leituras
 const syncLayout = (): void => {
-  dpr = window.devicePixelRatio ?? 1;
-  const w = window.innerWidth;
-  const h = window.innerHeight;
-
-  // Escrita primeiro
   canvas.width = w * dpr;
   canvas.height = h * dpr;
   canvas.style.width = `${w}px`;
   canvas.style.height = `${h}px`;
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  pxPerVw = w / 100;
-
-  // Leitura em um frame separado ou usar valores conhecidos
+  
   requestAnimationFrame(() => {
     const rect = btn.getBoundingClientRect();
-    btnPos = {
-      x: rect.left + rect.width / 2,
-      y: rect.top + rect.height / 2,
-      w: rect.width,
-    };
+    btnPos = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2, w: rect.width };
+  });
+};
+
+// DEPOIS (evita reflow com cache)
+let btnPosCache: ButtonPosition | null = null;
+let lastBtnPosUpdate = 0;
+const BTN_POS_CACHE_DURATION = 1000; // Cache por 1 segundo
+
+const updateBtnPosition = (): void => {
+  const now = performance.now();
+  // Usa cache se disponível e válido
+  if (btnPosCache && (now - lastBtnPosUpdate) < BTN_POS_CACHE_DURATION) {
+    btnPos = btnPosCache;
+    return;
+  }
+
+  // Atualiza a posição do botão fora do ciclo de renderização principal
+  requestAnimationFrame(() => {
+    const rect = btn.getBoundingClientRect();
+    btnPosCache = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2, w: rect.width };
+    btnPos = btnPosCache;
+    lastBtnPosUpdate = performance.now();
   });
 };
 ```
 
-### 3. Otimizar Framer Motion
+### 2. Otimizar ParticleBackground.tsx
 
-**Problema:** Múltiplas animações simultâneas podem causar layout thrashing.
+**Problema:** `getBoundingClientRect()` chamado condicionalmente no `handleMouseMove`.
 
-**Solução:** Usar `will-change` com moderação e `transform` em vez de propriedades de layout.
+**Solução:** Usar coordenadas diretas do evento de mouse em vez de `getBoundingClientRect()`, já que o canvas tem `position: fixed` e `inset: 0`.
 
-No `critical.css`:
-```css
-/* Elementos com animações pesadas */
-.hero-section,
-.gear-button,
-.background-menu {
-  contain: layout style paint;
-  will-change: transform;
-}
-```
-
-### 4. Otimizar Three.js Canvas
-
-**Problema:** Canvas do Three.js pode estar causando reflows.
-
-**Solução:** Garantir que o canvas tenha tamanho fixo ou use `position: fixed`.
-
-No `ComputersCanvas`:
-```tsx
-// Já está otimizado com position fixed via Tailwind
-<div className="relative h-full w-full" style={{ zIndex: -1, pointerEvents: 'none' }}>
-```
-
-## 🚀 Melhorias Adicionais Recomendadas
-
-### 1. Usar `ResizeObserver` em vez de `resize` event
-
-```tsx
-// Em vez de window.addEventListener('resize', ...)
-const resizeObserver = new ResizeObserver((entries) => {
-  for (const entry of entries) {
-    const { width, height } = entry.contentRect;
-    // Atualizar dimensões sem reflow
+```typescript
+// ANTES (causa reflow potencial)
+const handleMouseMove = (e: MouseEvent) => {
+  if (!canvasRectRef.current) {
+    const canvas = canvasRef.current;
+    if (canvas) {
+      canvasRectRef.current = canvas.getBoundingClientRect(); // REFLOW!
+    }
   }
+  const rect = canvasRectRef.current;
+  if (rect) {
+    mouseRef.current.x = e.clientX - rect.left;
+    mouseRef.current.y = e.clientY - rect.top;
+  }
+};
+
+// DEPOIS (evita reflow completamente)
+const handleMouseMove = (e: MouseEvent) => {
+  // Usa valores diretos do evento em vez de getBoundingClientRect()
+  // Como o canvas tem position: fixed e inset: 0, as coordenadas são (0, 0)
+  mouseRef.current.x = e.clientX;
+  mouseRef.current.y = e.clientY;
+};
+```
+
+### 3. Otimizar liquid-background/script.js
+
+**Problema:** Evento de resize sem debounce causava múltiplos reflows.
+
+**Solução:** Usar `requestAnimationFrame` para debouncing natural.
+
+```javascript
+// ANTES (múltiplos reflows durante resize)
+window.addEventListener('resize', () => {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
+});
+
+// DEPOIS (debounce com requestAnimationFrame)
+let resizeTimeout;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = requestAnimationFrame(() => {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
+  });
 });
 ```
 
-### 2. Batch de leituras e escritas do DOM
+### 4. Otimizar CSS com contain: strict
 
-```tsx
-// Padrão recomendado: todas as escritas primeiro, depois todas as leituras
-function updateLayout() {
-  // Fase 1: Escritas
-  element1.style.width = '100px';
-  element2.style.height = '200px';
-  
-  // Force flush se necessário
-  // element1.offsetHeight; // NÃO FAÇA ISSO AQUI!
-  
-  // Fase 2: Leituras (após o browser processar as escritas)
-  requestAnimationFrame(() => {
-    const rect1 = element1.getBoundingClientRect();
-    const rect2 = element2.getBoundingClientRect();
-  });
+**Problema:** Múltiplas animações Framer Motion causavam layout thrashing.
+
+**Solução:** Adicionar `contain: strict` e `will-change: transform` no GearButton e elementos relacionados.
+
+```css
+/* Gear Button - Containment estrito para isolar animações */
+.gear-button,
+.theme-toggle-container {
+    contain: strict;
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+/* Launch button wrap - Otimização específica */
+.launch-btn-wrap,
+.launch-btn {
+    contain: layout style paint;
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
 }
 ```
 
-### 3. Usar `transform` em vez de `top/left`
+## 🚀 Técnicas de Otimização Aplicadas
 
-```tsx
-// RUIM (causa reflow)
-element.style.left = `${x}px`;
-element.style.top = `${y}px`;
+### 1. Cache de Posição do DOM
+Em vez de consultar `getBoundingClientRect()` frequentemente, cacheamos o valor por 1 segundo.
 
-// BOM (usa GPU, não causa reflow)
-element.style.transform = `translate(${x}px, ${y}px)`;
-```
+### 2. Separação de Leituras e Escritas do DOM
+Todas as escritas no DOM são feitas primeiro, e as leituras são adiadas para o próximo `requestAnimationFrame`.
 
-### 4. Debounce de eventos de resize
+### 3. Debounce com requestAnimationFrame
+Usar `requestAnimationFrame` em vez de `setTimeout` para debounce garante que as operações de layout ocorram no momento certo do ciclo de renderização.
 
-```tsx
-const useDebouncedResize = (callback: () => void, delay: number = 100) => {
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    const handler = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(callback, delay);
-    };
-    
-    window.addEventListener('resize', handler);
-    return () => window.removeEventListener('resize', handler);
-  }, [callback, delay]);
-};
-```
+### 4. Containment CSS
+O `contain: strict` isola o elemento do resto do documento, permitindo que o navegador otimize a renderização.
+
+### 5. GPU Acceleration
+`transform: translateZ(0)` e `will-change: transform` movem as animações para a GPU.
 
 ## 📊 Impacto Esperado
 
 | Métrica | Antes | Depois (Esperado) |
 |---------|-------|-----------------------------------|
-| Tempo total de reflow | ~53 ms | ~10-20 ms |
+| Tempo total de reflow | ~183 ms | ~30-50 ms |
 | Layout thrashing | Alto | Baixo |
 | Performance em scroll | Moderada | Boa |
 | FPS durante animações | 45-55 | 55-60 |
+| Reflows durante resize | Múltiplos | 1 por frame |
 
 ## 🔍 Como Verificar
 
@@ -215,33 +192,105 @@ const useDebouncedResize = (callback: () => void, delay: number = 100) => {
 
 ## 📝 Checklist de Verificação
 
-- [x] Otimizar `ParticleBackground.tsx` - usar valores conhecidos em vez de `getBoundingClientRect()`
-- [x] Otimizar `launchParticles.ts` - batch de leituras/escritas com requestAnimationFrame
-- [x] Adicionar `contain: strict` em canvases de partículas
-- [x] Usar `transform` em vez de propriedades de layout
-- [x] Remover CSS duplicado no critical.css
+- [x] Otimizar `launchParticles.ts` - cache de posição do botão com requestAnimationFrame
+- [x] Otimizar `ParticleBackground.tsx` - remover getBoundingClientRect() do mousemove
+- [x] Otimizar `liquid-background/script.js` - debounce no resize com requestAnimationFrame
+- [x] Adicionar `contain: strict` no GearButton e elementos relacionados
+- [x] Adicionar `will-change: transform` para GPU acceleration
 - [ ] Testar em produção
 - [ ] Medir métricas reais no Lighthouse
 
+## 📄 Arquivos Modificados
+
+1. **`src/utils/particles/launchParticles.ts`**
+   - Adicionado cache de posição do botão (`btnPosCache`)
+   - Separação de leituras e escritas do DOM
+   - `getBoundingClientRect()` movido para `requestAnimationFrame`
+
+2. **`src/components/canvas/ParticleBackground.tsx`**
+   - Removido `getBoundingClientRect()` condicional do `handleMouseMove`
+   - Usado coordenadas diretas do evento de mouse
+
+3. **`src/components/canvas/liquid-background/script.js`**
+   - Adicionado debounce com `requestAnimationFrame` no evento de resize
+
+4. **`src/critical.css`**
+   - Adicionado `contain: strict` no GearButton
+   - Adicionado `will-change: transform` para GPU acceleration
+   - Otimizações específicas para `.launch-btn-wrap` e `.launch-btn`
+
+## 🎯 Próximas Otimizações Recomendadas
+
+### CSS Bloqueante de Renderização
+
+O Lighthouse identificou que o arq
+uivo CSS (`/assets/index-CgwYPTjq.css`) está bloqueando a renderização, com economia estimada de 40 ms.
+
+**Soluções recomendadas:**
+
+1. **Critical CSS Inline**: Mover o CSS crítico para inline no `index.html`
+2. **CSS Code Splitting**: Habilitar `cssCodeSplit: true` no `vite.config.js`
+3. **Carregamento Assíncrono**: Usar `loadCSS` ou técnica de preload com onload
+4. **Reduzir CSS não utilizado**: Remover classes Tailwind não utilizadas
+
+**Exemplo de implementação:**
+
+```html
+<!-- No index.html, adicionar critical CSS inline -->
+<style>
+  /* CSS mínimo para First Paint */
+  *,*::before,*::after{box-sizing:border-box}
+  body{margin:0;background:#050816;color:#fff;font-family:system-ui,-apple-system,sans-serif}
+  /* Adicionar mais estilos críticos conforme necessário */
+</style>
+```
+
+```javascript
+// No vite.config.js
+build: {
+  cssCodeSplit: true, // Divide CSS por chunk
+  // ...
+}
+```
+
 ---
 
-## ✅ Implementações Concluídas
+**Status**: ✅ **Otimizações de reflow implementadas - pronto para teste**
 
-### 1. ParticleBackground.tsx
-- Substituído `getBoundingClientRect()` por objeto DOMRect simulado
-- Canvas com `position: fixed` e `inset: 0` garante coordenadas (0, 0)
-- Elimina reflow forçado no resize
+**Última atualização**: 2026-03-30
+uivo CSS (`/assets/index-CgwYPTjq.css`) está bloqueando a renderização, com economia estimada de 40 ms.
 
-### 2. launchParticles.ts
-- Separação de escritas e leituras do DOM
-- `getBoundingClientRect()` movido para `requestAnimationFrame`
-- Previne layout thrashing durante sincronização
+**Soluções recomendadas:**
 
-### 3. critical.css
-- Adicionado `contain: strict` no `#particles-canvas`
-- Removida duplicação de regras CSS
-- Otimizações de GPU acceleration mantidas
+1. **Critical CSS Inline**: Mover o CSS crítico para inline no `index.html`
+2. **CSS Code Splitting**: Habilitar `cssCodeSplit: true` no `vite.config.js`
+3. **Carregamento Assíncrono**: Usar `loadCSS` ou técnica de preload com onload
+4. **Reduzir CSS não utilizado**: Remover classes Tailwind não utilizadas
+
+**Exemplo de implementação:**
+
+```html
+<!-- No index.html, adicionar critical CSS inline -->
+<style>
+  /* CSS mínimo para First Paint */
+  *,*::before,*::after{box-sizing:border-box}
+  body{margin:0;background:#050816;color:#fff;font-family:system-ui,-apple-system,sans-serif}
+  /* Adicionar mais estilos críticos conforme necessário */
+</style>
+```
+
+```javascript
+// No vite.config.js
+build: {
+  cssCodeSplit: true, // Divide CSS por chunk
+  // ...
+}
+```
 
 ---
 
-**Status**: ✅ **Otimizações implementadas - pronto para teste**
+**Status**: ✅ **Otimizações de reflow implementadas - pronto para teste**
+
+**Última atualização**: 2026-03-30
+**Última atualização**: 20
+**Última atualização**:

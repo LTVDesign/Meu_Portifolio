@@ -108,21 +108,25 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
             <DynamicText colorMode="auto">{h2}</DynamicText>
           </motion.div>
         </motion.div>
-        <motion.div variants={subtitleVariants}>
-          <p className={`${styles.sectionSubText} relative`} style={{
-            filter: 'drop-shadow(0 0 10px rgba(0,255,255,0.4)) drop-shadow(0 0 20px rgba(145,94,255,0.3))'
-          }}>
+        <div className="relative">
+          <motion.p
+            variants={subtitleVariants}
+            className={`${styles.sectionSubText} relative`}
+            style={{
+              filter: 'drop-shadow(0 0 10px rgba(0,255,255,0.4)) drop-shadow(0 0 20px rgba(145,94,255,0.3))'
+            }}
+          >
             <DynamicText colorMode="auto">{p}</DynamicText>
-            {/* Linha animada abaixo do subtítulo */}
-            <motion.div
-              className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)] to-transparent"
-              initial={{ width: 0 }}
-              whileInView={{ width: '100%' }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-            />
-          </p>
-        </motion.div>
+          </motion.p>
+          {/* Linha animada abaixo do subtítulo */}
+          <motion.div
+            className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)] to-transparent"
+            initial={{ width: 0 }}
+            whileInView={{ width: '100%' }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          />
+        </div>
       </motion.div>
     );
   }
@@ -139,12 +143,14 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
           <DynamicText colorMode="auto">{h2}</DynamicText>
         </div>
       </div>
-      <p className={`${styles.sectionSubText} relative`} style={{
-        filter: 'drop-shadow(0 0 10px rgba(0,255,255,0.4)) drop-shadow(0 0 20px rgba(145,94,255,0.3))'
-      }}>
-        <DynamicText colorMode="auto">{p}</DynamicText>
+      <div className="relative">
+        <p className={`${styles.sectionSubText} relative`} style={{
+          filter: 'drop-shadow(0 0 10px rgba(0,255,255,0.4)) drop-shadow(0 0 20px rgba(145,94,255,0.3))'
+        }}>
+          <DynamicText colorMode="auto">{p}</DynamicText>
+        </p>
         <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)] to-transparent w-0 group-hover:w-full transition-all duration-500" />
-      </p>
+      </div>
     </div>
   );
 };

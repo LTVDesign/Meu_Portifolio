@@ -49,6 +49,22 @@
   <meta name="twitter:image" content="https://leandrobarbosa.dev/logo.webp" />
   <title>Leandro Saturnino Barbosa | Portfólio 3D - React & Three.js</title>
 
+  <!-- Critical CSS Inline - Essencial para First Paint -->
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background: #050816;
+      color: #fff;
+      font-family: system-ui, -apple-system, sans-serif
+    }
+  </style>
+
   <!-- Critical CSS - Carregado de forma não bloqueante -->
   <link rel="preload" as="style" href="/src/critical.css" onload="this.onload=null;this.rel='stylesheet'">
   <noscript>

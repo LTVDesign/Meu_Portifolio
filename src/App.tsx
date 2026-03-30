@@ -7,7 +7,7 @@ import { DynamicTextProvider } from './components/atoms/DynamicTextProvider';
 import { MotionProvider } from './components/layout/MotionProvider';
 import { useKonamiCode } from './hooks/useKonamiCode';
 import { AnimatePresence } from 'framer-motion';
-import { useParticleConfig } from './contexts/ParticleConfigContext';
+import { useParticleConfig, useBackgroundMenu } from './contexts/ParticleConfigContext';
 
 // i18n carregado sob demanda para reduzir bundle initial
 
@@ -72,20 +72,24 @@ const BackgroundManager = lazy(() => import('./components/canvas/BackgroundManag
 
 const AppContent = () => {
   const [backgroundLoaded] = useState(true);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [selectedBgForEditor, setSelectedBgForEditor] = useState<string>('particles');
 
   const { config } = useParticleConfig();
+  const { isBgMenuOpen, openBgMenu, closeBgMenu } = useBackgroundMenu();
 
   useKonamiCode();
 
   const handleGearClick = () => {
-    setIsMenuOpen(prev => !prev);
+    if (isBgMenuOpen) {
+      closeBgMenu();
+    } else {
+      openBgMenu();
+    }
   };
 
   const handleCloseMenu = () => {
-    setIsMenuOpen(false);
+    closeBgMenu();
   };
 
   const handleOpenEditor = (bgType?: string) => {
@@ -93,7 +97,7 @@ const AppContent = () => {
     const bg = bgType || config.backgroundType;
     setSelectedBgForEditor(bg);
     setIsEditorOpen(true);
-    setIsMenuOpen(false);
+    closeBgMenu();
   };
 
   const handleCloseEditor = () => {
@@ -152,10 +156,10 @@ const AppContent = () => {
               </div>
 
               {/* Gear Button e Menus de Background */}
-              <GearButton onClick={handleGearClick} isOpen={isMenuOpen} />
+              <GearButton onClick={handleGearClick} isOpen={isBgMenuOpen} />
 
               <AnimatePresence>
-                {isMenuOpen && (
+                {isBgMenuOpen && (
                   <BackgroundMenu
                     onEdit={handleOpenEditor}
                     onClose={handleCloseMenu}

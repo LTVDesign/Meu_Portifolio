@@ -180,18 +180,11 @@ const ParticleBackground = ({
     if (now - lastMouseMoveRef.current < 16) return;
     lastMouseMoveRef.current = now;
 
-    if (!canvasRectRef.current) {
-      const canvas = canvasRef.current;
-      if (canvas) {
-        canvasRectRef.current = canvas.getBoundingClientRect();
-      }
-    }
-
-    const rect = canvasRectRef.current;
-    if (rect) {
-      mouseRef.current.x = e.clientX - rect.left;
-      mouseRef.current.y = e.clientY - rect.top;
-    }
+    // Usa valores diretos do evento em vez de getBoundingClientRect()
+    // Como o canvas tem position: fixed e inset: 0, as coordenadas são (0, 0)
+    // Isso evita reflow forçado completamente
+    mouseRef.current.x = e.clientX;
+    mouseRef.current.y = e.clientY;
   };
 
   // Inicialização

@@ -71,6 +71,9 @@ export const initLaunchParticles = (canvas: HTMLCanvasElement, btn: HTMLElement)
   let btnPos: ButtonPosition = { x: 0, y: 0, w: 0 };
   let dpr: number = window.devicePixelRatio ?? 1;
   let animationId: number;
+  let btnPosCache: ButtonPosition | null = null;
+  let lastBtnPosUpdate = 0;
+  const BTN_POS_CACHE_DURATION = 1000; // Cache por 1 segundo
 
   const rand = (min: number, max: number): number => min + Math.random() * (max - min);
   const vw = (n: number): number => n * pxPerVw;
@@ -142,12 +145,34 @@ export const initLaunchParticles = (canvas: HTMLCanvasElement, btn: HTMLElement)
     return sprite;
   };
 
+  const updateBtnPosition = (): void => {
+    const now = performance.now();
+    // Usa cache se disponível e válido
+    if (btnPosCache && (now - lastBtnPosUpdate) < BTN_POS_CACHE_DURATION) {
+      btnPos = btnPosCache;
+      return;
+    }
+
+    // Atualiza a posição do botão fora do ciclo de renderização principal
+    // Usa requestAnimationFrame para separar leituras de escritas do DOM
+    requestAnimationFrame(() => {
+      const rect = btn.getBoundingClientRect();
+      btnPosCache = {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+        w: rect.width,
+      };
+      btnPos = btnPosCache;
+      lastBtnPosUpdate = performance.now();
+    });
+  };
+
   const syncLayout = (): void => {
     dpr = window.devicePixelRatio ?? 1;
     const w = window.innerWidth;
     const h = window.innerHeight;
 
-    // Fase 1: Escritas no DOM (todas juntas)
+    // Fase 1: Escritas no DOM (todas juntas) - isso invalida o layout
     canvas.width = w * dpr;
     canvas.height = h * dpr;
     canvas.style.width = `${w}px`;
@@ -156,15 +181,8 @@ export const initLaunchParticles = (canvas: HTMLCanvasElement, btn: HTMLElement)
     pxPerVw = w / 100;
 
     // Fase 2: Leitura - Separada das escritas para evitar reflow forçado
-    // Usa requestAnimationFrame para garantir que o browser processou as escritas
-    requestAnimationFrame(() => {
-      const rect = btn.getBoundingClientRect();
-      btnPos = {
-        x: rect.left + rect.width / 2,
-        y: rect.top + rect.height / 2,
-        w: rect.width,
-      };
-    });
+    // Atualiza a posição do botão de forma assíncrona
+    updateBtnPosition();
   };
 
   const gradientAngle = (): number => ((performance.now() % 4000) / 4000) * 360;
@@ -271,7 +289,8 @@ export const initLaunchParticles = (canvas: HTMLCanvasElement, btn: HTMLElement)
   };
 
   const enterHover = (): void => {
-    syncLayout();
+    // Atualiza a posição do botão apenas se necessário
+    updateBtnPosition();
     isHovered = true;
   };
 

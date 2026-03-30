@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect, useContext, useCallback, useMemo, createContext, type FC } from 'react';
 import { type ParticleConfig, validateLocalStorageData } from '../utils/validation';
 
 // Importamos o tipo do arquivo de validação
@@ -107,26 +107,47 @@ const defaultConfig: ParticleConfig = {
 interface ParticleConfigContextType {
   config: ParticleConfig;
   updateConfig: (newConfig: Partial<ParticleConfig>) => void;
+  // Menu de background global
+  isBgMenuOpen: boolean;
+  openBgMenu: () => void;
+  closeBgMenu: () => void;
 }
 
-const ParticleConfigContext = React.createContext<ParticleConfigContextType | undefined>(undefined);
+const ParticleConfigContext = createContext<ParticleConfigContextType | undefined>(undefined);
 
 export const useParticleConfig = () => {
-  const context = React.useContext(ParticleConfigContext);
+  const context = useContext(ParticleConfigContext);
   if (!context) {
     throw new Error('useParticleConfig must be used within a ParticleConfigProvider');
   }
   return context;
 };
 
+// Hook específico para controlar o menu de background
+export const useBackgroundMenu = () => {
+  const context = useContext(ParticleConfigContext);
+  if (!context) {
+    throw new Error('useBackgroundMenu must be used within a ParticleConfigProvider');
+  }
+  return {
+    isBgMenuOpen: context.isBgMenuOpen,
+    openBgMenu: context.openBgMenu,
+    closeBgMenu: context.closeBgMenu,
+  };
+};
+
 interface ParticleConfigProviderProps {
   children: React.ReactNode;
 }
 
-export const ParticleConfigProvider: React.FC<ParticleConfigProviderProps> = ({ children }) => {
-  const [config, setConfig] = React.useState<ParticleConfig>(defaultConfig);
+export const ParticleConfigProvider: FC<ParticleConfigProviderProps> = ({ children }) => {
+  const [config, setConfig] = useState<ParticleConfig>(defaultConfig);
+  const [isBgMenuOpen, setIsBgMenuOpen] = useState(false);
 
-  React.useEffect(() => {
+  const openBgMenu = useCallback(() => setIsBgMenuOpen(true), []);
+  const closeBgMenu = useCallback(() => setIsBgMenuOpen(false), []);
+
+  useEffect(() => {
     // Carregar e validar configurações do localStorage
     const savedConfig = localStorage.getItem('particleConfig');
     if (savedConfig) {
@@ -147,7 +168,7 @@ export const ParticleConfigProvider: React.FC<ParticleConfigProviderProps> = ({ 
   }, []);
 
   // Dynamic Text Contrast Tracker
-  React.useEffect(() => {
+  useEffect(() => {
     const getLuminance = (hex: string) => {
       if (!hex?.startsWith('#')) return 0;
       const rgb = parseInt(hex.replace('#', ''), 16);
@@ -180,7 +201,7 @@ export const ParticleConfigProvider: React.FC<ParticleConfigProviderProps> = ({ 
   }, [config]);
 
   // Listener para mudanças de tema
-  React.useEffect(() => {
+  useEffect(() => {
     const updateParticleColorBasedOnTheme = () => {
       const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
       const currentTheme =
@@ -215,7 +236,7 @@ export const ParticleConfigProvider: React.FC<ParticleConfigProviderProps> = ({ 
     };
   }, [config.particleColor]);
 
-  const updateConfig = React.useCallback((newConfig: Partial<ParticleConfig>) => {
+  const updateConfig = useCallback((newConfig: Partial<ParticleConfig>) => {
     setConfig((prevConfig: ParticleConfig) => {
       const updatedConfig = { ...prevConfig, ...newConfig };
       localStorage.setItem('particleConfig', JSON.stringify(updatedConfig));
@@ -223,7 +244,13 @@ export const ParticleConfigProvider: React.FC<ParticleConfigProviderProps> = ({ 
     });
   }, []);
 
-  const contextValue = React.useMemo(() => ({ config, updateConfig }), [config, updateConfig]);
+  const contextValue = useMemo(() => ({
+    config,
+    updateConfig,
+    isBgMenuOpen,
+    openBgMenu,
+    closeBgMenu,
+  }), [config, updateConfig, isBgMenuOpen, openBgMenu, closeBgMenu]);
 
   return (
     <ParticleConfigContext.Provider value={contextValue}>{children}</ParticleConfigContext.Provider>

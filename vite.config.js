@@ -52,6 +52,7 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
     chunkSizeWarningLimit: 500, // Reduzido para alertar sobre chunks grandes
+    cssCodeSplit: true, // Divide CSS para carregar apenas o necessário
     rollupOptions: {
       output: {
         manualChunks: (id) => {

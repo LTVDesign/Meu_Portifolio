@@ -4,14 +4,20 @@ import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { ComputersCanvas } from '../canvas';
 import { TerminalText } from '../atoms';
-import BackgroundSelectorModal from '../atoms/BackgroundSelectorModal';
+import { useBackgroundMenu } from '../../contexts/ParticleConfigContext';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 const Hero = () => {
   const [showSubtitle, setShowSubtitle] = useState(false);
-  const [showBackgroundModal, setShowBackgroundModal] = useState(false);
+  const [showSecondLine, setShowSecondLine] = useState(false);
   const { t } = useTranslation();
   const prefersReduced = useReducedMotion();
+  const { openBgMenu } = useBackgroundMenu();
+
+  const handleFirstLineComplete = () => {
+    // Quando a primeira linha completa, inicia a segunda
+    setShowSecondLine(true);
+  };
 
   useEffect(() => {
     // Reduzido de 1200ms para 300ms para melhorar LCP
@@ -23,7 +29,7 @@ const Hero = () => {
   }, []);
 
   const handleBackgroundClick = () => {
-    setShowBackgroundModal(true);
+    openBgMenu();
   };
 
   return (
@@ -34,42 +40,58 @@ const Hero = () => {
         whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
         transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: 'easeOut' }}
         viewport={prefersReduced ? {} : { once: true, amount: 0.25 }}
-        className="relative min-h-screen flex items-center justify-center pt-0 overflow-hidden"
+        className="relative min-h-screen flex items-start justify-center pt-0 overflow-hidden"
       >
         <Helmet>
           <title>{t('hero.titleMeta')}</title>
           <meta name="description" content={t('hero.descriptionMeta')} />
         </Helmet>
 
-        <div className="max-w-7xl mx-auto px-6 z-10 w-full flex flex-col items-center text-center relative -mt-16">
-          {/* Título principal com animação de entrada */}
-          <m.div
-            initial={{ opacity: 0, y: 50, scale: 0.8 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{
-              type: 'spring',
-              stiffness: 100,
-              damping: 15,
-              duration: 1
-            }}
-          >
-            <h1 className="text-[clamp(2.2rem,6vw,4rem)] leading-none font-black tracking-[-0.04em] text-white mb-4">
-              {t('hero.title')}
-            </h1>
-          </m.div>
-
-          {/* Texto "Olá, eu sou..." com animação de typing */}
-          <div className="min-h-[3rem] max-w-2xl -mt-2">
+        <div className="max-w-7xl mx-auto px-6 z-10 w-full flex flex-col items-center text-center relative mt-16 md:mt-20">
+          {/* Texto com animação de terminal - duas linhas */}
+          <div className="min-h-[8rem] max-w-2xl flex flex-col gap-3">
             {showSubtitle && (
-              <TerminalText
-                words={t('hero.subtitle', { returnObjects: true }) as string[]}
-                colors={['#06b6d4', '#a855f7', '#e5e7eb']}
-                typingSpeed={55}
-                pauseTime={2800}
-                loop={false}
-                typeOnce={true}
-                className="text-[clamp(1.05rem,2.2vw,1.35rem)]"
-              />
+              <>
+                {/* Primeira linha: maior, branca com borda gradiente, fixa após digitação */}
+                <m.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  className="relative"
+                >
+                  <TerminalText
+                    words={[t('hero.title')]}
+                    colors={['#ffffff']}
+                    typingSpeed={65}
+                    pauseTime={2000}
+                    loop={false}
+                    typeOnce={true}
+                    onComplete={handleFirstLineComplete}
+                    className="text-[clamp(1.5rem,3.5vw,2.5rem)] font-bold tracking-wide"
+                  />
+                  {/* Efeito de borda gradiente na linha de cima */}
+                  <div className="absolute -inset-2 bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-lg opacity-30 blur-md -z-10" />
+                </m.div>
+                {/* Segunda linha: sem efeito, em loop após primeira completar */}
+                {showSecondLine && (
+                  <m.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                    className="relative"
+                  >
+                    <TerminalText
+                      words={(t('hero.subtitle', { returnObjects: true }) as string[]).slice(0, 1)}
+                      colors={['#a855f7', '#06b6d4', '#e5e7eb']}
+                      typingSpeed={55}
+                      pauseTime={2800}
+                      loop={true}
+                      typeOnce={false}
+                      className="text-[clamp(1rem,2vw,1.5rem)]"
+                    />
+                  </m.div>
+                )}
+              </>
             )}
           </div>
 
@@ -80,13 +102,13 @@ const Hero = () => {
           <ComputersCanvas />
         </div>
 
-        {/* Engrenagem flutuante esquerda - Gear button */}
+        {/* Engrenagem flutuante esquerda - Gear button para configurações de background */}
         <m.button
-          onClick={() => window.location.href = '/'}
-          className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-20 cursor-pointer group"
+          onClick={handleBackgroundClick}
+          className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-[100001] cursor-pointer group"
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
-          aria-label="Ir para página inicial"
+          aria-label="Abrir configurações de background"
         >
           <div className="relative w-20 h-20">
             {/* Glow externo */}
@@ -147,7 +169,7 @@ const Hero = () => {
         {/* Engrenagem flutuante direita - Background selector */}
         <m.button
           onClick={handleBackgroundClick}
-          className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-20 cursor-pointer group"
+          className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-[100001] cursor-pointer group"
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
           aria-label="Abrir seletor de background"
@@ -194,11 +216,6 @@ const Hero = () => {
           </div>
         </m.button>
 
-        {/* Modal de Seleção de Background */}
-        <BackgroundSelectorModal
-          isOpen={showBackgroundModal}
-          onClose={() => setShowBackgroundModal(false)}
-        />
 
         {/* Scroll / Interact Icon - Enhanced */}
         <div className="absolute bottom-10 w-full flex justify-center items-center z-20 pointer-events-none">

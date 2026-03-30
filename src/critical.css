@@ -85,10 +85,27 @@ canvas {
 
 /* Elementos com animações pesadas */
 .hero-section,
-.gear-button,
 .background-menu {
     contain: layout style paint;
     will-change: transform;
+}
+
+/* Gear Button - Containment estrito para isolar animações */
+.gear-button,
+.theme-toggle-container {
+    contain: strict;
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+/* Launch button wrap - Otimização específica */
+.launch-btn-wrap,
+.launch-btn {
+    contain: layout style paint;
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
 }
 
 /* Modais e overlays */
