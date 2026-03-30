@@ -1,4 +1,3 @@
-
 import React, { useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
@@ -7,11 +6,17 @@ import { ParticleConfigProvider } from './contexts/ParticleConfigContext';
 import { DynamicTextProvider } from './components/atoms/DynamicTextProvider';
 import { MotionProvider } from './components/layout/MotionProvider';
 import { useKonamiCode } from './hooks/useKonamiCode';
-import './i18n';
+import { AnimatePresence } from 'framer-motion';
+import { useParticleConfig } from './contexts/ParticleConfigContext';
+
+// i18n carregado sob demanda para reduzir bundle initial
 
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ParticlesCanvas from './components/layout/ParticlesCanvas';
+import GearButton from './components/layout/GearButton';
+import BackgroundMenu from './components/layout/BackgroundMenu';
+import BackgroundEditorModal from './components/layout/BackgroundEditorModal';
 
 // Simple Error Boundary
 class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean; error: Error | null }> {
@@ -67,8 +72,33 @@ const BackgroundManager = lazy(() => import('./components/canvas/BackgroundManag
 
 const AppContent = () => {
   const [backgroundLoaded] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [selectedBgForEditor, setSelectedBgForEditor] = useState<string>('particles');
+
+  const { config } = useParticleConfig();
 
   useKonamiCode();
+
+  const handleGearClick = () => {
+    setIsMenuOpen(prev => !prev);
+  };
+
+  const handleCloseMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  const handleOpenEditor = (bgType?: string) => {
+    // Se não for fornecido um bgType, usa o backgroundType atual da configuração
+    const bg = bgType || config.backgroundType;
+    setSelectedBgForEditor(bg);
+    setIsEditorOpen(true);
+    setIsMenuOpen(false);
+  };
+
+  const handleCloseEditor = () => {
+    setIsEditorOpen(false);
+  };
 
   return (
     <HelmetProvider>
@@ -120,6 +150,24 @@ const AppContent = () => {
 
                 <Footer />
               </div>
+
+              {/* Gear Button e Menus de Background */}
+              <GearButton onClick={handleGearClick} isOpen={isMenuOpen} />
+
+              <AnimatePresence>
+                {isMenuOpen && (
+                  <BackgroundMenu
+                    onEdit={handleOpenEditor}
+                    onClose={handleCloseMenu}
+                  />
+                )}
+              </AnimatePresence>
+
+              <BackgroundEditorModal
+                isOpen={isEditorOpen}
+                selectedBg={selectedBgForEditor}
+                onClose={handleCloseEditor}
+              />
             </Router>
           </DynamicTextProvider>
         </MotionProvider>

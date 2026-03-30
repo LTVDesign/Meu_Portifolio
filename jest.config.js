@@ -20,7 +20,7 @@ export default {
         '^framer-motion$': '<rootDir>/src/__tests__/__mocks__/framerMotionMock.ts',
     },
 
-    setupFilesAfterEnv: ['<rootDir>/src/__tests__/setupTests.ts'],
+    // setupFilesAfterEnv: ['<rootDir>/src/__tests__/setupTests.ts'], // Removido - arquivo não existe
 
     testMatch: ['**/__tests__/**/*.{test,spec}.{ts,tsx}', '**/*.{test,spec}.{ts,tsx}'],
 

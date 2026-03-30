@@ -19,6 +19,15 @@ export default defineConfig({
       webp: { lossless: true },
     }),
     compression({
+      algorithm: 'brotliCompress', // Brotli é mais eficiente que gzip
+      ext: '.br',
+      threshold: 10240,
+      minSize: 0,
+      level: 11,
+      deleteOriginalFile: false,
+    }),
+    // Compressão gzip adicional para compatibilidade
+    compression({
       algorithm: 'gzip',
       ext: '.gz',
       threshold: 10240,
@@ -42,31 +51,66 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-    chunkSizeWarningLimit: 800,
+    chunkSizeWarningLimit: 500, // Reduzido para alertar sobre chunks grandes
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': [
-            'react',
-            'react-dom',
-            'react-router-dom',
-            'react-helmet-async',
-            'react-i18next',
-            'i18next',
-            'i18next-browser-languagedetector',
-          ],
-          'framer-motion': ['framer-motion/m'],
-          'three-core': ['three'],
-          'three-fiber': ['@react-three/fiber'],
-          'three-drei': ['@react-three/drei'],
-          'three-utils': ['three-mesh-bvh'],
-          'ui': ['react-icons', 'react-parallax-tilt', 'react-vertical-timeline-component'],
-          'utils': ['zod', '@exodus/bytes'],
+        manualChunks: (id) => {
+          // Vendor chunks - bibliotecas de terceiros
+          if (id.includes('node_modules')) {
+            // React e ecossistema
+            if (id.includes('node_modules/react/') ||
+              id.includes('node_modules/react-dom/') ||
+              id.includes('node_modules/scheduler/')) {
+              return 'vendor-react';
+            }
+
+            // React Router
+            if (id.includes('node_modules/react-router')) {
+              return 'vendor-router';
+            }
+
+            // Framer Motion - otimizado para tree shaking
+            if (id.includes('node_modules/framer-motion')) {
+              return 'vendor-motion';
+            }
+
+            // Three.js e ecossistema
+            if (id.includes('node_modules/three')) {
+              return 'vendor-three';
+            }
+            if (id.includes('node_modules/@react-three/fiber')) {
+              return 'vendor-three-fiber';
+            }
+            if (id.includes('node_modules/@react-three/drei')) {
+              return 'vendor-three-drei';
+            }
+            if (id.includes('node_modules/three-mesh-bvh')) {
+              return 'vendor-three-utils';
+            }
+
+            // i18n
+            if (id.includes('node_modules/i18next') ||
+              id.includes('node_modules/react-i18next')) {
+              return 'vendor-i18n';
+            }
+
+            // Helmet Async
+            if (id.includes('node_modules/react-helmet-async')) {
+              return 'vendor-helmet';
+            }
+
+            // Ícones
+            if (id.includes('node_modules/react-icons')) {
+              return 'vendor-icons';
+            }
+
+            // Utils
+            if (id.includes('node_modules/zod')) {
+              return 'vendor-zod';
+            }
+          }
         },
-        chunkFileNames: (chunkInfo) => {
-          const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/').pop() : 'chunk';
-          return `assets/[name]-[hash].js`;
-        },
+        chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
         assetFileNames: (assetInfo) => {
           const info = assetInfo.name?.split('.');
