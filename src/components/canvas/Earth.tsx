@@ -6,9 +6,12 @@ import * as THREE from 'three';
 
 import CanvasLoader from '../layout/Loader';
 
+// Import textures as Vite assets to ensure correct paths in production build
+import planetBaseColor from '../../../planet/textures/Planet_baseColor.png?url';
+
 const Earth = () => {
   const meshRef = useRef<THREE.Mesh>(null);
-  const texture = useTexture('./planet/textures/Planet_baseColor.png');
+  const texture = useTexture(planetBaseColor);
 
   useFrame((_, delta) => {
     if (meshRef.current) {
