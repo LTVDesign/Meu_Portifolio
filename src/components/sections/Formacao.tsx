@@ -32,22 +32,6 @@ const AnimatedGear = () => {
         }}
       />
 
-      {/* Arco brilhante secundário */}
-      <motion.div
-        className="absolute inset-2 rounded-full"
-        style={{
-          background: 'conic-gradient(from 180deg, #00D4FF, #915EFF, #FF6B9D, #00D4FF)',
-          filter: 'blur(4px)',
-          opacity: 0.4
-        }}
-        animate={prefersReduced ? {} : { rotate: -360 }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-      />
-
       {/* Container principal da engrenagem com pulsação */}
       <motion.div
         animate={prefersReduced ? {} : {
@@ -60,7 +44,7 @@ const AnimatedGear = () => {
         }}
         className="relative w-full h-full"
       >
-        {/* SVG da engrenagem */}
+        {/* SVG da engrenagem com design realista */}
         <svg
           width="100%"
           height="100%"
@@ -74,7 +58,7 @@ const AnimatedGear = () => {
               <stop offset="100%" stopColor="#FF6B9D" />
             </linearGradient>
             <filter id="glow">
-              <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+              <feGaussianBlur stdDeviation="2" result="coloredBlur" />
               <feMerge>
                 <feMergeNode in="coloredBlur" />
                 <feMergeNode in="SourceGraphic" />
@@ -83,47 +67,17 @@ const AnimatedGear = () => {
           </defs>
 
           <g filter="url(#glow)">
+            {/* Corpo principal da engrenagem com dentes */}
+            <path
+              fill="rgba(20,20,30,0.9)"
+              stroke="url(#gearGradFormacao)"
+              strokeWidth="2.5"
+              d="M50 10 L57 10 L59 20 L67 16 L73 22 L67 30 L77 34 L75 42 L87 48 L87 56 L75 60 L79 70 L71 76 L63 66 L57 74 L50 88 L43 74 L37 66 L29 76 L21 70 L25 60 L13 56 L13 48 L25 44 L21 34 L29 28 L37 38 L43 30 L50 22 Z"
+            />
+            {/* Círculo interno */}
+            <circle cx="50" cy="50" r="14" fill="rgba(20,20,30,0.95)" stroke="url(#gearGradFormacao)" strokeWidth="2" />
             {/* Círculo central */}
-            <circle
-              cx="50"
-              cy="50"
-              r="15"
-              fill="none"
-              stroke="url(#gearGradFormacao)"
-              strokeWidth="4"
-            />
-
-            {/* Dentes da engrenagem */}
-            {[...Array(12)].map((_, i) => {
-              const angle = (i * 30) * (Math.PI / 180);
-              const x1 = 50 + 20 * Math.cos(angle);
-              const y1 = 50 + 20 * Math.sin(angle);
-              const x2 = 50 + 32 * Math.cos(angle);
-              const y2 = 50 + 32 * Math.sin(angle);
-              return (
-                <line
-                  key={i}
-                  x1={x1}
-                  y1={y1}
-                  x2={x2}
-                  y2={y2}
-                  stroke="url(#gearGradFormacao)"
-                  strokeWidth="5"
-                  strokeLinecap="round"
-                />
-              );
-            })}
-
-            {/* Círculo interno decorativo */}
-            <circle
-              cx="50"
-              cy="50"
-              r="8"
-              fill="none"
-              stroke="url(#gearGradFormacao)"
-              strokeWidth="2"
-              strokeDasharray="2 2"
-            />
+            <circle cx="50" cy="50" r="5" fill="url(#gearGradFormacao)" />
           </g>
         </svg>
       </motion.div>
@@ -469,18 +423,18 @@ const Formacao = () => {
                   href={selectedFormation.authLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative group rounded-3xl overflow-hidden border border-red-500/30 bg-gradient-to-br from-red-500/10 to-red-600/10 hover:border-red-500/50 transition-all"
+                  className="relative group rounded-3xl overflow-hidden border border-[var(--cyber-purple)]/30 bg-gradient-to-br from-[var(--cyber-purple)]/10 to-[var(--cyber-cyan)]/10 hover:border-[var(--cyber-purple)]/50 transition-all"
                 >
                   <div className="p-6">
                     <div className="flex items-center gap-4">
-                      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-red-500/20 to-red-600/20 flex items-center justify-center">
-                        <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/20 flex items-center justify-center">
+                        <svg className="w-8 h-8 text-[var(--cyber-cyan)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                       </div>
                       <div>
-                        <div className="font-bold text-red-400">{t('education.validateOnPortal')}</div>
-                        <div className="text-sm text-red-300/70">Cogna - {t('education.scanQRCode')}</div>
+                        <div className="font-bold text-[var(--cyber-cyan)]">{t('education.validateOnPortal')}</div>
+                        <div className="text-sm text-white/50">Cogna - {t('education.scanQRCode')}</div>
                       </div>
                     </div>
                   </div>

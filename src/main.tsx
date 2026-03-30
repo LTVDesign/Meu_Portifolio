@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import App from './App';
-import './globals.css';
+// globals.css é carregado de forma assíncrona no index.html para não bloquear LCP
 
 // Detect reduced motion
 document.documentElement.classList.toggle(

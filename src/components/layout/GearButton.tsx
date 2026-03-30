@@ -90,14 +90,12 @@ const GearButton = ({ onClick, isOpen }: GearButtonProps) => {
                                     transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                                 />
 
-                                {/* Ícone SVG com gradiente e glow */}
+                                {/* Ícone SVG com gradiente e glow - Engrenagem realista */}
                                 <m.svg
                                     animate={{ rotate: 360 }}
                                     transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
                                     className="w-10 h-10 relative z-10"
-                                    fill="none"
-                                    stroke="url(#gearGradLeft)"
-                                    viewBox="0 0 24 24"
+                                    viewBox="0 0 100 100"
                                     aria-hidden="true"
                                     style={{
                                         filter: 'drop-shadow(0 0 10px rgba(145,94,255,0.9)) drop-shadow(0 0 20px rgba(0,212,255,0.7)) drop-shadow(0 0 30px rgba(255,107,157,0.5))'
@@ -112,18 +110,17 @@ const GearButton = ({ onClick, isOpen }: GearButtonProps) => {
                                             <stop offset="100%" stopColor="#915EFF" />
                                         </linearGradient>
                                     </defs>
+                                    {/* Corpo da engrenagem com dentes */}
                                     <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2.5}
-                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                                        fill="rgba(20,20,30,0.9)"
+                                        stroke="url(#gearGradLeft)"
+                                        strokeWidth="2.5"
+                                        d="M50 10 L57 10 L59 20 L67 16 L73 22 L67 30 L77 34 L75 42 L87 48 L87 56 L75 60 L79 70 L71 76 L63 66 L57 74 L50 88 L43 74 L37 66 L29 76 L21 70 L25 60 L13 56 L13 48 L25 44 L21 34 L29 28 L37 38 L43 30 L50 22 Z"
                                     />
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2.5}
-                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                                    />
+                                    {/* Círculo interno */}
+                                    <circle cx="50" cy="50" r="14" fill="rgba(20,20,30,0.95)" stroke="url(#gearGradLeft)" strokeWidth="2" />
+                                    {/* Círculo central */}
+                                    <circle cx="50" cy="50" r="5" fill="url(#gearGradLeft)" />
                                 </m.svg>
                             </button>
                         </m.div>

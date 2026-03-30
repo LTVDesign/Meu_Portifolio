@@ -14,9 +14,10 @@ const Hero = () => {
   const prefersReduced = useReducedMotion();
 
   useEffect(() => {
+    // Reduzido de 1200ms para 300ms para melhorar LCP
     const timer = setTimeout(() => {
       setShowSubtitle(true);
-    }, 1200);
+    }, 300);
 
     return () => clearTimeout(timer);
   }, []);
@@ -81,37 +82,30 @@ const Hero = () => {
 
         {/* Engrenagem flutuante esquerda - Gear button */}
         <m.button
-          onClick={() => window.location.reload()}
+          onClick={() => window.location.href = '/'}
           className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-20 cursor-pointer group"
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
-          aria-label="Reiniciar página"
+          aria-label="Ir para página inicial"
         >
           <div className="relative w-20 h-20">
             {/* Glow externo */}
             <m.div
-              className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 via-purple-500 to-pink-500 blur-xl opacity-60"
+              className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 via-purple-500 to-pink-500 blur-xl opacity-50"
               animate={{ rotate: 360 }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
             />
 
-            {/* Glow interno */}
-            <m.div
-              className="absolute inset-2 rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-cyan-400 blur-md opacity-80"
-              animate={{ rotate: -360 }}
-              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            />
-
-            {/* Engrenagem SVG */}
+            {/* Engrenagem SVG com design realista */}
             <svg width="80" height="80" viewBox="0 0 100 100" className="drop-shadow-2xl">
               <defs>
-                <linearGradient id="gearGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient id="gearGradLeft" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#00FFFF" />
                   <stop offset="50%" stopColor="#915EFF" />
                   <stop offset="100%" stopColor="#FF00FF" />
                 </linearGradient>
-                <filter id="glow">
-                  <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+                <filter id="glowLeft">
+                  <feGaussianBlur stdDeviation="2" result="coloredBlur" />
                   <feMerge>
                     <feMergeNode in="coloredBlur" />
                     <feMergeNode in="SourceGraphic" />
@@ -119,25 +113,18 @@ const Hero = () => {
                 </filter>
               </defs>
 
-              <g filter="url(#glow)">
-                <circle cx="50" cy="50" r="18" fill="none" stroke="url(#gearGrad)" strokeWidth="6" />
-                {[...Array(12)].map((_, i) => {
-                  const angle = (i * 30) * (Math.PI / 180);
-                  const x1 = 50 + 26 * Math.cos(angle);
-                  const y1 = 50 + 26 * Math.sin(angle);
-                  const x2 = 50 + 37 * Math.cos(angle);
-                  const y2 = 50 + 37 * Math.sin(angle);
-                  return (
-                    <line
-                      key={i}
-                      x1={x1} y1={y1}
-                      x2={x2} y2={y2}
-                      stroke="url(#gearGrad)"
-                      strokeWidth="5"
-                      strokeLinecap="round"
-                    />
-                  );
-                })}
+              <g filter="url(#glowLeft)">
+                {/* Corpo principal da engrenagem com dentes */}
+                <path
+                  d="M50 12 L58 12 L60 22 L68 18 L74 24 L68 32 L78 36 L76 44 L88 50 L88 58 L76 62 L80 72 L72 78 L64 68 L58 76 L50 88 L42 76 L36 68 L28 78 L20 72 L24 62 L12 58 L12 50 L24 46 L20 36 L28 30 L36 40 L42 32 L50 24 Z"
+                  fill="rgba(30,30,40,0.9)"
+                  stroke="url(#gearGradLeft)"
+                  strokeWidth="2.5"
+                />
+                {/* Círculo interno */}
+                <circle cx="50" cy="50" r="16" fill="rgba(20,20,30,0.95)" stroke="url(#gearGradLeft)" strokeWidth="2" />
+                {/* Círculo central */}
+                <circle cx="50" cy="50" r="6" fill="url(#gearGradLeft)" />
               </g>
             </svg>
 
@@ -147,18 +134,6 @@ const Hero = () => {
               animate={{
                 scale: [0.8, 1.2, 0.8],
                 opacity: [0.5, 0, 0.5]
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-            <m.div
-              className="absolute inset-2 rounded-full border border-[var(--cyber-purple)]/30"
-              animate={{
-                scale: [1.2, 0.8, 1.2],
-                opacity: [0, 0.5, 0]
               }}
               transition={{
                 duration: 2,
@@ -180,40 +155,40 @@ const Hero = () => {
           <div className="relative w-20 h-20">
             {/* Glow externo */}
             <m.div
-              className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 via-purple-500 to-cyan-400 blur-xl opacity-60"
+              className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 via-purple-500 to-cyan-400 blur-xl opacity-50"
               animate={{ rotate: 360 }}
               transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
             />
 
-            {/* Engrenagem SVG */}
+            {/* Engrenagem SVG com design realista */}
             <svg width="80" height="80" viewBox="0 0 100 100" className="drop-shadow-2xl">
               <defs>
-                <linearGradient id="gearGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient id="gearGradRight" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#00FFFF" />
                   <stop offset="50%" stopColor="#915EFF" />
                   <stop offset="100%" stopColor="#00FFFF" />
                 </linearGradient>
+                <filter id="glowRight">
+                  <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+                  <feMerge>
+                    <feMergeNode in="coloredBlur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
               </defs>
 
-              <g>
-                <circle cx="50" cy="50" r="18" fill="none" stroke="url(#gearGrad)" strokeWidth="6" />
-                {[...Array(12)].map((_, i) => {
-                  const angle = (i * 30) * (Math.PI / 180);
-                  const x1 = 50 + 26 * Math.cos(angle);
-                  const y1 = 50 + 26 * Math.sin(angle);
-                  const x2 = 50 + 37 * Math.cos(angle);
-                  const y2 = 50 + 37 * Math.sin(angle);
-                  return (
-                    <line
-                      key={i}
-                      x1={x1} y1={y1}
-                      x2={x2} y2={y2}
-                      stroke="url(#gearGrad)"
-                      strokeWidth="5"
-                      strokeLinecap="round"
-                    />
-                  );
-                })}
+              <g filter="url(#glowRight)">
+                {/* Corpo principal da engrenagem com dentes */}
+                <path
+                  d="M50 12 L58 12 L60 22 L68 18 L74 24 L68 32 L78 36 L76 44 L88 50 L88 58 L76 62 L80 72 L72 78 L64 68 L58 76 L50 88 L42 76 L36 68 L28 78 L20 72 L24 62 L12 58 L12 50 L24 46 L20 36 L28 30 L36 40 L42 32 L50 24 Z"
+                  fill="rgba(30,30,40,0.9)"
+                  stroke="url(#gearGradRight)"
+                  strokeWidth="2.5"
+                />
+                {/* Círculo interno */}
+                <circle cx="50" cy="50" r="16" fill="rgba(20,20,30,0.95)" stroke="url(#gearGradRight)" strokeWidth="2" />
+                {/* Círculo central */}
+                <circle cx="50" cy="50" r="6" fill="url(#gearGradRight)" />
               </g>
             </svg>
           </div>
