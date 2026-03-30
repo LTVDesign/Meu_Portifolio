@@ -1,5 +1,9 @@
 import { createContext, useContext, useMemo, ReactNode } from 'react';
 
+console.log('[DynamicTextProvider] Carregando DynamicTextProvider');
+
+console.log('[DynamicTextProvider] Carregando DynamicTextProvider');
+
 /**
  * Configurações padrão para o DynamicText
  */
@@ -7,6 +11,9 @@ const DEFAULT_CONFIG = {
     defaultColorMode: 'auto' as const,
     defaultTransitionDuration: 400,
     fallbackMode: 'auto' as const,
+    enableHighContrast: false,
+    contrastLevel: 4.5 as const,
+    enablePerformanceOptimization: true,
 };
 
 /**
@@ -24,12 +31,14 @@ export interface DynamicTextProviderProps {
      * - 'dark': força cor escura
      * - 'light': força cor clara
      * - 'complement': usa cor complementar ao fundo
+     * - 'high-contrast': força contraste máximo (WCAG AAA)
+     * - 'safe': usa cores seguras garantidas
      * @default 'auto'
      */
-    defaultColorMode?: 'auto' | 'dark' | 'light' | 'complement';
+    defaultColorMode?: 'auto' | 'dark' | 'light' | 'complement' | 'high-contrast' | 'safe';
 
     /**
-     * Duração padrão da transição CSS em milissegundos
+     * Duração padrão da transição em ms
      * @default 400
      */
     defaultTransitionDuration?: number;
@@ -42,6 +51,27 @@ export interface DynamicTextProviderProps {
      * @default 'auto'
      */
     fallbackMode?: 'dark' | 'light' | 'auto';
+
+    /**
+     * Habilita modo de alto contraste global
+     * @default false
+     */
+    enableHighContrast?: boolean;
+
+    /**
+     * Nível de contraste desejado (4.5 para AA, 7 para AAA)
+     * @default 4.5
+     */
+    contrastLevel?: number;
+
+    /**
+     * Habilita otimizações de performance
+     * - Reduz frequência de atualizações
+     * - Cache de resultados
+     * - Throttling mais agressivo
+     * @default true
+     */
+    enablePerformanceOptimization?: boolean;
 }
 
 /**
@@ -51,7 +81,7 @@ export interface DynamicTextContextValue {
     /**
      * Modo de cor padrão configurado
      */
-    defaultColorMode: 'auto' | 'dark' | 'light' | 'complement';
+    defaultColorMode: 'auto' | 'dark' | 'light' | 'complement' | 'high-contrast' | 'safe';
 
     /**
      * Duração padrão da transição em ms
@@ -62,6 +92,21 @@ export interface DynamicTextContextValue {
      * Modo de fallback configurado
      */
     fallbackMode: 'dark' | 'light' | 'auto';
+
+    /**
+     * Modo de alto contraste habilitado
+     */
+    enableHighContrast: boolean;
+
+    /**
+     * Nível de contraste desejado
+     */
+    contrastLevel: number;
+
+    /**
+     * Otimizações de performance habilitadas
+     */
+    enablePerformanceOptimization: boolean;
 }
 
 /**
@@ -119,6 +164,8 @@ export function useDynamicTextContext(): DynamicTextContextValue {
  *       defaultColorMode="auto"
  *       defaultTransitionDuration={300}
  *       fallbackMode="light"
+ *       enableHighContrast={true}
+ *       contrastLevel={7}
  *     >
  *       <SuaAplicacao />
  *     </DynamicTextProvider>
@@ -131,6 +178,9 @@ export function DynamicTextProvider({
     defaultColorMode = DEFAULT_CONFIG.defaultColorMode,
     defaultTransitionDuration = DEFAULT_CONFIG.defaultTransitionDuration,
     fallbackMode = DEFAULT_CONFIG.fallbackMode,
+    enableHighContrast = DEFAULT_CONFIG.enableHighContrast,
+    contrastLevel = DEFAULT_CONFIG.contrastLevel,
+    enablePerformanceOptimization = DEFAULT_CONFIG.enablePerformanceOptimization,
 }: DynamicTextProviderProps) {
     // Memoiza o valor do contexto para evitar re-renders desnecessários
     const contextValue = useMemo<DynamicTextContextValue>(
@@ -138,8 +188,11 @@ export function DynamicTextProvider({
             defaultColorMode,
             defaultTransitionDuration,
             fallbackMode,
+            enableHighContrast,
+            contrastLevel,
+            enablePerformanceOptimization,
         }),
-        [defaultColorMode, defaultTransitionDuration, fallbackMode]
+        [defaultColorMode, defaultTransitionDuration, fallbackMode, enableHighContrast, contrastLevel, enablePerformanceOptimization]
     );
 
     return (

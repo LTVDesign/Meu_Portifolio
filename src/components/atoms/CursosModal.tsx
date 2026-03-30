@@ -174,30 +174,68 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                                     className="glass-card p-8 neon-hover flex flex-col group border border-white/10"
                                 >
                                     <div className="flex-1">
-                                        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[var(--cyber-cyan)] transition-colors">
-                                            {curso.title}
-                                        </h3>
+                                        <div className="flex items-start justify-between mb-3">
+                                            <h3 className="text-xl font-bold text-white group-hover:text-[var(--cyber-cyan)] transition-colors leading-tight">
+                                                {curso.title}
+                                            </h3>
+                                            {curso.isProfessionalCertificate && (
+                                                <span className="text-yellow-400 text-sm ml-2 flex-shrink-0">★</span>
+                                            )}
+                                        </div>
                                         <p className="text-[var(--cyber-purple)] font-bold uppercase tracking-widest text-sm mb-4">
                                             {curso.platform}
                                         </p>
                                         <p className="text-[var(--text-secondary)] text-sm leading-relaxed mb-4">
-                                            {curso.description}
+                                            {curso.summary}
                                         </p>
-                                        <div className="flex items-center gap-4 text-xs text-white/50 font-mono">
-                                            <span>Ano: {curso.date}</span>
+                                        <div className="flex flex-wrap gap-3 text-xs text-white/50 font-mono mb-4">
+                                            <span className="px-2 py-1 bg-white/5 rounded">📅 {curso.date}</span>
+                                            <span className="px-2 py-1 bg-white/5 rounded">⏱ {curso.duration}</span>
+                                            <span className="px-2 py-1 bg-white/5 rounded">⏳ {curso.workload}</span>
                                         </div>
+                                        {curso.modules && curso.modules.length > 0 && (
+                                            <div className="mt-4">
+                                                <p className="text-xs text-[var(--cyber-cyan)] font-bold uppercase tracking-wider mb-2">
+                                                    Módulos principais:
+                                                </p>
+                                                <ul className="space-y-1">
+                                                    {curso.modules.slice(0, 3).map((module, idx) => (
+                                                        <li key={idx} className="text-xs text-[var(--text-secondary)] flex items-start gap-2">
+                                                            <span className="text-[var(--cyber-cyan)]">▸</span>
+                                                            <span>{module}</span>
+                                                        </li>
+                                                    ))}
+                                                    {curso.modules.length > 3 && (
+                                                        <li className="text-xs text-white/40 italic">
+                                                            +{curso.modules.length - 3} mais módulos...
+                                                        </li>
+                                                    )}
+                                                </ul>
+                                            </div>
+                                        )}
                                     </div>
 
-                                    <div className="mt-8 pt-6 border-t border-white/10">
+                                    <div className="mt-8 pt-6 border-t border-white/10 flex flex-col gap-3">
                                         <a
                                             href={curso.link}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 text-[var(--cyber-cyan)] hover:text-white font-bold uppercase tracking-widest transition-all group/btn"
+                                            className="inline-flex items-center justify-center gap-2 text-[var(--cyber-cyan)] hover:text-white font-bold uppercase tracking-widest transition-all group/btn"
                                         >
                                             {t('courses.viewCertificate')}
                                             <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
                                         </a>
+                                        {curso.verificationLink && curso.verificationLink !== '#' && (
+                                            <a
+                                                href={curso.verificationLink}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center justify-center gap-2 text-xs text-[var(--cyber-purple)] hover:text-[var(--cyber-cyan)] transition-colors"
+                                            >
+                                                <span>🔗</span>
+                                                <span>Verificar autenticidade</span>
+                                            </a>
+                                        )}
                                     </div>
                                 </motion.div>
                             ))}

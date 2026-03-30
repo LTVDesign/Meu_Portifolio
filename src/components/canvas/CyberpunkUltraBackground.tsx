@@ -100,7 +100,6 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
     // --- ZOMBIE EXTERMINATOR: Remove any existing cyberpunk background canvases ---
     const existingCanvases = document.querySelectorAll('canvas[data-bg-type="cyberpunk-bg"]');
     existingCanvases.forEach((c) => {
-      console.log('KILLING ZOMBIE CYBERPUNK CANVAS');
       c.remove();
     });
 

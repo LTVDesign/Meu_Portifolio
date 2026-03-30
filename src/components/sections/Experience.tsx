@@ -6,13 +6,16 @@ import { fadeIn, textVariant } from '../../utils/motion';
 import { Header } from '../atoms';
 import { experiences } from '../../constants';
 import type { TExperience } from '../../types';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 const ExperienceCard = forwardRef<HTMLDivElement, { experience: TExperience; index: number }>(
   ({ experience, index }, ref) => {
+    const prefersReduced = useReducedMotion();
+
     return (
       <m.div
         ref={ref}
-        variants={fadeIn('up', 'spring', index * 0.1, 0.75)}
+        variants={prefersReduced ? {} : fadeIn('up', 'spring', index * 0.1, 0.75)}
         className="relative pl-24 pb-12 last:pb-0 group"
       >
         {/* Line & Circle */}
@@ -23,7 +26,7 @@ const ExperienceCard = forwardRef<HTMLDivElement, { experience: TExperience; ind
 
         {/* Content Card */}
         <m.div
-          whileHover={{ y: -5 }}
+          whileHover={prefersReduced ? {} : { y: -5 }}
           className="glass-card p-8 neon-hover relative overflow-hidden"
         >
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
@@ -53,17 +56,18 @@ const ExperienceCard = forwardRef<HTMLDivElement, { experience: TExperience; ind
 );
 
 const Experience = () => {
+  console.log('[Experience] Renderizando componente Experience');
   const [showAll, setShowAll] = useState(false);
   const { t } = useTranslation();
   const displayedExperiences = showAll ? experiences : experiences.slice(0, 4);
 
   return (
     <div className="max-w-5xl mx-auto px-6">
-      <m.div variants={textVariant()} className="text-center mb-20">
+      <m.div variants={textVariant()} className="text-center mb-12">
         <Header useMotion={true} p={t('experience.p')} h2={t('experience.h2')} />
       </m.div>
 
-      <div className="relative pt-4">
+      <div className="relative pt-2">
         {/* Timeline Line (Background) */}
         <div className="absolute left-[31px] top-4 bottom-0 w-[2px] bg-white/5" />
 
@@ -75,7 +79,7 @@ const Experience = () => {
       </div>
 
       {!showAll && experiences.length > 4 && (
-        <div className="mt-16 flex justify-center">
+        <div className="mt-10 flex justify-center">
           <m.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

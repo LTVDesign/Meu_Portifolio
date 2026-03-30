@@ -9,6 +9,7 @@ interface TerminalTextProps {
   cursorClassName?: string;
   loop?: boolean;
   typeOnce?: boolean;
+  style?: React.CSSProperties;
 }
 
 const TerminalText: React.FC<TerminalTextProps> = ({
@@ -20,6 +21,7 @@ const TerminalText: React.FC<TerminalTextProps> = ({
   cursorClassName = '',
   loop = true,
   typeOnce = false,
+  style = {},
 }) => {
   const [displayText, setDisplayText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
@@ -97,7 +99,7 @@ const TerminalText: React.FC<TerminalTextProps> = ({
   }, []);
 
   return (
-    <span className={`inline-block whitespace-wrap ${className}`}>
+    <span className={`inline-block whitespace-wrap ${className}`} style={style}>
       <span style={{ color: currentColor.current, transition: 'color 0.2s ease' }}>
         {displayText}
       </span>

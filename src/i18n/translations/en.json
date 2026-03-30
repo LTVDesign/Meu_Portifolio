@@ -328,5 +328,10 @@
     "doom": {
         "p": "Easter Egg - DOOM in Browser",
         "h2": "DOOM"
+    },
+    "backgrounds": {
+        "title": "Select Background",
+        "subtitle": "Choose a style to customize your portfolio",
+        "hint": "Click on a background to apply it"
     }
 }

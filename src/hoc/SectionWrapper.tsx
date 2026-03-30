@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import type { ReactNode, ComponentType, PropsWithChildren } from 'react';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 
 interface SectionWrapperProps {
   children: ReactNode;
@@ -9,13 +10,16 @@ interface SectionWrapperProps {
 
 // Componente JSX
 const SectionWrapperComponent = ({ children, id, className = '' }: SectionWrapperProps) => {
+  console.log('[SectionWrapper] Renderizando SectionWrapper, id:', id);
+  const prefersReduced = useReducedMotion();
+
   return (
     <motion.section
       id={id}
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      viewport={{ once: true, amount: 0.25 }}
+      initial={prefersReduced ? {} : { opacity: 0, y: 50 }}
+      whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
+      transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: 'easeOut' }}
+      viewport={prefersReduced ? {} : { once: true, amount: 0.25 }}
       className={`relative py-[clamp(5rem,10vw,8rem)] ${className}`}
     >
       {children}

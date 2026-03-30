@@ -109,8 +109,13 @@ export interface Curso {
     platform: string;
     date: string;
     duration: string;
+    workload: string;
     icon: string;
     description: string;
+    summary: string;
+    modules: string[];
+    verificationLink: string;
+    isProfessionalCertificate?: boolean;
     link: string;
 }
 

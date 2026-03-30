@@ -136,8 +136,7 @@ export const ParticleConfigProvider: React.FC<ParticleConfigProviderProps> = ({ 
           localStorage.removeItem('particleConfig');
           setConfig(defaultConfig);
         }
-      } catch (error) {
-        console.error('Erro ao carregar configurações das partículas:', error);
+      } catch {
         setConfig(defaultConfig);
       }
     }

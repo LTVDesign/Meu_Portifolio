@@ -111,12 +111,9 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
     uniformsRef.current = uniforms;
 
     function init() {
-      console.log('WAVEFIELD INITIALIZED - PERFORMANCE.NOW VERSION');
-
       // Global Zombie Exterminator: Remove ANY canvas tagged as 'wavefield-bg' from the entire document
       const existingCanvases = document.querySelectorAll('canvas[data-bg-type="wavefield-bg"]');
       existingCanvases.forEach((c) => {
-        console.log('KILLING ZOMBIE WAVEFIELD CANVAS');
         c.remove();
       });
 

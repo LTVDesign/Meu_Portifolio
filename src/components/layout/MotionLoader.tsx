@@ -3,6 +3,7 @@ interface MotionLoaderProps {
 }
 
 const MotionLoader: React.FC<MotionLoaderProps> = ({ isSection }) => {
+
   return (
     <div
       className={`${isSection ? 'relative is-section' : 'fixed inset-0 z-[100] h-screen w-screen'

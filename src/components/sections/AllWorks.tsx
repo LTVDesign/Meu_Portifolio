@@ -9,6 +9,7 @@ import { SectionWrapper } from '../../hoc';
 import type { TProject } from '../../types';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms/Header';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 const ProjectCard: React.FC<{ index: number } & TProject> = ({
   index,
@@ -18,9 +19,11 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
   image,
   sourceCodeLink,
 }) => {
+  const prefersReduced = useReducedMotion();
+
   return (
     <motion.div
-      variants={fadeIn('up', 'spring', index * 0.5, 0.75)}
+      variants={prefersReduced ? {} : fadeIn('up', 'spring', index * 0.5, 0.75)}
       className="glass-card p-5 sm:w-[300px]"
     >
       <div className="relative h-[230px] w-full">
@@ -42,11 +45,8 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
                   const url = new URL(sourceCodeLink);
                   if (['http:', 'https:'].includes(url.protocol)) {
                     window.open(sourceCodeLink, '_blank', 'noopener,noreferrer');
-                  } else {
-                    console.warn('Protocolo inválido detectado:', url.protocol);
                   }
-                } catch (_e) {
-                  console.warn('URL inválida detectada:', sourceCodeLink);
+                } catch {
                 }
               }
             }}

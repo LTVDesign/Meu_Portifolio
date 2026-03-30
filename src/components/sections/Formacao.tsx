@@ -8,11 +8,14 @@ import Modal from '../atoms/Modal';
 import facul from '../../assets/facul.webp';
 import { diploma, qrcode, diplomaPdf } from '../../assets';
 import type { FormacaoData, Disciplina } from '../../types';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 const Formacao = () => {
+  console.log('[Formacao] Renderizando componente Formacao');
   const [selectedFormation, setSelectedFormation] = useState<FormacaoData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { t } = useTranslation();
+  const prefersReduced = useReducedMotion();
 
   const openModal = (formacao: FormacaoData) => {
     setSelectedFormation(formacao);
@@ -159,11 +162,14 @@ const Formacao = () => {
         {formacoes.map((item, index) => (
           <motion.div
             key={item.title}
-            variants={fadeIn('up', 'spring', index * 0.1, 0.75)}
+            variants={prefersReduced ? {} : fadeIn('up', 'spring', index * 0.1, 0.75)}
             onClick={() => openModal(item)}
             className="glass-card group relative overflow-hidden p-8 md:p-10 flex flex-col h-full neon-hover border border-white/10 cursor-pointer"
           >
-            <div className="absolute top-4 right-4 px-5 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-full bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)] text-white shadow-lg border border-white/20 z-20">
+            <div className={`absolute top-4 right-4 px-5 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-full text-white shadow-[0_0_15px_rgba(145,94,255,0.5)] border border-white/30 z-20 backdrop-blur-sm ${item.status === t('status.concluido')
+              ? 'bg-gradient-to-r from-green-500 to-emerald-400'
+              : 'bg-gradient-to-r from-yellow-500 to-orange-400'
+              }`}>
               {item.status}
             </div>
 
@@ -188,10 +194,23 @@ const Formacao = () => {
             </div>
 
             <div className="mt-auto pt-10">
-              <div className="w-full text-xs font-bold uppercase tracking-widest py-4 justify-center gap-3 group/btn rounded-2xl shadow-[0_0_20px_rgba(145,94,255,0.2)] flex items-center justify-center text-center">
-                {t('formacao.viewDetails')}
-                <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
-              </div>
+              <motion.button
+                whileHover={prefersReduced ? {} : {
+                  scale: 1.02,
+                  y: -2,
+                  boxShadow: '0 8px 30px rgba(145, 94, 255, 0.3)'
+                }}
+                whileTap={prefersReduced ? {} : { scale: 0.98 }}
+                className="w-full px-6 py-4 text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/20 border border-[var(--cyber-purple)]/30 text-white backdrop-blur-sm group/btn flex items-center justify-center gap-3 shadow-[0_4px_15px_rgba(145,94,255,0.2)] transition-all duration-300"
+              >
+                <span className="relative z-10">{t('formacao.viewDetails')}</span>
+
+                {/* Efeito de brilho no hover */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[var(--cyber-cyan)]/0 via-[var(--cyber-cyan)]/20 to-[var(--cyber-purple)]/0 opacity-0 group-hover/btn:opacity-100 transition-opacity" />
+
+                {/* Bordas luminosas */}
+                <div className="absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/50 transition-all duration-300" />
+              </motion.button>
             </div>
           </motion.div>
         ))}
@@ -255,9 +274,9 @@ const Formacao = () => {
                     <div key={data.sem} className="flex flex-col items-center gap-3 group/bar">
                       <div className="relative w-full h-40 bg-white/5 rounded-xl overflow-hidden flex items-end border border-white/5">
                         <motion.div
-                          initial={{ height: 0 }}
-                          animate={{ height: `${Math.min(data.avg * 10, 100)}%` }}
-                          transition={{ duration: 1, delay: idx * 0.1 }}
+                          initial={prefersReduced ? { height: `${Math.min(data.avg * 10, 100)}%` } : { height: 0 }}
+                          animate={prefersReduced ? {} : { height: `${Math.min(data.avg * 10, 100)}%` }}
+                          transition={prefersReduced ? { duration: 0 } : { duration: 1, delay: idx * 0.1 }}
                           className="w-full bg-gradient-to-t from-[var(--cyber-purple)] to-[var(--cyber-cyan)] relative"
                         >
                           <div className="absolute inset-0 opacity-30 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
@@ -471,3 +490,4 @@ const Formacao = () => {
 };
 
 export default SectionWrapper(Formacao, 'formacao');
+

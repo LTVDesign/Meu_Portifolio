@@ -10,12 +10,11 @@
     "test": "jest"
   },
   "dependencies": {
-    "@emailjs/browser": "^3.12.1",
     "@exodus/bytes": "^1.15.0",
     "@react-three/drei": "^9.112.0",
     "@react-three/fiber": "^8.17.8",
     "@tailwindcss/vite": "^4.2.2",
-    "framer-motion": "^11.11.17",
+    "framer-motion": "^11.18.0",
     "i18next": "^26.0.1",
     "i18next-browser-languagedetector": "^8.2.1",
     "react": "^18.3.1",
@@ -56,7 +55,6 @@
   "overrides": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "whatwg-encoding": "@exodus/bytes",
     "glob": "^10.4.5",
     "inflight": "npm:lru-cache@latest",
     "three-mesh-bvh": "^0.9.9"

@@ -24,6 +24,14 @@ const resources = {
         interpolation: {
             escapeValue: false,
         },
+    }, (err: any) => {
+        if (err) {
+            console.error('[i18n] Erro ao inicializar i18n:', err);
+        } else {
+            // @ts-ignore
+            console.log('[i18n] i18n inicializado com sucesso, língua:', (i18next as any).language);
+            console.log('[i18n] Traduções disponíveis:', Object.keys(resources));
+        }
     });
 
 export default i18next;

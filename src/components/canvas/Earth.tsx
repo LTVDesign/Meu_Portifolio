@@ -1,15 +1,31 @@
-import { OrbitControls, Preload, useGLTF } from '@react-three/drei';
+import { OrbitControls, Preload, useTexture } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import { Suspense } from 'react';
+import { Suspense, useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 import CanvasLoader from '../layout/Loader';
 
 const Earth = () => {
-  const earth = useGLTF('./planet/scene.gltf');
+  const meshRef = useRef<THREE.Mesh>(null);
+  const texture = useTexture('./planet/textures/Planet_baseColor.png');
 
-  // Escala balanceada (12.0) para preencher a tela harmoniosamente sem cortes
-  return <primitive object={earth.scene} scale={12.0} position-y={0} rotation-y={0} />;
+  useFrame((_, delta) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y += delta * 0.1;
+    }
+  });
+
+  return (
+    <mesh ref={meshRef}>
+      <sphereGeometry args={[1, 64, 64]} />
+      <meshStandardMaterial
+        map={texture}
+        roughness={0.7}
+        metalness={0.0}
+      />
+    </mesh>
+  );
 };
 
 const EarthCanvas = () => {

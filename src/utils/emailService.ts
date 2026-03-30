@@ -56,7 +56,6 @@ export const emailService = {
     // return await response.json();
 
     // Mock para desenvolvimento
-    console.log('Mock: Enviando email com dados:', data);
     return {
       success: true,
       message: 'Obrigado. Entrarei em contato o mais breve possível.',

@@ -6,12 +6,14 @@ import { fadeIn } from '../../utils/motion';
 import { LinkAnimado } from '../atoms';
 import { Header } from '../atoms/Header';
 import faculImg from '../../assets/facul.png';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 const diplomaImg = '/formacao/diploma.png';
 
 const AllFormacao = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const prefersReduced = useReducedMotion();
 
   const educations = [
     {
@@ -38,7 +40,7 @@ const AllFormacao = () => {
 
       <div className="flex w-full justify-between items-center">
         <motion.p
-          variants={fadeIn('up', 'tween', 0.1, 1)}
+          variants={prefersReduced ? {} : fadeIn('up', 'tween', 0.1, 1)}
           className="text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-3 max-w-3xl text-[17px] leading-[30px]"
         >
           {t('formacao.content')}

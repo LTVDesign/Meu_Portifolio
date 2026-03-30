@@ -8,6 +8,7 @@ import { emailService } from '../../utils/emailService';
 import { slideIn } from '../../utils/motion';
 import { Header } from '../atoms';
 import { EarthCanvas } from '../canvas';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 // Schema de validação com Zod
 const contactSchema = z.object({
@@ -15,7 +16,8 @@ const contactSchema = z.object({
   email: z.string().email('Email inválido'),
   phone: z.string().max(20, 'Telefone muito longo').default(''),
   company: z.string().max(100, 'Empresa muito longa').default(''),
-  message: z.string().min(20, 'Mensagem muito curta').max(1000, 'Mensagem muito longa')
+  message: z.string().min(20, 'Mensagem muito curta').max(1000, 'Mensagem muito longa'),
+  website: z.string().optional() // Honeypot: campo oculto para bots
 });
 
 type ContactForm = z.infer<typeof contactSchema>;
@@ -25,16 +27,46 @@ const INITIAL_FORM: ContactForm = {
   email: '',
   phone: '',
   company: '',
-  message: ''
+  message: '',
+  website: undefined
 };
 
 const Contact = () => {
+  console.log('[Contact] Renderizando componente Contact');
   const formRef = useRef<HTMLFormElement>(null);
   const [form, setForm] = useState<ContactForm>(INITIAL_FORM);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<keyof ContactForm, string>>>({});
   const { t } = useTranslation();
+  const prefersReduced = useReducedMotion();
+
+  // Rate limiting: cooldown de 30 segundos entre envios
+  const getLastSubmitTime = (): number => {
+    const stored = localStorage.getItem('contact_last_submit');
+    return stored ? parseInt(stored, 10) : 0;
+  };
+
+  const setLastSubmitTime = (): void => {
+    localStorage.setItem('contact_last_submit', Date.now().toString());
+  };
+
+  const canSubmit = (): boolean => {
+    const lastSubmit = getLastSubmitTime();
+    const cooldownMs = 30 * 1000; // 30 segundos
+    return Date.now() - lastSubmit > cooldownMs;
+  };
+
+  const getRemainingCooldown = (): number => {
+    const lastSubmit = getLastSubmitTime();
+    const cooldownMs = 30 * 1000;
+    const remaining = cooldownMs - (Date.now() - lastSubmit);
+    return remaining > 0 ? Math.ceil(remaining / 1000) : 0;
+  };
+
+  // Debounce: prevenir múltiplos cliques rápidos
+  const [submitLocked, setSubmitLocked] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -43,6 +75,11 @@ const Contact = () => {
     if (fieldErrors[name as keyof ContactForm]) {
       setFieldErrors(prev => ({ ...prev, [name]: undefined }));
     }
+  };
+
+  // Handler específico para o honeypot (não dispara validação)
+  const handleHoneypotChange = () => {
+    // Intencionalmente vazio - o honeypot não deve ser preenchido por usuários reais
   };
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,9 +113,27 @@ const Contact = () => {
     e.preventDefault();
     setError(null);
 
+    // Verificar rate limiting
+    if (!canSubmit()) {
+      const remaining = getRemainingCooldown();
+      setError(`Aguarde ${remaining} segundos antes de enviar outra mensagem.`);
+      return;
+    }
+
+    // Verificar honeypot (campo oculto)
+    if (form.website) {
+      return; // Silenciosamente ignorar
+    }
+
     if (!validateForm()) {
       return;
     }
+
+    // Debounce: bloquear envios múltiplos rápidos
+    if (submitLocked) {
+      return;
+    }
+    setSubmitLocked(true);
 
     setLoading(true);
     try {
@@ -90,9 +145,11 @@ const Contact = () => {
       };
       const res = await emailService.sendContactForm(formData);
       if (res.success) {
-        alert('Mensagem enviada com sucesso!');
+        setSuccess(true);
         setForm(INITIAL_FORM);
         setFieldErrors({});
+        setLastSubmitTime(); // Registrar timestamp do envio
+        setTimeout(() => setSuccess(false), 5000);
       } else {
         setError(res.message);
       }
@@ -100,6 +157,8 @@ const Contact = () => {
       setError('Erro ao enviar mensagem. Tente novamente.');
     } finally {
       setLoading(false);
+      // Debounce: liberar após 2 segundos
+      setTimeout(() => setSubmitLocked(false), 2000);
     }
   };
 
@@ -108,11 +167,25 @@ const Contact = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col xl:flex-row gap-12 xl:gap-20 items-center">
           {/* Formulário */}
-          <motion.div variants={slideIn('left', 'tween', 0.2, 1)} className="flex-1 w-full">
+          <motion.div variants={prefersReduced ? {} : slideIn('left', 'tween', 0.2, 1)} className="flex-1 w-full">
             <div className="glass p-8 sm:p-10 md:p-12">
               <Header useMotion={true} p={t('contact.p')} h2={t('contact.h2')} />
 
               <form ref={formRef} onSubmit={handleSubmit} className="mt-10 space-y-8">
+                {/* Honeypot: campo oculto para bots */}
+                <div className="hidden" aria-hidden="true">
+                  <label htmlFor="website">Não preencha este campo</label>
+                  <input
+                    id="website"
+                    name="website"
+                    type="text"
+                    value={form.website || ''}
+                    onChange={handleHoneypotChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="form-label">
@@ -157,7 +230,25 @@ const Contact = () => {
 
                 {error && <p role="alert" className="text-red-400 text-sm">{error}</p>}
 
-                <button type="submit" disabled={loading} className="btn-primary w-full text-lg">
+                {/* Mostrar cooldown se estiver ativo */}
+                {!canSubmit() && !loading && (
+                  <p role="status" className="text-yellow-400 text-sm text-center">
+                    ⏳ Aguarde {getRemainingCooldown()}s antes do próximo envio
+                  </p>
+                )}
+
+                {success && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="p-4 rounded-xl bg-green-500/20 border border-green-500/30 text-green-400 text-sm"
+                  >
+                    ✅ {t('contact.success', 'Mensagem enviada com sucesso!')}
+                  </motion.div>
+                )}
+
+                <button type="submit" disabled={loading || success} className="btn-primary w-full text-lg">
                   {loading ? t('contact.sending') : t('contact.submit')} <FaPaperPlane />
                 </button>
               </form>

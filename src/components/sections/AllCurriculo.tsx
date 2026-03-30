@@ -3,16 +3,18 @@ import { useTranslation } from 'react-i18next';
 import { SectionWrapper } from '../../hoc';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms/Header';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 const AllCurriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) => {
   const { t } = useTranslation();
+  const prefersReduced = useReducedMotion();
 
   return (
     <div className="min-h-[60vh] flex flex-col justify-center items-center">
       <Header useMotion={true} p={t('curriculo.p')} h2={t('curriculo.h2')} />
 
       <motion.p
-        variants={fadeIn('up', 'tween', 0.1, 1)}
+        variants={prefersReduced ? {} : fadeIn('up', 'tween', 0.1, 1)}
         className="text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-4 text-[17px] leading-[30px] text-center max-w-3xl"
       >
         {t('curriculo.content')}

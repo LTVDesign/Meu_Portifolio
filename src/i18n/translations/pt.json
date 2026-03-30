@@ -265,5 +265,10 @@
     "doom": {
         "p": "Easter Egg - DOOM no Navegador",
         "h2": "DOOM"
+    },
+    "backgrounds": {
+        "title": "Selecione o Background",
+        "subtitle": "Escolha um estilo para personalizar seu portfólio",
+        "hint": "Clique em um background para aplicá-lo"
     }
 }

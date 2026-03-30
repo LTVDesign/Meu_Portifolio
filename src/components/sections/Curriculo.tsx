@@ -4,16 +4,19 @@ import { SectionWrapper } from '../../hoc';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms/Header';
 import { FiDownload, FiExternalLink } from 'react-icons/fi';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) => {
+  console.log('[Curriculo] Renderizando componente Curriculo');
   const { t } = useTranslation();
+  const prefersReduced = useReducedMotion();
 
   return (
     <>
       <Header useMotion={true} p={t('curriculo.p')} h2={t('curriculo.h2')} />
 
       <motion.p
-        variants={fadeIn('up', 'tween', 0.1, 1)}
+        variants={prefersReduced ? {} : fadeIn('up', 'tween', 0.1, 1)}
         className="text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-4 text-[17px] leading-[30px] text-center max-w-3xl mx-auto"
       >
         {t('curriculo.content')}
@@ -21,7 +24,7 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
 
       <div className="mt-12 flex flex-wrap items-center justify-center gap-6">
         <motion.button
-          variants={fadeIn('right', 'spring', 0.3, 0.75)}
+          variants={prefersReduced ? {} : fadeIn('right', 'spring', 0.3, 0.75)}
           onClick={() => setViewMode?.('allcurriculo')}
           className="btn-primary flex items-center gap-3 px-8 py-4 rounded-xl font-bold tracking-wider group shadow-[0_0_20px_rgba(145,94,255,0.3)]"
         >
@@ -30,7 +33,7 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
         </motion.button>
 
         <motion.a
-          variants={fadeIn('left', 'spring', 0.4, 0.75)}
+          variants={prefersReduced ? {} : fadeIn('left', 'spring', 0.4, 0.75)}
           href="/assets/curriculo.pdf"
           download
           className="glass-card flex items-center gap-3 px-8 py-4 rounded-xl font-bold tracking-wider group border border-white/10 hover:border-[var(--cyber-cyan)]/50 transition-all shadow-lg"

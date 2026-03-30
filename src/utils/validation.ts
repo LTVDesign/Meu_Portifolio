@@ -203,7 +203,6 @@ const defaultConfig: ParticleConfig = {
 export function validateLocalStorageData(data: unknown): ParticleConfig | null {
   try {
     if (typeof data !== 'object' || data === null) {
-      console.warn('Dados inválidos no localStorage: não é um objeto');
       return null;
     }
 
@@ -402,8 +401,7 @@ export function validateLocalStorageData(data: unknown): ParticleConfig | null {
     }
 
     return validatedData;
-  } catch (error) {
-    console.warn('Erro ao validar dados do localStorage:', error);
+  } catch {
     return null;
   }
 }
@@ -486,13 +484,11 @@ export function clearInvalidLocalStorage(): void {
           const validated = validateLocalStorageData(parsed);
           if (!validated) {
             localStorage.removeItem(key);
-            console.warn(`Item inválido removido do localStorage: ${key}`);
           }
         }
       }
-    } catch (e) {
+    } catch {
       localStorage.removeItem(key);
-      console.warn(`Item inválido removido do localStorage: ${key}`, e);
     }
   }
 }

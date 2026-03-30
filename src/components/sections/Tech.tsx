@@ -3,13 +3,19 @@ import { useTranslation } from 'react-i18next';
 import { SectionWrapper } from '../../hoc';
 import { fadeIn, textVariant } from '../../utils/motion';
 import { technologies } from '../../constants';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 const Tech = () => {
+  console.log('[Tech] Renderizando componente Tech');
   const { t } = useTranslation();
+  const prefersReduced = useReducedMotion();
 
   return (
     <div className="max-w-7xl mx-auto px-6">
-      <motion.div variants={textVariant()} className="text-center mb-16">
+      <motion.div
+        variants={prefersReduced ? {} : textVariant()}
+        className="text-center mb-16"
+      >
         <p className="text-[var(--cyber-purple)] uppercase tracking-widest text-sm font-bold opacity-60">{t('tech.arsenal')}</p>
         <h2 className="section-title mt-3 drop-shadow-[0_0_15px_rgba(145,94,255,0.4)]">{t('tech.stackTitle')}</h2>
       </motion.div>
@@ -19,7 +25,7 @@ const Tech = () => {
         {technologies.map((tech, index) => (
           <motion.div
             key={tech.name}
-            variants={fadeIn('up', 'spring', index * 0.05, 0.75)}
+            variants={prefersReduced ? {} : fadeIn('up', 'spring', index * 0.05, 0.75)}
             className="flex flex-col items-center justify-center group relative h-24 w-16"
           >
             {/* Glass Icon Container */}

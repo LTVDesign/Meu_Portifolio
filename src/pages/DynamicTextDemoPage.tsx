@@ -7,7 +7,7 @@ export default function DynamicTextDemoPage() {
     const [showPanel, setShowPanel] = useState(false);
 
     return (
-        <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: bgColor }}>
+        <>
             {/* Botão toggle */}
             <button
                 onClick={() => setShowPanel(!showPanel)}
@@ -41,7 +41,7 @@ export default function DynamicTextDemoPage() {
                         color: 'white',
                         padding: '1rem',
                         borderRadius: '0.5rem',
-                        zIndex: 50
+                        zIndex: 9998
                     }}
                 >
                     <h3 style={{ marginBottom: '1rem' }}>Controles</h3>
@@ -99,23 +99,33 @@ export default function DynamicTextDemoPage() {
                 </div>
             )}
 
-            {/* Conteúdo */}
-            <div className="text-center px-8">
-                <DynamicText colorMode={mode} transitionDuration={400}>
-                    <h1 className="text-4xl font-bold mb-4">
-                        Texto Dinâmico Adaptativo
-                    </h1>
-                    <p className="text-xl mb-4">
-                        Este texto muda de cor automaticamente baseado no fundo.
-                    </p>
-                    <p className="text-lg mb-4">
-                        Fundo: {bgColor} | Modo: {mode}
-                    </p>
-                    <button className="px-6 py-3 border rounded">
-                        Botão também adapta
-                    </button>
-                </DynamicText>
-            </div>
-        </div>
+            {/* DynamicText como container principal com background color */}
+            <DynamicText
+                colorMode={mode}
+                transitionDuration={400}
+                style={{
+                    backgroundColor: bgColor,
+                    minHeight: '100vh',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexDirection: 'column',
+                    padding: '2rem'
+                }}
+            >
+                <h1 className="text-4xl font-bold mb-4">
+                    Texto Dinâmico Adaptativo
+                </h1>
+                <p className="text-xl mb-4">
+                    Este texto muda de cor automaticamente baseado no fundo.
+                </p>
+                <p className="text-lg mb-4">
+                    Fundo: {bgColor} | Modo: {mode}
+                </p>
+                <button className="px-6 py-3 border rounded">
+                    Botão também adapta
+                </button>
+            </DynamicText>
+        </>
     );
 }

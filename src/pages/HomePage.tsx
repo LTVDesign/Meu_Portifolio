@@ -9,6 +9,8 @@ import Curriculo from '../components/sections/Curriculo';
 import Contact from '../components/sections/Contact';
 
 const HomePage = () => {
+    console.log('[HomePage] Renderizando HomePage - DEBUG');
+
     return (
         <>
             <Hero />

@@ -71,6 +71,11 @@ export interface UseDynamicTextColorResult {
 }
 
 /**
+ * Constante para limite de profundidade na árvore DOM
+ */
+const MAX_DEPTH = 50;
+
+/**
  * Hook para detecção inteligente de cor de fundo e cálculo de cor de texto ótima
  *
  * @param ref - Referência para o elemento cujo fundo será analisado
@@ -110,19 +115,32 @@ export function useDynamicTextColor(
     // Refs para controle de performance
     const rafRef = useRef<number | null>(null);
     const lastUpdateRef = useRef<number>(0);
-    const lastColorRef = useRef<string>('');
-    const lastBgRef = useRef<string>('');
+    const lastTextColorRef = useRef<string>('');
+    const lastBgColorRef = useRef<string>('');
     const resizeObserverRef = useRef<ResizeObserver | null>(null);
     const mutationObserverRef = useRef<MutationObserver | null>(null);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const timeoutRef = useRef<number | null>(null);
     const isMountedRef = useRef<boolean>(true);
+
+    /**
+     * Obtém a cor de fallback baseada no modo
+     */
+    const getFallbackColor = useCallback((mode: typeof fallbackMode): { bg: string; text: string } => {
+        if (mode === 'auto') {
+            // Para 'auto', retorna cinza médio como cor neutra
+            return { bg: '#808080', text: '#ffffff' };
+        }
+        return mode === 'dark'
+            ? { bg: '#1a1a1a', text: '#ffffff' }
+            : { bg: '#ffffff', text: '#000000' };
+    }, []);
 
     /**
      * Converte cor CSS para RGB
      */
-    const parseColorToRGB = useCallback((cssColor: string): { r: number; g: number; b: number } | null => {
+    const parseColorToRGB = useCallback((cssColor: string): { r: number; g: number; b: number; a?: number } | null => {
         if (!cssColor || cssColor === 'transparent' || cssColor === 'rgba(0, 0, 0, 0)') {
             return null;
         }
@@ -134,22 +152,30 @@ export function useDynamicTextColor(
         const computed = getComputedStyle(temp).color;
         document.body.removeChild(temp);
 
-        const match = computed.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-        if (match) {
+        // Regex melhorado: aceita espaços opcionais e valores de 1-3 dígitos
+        const matchRgb = computed.match(/^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/);
+        if (matchRgb) {
             return {
-                r: parseInt(match[1], 10),
-                g: parseInt(match[2], 10),
-                b: parseInt(match[3], 10),
+                r: parseInt(matchRgb[1], 10),
+                g: parseInt(matchRgb[2], 10),
+                b: parseInt(matchRgb[3], 10),
             };
         }
 
-        const matchRgba = computed.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*[\d.]+\)$/);
+        // Regex melhorado para rgba: captura alpha e valida se > 0
+        const matchRgba = computed.match(/^rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*([\d.]+)\s*\)$/);
         if (matchRgba) {
-            return {
-                r: parseInt(matchRgba[1], 10),
-                g: parseInt(matchRgba[2], 10),
-                b: parseInt(matchRgba[3], 10),
-            };
+            const alpha = parseFloat(matchRgba[4]);
+            // Só retorna se alpha > 0, caso contrário é transparente
+            if (alpha > 0) {
+                return {
+                    r: parseInt(matchRgba[1], 10),
+                    g: parseInt(matchRgba[2], 10),
+                    b: parseInt(matchRgba[3], 10),
+                    a: alpha,
+                };
+            }
+            return null;
         }
 
         // Tenta hex
@@ -180,7 +206,7 @@ export function useDynamicTextColor(
     }, []);
 
     /**
-     * Amostra cor média de um elemento usando canvas
+     * Amostra cor média de um elemento usando canvas (img e canvas)
      */
     const sampleColorFromElement = useCallback((element: HTMLElement): string | null => {
         if (!element) return null;
@@ -207,24 +233,19 @@ export function useDynamicTextColor(
             canvas.height = sampleSize;
 
             // Tenta desenhar imagens do elemento no canvas
-            // Nota: Isso pode não funcionar para todos os elementos devido a CORS
             const images = element.querySelectorAll('img');
             if (images.length > 0) {
-                // Tenta desenhar a primeira imagem encontrada
                 const img = images[0] as HTMLImageElement;
                 if (img.complete && img.naturalWidth > 0) {
                     try {
                         ctx.drawImage(img, 0, 0, sampleSize, sampleSize);
                     } catch {
-                        // CORS ou outro erro
                         return null;
                     }
                 } else {
                     return null;
                 }
             } else {
-                // Se não há imagens, tenta desenhar o elemento como html2canvas
-                // Mas como não temos html2canvas, tentamos com o elemento filho que seja canvas/image
                 const canvasChildren = element.querySelectorAll('canvas');
                 if (canvasChildren.length > 0) {
                     try {
@@ -249,7 +270,6 @@ export function useDynamicTextColor(
                 const b = data[i + 2];
                 const a = data[i + 3];
 
-                // Ignora pixels transparentes
                 if (a > 0) {
                     totalR += r;
                     totalG += g;
@@ -271,6 +291,60 @@ export function useDynamicTextColor(
     }, [sampleSize, rgbToHex]);
 
     /**
+     * Amostra cor de background-image CSS (gradientes e imagens)
+     */
+    const sampleFromCSSBackground = useCallback((element: HTMLElement): string | null => {
+        if (!element) return null;
+
+        try {
+            const style = getComputedStyle(element);
+            const bgImage = style.backgroundImage;
+
+            if (!bgImage || bgImage === 'none') {
+                return null;
+            }
+
+            // Se for gradiente CSS, extrai cores diretamente
+            if (bgImage.includes('gradient')) {
+                // Regex melhorada: captura #RGB, #RRGGBB, #RGBA, #RRGGBBAA, rgb(), rgba()
+                const colorRegex = /(#[a-fA-F0-9]{3,8})|(rgb\(\s*[\d,]+\s*\))|(rgba\(\s*[\d.,]+\s*\))/g;
+                const colors = bgImage.match(colorRegex) || [];
+
+                // Pega a primeira cor não transparente
+                for (const color of colors) {
+                    const rgb = parseColorToRGB(color);
+                    if (rgb) {
+                        return rgbToHex(rgb.r, rgb.g, rgb.b);
+                    }
+                }
+
+                // Se não encontrou cores válidas, tenta extrair stops do gradient
+                const stopRegex = /(?:to|at)\s+[^,]+,\s*([^;)]+)/g;
+                const stops = [];
+                let match;
+                while ((match = stopRegex.exec(bgImage)) !== null) {
+                    stops.push(match[1].trim());
+                }
+
+                for (const stop of stops) {
+                    const rgb = parseColorToRGB(stop);
+                    if (rgb) {
+                        return rgbToHex(rgb.r, rgb.g, rgb.b);
+                    }
+                }
+
+                return null;
+            }
+
+            // Para imagens via URL (incluindo data URI), retorna null
+            // Pois requer carregamento assíncrono que não se adequa ao fluxo síncrono
+            return null;
+        } catch {
+            return null;
+        }
+    }, [parseColorToRGB, rgbToHex]);
+
+    /**
      * Amostra cor do renderer Three.js
      */
     const sampleColorFromThreeRenderer = useCallback((): string | null => {
@@ -280,24 +354,24 @@ export function useDynamicTextColor(
             const renderer = threeRenderer();
             if (!renderer) return null;
 
-            // Lê pixel do centro do viewport
             const width = renderer.domElement.width;
             const height = renderer.domElement.height;
             if (width <= 0 || height <= 0) return null;
 
-            // Verifica se há um render target ativo
             const currentRenderTarget = renderer.getRenderTarget();
             if (!currentRenderTarget) {
-                // Se não há render target, lê do dom element
                 const canvas = renderer.domElement as HTMLCanvasElement;
                 const ctx = canvas.getContext('2d');
                 if (!ctx) return null;
 
                 const pixel = ctx.getImageData(Math.floor(width / 2), Math.floor(height / 2), 1, 1).data;
-                return rgbToHex(pixel[0], pixel[1], pixel[2]);
+                // Validação: verifica se pixel tem pelo menos 4 valores e alpha > 0
+                if (pixel.length >= 4 && pixel[3] > 0) {
+                    return rgbToHex(pixel[0], pixel[1], pixel[2]);
+                }
+                return null;
             }
 
-            // Se há render target, lê dele
             const pixels = new Uint8Array(4);
             renderer.readRenderTargetPixels(
                 currentRenderTarget,
@@ -308,7 +382,11 @@ export function useDynamicTextColor(
                 pixels
             );
 
-            return rgbToHex(pixels[0], pixels[1], pixels[2]);
+            // Validação: verifica se pixel tem pelo menos 4 valores e alpha > 0
+            if (pixels.length >= 4 && pixels[3] > 0) {
+                return rgbToHex(pixels[0], pixels[1], pixels[2]);
+            }
+            return null;
         } catch {
             return null;
         }
@@ -321,12 +399,9 @@ export function useDynamicTextColor(
         if (!element) return null;
 
         let current: HTMLElement | null = element;
-        const visited = new Set<HTMLElement>();
+        let depth = 0;
 
-        while (current && visited.size < 100) {
-            if (visited.has(current)) break;
-            visited.add(current);
-
+        while (current && depth < MAX_DEPTH) {
             const style = getComputedStyle(current);
             const bgColor = style.backgroundColor;
 
@@ -338,6 +413,7 @@ export function useDynamicTextColor(
 
             // Se for transparente, sobe para o pai
             current = current.parentElement;
+            depth++;
         }
 
         return null;
@@ -356,10 +432,15 @@ export function useDynamicTextColor(
 
         // Se tem background-image (gradiente ou imagem)
         if (bgImage && bgImage !== 'none') {
-            // É gradiente ou imagem
             const type: BackgroundType = bgImage.includes('url') ? 'image' : 'gradient';
 
-            // Tenta amostrar cor do elemento
+            // Primeiro tenta amostrar via CSS background
+            const cssSampledColor = sampleFromCSSBackground(element);
+            if (cssSampledColor) {
+                return { color: cssSampledColor, type };
+            }
+
+            // Depois tenta amostrar elemento (img/canvas filhos)
             const sampledColor = sampleColorFromElement(element);
             if (sampledColor) {
                 return { color: sampledColor, type };
@@ -367,10 +448,13 @@ export function useDynamicTextColor(
 
             // Fallback: extrai cor do gradiente se possível
             if (type === 'gradient') {
-                // Pega a primeira cor do gradiente
-                const colors = bgImage.match(/#[a-fA-F0-9]{6}|rgb\([^)]+\)/g);
-                if (colors && colors.length > 0) {
-                    const rgb = parseColorToRGB(colors[0]);
+                // Regex melhorada: captura #RGB, #RRGGBB, #RGBA, #RRGGBBAA, rgb(), rgba()
+                const colorRegex = /(#[a-fA-F0-9]{3,8})|(rgb\(\s*[\d,]+\s*\))|(rgba\(\s*[\d.,]+\s*\))/g;
+                const colors = bgImage.match(colorRegex) || [];
+
+                // Filtra cores válidas e pega a primeira não transparente
+                for (const color of colors) {
+                    const rgb = parseColorToRGB(color);
                     if (rgb) {
                         return { color: rgbToHex(rgb.r, rgb.g, rgb.b), type };
                     }
@@ -383,7 +467,9 @@ export function useDynamicTextColor(
                 return { color: parentColor, type: 'mixed' };
             }
 
-            return { color: '#000000', type };
+            // Fallback final para gradiente/imagem
+            const fallback = getFallbackColor(fallbackMode);
+            return { color: fallback.bg, type };
         }
 
         // 2. Apenas cor de fundo sólida
@@ -402,8 +488,9 @@ export function useDynamicTextColor(
         }
 
         // 4. Fallback final
-        return { color: fallbackMode === 'dark' ? '#1a1a1a' : '#ffffff', type: 'transparent' };
-    }, [sampleColorFromElement, findSolidBackgroundColor, parseColorToRGB, rgbToHex, fallbackMode]);
+        const fallback = getFallbackColor(fallbackMode);
+        return { color: fallback.bg, type: 'transparent' };
+    }, [sampleFromCSSBackground, sampleColorFromElement, findSolidBackgroundColor, parseColorToRGB, rgbToHex, fallbackMode, getFallbackColor]);
 
     /**
      * Calcula a cor de texto ótima baseada na cor de fundo
@@ -417,32 +504,27 @@ export function useDynamicTextColor(
         try {
             const rgb = parseColorToRGB(bgHex);
             if (!rgb) {
-                // Fallback
+                const fallback = getFallbackColor(fallbackMode);
                 return {
-                    textColor: fallbackMode === 'dark' ? '#ffffff' : '#000000',
+                    textColor: fallback.text,
                     isDark: fallbackMode === 'dark',
                     luminance: fallbackMode === 'dark' ? 0.1 : 0.9,
                     isColorful: false,
                 };
             }
 
-            // Calcula luminância
             const lum = getLuminance(rgb.r, rgb.g, rgb.b);
             const dark = isDarkBackground(lum);
 
-            // Para fundos coloridos/movimentados, usa cor complementar
             let textHex: string;
             if (bgType !== 'solid') {
-                // Usa cor complementar para contraste visual
                 try {
                     textHex = getComplementaryColor(bgHex);
-                    // Garante contraste mínimo
                     const textRgb = parseColorToRGB(textHex);
                     if (textRgb) {
                         const textLum = getLuminance(textRgb.r, textRgb.g, textRgb.b);
                         const contrast = getContrastRatio(lum, textLum);
                         if (contrast < 4.5) {
-                            // Se contraste insuficiente, usa preto ou branco
                             textHex = getOptimalTextColor(lum);
                         }
                     } else {
@@ -452,7 +534,6 @@ export function useDynamicTextColor(
                     textHex = getOptimalTextColor(lum);
                 }
             } else {
-                // Fundo sólido: usa preto ou branco baseado em luminância
                 textHex = getOptimalTextColor(lum);
             }
 
@@ -463,14 +544,15 @@ export function useDynamicTextColor(
                 isColorful: bgType !== 'solid',
             };
         } catch {
+            const fallback = getFallbackColor(fallbackMode);
             return {
-                textColor: fallbackMode === 'dark' ? '#ffffff' : '#000000',
+                textColor: fallback.text,
                 isDark: fallbackMode === 'dark',
                 luminance: fallbackMode === 'dark' ? 0.1 : 0.9,
                 isColorful: false,
             };
         }
-    }, [parseColorToRGB, fallbackMode]);
+    }, [parseColorToRGB, fallbackMode, getFallbackColor]);
 
     /**
      * Atualiza as cores com throttle via requestAnimationFrame
@@ -478,10 +560,17 @@ export function useDynamicTextColor(
     const updateColors = useCallback(() => {
         if (!ref.current) return;
 
+        // Throttle com timestamp - skip se não passou intervalo
         const now = Date.now();
-        if (now - lastUpdateRef.current < updateInterval) return;
+        if (now - lastUpdateRef.current < updateInterval) {
+            return;
+        }
 
-        // Tenta amostrar do Three.js primeiro se disponível
+        // Se já há um RAF agendado, não agenda outro
+        if (rafRef.current) {
+            return;
+        }
+
         let detectedColor: string | null = null;
         let detectedType: BackgroundType = 'solid';
 
@@ -492,51 +581,69 @@ export function useDynamicTextColor(
             }
         }
 
-        // Se não conseguiu do Three.js, tenta amostrar de canvas 2D no elemento
         if (!detectedColor) {
-            // Primeiro, tenta detectar background do elemento ou seus pais
             const result = detectBackground(ref.current);
             detectedColor = result.color;
             detectedType = result.type;
 
-            // Se ainda não tem cor ou está usando fallback, tenta encontrar canvas dentro do elemento
-            const fallbackColor = fallbackMode === 'dark' ? '#1a1a1a' : '#ffffff';
-            if (!detectedColor || detectedColor === fallbackColor) {
+            const fallbackColors = getFallbackColor(fallbackMode);
+            if (!detectedColor || detectedColor === fallbackColors.bg) {
                 const canvas = ref.current.querySelector('canvas');
                 if (canvas) {
                     try {
                         const ctx = canvas.getContext('2d');
                         if (ctx) {
-                            const imageData = ctx.getImageData(0, 0, 1, 1);
-                            const pixel = imageData.data;
-                            if (pixel[3] > 0) { // Se não for transparente
-                                detectedColor = rgbToHex(pixel[0], pixel[1], pixel[2]);
-                                detectedType = 'image';
+                            const width = canvas.width;
+                            const height = canvas.height;
+
+                            // Amostragem de múltiplos pontos (9-point sampling)
+                            const points = [
+                                { x: Math.floor(width / 2), y: Math.floor(height / 2) }, // centro
+                                { x: Math.floor(width / 3), y: Math.floor(height / 3) }, // superior esq
+                                { x: Math.floor(width * 2 / 3), y: Math.floor(height / 3) }, // superior dir
+                                { x: Math.floor(width / 3), y: Math.floor(height * 2 / 3) }, // inferior esq
+                                { x: Math.floor(width * 2 / 3), y: Math.floor(height * 2 / 3) }, // inferior dir
+                                { x: Math.floor(width / 2), y: 0 }, // topo centro
+                                { x: Math.floor(width / 2), y: height - 1 }, // baixo centro
+                                { x: 0, y: Math.floor(height / 2) }, // esquerda centro
+                                { x: width - 1, y: Math.floor(height / 2) }, // direita centro
+                            ];
+
+                            // Tenta encontrar um pixel não transparente
+                            for (const point of points) {
+                                try {
+                                    const imageData = ctx.getImageData(point.x, point.y, 1, 1);
+                                    const pixel = imageData.data;
+                                    if (pixel.length >= 4 && pixel[3] > 0) {
+                                        detectedColor = rgbToHex(pixel[0], pixel[1], pixel[2]);
+                                        detectedType = 'image';
+                                        break;
+                                    }
+                                } catch {
+                                    // Continua para o próximo ponto
+                                }
                             }
                         }
                     } catch {
-                        // Ignora erros de canvas
+                        // Ignora erros
                     }
                 }
             }
         }
 
         if (!detectedColor) {
-            // Falha total - usa fallback
-            const fallbackColor = fallbackMode === 'dark' ? '#1a1a1a' : '#ffffff';
-            detectedColor = fallbackColor;
+            const fallbackColors = getFallbackColor(fallbackMode);
+            detectedColor = fallbackColors.bg;
             detectedType = 'transparent';
         }
 
-        // Calcula cores de texto
         const { textColor: newTextColor, isDark: newIsDark, luminance: newLuminance, isColorful: newIsColorful } =
             calculateTextColor(detectedColor, detectedType);
 
-        // Só atualiza se houve mudança significativa
-        const colorKey = `${newTextColor}-${detectedColor}`;
-        if (colorKey !== lastColorRef.current || detectedColor !== lastBgRef.current) {
-            lastColorRef.current = colorKey;
-            lastBgRef.current = detectedColor;
+        // Comparação simplificada: armazenar cores separadamente e comparar com ===
+        if (newTextColor !== lastTextColorRef.current || detectedColor !== lastBgColorRef.current) {
+            lastTextColorRef.current = newTextColor;
+            lastBgColorRef.current = detectedColor;
 
             if (isMountedRef.current) {
                 setTextColor(newTextColor);
@@ -549,6 +656,7 @@ export function useDynamicTextColor(
         }
 
         lastUpdateRef.current = now;
+        rafRef.current = null;
     }, [
         ref,
         threeRenderer,
@@ -558,11 +666,9 @@ export function useDynamicTextColor(
         updateInterval,
         fallbackMode,
         rgbToHex,
+        getFallbackColor,
     ]);
 
-    /**
-     * Handler para mudanças de tamanho
-     */
     const handleResize = useCallback(() => {
         if (rafRef.current) {
             cancelAnimationFrame(rafRef.current);
@@ -573,21 +679,11 @@ export function useDynamicTextColor(
         });
     }, [updateColors]);
 
-    /**
-     * Handler para mudanças de estilo/atributos
-     */
     const handleMutation = useCallback((mutations: MutationRecord[]) => {
-        // Verifica se houve mudança relevante
         const relevant = mutations.some((mutation) => {
-            if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                return true;
-            }
-            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                return true;
-            }
-            if (mutation.type === 'childList') {
-                return true;
-            }
+            if (mutation.type === 'attributes' && mutation.attributeName === 'style') return true;
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') return true;
+            if (mutation.type === 'childList') return true;
             return false;
         });
 
@@ -596,11 +692,9 @@ export function useDynamicTextColor(
         }
     }, [handleResize]);
 
-    // Efeito principal
     useEffect(() => {
         isMountedRef.current = true;
 
-        // Observer de redimensionamento
         if (ref.current) {
             try {
                 resizeObserverRef.current = new ResizeObserver(() => {
@@ -612,7 +706,6 @@ export function useDynamicTextColor(
             }
         }
 
-        // Observer de mutações
         if (ref.current) {
             try {
                 mutationObserverRef.current = new MutationObserver(handleMutation);
@@ -627,7 +720,6 @@ export function useDynamicTextColor(
             }
         }
 
-        // Observer de mudanças de estilo global (para transições CSS)
         const mediaQuery = window.matchMedia('(prefers-reduced-motion: no-preference)');
         const handleMediaChange = () => handleResize();
 
@@ -635,15 +727,13 @@ export function useDynamicTextColor(
             mediaQuery.addEventListener('change', handleMediaChange);
         }
 
-        // Inicialização
         updateColors();
 
-        // Polling como fallback para mudanças dinâmicas
-        timeoutRef.current = setInterval(() => {
+        // Usa window.setInterval que retorna number no navegador
+        timeoutRef.current = window.setInterval(() => {
             updateColors();
         }, updateInterval * 2);
 
-        // Cleanup
         return () => {
             isMountedRef.current = false;
 
@@ -660,7 +750,7 @@ export function useDynamicTextColor(
             }
 
             if (timeoutRef.current) {
-                clearInterval(timeoutRef.current);
+                window.clearInterval(timeoutRef.current);
             }
 
             if (mediaQuery.removeEventListener) {
@@ -669,7 +759,6 @@ export function useDynamicTextColor(
         };
     }, [ref, handleResize, handleMutation, updateColors, updateInterval]);
 
-    // Memoiza o resultado para evitar re-renders desnecessários
     const result = useMemo<UseDynamicTextColorResult>(() => ({
         textColor,
         backgroundColor,

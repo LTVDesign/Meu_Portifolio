@@ -4,9 +4,12 @@ import { SectionWrapper } from '../../hoc';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms';
 import { projects } from '../../constants';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 const Works = () => {
+  console.log('[Works] Renderizando componente Works');
   const { t } = useTranslation();
+  const prefersReduced = useReducedMotion();
 
   return (
     <div className="max-w-7xl mx-auto px-6">
@@ -16,7 +19,7 @@ const Works = () => {
         {projects.map((project, index) => (
           <motion.div
             key={project.name}
-            variants={fadeIn('up', 'spring', index * 0.1, 0.75)}
+            variants={prefersReduced ? {} : fadeIn('up', 'spring', index * 0.1, 0.75)}
             className="glass-card group relative overflow-hidden h-full flex flex-col neon-hover border border-white/10"
           >
             <div className="relative h-60 overflow-hidden">
@@ -69,7 +72,6 @@ const Works = () => {
       <div className="mt-16 flex justify-center">
         <a href="/cursos" className="btn-primary text-xs px-16 py-5 uppercase tracking-[0.4em] font-black group shadow-[0_0_25px_rgba(145,94,255,0.3)]">
           {t('works.viewProjects')}
-          <span className="group-hover:translate-x-2 transition-transform ml-2">→</span>
         </a>
       </div>
     </div>

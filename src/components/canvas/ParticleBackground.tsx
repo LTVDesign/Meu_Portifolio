@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { usePerformance } from '../../contexts/PerformanceContext';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 interface Particle {
   x: number;
@@ -35,6 +36,7 @@ const ParticleBackground = ({
   particleLineColor = '#915EFF',
 }: ParticleBackgroundProps) => {
   const { isLowPerformance } = usePerformance();
+  const prefersReduced = useReducedMotion();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number | null>(null);
   const particlesRef = useRef<Particle[]>([]);
@@ -71,6 +73,7 @@ const ParticleBackground = ({
     };
 
     const updateParticles = () => {
+      if (prefersReduced) return; // Não animar se preferir redução de movimento
       particlesRef.current.forEach((particle) => {
         particle.x += particle.vx;
         particle.y += particle.vy;
@@ -103,6 +106,9 @@ const ParticleBackground = ({
         ctx.globalAlpha = intensity * particleOpacity;
         ctx.fill();
       }
+
+      // Se preferir redução de movimento, pular animações de conexão
+      if (prefersReduced) return;
 
       // Draw connections (otimizado: limitar a 50 partículas mais próximas)
       const maxConnections = 50;
@@ -175,7 +181,9 @@ const ParticleBackground = ({
     const animate = () => {
       updateParticles();
       drawParticles();
-      animationRef.current = requestAnimationFrame(animate);
+      if (!prefersReduced) {
+        animationRef.current = requestAnimationFrame(animate);
+      }
     };
 
     const updateCanvasRect = () => {
@@ -192,7 +200,7 @@ const ParticleBackground = ({
 
       if (!canvasRectRef.current) updateCanvasRect();
       const rect = canvasRectRef.current;
-      
+
       if (rect) {
         mouseRef.current.x = e.clientX - rect.left;
         mouseRef.current.y = e.clientY - rect.top;
@@ -231,6 +239,7 @@ const ParticleBackground = ({
     lineThickness,
     particleOpacity,
     particleLineColor,
+    prefersReduced,
   ]);
 
   return (

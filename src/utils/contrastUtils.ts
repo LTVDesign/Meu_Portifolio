@@ -18,6 +18,22 @@ const SRGB_GREEN_COEFFICIENT = 0.7152;
 const SRGB_BLUE_COEFFICIENT = 0.0722;
 
 /**
+ * Cores seguras para fallback
+ */
+const SAFE_COLORS = {
+    white: '#ffffff',
+    black: '#000000',
+    darkGray: '#333333',
+    lightGray: '#cccccc',
+    yellow: '#ffff00',
+    cyan: '#00ffff',
+    magenta: '#ff00ff',
+    orange: '#ff6600',
+    green: '#00ff00',
+    blue: '#0000ff',
+};
+
+/**
  * Calcula a luminância relativa de uma cor RGB segundo WCAG 2.1
  * Aplica correção sRGB para valores linearizados
  *
@@ -82,7 +98,7 @@ export function getContrastRatio(lum1: number, lum2: number): number {
  * @returns objeto RGB com valores 0-255
  * @throws Error se o formato hex for inválido
  */
-function hexToRGB(hex: string): RGB {
+export function hexToRGB(hex: string): RGB {
     // Remove # se presente
     hex = hex.replace(/^#/, '');
 
@@ -139,7 +155,7 @@ function rgbToHSL(r: number, g: number, b: number): HSL {
         } else {
             h = (rs - gs) / delta + 4;
         }
-        h = Math.round(h * 60);
+        h = h * 60;
         if (h < 0) h += 360;
 
         // Calcula saturação
@@ -147,7 +163,7 @@ function rgbToHSL(r: number, g: number, b: number): HSL {
     }
 
     return {
-        h: h,
+        h: Math.round(h) % 360,
         s: s,
         l: l,
     };
@@ -359,4 +375,226 @@ export function getOptimalTextColorForHex(bgHex: string): string {
     const rgb = hexToRGB(bgHex);
     const luminance = getLuminance(rgb.r, rgb.g, rgb.b);
     return getOptimalTextColor(luminance);
+}
+
+/**
+ * Verifica se o contraste entre duas cores atende ao WCAG AA
+ * @param bgHex - cor de fundo em formato hex
+ * @param textHex - cor de texto em formato hex
+ * @param level - nível de contraste (4.5 para AA, 7 para AAA)
+ * @returns true se contraste é adequado
+ */
+export function hasSufficientContrast(bgHex: string, textHex: string, level: number = 4.5): boolean {
+    try {
+        const bgRGB = hexToRGB(bgHex);
+        const textRGB = hexToRGB(textHex);
+
+        const bgLuminance = getLuminance(bgRGB.r, bgRGB.g, bgRGB.b);
+        const textLuminance = getLuminance(textRGB.r, textRGB.g, textRGB.b);
+
+        const contrast = getContrastRatio(bgLuminance, textLuminance);
+        return contrast >= level;
+    } catch {
+        return false;
+    }
+}
+
+/**
+ * Gera uma cor de texto segura que garante contraste mínimo
+ * Testa múltiplas cores seguras até encontrar uma que atenda ao contraste
+ *
+ * @param bgHex - cor de fundo em formato hex
+ * @param level - nível de contraste (4.5 para AA, 7 para AAA)
+ * @returns cor de texto segura em formato hex
+ */
+export function getSafeTextColor(bgHex: string, level: number = 4.5): string {
+    const safeColorsArray = Object.values(SAFE_COLORS);
+
+    for (const color of safeColorsArray) {
+        if (hasSufficientContrast(bgHex, color, level)) {
+            return color;
+        }
+    }
+
+    // Se nenhuma cor segura funcionar, retorna preto ou branco baseado na luminância
+    try {
+        const bgRGB = hexToRGB(bgHex);
+        const bgLuminance = getLuminance(bgRGB.r, bgRGB.g, bgRGB.b);
+        return bgLuminance > 0.5 ? '#000000' : '#ffffff';
+    } catch {
+        return '#000000';
+    }
+}
+
+/**
+ * Verifica se uma cor é transparente ou quase transparente
+ * @param hex - cor em formato hex
+ * @param threshold - limiar de transparência (0-1)
+ * @returns true se transparência for maior que o threshold
+ */
+export function isTransparent(hex: string, threshold: number = 0.1): boolean {
+    try {
+        // Remove # se presente
+        hex = hex.replace(/^#/, '');
+
+        // Verifica se é formato RGBA
+        if (hex.length === 8) {
+            const alpha = parseInt(hex.substring(6, 8), 16) / 255;
+            return alpha <= threshold;
+        }
+
+        // Para hex normal, assume totalmente opaco
+        return false;
+    } catch {
+        return false;
+    }
+}
+
+/**
+ * Ajusta a cor para garantir contraste mínimo com outra cor
+ * Modifica a cor de texto se necessário para atingir contraste adequado
+ *
+ * @param bgHex - cor de fundo em formato hex
+ * @param textHex - cor de texto inicial em formato hex
+ * @param level - nível de contraste desejado (4.5 para AA, 7 para AAA)
+ * @returns cor de texto ajustada em formato hex
+ */
+export function adjustColorForContrast(bgHex: string, textHex: string, level: number = 4.5): string {
+    if (hasSufficientContrast(bgHex, textHex, level)) {
+        return textHex;
+    }
+
+    // Tenta cores seguras primeiro
+    const safeColor = getSafeTextColor(bgHex, level);
+    if (safeColor !== textHex) {
+        return safeColor;
+    }
+
+    // Se nenhuma cor segura funcionar, tenta ajustar a cor original
+    try {
+        const bgRGB = hexToRGB(bgHex);
+        const bgLuminance = getLuminance(bgRGB.r, bgRGB.g, bgRGB.b);
+
+        // Se fundo é claro, tenta tons mais escuros do texto
+        if (bgLuminance > 0.5) {
+            // Escurece gradualmente até atingir contraste
+            let currentLuminance = bgLuminance;
+            let contrast = getContrastRatio(bgLuminance, currentLuminance);
+
+            while (contrast < level && currentLuminance > 0.1) {
+                // Escurece em 10%
+                currentLuminance = Math.max(0.1, currentLuminance - 0.1);
+                contrast = getContrastRatio(bgLuminance, currentLuminance);
+            }
+
+            return currentLuminance > 0.1 ? '#000000' : textHex;
+        } else {
+            // Fundo escuro, tenta tons mais claros
+            let currentLuminance = bgLuminance;
+            let contrast = getContrastRatio(bgLuminance, currentLuminance);
+
+            while (contrast < level && currentLuminance < 0.9) {
+                // Clareia em 10%
+                currentLuminance = Math.min(0.9, currentLuminance + 0.1);
+                contrast = getContrastRatio(bgLuminance, currentLuminance);
+            }
+
+            return currentLuminance < 0.9 ? '#ffffff' : textHex;
+        }
+    } catch {
+        return textHex;
+    }
+}
+
+/**
+ * Calcula a cor de texto ideal considerando múltiplos fatores
+ * - Contraste mínimo WCAG
+ * - Preferência de cor (se fornecida)
+ * - Cores seguras de fallback
+ *
+ * @param bgHex - cor de fundo em formato hex
+ * @param preferredColor - cor de texto preferida (opcional)
+ * @param level - nível de contraste desejado (4.5 para AA, 7 para AAA)
+ * @returns cor de texto ideal em formato hex
+ */
+export function getOptimalTextColorWithFallback(bgHex: string, preferredColor?: string, level: number = 4.5): string {
+    if (!preferredColor) {
+        return getSafeTextColor(bgHex, level);
+    }
+
+    // Primeiro tenta a cor preferida
+    if (hasSufficientContrast(bgHex, preferredColor, level)) {
+        return preferredColor;
+    }
+
+    // Depois tenta cores seguras
+    const safeColor = getSafeTextColor(bgHex, level);
+    if (safeColor !== preferredColor) {
+        return safeColor;
+    }
+
+    // Como último recurso, ajusta a cor preferida
+    return adjustColorForContrast(bgHex, preferredColor, level);
+}
+
+/**
+ * Verifica se uma cor é considerada colorida (não neutra)
+ * Baseado em saturação e distância do cinza
+ *
+ * @param hex - cor em formato hex
+ * @param saturationThreshold - limiar de saturação (0-1)
+ * @returns true se cor for considerada colorida
+ */
+export function isColorful(hex: string, saturationThreshold: number = 0.1): boolean {
+    try {
+        const rgb = hexToRGB(hex);
+        const hsl = rgbToHSL(rgb.r, rgb.g, rgb.b);
+        return hsl.s > saturationThreshold;
+    } catch {
+        return false;
+    }
+}
+
+/**
+ * Calcula a média de luminância de múltiplas cores
+ *
+ * @param colors - array de cores em formato hex
+ * @returns média de luminância (0-1)
+ */
+export function getAverageLuminance(colors: string[]): number {
+    if (colors.length === 0) return 0;
+
+    let totalLuminance = 0;
+    let validCount = 0;
+
+    for (const color of colors) {
+        try {
+            const rgb = hexToRGB(color);
+            const luminance = getLuminance(rgb.r, rgb.g, rgb.b);
+            totalLuminance += luminance;
+            validCount++;
+        } catch {
+            // Ignora cores inválidas
+        }
+    }
+
+    return validCount > 0 ? totalLuminance / validCount : 0;
+}
+
+/**
+ * Verifica se uma cor está dentro de um intervalo de luminância
+ *
+ * @param hex - cor em formato hex
+ * @param minLuminance - luminância mínima (0-1)
+ * @param maxLuminance - luminância máxima (0-1)
+ * @returns true se luminância estiver no intervalo
+ */
+export function isLuminanceInRange(hex: string, minLuminance: number, maxLuminance: number): boolean {
+    try {
+        const rgb = hexToRGB(hex);
+        const luminance = getLuminance(rgb.r, rgb.g, rgb.b);
+        return luminance >= minLuminance && luminance <= maxLuminance;
+    } catch {
+        return false;
+    }
 }

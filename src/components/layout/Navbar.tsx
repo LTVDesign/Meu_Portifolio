@@ -207,7 +207,7 @@ const Navbar = memo(() => {
           <button
             onClick={() => i18n.changeLanguage('pt')}
             aria-label={t('nav.switch_to_pt')}
-            className={`group relative px-3 py-1.5 text-sm font-extrabold uppercase tracking-wider rounded-lg transition-all overflow-hidden ${i18n.language === 'pt'
+            className={`group relative px-3 py-1.5 text-xs font-extrabold uppercase tracking-wider rounded-lg transition-all overflow-hidden ${i18n.language === 'pt'
               ? 'bg-[var(--cyber-purple)] text-white shadow-[0_0_15px_rgba(145,94,255,0.5)]'
               : 'bg-white/10 text-white hover:text-white hover:bg-white/20'
               }`}
@@ -230,7 +230,7 @@ const Navbar = memo(() => {
           <button
             onClick={() => i18n.changeLanguage('en')}
             aria-label={t('nav.switch_to_en')}
-            className={`group relative px-3 py-1.5 text-sm font-extrabold uppercase tracking-wider rounded-lg transition-all overflow-hidden ${i18n.language === 'en'
+            className={`group relative px-3 py-1.5 text-xs font-extrabold uppercase tracking-wider rounded-lg transition-all overflow-hidden ${i18n.language === 'en'
               ? 'bg-[var(--cyber-cyan)] text-white shadow-[0_0_15px_rgba(0,255,255,0.5)]'
               : 'bg-white/10 text-white hover:text-white hover:bg-white/20'
               }`}
