@@ -20,7 +20,7 @@ const SectionWrapperComponent = ({ children, id, className = '' }: SectionWrappe
       whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
       transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: 'easeOut' }}
       viewport={prefersReduced ? {} : { once: true, amount: 0.25 }}
-      className={`relative py-[clamp(5rem,10vw,8rem)] ${className}`}
+      className={`relative py-[clamp(2.5rem,5vw,4rem)] ${className}`}
     >
       {children}
     </motion.section>

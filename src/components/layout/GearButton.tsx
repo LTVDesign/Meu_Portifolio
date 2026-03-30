@@ -3,10 +3,9 @@ import { m, AnimatePresence } from 'framer-motion';
 
 interface GearButtonProps {
     onClick: () => void;
-    isOpen: boolean;
 }
 
-const GearButton = ({ onClick, isOpen }: GearButtonProps) => {
+const GearButton = ({ onClick }: GearButtonProps) => {
     const btnRef = useRef<HTMLButtonElement>(null);
     const [isMounted, setIsMounted] = useState(false);
 
@@ -74,8 +73,7 @@ const GearButton = ({ onClick, isOpen }: GearButtonProps) => {
                             <button
                                 ref={btnRef}
                                 onClick={onClick}
-                                aria-label="Toggle theme settings"
-                                aria-expanded={isOpen}
+                                aria-label="Abrir configurações de background"
                                 className="launch-btn relative flex items-center justify-center p-5 bg-black/30 border-2 border-[#915EFF]/60 rounded-full shadow-[0_0_25px_rgba(145,94,255,0.6),0_0_50px_rgba(0,212,255,0.4),0_0_75px_rgba(255,107,157,0.3),inset_0_0_25px_rgba(145,94,255,0.15)] hover:shadow-[0_0_40px_rgba(145,94,255,0.8),0_0_80px_rgba(0,212,255,0.6),0_0_100px_rgba(255,107,157,0.4),inset_0_0_35px_rgba(145,94,255,0.25)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#915EFF] focus-visible:ring-offset-2 focus-visible:ring-offset-black transition-all duration-300"
                             >
                                 {/* Borda animada colorida RGB */}

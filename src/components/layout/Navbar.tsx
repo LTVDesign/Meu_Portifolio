@@ -202,56 +202,47 @@ const Navbar = memo(() => {
           })}
         </ul>
 
-        {/* Language Selector - Right side - 60% smaller */}
-        <div className="hidden sm:flex items-center gap-2 ml-auto">
-          {/* PT Button - Brazilian Flag - sem sombras/efeitos */}
+        {/* Language Selector - Right side - smaller, only hover animation */}
+        <div className="hidden sm:flex items-center gap-2.5 ml-auto">
+          {/* PT Button - Brazilian Flag - cores 100% vivas, sem texto */}
           <m.button
             onClick={() => i18n.changeLanguage('pt')}
             aria-label={t('nav.switch_to_pt')}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            className={`group relative px-1.5 py-1 text-xs font-black uppercase tracking-wider rounded-lg transition-all overflow-hidden ${i18n.language === 'pt'
-              ? 'bg-transparent text-white'
-              : 'bg-transparent text-white/80 hover:text-white'
-              }`}
+            whileHover={{ scale: 1.15 }}
+            className="group relative w-6 h-4 rounded overflow-hidden transition-all duration-200"
           >
-            {/* Brazilian flag background - sem efeitos */}
+            {/* Brazilian flag background - cores vivas */}
             <div
-              className="absolute inset-0 opacity-100 bg-cover bg-center rounded-lg"
+              className="absolute inset-0 bg-cover bg-center"
               style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 700'%3E%3Crect fill='%23009c3b' width='1000' height='700'/%3E%3Cpolygon fill='%23ffdf00' points='500,80 920,350 500,620 80,350'/%3E%3Ccircle fill='%23002776' cx='500' cy='350' r='170'/%3E%3Cpath fill='white' d='M500,180 a170,170 0 1,0 0,340 a130,130 0 1,1 0,-340'/%3E%3C/svg%3E")`
               }}
             />
-            <span className="relative z-10 font-black text-sm">PT</span>
+            {/* Overlay ativo - apenas no hover ou quando ativo */}
+            <div className="absolute inset-0 bg-[var(--cyber-purple)]/0 group-hover:bg-[var(--cyber-purple)]/30 transition-all duration-200" />
+            {i18n.language === 'pt' && (
+              <div className="absolute inset-0 ring-2 ring-[var(--cyber-purple)] ring-offset-1 ring-offset-transparent rounded" />
+            )}
           </m.button>
 
-          {/* EN Button - US Flag */}
+          {/* EN Button - US Flag - cores vivas, sem texto */}
           <m.button
             onClick={() => i18n.changeLanguage('en')}
             aria-label={t('nav.switch_to_en')}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            className={`group relative px-1.5 py-1 text-xs font-black uppercase tracking-wider rounded-lg transition-all overflow-hidden ${i18n.language === 'en'
-              ? 'bg-gradient-to-r from-[var(--cyber-cyan)] to-cyan-400 text-white shadow-[0_0_10px_rgba(0,255,255,0.5),0_0_20px_rgba(0,255,255,0.2)] ring-1 ring-[var(--cyber-cyan)]/30'
-              : 'bg-white/10 text-white hover:text-white hover:bg-white/20 hover:shadow-[0_0_8px_rgba(0,255,255,0.3)]'
-              }`}
+            whileHover={{ scale: 1.15 }}
+            className="group relative w-6 h-4 rounded overflow-hidden transition-all duration-200"
           >
-            {/* US flag background - stronger colors */}
+            {/* US flag background - cores vivas */}
             <div
-              className="absolute inset-0 opacity-90 bg-cover bg-center rounded-lg group-hover:opacity-100 transition-opacity"
+              className="absolute inset-0 bg-cover bg-center"
               style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 700'%3E%3Crect fill='%23bf0a30' width='1000' height='700'/%3E%3Cpath fill='white' d='M0,100 h1000 M0,200 h1000 M0,300 h1000 M0,400 h1000 M0,500 h1000 M0,600 h1000' stroke='white' stroke-width='50'/%3E%3Crect fill='%23002868' width='400' height='350'/%3E%3Cg fill='white'%3E%3Cpolygon points='50,30 53,45 68,45 56,54 60,69 50,60 40,69 44,54 32,45 47,45'/%3E%3C/g%3E%3C/svg%3E")`
               }}
             />
-            <span className="relative z-10 font-black text-sm">EN</span>
-            {/* Glow effect */}
+            {/* Overlay ativo - apenas no hover ou quando ativo */}
+            <div className="absolute inset-0 bg-[var(--cyber-cyan)]/0 group-hover:bg-[var(--cyber-cyan)]/30 transition-all duration-200" />
             {i18n.language === 'en' && (
-              <m.div
-                className="absolute inset-0 rounded-lg bg-[var(--cyber-cyan)]"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: [0.3, 0.6, 0.3] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
+              <div className="absolute inset-0 ring-2 ring-[var(--cyber-cyan)] ring-offset-1 ring-offset-transparent rounded" />
             )}
           </m.button>
         </div>
@@ -272,26 +263,25 @@ const Navbar = memo(() => {
             </li>
           ))}
         </ul>
-        {/* Language Selector Mobile */}
-        <div className="flex items-center justify-center gap-2 pt-4 border-t border-white/10">
+        {/* Language Selector Mobile - menor, sem texto, cores vivas */}
+        <div className="flex items-center justify-center gap-3 pt-4 border-t border-white/10">
           <button
             onClick={() => {
               i18n.changeLanguage('pt');
               setToggle(false);
             }}
             aria-label={t('nav.switch_to_pt')}
-            className={`px-2 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg transition-all relative overflow-hidden ${i18n.language === 'pt'
-              ? 'bg-[var(--cyber-purple)] text-white shadow-[0_0_8px_rgba(145,94,255,0.4)]'
-              : 'bg-white/5 text-white/80 hover:text-white hover:bg-white/10'
-              }`}
+            className="relative w-7 h-5 rounded overflow-hidden transition-all duration-200"
           >
             <div
-              className="absolute inset-0 opacity-10 bg-cover bg-center rounded-lg"
+              className="absolute inset-0 bg-cover bg-center"
               style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 700'%3E%3Crect fill='%23009c3b' width='1000' height='700'/%3E%3Cpolygon fill='%23ffdf00' points='500,80 920,350 500,620 80,350'/%3E%3Ccircle fill='%23002776' cx='500' cy='350' r='170'/%3E%3Cpath fill='white' d='M500,180 a170,170 0 1,0 0,340 a130,130 0 1,1 0,-340'/%3E%3C/svg%3E")`
               }}
             />
-            <span className="relative z-10"><DynamicText colorMode="auto">PT</DynamicText></span>
+            {i18n.language === 'pt' && (
+              <div className="absolute inset-0 ring-2 ring-[var(--cyber-purple)] ring-offset-1 ring-offset-transparent rounded" />
+            )}
           </button>
           <button
             onClick={() => {
@@ -299,18 +289,17 @@ const Navbar = memo(() => {
               setToggle(false);
             }}
             aria-label={t('nav.switch_to_en')}
-            className={`px-2 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg transition-all relative overflow-hidden ${i18n.language === 'en'
-              ? 'bg-[var(--cyber-cyan)] text-white shadow-[0_0_8px_rgba(0,255,255,0.4)]'
-              : 'bg-white/5 text-white/80 hover:text-white hover:bg-white/10'
-              }`}
+            className="relative w-7 h-5 rounded overflow-hidden transition-all duration-200"
           >
             <div
-              className="absolute inset-0 opacity-10 bg-cover bg-center rounded-lg"
+              className="absolute inset-0 bg-cover bg-center"
               style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 700'%3E%3Crect fill='%23bf0a30' width='1000' height='700'/%3E%3Cpath fill='white' d='M0,100 h1000 M0,200 h1000 M0,300 h1000 M0,400 h1000 M0,500 h1000 M0,600 h1000' stroke='white' stroke-width='50'/%3E%3Crect fill='%23002868' width='400' height='350'/%3E%3Cg fill='white'%3E%3Cpolygon points='50,30 53,45 68,45 56,54 60,69 50,60 40,69 44,54 32,45 47,45'/%3E%3C/g%3E%3C/svg%3E")`
               }}
             />
-            <span className="relative z-10"><DynamicText colorMode="auto">EN</DynamicText></span>
+            {i18n.language === 'en' && (
+              <div className="absolute inset-0 ring-2 ring-[var(--cyber-cyan)] ring-offset-1 ring-offset-transparent rounded" />
+            )}
           </button>
         </div>
       </div>

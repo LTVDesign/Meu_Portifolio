@@ -14,7 +14,6 @@ import { useParticleConfig, useBackgroundMenu } from './contexts/ParticleConfigC
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ParticlesCanvas from './components/layout/ParticlesCanvas';
-import GearButton from './components/layout/GearButton';
 import BackgroundMenu from './components/layout/BackgroundMenu';
 import BackgroundEditorModal from './components/layout/BackgroundEditorModal';
 
@@ -76,17 +75,9 @@ const AppContent = () => {
   const [selectedBgForEditor, setSelectedBgForEditor] = useState<string>('particles');
 
   const { config } = useParticleConfig();
-  const { isBgMenuOpen, openBgMenu, closeBgMenu } = useBackgroundMenu();
+  const { isBgMenuOpen, closeBgMenu } = useBackgroundMenu();
 
   useKonamiCode();
-
-  const handleGearClick = () => {
-    if (isBgMenuOpen) {
-      closeBgMenu();
-    } else {
-      openBgMenu();
-    }
-  };
 
   const handleCloseMenu = () => {
     closeBgMenu();
@@ -154,9 +145,6 @@ const AppContent = () => {
 
                 <Footer />
               </div>
-
-              {/* Gear Button e Menus de Background */}
-              <GearButton onClick={handleGearClick} isOpen={isBgMenuOpen} />
 
               <AnimatePresence>
                 {isBgMenuOpen && (

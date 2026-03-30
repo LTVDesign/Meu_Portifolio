@@ -1,5 +1,5 @@
 import { LazyMotion, domAnimation, m } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { ComputersCanvas } from '../canvas';
@@ -18,6 +18,12 @@ const Hero = () => {
     // Quando a primeira linha completa, inicia a segunda
     setShowSecondLine(true);
   };
+
+  // Memoizar arrays para evitar recriação e reset da animação
+  const firstLineWords = useMemo(() => [t('hero.title')], [t]);
+  const firstLineColors = useMemo(() => ['#ffffff'], []);
+  const secondLineWords = useMemo(() => (t('hero.subtitle', { returnObjects: true }) as string[]).slice(0, 1), [t]);
+  const secondLineColors = useMemo(() => ['#a855f7', '#06b6d4', '#e5e7eb'], []);
 
   useEffect(() => {
     // Reduzido de 1200ms para 300ms para melhorar LCP
@@ -60,8 +66,8 @@ const Hero = () => {
                   className="relative"
                 >
                   <TerminalText
-                    words={[t('hero.title')]}
-                    colors={['#ffffff']}
+                    words={firstLineWords}
+                    colors={firstLineColors}
                     typingSpeed={65}
                     pauseTime={2000}
                     loop={false}
@@ -81,8 +87,8 @@ const Hero = () => {
                     className="relative"
                   >
                     <TerminalText
-                      words={(t('hero.subtitle', { returnObjects: true }) as string[]).slice(0, 1)}
-                      colors={['#a855f7', '#06b6d4', '#e5e7eb']}
+                      words={secondLineWords}
+                      colors={secondLineColors}
                       typingSpeed={55}
                       pauseTime={2800}
                       loop={true}
@@ -97,79 +103,15 @@ const Hero = () => {
 
         </div>
 
-        {/* Canvas 3D */}
-        <div className="absolute inset-0 z-0">
+        {/* Canvas 3D do Computador - rola junto com a página */}
+        <div className="absolute inset-0 z-0 pointer-events-auto">
           <ComputersCanvas />
         </div>
 
-        {/* Engrenagem flutuante esquerda - Gear button para configurações de background */}
+        {/* Engrenagem flutuante esquerda - Background selector (FIXA) */}
         <m.button
           onClick={handleBackgroundClick}
-          className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-[100001] cursor-pointer group"
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.95 }}
-          aria-label="Abrir configurações de background"
-        >
-          <div className="relative w-20 h-20">
-            {/* Glow externo */}
-            <m.div
-              className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 via-purple-500 to-pink-500 blur-xl opacity-50"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            />
-
-            {/* Engrenagem SVG com design realista */}
-            <svg width="80" height="80" viewBox="0 0 100 100" className="drop-shadow-2xl">
-              <defs>
-                <linearGradient id="gearGradLeft" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#00FFFF" />
-                  <stop offset="50%" stopColor="#915EFF" />
-                  <stop offset="100%" stopColor="#FF00FF" />
-                </linearGradient>
-                <filter id="glowLeft">
-                  <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-                  <feMerge>
-                    <feMergeNode in="coloredBlur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-
-              <g filter="url(#glowLeft)">
-                {/* Corpo principal da engrenagem com dentes */}
-                <path
-                  d="M50 12 L58 12 L60 22 L68 18 L74 24 L68 32 L78 36 L76 44 L88 50 L88 58 L76 62 L80 72 L72 78 L64 68 L58 76 L50 88 L42 76 L36 68 L28 78 L20 72 L24 62 L12 58 L12 50 L24 46 L20 36 L28 30 L36 40 L42 32 L50 24 Z"
-                  fill="rgba(30,30,40,0.9)"
-                  stroke="url(#gearGradLeft)"
-                  strokeWidth="2.5"
-                />
-                {/* Círculo interno */}
-                <circle cx="50" cy="50" r="16" fill="rgba(20,20,30,0.95)" stroke="url(#gearGradLeft)" strokeWidth="2" />
-                {/* Círculo central */}
-                <circle cx="50" cy="50" r="6" fill="url(#gearGradLeft)" />
-              </g>
-            </svg>
-
-            {/* Anéis pulsantes */}
-            <m.div
-              className="absolute inset-0 rounded-full border-2 border-[var(--cyber-cyan)]/30"
-              animate={{
-                scale: [0.8, 1.2, 0.8],
-                opacity: [0.5, 0, 0.5]
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-          </div>
-        </m.button>
-
-        {/* Engrenagem flutuante direita - Background selector */}
-        <m.button
-          onClick={handleBackgroundClick}
-          className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-[100001] cursor-pointer group"
+          className="fixed left-6 md:left-12 top-1/2 -translate-y-1/2 z-[100001] cursor-pointer group"
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
           aria-label="Abrir seletor de background"
