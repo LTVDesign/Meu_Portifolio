@@ -2,7 +2,6 @@ import { PointMaterial, Points } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Suspense, useRef, useState } from 'react';
 import type * as THREE from 'three';
-import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 const Stars = (props: {}) => {
   const ref = useRef<THREE.Points>(null);
@@ -25,10 +24,8 @@ const Stars = (props: {}) => {
     return positions;
   });
 
-  const prefersReduced = useReducedMotion();
-
   useFrame((_state, delta) => {
-    if (ref.current && !prefersReduced) {
+    if (ref.current) {
       ref.current.rotation.x -= delta / 12;
       ref.current.rotation.y -= delta / 18;
     }

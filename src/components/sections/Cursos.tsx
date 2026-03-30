@@ -1,13 +1,15 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SectionWrapper } from '../../hoc';
-import { fadeIn, textVariant } from '../../utils/motion';
+import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms';
 import CursosModal from '../atoms/CursosModal';
 import CursoDetailModal from '../atoms/CursoDetailModal';
 import googleImg from '../../logos/google.webp';
 import albertaImg from '../../logos/alberta.webp';
+import ibmImg from '../../logos/ibm.webp';
+import cursosData from '../../data/cursos.json';
 
 interface Curso {
   id: string;
@@ -26,106 +28,96 @@ interface Curso {
 }
 
 const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
-  console.log('[Cursos] Renderizando componente Cursos, isHomePage:', isHomePage);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const [selectedCurso, setSelectedCurso] = useState<Curso | null>(null);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
-  const allCursos: Curso[] = [
-    {
-      id: '1',
-      title: 'Administração de Sistemas, Serviços e Infraestrutura de TI',
-      platform: 'Google (via Coursera)',
-      date: '2024',
-      duration: 'Aproximadamente 6 meses',
-      workload: 'Cerca de 120 horas',
-      icon: googleImg,
-      summary: 'Este curso aborda a administração de sistemas e serviços de infraestrutura de TI, cobrindo desde a instalação e configuração de sistemas operacionais até a gestão de serviços de rede e segurança. Aprenda a manter sistemas operacionais funcionando e a configurar serviços de rede essenciais.',
-      description: 'Este curso ensina as habilidades fundamentais necessárias para administrar sistemas e serviços de infraestrutura de TI. Você aprenderá a instalar e configurar sistemas operacionais Windows e Linux, gerenciar serviços de rede como DNS e DHCP, implementar políticas de segurança, e realizar tarefas de manutenção e suporte. É uma base sólida para qualquer profissional de TI que trabalha com infraestrutura.',
-      modules: [
-        'Instalação e configuração de sistemas operacionais',
-        'Gerenciamento de serviços de rede (DNS, DHCP)',
-        'Administração de usuários e permissões',
-        'Segurança de sistemas e redes',
-        'Monitoramento e troubleshooting',
-        'Automação de tarefas administrativas'
-      ],
-      verificationLink: 'https://www.coursera.org/account/accomplishments/verify/XQUDR4SCZEYA',
-      link: 'https://www.coursera.org/learn/administracao-de-sistemas-servicos-infraestrutura-ti'
-    },
-    {
-      id: '2',
-      title: 'Fundamentos do Suporte Técnico',
-      platform: 'Google (via Coursera)',
-      date: '2024',
-      duration: 'Aproximadamente 6 meses',
-      workload: 'Cerca de 120 horas',
-      icon: googleImg,
-      summary: 'Certificado Profissional que cobre os fundamentos do suporte técnico, incluindo hardware, redes, sistemas operacionais, segurança e atendimento ao cliente. Uma base completa para atuação como técnico de suporte N1/N2.',
-      description: 'Este certificado profissional fornece uma base abrangente para uma carreira em suporte técnico de TI. Abrange desde os conceitos básicos de hardware e software até tópicos avançados como redes, sistemas operacionais, segurança da informação e boas práticas de atendimento ao cliente. É o ponto de partida ideal para quem deseja atuar como técnico de suporte ou Help Desk.',
-      modules: [
-        'Fundamentos de TI e hardware',
-        'Redes de computadores e protocolos',
-        'Sistemas operacionais (Windows, Linux, macOS)',
-        'Segurança da informação e cibersegurança',
-        'Atendimento ao cliente e comunicação',
-        'Resolução de problemas e troubleshooting'
-      ],
-      verificationLink: 'https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965',
-      isProfessionalCertificate: true,
-      link: 'https://www.coursera.org/learn/fundamentos-do-suporte-tecnico'
-    },
-    {
-      id: '3',
-      title: 'Introduction to Software Product Management (PT)',
-      platform: 'University of Alberta (via Coursera)',
-      date: '2023',
-      duration: 'Aproximadamente 6 semanas',
-      workload: 'Cerca de 30 horas',
-      icon: albertaImg,
-      summary: 'Curso introdutório em gerenciamento de produtos de software, abordando os conceitos fundamentais de GPS, diferenças entre gerenciamento de produtos e projetos, e a importância do foco no cliente e na entrega de valor.',
-      description: 'Este curso estabelece a base para o gerenciamento de produtos de software (GPS), diferenciando-o do gerenciamento de projetos tradicional. Foca em três pilares para o sucesso: fornecer o produto certo (validação), feito corretamente (verificação) e gerenciado adequadamente (processos). Aborda a filosofia Ágil e o Manifesto Ágil como ferramentas para lidar com a mudança e as expectativas dos clientes.',
-      modules: [
-        'Introdução ao Gerenciamento de Produtos de Software',
-        'Diferenças entre Gerenciamento de Produtos e Projetos',
-        'Os três pilares do GPS: Validação, Verificação e Processos',
-        'Filosofia Ágil e Manifesto Ágil',
-        'Foco no cliente e valor delivery',
-        'Papéis e responsabilidades do Product Manager'
-      ],
-      verificationLink: 'https://www.coursera.org/account/accomplishments/verify/WKNDJF2YGF88',
-      link: 'https://www.coursera.org/learn/introduction-to-software-product-management-pt'
-    },
-    {
-      id: '4',
-      title: 'Redes de Computadores',
-      platform: 'Google (via Coursera)',
-      date: '2024',
-      duration: 'Aproximadamente 2 meses',
-      workload: 'Cerca de 40 horas',
-      icon: googleImg,
-      summary: 'Curso completo sobre redes de computadores, cobrindo desde os fundamentos de comunicação de dados até protocolos, arquiteturas de rede, segurança e troubleshooting. Essencial para profissionais de TI e desenvolvimento.',
-      description: 'Este curso oferece uma compreensão abrangente das redes de computadores, desde os conceitos básicos de comunicação de dados até arquiteturas de rede complexas. Aborda protocolos, modelos de referência (OSI/TCP-IP), dispositivos de rede, segurança cibernética e técnicas de diagnóstico e resolução de problemas. Fundamental para qualquer profissional de tecnologia que trabalhe com sistemas conectados.',
-      modules: [
-        'Fundamentos de comunicação de dados',
-        'Modelos de referência (OSI e TCP/IP)',
-        'Protocolos de rede (IP, TCP, UDP, HTTP, DNS)',
-        'Dispositivos de rede (roteadores, switches, firewalls)',
-        'Segurança de redes e criptografia',
-        'Troubleshooting e monitoramento de redes'
-      ],
-      verificationLink: 'https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965',
-      link: 'https://www.coursera.org/learn/redes-computadores'
-    }
-  ];
+  const currentLanguage = (i18n.language || 'pt') as keyof typeof cursosData;
+
+  const allCursos: Curso[] = useMemo(() => {
+    const cursos = cursosData[currentLanguage] || cursosData.pt;
+    return cursos.map((curso) => ({
+      ...curso,
+      icon: curso.id === '3'
+        ? albertaImg
+        : curso.id === '7'
+          ? ibmImg
+          : googleImg
+    }));
+  }, [currentLanguage]);
 
   const displayedCursos = isHomePage ? allCursos.slice(0, 6) : allCursos;
 
   return (
     <div className="max-w-7xl mx-auto px-6 font-primary">
-      <motion.div variants={textVariant()} className="text-center mb-16">
-        <Header useMotion={true} p={t('courses.p')} h2={t('courses.h2')} />
+      {/* Box de texto informativo com animação */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="mb-16"
+      >
+        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500">
+          {/* Efeito de brilho animado no fundo */}
+          <div className="absolute inset-0 opacity-30">
+            <motion.div
+              className="absolute inset-0"
+              style={{
+                background: 'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)'
+              }}
+              animate={{
+                background: [
+                  'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)',
+                  'radial-gradient(circle at 80% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)',
+                  'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)'
+                ]
+              }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </div>
+
+          {/* Conteúdo da box */}
+          <div className="relative z-10">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <Header useMotion={true} p={t('courses.p')} h2={t('courses.h2')} />
+            </motion.div>
+
+            {/* Badges de destaque */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="flex flex-wrap justify-center gap-3 mt-8"
+            >
+              {[
+                { text: 'Google', color: 'from-blue-500 to-cyan-500' },
+                { text: 'University of Alberta', color: 'from-purple-500 to-pink-500' },
+                { text: 'IBM', color: 'from-indigo-500 to-blue-500' },
+                { text: 'Anhanguera', color: 'from-green-500 to-emerald-500' }
+              ].map((badge, idx) => (
+                <motion.span
+                  key={idx}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
+                >
+                  {badge.text}
+                </motion.span>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Borda decorativa com glow */}
+          <div className="absolute inset-0 rounded-3xl border border-[var(--cyber-cyan)]/10 pointer-events-none" />
+          <div className="absolute -inset-1 bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-3xl opacity-20 blur-xl -z-10" />
+        </div>
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -171,7 +163,6 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
                 whileTap={{ scale: 0.95 }}
                 className="relative px-8 py-4 text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden"
               >
-                {/* Efeito de brilho animado */}
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent"
                   animate={{
@@ -193,7 +184,6 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
                   →
                 </motion.span>
 
-                {/* Bordas luminosas */}
                 <div className="absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300" />
               </motion.button>
             </div>
@@ -210,14 +200,12 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
         </button>
       </div>
 
-      {/* Modal de Todos os Cursos */}
       <CursosModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         cursos={allCursos}
       />
 
-      {/* Modal de Detalhes do Curso */}
       <CursoDetailModal
         isOpen={isDetailOpen}
         onClose={() => {

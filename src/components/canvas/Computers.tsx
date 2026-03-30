@@ -6,10 +6,10 @@ import { Suspense, useEffect, useState } from 'react';
 import CanvasLoader from '../layout/Loader';
 
 // Preload do modelo para melhor performance
-useGLTF.preload('./desktop_pc/scene-compressed.compressed.gltf');
+useGLTF.preload('/desktop_pc/scene-compressed.compressed.gltf');
 
 const Computers: React.FC<{ screenSize: string }> = ({ screenSize }) => {
-  const computer = useGLTF('./desktop_pc/scene-compressed.compressed.gltf');
+  const computer = useGLTF('/desktop_pc/scene-compressed.compressed.gltf');
 
   const getPosition = () => {
     if (screenSize === 'watch') return [0, -3.5, 0];
@@ -66,7 +66,7 @@ const ComputersCanvas = () => {
   }, []);
 
   return (
-    <div className="relative h-full w-full" style={{ minHeight: '100%', minWidth: '100%' }}>
+    <div className="relative h-full w-full" style={{ minHeight: '100%', minWidth: '100%', zIndex: -1, pointerEvents: 'none' }}>
       <Canvas
         frameloop="demand"
         shadows={false} // Desabilitado sombras para melhor performance

@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import googleImg from '../../logos/google.webp';
 import albertaImg from '../../logos/alberta.webp';
 import close from '../../assets/close.svg';
-import ThemeToggle from '../layout/ThemeToggle';
 import type { Curso } from '../../types';
 
 interface AllCursosProps {
@@ -205,7 +204,6 @@ const AllCursos = ({ isOpen = false, onClose = () => { } }: AllCursosProps) => {
                         </h2>
                     </div>
                     <div className="flex items-center gap-4">
-                        <ThemeToggle />
                         <button
                             onClick={onClose}
                             className="p-2 rounded-lg hover:bg-white/10 transition-colors"

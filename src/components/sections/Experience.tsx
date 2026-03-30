@@ -1,4 +1,4 @@
-import { m, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState, forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SectionWrapper } from '../../hoc';
@@ -13,7 +13,7 @@ const ExperienceCard = forwardRef<HTMLDivElement, { experience: TExperience; ind
     const prefersReduced = useReducedMotion();
 
     return (
-      <m.div
+      <motion.div
         ref={ref}
         variants={prefersReduced ? {} : fadeIn('up', 'spring', index * 0.1, 0.75)}
         className="relative pl-24 pb-12 last:pb-0 group"
@@ -25,7 +25,7 @@ const ExperienceCard = forwardRef<HTMLDivElement, { experience: TExperience; ind
         </div>
 
         {/* Content Card */}
-        <m.div
+        <motion.div
           whileHover={prefersReduced ? {} : { y: -5 }}
           className="glass-card p-8 neon-hover relative overflow-hidden"
         >
@@ -49,8 +49,8 @@ const ExperienceCard = forwardRef<HTMLDivElement, { experience: TExperience; ind
               </li>
             ))}
           </ul>
-        </m.div>
-      </m.div>
+        </motion.div>
+      </motion.div>
     );
   }
 );
@@ -63,9 +63,107 @@ const Experience = () => {
 
   return (
     <div className="max-w-5xl mx-auto px-6">
-      <m.div variants={textVariant()} className="text-center mb-12">
+      <motion.div variants={textVariant()} className="text-center mb-12">
         <Header useMotion={true} p={t('experience.p')} h2={t('experience.h2')} />
-      </m.div>
+      </motion.div>
+
+      {/* Box de texto informativo com animação */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="mb-16"
+      >
+        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500">
+          {/* Efeito de brilho animado no fundo */}
+          <div className="absolute inset-0 opacity-30">
+            <motion.div
+              className="absolute inset-0"
+              style={{
+                background: 'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)'
+              }}
+              animate={{
+                background: [
+                  'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)',
+                  'radial-gradient(circle at 80% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)',
+                  'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)'
+                ]
+              }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </div>
+
+          {/* Conteúdo da box */}
+          <div className="relative z-10">
+            {/* Título e subtítulo animados */}
+            <div className="mb-8 text-center">
+              <motion.h3
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="text-2xl md:text-3xl font-black text-white mb-4 tracking-tight"
+              >
+                <span className="bg-gradient-to-r from-[var(--cyber-cyan)] via-white to-[var(--cyber-purple)] bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(0,255,255,0.5)]">
+                  Experiência Consolidada, Olhar no Futuro.
+                </span>
+              </motion.h3>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="text-lg md:text-xl font-bold text-[var(--cyber-purple)] uppercase tracking-wider mb-8"
+              >
+                Engenheiro de Software • Tecnólogo em ADS • Pós-Graduando em IA & Data Science
+              </motion.p>
+
+              {/* Texto principal com melhor leitura */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.7 }}
+                className="prose prose-invert max-w-none"
+              >
+                <p className="text-[var(--text-secondary)] leading-relaxed text-base md:text-lg mb-6">
+                  {t('about.content')}
+                </p>
+              </motion.div>
+
+              {/* Badges de destaque */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.9 }}
+                className="flex flex-wrap justify-center gap-3 mt-8"
+              >
+                {[
+                  { text: 'Product Management', color: 'from-purple-500 to-pink-500' },
+                  { text: 'Scrum Master', color: 'from-green-500 to-emerald-500' },
+                  { text: 'Cibersegurança', color: 'from-red-500 to-orange-500' },
+                  { text: 'IA & Data Science', color: 'from-cyan-500 to-blue-500' }
+                ].map((badge, idx) => (
+                  <motion.span
+                    key={idx}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
+                  >
+                    {badge.text}
+                  </motion.span>
+                ))}
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Borda decorativa com glow */}
+          <div className="absolute inset-0 rounded-3xl border border-[var(--cyber-cyan)]/10 pointer-events-none" />
+          <div className="absolute -inset-1 bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-3xl opacity-20 blur-xl -z-10" />
+        </div>
+      </motion.div>
 
       <div className="relative pt-2">
         {/* Timeline Line (Background) */}
@@ -80,14 +178,14 @@ const Experience = () => {
 
       {!showAll && experiences.length > 4 && (
         <div className="mt-10 flex justify-center">
-          <m.button
+          <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setShowAll(true)}
             className="btn-primary px-12 py-5 text-base shadow-[0_0_35px_rgba(145,94,255,0.4)] font-black uppercase tracking-[0.2em]"
           >
             {t('experience.verMais')}
-          </m.button>
+          </motion.button>
         </div>
       )}
     </div>

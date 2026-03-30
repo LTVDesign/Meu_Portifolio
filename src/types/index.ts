@@ -58,11 +58,15 @@ export interface ParticleConfig {
     solidColor1: string;
     solidColor2: string;
     solidColor3: string;
+    solidColor1Alpha: number;
+    solidColor2Alpha: number;
+    solidColor3Alpha: number;
     solidAngle: number;
     solidAnimationSpeed: number;
     solidGrain: boolean;
     solidOpacity: number;
     solidBlur: number;
+    solidScale: number;
     particleSize: number;
     particleConnectDistance: number;
     lineThickness: number;

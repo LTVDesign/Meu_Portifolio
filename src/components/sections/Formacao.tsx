@@ -10,8 +10,128 @@ import { diploma, qrcode, diplomaPdf } from '../../assets';
 import type { FormacaoData, Disciplina } from '../../types';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 
+// Componente de engrenagem animada
+const AnimatedGear = () => {
+  const prefersReduced = useReducedMotion();
+
+  return (
+    <div className="absolute top-20 right-20 w-32 h-32 hidden lg:block opacity-30">
+      {/* Arco brilhante colorido externo */}
+      <motion.div
+        className="absolute inset-0 rounded-full"
+        style={{
+          background: 'conic-gradient(from 0deg, #915EFF, #00D4FF, #FF6B9D, #915EFF)',
+          filter: 'blur(8px)',
+          opacity: 0.6
+        }}
+        animate={prefersReduced ? {} : { rotate: 360 }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+      />
+
+      {/* Arco brilhante secundário */}
+      <motion.div
+        className="absolute inset-2 rounded-full"
+        style={{
+          background: 'conic-gradient(from 180deg, #00D4FF, #915EFF, #FF6B9D, #00D4FF)',
+          filter: 'blur(4px)',
+          opacity: 0.4
+        }}
+        animate={prefersReduced ? {} : { rotate: -360 }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+      />
+
+      {/* Container principal da engrenagem com pulsação */}
+      <motion.div
+        animate={prefersReduced ? {} : {
+          scale: [1, 1.08, 1]
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+        className="relative w-full h-full"
+      >
+        {/* SVG da engrenagem */}
+        <svg
+          width="100%"
+          height="100%"
+          viewBox="0 0 100 100"
+          className="drop-shadow-[0_0_20px_rgba(145,94,255,0.8)]"
+        >
+          <defs>
+            <linearGradient id="gearGradFormacao" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#00D4FF" />
+              <stop offset="50%" stopColor="#915EFF" />
+              <stop offset="100%" stopColor="#FF6B9D" />
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+              <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          <g filter="url(#glow)">
+            {/* Círculo central */}
+            <circle
+              cx="50"
+              cy="50"
+              r="15"
+              fill="none"
+              stroke="url(#gearGradFormacao)"
+              strokeWidth="4"
+            />
+
+            {/* Dentes da engrenagem */}
+            {[...Array(12)].map((_, i) => {
+              const angle = (i * 30) * (Math.PI / 180);
+              const x1 = 50 + 20 * Math.cos(angle);
+              const y1 = 50 + 20 * Math.sin(angle);
+              const x2 = 50 + 32 * Math.cos(angle);
+              const y2 = 50 + 32 * Math.sin(angle);
+              return (
+                <line
+                  key={i}
+                  x1={x1}
+                  y1={y1}
+                  x2={x2}
+                  y2={y2}
+                  stroke="url(#gearGradFormacao)"
+                  strokeWidth="5"
+                  strokeLinecap="round"
+                />
+              );
+            })}
+
+            {/* Círculo interno decorativo */}
+            <circle
+              cx="50"
+              cy="50"
+              r="8"
+              fill="none"
+              stroke="url(#gearGradFormacao)"
+              strokeWidth="2"
+              strokeDasharray="2 2"
+            />
+          </g>
+        </svg>
+      </motion.div>
+    </div>
+  );
+};
+
 const Formacao = () => {
-  console.log('[Formacao] Renderizando componente Formacao');
   const [selectedFormation, setSelectedFormation] = useState<FormacaoData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { t } = useTranslation();
@@ -37,7 +157,7 @@ const Formacao = () => {
       icon: facul,
       logo: facul,
       period: '2023 - 2025',
-      description: 'Formação superior focada no ciclo completo de desenvolvimento de software, análise de requisitos e gestão de projetos. Concluído com excelência acadêmica.',
+      description: 'Formação superior com foco abrangente no ciclo completo de desenvolvimento de software, desde a concepção até a implantação e manutenção de sistemas. O curso proporciona uma base sólida em análise de requisitos, arquitetura de software, gestão de projetos e metodologias ágeis, preparando profissionais capazes de liderar iniciativas tecnológicas em diversos segmentos do mercado. Com uma abordagem prática e alinhada às demandas da indústria, a graduação enfatiza o desenvolvimento de soluções inovadoras, escaláveis e sustentáveis, capacitando os egressos a enfrentar os desafios contemporâneos da área de tecnologia da informação com excelência técnica e visão estratégica. Durante o curso, foram exploradas tecnologias modernas como React, Node.js, TypeScript, bancos de dados relacionais e não-relacionais, além de práticas de DevOps e CI/CD, proporcionando uma formação completa e atualizada com as necessidades do mercado de trabalho.',
       link: '#',
       cargaHorariaGeral: '2100h',
       dataConclusao: '13/12/2025',
@@ -155,7 +275,10 @@ const Formacao = () => {
   }, [selectedFormation]);
 
   return (
-    <div className="max-w-7xl mx-auto px-6">
+    <div className="max-w-7xl mx-auto px-6 relative">
+      {/* Engrenagem animada decorativa */}
+      <AnimatedGear />
+
       <Header useMotion={true} p={t('formacao.p')} h2={t('formacao.h2')} />
 
       <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -173,7 +296,7 @@ const Formacao = () => {
               {item.status}
             </div>
 
-            <div className="flex flex-col md:flex-row items-start gap-8">
+            <div className="flex flex-col md:flex-row items-start gap-8 pt-6">
               <div className="w-20 h-20 flex-shrink-0 rounded-2xl overflow-hidden border border-white/10 bg-black/50 p-4 flex items-center justify-center shadow-inner relative z-10 transition-transform group-hover:scale-105">
                 <img src={item.logo} alt={item.institution} className="w-12 h-12 object-contain" />
               </div>
@@ -187,7 +310,7 @@ const Formacao = () => {
                   {t('education.period')}: {item.period}
                 </div>
 
-                <p className="mt-6 text-[var(--text-secondary)] leading-relaxed text-sm md:text-base opacity-80 group-hover:opacity-100 transition-opacity">
+                <p className="mt-4 text-[var(--text-secondary)] leading-relaxed text-sm md:text-base opacity-80 group-hover:opacity-100 transition-opacity line-clamp-4">
                   {item.description}
                 </p>
               </div>
@@ -201,52 +324,31 @@ const Formacao = () => {
                   boxShadow: '0 8px 30px rgba(145, 94, 255, 0.3)'
                 }}
                 whileTap={prefersReduced ? {} : { scale: 0.98 }}
-                className="w-full px-6 py-4 text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/20 border border-[var(--cyber-purple)]/30 text-white backdrop-blur-sm group/btn flex items-center justify-center gap-3 shadow-[0_4px_15px_rgba(145,94,255,0.2)] transition-all duration-300"
+                className="w-full sm:w-auto px-8 py-3 rounded-xl bg-gradient-to-r from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] font-bold uppercase tracking-wider text-sm backdrop-blur-sm transition-all duration-300 hover:border-[var(--cyber-cyan)]/60"
               >
-                <span className="relative z-10">{t('formacao.viewDetails')}</span>
-
-                {/* Efeito de brilho no hover */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[var(--cyber-cyan)]/0 via-[var(--cyber-cyan)]/20 to-[var(--cyber-purple)]/0 opacity-0 group-hover/btn:opacity-100 transition-opacity" />
-
-                {/* Bordas luminosas */}
-                <div className="absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/50 transition-all duration-300" />
+                {t('formacao.viewDetails')}
               </motion.button>
             </div>
           </motion.div>
         ))}
       </div>
 
-      <Modal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        title={selectedFormation?.title || ''}
-      >
-        {selectedFormation && (
-          <div className="space-y-12">
-            <div className="flex flex-col md:flex-row items-center gap-8 p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-[var(--cyber-purple)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="w-32 h-32 flex-shrink-0 rounded-3xl overflow-hidden border border-white/20 bg-black/60 p-6 flex items-center justify-center shadow-2xl relative z-10">
-                <img src={selectedFormation.logo} alt={selectedFormation.institution} className="w-20 h-20 object-contain" />
+      {selectedFormation && (
+        <Modal isOpen={isModalOpen} onClose={closeModal} title={selectedFormation.title}>
+          <div className="p-6">
+            <div className="flex flex-col md:flex-row gap-8 mb-8">
+              <div className="w-24 h-24 flex-shrink-0 rounded-2xl overflow-hidden border border-white/10 bg-black/50 p-4 flex items-center justify-center">
+                <img src={selectedFormation.logo} alt={selectedFormation.institution} className="w-16 h-16 object-contain" />
               </div>
-              <div className="flex-1 text-center md:text-left relative z-10">
-                <h3 className="text-3xl font-black text-white mb-3 tracking-tighter">{selectedFormation.title}</h3>
-                <p className="text-[var(--cyber-cyan)] font-extrabold uppercase tracking-[0.3em] text-sm mb-4">{selectedFormation.institution}</p>
-
-                <div className="flex flex-wrap justify-center md:justify-start gap-4">
-                  <div className="px-4 py-2 rounded-xl bg-black/40 border border-white/5 text-white/70 text-xs font-mono">
-                    {t('education.period')}: <span className="text-white">{selectedFormation.period}</span>
-                  </div>
-                  {selectedFormation.cargaHorariaGeral && (
-                    <div className="px-4 py-2 rounded-xl bg-black/40 border border-white/5 text-white/70 text-xs font-mono">
-                      {t('education.workload')}: <span className="text-[var(--cyber-cyan)] font-bold">{selectedFormation.cargaHorariaGeral}</span>
-                    </div>
-                  )}
-                  {selectedFormation.dataConclusao && (
-                    <div className="px-4 py-2 rounded-xl bg-black/40 border border-white/5 text-white/70 text-xs font-mono">
-                      {t('education.completedOn')}: <span className="text-white">{selectedFormation.dataConclusao}</span>
-                    </div>
-                  )}
+              <div className="flex-1">
+                <h3 className="text-2xl font-bold text-white mb-2">{selectedFormation.title}</h3>
+                <p className="text-[var(--cyber-purple)] font-bold uppercase tracking-widest">{selectedFormation.institution}</p>
+                <div className="mt-2 text-white/50 text-sm font-mono">
+                  {t('education.period')}: {selectedFormation.period}
                 </div>
+                <p className="mt-4 text-[var(--text-secondary)] leading-relaxed">
+                  {selectedFormation.description}
+                </p>
               </div>
             </div>
 
@@ -254,240 +356,141 @@ const Formacao = () => {
               <div className="p-8 rounded-3xl bg-black/40 border border-white/10 relative overflow-hidden">
                 <div className="absolute top-4 right-4 p-4 bg-black/60 rounded-xl border border-white/10">
                   <div className="text-center">
-                    <p className="text-white/40 text-[10px] uppercase tracking-widest mb-1">{t('education.generalAverage')}</p>
-                    <span className="text-3xl font-black text-[var(--cyber-cyan)] drop-shadow-[0_0_10px_rgba(0,243,255,0.5)]">
-                      {stats.average.toFixed(2)}
-                    </span>
-                    <p className="text-white/30 text-[9px] uppercase tracking-widest mt-2">
-                      {stats.totalCH}h {t('education.totalHours')}
-                    </p>
+                    <div className="text-3xl font-bold text-[var(--cyber-cyan)]">{stats.average.toFixed(1)}</div>
+                    <div className="text-xs text-white/50 uppercase tracking-widest mt-1">{t('education.generalAverage')}</div>
                   </div>
                 </div>
 
-                <h4 className="text-xl font-black text-white mb-8 flex items-center gap-3">
-                  <span className="w-2 h-8 bg-[var(--cyber-cyan)] rounded-full" />
-                  {t('education.semesterEvolution')}
-                </h4>
-
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-4 items-end h-56">
-                  {stats.chartData.map((data, idx) => (
-                    <div key={data.sem} className="flex flex-col items-center gap-3 group/bar">
-                      <div className="relative w-full h-40 bg-white/5 rounded-xl overflow-hidden flex items-end border border-white/5">
+                <h4 className="text-lg font-bold text-white mb-6">{t('education.semesterEvolution')}</h4>
+                <div className="space-y-6">
+                  {stats.chartData.map((data, index) => (
+                    <div key={index} className="flex items-center gap-4">
+                      <div className="w-32 text-sm text-white/70">{data.sem}</div>
+                      <div className="flex-1 h-8 bg-white/5 rounded-xl overflow-hidden relative">
                         <motion.div
-                          initial={prefersReduced ? { height: `${Math.min(data.avg * 10, 100)}%` } : { height: 0 }}
-                          animate={prefersReduced ? {} : { height: `${Math.min(data.avg * 10, 100)}%` }}
-                          transition={prefersReduced ? { duration: 0 } : { duration: 1, delay: idx * 0.1 }}
-                          className="w-full bg-gradient-to-t from-[var(--cyber-purple)] to-[var(--cyber-cyan)] relative"
-                        >
-                          <div className="absolute inset-0 opacity-30 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
-                        </motion.div>
-                        <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover/bar:opacity-100 transition-opacity bg-black/60">
-                          <span className="text-[10px] font-bold text-white mb-1">{t('education.semesterAverage')}</span>
-                          <span className="text-lg font-black text-[var(--cyber-cyan)]">
-                            {data.avg.toFixed(1)}
-                          </span>
-                          <span className="text-[9px] text-white/50 mt-1">{data.ch}h</span>
+                          initial={{ width: 0 }}
+                          animate={{ width: `${(data.avg / 10) * 100}%` }}
+                          transition={{ duration: 1, delay: index * 0.1 }}
+                          className="h-full bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)]"
+                        />
+                        <div className="absolute inset-0 flex items-center justify-center text-xs font-bold">
+                          {data.avg.toFixed(1)}
                         </div>
                       </div>
-                      <div className="text-center">
-                        <span className="text-[10px] font-mono text-[var(--cyber-cyan)] font-bold">
-                          {data.sem}
-                        </span>
-                        <p className="text-[8px] text-white/30">{data.ch}h</p>
-                      </div>
+                      <div className="w-20 text-right text-sm text-white/50">{data.ch}h</div>
                     </div>
                   ))}
                 </div>
               </div>
             )}
 
-            <div>
-              <h4 className="text-xl font-black text-white mb-6 flex items-center gap-3">
-                <span className="w-2 h-8 bg-[var(--cyber-purple)] rounded-full" />
-                {t('education.semesterHistory')}
-              </h4>
-
-              {stats && stats.allDisciplinas && (
-                <div className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden">
-                  <div className="p-4 bg-gradient-to-r from-[var(--cyber-purple)]/10 to-transparent border-b border-white/5">
-                    <div className="flex flex-wrap items-center justify-between gap-3">
-                      <div>
-                        <h5 className="text-[var(--cyber-cyan)] font-black text-lg uppercase tracking-wider">
-                          {t('education.completeAcademicHistory')}
-                        </h5>
-                        <p className="text-white/40 text-[10px] uppercase tracking-widest mt-1">
-                          {stats.allDisciplinas.length} {t('education.subjects')}
-                        </p>
-                      </div>
-                      <div className="flex gap-4">
-                        <div className="text-right">
-                          <p className="text-white/40 text-[9px] uppercase tracking-widest mb-1">{t('education.totalHours')}</p>
-                          <p className="text-[var(--cyber-cyan)] font-mono font-bold text-lg">
-                            {stats.totalCH}h
-                          </p>
-                        </div>
-                        <div className="h-8 w-px bg-white/10 hidden md:block" />
-                        <div className="text-right">
-                          <p className="text-white/40 text-[9px] uppercase tracking-widest mb-1">{t('education.generalAverage')}</p>
-                          <p className="text-white font-mono font-bold text-lg">
-                            {stats.average.toFixed(2)}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-3 space-y-2 max-h-[400px] overflow-y-auto custom-scrollbar pr-2">
-                    {stats.allDisciplinas
-                      .sort((a, b) => a.materia.localeCompare(b.materia))
-                      .map((disc, idx) => (
-                        <div
-                          key={idx}
-                          className="group/item p-4 rounded-xl bg-black/30 border border-white/5 hover:border-[var(--cyber-cyan)]/30 transition-all"
-                        >
-                          <div className="flex flex-col md:flex-row md:items-center gap-3">
-                            <div className="flex-1">
-                              <h5 className="text-white font-bold text-sm group-hover/item:text-[var(--cyber-cyan)] transition-colors">
-                                {disc.materia}
-                              </h5>
-                              <p className="text-white/30 text-[10px] uppercase tracking-wider font-medium mt-1">
-                                {disc.professor}
-                              </p>
-                            </div>
-                            <div className="flex items-center gap-4">
-                              <div className="text-center min-w-[50px]">
-                                <p className="text-white/20 text-[8px] uppercase tracking-widest mb-1">{t('education.hours')}</p>
-                                <p className="text-white font-mono text-xs">{disc.cargaHoraria}</p>
-                              </div>
-                              <div className="h-6 w-px bg-white/10 hidden md:block" />
-                              <div className="text-center min-w-[50px]">
-                                <p className="text-white/20 text-[8px] uppercase tracking-widest mb-1">{t('education.grade')}</p>
-                                <p className={`text-base font-black font-mono ${!isNaN(Number(disc.nota)) && Number(disc.nota) >= 9 ? 'text-[var(--cyber-cyan)]' : 'text-white'}`}>
-                                  {!isNaN(Number(disc.nota)) ? Number(disc.nota).toFixed(1) : disc.nota}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                  </div>
+            {selectedFormation.disciplinas && selectedFormation.disciplinas.length > 0 && (
+              <div className="mt-8">
+                <h4 className="text-lg font-bold text-white mb-4">{t('education.semesterHistory')}</h4>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-white/10">
+                        <th className="text-left py-3 px-4 text-white/70">{t('education.semester')}</th>
+                        <th className="text-left py-3 px-4 text-white/70">{t('education.subject')}</th>
+                        <th className="text-center py-3 px-4 text-white/70">{t('education.grade')}</th>
+                        <th className="text-center py-3 px-4 text-white/70">{t('education.professor')}</th>
+                        <th className="text-right py-3 px-4 text-white/70">{t('education.hours')}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {selectedFormation.disciplinas
+                        .filter(disc => typeof disc === 'object' && disc !== null && 'semestre' in disc)
+                        .map((disc, idx) => {
+                          const disciplina = disc as Disciplina;
+                          return (
+                            <tr key={idx} className="border-b border-white/5 hover:bg-white/5">
+                              <td className="py-3 px-4 text-white/50">{disciplina.semestre}</td>
+                              <td className="py-3 px-4 text-white">{disciplina.materia}</td>
+                              <td className="text-center py-3 px-4 font-bold" style={{ color: Number(disciplina.nota) >= 7 ? '#10b981' : '#ef4444' }}>
+                                {disciplina.nota}
+                              </td>
+                              <td className="text-center py-3 px-4 text-white/50">{disciplina.professor}</td>
+                              <td className="text-right py-3 px-4 text-white/50">{disciplina.cargaHoraria}</td>
+                            </tr>
+                          );
+                        })}
+                    </tbody>
+                  </table>
                 </div>
-              )}
-
-              {(!stats || !selectedFormation.disciplinas) && (
-                <div className="p-8 rounded-2xl bg-white/5 border border-white/10 text-center">
-                  <p className="text-white/40">{t('education.noRecords')}</p>
-                </div>
-              )}
-            </div>
-
-
-            {/* Seção Diploma e Autenticação */}
-            {(selectedFormation.diplomaPreview || selectedFormation.authLink || selectedFormation.id === '2') && (
-              <div className="space-y-6 pt-6">
-                <h4 className="text-xl font-black text-white flex items-center gap-3">
-                  <span className="w-2 h-8 bg-[var(--cyber-cyan)] rounded-full" />
-                  {t('education.diplomaAuthentication')}
-                </h4>
-
-                {selectedFormation.id === '1' && selectedFormation.diplomaPreview && (
-                  <div
-                    onClick={() => window.open(selectedFormation.diplomaDownload, '_blank')}
-                    className="relative group/diploma rounded-3xl overflow-hidden border border-white/10 bg-black/40 cursor-pointer hover:border-[var(--cyber-cyan)]/50 transition-all"
-                  >
-                    <img
-                      src={selectedFormation.diplomaPreview}
-                      alt={t('education.diplomaPreview')}
-                      className="w-full h-64 object-cover opacity-60 group-hover/diploma:opacity-40 blur-[2px] group-hover/diploma:blur-0 transition-all duration-500"
-                    />
-                    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-gradient-to-b from-transparent to-black/80">
-                      <div className="transform transition-transform group-hover/diploma:scale-110">
-                        <h5 className="text-white font-black text-2xl mb-4 drop-shadow-lg">{t('education.clickToOpen')}</h5>
-                        <div className="flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-[var(--cyber-cyan)] to-[var(--cyber-purple)] text-black font-bold text-sm uppercase tracking-widest shadow-[0_0_40px_rgba(0,243,255,0.4)]">
-                          {t('education.openDigitalDiploma')}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {selectedFormation.id === '1' && selectedFormation.authLink && (
-                  <div className="rounded-3xl bg-gradient-to-br from-white/5 to-white/0 border border-white/10 p-8 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5" />
-
-                    <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
-                      <div className="w-32 h-32 bg-white p-4 rounded-3xl flex-shrink-0 shadow-2xl border-2 border-[var(--cyber-cyan)]/30">
-                        <img src={selectedFormation.qrCode} alt={t('education.qrCode')} className="w-full h-full object-contain" />
-                      </div>
-
-                      <div className="flex-1 text-center md:text-left">
-                        <h5 className="text-white font-black text-2xl mb-3 tracking-tight">{t('education.authenticityVerification')}</h5>
-                        <p className="text-white/60 text-sm leading-relaxed mb-6">
-                          {t('education.scanQRCode')}
-                        </p>
-                        <a
-                          href={selectedFormation.authLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-[var(--cyber-cyan)] to-[var(--cyber-purple)] text-black font-bold text-sm uppercase tracking-widest hover:scale-105 transition-transform shadow-[0_0_30px_rgba(0,243,255,0.4)]"
-                        >
-                          {t('education.validateOnPortal')}
-                          <span className="text-lg">→</span>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {selectedFormation.id === '2' && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Botão Diploma */}
-                    <div className="rounded-2xl bg-gradient-to-br from-red-500/10 to-red-600/10 border border-red-500/30 p-6 relative overflow-hidden group">
-                      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5" />
-                      <div className="relative z-10 flex flex-col items-center text-center gap-4">
-                        <div className="w-16 h-16 rounded-full bg-red-500/20 border border-red-500/30 flex items-center justify-center">
-                          <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                        </div>
-                        <div>
-                          <h5 className="text-white font-black text-lg mb-2">Diploma</h5>
-                          <p className="text-red-300/70 text-sm">Em breve</p>
-                        </div>
-                        <div className="px-6 py-3 rounded-xl bg-red-500/20 border border-red-500/30 text-red-300 font-bold text-sm uppercase tracking-widest">
-                          Em breve
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Botão Autenticação */}
-                    <div className="rounded-2xl bg-gradient-to-br from-red-500/10 to-red-600/10 border border-red-500/30 p-6 relative overflow-hidden group">
-                      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5" />
-                      <div className="relative z-10 flex flex-col items-center text-center gap-4">
-                        <div className="w-16 h-16 rounded-full bg-red-500/20 border border-red-500/30 flex items-center justify-center">
-                          <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                        </div>
-                        <div>
-                          <h5 className="text-white font-black text-lg mb-2">Verificação de Autenticidade</h5>
-                          <p className="text-red-300/70 text-sm">Em breve</p>
-                        </div>
-                        <div className="px-6 py-3 rounded-xl bg-red-500/20 border border-red-500/30 text-red-300 font-bold text-sm uppercase tracking-widest">
-                          Em breve
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
               </div>
             )}
+
+            <div className="mt-8 flex flex-wrap gap-4">
+              {selectedFormation.diplomaPreview && (
+                <motion.div
+                  onClick={() => window.open(selectedFormation.diplomaPreview, '_blank')}
+                  className="relative group rounded-3xl overflow-hidden border border-white/10 bg-black/40 cursor-pointer hover:border-[var(--cyber-cyan)]/50 transition-all"
+                >
+                  <div className="p-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-xl overflow-hidden border border-white/20 bg-black/60 p-2 flex items-center justify-center">
+                        <img src={selectedFormation.diplomaPreview} alt="Diploma" className="w-full h-full object-contain" />
+                      </div>
+                      <div>
+                        <div className="font-bold text-white">{t('education.diplomaPreview')}</div>
+                        <div className="text-sm text-white/50">{t('education.clickToOpen')}</div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {selectedFormation.diplomaDownload && (
+                <motion.a
+                  href={selectedFormation.diplomaDownload}
+                  download
+                  className="relative group rounded-3xl overflow-hidden border border-white/10 bg-black/40 hover:border-[var(--cyber-cyan)]/50 transition-all"
+                >
+                  <div className="p-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 flex items-center justify-center">
+                        <svg className="w-8 h-8 text-[var(--cyber-cyan)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <div className="font-bold text-white">{t('education.diplomaAuthentication')}</div>
+                        <div className="text-sm text-white/50">{t('education.openDigitalDiploma')}</div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.a>
+              )}
+
+              {selectedFormation.id === '1' && selectedFormation.authLink && (
+                <motion.a
+                  href={selectedFormation.authLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative group rounded-3xl overflow-hidden border border-red-500/30 bg-gradient-to-br from-red-500/10 to-red-600/10 hover:border-red-500/50 transition-all"
+                >
+                  <div className="p-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-red-500/20 to-red-600/20 flex items-center justify-center">
+                        <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <div className="font-bold text-red-400">{t('education.validateOnPortal')}</div>
+                        <div className="text-sm text-red-300/70">Cogna - {t('education.scanQRCode')}</div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.a>
+              )}
+            </div>
           </div>
-        )}
-      </Modal>
+        </Modal>
+      )}
     </div>
   );
 };
 
 export default SectionWrapper(Formacao, 'formacao');
-

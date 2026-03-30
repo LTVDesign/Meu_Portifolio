@@ -54,6 +54,53 @@ const SolidEditor: React.FC<SolidEditorProps> = ({ config, updateConfig }) => (
             )}
         </div>
 
+        {/* Controles de transparência (alpha) para cada cor */}
+        {config.solidType === 'solid' && (
+            <SliderControl
+                label="Transparência Cor 1"
+                value={config.solidColor1Alpha ?? 1}
+                min="0"
+                max="1"
+                step="0.01"
+                onChange={(v) => updateConfig({ solidColor1Alpha: v as number })}
+                decimals={2}
+            />
+        )}
+
+        {config.solidType !== 'solid' && (
+            <>
+                <SliderControl
+                    label="Alpha Cor 1"
+                    value={config.solidColor1Alpha ?? 1}
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    onChange={(v) => updateConfig({ solidColor1Alpha: v as number })}
+                    decimals={2}
+                />
+                <SliderControl
+                    label="Alpha Cor 2"
+                    value={config.solidColor2Alpha ?? 1}
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    onChange={(v) => updateConfig({ solidColor2Alpha: v as number })}
+                    decimals={2}
+                />
+                {config.solidType !== 'radial' && (
+                    <SliderControl
+                        label="Alpha Cor 3"
+                        value={config.solidColor3Alpha ?? 1}
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        onChange={(v) => updateConfig({ solidColor3Alpha: v as number })}
+                        decimals={2}
+                    />
+                )}
+            </>
+        )}
+
         {config.solidType !== 'solid' && config.solidType !== 'radial' && (
             <SliderControl
                 label="Ângulo (º)"
@@ -91,7 +138,7 @@ const SolidEditor: React.FC<SolidEditorProps> = ({ config, updateConfig }) => (
         </label>
 
         <SliderControl
-            label="Opacidade"
+            label="Opacidade Geral"
             value={config.solidOpacity}
             min="0"
             max="1"
@@ -109,6 +156,19 @@ const SolidEditor: React.FC<SolidEditorProps> = ({ config, updateConfig }) => (
             onChange={(v) => updateConfig({ solidBlur: v as number })}
             decimals={1}
         />
+
+        {/* Controle de escala/zoom para gradientes */}
+        {config.solidType !== 'solid' && (
+            <SliderControl
+                label="Escala do Gradiente"
+                value={config.solidScale ?? 1}
+                min="0.1"
+                max="3"
+                step="0.1"
+                onChange={(v) => updateConfig({ solidScale: v as number })}
+                decimals={1}
+            />
+        )}
     </div>
 );
 

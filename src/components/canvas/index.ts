@@ -1,23 +1,7 @@
-import BallCanvas from './Ball';
-import ComputersCanvas from './Computers';
-import CyberpunkUltraBackground from './CyberpunkUltraBackground';
-import EarthCanvas from './Earth';
-import LiquidBackground from './LiquidBackground';
-import ParticleBackground from './ParticleBackground';
-import ParticulateShatterBackground from './ParticulateShatterBackground';
-import SolidColorBackground from './SolidColorBackground';
-import StarsCanvas from './Stars';
-import WavefieldUltraBackground from './WavefieldUltraBackground';
+// Barrel file para componentes 3D LEVES (usados em páginas como Hero)
+// Estes são carregados em rotas leves e não devem incluir backgrounds pesados
 
-export {
-  BallCanvas,
-  ComputersCanvas,
-  CyberpunkUltraBackground,
-  EarthCanvas,
-  LiquidBackground,
-  ParticleBackground,
-  ParticulateShatterBackground,
-  SolidColorBackground,
-  StarsCanvas,
-  WavefieldUltraBackground,
-};
+export { default as BallCanvas } from './Ball';
+export { default as ComputersCanvas } from './Computers';
+export { default as EarthCanvas } from './Earth';
+export { default as StarsCanvas } from './Stars';

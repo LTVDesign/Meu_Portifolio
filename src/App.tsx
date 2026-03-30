@@ -1,25 +1,23 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import { Suspense, lazy, useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { PerformanceProvider } from './contexts/PerformanceContext';
 import { ParticleConfigProvider } from './contexts/ParticleConfigContext';
 import { DynamicTextProvider } from './components/atoms/DynamicTextProvider';
 import { useKonamiCode } from './hooks/useKonamiCode';
+import { useParticleConfig } from './contexts/ParticleConfigContext';
 import './i18n';
 
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
-import ThemeToggle from './components/layout/ThemeToggle';
+import GearButton from './components/layout/GearButton';
+import ParticlesCanvas from './components/layout/ParticlesCanvas';
+import BackgroundMenu from './components/layout/BackgroundMenu';
+import BackgroundEditorModal from './components/layout/BackgroundEditorModal';
 
-// Error Boundary
-interface ErrorBoundaryState {
-  hasError: boolean;
-  error: Error | null;
-}
-
-class ErrorBoundary extends Component<{ children: React.ReactNode }, ErrorBoundaryState> {
+// Simple Error Boundary
+class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean; error: Error | null }> {
   constructor(props: { children: React.ReactNode }) {
     super(props);
     this.state = { hasError: false, error: null };
@@ -29,16 +27,25 @@ class ErrorBoundary extends Component<{ children: React.ReactNode }, ErrorBounda
     return { hasError: true, error };
   }
 
-  componentDidCatch(_error: Error, _errorInfo: React.ErrorInfo) {
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('ErrorBoundary capturou um erro:', error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
       return (
-        <div className="fixed inset-0 flex items-center justify-center bg-red-900/90 z-50 text-white p-8">
-          <div>
-            <h1 className="text-2xl font-bold mb-4">Erro na aplicação</h1>
-            <pre className="text-sm bg-black/30 p-4 rounded overflow-auto max-w-full">{this.state.error?.toString()}</pre>
+        <div className="min-h-screen flex items-center justify-center bg-red-950 text-white p-8">
+          <div className="max-w-2xl text-center">
+            <h1 className="text-3xl font-bold mb-4">Algo deu errado</h1>
+            <pre className="bg-black/50 p-6 rounded-xl text-left overflow-auto text-sm mb-6">
+              {this.state.error?.toString()}
+            </pre>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-6 py-3 bg-white text-black font-semibold rounded-xl hover:bg-gray-200 transition-colors"
+            >
+              Recarregar página
+            </button>
           </div>
         </div>
       );
@@ -47,157 +54,116 @@ class ErrorBoundary extends Component<{ children: React.ReactNode }, ErrorBounda
   }
 }
 
-// Lazy loading por página inteira (code splitting eficiente)
-const HomePage = lazy(() => {
-  return import('./pages/HomePage').then(module => {
-    return module;
-  }).catch(error => {
-    throw error;
-  });
-});
-const FormacaoPage = lazy(() => {
-  return import('./pages/FormacaoPage').then(module => {
-    return module;
-  }).catch(error => {
-    throw error;
-  });
-});
-const CursosPage = lazy(() => {
-  return import('./pages/CursosPage').then(module => {
-    return module;
-  }).catch(error => {
-    throw error;
-  });
-});
-const ExperiencePage = lazy(() => {
-  return import('./pages/ExperiencePage').then(module => {
-    return module;
-  }).catch(error => {
-    throw error;
-  });
-});
-const ContactPage = lazy(() => {
-  return import('./pages/ContactPage').then(module => {
-    return module;
-  }).catch(error => {
-    throw error;
-  });
-});
-const CertificadosPage = lazy(() => {
-  return import('./pages/CertificadosPage').then(module => {
-    return module;
-  }).catch(error => {
-    throw error;
-  });
-});
-const DoomPage = lazy(() => {
-  return import('./pages/DoomPage').then(module => {
-    return module;
-  }).catch(error => {
-    throw error;
-  });
-});
-const DynamicTextDemoPage = lazy(() => {
-  return import('./pages/DynamicTextDemoPage').then(module => {
-    return module;
-  }).catch(error => {
-    throw error;
-  });
-});
-const NotFoundPage = lazy(() => {
-  return import('./pages/NotFoundPage').then(module => {
-    return module;
-  }).catch(error => {
-    throw error;
-  });
-});
+// Lazy Pages
+const HomePage = lazy(() => import('./pages/HomePage'));
+const FormacaoPage = lazy(() => import('./pages/FormacaoPage'));
+const CursosPage = lazy(() => import('./pages/CursosPage'));
+const ExperiencePage = lazy(() => import('./pages/ExperiencePage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const CertificadosPage = lazy(() => import('./pages/CertificadosPage'));
+const DoomPage = lazy(() => import('./pages/DoomPage'));
+const DynamicTextDemoPage = lazy(() => import('./pages/DynamicTextDemoPage'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
-// Lazy load BackgroundManager with Three.js - only load when needed
-const BackgroundManager = lazy(() => {
-  return import('./components/canvas/BackgroundManager').then(module => {
-    return module;
-  }).catch(error => {
-    throw error;
-  });
-});
+// Lazy Background
+const BackgroundManager = lazy(() => import('./components/canvas/BackgroundManager'));
 
-const App = () => {
+const AppContent = () => {
   const [backgroundLoaded, setBackgroundLoaded] = useState(false);
+  const [isGearOpen, setIsGearOpen] = useState(false);
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [selectedBg, setSelectedBg] = useState('bolhas');
+
+  const { config } = useParticleConfig();
 
   useEffect(() => {
-    console.log('[App] App montando');
-
-    // Listener para erros não capturados
-    const errorHandler = (event: ErrorEvent) => {
-      console.error('[App] Erro global capturado:', event.error);
-    };
-    const rejectionHandler = (event: PromiseRejectionEvent) => {
-      console.error('[App] Promise rejeitada:', event.reason);
-    };
-
-    window.addEventListener('error', errorHandler);
-    window.addEventListener('unhandledrejection', rejectionHandler);
-
-    const backgroundTimer = setTimeout(() => {
+    const timer = setTimeout(() => {
       setBackgroundLoaded(true);
-    }, 1000);
+    }, 600);
 
-    return () => {
-      clearTimeout(backgroundTimer);
-      window.removeEventListener('error', errorHandler);
-      window.removeEventListener('unhandledrejection', rejectionHandler);
-    };
+    return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    setSelectedBg(config.backgroundType || 'bolhas');
+  }, [config.backgroundType]);
+
+  const handleEdit = () => {
+    setSelectedBg(config.backgroundType || 'bolhas');
+    setIsEditorOpen(true);
+    setIsGearOpen(false);
+  };
+
+  const handleCloseEditor = () => {
+    setIsEditorOpen(false);
+    setIsGearOpen(true);
+  };
 
   useKonamiCode();
 
   return (
     <HelmetProvider>
       <PerformanceProvider>
-        <ParticleConfigProvider>
-          <DynamicTextProvider
-            defaultColorMode="auto"
-            defaultTransitionDuration={400}
-            fallbackMode="auto"
-          >
-            <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-              {backgroundLoaded && (
-                <Suspense fallback={<div className="fixed inset-0 z-[-1] bg-[#050816]" />}>
-                  <BackgroundManager />
+        <DynamicTextProvider
+          defaultColorMode="auto"
+        >
+          <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+            {/* Background 3D - carregado após paint inicial */}
+            {backgroundLoaded && (
+              <Suspense fallback={null}>
+                <BackgroundManager />
+              </Suspense>
+            )}
+
+            {/* Canvas de partículas - sempre visível */}
+            <ParticlesCanvas />
+
+            <Navbar />
+            <GearButton onClick={() => setIsGearOpen(!isGearOpen)} isOpen={isGearOpen} />
+
+            {isGearOpen && <BackgroundMenu onEdit={handleEdit} onClose={() => setIsGearOpen(false)} />}
+
+            <BackgroundEditorModal
+              isOpen={isEditorOpen}
+              selectedBg={selectedBg}
+              onClose={handleCloseEditor}
+            />
+
+            <main className="relative min-h-screen" style={{ zIndex: 10 }} data-content="true">
+              <ErrorBoundary>
+                <Suspense fallback={
+                  <div className="flex items-center justify-center min-h-[70vh]">
+                    <div className="text-white/60 text-lg">Carregando conteúdo...</div>
+                  </div>
+                }>
+                  <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/formacao" element={<FormacaoPage />} />
+                    <Route path="/projetos" element={<ExperiencePage />} />
+                    <Route path="/cursos" element={<CursosPage />} />
+                    <Route path="/certificados" element={<CertificadosPage />} />
+                    <Route path="/contato" element={<ContactPage />} />
+                    <Route path="/doom" element={<DoomPage />} />
+                    <Route path="/dynamic-text-demo" element={<DynamicTextDemoPage />} />
+                    <Route path="*" element={<NotFoundPage />} />
+                  </Routes>
                 </Suspense>
-              )}
+              </ErrorBoundary>
+            </main>
 
-              <Navbar />
-              <ThemeToggle />
-
-              <main className="relative" style={{ minHeight: '100vh' }}>
-                <ErrorBoundary>
-                  <Suspense fallback={
-                    <div className="fixed top-4 right-4 z-50 bg-black/80 text-white px-4 py-2 rounded shadow-lg">
-                      Carregando...
-                    </div>
-                  }>
-                    <Routes>
-                      <Route path="/" element={<HomePage />} />
-                      <Route path="/formacao" element={<FormacaoPage />} />
-                      <Route path="/projetos" element={<ExperiencePage />} />
-                      <Route path="/cursos" element={<CursosPage />} />
-                      <Route path="/certificados" element={<CertificadosPage />} />
-                      <Route path="/contato" element={<ContactPage />} />
-                      <Route path="/doom" element={<DoomPage />} />
-                      <Route path="/dynamic-text-demo" element={<DynamicTextDemoPage />} />
-                      <Route path="*" element={<NotFoundPage />} />
-                    </Routes>
-                  </Suspense>
-                </ErrorBoundary>
-              </main>
-
-              <Footer />
-            </Router>
-          </DynamicTextProvider>
-        </ParticleConfigProvider>
+            <Footer />
+          </Router>
+        </DynamicTextProvider>
       </PerformanceProvider>
     </HelmetProvider>
+  );
+};
+
+const App = () => {
+  return (
+    <ParticleConfigProvider>
+      <AppContent />
+    </ParticleConfigProvider>
   );
 };
 

@@ -31,6 +31,18 @@ const resources = {
             // @ts-ignore
             console.log('[i18n] i18n inicializado com sucesso, língua:', (i18next as any).language);
             console.log('[i18n] Traduções disponíveis:', Object.keys(resources));
+
+            // Testar se as traduções principais estão carregadas
+            setTimeout(() => {
+                try {
+                    const testPt = (i18next as any).t('about.p');
+                    const testEn = (i18next as any).t('about.p', { lng: 'en' });
+                    console.log('[i18n] Teste de tradução PT:', testPt?.substring(0, 50));
+                    console.log('[i18n] Teste de tradução EN:', testEn?.substring(0, 50));
+                } catch (e) {
+                    console.error('[i18n] Erro ao testar traduções:', e);
+                }
+            }, 100);
         }
     });
 

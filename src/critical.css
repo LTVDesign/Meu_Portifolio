@@ -1,48 +1,52 @@
-/* Critical: Prevenir layout shift e mostrar conteúdo rapidamente */
-:root {
-    --cyber-purple: #915EFF;
-    --bg-dark: #050816;
+/* Critical CSS - First Paint essentials */
+
+/* Reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
+/* Body - APENAS o essencial para First Paint */
 body {
     margin: 0;
-    padding: 0;
-    font-family: system-ui, -apple-system, sans-serif;
-    background: var(--bg-dark);
-    color: #fff;
-    overflow-x: hidden;
-    min-height: 100vh;
+    background: #050816;
 }
 
-#root {
-    min-height: 100vh;
-    width: 100%;
-}
-
-.critical-navbar {
+/* Navbar - prevent CLS */
+nav.critical-navbar {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     height: 80px;
-    z-index: 50;
-    background: rgba(21, 16, 48, 0.88);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 100;
+    background: rgba(21, 16, 48, 0.92);
 }
 
-/* Esqueleto da Hero Section para evitar layout shift */
-.hero-skeleton {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 10%;
-}
-
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-    * {
+
+    *,
+    *::before,
+    *::after {
         animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* High contrast */
+@media (prefers-contrast: more) {
+    body {
+        background: #000;
+    }
+}
+
+/* Dark mode (explicit) */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #050816;
     }
 }

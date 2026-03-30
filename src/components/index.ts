@@ -1,25 +1,14 @@
+// Barrel file principal - APENAS componentes leves (UI)
+// Componentes 3D pesados devem ser importados de './canvas'
+
 import { LinkAnimado } from './atoms';
-import Background from './Background';
-import {
-  BallCanvas,
-  ComputersCanvas,
-  CyberpunkUltraBackground,
-  EarthCanvas,
-  LiquidBackground,
-  ParticleBackground,
-  ParticulateShatterBackground,
-  SolidColorBackground,
-  StarsCanvas,
-  WavefieldUltraBackground,
-} from './canvas';
-import NotFoundScene from './canvas/NotFoundScene';
-import NotFoundModel from './canvas/NotFoundModel';
 import ErrorBoundary from './ErrorBoundary';
 import Footer from './layout/Footer';
 import CanvasLoader from './layout/Loader';
 import MotionLoader from './layout/MotionLoader';
 import Navbar from './layout/Navbar';
-import ThemeToggle from './layout/ThemeToggle';
+
+// Sections (páginas)
 import About from './sections/About';
 import AllCertificados from './sections/AllCertificados';
 import AllCourses from './sections/AllCourses';
@@ -38,40 +27,31 @@ import Tech from './sections/Tech';
 import Works from './sections/Works';
 
 export {
+  // Atoms
+  LinkAnimado,
+
+  // Layout
+  ErrorBoundary,
+  Footer,
+  CanvasLoader,
+  MotionLoader,
+  Navbar,
+
+  // Sections
   About,
   AllCertificados,
   AllCourses,
   AllCurriculo,
   AllFormacao,
   AllWorks,
-  Background,
-  BallCanvas,
-  CanvasLoader,
   Certificados,
-  ComputersCanvas,
   Contact,
   Curriculo,
   Cursos,
-  CyberpunkUltraBackground,
-  EarthCanvas,
-  ErrorBoundary,
   Experience,
-  Footer,
   Formacao,
   Hero,
-  LinkAnimado,
-  LiquidBackground,
-  MotionLoader,
-  Navbar,
   NotFound,
-  NotFoundScene,
-  NotFoundModel,
-  ParticleBackground,
-  ParticulateShatterBackground,
-  SolidColorBackground,
-  StarsCanvas,
   Tech,
-  ThemeToggle,
-  WavefieldUltraBackground,
   Works,
 };

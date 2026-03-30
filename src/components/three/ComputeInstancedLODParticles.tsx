@@ -2,7 +2,6 @@ import { useRef, useMemo, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { usePerformance } from '../../contexts/PerformanceContext';
-import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 interface ComputeInstancedLODParticlesProps {
     count?: number;
@@ -22,7 +21,6 @@ const ComputeInstancedLODParticles = ({
     const meshRef = useRef<THREE.InstancedMesh>(null);
     useThree();
     const { level, particleCount, quality } = usePerformance();
-    const prefersReduced = useReducedMotion();
 
     // Ajusta quantidade de partículas baseado na performance
     const actualCount = useMemo(() => {
@@ -75,7 +73,7 @@ const ComputeInstancedLODParticles = ({
     const tempColor = useMemo(() => new THREE.Color(), []);
 
     useFrame((state, delta) => {
-        if (!meshRef.current || prefersReduced) return;
+        if (!meshRef.current) return;
 
         const time = state.clock.elapsedTime;
         const positions = particleData.positions;

@@ -62,11 +62,15 @@ export interface ParticleConfig {
   solidColor1: string;
   solidColor2: string;
   solidColor3: string;
+  solidColor1Alpha: number;
+  solidColor2Alpha: number;
+  solidColor3Alpha: number;
   solidAngle: number;
   solidAnimationSpeed: number;
   solidGrain: boolean;
   solidOpacity: number;
   solidBlur: number;
+  solidScale: number;
   particleSize: number;
   particleConnectDistance: number;
   lineThickness: number;
@@ -159,11 +163,15 @@ const defaultConfig: ParticleConfig = {
   solidColor1: '#08080c',
   solidColor2: '#915EFF',
   solidColor3: '#ff0055',
+  solidColor1Alpha: 1,
+  solidColor2Alpha: 1,
+  solidColor3Alpha: 1,
   solidAngle: 135,
   solidAnimationSpeed: 10,
   solidGrain: false,
   solidOpacity: 1,
   solidBlur: 0,
+  solidScale: 1,
   particleSize: 1.5,
   particleConnectDistance: 120,
   lineThickness: 1.0,
@@ -355,6 +363,10 @@ export function validateLocalStorageData(data: unknown): ParticleConfig | null {
       'solidAnimationSpeed',
       'solidOpacity',
       'solidBlur',
+      'solidScale',
+      'solidColor1Alpha',
+      'solidColor2Alpha',
+      'solidColor3Alpha',
       'particleSize',
       'particleConnectDistance',
       'lineThickness',

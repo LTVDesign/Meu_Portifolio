@@ -2,7 +2,6 @@ import { useGLTF, Text, Float } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useRef } from 'react';
 import * as THREE from 'three';
-import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 export default function NotFoundModel() {
     const { viewport } = useThree();
@@ -38,10 +37,9 @@ function Font() {
 function Mesh({ data }: { data: unknown }) {
     const meshRef = useRef<THREE.Mesh>(null);
     const { viewport } = useThree();
-    const prefersReduced = useReducedMotion();
 
     useFrame((state) => {
-        if (!meshRef.current || prefersReduced) return;
+        if (!meshRef.current) return;
         const { x, y } = state.mouse;
         meshRef.current.rotation.x = THREE.MathUtils.lerp(
             meshRef.current.rotation.x,

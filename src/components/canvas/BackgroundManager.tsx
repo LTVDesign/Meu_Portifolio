@@ -159,7 +159,11 @@ const BackgroundManager = memo(() => {
   };
 
   return (
-    <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden select-none bg-[#050816]">
+    <div
+      className="fixed inset-0 pointer-events-none overflow-hidden select-none bg-[#050816]"
+      style={{ zIndex: 0 }}
+      data-background="true"
+    >
       {isVisible && (
         <Suspense fallback={<div className="w-full h-full bg-[#050816]" style={{ minHeight: '100vh', minWidth: '100vw' }} />}>
           {renderBackground()}

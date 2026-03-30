@@ -24,8 +24,9 @@
     --reduced-motion-duration: 0.01ms;
   }
 
+  /* Apenas estilos que NÃO estão no critical.css */
   body {
-    @apply bg-transparent text-white font-sans antialiased;
+    @apply text-white font-sans antialiased;
     /* Prevenir layout shift */
     min-height: 100vh;
     overflow-x: hidden;
@@ -35,13 +36,61 @@
     scroll-behavior: smooth;
     scroll-padding-top: 100px;
   }
+
+  /* Z-INDEX STACK - CRITICAL FOR LAYERING */
+  /* Background layers (z-0 to z-9) */
+  canvas,
+  .background-layer,
+  [data-background] {
+    z-index: 0 !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+  }
+
+  /* Content layers (z-10+) */
+  main,
+  .content-layer,
+  [data-content] {
+    position: relative;
+    z-index: 10 !important;
+  }
+
+  /* Navigation (z-50+) */
+  nav,
+  .navbar,
+  header {
+    position: relative;
+    z-index: 50 !important;
+  }
+
+  /* Footer (z-10+) */
+  footer {
+    position: relative;
+    z-index: 10 !important;
+  }
+
+  /* Interactive overlays (z-100+) */
+  .modal-overlay,
+  .dropdown-menu,
+  .tooltip {
+    z-index: 100 !important;
+  }
+
+  /* Theme toggle (highest priority) */
+  .theme-toggle-container,
+  [data-theme-toggle] {
+    position: fixed;
+    z-index: 100000 !important;
+  }
 }
 
 @layer components {
 
   /* Shine animation for neon lines - otimizado para GPU */
   .shine-anim {
-    animation: shine 2s infinite ease-in-out !important;
+    animation: shine 2s infinite ease-in-out;
     will-change: transform;
     transform: translateZ(0);
   }
@@ -58,7 +107,7 @@
 
   /* Gear breathing animation */
   .gear-breathing {
-    animation: gearPulse 3s infinite ease-in-out !important;
+    animation: gearPulse 3s infinite ease-in-out;
   }
 
   @keyframes gearPulse {
@@ -77,7 +126,7 @@
 
   /* Enhanced gear breathing with smoother pulse */
   .gear-breathing-enhanced {
-    animation: gearBreathingEnhanced 3s infinite ease-in-out !important;
+    animation: gearBreathingEnhanced 3s infinite ease-in-out;
     will-change: transform;
     transform: translateZ(0);
   }
@@ -96,7 +145,7 @@
 
   /* Pulsating glow effect */
   .animate-pulse-glow {
-    animation: pulseGlow 2.5s infinite ease-in-out !important;
+    animation: pulseGlow 2.5s infinite ease-in-out;
   }
 
   @keyframes pulseGlow {
@@ -115,7 +164,7 @@
 
   /* Rotating border animation */
   .animate-rotate-border {
-    animation: rotateBorder 4s linear infinite !important;
+    animation: rotateBorder 4s linear infinite;
   }
 
   @keyframes rotateBorder {
@@ -130,7 +179,7 @@
 
   /* Logo floating animation */
   .logo-float {
-    animation: logoFloat 5s infinite ease-in-out !important;
+    animation: logoFloat 5s infinite ease-in-out;
   }
 
   @keyframes logoFloat {
@@ -147,7 +196,7 @@
 
   /* Menu glow animation */
   .menu-glow {
-    animation: menuGlow 2s infinite ease-in-out !important;
+    animation: menuGlow 2s infinite ease-in-out;
   }
 
   @keyframes menuGlow {
@@ -224,7 +273,7 @@
 
   /* Active menu item animation */
   .active-menu {
-    animation: activeMenuGlow 1.5s infinite ease-in-out !important;
+    animation: activeMenuGlow 1.5s infinite ease-in-out;
   }
 
   @keyframes activeMenuGlow {
@@ -246,7 +295,6 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     border-radius: 1.5rem;
-    will-change: backdrop-filter;
     transform: translateZ(0);
   }
 
@@ -258,7 +306,6 @@
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     border-radius: 1.5rem;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    will-change: border-color, box-shadow, backdrop-filter;
     transform: translateZ(0);
   }
 
@@ -270,7 +317,6 @@
   .section-title {
     font-size: clamp(2.5rem, 7vw, 4rem);
     @apply font-bold tracking-[-0.04em] bg-gradient-to-r from-white via-[var(--cyber-glow)] to-white bg-clip-text text-transparent;
-    will-change: transform;
     transform: translateZ(0);
   }
 
@@ -278,7 +324,6 @@
     @apply bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)] font-bold py-5 px-10 rounded-3xl focus-visible:ring-4 focus-visible:ring-[var(--cyber-purple)] focus-visible:ring-offset-4 focus-visible:ring-offset-black;
     box-shadow: 0 0 25px rgba(145, 94, 255, 0.4);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    will-change: transform, box-shadow;
     transform: translateZ(0);
   }
 
@@ -292,7 +337,6 @@
 
   .neon-hover {
     transition: box-shadow 0.3s ease, transform 0.3s ease;
-    will-change: box-shadow, transform;
     transform: translateZ(0);
   }
 
@@ -309,7 +353,6 @@
   .form-input {
     @apply bg-black/40 border border-white/20 rounded-2xl py-5 px-6 text-white placeholder:text-white/30 focus:border-[var(--cyber-purple)] focus:ring-4 focus:ring-[var(--cyber-purple)]/20 focus:outline-none backdrop-blur-md;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    will-change: border-color, box-shadow;
     transform: translateZ(0);
   }
 }
@@ -317,7 +360,6 @@
 @layer utilities {
   .neon-text {
     text-shadow: 0 0 15px var(--cyber-purple), 0 0 30px var(--cyber-cyan);
-    will-change: text-shadow;
     transform: translateZ(0);
   }
 
@@ -325,7 +367,6 @@
   .scanline {
     position: relative;
     overflow: hidden;
-    will-change: transform;
   }
 
   .scanline::after {
@@ -335,9 +376,7 @@
     background: linear-gradient(transparent, rgba(145, 94, 255, 0.15), transparent);
     animation: scan 6s linear infinite;
     pointer-events: none;
-    will-change: transform;
     transform: translateZ(0);
-    /* Força GPU acceleration */
   }
 
   @keyframes scan {
@@ -374,16 +413,7 @@
 
   /* Otimizações de performance para elementos interativos */
   .interactive-element {
-    will-change: transform, opacity;
     transform: translateZ(0);
     backface-visibility: hidden;
-    perspective: 1000px;
-  }
-
-  /* Otimização para backdrop-filter */
-  .backdrop-optimized {
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    backdrop-filter: blur(20px) saturate(180%);
-    will-change: backdrop-filter;
   }
 }

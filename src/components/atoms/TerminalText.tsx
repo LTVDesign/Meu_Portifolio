@@ -9,6 +9,7 @@ interface TerminalTextProps {
   cursorClassName?: string;
   loop?: boolean;
   typeOnce?: boolean;
+  onComplete?: () => void;
   style?: React.CSSProperties;
 }
 
@@ -21,6 +22,7 @@ const TerminalText: React.FC<TerminalTextProps> = ({
   cursorClassName = '',
   loop = true,
   typeOnce = false,
+  onComplete,
   style = {},
 }) => {
   const [displayText, setDisplayText] = useState('');
@@ -34,10 +36,12 @@ const TerminalText: React.FC<TerminalTextProps> = ({
   const waitingRef = useRef(false);
   const loopRef = useRef(loop);
   const typeOnceRef = useRef(typeOnce);
+  const onCompleteRef = useRef(onComplete);
 
   useEffect(() => {
     loopRef.current = loop;
     typeOnceRef.current = typeOnce;
+    onCompleteRef.current = onComplete;
 
     wordsRef.current = [...words];
     colorsRef.current = [...colors];
@@ -74,6 +78,12 @@ const TerminalText: React.FC<TerminalTextProps> = ({
         waitingRef.current = true;
         if (typeOnceRef.current) {
           setDisplayText(currentWords[0]);
+          // Call onComplete callback when typeOnce finishes
+          if (onCompleteRef.current) {
+            setTimeout(() => {
+              onCompleteRef.current!();
+            }, 100);
+          }
           clearInterval(typeInterval);
         } else {
           setTimeout(() => {

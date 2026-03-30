@@ -8,20 +8,23 @@ import BackgroundSelectorModal from '../atoms/BackgroundSelectorModal';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 const Hero = () => {
-  console.log('[Hero] Renderizando componente Hero');
   const [showSubtitle, setShowSubtitle] = useState(false);
+  const [showSubtitleComplete, setShowSubtitleComplete] = useState(false);
   const [showBackgroundModal, setShowBackgroundModal] = useState(false);
   const { t } = useTranslation();
   const prefersReduced = useReducedMotion();
 
   useEffect(() => {
-    // Title is static now, so start the subtitle sooner
     const timer = setTimeout(() => {
       setShowSubtitle(true);
-    }, 1500);
+    }, 1200);
 
     return () => clearTimeout(timer);
   }, []);
+
+  const handleSubtitleComplete = () => {
+    setShowSubtitleComplete(true);
+  };
 
   const handleBackgroundClick = () => {
     setShowBackgroundModal(true);
@@ -34,191 +37,115 @@ const Hero = () => {
       whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
       transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: 'easeOut' }}
       viewport={prefersReduced ? {} : { once: true, amount: 0.25 }}
-      className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center pt-0 overflow-hidden"
     >
       <Helmet>
         <title>{t('hero.titleMeta')}</title>
         <meta name="description" content={t('hero.descriptionMeta')} />
       </Helmet>
 
-      <div className="max-w-7xl mx-auto px-6 z-10 w-full flex flex-col items-center text-center relative -top-32 md:-top-40">
-        <h1 className="text-[clamp(2rem,5vw,3.5rem)] leading-tight font-bold tracking-tight whitespace-nowrap mb-2 animate-fade-in text-white">
-          {t('hero.title')}
-        </h1>
+      <div className="max-w-7xl mx-auto px-6 z-10 w-full flex flex-col items-center text-center relative -mt-16">
+        {/* Título principal com animação de entrada */}
+        <motion.div
+          initial={{ opacity: 0, y: 50, scale: 0.8 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            type: 'spring',
+            stiffness: 100,
+            damping: 15,
+            duration: 1
+          }}
+        >
+          <h1 className="text-[clamp(2.2rem,6vw,4rem)] leading-none font-black tracking-[-0.04em] text-white mb-4">
+            {t('hero.title')}
+          </h1>
+        </motion.div>
 
-        {/* Reserva espaço para o TerminalText para evitar CLS */}
-        <div className="mt-4 max-w-2xl min-h-[2.5rem]">
+        {/* Texto "Olá, eu sou..." com animação de typing */}
+        <div className="min-h-[3rem] max-w-2xl -mt-2">
           {showSubtitle && (
-            <motion.div
-              initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
-              animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
-              transition={prefersReduced ? { duration: 0 } : { duration: 0.5, delay: 0.3 }}
-            >
-              <TerminalText
-                words={t('hero.subtitle', { returnObjects: true }) as string[]}
-                colors={['#06b6d4', '#a855f7', '#e5e7eb']}
-                typingSpeed={60}
-                pauseTime={3000}
-                loop={false}
-                typeOnce={true}
-                className="text-[clamp(1rem,2vw,1.25rem)]"
-              />
-            </motion.div>
+            <TerminalText
+              words={t('hero.subtitle', { returnObjects: true }) as string[]}
+              colors={['#06b6d4', '#a855f7', '#e5e7eb']}
+              typingSpeed={55}
+              pauseTime={2800}
+              loop={false}
+              typeOnce={true}
+              onComplete={handleSubtitleComplete}
+              className="text-[clamp(1.05rem,2.2vw,1.35rem)]"
+            />
           )}
         </div>
+
+        {/* Frases adicionais que aparecem após a primeira ficar fixa */}
+        {showSubtitleComplete && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-8"
+          >
+            <p className="text-[var(--cyber-cyan)] font-bold uppercase tracking-widest text-sm">
+              Formação
+            </p>
+          </motion.div>
+        )}
       </div>
 
-      {/* Decorative neon element & 3D Model - com dimensões fixas para evitar CLS */}
-      <div className="absolute inset-0 z-0 opacity-40 xl:opacity-100" style={{ minHeight: '100vh', minWidth: '100vw' }}>
+      {/* Canvas 3D */}
+      <div className="absolute inset-0 z-0">
         <ComputersCanvas />
       </div>
 
-      {/* Engrenagem Animada com Arco Brilhante */}
-      <motion.div
-        className="absolute right-8 top-1/2 -translate-y-1/2 z-20 cursor-pointer group"
-        initial={prefersReduced ? {} : { scale: 0, opacity: 0 }}
-        animate={{
-          scale: prefersReduced ? 1 : 1,
-          opacity: prefersReduced ? 1 : 1,
-          rotate: prefersReduced ? 0 : 360
-        }}
-        transition={{
-          scale: prefersReduced ? { duration: 0 } : { duration: 0.5, delay: 1 },
-          opacity: prefersReduced ? { duration: 0 } : { duration: 0.5, delay: 1 },
-          rotate: prefersReduced ? { duration: 0 } : {
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }
-        }}
-        whileHover={prefersReduced ? {} : { scale: 1.1 }}
+      {/* Engrenagem flutuante - simplificada */}
+      <motion.button
         onClick={handleBackgroundClick}
+        className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-20 cursor-pointer group"
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.95 }}
+        aria-label="Abrir seletor de background"
       >
-        {/* Arco brilhante colorido ao redor da engrenagem */}
-        <div className="absolute inset-0 rounded-full">
+        <div className="relative w-20 h-20">
+          {/* Glow externo */}
           <motion.div
-            className="w-full h-full rounded-full border-4 border-transparent"
-            style={{
-              background: `conic-gradient(from 0deg, #00FFFF, #915EFF, #ff00ff, #00FFFF)`,
-              filter: 'blur(8px)',
-              opacity: 0.8
-            }}
-            animate={prefersReduced ? {} : { rotate: 360 }}
-            transition={prefersReduced ? { duration: 0 } : {
-              duration: 8,
-              repeat: Infinity,
-              ease: "linear"
-            }}
+            className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 via-purple-500 to-cyan-400 blur-xl opacity-60"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
           />
-        </div>
 
-        {/* Pulsação da engrenagem */}
-        <motion.div
-          className="absolute inset-0 rounded-full"
-          animate={prefersReduced ? {} : {
-            scale: prefersReduced ? 1 : [1, 1.15, 1],
-            opacity: prefersReduced ? 1 : [0.9, 1, 0.9]
-          }}
-          transition={prefersReduced ? { duration: 0 } : {
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
-          <svg
-            width="80"
-            height="80"
-            viewBox="0 0 100 100"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-full"
-          >
-            {/* Engrenagem principal */}
-            <motion.g
-              animate={prefersReduced ? {} : { rotate: 360 }}
-              transition={prefersReduced ? { duration: 0 } : {
-                duration: 20,
-                repeat: Infinity,
-                ease: "linear"
-              }}
-            >
-              {/* Círculo central */}
-              <circle
-                cx="50"
-                cy="50"
-                r="15"
-                fill="none"
-                stroke="url(#gearGradient)"
-                strokeWidth="3"
-              />
+          {/* Engrenagem SVG */}
+          <svg width="80" height="80" viewBox="0 0 100 100" className="drop-shadow-2xl">
+            <defs>
+              <linearGradient id="gearGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#00FFFF" />
+                <stop offset="50%" stopColor="#915EFF" />
+                <stop offset="100%" stopColor="#00FFFF" />
+              </linearGradient>
+            </defs>
 
-              {/* Dentes da engrenagem */}
+            <g>
+              <circle cx="50" cy="50" r="18" fill="none" stroke="url(#gearGrad)" strokeWidth="6" />
               {[...Array(12)].map((_, i) => {
                 const angle = (i * 30) * (Math.PI / 180);
-                const x1 = 50 + 25 * Math.cos(angle);
-                const y1 = 50 + 25 * Math.sin(angle);
-                const x2 = 50 + 35 * Math.cos(angle);
-                const y2 = 50 + 35 * Math.sin(angle);
+                const x1 = 50 + 26 * Math.cos(angle);
+                const y1 = 50 + 26 * Math.sin(angle);
+                const x2 = 50 + 37 * Math.cos(angle);
+                const y2 = 50 + 37 * Math.sin(angle);
                 return (
                   <line
                     key={i}
-                    x1={x1}
-                    y1={y1}
-                    x2={x2}
-                    y2={y2}
-                    stroke="url(#gearGradient)"
-                    strokeWidth="4"
+                    x1={x1} y1={y1}
+                    x2={x2} y2={y2}
+                    stroke="url(#gearGrad)"
+                    strokeWidth="5"
                     strokeLinecap="round"
                   />
                 );
               })}
-
-              {/* Círculos decorativos nos dentes */}
-              {[...Array(12)].map((_, i) => {
-                const angle = (i * 30) * (Math.PI / 180);
-                const cx = 50 + 30 * Math.cos(angle);
-                const cy = 50 + 30 * Math.sin(angle);
-                return (
-                  <circle
-                    key={i}
-                    cx={cx}
-                    cy={cy}
-                    r="3"
-                    fill="#00FFFF"
-                  />
-                );
-              })}
-
-              <defs>
-                <linearGradient id="gearGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#00FFFF" />
-                  <stop offset="50%" stopColor="#915EFF" />
-                  <stop offset="100%" stopColor="#00FFFF" />
-                </linearGradient>
-              </defs>
-            </motion.g>
+            </g>
           </svg>
-        </motion.div>
-
-        {/* Efeito de brilho pulsante ao redor */}
-        <motion.div
-          className="absolute inset-0 rounded-full blur-xl"
-          animate={prefersReduced ? {} : {
-            boxShadow: [
-              '0 0 20px #00FFFF',
-              '0 0 40px #915EFF',
-              '0 0 60px #00FFFF',
-              '0 0 40px #915EFF',
-              '0 0 20px #00FFFF'
-            ]
-          }}
-          transition={prefersReduced ? { duration: 0 } : {
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-      </motion.div>
+        </div>
+      </motion.button>
 
       {/* Modal de Seleção de Background */}
       <BackgroundSelectorModal
@@ -226,24 +153,78 @@ const Hero = () => {
         onClose={() => setShowBackgroundModal(false)}
       />
 
-      {/* Scroll / Interact Icon */}
+      {/* Scroll / Interact Icon - Enhanced */}
       <div className="absolute bottom-10 w-full flex justify-center items-center z-20 pointer-events-none">
-        <div className="flex flex-col items-center opacity-70">
-          <div className="w-[30px] h-[50px] rounded-3xl border-2 border-white/50 flex justify-center p-2 mb-2">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 2 }}
+          className="flex flex-col items-center"
+        >
+          {/* Glow ring behind the scroll indicator */}
+          <div className="relative mb-3">
             <motion.div
-              animate={prefersReduced ? {} : {
-                y: [0, 16, 0],
+              className="absolute inset-0 w-12 h-20 rounded-3xl border-2 border-[var(--cyber-cyan)]/30 blur-sm"
+              animate={{
+                opacity: [0.3, 0.6, 0.3],
+                scale: [0.95, 1.05, 0.95]
               }}
-              transition={prefersReduced ? { duration: 0 } : {
-                duration: 1.5,
+              transition={{
+                duration: 2,
                 repeat: Infinity,
-                repeatType: "loop",
+                ease: "easeInOut"
               }}
-              className="w-2 h-2 rounded-full bg-[#00FFFF] mb-1 shadow-[0_0_10px_rgba(0,255,255,0.8)]"
+            />
+            <div className="relative w-[30px] h-[50px] rounded-3xl border-2 border-[var(--cyber-cyan)]/60 flex justify-center p-2 backdrop-blur-sm bg-black/20">
+              <motion.div
+                animate={prefersReduced ? {} : {
+                  y: [0, 16, 0],
+                }}
+                transition={prefersReduced ? { duration: 0 } : {
+                  duration: 1.5,
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  ease: "easeInOut"
+                }}
+                className="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-[var(--cyber-cyan)] to-[var(--cyber-purple)] mb-1 shadow-[0_0_12px_rgba(0,255,255,0.9),0_0_20px_rgba(145,94,255,0.6)]"
+              />
+            </div>
+          </div>
+
+          {/* Text with enhanced effects */}
+          <motion.span
+            className="text-xs font-bold tracking-[0.2em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] via-white to-[var(--cyber-purple)] bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(0,255,255,0.5)]"
+            animate={{
+              opacity: [0.7, 1, 0.7]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            {t('hero.dragToRotate')}
+          </motion.span>
+
+          {/* Decorative lines */}
+          <div className="flex items-center gap-2 mt-2">
+            <motion.div
+              className="w-8 h-[1px] bg-gradient-to-r from-transparent to-[var(--cyber-cyan)]"
+              animate={{ width: [8, 16, 8] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div
+              className="w-1 h-1 rounded-full bg-[var(--cyber-purple)]"
+              animate={{ opacity: [0.3, 1, 0.3] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            />
+            <motion.div
+              className="w-8 h-[1px] bg-gradient-to-l from-transparent to-[var(--cyber-purple)]"
+              animate={{ width: [8, 16, 8] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             />
           </div>
-          <span className="text-xs font-medium tracking-widest uppercase shadow-[0_0_10px_rgba(0,255,255,0.2)]" style={{ color: '#e5e7eb', opacity: 0.6 }}>{t('hero.dragToRotate')}</span>
-        </div>
+        </motion.div>
       </div>
     </motion.section>
   );

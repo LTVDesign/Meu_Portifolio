@@ -107,7 +107,7 @@ const Navbar = memo(() => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 glass transition-all duration-300 ${scrolled ? 'shadow-2xl' : ''}`}
+      className={`critical-navbar glass transition-all duration-300 ${scrolled ? 'shadow-2xl' : ''}`}
     >
       {/* Logo Flutuante Maior - com dimensões fixas para evitar CLS */}
       <m.div
@@ -202,52 +202,74 @@ const Navbar = memo(() => {
         </ul>
 
         {/* Language Selector - Right side */}
-        <div className="hidden sm:flex items-center gap-2">
+        <div className="hidden sm:flex items-center gap-3 ml-auto">
           {/* PT Button */}
-          <button
+          <m.button
             onClick={() => i18n.changeLanguage('pt')}
             aria-label={t('nav.switch_to_pt')}
-            className={`group relative px-3 py-1.5 text-xs font-extrabold uppercase tracking-wider rounded-lg transition-all overflow-hidden ${i18n.language === 'pt'
-              ? 'bg-[var(--cyber-purple)] text-white shadow-[0_0_15px_rgba(145,94,255,0.5)]'
-              : 'bg-white/10 text-white hover:text-white hover:bg-white/20'
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`group relative px-4 py-2 text-sm font-black uppercase tracking-widest rounded-xl transition-all overflow-hidden ${i18n.language === 'pt'
+              ? 'bg-gradient-to-r from-[var(--cyber-purple)] to-purple-600 text-white shadow-[0_0_20px_rgba(145,94,255,0.7),0_0_40px_rgba(145,94,255,0.3)] ring-2 ring-[var(--cyber-purple)]/50'
+              : 'bg-white/10 text-white hover:text-white hover:bg-white/20 hover:shadow-[0_0_15px_rgba(145,94,255,0.4)]'
               }`}
           >
             {/* Brazilian flag background */}
             <div
-              className="absolute inset-0 opacity-70 bg-cover bg-center rounded-lg group-hover:opacity-90 transition-opacity"
+              className="absolute inset-0 opacity-60 bg-cover bg-center rounded-xl group-hover:opacity-80 transition-opacity"
               style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 700'%3E%3Crect fill='%23009c3b' width='1000' height='700'/%3E%3Cpolygon fill='%23ffdf00' points='500,80 920,350 500,620 80,350'/%3E%3Ccircle fill='%23002776' cx='500' cy='350' r='170'/%3E%3Cpath fill='white' d='M500,180 a170,170 0 1,0 0,340 a130,130 0 1,1 0,-340'/%3E%3C/svg%3E")`
               }}
             />
-            <span className="relative z-10">PT</span>
+            <span className="relative z-10 font-bold">PT</span>
             {/* Hover tooltip */}
-            <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity bg-black/90 text-white text-xs px-2 py-1 rounded pointer-events-none">
+            <span className="absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity bg-black/90 text-white text-sm px-3 py-2 rounded-lg pointer-events-none border border-white/10 shadow-xl">
               {t('nav.translate_to_pt')}
             </span>
-          </button>
+            {/* Glow effect */}
+            {i18n.language === 'pt' && (
+              <m.div
+                className="absolute inset-0 rounded-xl bg-[var(--cyber-purple)]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0.3, 0.6, 0.3] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+            )}
+          </m.button>
 
           {/* EN Button */}
-          <button
+          <m.button
             onClick={() => i18n.changeLanguage('en')}
             aria-label={t('nav.switch_to_en')}
-            className={`group relative px-3 py-1.5 text-xs font-extrabold uppercase tracking-wider rounded-lg transition-all overflow-hidden ${i18n.language === 'en'
-              ? 'bg-[var(--cyber-cyan)] text-white shadow-[0_0_15px_rgba(0,255,255,0.5)]'
-              : 'bg-white/10 text-white hover:text-white hover:bg-white/20'
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`group relative px-4 py-2 text-sm font-black uppercase tracking-widest rounded-xl transition-all overflow-hidden ${i18n.language === 'en'
+              ? 'bg-gradient-to-r from-[var(--cyber-cyan)] to-cyan-400 text-white shadow-[0_0_20px_rgba(0,255,255,0.7),0_0_40px_rgba(0,255,255,0.3)] ring-2 ring-[var(--cyber-cyan)]/50'
+              : 'bg-white/10 text-white hover:text-white hover:bg-white/20 hover:shadow-[0_0_15px_rgba(0,255,255,0.4)]'
               }`}
           >
             {/* US flag background */}
             <div
-              className="absolute inset-0 opacity-70 bg-cover bg-center rounded-lg group-hover:opacity-90 transition-opacity"
+              className="absolute inset-0 opacity-60 bg-cover bg-center rounded-xl group-hover:opacity-80 transition-opacity"
               style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 700'%3E%3Crect fill='%23bf0a30' width='1000' height='700'/%3E%3Cpath fill='white' d='M0,100 h1000 M0,200 h1000 M0,300 h1000 M0,400 h1000 M0,500 h1000 M0,600 h1000' stroke='white' stroke-width='50'/%3E%3Crect fill='%23002868' width='400' height='350'/%3E%3Cg fill='white'%3E%3Cpolygon points='50,30 53,45 68,45 56,54 60,69 50,60 40,69 44,54 32,45 47,45'/%3E%3C/g%3E%3C/svg%3E")`
               }}
             />
-            <span className="relative z-10">EN</span>
+            <span className="relative z-10 font-bold">EN</span>
             {/* Hover tooltip */}
-            <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity bg-black/90 text-white text-xs px-2 py-1 rounded pointer-events-none">
+            <span className="absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity bg-black/90 text-white text-sm px-3 py-2 rounded-lg pointer-events-none border border-white/10 shadow-xl">
               {t('nav.translate_to_en')}
             </span>
-          </button>
+            {/* Glow effect */}
+            {i18n.language === 'en' && (
+              <m.div
+                className="absolute inset-0 rounded-xl bg-[var(--cyber-cyan)]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0.3, 0.6, 0.3] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+            )}
+          </m.button>
         </div>
       </div>
 

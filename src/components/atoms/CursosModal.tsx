@@ -2,7 +2,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import close from '../../assets/close.svg';
-import ThemeToggle from '../layout/ThemeToggle';
 import type { Curso } from '../../types';
 
 interface CursosModalProps {
@@ -113,7 +112,6 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                         </h2>
                     </div>
                     <div className="flex items-center gap-4">
-                        <ThemeToggle />
                         <button
                             onClick={onClose}
                             className="p-2 rounded-lg hover:bg-white/10 transition-colors"

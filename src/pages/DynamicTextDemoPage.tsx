@@ -3,7 +3,7 @@ import DynamicText from '../components/atoms/DynamicText';
 
 export default function DynamicTextDemoPage() {
     const [bgColor, setBgColor] = useState('#ffffff');
-    const [mode, setMode] = useState<'auto' | 'dark' | 'light' | 'complement'>('auto');
+    const [mode, setMode] = useState<'auto' | 'dark' | 'light' | 'high-contrast'>('auto');
     const [showPanel, setShowPanel] = useState(false);
 
     return (
@@ -48,7 +48,7 @@ export default function DynamicTextDemoPage() {
 
                     <div style={{ marginBottom: '1rem' }}>
                         <p>Modo de cor:</p>
-                        {(['auto', 'dark', 'light', 'complement'] as const).map((m) => (
+                        {(['auto', 'dark', 'light', 'high-contrast'] as const).map((m) => (
                             <button
                                 key={m}
                                 onClick={() => setMode(m)}
@@ -102,7 +102,6 @@ export default function DynamicTextDemoPage() {
             {/* DynamicText como container principal com background color */}
             <DynamicText
                 colorMode={mode}
-                transitionDuration={400}
                 style={{
                     backgroundColor: bgColor,
                     minHeight: '100vh',
