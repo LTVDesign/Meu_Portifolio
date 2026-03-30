@@ -30,7 +30,7 @@ const Formacao = () => {
       title: 'Tecnólogo em Análise e Desenvolvimento de Sistemas',
       institution: 'Anhanguera',
       date: '2023 - 2025',
-      status: 'CONCLUÍDO',
+      status: t('status.concluido'),
       icon: facul,
       logo: facul,
       period: '2023 - 2025',
@@ -83,7 +83,7 @@ const Formacao = () => {
       title: 'Pós-Graduação em IA & Data Science',
       institution: 'Anhanguera',
       date: '2024 - Em andamento',
-      status: 'EM ANDAMENTO',
+      status: t('status.emAndamento'),
       icon: facul,
       logo: facul,
       period: '2024 - Em andamento',
@@ -164,7 +164,7 @@ const Formacao = () => {
                 </h3>
                 <p className="text-[var(--cyber-purple)] font-bold uppercase tracking-widest mt-2 text-sm">{item.institution}</p>
                 <div className="mt-3 text-white/50 text-xs font-mono uppercase tracking-[0.2em]">
-                  Período: {item.period}
+                  {t('education.period')}: {item.period}
                 </div>
 
                 <p className="mt-6 text-[var(--text-secondary)] leading-relaxed text-sm md:text-base opacity-80 group-hover:opacity-100 transition-opacity">
@@ -201,16 +201,16 @@ const Formacao = () => {
 
                 <div className="flex flex-wrap justify-center md:justify-start gap-4">
                   <div className="px-4 py-2 rounded-xl bg-black/40 border border-white/5 text-white/70 text-xs font-mono">
-                    Período: <span className="text-white">{selectedFormation.period}</span>
+                    {t('education.period')}: <span className="text-white">{selectedFormation.period}</span>
                   </div>
                   {selectedFormation.cargaHorariaGeral && (
                     <div className="px-4 py-2 rounded-xl bg-black/40 border border-white/5 text-white/70 text-xs font-mono">
-                      Carga Horária: <span className="text-[var(--cyber-cyan)] font-bold">{selectedFormation.cargaHorariaGeral}</span>
+                      {t('education.workload')}: <span className="text-[var(--cyber-cyan)] font-bold">{selectedFormation.cargaHorariaGeral}</span>
                     </div>
                   )}
                   {selectedFormation.dataConclusao && (
                     <div className="px-4 py-2 rounded-xl bg-black/40 border border-white/5 text-white/70 text-xs font-mono">
-                      Concluído em: <span className="text-white">{selectedFormation.dataConclusao}</span>
+                      {t('education.completedOn')}: <span className="text-white">{selectedFormation.dataConclusao}</span>
                     </div>
                   )}
                 </div>
@@ -221,19 +221,19 @@ const Formacao = () => {
               <div className="p-8 rounded-3xl bg-black/40 border border-white/10 relative overflow-hidden">
                 <div className="absolute top-4 right-4 p-4 bg-black/60 rounded-xl border border-white/10">
                   <div className="text-center">
-                    <p className="text-white/40 text-[10px] uppercase tracking-widest mb-1">Média Geral</p>
+                    <p className="text-white/40 text-[10px] uppercase tracking-widest mb-1">{t('education.generalAverage')}</p>
                     <span className="text-3xl font-black text-[var(--cyber-cyan)] drop-shadow-[0_0_10px_rgba(0,243,255,0.5)]">
                       {stats.average.toFixed(2)}
                     </span>
                     <p className="text-white/30 text-[9px] uppercase tracking-widest mt-2">
-                      {stats.totalCH}h total
+                      {stats.totalCH}h {t('education.totalHours')}
                     </p>
                   </div>
                 </div>
 
                 <h4 className="text-xl font-black text-white mb-8 flex items-center gap-3">
                   <span className="w-2 h-8 bg-[var(--cyber-cyan)] rounded-full" />
-                  Evolução Acadêmica por Semestre
+                  {t('education.semesterEvolution')}
                 </h4>
 
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4 items-end h-56">
@@ -249,7 +249,7 @@ const Formacao = () => {
                           <div className="absolute inset-0 opacity-30 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
                         </motion.div>
                         <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover/bar:opacity-100 transition-opacity bg-black/60">
-                          <span className="text-[10px] font-bold text-white mb-1">Média</span>
+                          <span className="text-[10px] font-bold text-white mb-1">{t('education.semesterAverage')}</span>
                           <span className="text-lg font-black text-[var(--cyber-cyan)]">
                             {data.avg.toFixed(1)}
                           </span>
@@ -271,7 +271,7 @@ const Formacao = () => {
             <div>
               <h4 className="text-xl font-black text-white mb-6 flex items-center gap-3">
                 <span className="w-2 h-8 bg-[var(--cyber-purple)] rounded-full" />
-                Histórico Acadêmico Completo
+                {t('education.semesterHistory')}
               </h4>
 
               {stats && stats.semesterData && (
@@ -287,19 +287,19 @@ const Formacao = () => {
                                 {semestre}
                               </h5>
                               <p className="text-white/40 text-[10px] uppercase tracking-widest mt-1">
-                                {data.disciplinas.length} disciplina(s)
+                                {data.disciplinas.length} {t('education.subjects')}
                               </p>
                             </div>
                             <div className="flex gap-4">
                               <div className="text-right">
-                                <p className="text-white/40 text-[9px] uppercase tracking-widest mb-1">Carga Horária Total</p>
+                                <p className="text-white/40 text-[9px] uppercase tracking-widest mb-1">{t('education.workload')}</p>
                                 <p className="text-[var(--cyber-cyan)] font-mono font-bold text-lg">
                                   {data.ch}h
                                 </p>
                               </div>
                               <div className="h-8 w-px bg-white/10 hidden md:block" />
                               <div className="text-right">
-                                <p className="text-white/40 text-[9px] uppercase tracking-widest mb-1">Média do Semestre</p>
+                                <p className="text-white/40 text-[9px] uppercase tracking-widest mb-1">{t('education.semesterAverage')}</p>
                                 <p className="text-white font-mono font-bold text-lg">
                                   {(data.sum / data.count).toFixed(2)}
                                 </p>
@@ -327,12 +327,12 @@ const Formacao = () => {
                                   </div>
                                   <div className="flex items-center gap-4">
                                     <div className="text-center min-w-[50px]">
-                                      <p className="text-white/20 text-[8px] uppercase tracking-widest mb-1">Carga H.</p>
+                                      <p className="text-white/20 text-[8px] uppercase tracking-widest mb-1">{t('education.hours')}</p>
                                       <p className="text-white font-mono text-xs">{disc.cargaHoraria}</p>
                                     </div>
                                     <div className="h-6 w-px bg-white/10 hidden md:block" />
                                     <div className="text-center min-w-[50px]">
-                                      <p className="text-white/20 text-[8px] uppercase tracking-widest mb-1">Nota</p>
+                                      <p className="text-white/20 text-[8px] uppercase tracking-widest mb-1">{t('education.grade')}</p>
                                       <p className={`text-base font-black font-mono ${Number(disc.nota) >= 9 ? 'text-[var(--cyber-cyan)]' : 'text-white'}`}>
                                         {Number(disc.nota).toFixed(1)}
                                       </p>
@@ -349,7 +349,7 @@ const Formacao = () => {
 
               {(!stats || !selectedFormation.disciplinas) && (
                 <div className="p-8 rounded-2xl bg-white/5 border border-white/10 text-center">
-                  <p className="text-white/40">Nenhum registro de disciplinas disponível.</p>
+                  <p className="text-white/40">{t('education.noRecords')}</p>
                 </div>
               )}
             </div>
@@ -358,7 +358,7 @@ const Formacao = () => {
               <div className="space-y-6 pt-6">
                 <h4 className="text-xl font-black text-white flex items-center gap-3">
                   <span className="w-2 h-8 bg-[var(--cyber-cyan)] rounded-full" />
-                  Diploma e Autenticação
+                  {t('education.diplomaAuthentication')}
                 </h4>
 
                 {selectedFormation.diplomaPreview && (
@@ -368,14 +368,14 @@ const Formacao = () => {
                   >
                     <img
                       src={selectedFormation.diplomaPreview}
-                      alt="Preview do Diploma"
+                      alt={t('education.diplomaPreview')}
                       className="w-full h-64 object-cover opacity-60 group-hover/diploma:opacity-40 blur-[2px] group-hover/diploma:blur-0 transition-all duration-500"
                     />
                     <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-gradient-to-b from-transparent to-black/80">
                       <div className="transform transition-transform group-hover/diploma:scale-110">
-                        <h5 className="text-white font-black text-2xl mb-4 drop-shadow-lg">Clique para Abrir Diploma</h5>
+                        <h5 className="text-white font-black text-2xl mb-4 drop-shadow-lg">{t('education.clickToOpen')}</h5>
                         <div className="flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-[var(--cyber-cyan)] to-[var(--cyber-purple)] text-black font-bold text-sm uppercase tracking-widest shadow-[0_0_40px_rgba(0,243,255,0.4)]">
-                          📄 Abrir Diploma Digital
+                          {t('education.openDigitalDiploma')}
                         </div>
                       </div>
                     </div>
@@ -388,13 +388,13 @@ const Formacao = () => {
 
                     <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
                       <div className="w-32 h-32 bg-white p-4 rounded-3xl flex-shrink-0 shadow-2xl border-2 border-[var(--cyber-cyan)]/30">
-                        <img src={selectedFormation.qrCode} alt="QR Code" className="w-full h-full object-contain" />
+                        <img src={selectedFormation.qrCode} alt={t('education.qrCode')} className="w-full h-full object-contain" />
                       </div>
 
                       <div className="flex-1 text-center md:text-left">
-                        <h5 className="text-white font-black text-2xl mb-3 tracking-tight">Verificação de Autenticidade</h5>
+                        <h5 className="text-white font-black text-2xl mb-3 tracking-tight">{t('education.authenticityVerification')}</h5>
                         <p className="text-white/60 text-sm leading-relaxed mb-6">
-                          Escaneie o QR Code com seu smartphone ou clique no botão abaixo para verificar a autenticidade deste diploma no portal oficial da Cogna.
+                          {t('education.scanQRCode')}
                         </p>
                         <a
                           href={selectedFormation.authLink}
@@ -402,7 +402,7 @@ const Formacao = () => {
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-[var(--cyber-cyan)] to-[var(--cyber-purple)] text-black font-bold text-sm uppercase tracking-widest hover:scale-105 transition-transform shadow-[0_0_30px_rgba(0,243,255,0.4)]"
                         >
-                          🔗 Validar no Portal Oficial
+                          {t('education.validateOnPortal')}
                           <span className="text-lg">→</span>
                         </a>
                       </div>

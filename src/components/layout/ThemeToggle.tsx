@@ -1095,6 +1095,7 @@ const ThemeToggle = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
 
+
   useEffect(() => {
     if (canvasRef.current && btnRef.current) {
       const cleanup = initLaunchParticles(canvasRef.current, btnRef.current);
@@ -1162,17 +1163,37 @@ const ThemeToggle = () => {
             Ajustar Background
           </div>
 
-          {/* Gear icon wrapped in burst animations */}
+          {/* Gear icon wrapped in burst animations with RGB colors - MAIS FINA E CHAMATIVA */}
           <m.div
             className="launch-btn-wrap"
             animate={{
-              scale: [1, 1.12, 1],
+              scale: [1, 1.05, 1],
               opacity: [0.9, 1, 0.9],
+              rotate: [0, 360],
             }}
             transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut"
+              scale: {
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "easeInOut"
+              },
+              opacity: {
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "easeInOut"
+              },
+              rotate: {
+                duration: 2.5,
+                repeat: Infinity,
+                ease: "linear"
+              }
+            }}
+            style={{
+              background: 'conic-gradient(from 0deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000)',
+              borderRadius: '50%',
+              padding: '1px',
+              boxShadow: '0 0 25px rgba(255, 0, 255, 1), 0 0 50px rgba(0, 255, 255, 0.8), 0 0 75px rgba(255, 255, 0, 0.6), 0 0 100px rgba(255, 0, 0, 0.4)',
+              filter: 'brightness(1.2) saturate(1.3)',
             }}
           >
             <div className="bloom"></div>
@@ -1185,7 +1206,7 @@ const ThemeToggle = () => {
             >
               <m.svg
                 animate={{ rotate: 360 }}
-                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
                 className="w-8 h-8 text-white drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
                 fill="none"
                 stroke="currentColor"
@@ -1222,7 +1243,7 @@ const ThemeToggle = () => {
                 initial={{ opacity: 0, x: -20, scale: 0.95 }}
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: -20, scale: 0.95 }}
-                className="absolute left-[calc(100%+16px)] top-1/2 -translate-y-1/2 bg-tertiary/75 backdrop-blur-xl rounded-2xl shadow-2xl p-10 min-w-[320px] max-w-[90vw] z-50 border border-white/10 ring-1 ring-white/5 transition-all duration-300"
+                className="absolute left-[calc(100%+16px)] top-1/2 -translate-y-1/2 bg-tertiary/75 backdrop-blur-xl rounded-2xl shadow-2xl p-10 min-w-[320px] max-w-[90vw] z-[9999] border border-white/10 ring-1 ring-white/5 transition-all duration-300"
               >
                 <h3 className="text-white font-bold mb-4 text-xs uppercase tracking-[0.2em] border-b border-white/5 pb-2">
                   Configurações
@@ -1287,7 +1308,7 @@ const ThemeToggle = () => {
                 initial={{ opacity: 0, x: -30, scale: 0.98 }}
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: -30, scale: 0.98 }}
-                className="absolute left-[calc(100%+16px)] top-1/2 -translate-y-1/2 bg-tertiary/70 backdrop-blur-xl rounded-3xl shadow-2xl p-10 min-w-[360px] sm:min-w-[540px] md:min-w-[620px] max-w-[95vw] z-50 max-h-[85vh] flex flex-col border border-white/10 ring-1 ring-white/5 transition-all duration-300"
+                className="absolute left-[calc(100%+16px)] top-1/2 -translate-y-1/2 bg-tertiary/70 backdrop-blur-xl rounded-3xl shadow-2xl p-10 min-w-[360px] sm:min-w-[540px] md:min-w-[620px] max-w-[95vw] z-[9999] max-h-[85vh] flex flex-col border border-white/10 ring-1 ring-white/5 transition-all duration-300"
               >
                 <div className="flex items-center justify-between mb-6 shrink-0 border-b border-white/10 pb-4">
                   <h3 className="text-white font-bold text-sm uppercase tracking-[0.2em]">

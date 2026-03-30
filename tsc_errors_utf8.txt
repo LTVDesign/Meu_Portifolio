@@ -1,8 +1,0 @@
-﻿src/__tests__/AllCursos.test.tsx(1,10): error TS2305: Module '"@testing-library/react"' has no exported member 'screen'.
-src/__tests__/Contact.test.tsx(1,10): error TS2305: Module '"@testing-library/react"' has no exported member 'screen'.
-src/__tests__/Contact.test.tsx(1,18): error TS2305: Module '"@testing-library/react"' has no exported member 'waitFor'.
-src/__tests__/Hero.test.tsx(1,10): error TS2305: Module '"@testing-library/react"' has no exported member 'screen'.
-src/__tests__/i18n.test.tsx(1,18): error TS2305: Module '"@testing-library/react"' has no exported member 'screen'.
-src/__tests__/i18n.test.tsx(1,26): error TS2305: Module '"@testing-library/react"' has no exported member 'waitFor'.
-src/__tests__/Modal.test.tsx(1,18): error TS2305: Module '"@testing-library/react"' has no exported member 'screen'.
-src/__tests__/Modal.test.tsx(1,26): error TS2305: Module '"@testing-library/react"' has no exported member 'fireEvent'.

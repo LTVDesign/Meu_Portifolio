@@ -5,6 +5,7 @@ import { SectionWrapper } from '../../hoc';
 import { fadeIn, textVariant } from '../../utils/motion';
 import { Header } from '../atoms';
 import CursosModal from '../atoms/CursosModal';
+import CursoDetailModal from '../atoms/CursoDetailModal';
 import albertaImg from '../../logos/alberta.webp';
 import googleImg from '../../logos/google.webp';
 import ibmImg from '../../logos/ibm.webp';
@@ -15,6 +16,8 @@ import cateImg from '../../logos/cate.webp';
 
 const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
+  const [selectedCurso, setSelectedCurso] = useState<any>(null);
   const { t } = useTranslation();
 
   const allCursos = [
@@ -281,16 +284,16 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
               {curso.description}
             </p>
 
-            <div className="mt-10 pt-8 border-t border-white/5 flex items-center justify-between text-xs font-mono">
-              <span className="text-white/40 tracking-tighter">[{curso.date}] • {curso.duration}</span>
-              <a
-                href={curso.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[var(--cyber-cyan)] hover:text-white font-bold tracking-widest transition-all flex items-center gap-2 group/btn"
+            <div className="mt-10 pt-8 border-t border-white/5 flex items-center justify-center">
+              <button
+                onClick={() => {
+                  setSelectedCurso(curso);
+                  setIsDetailOpen(true);
+                }}
+                className="text-[var(--cyber-cyan)] hover:text-white font-bold tracking-widest transition-all flex items-center gap-2 group/btn text-xs"
               >
-                DETALHES <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
-              </a>
+                VER CERTIFICADO <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
+              </button>
             </div>
           </motion.div>
         ))}
@@ -311,6 +314,16 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         cursos={allCursos}
+      />
+
+      {/* Modal de Detalhes do Curso */}
+      <CursoDetailModal
+        isOpen={isDetailOpen}
+        onClose={() => {
+          setIsDetailOpen(false);
+          setSelectedCurso(null);
+        }}
+        curso={selectedCurso}
       />
     </div>
   );

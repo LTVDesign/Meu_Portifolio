@@ -4,6 +4,7 @@ import { Suspense, lazy, useEffect, useState } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { PerformanceProvider } from './contexts/PerformanceContext';
 import { ParticleConfigProvider } from './contexts/ParticleConfigContext';
+import { DynamicTextProvider } from './components/atoms/DynamicTextProvider';
 import { useKonamiCode } from './hooks/useKonamiCode';
 import './i18n';
 
@@ -20,6 +21,7 @@ const ExperiencePage = lazy(() => import('./pages/ExperiencePage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const CertificadosPage = lazy(() => import('./pages/CertificadosPage'));
 const DoomPage = lazy(() => import('./pages/DoomPage'));
+const DynamicTextDemoPage = lazy(() => import('./pages/DynamicTextDemoPage'));
 
 // Lazy load BackgroundManager with Three.js - only load when needed
 const BackgroundManager = lazy(() => import('./components/canvas/BackgroundManager'));
@@ -46,33 +48,40 @@ const App = () => {
     <HelmetProvider>
       <PerformanceProvider>
         <ParticleConfigProvider>
-          <Router>
-            {/* Sistema dinâmico de backgrounds - loaded after initial paint */}
-            {backgroundLoaded && (
-              <Suspense fallback={<div className="fixed inset-0 z-[-1] bg-[#050816]" />}>
-                <BackgroundManager />
-              </Suspense>
-            )}
+          <DynamicTextProvider
+            defaultColorMode="auto"
+            defaultTransitionDuration={400}
+            fallbackMode="auto"
+          >
+            <Router>
+              {/* Sistema dinâmico de backgrounds - loaded after initial paint */}
+              {backgroundLoaded && (
+                <Suspense fallback={<div className="fixed inset-0 z-[-1] bg-[#050816]" />}>
+                  <BackgroundManager />
+                </Suspense>
+              )}
 
-            <Navbar />
-            <ThemeToggle />
+              <Navbar />
+              <ThemeToggle />
 
-            <main className="relative" style={{ minHeight: '100vh' }}>
-              <Suspense fallback={<MotionLoader isSection={false} />}>
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/formacao" element={<FormacaoPage />} />
-                  <Route path="/projetos" element={<ExperiencePage />} />
-                  <Route path="/cursos" element={<CursosPage />} />
-                  <Route path="/certificados" element={<CertificadosPage />} />
-                  <Route path="/contato" element={<ContactPage />} />
-                  <Route path="/doom" element={<DoomPage />} />
-                </Routes>
-              </Suspense>
-            </main>
+              <main className="relative" style={{ minHeight: '100vh' }}>
+                <Suspense fallback={<MotionLoader isSection={false} />}>
+                  <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/formacao" element={<FormacaoPage />} />
+                    <Route path="/projetos" element={<ExperiencePage />} />
+                    <Route path="/cursos" element={<CursosPage />} />
+                    <Route path="/certificados" element={<CertificadosPage />} />
+                    <Route path="/contato" element={<ContactPage />} />
+                    <Route path="/doom" element={<DoomPage />} />
+                    <Route path="/dynamic-text-demo" element={<DynamicTextDemoPage />} />
+                  </Routes>
+                </Suspense>
+              </main>
 
-            <Footer />
-          </Router>
+              <Footer />
+            </Router>
+          </DynamicTextProvider>
         </ParticleConfigProvider>
       </PerformanceProvider>
     </HelmetProvider>

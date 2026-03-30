@@ -13,6 +13,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { navLinks } from '../../constants';
 import { config } from '../../constants/config';
+import DynamicText from '../atoms/DynamicText';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -68,7 +69,7 @@ const Footer: React.FC = () => {
       label: 'Facebook',
       color: 'hover:text-[#1877f2]',
     },
-    { icon: FaWhatsapp, url: '#', label: 'WhatsApp', color: 'hover:text-[#25d366]' },
+    { icon: FaWhatsapp, url: 'https://wa.me/5511984838629?text=Olá%20Vim%20pelo%20seu%20portifólio%20e%20gostaria%20de%20falar%20com%20você!', label: 'WhatsApp', color: 'hover:text-[#25d366]' },
   ];
 
   return (
@@ -77,24 +78,40 @@ const Footer: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-6 sm:px-16 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center items-start text-center">
-          {/* Coluna 1 */}
+          {/* Coluna 1 - Esquerda */}
           <div className="flex flex-col items-center text-center max-w-sm">
             <h2 className="text-[clamp(1.2rem,4vw,1.5rem)] font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent mb-4">
-              {config.html.fullName}
+              <DynamicText colorMode="auto">{config.html.fullName}</DynamicText>
             </h2>
-            <p className="text-[var(--dynamic-text-secondary)] text-[clamp(0.8rem,2vw,0.9rem)] leading-relaxed">
-              Especialista em TI, Infraestrutura e Segurança, transformando dados em inteligência e
-              sistemas em plataformas ultra-performativas.
+            <p className="text-[var(--dynamic-text-secondary)] text-[clamp(0.8rem,2vw,0.9rem)] leading-relaxed mb-6">
+              <DynamicText colorMode="auto">Especialista em TI, Infraestrutura e Segurança, transformando dados em inteligência e
+                sistemas em plataformas ultra-performativas.</DynamicText>
             </p>
+            {/* Social */}
+            <div className="flex gap-6">
+              {socialLinks.map(({ icon: Icon, url, label, color }) => (
+                <motion.a
+                  key={label}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -4, scale: 1.1 }}
+                  aria-label={label}
+                  className={`text-[var(--dynamic-text-secondary)] ${color} transition-colors focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)]`}
+                >
+                  <Icon size={32} />
+                </motion.a>
+              ))}
+            </div>
           </div>
 
-          {/* Coluna 2 - Acesso Rápido */}
+          {/* Coluna 2 - Meio - Acesso Rápido */}
           <div className="flex flex-col items-center text-center max-w-sm">
             <h3 className="text-[clamp(0.7rem,2vw,0.85rem)] font-bold uppercase tracking-widest text-[var(--cyber-purple)] mb-6">
-              {t('footer.quickAccess')}
+              <DynamicText colorMode="auto">{t('footer.quickAccess')}</DynamicText>
             </h3>
-            <ul className="grid grid-cols-2 gap-x-8 gap-y-4 justify-items-center">
-              {navLinks.map((link) => (
+            <ul className="grid grid-cols-2 gap-x-8 gap-y-2 justify-items-center mb-8">
+              {navLinks.filter(link => link.id !== 'contact').map((link) => (
                 <li key={link.id}>
                   <Link
                     to={getNavLink(link.id)}
@@ -108,66 +125,51 @@ const Footer: React.FC = () => {
                     }}
                     className="text-[var(--dynamic-text-secondary)] hover:text-white text-[clamp(0.8rem,2vw,0.9rem)] transition-colors focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-xl px-3 py-1"
                   >
-                    {t(`nav.${link.id}`)}
+                    <DynamicText colorMode="auto">{t(`nav.${link.id}`)}</DynamicText>
                   </Link>
                 </li>
               ))}
             </ul>
+
+            {/* Copyright */}
+            <div className="w-full text-center mb-4">
+              <p className="text-xs text-[var(--dynamic-text-secondary)] uppercase tracking-widest">
+                <DynamicText colorMode="auto">© {currentYear} {config.html.fullName} • {t('footer.allRightsReserved')}</DynamicText>
+              </p>
+            </div>
+
+            {/* Konami code */}
+            <p className="text-lg text-[var(--dynamic-text-secondary)]/50 tracking-widest text-center select-none">
+              ⬆️ ⬆️ ⬇️ ⬇️ ⬅️ ➡️ ⬅️ ➡️ 🅱️ 🅰️
+            </p>
           </div>
 
-          {/* Coluna 3 - Contato */}
+          {/* Coluna 3 - Direita - Contato */}
           <div className="flex flex-col items-center text-center max-w-sm">
             <h3 className="text-[clamp(0.7rem,2vw,0.85rem)] font-bold uppercase tracking-widest text-[var(--cyber-purple)] mb-6">
-              {t('nav.contact')}
+              <DynamicText colorMode="auto">{t('nav.contact')}</DynamicText>
             </h3>
             <a
               href={`mailto:${config.html.email}`}
               aria-label={t('footer.emailUs')}
-              className="flex items-center gap-4 text-[clamp(0.8rem,2vw,0.9rem)] text-[var(--dynamic-text-secondary)] hover:text-white focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-2xl px-4 py-2 transition-colors"
+              className="flex items-center gap-4 text-[clamp(0.8rem,2vw,0.9rem)] text-[var(--dynamic-text-secondary)] hover:text-white focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-2xl px-4 py-2 transition-colors mb-8"
             >
               <FaEnvelope className="text-[var(--cyber-purple)]" />
-              <span>{config.html.email}</span>
+              <span><DynamicText colorMode="auto">{config.html.email}</DynamicText></span>
             </a>
+
+            <button
+              type="button"
+              onClick={scrollToTop}
+              aria-label={t('footer.backToTopLabel')}
+              className="group flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-[var(--dynamic-text-secondary)] hover:text-white focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)]"
+            >
+              <DynamicText colorMode="auto">{t('footer.backToTop')}</DynamicText>
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-3 group-hover:border-[var(--cyber-purple)] transition-all">
+                <FaArrowUp className="text-xs group-active:animate-bounce" />
+              </div>
+            </button>
           </div>
-        </div>
-
-        {/* Linha final */}
-        <div className="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-          {/* Social */}
-          <div className="flex gap-6">
-            {socialLinks.map(({ icon: Icon, url, label, color }) => (
-              <motion.a
-                key={label}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -4, scale: 1.1 }}
-                aria-label={label}
-                className={`text-[var(--dynamic-text-secondary)] ${color} transition-colors focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)]`}
-              >
-                <Icon size={26} />
-              </motion.a>
-            ))}
-          </div>
-
-          <p className="text-xs text-[var(--dynamic-text-secondary)] uppercase tracking-widest text-center">
-            © {currentYear} {config.html.fullName} • {t('footer.allRightsReserved')}
-          </p>
-          <p className="text-[8px] text-[var(--dynamic-text-secondary)] uppercase tracking-widest text-center mt-2">
-            ↑ ↑ ↓ ↓ ← → ← → B A
-          </p>
-
-          <button
-            type="button"
-            onClick={scrollToTop}
-            aria-label={t('footer.backToTopLabel')}
-            className="group flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-[var(--dynamic-text-secondary)] hover:text-white focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)]"
-          >
-            {t('footer.backToTop')}
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-3 group-hover:border-[var(--cyber-purple)] transition-all">
-              <FaArrowUp className="text-xs group-active:animate-bounce" />
-            </div>
-          </button>
         </div>
       </div>
     </footer>

@@ -44,7 +44,7 @@ import type {
 
 export const navLinks: TNavLink[] = [
   {
-    id: 'about',
+    id: 'sobre',
     title: 'Sobre',
   },
   {
@@ -60,7 +60,7 @@ export const navLinks: TNavLink[] = [
     title: 'Cursos',
   },
   {
-    id: 'projects',
+    id: 'projetos',
     title: 'Projetos',
   },
   {
