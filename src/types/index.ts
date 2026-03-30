@@ -128,7 +128,7 @@ export interface FormacaoData {
     title: string;
     institution: string;
     date: string;
-    status: 'CONCLUÍDO' | 'EM ANDAMENTO';
+    status: 'CONCLUÍDO' | 'EM ANDAMENTO' | 'APROVADO';
     description: string;
     icon: string;
     logo: string;
@@ -142,6 +142,11 @@ export interface FormacaoData {
     authLink?: string;
     qrCode?: string;
     link: string;
+    publicoAlvo?: string[];
+    objetivos?: string[];
+    tipoFormacao?: string;
+    statusDiploma?: string;
+    nota?: string;
 }
 
 // Tipos para Experiência

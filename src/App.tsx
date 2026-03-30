@@ -53,7 +53,7 @@ const App = () => {
             defaultTransitionDuration={400}
             fallbackMode="auto"
           >
-            <Router>
+            <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
               {/* Sistema dinâmico de backgrounds - loaded after initial paint */}
               {backgroundLoaded && (
                 <Suspense fallback={<div className="fixed inset-0 z-[-1] bg-[#050816]" />}>

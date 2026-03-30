@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { m, AnimatePresence } from 'framer-motion';
+import { createPortal } from 'react-dom';
+import { m } from 'framer-motion';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 // @ts-expect-error
 import { initLaunchParticles } from '../../utils/launchParticles.js';
@@ -1095,6 +1096,11 @@ const ThemeToggle = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
 
+  // Sincroniza selectedBg quando config.backgroundType muda
+  useEffect(() => {
+    setSelectedBg(config.backgroundType || 'bolhas');
+  }, [config.backgroundType]);
+
 
   useEffect(() => {
     if (canvasRef.current && btnRef.current) {
@@ -1116,7 +1122,8 @@ const ThemeToggle = () => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Element;
-      if (!target.closest('.theme-toggle-container')) {
+      // Only close if clicking completely outside both the container and the editor panel
+      if (!target.closest('.theme-toggle-container') && !target.closest('.bg-editor-panel')) {
         setIsOpen(false);
         setIsEditorOpen(false);
       }
@@ -1152,198 +1159,120 @@ const ThemeToggle = () => {
     }
   };
 
-  // Menu positioned top-left, just below the header
+  // === RETURN CORRIGIDO ===
   return (
     <>
       <canvas id="particles-canvas" ref={canvasRef} />
-      <div className="fixed left-2 sm:left-4 top-1/2 -translate-y-1/2 z-50 theme-toggle-container scale-110 sm:scale-125 origin-top-left transition-all duration-300" style={{ minWidth: '60px', minHeight: '60px' }}>
-        <div className="relative group/gear">
-          {/* Label that appears on hover or subtly */}
-          <div className="absolute -top-10 left-0 whitespace-nowrap opacity-0 group-hover/gear:opacity-100 transition-opacity duration-300 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-[10px] text-white font-bold tracking-widest border border-white/10 uppercase">
-            Ajustar Background
-          </div>
 
-          {/* Gear icon wrapped in burst animations with RGB colors - MAIS FINA E CHAMATIVA */}
+      {/* Botão da engrenagem */}
+      <div className="fixed left-2 sm:left-4 top-1/2 -translate-y-1/2 z-[10000] theme-toggle-container">
+        <div className="relative group/gear">
           <m.div
             className="launch-btn-wrap"
-            animate={{
-              scale: [1, 1.05, 1],
-              opacity: [0.9, 1, 0.9],
-              rotate: [0, 360],
-            }}
-            transition={{
-              scale: {
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeInOut"
-              },
-              opacity: {
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeInOut"
-              },
-              rotate: {
-                duration: 2.5,
-                repeat: Infinity,
-                ease: "linear"
-              }
-            }}
-            style={{
-              background: 'conic-gradient(from 0deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000)',
-              borderRadius: '50%',
-              padding: '1px',
-              boxShadow: '0 0 25px rgba(255, 0, 255, 1), 0 0 50px rgba(0, 255, 255, 0.8), 0 0 75px rgba(255, 255, 0, 0.6), 0 0 100px rgba(255, 0, 0, 0.4)',
-              filter: 'brightness(1.2) saturate(1.3)',
-            }}
+            animate={{ scale: [1, 1.05, 1], rotate: [0, 360] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
           >
-            <div className="bloom"></div>
             <button
-              type="button"
               ref={btnRef}
               onClick={() => setIsOpen(!isOpen)}
-              className="launch-btn flex items-center justify-center p-4 shadow-[0_0_40px_rgba(145,94,255,0.6)]"
-              aria-label="Ajustar Background"
+              className="launch-btn flex items-center justify-center p-4"
             >
               <m.svg
                 animate={{ rotate: 360 }}
                 transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                className="w-8 h-8 text-white drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+                className="w-8 h-8 text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <title>Configurações de Fundo</title>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               </m.svg>
             </button>
           </m.div>
 
-          {/* Animated shapes */}
-          <span className="shape square"></span>
-          <span className="shape triangle"></span>
-          <span className="shape circle-shape"></span>
-          <span className="shape diamond"></span>
-          <span className="shape star"></span>
-
-          {/* Main menu — opens to the right with massive margin to clear icon */}
-          <AnimatePresence>
-            {isOpen && (
-              <m.div
-                initial={{ opacity: 0, x: -20, scale: 0.95 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: -20, scale: 0.95 }}
-                className="absolute left-[calc(100%+16px)] top-1/2 -translate-y-1/2 bg-tertiary/75 backdrop-blur-xl rounded-2xl shadow-2xl p-10 min-w-[320px] max-w-[90vw] z-[9999] border border-white/10 ring-1 ring-white/5 transition-all duration-300"
-              >
-                <h3 className="text-white font-bold mb-4 text-xs uppercase tracking-[0.2em] border-b border-white/5 pb-2">
-                  Configurações
-                </h3>
-
-                <div className="text-[10px] font-medium text-gray-400 uppercase tracking-widest mb-3 px-1">
-                  Selecione o Estilo
-                </div>
-
-                {/* Background type buttons in 2 columns */}
-                <div className="grid grid-cols-2 gap-3 mb-6">
-                  {BG_TYPES.map((type) => (
-                    <button
-                      type="button"
-                      key={type}
-                      onClick={() => updateConfig({ backgroundType: type })}
-                      className={`w-full text-center px-1 py-2.5 text-[10px] font-bold uppercase tracking-wider rounded transition-all duration-200 border ${config.backgroundType === type
-                        ? 'bg-secondary/40 border-[#915EFF] text-white shadow-[0_0_10px_rgba(145,94,255,0.15)]'
-                        : 'bg-gray-800/60 border-gray-600/30 text-gray-300 hover:border-gray-500 hover:text-white'
-                        }`}
-                    >
-                      {BG_LABELS[type]}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Edit button */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSelectedBg(config.backgroundType);
-                    setIsOpen(false);
-                    setIsEditorOpen(true);
-                  }}
-                  className="w-full flex items-center justify-center px-3 py-2 mt-2 rounded text-white bg-blue-600/40 hover:bg-blue-600/60 border border-blue-400/50 transition-all duration-200 gap-2 font-bold text-[10px] uppercase tracking-[0.15em] shadow-lg backdrop-blur-sm"
-                >
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <title>Editar Background</title>
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                  </svg>
-                  Editar Background
-                </button>
-              </m.div>
-            )}
-          </AnimatePresence>
-
-          {/* Background editor panel — even larger margin */}
-          <AnimatePresence>
-            {isEditorOpen && (
-              <m.div
-                initial={{ opacity: 0, x: -30, scale: 0.98 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: -30, scale: 0.98 }}
-                className="absolute left-[calc(100%+16px)] top-1/2 -translate-y-1/2 bg-tertiary/70 backdrop-blur-xl rounded-3xl shadow-2xl p-10 min-w-[360px] sm:min-w-[540px] md:min-w-[620px] max-w-[95vw] z-[9999] max-h-[85vh] flex flex-col border border-white/10 ring-1 ring-white/5 transition-all duration-300"
-              >
-                <div className="flex items-center justify-between mb-6 shrink-0 border-b border-white/10 pb-4">
-                  <h3 className="text-white font-bold text-sm uppercase tracking-[0.2em]">
-                    {BG_LABELS[selectedBg] || 'Background'}
-                  </h3>
+          {/* Menu de seleção de estilo */}
+          {isOpen && (
+            <div className="fixed top-[20%] left-[100px] bg-black/90 backdrop-blur-2xl rounded-3xl shadow-2xl p-6 min-w-[340px] z-[99999] border border-white/10">
+              <h3 className="text-white font-bold mb-4 text-sm uppercase tracking-widest">Configurações</h3>
+              <div className="grid grid-cols-2 gap-3 mb-6">
+                {BG_TYPES.map((type) => (
                   <button
-                    type="button"
-                    onClick={() => {
-                      setIsEditorOpen(false);
-                      setIsOpen(true);
-                    }}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white text-[10px] uppercase tracking-widest font-bold transition-all"
+                    key={type}
+                    onClick={() => updateConfig({ backgroundType: type })}
+                    className={`w-full py-3 text-xs font-bold uppercase tracking-widest rounded-2xl transition-all ${config.backgroundType === type
+                      ? 'bg-[#915EFF] text-white'
+                      : 'bg-white/10 text-white/80 hover:bg-white/20'
+                      }`}
                   >
-                    <span className="text-xs">←</span> Voltar
+                    {BG_LABELS[type]}
                   </button>
-                </div>
+                ))}
+              </div>
 
-                <div className="overflow-y-auto flex-1 pr-2 custom-scrollbar min-h-0 py-2">
-                  {renderEditor()}
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setIsEditorOpen(false)}
-                  className="w-full mt-6 px-4 py-3 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 hover:text-white font-bold tracking-[0.3em] uppercase text-[10px] rounded-xl transition-all shrink-0 shadow-lg backdrop-blur-sm group"
-                >
-                  <span className="group-hover:scale-110 transition-transform inline-block">
-                    Fechar Painel
-                  </span>
-                </button>
-              </m.div>
-            )}
-          </AnimatePresence>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedBg(config.backgroundType || 'bolhas');
+                  setIsEditorOpen(true);
+                  setIsOpen(false);
+                }}
+                className="w-full bg-[#915EFF] hover:bg-[#a17fff] text-white font-bold py-4 rounded-3xl text-sm uppercase tracking-widest flex items-center justify-center gap-2"
+              >
+                ✏️ EDITAR BACKGROUND
+              </button>
+            </div>
+          )}
         </div>
       </div>
+
+      {/* ===================== PAINEL COM PORTAL (INVENCÍVEL) ===================== */}
+      {isEditorOpen && createPortal(
+        <m.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[9999999] flex items-center justify-center bg-black/90 backdrop-blur-3xl p-4"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div
+            className="bg-[#0a0820] border-4 border-[#915EFF] rounded-3xl shadow-2xl w-full max-w-3xl max-h-[94vh] overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="px-8 py-6 border-b border-white/10 flex justify-between items-center bg-black/70">
+              <h2 className="text-3xl font-black text-white tracking-widest">
+                ✏️ EDITANDO: {BG_LABELS[selectedBg] || selectedBg.toUpperCase()}
+              </h2>
+              <button
+                onClick={() => {
+                  setIsEditorOpen(false);
+                  setIsOpen(true);
+                }}
+                className="px-10 py-4 bg-red-600 hover:bg-red-700 text-white font-bold uppercase rounded-3xl text-sm transition-all"
+              >
+                FECHAR
+              </button>
+            </div>
+
+            {/* Debug gigante (para confirmar) */}
+            <div className="bg-yellow-400 text-black p-8 text-center font-black text-4xl border-b-4 border-yellow-400">
+              PAINEL ABRIU COM PORTAL! 🎉<br />
+              <span className="text-red-700 text-3xl">Background atual: {selectedBg}</span>
+            </div>
+
+            {/* Editor real */}
+            <div className="p-10 overflow-y-auto max-h-[calc(94vh-180px)]">
+              {renderEditor() || (
+                <div className="text-center py-20 text-red-400 text-3xl font-bold">
+                  Editor ainda não criado para este background
+                </div>
+              )}
+            </div>
+          </div>
+        </m.div>,
+        document.body
+      )}
     </>
   );
 };

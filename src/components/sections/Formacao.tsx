@@ -80,36 +80,47 @@ const Formacao = () => {
     },
     {
       id: '2',
-      title: 'Pós-Graduação em IA & Data Science',
+      title: 'Inteligência Artificial: Conceitos, Ferramentas e Aplicações',
       institution: 'Anhanguera',
-      date: '2024 - Em andamento',
+      date: '2026 - Em andamento',
       status: t('status.emAndamento'),
       icon: facul,
       logo: facul,
-      period: '2024 - Em andamento',
-      description: 'Especialização focada em Inteligência Artificial Generativa, Machine Learning e análise estatística para decisões baseadas em dados.',
+      period: '2026 - Em andamento',
+      description: 'O curso de pós-graduação em Inteligência Artificial e Data Science é projetado para atender às demandas crescentes do mercado tecnológico, capacitando profissionais a desenvolver soluções inovadoras e baseadas em dados. Com uma abordagem prática e avançada, o curso prepara os alunos para enfrentar os desafios do mundo do trabalho, promovendo a inovação e a precisão em suas respectivas áreas de atuação.',
       link: '#',
+      tipoFormacao: 'Tecnólogo em Análise e Desenvolvimento de Sistemas',
+      cargaHorariaGeral: '360h',
+      statusDiploma: 'Em breve',
+      nota: '10,0',
       disciplinas: [
-        'Introdução à Inteligência Artificial',
-        'Machine Learning',
-        'Deep Learning',
-        'Processamento de Linguagem Natural',
-        'Big Data e Analytics',
-        'Estatística Aplicada',
-        'Visualização de Dados',
-        'Ética em IA'
+        { semestre: '2026/1', materia: 'Inteligência Artificial: Conceitos, Ferramentas e Aplicações', professor: 'Corpo Docente', nota: 10.0, cargaHoraria: '30h' },
+        { semestre: '2026/1', materia: 'Redes Neurais', professor: 'Corpo Docente', nota: 'CURSANDO', cargaHoraria: '30h' },
+        { semestre: '2026/1', materia: 'Processamento de linguagem natural', professor: 'Corpo Docente', nota: 'CURSANDO', cargaHoraria: '30h' },
+        { semestre: '2026/1', materia: 'Visão computacional Generativa', professor: 'Corpo Docente', nota: 'CURSANDO', cargaHoraria: '30h' },
+        { semestre: '2026/2', materia: 'Modelos generativos (GANs, Variational Autoencoders (VAEs) e Flow-based Models)', professor: 'Corpo Docente', nota: 'CURSANDO', cargaHoraria: '30h' },
+        { semestre: '2026/2', materia: 'Linguagens de programação para ciência de dados (Python com Spark)', professor: 'Corpo Docente', nota: 'CURSANDO', cargaHoraria: '30h' },
+        { semestre: '2026/2', materia: 'Data Discovery, Olap e visualização de dados', professor: 'Corpo Docente', nota: 'CURSANDO', cargaHoraria: '30h' },
+        { semestre: '2027/1', materia: 'Linguagem SQL para Data Analytics', professor: 'Corpo Docente', nota: 'CURSANDO', cargaHoraria: '30h' },
+        { semestre: '2027/1', materia: 'Integração e fluxo de dados (ETL)', professor: 'Corpo Docente', nota: 'CURSANDO', cargaHoraria: '30h' },
+        { semestre: '2027/1', materia: 'Governança de dados', professor: 'Corpo Docente', nota: 'CURSANDO', cargaHoraria: '30h' },
+        { semestre: '2027/2', materia: 'Interações entre big data e cloud computing', professor: 'Corpo Docente', nota: 'CURSANDO', cargaHoraria: '30h' },
+        { semestre: '2027/2', materia: 'Lei Geral de Proteção de Dados', professor: 'Corpo Docente', nota: 'CURSANDO', cargaHoraria: '30h' }
       ]
     }
   ];
 
   const stats = useMemo(() => {
-    if (!selectedFormation || selectedFormation.id !== '1') return null;
+    if (!selectedFormation || !selectedFormation.disciplinas) return null;
     const items = selectedFormation.disciplinas.filter(d => typeof d !== 'string') as Disciplina[];
     if (items.length === 0) return null;
 
+    // Filtrar apenas disciplinas com nota numérica para cálculos de média
+    const itemsComNota = items.filter(d => !isNaN(Number(d.nota)));
+
     const totalCH = items.reduce((acc, d) => acc + parseInt(d.cargaHoraria), 0);
-    const weightedSum = items.reduce((acc, d) => acc + (Number(d.nota) * parseInt(d.cargaHoraria)), 0);
-    const average = weightedSum / totalCH;
+    const weightedSum = itemsComNota.reduce((acc, d) => acc + (Number(d.nota) * parseInt(d.cargaHoraria)), 0);
+    const average = itemsComNota.length > 0 ? weightedSum / totalCH : 0;
 
     const semesterData = items.reduce((acc, d) => {
       const sem = d.semestre || 'N/A';
@@ -121,8 +132,11 @@ const Formacao = () => {
           disciplinas: []
         };
       }
-      acc[sem].sum += Number(d.nota);
-      acc[sem].count += 1;
+      // Só adiciona à soma se for nota numérica
+      if (!isNaN(Number(d.nota))) {
+        acc[sem].sum += Number(d.nota);
+        acc[sem].count += 1;
+      }
       acc[sem].ch += parseInt(d.cargaHoraria);
       acc[sem].disciplinas.push(d);
       return acc;
@@ -130,11 +144,11 @@ const Formacao = () => {
 
     const chartData = Object.keys(semesterData).map(sem => ({
       sem,
-      avg: semesterData[sem].sum / semesterData[sem].count,
+      avg: semesterData[sem].count > 0 ? semesterData[sem].sum / semesterData[sem].count : 0,
       ch: semesterData[sem].ch
     }));
 
-    return { average, totalCH, chartData, semesterData };
+    return { average, totalCH, chartData, semesterData, allDisciplinas: items };
   }, [selectedFormation]);
 
   return (
@@ -274,76 +288,70 @@ const Formacao = () => {
                 {t('education.semesterHistory')}
               </h4>
 
-              {stats && stats.semesterData && (
-                <div className="space-y-6 max-h-[400px] overflow-y-auto custom-scrollbar pr-2">
-                  {Object.entries(stats.semesterData)
-                    .sort(([a], [b]) => a.localeCompare(b))
-                    .map(([semestre, data]) => (
-                      <div key={semestre} className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden">
-                        <div className="p-4 bg-gradient-to-r from-[var(--cyber-purple)]/10 to-transparent border-b border-white/5">
-                          <div className="flex flex-wrap items-center justify-between gap-3">
-                            <div>
-                              <h5 className="text-[var(--cyber-cyan)] font-black text-lg uppercase tracking-wider">
-                                {semestre}
+              {stats && stats.allDisciplinas && (
+                <div className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden">
+                  <div className="p-4 bg-gradient-to-r from-[var(--cyber-purple)]/10 to-transparent border-b border-white/5">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <h5 className="text-[var(--cyber-cyan)] font-black text-lg uppercase tracking-wider">
+                          {t('education.completeAcademicHistory')}
+                        </h5>
+                        <p className="text-white/40 text-[10px] uppercase tracking-widest mt-1">
+                          {stats.allDisciplinas.length} {t('education.subjects')}
+                        </p>
+                      </div>
+                      <div className="flex gap-4">
+                        <div className="text-right">
+                          <p className="text-white/40 text-[9px] uppercase tracking-widest mb-1">{t('education.totalHours')}</p>
+                          <p className="text-[var(--cyber-cyan)] font-mono font-bold text-lg">
+                            {stats.totalCH}h
+                          </p>
+                        </div>
+                        <div className="h-8 w-px bg-white/10 hidden md:block" />
+                        <div className="text-right">
+                          <p className="text-white/40 text-[9px] uppercase tracking-widest mb-1">{t('education.generalAverage')}</p>
+                          <p className="text-white font-mono font-bold text-lg">
+                            {stats.average.toFixed(2)}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-3 space-y-2 max-h-[400px] overflow-y-auto custom-scrollbar pr-2">
+                    {stats.allDisciplinas
+                      .sort((a, b) => a.materia.localeCompare(b.materia))
+                      .map((disc, idx) => (
+                        <div
+                          key={idx}
+                          className="group/item p-4 rounded-xl bg-black/30 border border-white/5 hover:border-[var(--cyber-cyan)]/30 transition-all"
+                        >
+                          <div className="flex flex-col md:flex-row md:items-center gap-3">
+                            <div className="flex-1">
+                              <h5 className="text-white font-bold text-sm group-hover/item:text-[var(--cyber-cyan)] transition-colors">
+                                {disc.materia}
                               </h5>
-                              <p className="text-white/40 text-[10px] uppercase tracking-widest mt-1">
-                                {data.disciplinas.length} {t('education.subjects')}
+                              <p className="text-white/30 text-[10px] uppercase tracking-wider font-medium mt-1">
+                                {disc.professor}
                               </p>
                             </div>
-                            <div className="flex gap-4">
-                              <div className="text-right">
-                                <p className="text-white/40 text-[9px] uppercase tracking-widest mb-1">{t('education.workload')}</p>
-                                <p className="text-[var(--cyber-cyan)] font-mono font-bold text-lg">
-                                  {data.ch}h
-                                </p>
+                            <div className="flex items-center gap-4">
+                              <div className="text-center min-w-[50px]">
+                                <p className="text-white/20 text-[8px] uppercase tracking-widest mb-1">{t('education.hours')}</p>
+                                <p className="text-white font-mono text-xs">{disc.cargaHoraria}</p>
                               </div>
-                              <div className="h-8 w-px bg-white/10 hidden md:block" />
-                              <div className="text-right">
-                                <p className="text-white/40 text-[9px] uppercase tracking-widest mb-1">{t('education.semesterAverage')}</p>
-                                <p className="text-white font-mono font-bold text-lg">
-                                  {(data.sum / data.count).toFixed(2)}
+                              <div className="h-6 w-px bg-white/10 hidden md:block" />
+                              <div className="text-center min-w-[50px]">
+                                <p className="text-white/20 text-[8px] uppercase tracking-widest mb-1">{t('education.grade')}</p>
+                                <p className={`text-base font-black font-mono ${!isNaN(Number(disc.nota)) && Number(disc.nota) >= 9 ? 'text-[var(--cyber-cyan)]' : 'text-white'}`}>
+                                  {!isNaN(Number(disc.nota)) ? Number(disc.nota).toFixed(1) : disc.nota}
                                 </p>
                               </div>
                             </div>
                           </div>
                         </div>
-
-                        <div className="p-3 space-y-2">
-                          {data.disciplinas
-                            .sort((a, b) => a.materia.localeCompare(b.materia))
-                            .map((disc, idx) => (
-                              <div
-                                key={idx}
-                                className="group/item p-4 rounded-xl bg-black/30 border border-white/5 hover:border-[var(--cyber-cyan)]/30 transition-all"
-                              >
-                                <div className="flex flex-col md:flex-row md:items-center gap-3">
-                                  <div className="flex-1">
-                                    <h5 className="text-white font-bold text-sm group-hover/item:text-[var(--cyber-cyan)] transition-colors">
-                                      {disc.materia}
-                                    </h5>
-                                    <p className="text-white/30 text-[10px] uppercase tracking-wider font-medium mt-1">
-                                      {disc.professor}
-                                    </p>
-                                  </div>
-                                  <div className="flex items-center gap-4">
-                                    <div className="text-center min-w-[50px]">
-                                      <p className="text-white/20 text-[8px] uppercase tracking-widest mb-1">{t('education.hours')}</p>
-                                      <p className="text-white font-mono text-xs">{disc.cargaHoraria}</p>
-                                    </div>
-                                    <div className="h-6 w-px bg-white/10 hidden md:block" />
-                                    <div className="text-center min-w-[50px]">
-                                      <p className="text-white/20 text-[8px] uppercase tracking-widest mb-1">{t('education.grade')}</p>
-                                      <p className={`text-base font-black font-mono ${Number(disc.nota) >= 9 ? 'text-[var(--cyber-cyan)]' : 'text-white'}`}>
-                                        {Number(disc.nota).toFixed(1)}
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                        </div>
-                      </div>
-                    ))}
+                      ))}
+                  </div>
                 </div>
               )}
 
@@ -354,14 +362,16 @@ const Formacao = () => {
               )}
             </div>
 
-            {(selectedFormation.diplomaPreview || selectedFormation.authLink) && (
+
+            {/* Seção Diploma e Autenticação */}
+            {(selectedFormation.diplomaPreview || selectedFormation.authLink || selectedFormation.id === '2') && (
               <div className="space-y-6 pt-6">
                 <h4 className="text-xl font-black text-white flex items-center gap-3">
                   <span className="w-2 h-8 bg-[var(--cyber-cyan)] rounded-full" />
                   {t('education.diplomaAuthentication')}
                 </h4>
 
-                {selectedFormation.diplomaPreview && (
+                {selectedFormation.id === '1' && selectedFormation.diplomaPreview && (
                   <div
                     onClick={() => window.open(selectedFormation.diplomaDownload, '_blank')}
                     className="relative group/diploma rounded-3xl overflow-hidden border border-white/10 bg-black/40 cursor-pointer hover:border-[var(--cyber-cyan)]/50 transition-all"
@@ -382,7 +392,7 @@ const Formacao = () => {
                   </div>
                 )}
 
-                {selectedFormation.authLink && (
+                {selectedFormation.id === '1' && selectedFormation.authLink && (
                   <div className="rounded-3xl bg-gradient-to-br from-white/5 to-white/0 border border-white/10 p-8 relative overflow-hidden">
                     <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5" />
 
@@ -405,6 +415,48 @@ const Formacao = () => {
                           {t('education.validateOnPortal')}
                           <span className="text-lg">→</span>
                         </a>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {selectedFormation.id === '2' && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Botão Diploma */}
+                    <div className="rounded-2xl bg-gradient-to-br from-red-500/10 to-red-600/10 border border-red-500/30 p-6 relative overflow-hidden group">
+                      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5" />
+                      <div className="relative z-10 flex flex-col items-center text-center gap-4">
+                        <div className="w-16 h-16 rounded-full bg-red-500/20 border border-red-500/30 flex items-center justify-center">
+                          <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h5 className="text-white font-black text-lg mb-2">Diploma</h5>
+                          <p className="text-red-300/70 text-sm">Em breve</p>
+                        </div>
+                        <div className="px-6 py-3 rounded-xl bg-red-500/20 border border-red-500/30 text-red-300 font-bold text-sm uppercase tracking-widest">
+                          Em breve
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Botão Autenticação */}
+                    <div className="rounded-2xl bg-gradient-to-br from-red-500/10 to-red-600/10 border border-red-500/30 p-6 relative overflow-hidden group">
+                      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5" />
+                      <div className="relative z-10 flex flex-col items-center text-center gap-4">
+                        <div className="w-16 h-16 rounded-full bg-red-500/20 border border-red-500/30 flex items-center justify-center">
+                          <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h5 className="text-white font-black text-lg mb-2">Verificação de Autenticidade</h5>
+                          <p className="text-red-300/70 text-sm">Em breve</p>
+                        </div>
+                        <div className="px-6 py-3 rounded-xl bg-red-500/20 border border-red-500/30 text-red-300 font-bold text-sm uppercase tracking-widest">
+                          Em breve
+                        </div>
                       </div>
                     </div>
                   </div>

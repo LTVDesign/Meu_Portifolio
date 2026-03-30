@@ -176,7 +176,10 @@
         "description": "Higher education focused on the complete software development cycle, requirements analysis and project management. Completed with academic excellence.",
         "postgradDescription": "Specialization focused on Generative Artificial Intelligence, Machine Learning and statistical analysis for data-driven decisions.",
         "semesterHistory": "Complete Academic History",
-        "noRecords": "No subject records available."
+        "completeAcademicHistory": "Complete Academic History",
+        "noRecords": "No subject records available.",
+        "trainingType": "Training Type",
+        "diplomaStatus": "Diploma Status"
     },
     "subjects": {
         "algorithmsAndProgramming": "Algorithms and Structured Programming",

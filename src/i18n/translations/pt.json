@@ -196,7 +196,10 @@
         "description": "Formação superior focada no ciclo completo de desenvolvimento de software, análise de requisitos e gestão de projetos. Concluído com excelência acadêmica.",
         "postgradDescription": "Especialização focada em Inteligência Artificial Generativa, Machine Learning e análise estatística para decisões baseadas em dados.",
         "semesterHistory": "Histórico Acadêmico Completo",
-        "noRecords": "Nenhum registro de disciplinas disponível."
+        "completeAcademicHistory": "Histórico Acadêmico Completo",
+        "noRecords": "Nenhum registro de disciplinas disponível.",
+        "trainingType": "Formação",
+        "diplomaStatus": "Diploma"
     },
     "subjects": {
         "algorithmsAndProgramming": "Algoritmos e Programação Estruturada",
