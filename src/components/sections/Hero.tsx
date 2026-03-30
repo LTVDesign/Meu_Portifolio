@@ -9,7 +9,6 @@ import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 const Hero = () => {
   const [showSubtitle, setShowSubtitle] = useState(false);
-  const [showSubtitleComplete, setShowSubtitleComplete] = useState(false);
   const [showBackgroundModal, setShowBackgroundModal] = useState(false);
   const { t } = useTranslation();
   const prefersReduced = useReducedMotion();
@@ -21,10 +20,6 @@ const Hero = () => {
 
     return () => clearTimeout(timer);
   }, []);
-
-  const handleSubtitleComplete = () => {
-    setShowSubtitleComplete(true);
-  };
 
   const handleBackgroundClick = () => {
     setShowBackgroundModal(true);
@@ -71,25 +66,11 @@ const Hero = () => {
               pauseTime={2800}
               loop={false}
               typeOnce={true}
-              onComplete={handleSubtitleComplete}
               className="text-[clamp(1.05rem,2.2vw,1.35rem)]"
             />
           )}
         </div>
 
-        {/* Frases adicionais que aparecem após a primeira ficar fixa */}
-        {showSubtitleComplete && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-8"
-          >
-            <p className="text-[var(--cyber-cyan)] font-bold uppercase tracking-widest text-sm">
-              Formação
-            </p>
-          </motion.div>
-        )}
       </div>
 
       {/* Canvas 3D */}
@@ -97,7 +78,7 @@ const Hero = () => {
         <ComputersCanvas />
       </div>
 
-      {/* Engrenagem flutuante - simplificada */}
+      {/* Engrenagem flutuante direita - Background selector */}
       <motion.button
         onClick={handleBackgroundClick}
         className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-20 cursor-pointer group"
@@ -191,11 +172,20 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Text with enhanced effects */}
+          {/* Text with enhanced effects for better readability */}
           <motion.span
-            className="text-xs font-bold tracking-[0.2em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] via-white to-[var(--cyber-purple)] bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(0,255,255,0.5)]"
+            className="text-xs font-black tracking-[0.3em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] via-white to-[var(--cyber-purple)] bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(0,255,255,0.7)]"
+            style={{
+              filter: 'drop-shadow(0 0 10px rgba(0,255,255,0.8)) drop-shadow(0 0 20px rgba(145,94,255,0.5))',
+              textShadow: '0 0 20px rgba(0,255,255,0.5), 0 0 40px rgba(145,94,255,0.3)'
+            }}
             animate={{
-              opacity: [0.7, 1, 0.7]
+              opacity: [0.7, 1, 0.7],
+              filter: [
+                'drop-shadow(0 0 10px rgba(0,255,255,0.8)) drop-shadow(0 0 20px rgba(145,94,255,0.5))',
+                'drop-shadow(0 0 15px rgba(0,255,255,1)) drop-shadow(0 0 30px rgba(145,94,255,0.7))',
+                'drop-shadow(0 0 10px rgba(0,255,255,0.8)) drop-shadow(0 0 20px rgba(145,94,255,0.5))'
+              ]
             }}
             transition={{
               duration: 2,

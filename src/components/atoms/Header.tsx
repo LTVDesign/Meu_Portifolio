@@ -98,7 +98,10 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
             textShadow: '0 0 20px rgba(145,94,255,0.6), 0 0 40px rgba(0,255,255,0.4)'
           }}
         >
-          <h2 className={`${styles.sectionHeadText} relative z-10`}>
+          <h2 className={`${styles.sectionHeadText} relative z-10`} style={{
+            textShadow: '0 0 20px rgba(145,94,255,0.6), 0 0 40px rgba(0,255,255,0.4), 0 0 60px rgba(145,94,255,0.3)',
+            filter: 'drop-shadow(0 0 10px rgba(145,94,255,0.5))'
+          }}>
             <DynamicText colorMode="auto">{h2}</DynamicText>
           </h2>
           {/* Efeito de brilho atrás do texto */}
@@ -112,7 +115,10 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
           </motion.div>
         </motion.div>
         <motion.div variants={subtitleVariants}>
-          <p className={`${styles.sectionSubText} relative`}>
+          <p className={`${styles.sectionSubText} relative`} style={{
+            textShadow: '0 0 10px rgba(0,255,255,0.4), 0 0 20px rgba(145,94,255,0.3)',
+            filter: 'drop-shadow(0 0 5px rgba(0,255,255,0.3))'
+          }}>
             <DynamicText colorMode="auto">{p}</DynamicText>
             {/* Linha animada abaixo do subtítulo */}
             <motion.div
@@ -131,14 +137,20 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
   return (
     <div className="text-center flex flex-col items-center justify-center">
       <div className="mb-4 relative">
-        <h2 className={`${styles.sectionHeadText} relative z-10`}>
+        <h2 className={`${styles.sectionHeadText} relative z-10`} style={{
+          textShadow: '0 0 20px rgba(145,94,255,0.6), 0 0 40px rgba(0,255,255,0.4)',
+          filter: 'drop-shadow(0 0 10px rgba(145,94,255,0.5))'
+        }}>
           <DynamicText colorMode="auto">{h2}</DynamicText>
         </h2>
         <div className="absolute inset-0 bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] bg-clip-text text-transparent blur-xl opacity-30 -z-10">
           <DynamicText colorMode="auto">{h2}</DynamicText>
         </div>
       </div>
-      <p className={`${styles.sectionSubText} relative`}>
+      <p className={`${styles.sectionSubText} relative`} style={{
+        textShadow: '0 0 10px rgba(0,255,255,0.4), 0 0 20px rgba(145,94,255,0.3)',
+        filter: 'drop-shadow(0 0 5px rgba(0,255,255,0.3))'
+      }}>
         <DynamicText colorMode="auto">{p}</DynamicText>
         <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)] to-transparent w-0 group-hover:w-full transition-all duration-500" />
       </p>

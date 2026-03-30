@@ -139,7 +139,7 @@ const Footer: React.FC = () => {
             </div>
 
             {/* Konami code */}
-            <p className="text-lg text-[var(--dynamic-text-secondary)]/50 tracking-widest text-center select-none">
+            <p className="text-lg text-[var(--dynamic-text-secondary)] tracking-widest text-center select-none">
               ⬆️ ⬆️ ⬇️ ⬇️ ⬅️ ➡️ ⬅️ ➡️ 🅱️ 🅰️
             </p>
           </div>

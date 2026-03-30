@@ -169,8 +169,8 @@ const Navbar = memo(() => {
           </span>
         </Link>
 
-        {/* Desktop Menu with specific glows */}
-        <ul className="hidden sm:flex items-center gap-2 lg:gap-3">
+        {/* Desktop Menu with specific glows - moved to right */}
+        <ul className="hidden sm:flex items-center gap-3 lg:gap-4 ml-auto">
           {navLinks.map((nav) => {
             const isActive = active === nav.id;
 
@@ -185,14 +185,19 @@ const Navbar = memo(() => {
                       setToggle(false);
                     }
                   }}
-                  className={`navbar-link py-2 px-1 text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:text-[var(--cyber-cyan)] menu-glow ${isActive ? 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] active-menu' : 'text-white/80'}`}
+                  className={`navbar-link py-2 px-2 text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:text-[var(--cyber-cyan)] menu-glow relative group/link ${isActive ? 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] active-menu' : 'text-white/80'}`}
                 >
                   <DynamicText colorMode="auto">{t(`nav.${nav.id}`)}</DynamicText>
+                  {/* Animated background glow on hover */}
+                  <m.div
+                    className="absolute inset-0 bg-gradient-to-r from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/20 rounded-lg opacity-0 group-hover/link:opacity-100 transition-opacity duration-300 -z-10"
+                    whileHover={{ scale: 1.05 }}
+                  />
                 </LinkAnimado>
 
                 {/* Underline for active/hover focus with shine */}
                 <m.div
-                  className={`absolute -bottom-1 left-0 right-0 h-[2px] bg-[var(--cyber-cyan)] rounded-full shadow-[0_0_10px_rgba(0,255,255,0.8)] transition-all duration-500 overflow-hidden ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'}`}
+                  className={`absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-full shadow-[0_0_10px_rgba(0,255,255,0.8)] transition-all duration-500 overflow-hidden ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'}`}
                 >
                   <div className="absolute top-0 left-0 h-full w-[30%] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 shine-anim" />
                 </m.div>
@@ -202,14 +207,14 @@ const Navbar = memo(() => {
         </ul>
 
         {/* Language Selector - Right side */}
-        <div className="hidden sm:flex items-center gap-3 ml-auto">
+        <div className="hidden sm:flex items-center gap-4">
           {/* PT Button */}
           <m.button
             onClick={() => i18n.changeLanguage('pt')}
             aria-label={t('nav.switch_to_pt')}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className={`group relative px-4 py-2 text-sm font-black uppercase tracking-widest rounded-xl transition-all overflow-hidden ${i18n.language === 'pt'
+            className={`group relative px-5 py-3 text-lg font-black uppercase tracking-widest rounded-xl transition-all overflow-hidden ${i18n.language === 'pt'
               ? 'bg-gradient-to-r from-[var(--cyber-purple)] to-purple-600 text-white shadow-[0_0_20px_rgba(145,94,255,0.7),0_0_40px_rgba(145,94,255,0.3)] ring-2 ring-[var(--cyber-purple)]/50'
               : 'bg-white/10 text-white hover:text-white hover:bg-white/20 hover:shadow-[0_0_15px_rgba(145,94,255,0.4)]'
               }`}
@@ -241,9 +246,9 @@ const Navbar = memo(() => {
           <m.button
             onClick={() => i18n.changeLanguage('en')}
             aria-label={t('nav.switch_to_en')}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className={`group relative px-4 py-2 text-sm font-black uppercase tracking-widest rounded-xl transition-all overflow-hidden ${i18n.language === 'en'
+            className={`group relative px-5 py-3 text-lg font-black uppercase tracking-widest rounded-xl transition-all overflow-hidden ${i18n.language === 'en'
               ? 'bg-gradient-to-r from-[var(--cyber-cyan)] to-cyan-400 text-white shadow-[0_0_20px_rgba(0,255,255,0.7),0_0_40px_rgba(0,255,255,0.3)] ring-2 ring-[var(--cyber-cyan)]/50'
               : 'bg-white/10 text-white hover:text-white hover:bg-white/20 hover:shadow-[0_0_15px_rgba(0,255,255,0.4)]'
               }`}

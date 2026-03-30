@@ -149,7 +149,7 @@
         },
         {
             "id": "8",
-            "title": "Introduction to AI",
+            "title": "Inteligência Artificial e Data Science",
             "platform": "Google (via Coursera)",
             "date": "2024",
             "duration": "Aproximadamente 2 meses",
@@ -403,12 +403,12 @@
         },
         {
             "id": "8",
-            "title": "Introduction to AI",
+            "title": "Artificial Intelligence and Data Science",
             "platform": "Google (via Coursera)",
             "date": "2024",
             "duration": "Approximately 2 months",
             "workload": "About 40 hours",
-            "summary": "Introductory course on Artificial Intelligence, covering fundamental AI concepts, machine learning, neural networks, and practical applications. Ideal for beginners who want to understand the basics of AI.",
+            "summary": "Introductory course on Artificial Intelligence and Data Science, covering fundamental AI concepts, machine learning, neural networks, and practical applications. Ideal for beginners who want to understand the basics of AI and Data Science.",
             "description": "This course provides an accessible introduction to the world of Artificial Intelligence. It covers fundamental AI concepts, differences between AI, machine learning, and deep learning, how neural networks work, and practical applications across various sectors. You will learn how AI systems make decisions, recognize patterns, and interact with the real world. It's the perfect starting point for those wanting to enter the AI field or understand its possibilities.",
             "modules": [
                 "Introduction to Artificial Intelligence",
