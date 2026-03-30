@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { SectionWrapper } from '../../hoc';
 import { Header } from '../atoms';
 import { useTranslation } from 'react-i18next';
@@ -10,7 +10,7 @@ const About = () => {
   return (
     <div className="max-w-7xl mx-auto px-6">
       {/* Box de texto informativo com animação */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
@@ -20,7 +20,7 @@ const About = () => {
         <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500">
           {/* Efeito de brilho animado no fundo */}
           <div className="absolute inset-0 opacity-30">
-            <motion.div
+            <m.div
               className="absolute inset-0"
               style={{
                 background: 'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)'
@@ -47,7 +47,7 @@ const About = () => {
                   h2={t('about.h2')}
                 />
 
-                <motion.div
+                <m.div
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
@@ -57,11 +57,11 @@ const About = () => {
                   {(t('about.content') as string).split('\n').map((paragraph, i) => (
                     <p key={i} className="mb-4">{paragraph}</p>
                   ))}
-                </motion.div>
+                </m.div>
               </div>
 
               {/* Imagem / Canvas decorativo */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -77,7 +77,7 @@ const About = () => {
                   {/* Overlay com gradiente */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
 
@@ -85,7 +85,7 @@ const About = () => {
           <div className="absolute inset-0 rounded-3xl border border-[var(--cyber-cyan)]/10 pointer-events-none" />
           <div className="absolute -inset-1 bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-3xl opacity-20 blur-xl -z-10" />
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 };

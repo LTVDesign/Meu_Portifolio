@@ -1,5 +1,16 @@
 import GUI from 'lil-gui';
-import * as THREE from 'three';
+// Tree-shakeable imports - reduz bundle size do Three.js
+import {
+  Scene,
+  OrthographicCamera,
+  WebGLRenderer,
+  ShaderMaterial,
+  Mesh,
+  Color,
+  Vector2,
+  PlaneGeometry,
+  Clock
+} from 'three';
 
 // --- LIQUID SILK GENERATIVE ENGINE SHADERS ---
 
@@ -230,11 +241,11 @@ window.onload = () => {
   };
 
   // --- THREE.JS SETUP ---
-  const scene = new THREE.Scene();
-  const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+  const scene = new Scene();
+  const camera = new OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
   camera.position.z = 1;
 
-  const renderer = new THREE.WebGLRenderer({
+  const renderer = new WebGLRenderer({
     antialias: true,
     alpha: true,
     powerPreference: 'high-performance',
@@ -245,7 +256,7 @@ window.onload = () => {
 
   const uniforms = {
     u_time: { value: 0.0 },
-    u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+    u_resolution: { value: new Vector2(window.innerWidth, window.innerHeight) },
     u_speed: { value: params.speed },
     u_scale: { value: params.scale },
     u_complexity: { value: params.complexity },
@@ -254,14 +265,14 @@ window.onload = () => {
     u_grain: { value: params.grain },
     u_smoothing: { value: params.smoothing },
     u_octaves: { value: params.octaves },
-    u_color1: { value: new THREE.Color(params.color1) },
-    u_color2: { value: new THREE.Color(params.color2) },
-    u_color3: { value: new THREE.Color(params.color3) },
-    u_color4: { value: new THREE.Color(params.color4) },
-    u_color5: { value: new THREE.Color(params.color5) },
+    u_color1: { value: new Color(params.color1) },
+    u_color2: { value: new Color(params.color2) },
+    u_color3: { value: new Color(params.color3) },
+    u_color4: { value: new Color(params.color4) },
+    u_color5: { value: new Color(params.color5) },
   };
 
-  const material = new THREE.ShaderMaterial({
+  const material = new ShaderMaterial({
     vertexShader,
     fragmentShader,
     uniforms,
@@ -269,8 +280,8 @@ window.onload = () => {
     depthTest: false,
   });
 
-  const geometry = new THREE.PlaneGeometry(2, 2);
-  const mesh = new THREE.Mesh(geometry, material);
+  const geometry = new PlaneGeometry(2, 2);
+  const mesh = new Mesh(geometry, material);
   scene.add(mesh);
 
   // --- UNIFORMS UPDATER ---
@@ -330,7 +341,7 @@ window.onload = () => {
   folderColors.add(params, 'randomizePalette').name('Randomize Palette');
 
   // --- RENDER LOOP ---
-  const clock = new THREE.Clock();
+  const clock = new Clock();
 
   const animate = () => {
     uniforms.u_time.value = clock.getElapsedTime();
