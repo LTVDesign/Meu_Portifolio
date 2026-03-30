@@ -313,6 +313,7 @@ const Formacao = () => {
                 <p className="mt-4 text-[var(--text-secondary)] leading-relaxed text-sm md:text-base opacity-80 group-hover:opacity-100 transition-opacity line-clamp-4">
                   {item.description}
                 </p>
+                {/* Ajuste de layout para cards de formação */}
               </div>
             </div>
 
