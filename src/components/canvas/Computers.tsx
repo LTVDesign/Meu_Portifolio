@@ -19,7 +19,7 @@ const ComputersContent: React.FC<{ screenSize: string }> = ({ screenSize }) => {
   }, []);
 
   // Só carrega o modelo após o delay
-  const computer = shouldLoadModel ? useGLTF('/desktop_pc/scene-compressed.compressed.gltf') : null;
+  const computer = shouldLoadModel ? useGLTF('/desktop_pc/scene-optimized.gltf') : null;
 
   const getPosition = () => {
     if (screenSize === 'watch') return [0, -3.5, 0];

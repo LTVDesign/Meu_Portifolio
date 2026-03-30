@@ -1,17 +1,25 @@
 import { OrbitControls, Preload, useTexture } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import { Suspense, useRef } from 'react';
+import { Suspense, useRef, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 import CanvasLoader from '../layout/Loader';
 
 // Import textures as Vite assets to ensure correct paths in production build
-import planetBaseColor from '../../../planet/textures/Planet_baseColor.png?url';
+// Usando WebP otimizado para melhor performance
+import planetBaseColor from '../../../planet/textures/webp/Planet_baseColor.webp?url';
 
 const Earth = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   const texture = useTexture(planetBaseColor);
+
+  // Pré-carrega a textura para evitar flickering
+  useEffect(() => {
+    if (texture) {
+      texture.colorSpace = THREE.SRGBColorSpace;
+    }
+  }, [texture]);
 
   useFrame((_, delta) => {
     if (meshRef.current) {

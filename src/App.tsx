@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, Suspense, lazy } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { PerformanceProvider } from './contexts/PerformanceContext';
@@ -7,15 +7,11 @@ import { ParticleConfigProvider } from './contexts/ParticleConfigContext';
 import { DynamicTextProvider } from './components/atoms/DynamicTextProvider';
 import { MotionProvider } from './components/layout/MotionProvider';
 import { useKonamiCode } from './hooks/useKonamiCode';
-import { useParticleConfig } from './contexts/ParticleConfigContext';
 import './i18n';
 
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
-import GearButton from './components/layout/GearButton';
 import ParticlesCanvas from './components/layout/ParticlesCanvas';
-import BackgroundMenu from './components/layout/BackgroundMenu';
-import BackgroundEditorModal from './components/layout/BackgroundEditorModal';
 
 // Simple Error Boundary
 class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean; error: Error | null }> {
@@ -71,26 +67,6 @@ const BackgroundManager = lazy(() => import('./components/canvas/BackgroundManag
 
 const AppContent = () => {
   const [backgroundLoaded] = useState(true);
-  const [isGearOpen, setIsGearOpen] = useState(false);
-  const [isEditorOpen, setIsEditorOpen] = useState(false);
-  const [selectedBg, setSelectedBg] = useState('bolhas');
-
-  const { config } = useParticleConfig();
-
-  useEffect(() => {
-    setSelectedBg(config.backgroundType || 'bolhas');
-  }, [config.backgroundType]);
-
-  const handleEdit = () => {
-    setSelectedBg(config.backgroundType || 'bolhas');
-    setIsEditorOpen(true);
-    setIsGearOpen(false);
-  };
-
-  const handleCloseEditor = () => {
-    setIsEditorOpen(false);
-    setIsGearOpen(true);
-  };
 
   useKonamiCode();
 
@@ -119,15 +95,6 @@ const AppContent = () => {
               {/* CONTEÚDO - sempre na frente */}
               <div className="relative z-10">
                 <Navbar />
-                <GearButton onClick={() => setIsGearOpen(!isGearOpen)} isOpen={isGearOpen} />
-
-                {isGearOpen && <BackgroundMenu onEdit={handleEdit} onClose={() => setIsGearOpen(false)} />}
-
-                <BackgroundEditorModal
-                  isOpen={isEditorOpen}
-                  selectedBg={selectedBg}
-                  onClose={handleCloseEditor}
-                />
 
                 <main className="relative z-10 min-h-screen" data-content="true">
                   <ErrorBoundary>
