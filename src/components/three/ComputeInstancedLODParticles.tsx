@@ -12,7 +12,7 @@ interface ComputeInstancedLODParticlesProps {
 }
 
 const ComputeInstancedLODParticles = ({
-    count = 50000,
+    count = 15000, // Reduzido de 50000 para 15000
     colors = ['#915EFF', '#00D4FF', '#FF6B9D'],
     speed = 0.5,
     size = 0.02,
@@ -22,10 +22,14 @@ const ComputeInstancedLODParticles = ({
     useThree();
     const { level, particleCount, quality } = usePerformance();
 
-    // Ajusta quantidade de partículas baseado na performance
+    // Ajusta quantidade de partículas baseado na performance com limites mais agressivos
     const actualCount = useMemo(() => {
-        return Math.min(count, particleCount);
-    }, [count, particleCount]);
+        const baseCount = Math.min(count, particleCount);
+        // LOD mais agressivo baseado no nível de performance
+        if (level === 'low') return Math.min(baseCount, 3000);
+        if (level === 'medium') return Math.min(baseCount, 8000);
+        return baseCount;
+    }, [count, particleCount, level]);
 
     // Dados das partículas
     const particleData = useMemo(() => {
@@ -135,11 +139,12 @@ const ComputeInstancedLODParticles = ({
                 ref={meshRef}
                 args={[undefined, undefined, actualCount]}
                 frustumCulled
+                renderOrder={-999}
             >
-                <sphereGeometry args={[1, level === 'low' ? 4 : level === 'medium' ? 6 : 8, level === 'low' ? 4 : level === 'medium' ? 6 : 8]} />
+                <sphereGeometry args={[1, level === 'low' ? 3 : level === 'medium' ? 5 : 7, level === 'low' ? 3 : level === 'medium' ? 5 : 7]} />
                 <meshBasicMaterial
                     transparent
-                    opacity={0.8}
+                    opacity={level === 'low' ? 0.6 : 0.8}
                     depthWrite={false}
                     blending={THREE.AdditiveBlending}
                 />

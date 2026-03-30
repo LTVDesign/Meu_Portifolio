@@ -1,4 +1,4 @@
-import { Suspense, lazy, memo, useEffect, useState } from 'react';
+import { Suspense, lazy, memo, useState } from 'react';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 
 // Lazy load heavy backgrounds
@@ -17,16 +17,9 @@ const MatrixRainBackground = lazy(() => import('./MatrixRainBackground'));
  */
 const BackgroundManager = memo(() => {
   const { config } = useParticleConfig();
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible] = useState(true); // Carregar imediatamente
 
-  useEffect(() => {
-    // Small delay to ensure background loads after initial paint
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, []);
+  // Removido delay desnecessário que atrasava o carregamento do background
 
   const renderBackground = () => {
     switch (config.backgroundType) {

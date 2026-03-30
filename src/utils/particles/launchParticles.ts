@@ -45,20 +45,20 @@ export const initLaunchParticles = (canvas: HTMLCanvasElement, btn: HTMLElement)
   if (!canvas || !btn) return () => { };
 
   const CONFIG: Config = {
-    burstCount: 80,
-    ambientInterval: 6,
-    spriteSize: 64,
-    shapeRadius: 14,
-    spriteCacheLimit: 120,
-    hueJitter: 35,
-    fadeRate: { min: 0.004, max: 0.009 },
-    burstSpeed: { min: 0.6, max: 1.4 },
-    ambientSpeed: 0.18,
-    burstSize: { min: 0.7, max: 1.1 },
-    ambientSize: { min: 0.35, max: 0.75 },
-    burstGravity: 0.011,
-    ambientGravity: 0.0025,
-    maxParticles: 300,
+    burstCount: 60, // Reduzido de 80 para 60
+    ambientInterval: 8, // Aumentado de 6 para 8 (menos partículas ambientais)
+    spriteSize: 48, // Reduzido de 64 para 48
+    shapeRadius: 10, // Reduzido de 14 para 10
+    spriteCacheLimit: 80, // Reduzido de 120 para 80
+    hueJitter: 25, // Reduzido de 35 para 25
+    fadeRate: { min: 0.006, max: 0.012 }, // Aumentado para partículas sumirem mais rápido
+    burstSpeed: { min: 0.5, max: 1.2 }, // Reduzido
+    ambientSpeed: 0.12, // Reduzido de 0.18 para 0.12
+    burstSize: { min: 0.5, max: 0.9 }, // Reduzido
+    ambientSize: { min: 0.25, max: 0.55 }, // Reduzido
+    burstGravity: 0.008, // Reduzido de 0.011
+    ambientGravity: 0.0015, // Reduzido de 0.0025
+    maxParticles: 200, // Reduzido de 300 para 200
   };
 
   const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });

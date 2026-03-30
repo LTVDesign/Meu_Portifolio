@@ -24,7 +24,97 @@ nav.critical-navbar {
     background: rgba(21, 16, 48, 0.92);
 }
 
-/* Reduced motion */
+/* ==========================================
+   OTIMIZAÇÕES DE PERFORMANCE - THREAD PRINCIPAL
+   ========================================== */
+
+/* Canvases - Isolamento de composição */
+canvas {
+    /* Isola o canvas em sua própria camada GPU */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+
+    /* Previne layout thrashing */
+    contain: layout style paint;
+
+    /* Otimizações de renderização */
+    will-change: transform;
+    -webkit-will-change: transform;
+
+    /* Melhora performance de scroll */
+    pointer-events: none;
+}
+
+/* Partículas canvas específico */
+#particles-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    contain: layout style paint;
+    will-change: transform;
+}
+
+/* Backgrounds 3D - Containment */
+.r3f-canvas,
+.canvas-container {
+    contain: layout style paint;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+/* Framer Motion - Otimizações */
+.motion-div,
+.motion-section,
+.motion-button,
+.motion-a {
+    /* Previne layout shifts */
+    contain: layout style;
+
+    /* GPU acceleration para transformações */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+
+    /* Apenas para elementos que realmente animam */
+    &.motion-animate {
+        will-change: transform, opacity;
+        -webkit-will-change: transform, opacity;
+    }
+}
+
+/* Elementos com animações pesadas */
+.hero-section,
+.gear-button,
+.background-menu {
+    contain: layout style paint;
+    will-change: transform;
+}
+
+/* Modais e overlays */
+.modal-overlay,
+.menu-overlay {
+    contain: layout style;
+    will-change: opacity;
+}
+
+/* Grid e flex containers - Previne layout thrashing */
+.grid-container,
+.flex-container {
+    contain: layout style;
+}
+
+/* Imagens e mídia */
+img,
+video,
+svg {
+    contain: layout style;
+    will-change: auto;
+    /* Apenas se animado */
+}
+
+/* ==========================================
+   REDUCED MOTION - Acessibilidade
+   ========================================== */
 @media (prefers-reduced-motion: reduce) {
 
     *,
@@ -34,6 +124,22 @@ nav.critical-navbar {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+    }
+
+    /* Desabilitar animações pesadas */
+    canvas,
+    .motion-div,
+    .motion-section,
+    .motion-button {
+        animation: none !important;
+        transition: none !important;
+        will-change: auto !important;
+        contain: none !important;
+    }
+
+    /* Partículas desligadas */
+    #particles-canvas {
+        display: none;
     }
 }
 

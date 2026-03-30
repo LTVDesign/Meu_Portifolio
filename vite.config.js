@@ -43,8 +43,10 @@ export default defineConfig({
             'i18next',
             'i18next-browser-languagedetector',
           ],
-          // Framer Motion separado mas com React deduped
-          'framer-motion': ['framer-motion'],
+          // Framer Motion - apenas domAnimation (tree-shakeable)
+          'framer-dom': ['framer-motion/m'],
+          // Framer Motion core (para AnimatePresence e recursos avançados)
+          'framer-core': ['framer-motion'],
           // Three.js + R3F
           'three': [
             'three',
@@ -78,6 +80,7 @@ export default defineConfig({
       'react',
       'react-dom',
       'framer-motion',
+      'framer-motion/m',
       '@react-three/fiber',
       '@react-three/drei',
     ],
