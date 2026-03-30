@@ -4,6 +4,7 @@ import { Suspense, lazy, useEffect, useState } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { PerformanceProvider } from './contexts/PerformanceContext';
 import { ParticleConfigProvider } from './contexts/ParticleConfigContext';
+import { useKonamiCode } from './hooks/useKonamiCode';
 import './i18n';
 
 import Navbar from './components/layout/Navbar';
@@ -39,28 +40,7 @@ const App = () => {
   }, []);
 
   // Easter Egg: Konami Code (funciona em qualquer página)
-  useEffect(() => {
-    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-    let keyIndex = 0;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const key = e.key.toLowerCase();
-
-      if (key === konamiCode[keyIndex]) {
-        keyIndex++;
-        if (keyIndex === konamiCode.length) {
-          // Easter egg ativado!
-          window.open('https://github.com/thedoggybrad/doom_on_js-dos.git', '_blank');
-          keyIndex = 0;
-        }
-      } else {
-        keyIndex = 0;
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  useKonamiCode();
 
   return (
     <HelmetProvider>

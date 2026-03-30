@@ -27,6 +27,7 @@
     "react-router-dom": "^6.22.1",
     "react-vertical-timeline-component": "^3.6.0",
     "three": "^0.160.0",
+    "three-mesh-bvh": "^0.9.9",
     "zod": "^4.3.6"
   },
   "devDependencies": {
@@ -55,7 +56,10 @@
   "overrides": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "whatwg-encoding": "@exodus/bytes"
+    "whatwg-encoding": "@exodus/bytes",
+    "glob": "^10.4.5",
+    "inflight": "npm:lru-cache@latest",
+    "three-mesh-bvh": "^0.9.9"
   },
   "engines": {
     "node": "22.x"
