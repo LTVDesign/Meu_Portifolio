@@ -9,7 +9,7 @@ import creator from './creator.webp';
 import getnexo from './getnexo.webp';
 import github from './github.webp';
 import jobit from './jobit.webp';
-import logo from './logo.webp';
+import logo from './logo.svg';
 import menu from './menu.svg';
 import mobile from './mobile.webp';
 import android from './tech/android.webp';

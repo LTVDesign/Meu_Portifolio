@@ -42,7 +42,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-    chunkSizeWarningLimit: 1200,
+    chunkSizeWarningLimit: 800,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -56,12 +56,10 @@ export default defineConfig({
             'i18next-browser-languagedetector',
           ],
           'framer-motion': ['framer-motion/m'],
-          'three': [
-            'three',
-            '@react-three/fiber',
-            '@react-three/drei',
-            'three-mesh-bvh',
-          ],
+          'three-core': ['three'],
+          'three-fiber': ['@react-three/fiber'],
+          'three-drei': ['@react-three/drei'],
+          'three-utils': ['three-mesh-bvh'],
           'ui': ['react-icons', 'react-parallax-tilt', 'react-vertical-timeline-component'],
           'utils': ['zod', '@exodus/bytes'],
         },

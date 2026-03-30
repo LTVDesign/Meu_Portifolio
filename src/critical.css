@@ -45,13 +45,14 @@ canvas {
     pointer-events: none;
 }
 
-/* Partículas canvas específico */
+/* Canvas de partículas - Otimização específica */
 #particles-canvas {
+    /* Fixo para evitar recálculos de layout */
     position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    contain: layout style paint;
+    contain: strict;
     will-change: transform;
 }
 

@@ -70,20 +70,12 @@ const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 const BackgroundManager = lazy(() => import('./components/canvas/BackgroundManager'));
 
 const AppContent = () => {
-  const [backgroundLoaded, setBackgroundLoaded] = useState(false);
+  const [backgroundLoaded] = useState(true);
   const [isGearOpen, setIsGearOpen] = useState(false);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [selectedBg, setSelectedBg] = useState('bolhas');
 
   const { config } = useParticleConfig();
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setBackgroundLoaded(true);
-    }, 600);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     setSelectedBg(config.backgroundType || 'bolhas');

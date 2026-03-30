@@ -49,20 +49,14 @@
   <meta name="twitter:image" content="https://leandrobarbosa.dev/logo.webp" />
   <title>Leandro Saturnino Barbosa | Portfólio 3D - React & Three.js</title>
 
-
-  <!-- Critical CSS importado para LCP mais rápida -->
+  <!-- Critical CSS para LCP mais rápida -->
   <link rel="stylesheet" href="/src/critical.css" />
 
-  <!-- Preload de recursos críticos para reduzir tempo de análise JS -->
+  <!-- Preload do módulo principal -->
   <link rel="modulepreload" href="/src/main.tsx">
-  <link rel="preload" href="/src/critical.css" as="style">
-
-  <!-- Preload de chunks React (prioridade alta) -->
-  <link rel="modulepreload" href="/assets/react-vendor-[hash].js">
 
   <!-- DNS prefetch para fontes externas -->
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-
 
   <script type="application/ld+json">
     {

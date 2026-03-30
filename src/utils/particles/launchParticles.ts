@@ -147,21 +147,24 @@ export const initLaunchParticles = (canvas: HTMLCanvasElement, btn: HTMLElement)
     const w = window.innerWidth;
     const h = window.innerHeight;
 
+    // Fase 1: Escritas no DOM (todas juntas)
     canvas.width = w * dpr;
     canvas.height = h * dpr;
     canvas.style.width = `${w}px`;
     canvas.style.height = `${h}px`;
-
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
     pxPerVw = w / 100;
 
-    const rect = btn.getBoundingClientRect();
-    btnPos = {
-      x: rect.left + rect.width / 2,
-      y: rect.top + rect.height / 2,
-      w: rect.width,
-    };
+    // Fase 2: Leitura - Separada das escritas para evitar reflow forçado
+    // Usa requestAnimationFrame para garantir que o browser processou as escritas
+    requestAnimationFrame(() => {
+      const rect = btn.getBoundingClientRect();
+      btnPos = {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+        w: rect.width,
+      };
+    });
   };
 
   const gradientAngle = (): number => ((performance.now() % 4000) / 4000) * 360;

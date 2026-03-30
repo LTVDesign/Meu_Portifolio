@@ -47,15 +47,18 @@ function VirtualList<T>({
       <div style={{ height: totalHeight, position: 'relative' }}>
         {visibleItems.map((item, index) => {
           const actualIndex = startIndex + index;
+          const translateY = actualIndex * itemHeight;
           return (
             <div
               key={actualIndex}
               style={{
                 position: 'absolute',
-                top: actualIndex * itemHeight,
+                top: 0,
                 left: 0,
                 right: 0,
-                height: itemHeight
+                height: itemHeight,
+                transform: `translateY(${translateY}px)`,
+                willChange: 'transform'
               }}
             >
               {renderItem(item, actualIndex)}

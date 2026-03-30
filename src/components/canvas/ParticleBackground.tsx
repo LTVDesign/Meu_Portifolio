@@ -49,17 +49,33 @@ const ParticleBackground = ({
     if (!canvas) return;
 
     const dpr = window.devicePixelRatio || 1;
-    canvas.width = window.innerWidth * dpr;
-    canvas.height = window.innerHeight * dpr;
-    canvas.style.width = `${window.innerWidth}px`;
-    canvas.style.height = `${window.innerHeight}px`;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    // Fase 1: Escritas no DOM (todas juntas)
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
 
     const ctx = canvas.getContext('2d');
     if (ctx) {
       ctx.scale(dpr, dpr);
     }
 
-    canvasRectRef.current = canvas.getBoundingClientRect();
+    // Fase 2: Leitura - Usa valores conhecidos em vez de getBoundingClientRect()
+    // Isso evita reflow forçado já que o canvas tem position: fixed e inset: 0
+    canvasRectRef.current = {
+      left: 0,
+      top: 0,
+      width: width,
+      height: height,
+      right: width,
+      bottom: height,
+      x: 0,
+      y: 0,
+      toJSON: () => ({}),
+    };
   };
 
   const createParticles = () => {
