@@ -73,7 +73,9 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="relative mt-8 pt-12 pb-10 overflow-hidden" role="contentinfo" style={{ minHeight: '200px' }}>
+    <footer className="relative mt-8 pt-12 pb-4 overflow-hidden" role="contentinfo" style={{ minHeight: '200px' }}>
+      {/* Fundo com cor sólida igual ao header */}
+      <div className="absolute inset-0 bg-[var(--bg-glass)] pointer-events-none" />
       <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-full max-w-4xl h-48 bg-[#915EFF]/10 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-16 relative z-10">
@@ -139,8 +141,8 @@ const Footer: React.FC = () => {
             </div>
 
             {/* Konami code */}
-            <p className="text-lg text-[var(--dynamic-text-secondary)] tracking-widest text-center select-none">
-              ⬆️ ⬆️ ⬇️ ⬇️ ⬅️ ➡️ ⬅️ ➡️ 🅱️ 🅰️
+            <p className="text-[var(--dynamic-text-secondary)] tracking-[0.1em] text-center select-none" style={{ fontSize: '1.2em' }}>
+              ⬆️⬆️⬇️⬇️⬅️➡️⬅️➡️🅱️🅰️
             </p>
           </div>
 

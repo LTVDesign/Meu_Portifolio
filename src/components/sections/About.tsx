@@ -69,7 +69,7 @@ const About = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 2.0 }}
           className="lg:w-96 flex-shrink-0"
         >
           <div className="glass-card aspect-square rounded-3xl overflow-hidden border border-[var(--cyber-purple)]/30 group-hover:border-[var(--cyber-cyan)]/50 transition-all duration-500 shadow-2xl">

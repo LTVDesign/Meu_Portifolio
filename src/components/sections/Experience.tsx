@@ -1,27 +1,44 @@
-import { m, AnimatePresence } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useState, forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SectionWrapper } from '../../hoc';
-import { fadeIn, textVariant } from '../../utils/motion';
+import { textVariant } from '../../utils/motion';
 import { Header } from '../atoms';
 import { experiences } from '../../constants';
 import type { TExperience } from '../../types';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
+import { useLazyImage } from '../../hooks/useLazyImage';
 
 const ExperienceCard = forwardRef<HTMLDivElement, { experience: TExperience; index: number }>(
   ({ experience, index }, ref) => {
     const prefersReduced = useReducedMotion();
+    const [loadedIcon, isLoading, imgRef] = useLazyImage(experience.icon, { rootMargin: '100px', threshold: 0.01 });
 
     return (
       <m.div
         ref={ref}
-        variants={prefersReduced ? {} : fadeIn('up', 'spring', index * 0.1, 0.75)}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.3, delay: index * 0.05 }}
         className="relative pl-24 pb-12 last:pb-0 group"
       >
         {/* Line & Circle */}
         <div className="absolute left-[31px] top-0 h-full w-[2px] bg-gradient-to-b from-[var(--cyber-cyan)] via-white/10 to-transparent group-last:h-16" />
-        <div className="absolute left-0 top-0 w-16 h-16 rounded-full bg-white border-2 border-[var(--cyber-cyan)] shadow-[0_0_20px_rgba(0,255,255,0.4)] z-10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(0,255,255,0.7)]">
-          <img src={experience.icon} alt={experience.companyName} className="w-12 h-12 object-contain" />
+        <div className="absolute left-0 top-0 w-24 h-24 rounded-full bg-white border-2 border-[var(--cyber-cyan)] shadow-[0_0_20px_rgba(0,255,255,0.4)] z-10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(0,255,255,0.7)]">
+          {isLoading ? (
+            <div className="w-16 h-16 flex items-center justify-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--cyber-cyan)]"></div>
+            </div>
+          ) : (
+            <img
+              ref={imgRef}
+              src={loadedIcon}
+              alt={experience.companyName}
+              className="w-16 h-16 object-contain"
+              loading="lazy"
+            />
+          )}
         </div>
 
         {/* Content Card */}
@@ -76,24 +93,6 @@ const Experience = () => {
         className="mb-16"
       >
         <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500">
-          {/* Efeito de brilho animado no fundo */}
-          <div className="absolute inset-0 opacity-30">
-            <m.div
-              className="absolute inset-0"
-              style={{
-                background: 'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)'
-              }}
-              animate={{
-                background: [
-                  'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)',
-                  'radial-gradient(circle at 80% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)',
-                  'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)'
-                ]
-              }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </div>
-
           {/* Conteúdo da box */}
           <div className="relative z-10">
             {/* Título e subtítulo animados */}
@@ -119,6 +118,48 @@ const Experience = () => {
               >
                 Engenheiro de Software • Tecnólogo em ADS • Pós-Graduando em IA & Data Science
               </m.p>
+
+              {/* Linha com animação discreta de brilho */}
+              <m.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.7 }}
+                className="relative w-full max-w-xl mx-auto mb-8"
+              >
+                <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--cyber-cyan)] to-transparent relative">
+                  {/* Brilho esquerdo */}
+                  <m.div
+                    className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[var(--cyber-cyan)] blur-sm"
+                    style={{ left: '50%' }}
+                    animate={{
+                      left: ['50%', '0%', '50%'],
+                      opacity: [0.8, 0.3, 0.8],
+                      scale: [1, 0.8, 1]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  {/* Brilho direito */}
+                  <m.div
+                    className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[var(--cyber-purple)] blur-sm"
+                    style={{ right: '50%' }}
+                    animate={{
+                      right: ['50%', '0%', '50%'],
+                      opacity: [0.8, 0.3, 0.8],
+                      scale: [1, 0.8, 1]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                </div>
+              </m.div>
 
               {/* Texto principal com melhor leitura */}
               <m.div
@@ -169,11 +210,9 @@ const Experience = () => {
         {/* Timeline Line (Background) */}
         <div className="absolute left-[31px] top-4 bottom-0 w-[2px] bg-white/5" />
 
-        <AnimatePresence mode="popLayout">
-          {displayedExperiences.map((exp, index) => (
-            <ExperienceCard key={exp.title + exp.date} experience={exp} index={index} />
-          ))}
-        </AnimatePresence>
+        {displayedExperiences.map((exp, index) => (
+          <ExperienceCard key={exp.title + exp.date} experience={exp} index={index} />
+        ))}
       </div>
 
       {!showAll && experiences.length > 4 && (
@@ -182,7 +221,7 @@ const Experience = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setShowAll(true)}
-            className="btn-primary px-12 py-5 text-base shadow-[0_0_35px_rgba(145,94,255,0.4)] font-black uppercase tracking-[0.2em]"
+            className="glass-btn px-8 py-3 rounded-lg font-bold tracking-wider"
           >
             {t('experience.verMais')}
           </m.button>

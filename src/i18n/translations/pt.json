@@ -22,7 +22,7 @@
         "menu_close": "Fechar Menu",
         "logo": "Leandro Barbosa - Início",
         "switch_to_pt": "Mudar para Português",
-        "switch_to_en": "Mudar para Inglês",
+        "switch_to_en": "Switch to English",
         "translate_to_pt": "Traduzir para Português BR",
         "translate_to_en": "Translation to English"
     },
@@ -56,7 +56,8 @@
         ],
         "titleMeta": "Leandro Saturnino Barbosa | Portfólio 3D Cyberpunk",
         "descriptionMeta": "Portfólio interativo 3D com React, Three.js e Tailwind. Especialista em IA, Segurança e Desenvolvimento Full Stack.",
-        "dragToRotate": "Arraste para girar"
+        "dragToRotate": "Clique e Arraste",
+        "dragToRotateSubtitle": "360º"
     },
     "about": {
         "p": "Engenheiro de Software • Tecnólogo em ADS • Pós-Graduando em IA & Data Science",

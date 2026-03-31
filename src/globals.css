@@ -34,7 +34,7 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 100px;
+    scroll-padding-top: 80px;
   }
 
   /* Z-INDEX STACK - CRITICAL FOR LAYERING */
@@ -46,6 +46,8 @@
     position: fixed !important;
     top: 0;
     left: 0;
+    width: 100vw !important;
+    height: 100vh !important;
     pointer-events: none;
   }
 
@@ -339,6 +341,21 @@
 
   .btn-primary:active {
     transform: scale(0.95) translateZ(0);
+  }
+
+  .glass-btn {
+    @apply inline-flex items-center justify-center font-medium transition-all;
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .glass-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(145, 94, 255, 0.5);
+    box-shadow: 0 0 15px rgba(145, 94, 255, 0.3);
   }
 
   .neon-hover {

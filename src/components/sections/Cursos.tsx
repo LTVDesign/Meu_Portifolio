@@ -176,13 +176,6 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
                 />
 
                 <span className="relative z-10">VER CERTIFICADO</span>
-                <motion.span
-                  className="relative z-10"
-                  animate={{ x: [0, 4, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  →
-                </motion.span>
 
                 <div className="absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300" />
               </motion.button>
@@ -194,7 +187,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
       <div className="mt-20 flex justify-center">
         <button
           onClick={() => setIsModalOpen(true)}
-          className="btn-primary text-xs px-16 py-5 uppercase tracking-[0.4em] font-black group shadow-[0_0_25px_rgba(145,94,255,0.3)]"
+          className="glass-btn px-8 py-3 rounded-lg font-bold tracking-wider"
         >
           {t('courses.viewAll') || 'Veja Todos Cursos'}
         </button>

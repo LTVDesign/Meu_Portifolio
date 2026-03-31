@@ -218,10 +218,9 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                                             href={curso.link}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center justify-center gap-2 text-[var(--cyber-cyan)] hover:text-white font-bold uppercase tracking-widest transition-all group/btn"
+                                            className="glass-btn inline-flex items-center justify-center text-sm font-medium rounded-full px-6 py-2"
                                         >
                                             {t('courses.viewCertificate')}
-                                            <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
                                         </a>
                                         {curso.verificationLink && curso.verificationLink !== '#' && (
                                             <a

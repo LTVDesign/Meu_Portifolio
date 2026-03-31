@@ -120,6 +120,12 @@
       console.error('UNHANDLED REJECTION:', e.reason);
     });
     console.log("HTML loaded, waiting for main.tsx");
+
+    // Forçar scroll para o topo no carregamento da página
+    window.scrollTo(0, 0);
+    window.addEventListener('load', function () {
+      window.scrollTo(0, 0);
+    });
   </script>
   <script type="module" src="/src/main.tsx"></script>
 </body>

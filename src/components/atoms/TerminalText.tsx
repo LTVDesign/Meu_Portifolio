@@ -109,7 +109,7 @@ const TerminalText: React.FC<TerminalTextProps> = ({
   }, []);
 
   return (
-    <span className={`inline-block whitespace-wrap ${className}`} style={style}>
+    <span className={`inline-block whitespace-nowrap ${className}`} style={style}>
       <span style={{ color: currentColor.current, transition: 'color 0.2s ease' }}>
         {displayText}
       </span>

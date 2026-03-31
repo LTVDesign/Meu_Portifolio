@@ -193,7 +193,15 @@ const Navbar = memo(() => {
 
                 {/* Underline for active/hover focus with shine */}
                 <m.div
-                  className={`absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-full shadow-[0_0_10px_rgba(0,255,255,0.8)] transition-all duration-500 overflow-hidden ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'}`}
+                  className={`absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-full shadow-[0_0_10px_rgba(0,255,255,0.8)] transition-all duration-300 overflow-hidden ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'}`}
+                  animate={isActive ? {
+                    boxShadow: [
+                      '0 0 10px rgba(0, 255, 255, 0.8)',
+                      '0 0 20px rgba(0, 255, 255, 1)',
+                      '0 0 10px rgba(0, 255, 255, 0.8)'
+                    ]
+                  } : {}}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
                 >
                   <div className="absolute top-0 left-0 h-full w-[30%] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 shine-anim" />
                 </m.div>

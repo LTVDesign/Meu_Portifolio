@@ -51,26 +51,36 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
                     </div>
                 )}
 
-                <div className="mt-auto pt-8 flex gap-4">
-                    <a
-                        href={project.sourceCode}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`${t('works.viewCode')} - ${project.title}`}
-                        className="flex-1 py-4 text-center border border-white/20 hover:border-[var(--cyber-purple)] rounded-2xl text-sm font-medium transition-all"
+                <div className="mt-auto pt-8 flex justify-center">
+                    <motion.button
+                        whileHover={{ scale: 1.05, y: -3, boxShadow: '0 10px 40px rgba(0, 255, 255, 0.3)' }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => window.open(project.sourceCode, '_blank', 'noopener,noreferrer')}
+                        className="relative px-8 py-4 text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden"
                     >
-                        {t('works.viewCode')}
-                    </a>
+                        <motion.div
+                            className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent"
+                            animate={{ x: ['-100%', '100%'] }}
+                            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                        />
+                        <span className="relative z-10">{t('works.viewCode')}</span>
+                        <div className="absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300" />
+                    </motion.button>
                     {project.liveDemo && (
-                        <a
-                            href={project.liveDemo}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={`${t('works.viewDemo')} - ${project.title}`}
-                            className="flex-1 py-4 text-center bg-gradient-to-r from-[var(--cyber-purple)]/20 hover:from-[var(--cyber-purple)]/40 border border-[var(--cyber-purple)]/30 rounded-2xl text-sm font-medium transition-all"
+                        <motion.button
+                            whileHover={{ scale: 1.05, y: -3, boxShadow: '0 10px 40px rgba(189, 0, 255, 0.3)' }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => window.open(project.liveDemo, '_blank', 'noopener,noreferrer')}
+                            className="relative px-8 py-4 text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-purple)]/10 to-[var(--cyber-cyan)]/10 border border-[var(--cyber-purple)]/30 text-[var(--cyber-purple)] backdrop-blur-sm group/btn flex items-center gap-3 shadow-[0_4px_15px_rgba(189,0,255,0.2)] transition-all duration-300 overflow-hidden ml-4"
                         >
-                            {t('works.viewDemo')}
-                        </a>
+                            <motion.div
+                                className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-purple)]/20 to-transparent"
+                                animate={{ x: ['-100%', '100%'] }}
+                                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                            />
+                            <span className="relative z-10">{t('works.viewDemo')}</span>
+                            <div className="absolute inset-0 rounded-2xl border border-[var(--cyber-purple)]/0 group-hover/btn:border-[var(--cyber-purple)]/60 transition-all duration-300" />
+                        </motion.button>
                     )}
                 </div>
             </div>

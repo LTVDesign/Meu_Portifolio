@@ -53,9 +53,9 @@ const Hero = () => {
           <meta name="description" content={t('hero.descriptionMeta')} />
         </Helmet>
 
-        <div className="max-w-7xl mx-auto px-6 z-10 w-full flex flex-col items-center text-center relative mt-16 md:mt-20">
+        <div className="max-w-7xl mx-auto px-6 z-10 w-full flex flex-col items-center justify-center text-center relative mt-16 md:mt-20 min-h-screen">
           {/* Texto com animação de terminal - duas linhas */}
-          <div className="min-h-[8rem] max-w-2xl flex flex-col gap-3">
+          <div className="flex flex-col items-center justify-center gap-1 w-full">
             {showSubtitle && (
               <>
                 {/* Primeira linha: maior, branca com borda gradiente, fixa após digitação */}
@@ -73,7 +73,7 @@ const Hero = () => {
                     loop={false}
                     typeOnce={true}
                     onComplete={handleFirstLineComplete}
-                    className="text-[clamp(1.5rem,3.5vw,2.5rem)] font-bold tracking-wide"
+                    className="text-[clamp(3rem,5vw,4.5rem)] font-bold tracking-wide"
                   />
                   {/* Efeito de borda gradiente na linha de cima */}
                   <div className="absolute -inset-2 bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-lg opacity-30 blur-md -z-10" />
@@ -93,7 +93,7 @@ const Hero = () => {
                       pauseTime={2800}
                       loop={true}
                       typeOnce={false}
-                      className="text-[clamp(1rem,2vw,1.5rem)]"
+                      className="text-[clamp(1.8rem,3vw,2.8rem)]"
                     />
                   </m.div>
                 )}
@@ -198,27 +198,43 @@ const Hero = () => {
             </div>
 
             {/* Text with enhanced effects for better readability */}
-            <m.span
-              className="text-xs font-black tracking-[0.3em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] via-white to-[var(--cyber-purple)] bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(0,255,255,0.7)]"
-              style={{
-                filter: 'drop-shadow(0 0 10px rgba(0,255,255,0.8)) drop-shadow(0 0 20px rgba(145,94,255,0.5))'
-              }}
-              animate={{
-                opacity: [0.7, 1, 0.7],
-                filter: [
-                  'drop-shadow(0 0 10px rgba(0,255,255,0.8)) drop-shadow(0 0 20px rgba(145,94,255,0.5))',
-                  'drop-shadow(0 0 15px rgba(0,255,255,1)) drop-shadow(0 0 30px rgba(145,94,255,0.7))',
-                  'drop-shadow(0 0 10px rgba(0,255,255,0.8)) drop-shadow(0 0 20px rgba(145,94,255,0.5))'
-                ]
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              {t('hero.dragToRotate')}
-            </m.span>
+            <div className="flex flex-col items-center gap-1">
+              <m.span
+                className="text-xs font-black tracking-[0.3em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] via-white to-[var(--cyber-purple)] bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(0,255,255,0.7)]"
+                style={{
+                  filter: 'drop-shadow(0 0 10px rgba(0,255,255,0.8)) drop-shadow(0 0 20px rgba(145,94,255,0.5))'
+                }}
+                animate={{
+                  opacity: [0.7, 1, 0.7],
+                  filter: [
+                    'drop-shadow(0 0 10px rgba(0,255,255,0.8)) drop-shadow(0 0 20px rgba(145,94,255,0.5))',
+                    'drop-shadow(0 0 15px rgba(0,255,255,1)) drop-shadow(0 0 30px rgba(145,94,255,0.7))',
+                    'drop-shadow(0 0 10px rgba(0,255,255,0.8)) drop-shadow(0 0 20px rgba(145,94,255,0.5))'
+                  ]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                {t('hero.dragToRotate')}
+              </m.span>
+              <m.span
+                className="text-[10px] font-bold tracking-[0.2em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] to-[var(--cyber-purple)] bg-clip-text text-transparent"
+                animate={{
+                  opacity: [0.5, 1, 0.5],
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                {t('hero.dragToRotateSubtitle')}
+              </m.span>
+            </div>
+
 
             {/* Decorative lines */}
             <div className="flex items-center gap-2 mt-2">

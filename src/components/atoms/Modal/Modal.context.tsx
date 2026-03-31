@@ -3,7 +3,7 @@ import { ModalContextType } from './Modal.types';
 import { ModalProviderProps } from './Modal.types';
 
 // Create context with default values
-const ModalContext = createContext<ModalContextType | undefined>(undefined);
+export const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
 // Provider component
 export const ModalProvider: React.FC<ModalProviderProps> = ({
@@ -20,23 +20,23 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({
     contentZIndex = 50,
 }) => {
     const [isOpen, setIsOpen] = React.useState(false);
-    const [theme, setTheme] = React.useState(() => {
+    const [theme, _setTheme] = React.useState(() => {
         // Import here to avoid circular dependencies
         const { modalThemes } = require('./Modal.types');
         return modalThemes[defaultTheme] || modalThemes.default;
     });
-    const [size, setSize] = React.useState(() => {
+    const [size, _setSize] = React.useState(() => {
         const { modalSizes } = require('./Modal.types');
         return modalSizes[defaultSize] || modalSizes.md;
     });
-    const [animation, setAnimation] = React.useState(() => {
+    const [animation, _setAnimation] = React.useState(() => {
         const { modalAnimations } = require('./Modal.animation');
         return modalAnimations[defaultAnimation] || modalAnimations.scale;
     });
-    const [animationDirection, setAnimationDirection] = React.useState<'up' | 'down' | 'left' | 'right'>('up');
-    const [title, setTitle] = React.useState<string>();
-    const [describedBy, setDescribedBy] = React.useState<string>();
-    const [role, setRole] = React.useState<'dialog' | 'alertdialog' | 'menu'>('dialog');
+    const [animationDirection, _setAnimationDirection] = React.useState<'up' | 'down' | 'left' | 'right'>('up');
+    const [title, _setTitle] = React.useState<string>();
+    const [describedBy, _setDescribedBy] = React.useState<string>();
+    const [role, _setRole] = React.useState<'dialog' | 'alertdialog' | 'menu'>('dialog');
 
     const value: ModalContextType = {
         isOpen,

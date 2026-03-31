@@ -85,7 +85,7 @@ const AllCertificados = () => {
                 href={cert.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-8 btn-primary text-sm px-8 py-3"
+                className="mt-8 glass-btn text-sm px-6 py-2 rounded-full flex items-center justify-center"
               >
                 {t('courses.viewCertificate')}
               </a>

@@ -145,8 +145,16 @@ export const useModalAria = ({
         if (modal) {
             modal.setAttribute('role', 'dialog');
             modal.setAttribute('aria-modal', 'true');
-            modal.setAttribute('aria-labelledby', title ? 'modal-title' : undefined);
-            modal.setAttribute('aria-describedby', describedBy || undefined);
+            if (title) {
+                modal.setAttribute('aria-labelledby', 'modal-title');
+            } else {
+                modal.removeAttribute('aria-labelledby');
+            }
+            if (describedBy) {
+                modal.setAttribute('aria-describedby', describedBy);
+            } else {
+                modal.removeAttribute('aria-describedby');
+            }
         }
 
         // Set title attributes
@@ -185,7 +193,7 @@ export const useModalBodyScroll = (isOpen?: boolean, preventScroll = true) => {
                 document.body.style.top = '';
                 document.body.style.width = '';
                 document.body.style.overflow = '';
-                window.scrollTo(0, parseInt(scrollY || '0') * -1);
+                window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
             };
         }
     }, [isOpen, preventScroll]);

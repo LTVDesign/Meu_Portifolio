@@ -1,19 +1,18 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ModalContext } from './Modal.context';
 import { useModalAccessibility } from './Modal.accessibility';
-import { useModal } from './Modal.hooks';
-import { ModalProps, modalThemes, modalSizes } from './Modal.types';
-import { modalAnimations } from './Modal.animation';
-import { useAnimationDirection } from './Modal.hooks';
 import { useModalAria } from './Modal.accessibility';
 import { useModalBodyScroll } from './Modal.accessibility';
+import { ModalProps, modalThemes, modalSizes, ModalContextType } from './Modal.types';
+import { modalAnimations } from './Modal.animation';
 
 const Modal: React.FC<ModalProps> = ({
+    children,
+
     // Core props
     isOpen: controlledOpen,
     onClose: controlledOnClose,
-    children,
 
     // Animation props
     animation = 'scale',
@@ -32,7 +31,6 @@ const Modal: React.FC<ModalProps> = ({
     // Style props
     className = '',
     overlayClassName = '',
-    contentClassName = '',
     backdropBlur = 'md',
     overlayColor = 'bg-black/50',
     closeOnEscape = true,
@@ -60,10 +58,10 @@ const Modal: React.FC<ModalProps> = ({
     'aria-labelledby': ariaLabelledby,
     'aria-describedby': ariaDescribedby,
 
-    // Z-index props
-    zIndex = 50,
-    overlayZIndex = 40,
-    contentZIndex = 50,
+    // Z-index props - handled by CSS classes
+    zIndex: _zIndex,
+    overlayZIndex: _overlayZIndex,
+    contentZIndex: _contentZIndex,
 
     // Event props
     onOpen,
@@ -81,6 +79,7 @@ const Modal: React.FC<ModalProps> = ({
     // Use context or controlled props
     const context = useContext(ModalContext);
     const isControlled = controlledOpen !== undefined;
+    const contextValues = context as ModalContextType | undefined;
 
     const {
         isOpen: isOpenFromContext,
@@ -99,13 +98,13 @@ const Modal: React.FC<ModalProps> = ({
         title: titleFromContext,
         describedBy: describedByFromContext,
         role: roleFromContext,
-        zIndex: zIndexFromContext,
-        overlayZIndex: overlayZIndexFromContext,
-        contentZIndex: contentZIndexFromContext,
-    } = context || {};
+        zIndex: _zIndexFromContext,
+        overlayZIndex: _overlayZIndexFromContext,
+        contentZIndex: _contentZIndexFromContext,
+    } = contextValues || {};
 
     // Use props or context values
-    const isOpen = isControlled ? controlledOpen : isOpenFromContext;
+    const isOpen = isControlled ? controlledOpen : isOpenFromContext || false;
     const onClose = isControlled ? controlledOnClose : onCloseFromContext;
     const theme = themeFromContext || modalThemes.default;
     const sizeConfig = sizeFromContext || modalSizes[size];
@@ -121,12 +120,10 @@ const Modal: React.FC<ModalProps> = ({
     const finalTitle = titleFromContext || title;
     const finalDescribedBy = describedByFromContext || describedBy;
     const finalRole = roleFromContext || role;
-    const finalZIndex = zIndexFromContext || zIndex;
-    const finalOverlayZIndex = overlayZIndexFromContext || overlayZIndex;
-    const finalContentZIndex = contentZIndexFromContext || contentZIndex;
+    // zIndex props are handled by CSS classes
 
     // Apply accessibility hooks
-    const { modalRef, focusFirstElement, getFocusableElements } = useModalAccessibility({
+    const { modalRef } = useModalAccessibility({
         isOpen,
         onClose,
         closeOnEscape: finalCloseOnEscape,
@@ -134,8 +131,8 @@ const Modal: React.FC<ModalProps> = ({
         autoFocus: finalAutoFocus,
     });
 
-    // Apply ARIA attributes
-    const { setAriaAttributes } = useModalAria({
+    // Apply ARIA attributes (hook returns no usable values for now)
+    useModalAria({
         isOpen,
         title: finalTitle,
         describedBy: finalDescribedBy,
@@ -143,9 +140,6 @@ const Modal: React.FC<ModalProps> = ({
 
     // Apply scroll prevention
     useModalBodyScroll(isOpen, finalPreventScroll);
-
-    // Animation direction hook
-    const { setDirectionBasedOnClick } = useAnimationDirection();
 
     // Handle open/close animations
     useEffect(() => {
@@ -189,21 +183,26 @@ const Modal: React.FC<ModalProps> = ({
 
     // Calculate animation variants
     const getAnimationVariants = () => {
-        if (initial || animate || exit) {
+        if (initial !== undefined || animate !== undefined || exit !== undefined) {
             return { initial, animate, exit };
         }
 
-        const animationVariants = animationConfig.content;
+        const contentVariants = animationConfig.content as any;
+        const direction = finalAnimationDirection;
 
-        if (typeof animationVariants.initial === 'function') {
-            return {
-                initial: animationVariants.initial(finalAnimationDirection),
-                animate: animationVariants.animate,
-                exit: animationVariants.exit(finalAnimationDirection),
-            };
-        }
+        const resolveVariant = (
+            variant: any,
+            dir: string
+        ): any => {
+            if (variant === undefined) return undefined;
+            return typeof variant === 'function' ? variant(dir) : variant;
+        };
 
-        return animationVariants;
+        return {
+            initial: resolveVariant(contentVariants.initial, direction),
+            animate: contentVariants.animate,
+            exit: resolveVariant(contentVariants.exit, direction),
+        };
     };
 
     const animationVariants = getAnimationVariants();
@@ -252,11 +251,11 @@ const Modal: React.FC<ModalProps> = ({
         <AnimatePresence>
             {isOpen && (
                 <motion.div
-                    className={`fixed inset-0 z-[${finalOverlayZIndex}] ${backdropBlurClasses} ${overlayColor} ${overlayClassName} ${positionClasses}`}
+                    className={`fixed inset-0 z-[40] ${backdropBlurClasses} ${overlayColor} ${overlayClassName} ${positionClasses}`}
                     onClick={handleBackdropClick}
-                    initial={animationConfig.overlay.initial}
-                    animate={animationConfig.overlay.animate}
-                    exit={animationConfig.overlay.exit}
+                    initial={animationConfig.overlay.initial as any}
+                    animate={animationConfig.overlay.animate as any}
+                    exit={animationConfig.overlay.exit as any}
                     transition={transition}
                 >
                     <motion.div
@@ -268,10 +267,10 @@ const Modal: React.FC<ModalProps> = ({
                         aria-labelledby={ariaLabelledby || finalTitle ? 'modal-title' : undefined}
                         aria-describedby={ariaDescribedby || finalDescribedBy || undefined}
                         className={`
-                            relative z-[${finalContentZIndex}] 
-                            ${theme.background} 
-                            ${theme.border} 
-                            ${theme.shadow} 
+                            relative z-[50]
+                            ${theme.background}
+                            ${theme.border}
+                            ${theme.shadow}
                             ${sizeClasses}
                             ${className}
                             ${alignClasses}
@@ -287,9 +286,9 @@ const Modal: React.FC<ModalProps> = ({
                         }}
                         onClick={handleContentClick}
                         onKeyDown={handleKeyDown}
-                        initial={animationVariants.initial}
-                        animate={animationVariants.animate}
-                        exit={animationVariants.exit}
+                        initial={animationVariants.initial as any}
+                        animate={animationVariants.animate as any}
+                        exit={animationVariants.exit as any}
                         transition={transition}
                         onAnimationComplete={handleAnimationComplete}
                     >

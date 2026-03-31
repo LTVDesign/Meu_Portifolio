@@ -149,7 +149,7 @@ const AllCursos = ({ isOpen = false, onClose = () => { } }: AllCursosProps) => {
                 'Segurança de redes e criptografia',
                 'Troubleshooting e monitoramento de redes'
             ],
-            verificationLink: 'https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965',
+            verificationLink: 'https://www.coursera.org/account/accomplishments/verify/5Z89ASL9BRCE',
             link: 'https://www.coursera.org/learn/redes-computadores'
         }
     ];
@@ -261,7 +261,17 @@ const AllCursos = ({ isOpen = false, onClose = () => { } }: AllCursosProps) => {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: index * 0.05 }}
-                                    className="glass-card p-8 neon-hover flex flex-col group border border-white/10"
+                                    className="glass-card p-8 neon-hover flex flex-col group border border-white/10 cursor-pointer"
+                                    onClick={() => window.open(curso.link, '_blank', 'noopener,noreferrer')}
+                                    role="button"
+                                    tabIndex={0}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' || e.key === ' ') {
+                                            e.preventDefault();
+                                            window.open(curso.link, '_blank', 'noopener,noreferrer');
+                                        }
+                                    }}
+                                    aria-label={`Ver detalhes do curso ${curso.title}`}
                                 >
                                     <div className="flex-1">
                                         <div className="flex items-start justify-between mb-3">
@@ -306,21 +316,17 @@ const AllCursos = ({ isOpen = false, onClose = () => { } }: AllCursosProps) => {
                                     </div>
 
                                     <div className="mt-8 pt-6 border-t border-white/10 flex flex-col gap-3">
-                                        <a
-                                            href={curso.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center justify-center gap-2 text-[var(--cyber-cyan)] hover:text-white font-bold uppercase tracking-widest transition-all group/btn"
-                                        >
+                                        <div className="glass-btn inline-flex items-center justify-center gap-2 text-sm font-medium rounded-full px-6 py-2 pointer-events-none">
                                             {t('courses.viewCertificate')}
-                                            <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
-                                        </a>
+                                            <span className="group-hover:translate-x-1 transition-transform">→</span>
+                                        </div>
                                         {curso.verificationLink && curso.verificationLink !== '#' && (
                                             <a
                                                 href={curso.verificationLink}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="inline-flex items-center justify-center gap-2 text-xs text-[var(--cyber-purple)] hover:text-[var(--cyber-cyan)] transition-colors"
+                                                onClick={(e) => e.stopPropagation()}
                                             >
                                                 <span>🔗</span>
                                                 <span>Verificar autenticidade</span>

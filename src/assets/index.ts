@@ -40,7 +40,7 @@ import vscode from './tech/vscode.webp';
 import windows from './tech/windows.webp';
 import tripguide from './tripguide.webp';
 import web from './web.webp';
-import willy from './willy.webp';
+import willy from './willy-CY6lWRPM.png';
 // Formação
 import diploma from './formacao/diploma.png';
 import qrcode from './formacao/qrcode.png';
