@@ -1,6 +1,7 @@
 import React, { useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { PerformanceProvider } from './contexts/PerformanceContext';
 import { ParticleConfigProvider } from './contexts/ParticleConfigContext';
 import { DynamicTextProvider } from './components/atoms/DynamicTextProvider';
@@ -172,6 +173,7 @@ const App = () => {
   return (
     <ParticleConfigProvider>
       <AppContent />
+      <SpeedInsights />
     </ParticleConfigProvider>
   );
 };
