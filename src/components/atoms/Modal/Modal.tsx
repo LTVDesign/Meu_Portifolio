@@ -1,0 +1,341 @@
+import React, { useEffect, useContext, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ModalContext } from './Modal.context';
+import { useModalAccessibility } from './Modal.accessibility';
+import { useModal } from './Modal.hooks';
+import { ModalProps, modalThemes, modalSizes } from './Modal.types';
+import { modalAnimations } from './Modal.animation';
+import { useAnimationDirection } from './Modal.hooks';
+import { useModalAria } from './Modal.accessibility';
+import { useModalBodyScroll } from './Modal.accessibility';
+
+const Modal: React.FC<ModalProps> = ({
+    // Core props
+    isOpen: controlledOpen,
+    onClose: controlledOnClose,
+    children,
+
+    // Animation props
+    animation = 'scale',
+    animationDirection = 'up',
+    customAnimation,
+    animationDuration = 0.3,
+
+    // Size props
+    size = 'md',
+    width,
+    height,
+    maxWidth,
+    maxHeight,
+    minHeight,
+
+    // Style props
+    className = '',
+    overlayClassName = '',
+    contentClassName = '',
+    backdropBlur = 'md',
+    overlayColor = 'bg-black/50',
+    closeOnEscape = true,
+    trapFocus = true,
+    autoFocus = true,
+    preventScroll = true,
+
+    // Position props
+    position = 'center',
+    align = 'center',
+    justify = 'center',
+
+    // Content props
+    showCloseButton = true,
+    closeIcon,
+    closeOnBackdropClick = true,
+    closeOnContentClick = false,
+    closeOnEsc = true,
+    closeOnOutsideClick = true,
+
+    // Accessibility props
+    title,
+    describedBy,
+    role = 'dialog',
+    'aria-labelledby': ariaLabelledby,
+    'aria-describedby': ariaDescribedby,
+
+    // Z-index props
+    zIndex = 50,
+    overlayZIndex = 40,
+    contentZIndex = 50,
+
+    // Event props
+    onOpen,
+    onCloseComplete,
+    onOpenComplete,
+    onOverlayClick,
+    onContentClick,
+
+    // Animation variants
+    initial,
+    animate,
+    exit,
+    transition: customTransition,
+}) => {
+    // Use context or controlled props
+    const context = useContext(ModalContext);
+    const isControlled = controlledOpen !== undefined;
+
+    const {
+        isOpen: isOpenFromContext,
+        onClose: onCloseFromContext,
+        theme: themeFromContext,
+        size: sizeFromContext,
+        animation: animationFromContext,
+        animationDirection: animationDirectionFromContext,
+        closeOnEscape: closeOnEscapeFromContext,
+        trapFocus: trapFocusFromContext,
+        autoFocus: autoFocusFromContext,
+        preventScroll: preventScrollFromContext,
+        closeOnBackdropClick: closeOnBackdropClickFromContext,
+        closeOnContentClick: closeOnContentClickFromContext,
+        showCloseButton: showCloseButtonFromContext,
+        title: titleFromContext,
+        describedBy: describedByFromContext,
+        role: roleFromContext,
+        zIndex: zIndexFromContext,
+        overlayZIndex: overlayZIndexFromContext,
+        contentZIndex: contentZIndexFromContext,
+    } = context || {};
+
+    // Use props or context values
+    const isOpen = isControlled ? controlledOpen : isOpenFromContext;
+    const onClose = isControlled ? controlledOnClose : onCloseFromContext;
+    const theme = themeFromContext || modalThemes.default;
+    const sizeConfig = sizeFromContext || modalSizes[size];
+    const animationConfig = customAnimation || animationFromContext || modalAnimations[animation];
+    const finalAnimationDirection = animationDirectionFromContext || animationDirection;
+    const finalCloseOnEscape = closeOnEscapeFromContext ?? closeOnEscape;
+    const finalTrapFocus = trapFocusFromContext ?? trapFocus;
+    const finalAutoFocus = autoFocusFromContext ?? autoFocus;
+    const finalPreventScroll = preventScrollFromContext ?? preventScroll;
+    const finalCloseOnBackdropClick = closeOnBackdropClickFromContext ?? closeOnBackdropClick;
+    const finalCloseOnContentClick = closeOnContentClickFromContext ?? closeOnContentClick;
+    const finalShowCloseButton = showCloseButtonFromContext ?? showCloseButton;
+    const finalTitle = titleFromContext || title;
+    const finalDescribedBy = describedByFromContext || describedBy;
+    const finalRole = roleFromContext || role;
+    const finalZIndex = zIndexFromContext || zIndex;
+    const finalOverlayZIndex = overlayZIndexFromContext || overlayZIndex;
+    const finalContentZIndex = contentZIndexFromContext || contentZIndex;
+
+    // Apply accessibility hooks
+    const { modalRef, focusFirstElement, getFocusableElements } = useModalAccessibility({
+        isOpen,
+        onClose,
+        closeOnEscape: finalCloseOnEscape,
+        trapFocus: finalTrapFocus,
+        autoFocus: finalAutoFocus,
+    });
+
+    // Apply ARIA attributes
+    const { setAriaAttributes } = useModalAria({
+        isOpen,
+        title: finalTitle,
+        describedBy: finalDescribedBy,
+    });
+
+    // Apply scroll prevention
+    useModalBodyScroll(isOpen, finalPreventScroll);
+
+    // Animation direction hook
+    const { setDirectionBasedOnClick } = useAnimationDirection();
+
+    // Handle open/close animations
+    useEffect(() => {
+        if (isOpen) {
+            onOpen?.();
+        } else {
+            onCloseComplete?.();
+        }
+    }, [isOpen, onOpen, onCloseComplete]);
+
+    const handleAnimationComplete = () => {
+        if (isOpen) {
+            onOpenComplete?.();
+        }
+    };
+
+    // Handle backdrop click
+    const handleBackdropClick = (e: React.MouseEvent) => {
+        if (finalCloseOnBackdropClick && !closeOnOutsideClick) {
+            e.stopPropagation();
+            onClose?.();
+        }
+        onOverlayClick?.(e);
+    };
+
+    // Handle content click
+    const handleContentClick = (e: React.MouseEvent) => {
+        if (finalCloseOnContentClick) {
+            e.stopPropagation();
+            onClose?.();
+        }
+        onContentClick?.(e);
+    };
+
+    // Handle key events
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Escape' && finalCloseOnEscape && closeOnEsc) {
+            onClose?.();
+        }
+    };
+
+    // Calculate animation variants
+    const getAnimationVariants = () => {
+        if (initial || animate || exit) {
+            return { initial, animate, exit };
+        }
+
+        const animationVariants = animationConfig.content;
+
+        if (typeof animationVariants.initial === 'function') {
+            return {
+                initial: animationVariants.initial(finalAnimationDirection),
+                animate: animationVariants.animate,
+                exit: animationVariants.exit(finalAnimationDirection),
+            };
+        }
+
+        return animationVariants;
+    };
+
+    const animationVariants = getAnimationVariants();
+    const transition = customTransition || { duration: animationDuration };
+
+    // Calculate backdrop blur classes
+    const backdropBlurClasses = {
+        none: '',
+        sm: 'backdrop-blur-sm',
+        md: 'backdrop-blur-md',
+        lg: 'backdrop-blur-lg',
+        xl: 'backdrop-blur-xl',
+    }[backdropBlur];
+
+    // Calculate position classes
+    const positionClasses = {
+        center: 'items-center justify-center',
+        top: 'items-start justify-center pt-20',
+        bottom: 'items-end justify-end pb-20',
+        left: 'items-center justify-start pl-20',
+        right: 'items-center justify-end pr-20',
+    }[position];
+
+    const justifyClasses = {
+        center: 'justify-center',
+        start: 'justify-start',
+        end: 'justify-end',
+        between: 'justify-between',
+    }[justify];
+
+    const alignClasses = {
+        center: 'items-center',
+        start: 'items-start',
+        end: 'items-end',
+    }[align];
+
+    // Build size classes
+    const sizeClasses = sizeConfig.padding;
+    const widthStyle = width || sizeConfig.width;
+    const maxWidthStyle = maxWidth || sizeConfig.maxWidth;
+    const heightStyle = height || sizeConfig.height;
+    const maxHeightStyle = maxHeight || sizeConfig.maxHeight;
+    const minHeightStyle = minHeight;
+
+    return (
+        <AnimatePresence>
+            {isOpen && (
+                <motion.div
+                    className={`fixed inset-0 z-[${finalOverlayZIndex}] ${backdropBlurClasses} ${overlayColor} ${overlayClassName} ${positionClasses}`}
+                    onClick={handleBackdropClick}
+                    initial={animationConfig.overlay.initial}
+                    animate={animationConfig.overlay.animate}
+                    exit={animationConfig.overlay.exit}
+                    transition={transition}
+                >
+                    <motion.div
+                        ref={modalRef}
+                        data-modal-role="dialog"
+                        role={finalRole}
+                        tabIndex={-1}
+                        aria-modal="true"
+                        aria-labelledby={ariaLabelledby || finalTitle ? 'modal-title' : undefined}
+                        aria-describedby={ariaDescribedby || finalDescribedBy || undefined}
+                        className={`
+                            relative z-[${finalContentZIndex}] 
+                            ${theme.background} 
+                            ${theme.border} 
+                            ${theme.shadow} 
+                            ${sizeClasses}
+                            ${className}
+                            ${alignClasses}
+                            ${justifyClasses}
+                            outline-none
+                        `}
+                        style={{
+                            width: widthStyle,
+                            maxWidth: maxWidthStyle,
+                            height: heightStyle,
+                            maxHeight: maxHeightStyle,
+                            minHeight: minHeightStyle,
+                        }}
+                        onClick={handleContentClick}
+                        onKeyDown={handleKeyDown}
+                        initial={animationVariants.initial}
+                        animate={animationVariants.animate}
+                        exit={animationVariants.exit}
+                        transition={transition}
+                        onAnimationComplete={handleAnimationComplete}
+                    >
+                        {/* Title */}
+                        {finalTitle && (
+                            <h2
+                                id="modal-title"
+                                className="text-2xl font-bold text-gray-900 dark:text-white mb-4"
+                            >
+                                {finalTitle}
+                            </h2>
+                        )}
+
+                        {/* Content */}
+                        <div className="relative">
+                            {children}
+
+                            {/* Close Button */}
+                            {finalShowCloseButton && (
+                                <motion.button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onClose?.();
+                                    }}
+                                    className={`
+                                        absolute top-4 right-4 z-10 p-2 rounded-full
+                                        ${theme.closeButton.background}
+                                        ${theme.closeButton.hover}
+                                        ${theme.closeButton.icon}
+                                        hover:shadow-lg transition-all duration-200
+                                    `}
+                                    aria-label="Fechar"
+                                >
+                                    {closeIcon || (
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    )}
+                                </motion.button>
+                            )}
+                        </div>
+                    </motion.div>
+                </motion.div>
+            )}
+        </AnimatePresence>
+    );
+};
+
+export default Modal;
