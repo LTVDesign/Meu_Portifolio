@@ -1,7 +1,16 @@
 import type React from 'react';
 import { useEffect, useRef } from 'react';
 // Tree-shakeable Three.js imports for better performance
-import { Scene, OrthographicCamera, WebGLRenderer, PlaneGeometry, ShaderMaterial, Mesh, Color, Vector2 } from 'three';
+import {
+  Color,
+  Mesh,
+  OrthographicCamera,
+  PlaneGeometry,
+  Scene,
+  ShaderMaterial,
+  Vector2,
+  WebGLRenderer,
+} from 'three';
 import type { WavefieldUniforms } from '../../types';
 
 interface WavefieldUltraBackgroundProps {
@@ -41,10 +50,10 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
       const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
       return result
         ? new Color(
-          parseInt(result[1], 16) / 255,
-          parseInt(result[2], 16) / 255,
-          parseInt(result[3], 16) / 255
-        )
+            parseInt(result[1], 16) / 255,
+            parseInt(result[2], 16) / 255,
+            parseInt(result[3], 16) / 255
+          )
         : new Color(0, 1, 1);
     };
     uniformsRef.current.speed.value = speed;
@@ -86,10 +95,10 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
       const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
       return result
         ? new Color(
-          parseInt(result[1], 16) / 255,
-          parseInt(result[2], 16) / 255,
-          parseInt(result[3], 16) / 255
-        )
+            parseInt(result[1], 16) / 255,
+            parseInt(result[2], 16) / 255,
+            parseInt(result[3], 16) / 255
+          )
         : new Color(0, 1, 1);
     };
     const uniforms = {
@@ -112,7 +121,9 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
 
     function init() {
       // Global Zombie Exterminator: Remove ANY canvas tagged as 'wavefield-bg' from the entire document
-      const existingCanvases = document.querySelectorAll('canvas[data-bg-type="wavefield-bg"]');
+      const existingCanvases = document.querySelectorAll(
+        'canvas[data-bg-type="wavefield-bg"]'
+      );
       existingCanvases.forEach((c) => {
         c.remove();
       });
@@ -345,7 +356,14 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
   return (
     <div
       ref={mountRef}
-      style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: -1,
+      }}
     />
   );
 };

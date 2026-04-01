@@ -46,7 +46,10 @@ export const fadeIn = (
   };
 };
 
-export const zoomIn = (delay: TMotion['delay'], duration: TMotion['duration']): Variants => {
+export const zoomIn = (
+  delay: TMotion['delay'],
+  duration: TMotion['duration']
+): Variants => {
   return {
     hidden: {
       scale: 0,
@@ -90,7 +93,10 @@ export const slideIn = (
   };
 };
 
-export const staggerContainer = (staggerChildren?: number, delayChildren?: number): Variants => {
+export const staggerContainer = (
+  staggerChildren?: number,
+  delayChildren?: number
+): Variants => {
   return {
     hidden: {},
     show: {

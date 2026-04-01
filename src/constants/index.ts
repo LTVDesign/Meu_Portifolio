@@ -117,7 +117,6 @@ const technologies: TTechnology[] = [
     icon: docker,
     category: 'Sistemas & Infraestrutura',
   },
-  // Microsoft 365
   {
     name: 'Microsoft 365',
     icon: microsoft365,

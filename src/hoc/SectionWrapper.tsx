@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import type { ReactNode, ComponentType, PropsWithChildren } from 'react';
+import type { ComponentType, PropsWithChildren, ReactNode } from 'react';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 
 interface SectionWrapperProps {
@@ -9,14 +9,18 @@ interface SectionWrapperProps {
 }
 
 // Componente JSX
-const SectionWrapperComponent = ({ children, id, className = '' }: SectionWrapperProps) => {
+const SectionWrapperComponent = ({
+  children,
+  id,
+  className = '',
+}: SectionWrapperProps) => {
   console.log('[SectionWrapper] Renderizando SectionWrapper, id:', id);
   const prefersReduced = useReducedMotion();
 
   return (
     <motion.section
       id={id}
-      initial={prefersReduced ? {} : { opacity: 0, y: 50 }}
+      initial={prefersReduced ? {} : { opacity: 1, y: 0 }}
       whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
       transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: 'easeOut' }}
       viewport={prefersReduced ? {} : { once: true, amount: 0.25 }}
@@ -28,7 +32,10 @@ const SectionWrapperComponent = ({ children, id, className = '' }: SectionWrappe
 };
 
 // HOC pattern para compatibilidade com código existente
-const SectionWrapper = <P extends object>(Component: ComponentType<P>, idName: string) => {
+const SectionWrapper = <P extends object>(
+  Component: ComponentType<P>,
+  idName: string
+) => {
   return function HOC(props: PropsWithChildren<P>) {
     return (
       <SectionWrapperComponent id={idName}>

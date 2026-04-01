@@ -129,13 +129,33 @@ class Particle {
     ctx.beginPath();
     ctx.moveTo(this.x - half + rad, this.y - half);
     ctx.lineTo(this.x + half - rad, this.y - half);
-    ctx.quadraticCurveTo(this.x + half, this.y - half, this.x + half, this.y - half + rad);
+    ctx.quadraticCurveTo(
+      this.x + half,
+      this.y - half,
+      this.x + half,
+      this.y - half + rad
+    );
     ctx.lineTo(this.x + half, this.y + half - rad);
-    ctx.quadraticCurveTo(this.x + half, this.y + half, this.x + half - rad, this.y + half);
+    ctx.quadraticCurveTo(
+      this.x + half,
+      this.y + half,
+      this.x + half - rad,
+      this.y + half
+    );
     ctx.lineTo(this.x - half + rad, this.y + half);
-    ctx.quadraticCurveTo(this.x - half, this.y + half, this.x - half, this.y + half - rad);
+    ctx.quadraticCurveTo(
+      this.x - half,
+      this.y + half,
+      this.x - half,
+      this.y + half - rad
+    );
     ctx.lineTo(this.x - half, this.y - half + rad);
-    ctx.quadraticCurveTo(this.x - half, this.y - half, this.x - half + rad, this.y - half);
+    ctx.quadraticCurveTo(
+      this.x - half,
+      this.y - half,
+      this.x - half + rad,
+      this.y - half
+    );
     ctx.fill();
     ctx.globalAlpha = 1;
   }
@@ -412,7 +432,10 @@ function copyCSS() {
     return;
   }
   const css = `:root {\n${palette
-    .map((c, i) => `  --color-${i + 1}: ${c.hex}; /* rgb(${c.r}, ${c.g}, ${c.b}) — ${c.pct}% */`)
+    .map(
+      (c, i) =>
+        `  --color-${i + 1}: ${c.hex}; /* rgb(${c.r}, ${c.g}, ${c.b}) — ${c.pct}% */`
+    )
     .join('\n')}\n}`;
   navigator.clipboard.writeText(css).catch(() => {});
   showToast('CSS variables copied');
@@ -426,7 +449,10 @@ function _copySVG() {
   const sw = 100,
     sh = 120;
   const rects = palette
-    .map((c, i) => `  <rect x="${i * sw}" y="0" width="${sw}" height="${sh}" fill="${c.hex}"/>`)
+    .map(
+      (c, i) =>
+        `  <rect x="${i * sw}" y="0" width="${sw}" height="${sh}" fill="${c.hex}"/>`
+    )
     .join('\n');
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${
     palette.length * sw

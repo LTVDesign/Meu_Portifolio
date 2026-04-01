@@ -27,16 +27,6 @@ import Tech from './sections/Tech';
 import Works from './sections/Works';
 
 export {
-  // Atoms
-  LinkAnimado,
-
-  // Layout
-  ErrorBoundary,
-  Footer,
-  CanvasLoader,
-  MotionLoader,
-  Navbar,
-
   // Sections
   About,
   AllCertificados,
@@ -44,13 +34,21 @@ export {
   AllCurriculo,
   AllFormacao,
   AllWorks,
+  CanvasLoader,
   Certificados,
   Contact,
   Curriculo,
   Cursos,
+  // Layout
+  ErrorBoundary,
   Experience,
+  Footer,
   Formacao,
   Hero,
+  // Atoms
+  LinkAnimado,
+  MotionLoader,
+  Navbar,
   NotFound,
   Tech,
   Works,

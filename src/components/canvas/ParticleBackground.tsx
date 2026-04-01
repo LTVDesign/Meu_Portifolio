@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 import { usePerformance } from '../../contexts/PerformanceContext';
 
 interface Particle {
@@ -35,6 +36,7 @@ const ParticleBackground = ({
   particleLineColor = '#915EFF',
 }: ParticleBackgroundProps) => {
   const { isLowPerformance } = usePerformance();
+  const { config } = useParticleConfig();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number | null>(null);
   const particlesRef = useRef<Particle[]>([]);
@@ -52,7 +54,6 @@ const ParticleBackground = ({
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    // Fase 1: Escritas no DOM (todas juntas)
     canvas.width = width * dpr;
     canvas.height = height * dpr;
     canvas.style.width = `${width}px`;
@@ -63,8 +64,6 @@ const ParticleBackground = ({
       ctx.scale(dpr, dpr);
     }
 
-    // Fase 2: Leitura - Usa valores conhecidos em vez de getBoundingClientRect()
-    // Isso evita reflow forçado já que o canvas tem position: fixed e inset: 0
     canvasRectRef.current = {
       left: 0,
       top: 0,
@@ -99,7 +98,14 @@ const ParticleBackground = ({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    const mode = config.interactionMode || 'none';
+    const isFrozen = mode === 'freeze';
+
     particlesRef.current.forEach((particle) => {
+      if (isFrozen) {
+        return; // Não atualiza posições se congelado
+      }
+
       particle.x += particle.vx;
       particle.y += particle.vy;
 
@@ -153,7 +159,10 @@ const ParticleBackground = ({
           ctx.lineTo(p2.x, p2.y);
           ctx.strokeStyle = particleLineColor;
           ctx.globalAlpha =
-            (1 - Math.sqrt(distanceSq) / connectionDistance) * intensity * particleOpacity * 0.5;
+            (1 - Math.sqrt(distanceSq) / connectionDistance) *
+            intensity *
+            particleOpacity *
+            0.5;
           ctx.lineWidth = lineThickness;
           ctx.stroke();
           connections++;
@@ -162,17 +171,26 @@ const ParticleBackground = ({
     }
 
     // Mouse interaction
-    particles.forEach((particle) => {
-      const dx = mouseRef.current.x - particle.x;
-      const dy = mouseRef.current.y - particle.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
+    const mode = config.interactionMode || 'none';
+    if (mode !== 'none' && mode !== 'freeze') {
+      const isAttract = mode === 'attract';
+      const forceMultiplier = isAttract ? 1 : -1; // Atração: positivo, Repulsão: negativo
 
-      if (distance < mouseInteractionRadius) {
-        const force = (mouseInteractionRadius - distance) / mouseInteractionRadius;
-        particle.vx += (dx / distance) * force * mouseForce;
-        particle.vy += (dy / distance) * force * mouseForce;
-      }
-    });
+      particles.forEach((particle) => {
+        const dx = mouseRef.current.x - particle.x;
+        const dy = mouseRef.current.y - particle.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < mouseInteractionRadius && distance > 0) {
+          const force = (mouseInteractionRadius - distance) / mouseInteractionRadius;
+          const directionX = (dx / distance) * force * mouseForce * forceMultiplier;
+          const directionY = (dy / distance) * force * mouseForce * forceMultiplier;
+
+          particle.vx += directionX;
+          particle.vy += directionY;
+        }
+      });
+    }
   };
 
   const handleMouseMove = (e: MouseEvent) => {
@@ -180,9 +198,6 @@ const ParticleBackground = ({
     if (now - lastMouseMoveRef.current < 16) return;
     lastMouseMoveRef.current = now;
 
-    // Usa valores diretos do evento em vez de getBoundingClientRect()
-    // Como o canvas tem position: fixed e inset: 0, as coordenadas são (0, 0)
-    // Isso evita reflow forçado completamente
     mouseRef.current.x = e.clientX;
     mouseRef.current.y = e.clientY;
   };
@@ -224,7 +239,19 @@ const ParticleBackground = ({
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [quantity, particleColor, speed, intensity, particleConnectDistance, lineThickness, particleOpacity, particleLineColor, particleSize, zoom]);
+  }, [
+    quantity,
+    particleColor,
+    speed,
+    intensity,
+    particleConnectDistance,
+    lineThickness,
+    particleOpacity,
+    particleLineColor,
+    particleSize,
+    zoom,
+    config.interactionMode,
+  ]);
 
   return (
     <canvas

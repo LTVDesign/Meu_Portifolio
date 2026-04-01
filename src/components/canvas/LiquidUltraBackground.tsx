@@ -1,7 +1,16 @@
 import type React from 'react';
 import { useEffect, useRef } from 'react';
 // Tree-shakeable Three.js imports for better performance
-import { Scene, OrthographicCamera, WebGLRenderer, PlaneGeometry, ShaderMaterial, Mesh, Color, Vector2 } from 'three';
+import {
+  Color,
+  Mesh,
+  OrthographicCamera,
+  PlaneGeometry,
+  Scene,
+  ShaderMaterial,
+  Vector2,
+  WebGLRenderer,
+} from 'three';
 
 interface LiquidUltraBackgroundProps {
   resolution: number;
@@ -340,7 +349,12 @@ const LiquidUltraBackground: React.FC<LiquidUltraBackgroundProps> = ({
     };
   }, [resolution]);
 
-  return <div ref={mountRef} className="fixed inset-0 -z-10 w-full h-full pointer-events-none" />;
+  return (
+    <div
+      ref={mountRef}
+      className='fixed inset-0 -z-10 w-full h-full pointer-events-none'
+    />
+  );
 };
 
 export default LiquidUltraBackground;

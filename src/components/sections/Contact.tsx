@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { FaBuilding, FaEnvelope, FaPaperPlane, FaPhone, FaUser } from 'react-icons/fa';
 import { z } from 'zod';
 import { SectionWrapper } from '../../hoc';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { emailService } from '../../utils/emailService';
 import { slideIn } from '../../utils/motion';
 import { Header } from '../atoms';
 import { EarthCanvas } from '../canvas';
-import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 // Schema de validação com Zod
 const contactSchema = z.object({
@@ -17,7 +17,7 @@ const contactSchema = z.object({
   phone: z.string().max(20, 'Telefone muito longo').default(''),
   company: z.string().max(100, 'Empresa muito longa').default(''),
   message: z.string().min(20, 'Mensagem muito curta').max(1000, 'Mensagem muito longa'),
-  website: z.string().optional() // Honeypot: campo oculto para bots
+  website: z.string().optional(), // Honeypot: campo oculto para bots
 });
 
 type ContactForm = z.infer<typeof contactSchema>;
@@ -28,7 +28,7 @@ const INITIAL_FORM: ContactForm = {
   phone: '',
   company: '',
   message: '',
-  website: undefined
+  website: undefined,
 };
 
 const Contact = () => {
@@ -38,7 +38,9 @@ const Contact = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-  const [fieldErrors, setFieldErrors] = useState<Partial<Record<keyof ContactForm, string>>>({});
+  const [fieldErrors, setFieldErrors] = useState<
+    Partial<Record<keyof ContactForm, string>>
+  >({});
   const { t } = useTranslation();
   const prefersReduced = useReducedMotion();
 
@@ -70,10 +72,10 @@ const Contact = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
+    setForm((prev) => ({ ...prev, [name]: value }));
     if (error) setError(null);
     if (fieldErrors[name as keyof ContactForm]) {
-      setFieldErrors(prev => ({ ...prev, [name]: undefined }));
+      setFieldErrors((prev) => ({ ...prev, [name]: undefined }));
     }
   };
 
@@ -86,7 +88,7 @@ const Contact = () => {
     let val = e.target.value.replace(/\D/g, '').slice(0, 11);
     if (val.length > 2) val = `(${val.slice(0, 2)}) ${val.slice(2)}`;
     if (val.length > 10) val = `${val.slice(0, 10)}-${val.slice(10)}`;
-    setForm(prev => ({ ...prev, phone: val }));
+    setForm((prev) => ({ ...prev, phone: val }));
   };
 
   const validateForm = (): boolean => {
@@ -97,7 +99,7 @@ const Contact = () => {
     } catch (err) {
       if (err instanceof z.ZodError) {
         const errors: Partial<Record<keyof ContactForm, string>> = {};
-        err.issues.forEach(issue => {
+        err.issues.forEach((issue) => {
           if (issue.path[0]) {
             errors[issue.path[0] as keyof ContactForm] = issue.message;
           }
@@ -141,7 +143,7 @@ const Contact = () => {
       const formData = {
         ...form,
         phone: form.phone || '',
-        company: form.company || ''
+        company: form.company || '',
       };
       const res = await emailService.sendContactForm(formData);
       if (res.success) {
@@ -163,37 +165,38 @@ const Contact = () => {
   };
 
   return (
-    <div className="py-24">
-      <div className="max-w-7xl mx-auto px-6">
+    <div className='py-24'>
+      <div className='max-w-7xl mx-auto px-6'>
         {/* Box de texto informativo com animação */}
         <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-16"
+          className='mb-16'
         >
-          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500">
+          <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
             {/* Efeito de brilho animado no fundo */}
-            <div className="absolute inset-0 opacity-30">
+            <div className='absolute inset-0 opacity-30'>
               <m.div
-                className="absolute inset-0"
+                className='absolute inset-0'
                 style={{
-                  background: 'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)'
+                  background:
+                    'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)',
                 }}
                 animate={{
                   background: [
                     'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)',
                     'radial-gradient(circle at 80% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)',
-                    'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)'
-                  ]
+                    'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)',
+                  ],
                 }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
               />
             </div>
 
             {/* Conteúdo da box */}
-            <div className="relative z-10">
+            <div className='relative z-10'>
               <m.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -203,19 +206,61 @@ const Contact = () => {
                 <Header useMotion={true} p={t('contact.p')} h2={t('contact.h2')} />
               </m.div>
 
+              {/* Linha com animação discreta de brilho */}
+              <m.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className='relative w-full max-w-xl mx-auto my-8'
+              >
+                <div className='h-[1px] bg-gradient-to-r from-transparent via-[var(--cyber-cyan)] to-transparent relative'>
+                  {/* Brilho esquerdo */}
+                  <m.div
+                    className='absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[var(--cyber-cyan)] blur-sm'
+                    style={{ left: '50%' }}
+                    animate={{
+                      left: ['50%', '0%', '50%'],
+                      opacity: [0.8, 0.3, 0.8],
+                      scale: [1, 0.8, 1],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    }}
+                  />
+                  {/* Brilho direito */}
+                  <m.div
+                    className='absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[var(--cyber-purple)] blur-sm'
+                    style={{ right: '50%' }}
+                    animate={{
+                      right: ['50%', '0%', '50%'],
+                      opacity: [0.8, 0.3, 0.8],
+                      scale: [1, 0.8, 1],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    }}
+                  />
+                </div>
+              </m.div>
+
               {/* Badges de destaque */}
               <m.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.5 }}
-                className="flex flex-wrap justify-center gap-3 mt-8"
+                className='flex flex-wrap justify-center gap-3 mt-8'
               >
                 {[
                   { text: 'Email Seguro', color: 'from-blue-500 to-cyan-500' },
                   { text: 'Resposta Rápida', color: 'from-green-500 to-emerald-500' },
                   { text: 'Contato Direto', color: 'from-purple-500 to-pink-500' },
-                  { text: 'Suporte 24/7', color: 'from-red-500 to-orange-500' }
+                  { text: 'Suporte 24/7', color: 'from-red-500 to-orange-500' },
                 ].map((badge, idx) => (
                   <m.span
                     key={idx}
@@ -229,78 +274,150 @@ const Contact = () => {
             </div>
 
             {/* Borda decorativa com glow */}
-            <div className="absolute inset-0 rounded-3xl border border-[var(--cyber-cyan)]/10 pointer-events-none" />
-            <div className="absolute -inset-1 bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-3xl opacity-20 blur-xl -z-10" />
+            <div className='absolute inset-0 rounded-3xl border border-[var(--cyber-cyan)]/10 pointer-events-none' />
+            <div className='absolute -inset-1 bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-3xl opacity-20 blur-xl -z-10' />
           </div>
         </m.div>
 
-        <div className="flex flex-col xl:flex-row gap-12 xl:gap-20 items-center">
+        <div className='flex flex-col xl:flex-row gap-12 xl:gap-20 items-center'>
           {/* Formulário */}
-          <m.div variants={prefersReduced ? {} : slideIn('left', 'tween', 0.2, 1)} className="flex-1 w-full">
-            <div className="glass p-8 sm:p-10 md:p-12">
-
-              <form ref={formRef} onSubmit={handleSubmit} className="mt-10 space-y-8">
+          <m.div
+            variants={prefersReduced ? {} : slideIn('left', 'tween', 0.2, 1)}
+            className='flex-1 w-full'
+          >
+            <div className='glass p-8 sm:p-10 md:p-12'>
+              <form ref={formRef} onSubmit={handleSubmit} className='mt-10 space-y-8'>
                 {/* Honeypot: campo oculto para bots */}
-                <div className="hidden" aria-hidden="true">
-                  <label htmlFor="website">Não preencha este campo</label>
+                <div className='hidden' aria-hidden='true'>
+                  <label htmlFor='website'>Não preencha este campo</label>
                   <input
-                    id="website"
-                    name="website"
-                    type="text"
+                    id='website'
+                    name='website'
+                    type='text'
                     value={form.website || ''}
                     onChange={handleHoneypotChange}
                     tabIndex={-1}
-                    autoComplete="off"
+                    autoComplete='off'
                   />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                   <div>
-                    <label htmlFor="name" className="form-label">
-                      <FaUser className="text-[var(--cyber-purple)]" /> {t('contact.form.name.span')} <span className="text-red-400">*</span>
+                    <label htmlFor='name' className='form-label'>
+                      <FaUser className='text-[var(--cyber-purple)]' />{' '}
+                      {t('contact.form.name.span')}{' '}
+                      <span className='text-red-400'>*</span>
                     </label>
-                    <input id="name" name="name" type="text" value={form.name} onChange={handleChange} required className="form-input w-full" />
-                    {fieldErrors.name && <p role="alert" className="text-red-400 text-sm mt-1">{fieldErrors.name}</p>}
+                    <input
+                      id='name'
+                      name='name'
+                      type='text'
+                      value={form.name}
+                      onChange={handleChange}
+                      required
+                      className='form-input w-full'
+                    />
+                    {fieldErrors.name && (
+                      <p role='alert' className='text-red-400 text-sm mt-1'>
+                        {fieldErrors.name}
+                      </p>
+                    )}
                   </div>
                   <div>
-                    <label htmlFor="email" className="form-label">
-                      <FaEnvelope className="text-[var(--cyber-purple)]" /> {t('contact.form.email.span')} <span className="text-red-400">*</span>
+                    <label htmlFor='email' className='form-label'>
+                      <FaEnvelope className='text-[var(--cyber-purple)]' />{' '}
+                      {t('contact.form.email.span')}{' '}
+                      <span className='text-red-400'>*</span>
                     </label>
-                    <input id="email" name="email" type="email" value={form.email} onChange={handleChange} required className="form-input w-full" />
-                    {fieldErrors.email && <p role="alert" className="text-red-400 text-sm mt-1">{fieldErrors.email}</p>}
+                    <input
+                      id='email'
+                      name='email'
+                      type='email'
+                      value={form.email}
+                      onChange={handleChange}
+                      required
+                      className='form-input w-full'
+                    />
+                    {fieldErrors.email && (
+                      <p role='alert' className='text-red-400 text-sm mt-1'>
+                        {fieldErrors.email}
+                      </p>
+                    )}
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                   <div>
-                    <label htmlFor="phone" className="form-label">
-                      <FaPhone className="text-[var(--cyber-purple)]" /> {t('contact.form.phone.span')}
+                    <label htmlFor='phone' className='form-label'>
+                      <FaPhone className='text-[var(--cyber-purple)]' />{' '}
+                      {t('contact.form.phone.span')}
                     </label>
-                    <input id="phone" name="phone" type="tel" value={form.phone} onChange={handlePhoneChange} className="form-input w-full" />
-                    {fieldErrors.phone && <p role="alert" className="text-red-400 text-sm mt-1">{fieldErrors.phone}</p>}
+                    <input
+                      id='phone'
+                      name='phone'
+                      type='tel'
+                      value={form.phone}
+                      onChange={handlePhoneChange}
+                      className='form-input w-full'
+                    />
+                    {fieldErrors.phone && (
+                      <p role='alert' className='text-red-400 text-sm mt-1'>
+                        {fieldErrors.phone}
+                      </p>
+                    )}
                   </div>
                   <div>
-                    <label htmlFor="company" className="form-label">
-                      <FaBuilding className="text-[var(--cyber-purple)]" /> {t('contact.form.company.span')}
+                    <label htmlFor='company' className='form-label'>
+                      <FaBuilding className='text-[var(--cyber-purple)]' />{' '}
+                      {t('contact.form.company.span')}
                     </label>
-                    <input id="company" name="company" type="text" value={form.company} onChange={handleChange} className="form-input w-full" />
-                    {fieldErrors.company && <p role="alert" className="text-red-400 text-sm mt-1">{fieldErrors.company}</p>}
+                    <input
+                      id='company'
+                      name='company'
+                      type='text'
+                      value={form.company}
+                      onChange={handleChange}
+                      className='form-input w-full'
+                    />
+                    {fieldErrors.company && (
+                      <p role='alert' className='text-red-400 text-sm mt-1'>
+                        {fieldErrors.company}
+                      </p>
+                    )}
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="form-label">
-                    <FaPaperPlane className="text-[var(--cyber-purple)]" /> {t('contact.form.message.span')} <span className="text-red-400">*</span>
+                  <label htmlFor='message' className='form-label'>
+                    <FaPaperPlane className='text-[var(--cyber-purple)]' />{' '}
+                    {t('contact.form.message.span')}{' '}
+                    <span className='text-red-400'>*</span>
                   </label>
-                  <textarea id="message" name="message" value={form.message} onChange={handleChange} rows={7} required className="form-input w-full resize-y min-h-[180px]" />
-                  {fieldErrors.message && <p role="alert" className="text-red-400 text-sm mt-1">{fieldErrors.message}</p>}
+                  <textarea
+                    id='message'
+                    name='message'
+                    value={form.message}
+                    onChange={handleChange}
+                    rows={7}
+                    required
+                    className='form-input w-full resize-y min-h-[180px]'
+                  />
+                  {fieldErrors.message && (
+                    <p role='alert' className='text-red-400 text-sm mt-1'>
+                      {fieldErrors.message}
+                    </p>
+                  )}
                 </div>
 
-                {error && <p role="alert" className="text-red-400 text-sm">{error}</p>}
+                {error && (
+                  <p role='alert' className='text-red-400 text-sm'>
+                    {error}
+                  </p>
+                )}
 
                 {/* Mostrar cooldown se estiver ativo */}
                 {!canSubmit() && !loading && (
-                  <p role="status" className="text-yellow-400 text-sm text-center">
+                  <p role='status' className='text-yellow-400 text-sm text-center'>
                     ⏳ Aguarde {getRemainingCooldown()}s antes do próximo envio
                   </p>
                 )}
@@ -310,13 +427,17 @@ const Contact = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="p-4 rounded-xl bg-green-500/20 border border-green-500/30 text-green-400 text-sm"
+                    className='p-4 rounded-xl bg-green-500/20 border border-green-500/30 text-green-400 text-sm'
                   >
                     ✅ {t('contact.success', 'Mensagem enviada com sucesso!')}
                   </m.div>
                 )}
 
-                <button type="submit" disabled={loading || success} className="btn-primary w-full text-lg">
+                <button
+                  type='submit'
+                  disabled={loading || success}
+                  className='btn-primary w-full text-lg'
+                >
                   {loading ? t('contact.sending') : t('contact.submit')} <FaPaperPlane />
                 </button>
               </form>
@@ -326,9 +447,9 @@ const Contact = () => {
           {/* Canvas 3D */}
           <m.div
             variants={slideIn('right', 'tween', 0.2, 1)}
-            className="flex-1 w-full xl:w-1/2 h-[350px] sm:h-[450px] md:h-[550px] xl:h-[600px] flex items-center justify-center relative overflow-hidden"
+            className='flex-1 w-full xl:w-1/2 h-[350px] sm:h-[450px] md:h-[550px] xl:h-[600px] flex items-center justify-center relative overflow-hidden'
           >
-            <div className="w-full h-full">
+            <div className='w-full h-full'>
               <EarthCanvas />
             </div>
           </m.div>

@@ -102,6 +102,7 @@ export interface ParticleConfig {
   trailLength: number;
   columnSpacing: number;
   matrixCharSet: 'matrix' | 'binary' | 'japanese' | 'mixed';
+  interactionMode?: 'none' | 'blow' | 'attract' | 'freeze';
 }
 
 const defaultConfig: ParticleConfig = {
@@ -203,6 +204,7 @@ const defaultConfig: ParticleConfig = {
   trailLength: 20,
   columnSpacing: 0,
   matrixCharSet: 'matrix',
+  interactionMode: 'none',
 };
 
 /**
@@ -289,7 +291,7 @@ export function validateLocalStorageData(data: unknown): ParticleConfig | null {
       'bolhasColor2',
       'bolhasColor3',
       'matrixColor',
-      'matrixBackgroundColor'
+      'matrixBackgroundColor',
     ];
 
     for (const colorKey of liquidColors) {
@@ -307,22 +309,43 @@ export function validateLocalStorageData(data: unknown): ParticleConfig | null {
     }
 
     // Validação de conjuntos de caracteres da Matrix
-    if (!['matrix', 'binary', 'japanese', 'mixed'].includes(validatedData.matrixCharSet)) {
+    if (
+      !['matrix', 'binary', 'japanese', 'mixed'].includes(validatedData.matrixCharSet)
+    ) {
       validatedData.matrixCharSet = defaultConfig.matrixCharSet;
     }
 
     // Validação de tipos de fundo sólido
-    if (!['solid', 'linear', 'radial', 'conic', 'animated'].includes(validatedData.solidType)) {
+    if (
+      !['solid', 'linear', 'radial', 'conic', 'animated'].includes(
+        validatedData.solidType
+      )
+    ) {
       validatedData.solidType = defaultConfig.solidType;
     }
 
     // Validação de tipos de fundo sólido
-    if (!['solid', 'linear', 'radial', 'conic', 'animated'].includes(validatedData.solidType)) {
+    if (
+      !['solid', 'linear', 'radial', 'conic', 'animated'].includes(
+        validatedData.solidType
+      )
+    ) {
       validatedData.solidType = defaultConfig.solidType;
     }
 
     // Validação de tipos de background
-    if (!['particles', 'liquid', 'cyberpunk', 'wavefield', 'particulate', 'solid', 'bolhas', 'matrix'].includes(validatedData.backgroundType)) {
+    if (
+      ![
+        'particles',
+        'liquid',
+        'cyberpunk',
+        'wavefield',
+        'particulate',
+        'solid',
+        'bolhas',
+        'matrix',
+      ].includes(validatedData.backgroundType)
+    ) {
       validatedData.backgroundType = defaultConfig.backgroundType;
     }
 
@@ -377,26 +400,50 @@ export function validateLocalStorageData(data: unknown): ParticleConfig | null {
       'bolhasSpread',
       'matrixDensity',
       'matrixSpeed',
-      'matrixFontSize'
+      'matrixFontSize',
     ];
 
     // Validação de propriedades da Matrix (cores já estão no array de cores)
-    if (typeof validatedData.matrixDensity !== 'number' || validatedData.matrixDensity < 1 || validatedData.matrixDensity > 200) {
+    if (
+      typeof validatedData.matrixDensity !== 'number' ||
+      validatedData.matrixDensity < 1 ||
+      validatedData.matrixDensity > 200
+    ) {
       validatedData.matrixDensity = defaultConfig.matrixDensity;
     }
-    if (typeof validatedData.matrixSpeed !== 'number' || validatedData.matrixSpeed < 1 || validatedData.matrixSpeed > 200) {
+    if (
+      typeof validatedData.matrixSpeed !== 'number' ||
+      validatedData.matrixSpeed < 1 ||
+      validatedData.matrixSpeed > 200
+    ) {
       validatedData.matrixSpeed = defaultConfig.matrixSpeed;
     }
-    if (typeof validatedData.matrixFontSize !== 'number' || validatedData.matrixFontSize < 0.5 || validatedData.matrixFontSize > 10) {
+    if (
+      typeof validatedData.matrixFontSize !== 'number' ||
+      validatedData.matrixFontSize < 0.5 ||
+      validatedData.matrixFontSize > 10
+    ) {
       validatedData.matrixFontSize = defaultConfig.matrixFontSize;
     }
-    if (typeof validatedData.glowIntensity !== 'number' || validatedData.glowIntensity < 0 || validatedData.glowIntensity > 1) {
+    if (
+      typeof validatedData.glowIntensity !== 'number' ||
+      validatedData.glowIntensity < 0 ||
+      validatedData.glowIntensity > 1
+    ) {
       validatedData.glowIntensity = defaultConfig.glowIntensity;
     }
-    if (typeof validatedData.trailLength !== 'number' || validatedData.trailLength < 5 || validatedData.trailLength > 100) {
+    if (
+      typeof validatedData.trailLength !== 'number' ||
+      validatedData.trailLength < 5 ||
+      validatedData.trailLength > 100
+    ) {
       validatedData.trailLength = defaultConfig.trailLength;
     }
-    if (typeof validatedData.columnSpacing !== 'number' || validatedData.columnSpacing < 0 || validatedData.columnSpacing > 50) {
+    if (
+      typeof validatedData.columnSpacing !== 'number' ||
+      validatedData.columnSpacing < 0 ||
+      validatedData.columnSpacing > 50
+    ) {
       validatedData.columnSpacing = defaultConfig.columnSpacing;
     }
 

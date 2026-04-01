@@ -14,13 +14,11 @@
   },
   "files": {
     "includes": [
-      "src/**"
-    ],
-    "ignore": [
-      "dist",
-      "node_modules",
-      "*.test.tsx",
-      "*.test.ts"
+      "src/**",
+      "!**/dist/**",
+      "!**/node_modules/**",
+      "!**/*.test.tsx",
+      "!**/*.test.ts"
     ]
   },
   "formatter": {
@@ -43,11 +41,6 @@
       },
       "correctness": {
         "useExhaustiveDependencies": "off"
-      },
-      "react": {
-        "noChildrenProp": "error",
-        "noVoidElementsWithChildren": "error",
-        "useKeyWithMap": "error"
       }
     }
   },
@@ -57,11 +50,6 @@
       "jsxQuoteStyle": "single",
       "trailingCommas": "es5",
       "semicolons": "always"
-    }
-  },
-  "typescript": {
-    "formatter": {
-      "quoteStyle": "single"
     }
   }
 }

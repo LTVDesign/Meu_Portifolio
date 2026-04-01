@@ -1,4 +1,5 @@
-import React, { useState, useRef, useCallback } from 'react';
+import type React from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 interface VirtualListProps<T> {
   items: T[];
@@ -13,7 +14,7 @@ function VirtualList<T>({
   itemHeight,
   renderItem,
   containerHeight = 400,
-  overscan = 5
+  overscan = 5,
 }: VirtualListProps<T>) {
   const [scrollTop, setScrollTop] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -36,11 +37,11 @@ function VirtualList<T>({
   return (
     <div
       ref={containerRef}
-      className="virtual-list-container"
+      className='virtual-list-container'
       style={{
         height: containerHeight,
         overflow: 'auto',
-        position: 'relative'
+        position: 'relative',
       }}
       onScroll={handleScroll}
     >
@@ -58,7 +59,7 @@ function VirtualList<T>({
                 right: 0,
                 height: itemHeight,
                 transform: `translateY(${translateY}px)`,
-                willChange: 'transform'
+                willChange: 'transform',
               }}
             >
               {renderItem(item, actualIndex)}

@@ -1,7 +1,7 @@
 import { m, useScroll, useSpring } from 'framer-motion';
 import { memo, useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Link, useLocation } from 'react-router-dom';
 import { navLinks } from '../../constants';
 import { LinkAnimado } from '../atoms';
 import DynamicText from '../atoms/DynamicText';
@@ -61,7 +61,6 @@ const Navbar = memo(() => {
     };
   }, [isHome]);
 
-
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     if (isHome) {
@@ -88,207 +87,196 @@ const Navbar = memo(() => {
       return `#${navId}`;
     }
     const routeMap: Record<string, string> = {
-      'about': '/',
-      'formacao': '/formacao',
-      'experience': '/',
-      'cursos': '/cursos',
-      'works': '/projetos',
-      'contact': '/contato',
+      about: '/#about',
+      formacao: '/formacao',
+      experience: '/#experience',
+      cursos: '/cursos',
+      works: '/projetos',
+      contact: '/contato',
     };
     return routeMap[navId] || '/';
   };
 
   return (
     <nav
-      className="critical-navbar glass transition-all duration-300"
+      className='critical-navbar glass transition-all duration-300'
       style={{
-        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5)'
+        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5)',
       }}
     >
-      {/* Logo Flutuante Maior - com dimensões fixas para evitar CLS */}
+      {/* Logo Flutuante Maior */}
       <m.div
         initial={{ scale: 0, y: -20 }}
         animate={{
           scale: 1,
-          y: [0, -10, 0]
+          y: [0, -10, 0],
         }}
         transition={{
           scale: { duration: 0.5 },
           y: {
             duration: 5,
             repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut"
-          }
+            repeatType: 'reverse',
+            ease: 'easeInOut',
+          },
         }}
-        className="absolute left-2 md:left-6 top-2 z-[60] h-32 w-32 md:h-40 md:w-40 pointer-events-none logo-float"
-        style={{ minHeight: '128px', minWidth: '128px' }}
+        className='absolute left-2 md:left-6 top-2 z-[60] h-32 w-32 md:h-40 md:w-40 pointer-events-none logo-float'
       >
         <img
           src={logo}
-          alt="Logo"
-          className="w-full h-full object-contain drop-shadow-[0_0_20px_rgba(145,94,255,0.8)]"
-          fetchPriority="high"
-          width="128"
-          height="128"
+          alt='Logo'
+          className='w-full h-full object-contain drop-shadow-[0_0_20px_rgba(145,94,255,0.8)]'
+          width='128'
+          height='128'
         />
       </m.div>
 
-      {/* Progress Line with shine animation */}
-      <div className="absolute bottom-0 left-0 h-[4px] w-full bg-white/10 overflow-hidden">
+      {/* Progress Line */}
+      <div className='absolute bottom-0 left-0 h-[4px] w-full bg-white/10 overflow-hidden'>
         <m.div
-          className="h-full bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] origin-left shadow-[0_0_20px_rgba(0,255,255,0.8)] relative overflow-hidden"
+          className='h-full bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] origin-left shadow-[0_0_20px_rgba(0,255,255,0.8)] relative overflow-hidden'
           style={{ scaleX }}
         >
-          {/* Shine effect that moves left to right */}
-          <div className="absolute top-0 left-0 h-full w-[30%] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 shine-anim" />
+          <div className='absolute top-0 left-0 h-full w-[30%] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 shine-anim' />
         </m.div>
       </div>
 
-      <div className="max-w-screen-2xl mx-auto px-6 md:px-12 lg:px-16 py-4 flex items-center justify-between ml-20 md:ml-36">
-        {/* Animated Name with Cyberpunk Style */}
-        <Link
-          to="/"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="flex items-center gap-2 md:gap-3 group relative"
-          aria-label={t('nav.logo')}
-        >
-          <span className="hidden xs:inline navbar-brand-text">
-            <span className="cyber-name">
-              <span className="name-part" data-text="Leandro">
-                <DynamicText colorMode="auto">Leandro</DynamicText>
-              </span>
-              <span className="name-part name-accent" data-text="Barbosa">
-                <DynamicText colorMode="auto">Barbosa</DynamicText>
+      <div className='max-w-screen-2xl mx-auto px-6 md:px-12 lg:px-16 py-3 flex items-center justify-between gap-4'>
+        {/* Left side: Brand and Tagline */}
+        <div className='flex items-center gap-6 ml-28 md:ml-36 lg:ml-44'>
+          <Link
+            to='/'
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className='flex items-center gap-2 md:gap-3 group relative'
+            aria-label={t('nav.logo')}
+          >
+            <span className='navbar-brand-text'>
+              <span className='cyber-name'>
+                <span className='name-part' data-text='Leandro'>
+                  <DynamicText colorMode='auto'>Leandro</DynamicText>
+                </span>
+                <span className='name-part name-accent' data-text='Barbosa'>
+                  <DynamicText colorMode='auto'>Barbosa</DynamicText>
+                </span>
               </span>
             </span>
-          </span>
-        </Link>
+          </Link>
 
-        {/* Desktop Menu with specific glows - reduced gap and aligned right */}
-        <ul className="hidden sm:flex items-center gap-2 lg:gap-3 ml-auto">
-          {navLinks.map((nav) => {
-            const isActive = active === nav.id;
+          {/* Tagline removida - será exibida no Hero */}
+        </div>
 
-            return (
-              <li key={nav.id} className="relative group">
-                <LinkAnimado
-                  href={getNavLink(nav.id)}
-                  onClick={(e) => {
-                    if (isHome && nav.id !== 'curriculo') {
-                      handleNavClick(e, nav.id);
-                    } else {
-                      setToggle(false);
-                    }
-                  }}
-                  className={`navbar-link py-2 px-2 text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:text-[var(--cyber-cyan)] menu-glow relative group/link ${isActive ? 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] active-menu' : 'text-white/80'}`}
-                >
-                  <DynamicText colorMode="auto">{t(`nav.${nav.id}`)}</DynamicText>
-                  {/* Animated background glow on hover */}
-                  <m.div
-                    className="absolute inset-0 bg-gradient-to-r from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/20 rounded-lg opacity-0 group-hover/link:opacity-100 transition-opacity duration-300 -z-10"
-                    whileHover={{ scale: 1.05 }}
-                  />
-                </LinkAnimado>
+        {/* Right aligned Menu */}
+        <div className='hidden sm:flex items-center gap-6'>
+          <ul className='flex items-center gap-2 lg:gap-3'>
+            {navLinks.map((nav) => {
+              const isActive = active === nav.id;
+              return (
+                <li key={nav.id} className='relative group'>
+                  <LinkAnimado
+                    href={getNavLink(nav.id)}
+                    onClick={(e) => {
+                      if (isHome && nav.id !== 'curriculo') {
+                        handleNavClick(e, nav.id);
+                      } else {
+                        setToggle(false);
+                      }
+                    }}
+                    className={`navbar-link py-2 px-2 text-xs lg:text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:text-[var(--cyber-cyan)] menu-glow relative group/link ${isActive ? 'text-white active-menu' : 'text-white/70'}`}
+                  >
+                    <DynamicText colorMode='auto'>{t(`nav.${nav.id}`)}</DynamicText>
+                    <m.div
+                      className='absolute inset-0 bg-[var(--cyber-purple)]/10 rounded-lg opacity-0 group-hover/link:opacity-100 transition-opacity duration-300 -z-10'
+                      whileHover={{ scale: 1.05 }}
+                    />
+                  </LinkAnimado>
+                </li>
+              );
+            })}
+          </ul>
 
-                {/* Underline for active/hover focus with shine */}
-                <m.div
-                  className={`absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-full shadow-[0_0_10px_rgba(0,255,255,0.8)] transition-all duration-300 overflow-hidden ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'}`}
-                  animate={isActive ? {
-                    boxShadow: [
-                      '0 0 10px rgba(0, 255, 255, 0.8)',
-                      '0 0 20px rgba(0, 255, 255, 1)',
-                      '0 0 10px rgba(0, 255, 255, 0.8)'
-                    ]
-                  } : {}}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <div className="absolute top-0 left-0 h-full w-[30%] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 shine-anim" />
-                </m.div>
-              </li>
-            );
-          })}
-        </ul>
+          {/* Language Selector */}
+          <div className='flex items-center gap-2 pl-4 border-l border-white/10'>
+            <m.button
+              onClick={() => i18n.changeLanguage('pt')}
+              whileHover={{ scale: 1.15 }}
+              className={`relative w-5 h-3 rounded overflow-hidden transition-all duration-200 ${i18n.language === 'pt' ? 'ring-2 ring-[var(--cyber-purple)]' : 'opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}
+            >
+              <div
+                className='absolute inset-0 bg-cover bg-center'
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 700'%3E%3Crect fill='%23009c3b' width='1000' height='700'/%3E%3Cpolygon fill='%23ffdf00' points='500,80 920,350 500,620 80,350'/%3E%3Ccircle fill='%23002776' cx='500' cy='350' r='170'/%3E%3Cpath fill='white' d='M500,180 a170,170 0 1,0 0,340 a130,130 0 1,1 0,-340'/%3E%3C/svg%3E")`,
+                }}
+              />
+            </m.button>
+            <m.button
+              onClick={() => i18n.changeLanguage('en')}
+              whileHover={{ scale: 1.15 }}
+              className={`relative w-5 h-3 rounded overflow-hidden transition-all duration-200 ${i18n.language === 'en' ? 'ring-2 ring-[var(--cyber-cyan)]' : 'opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}
+            >
+              <div
+                className='absolute inset-0 bg-cover bg-center'
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 700'%3E%3Crect fill='%23bf0a30' width='1000' height='700'/%3E%3Cpath fill='white' d='M0,100 h1000 M0,200 h1000 M0,300 h1000 M0,400 h1000 M0,500 h1000 M0,600 h1000' stroke='white' stroke-width='50'/%3E%3Crect fill='%23002868' width='400' height='350'/%3E%3Cg fill='white'%3E%3Cpolygon points='50,30 53,45 68,45 56,54 60,69 50,60 40,69 44,54 32,45 47,45'/%3E%3C/g%3E%3C/svg%3E")`,
+                }}
+              />
+            </m.button>
+          </div>
+        </div>
 
-        {/* Language Selector - Right side - smaller, only hover animation */}
-        <div className="hidden sm:flex items-center gap-2.5 ml-auto">
-          {/* PT Button - Brazilian Flag - cores 100% vivas, sem texto */}
-          <m.button
-            onClick={() => i18n.changeLanguage('pt')}
-            aria-label={t('nav.switch_to_pt')}
-            whileHover={{ scale: 1.15 }}
-            className="group relative w-6 h-4 rounded overflow-hidden transition-all duration-200"
+        {/* Mobile Toggle */}
+        <div className='sm:hidden flex items-center'>
+          <button
+            onClick={() => setToggle(!toggle)}
+            className='text-white hover:text-[var(--cyber-cyan)] transition-colors p-2'
           >
-            {/* Brazilian flag background - cores vivas */}
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 700'%3E%3Crect fill='%23009c3b' width='1000' height='700'/%3E%3Cpolygon fill='%23ffdf00' points='500,80 920,350 500,620 80,350'/%3E%3Ccircle fill='%23002776' cx='500' cy='350' r='170'/%3E%3Cpath fill='white' d='M500,180 a170,170 0 1,0 0,340 a130,130 0 1,1 0,-340'/%3E%3C/svg%3E")`
-              }}
-            />
-            {/* Overlay ativo - apenas no hover ou quando ativo */}
-            <div className="absolute inset-0 bg-[var(--cyber-purple)]/0 group-hover:bg-[var(--cyber-purple)]/30 transition-all duration-200" />
-            {i18n.language === 'pt' && (
-              <div className="absolute inset-0 ring-2 ring-[var(--cyber-purple)] ring-offset-1 ring-offset-transparent rounded" />
-            )}
-          </m.button>
-
-          {/* EN Button - US Flag - cores vivas, sem texto */}
-          <m.button
-            onClick={() => i18n.changeLanguage('en')}
-            aria-label={t('nav.switch_to_en')}
-            whileHover={{ scale: 1.15 }}
-            className="group relative w-6 h-4 rounded overflow-hidden transition-all duration-200"
-          >
-            {/* US flag background - cores vivas */}
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 700'%3E%3Crect fill='%23bf0a30' width='1000' height='700'/%3E%3Cpath fill='white' d='M0,100 h1000 M0,200 h1000 M0,300 h1000 M0,400 h1000 M0,500 h1000 M0,600 h1000' stroke='white' stroke-width='50'/%3E%3Crect fill='%23002868' width='400' height='350'/%3E%3Cg fill='white'%3E%3Cpolygon points='50,30 53,45 68,45 56,54 60,69 50,60 40,69 44,54 32,45 47,45'/%3E%3C/g%3E%3C/svg%3E")`
-              }}
-            />
-            {/* Overlay ativo - apenas no hover ou quando ativo */}
-            <div className="absolute inset-0 bg-[var(--cyber-cyan)]/0 group-hover:bg-[var(--cyber-cyan)]/30 transition-all duration-200" />
-            {i18n.language === 'en' && (
-              <div className="absolute inset-0 ring-2 ring-[var(--cyber-cyan)] ring-offset-1 ring-offset-transparent rounded" />
-            )}
-          </m.button>
+            <div className='w-6 h-5 flex flex-col justify-between items-end'>
+              <span
+                className={`h-0.5 bg-current transition-all duration-300 ${toggle ? 'w-6 translate-y-2 -rotate-45' : 'w-6'}`}
+              />
+              <span
+                className={`h-0.5 bg-current transition-all duration-300 ${toggle ? 'opacity-0' : 'w-4'}`}
+              />
+              <span
+                className={`h-0.5 bg-current transition-all duration-300 ${toggle ? 'w-6 -translate-y-2 rotate-45' : 'w-5'}`}
+              />
+            </div>
+          </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <div className={`sm:hidden absolute top-full left-0 right-0 glass border-t border-white/10 px-6 py-8 transition-all duration-300 ${toggle ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-6 pointer-events-none'}`}>
-        <ul className="flex flex-col gap-6 font-bold uppercase tracking-widest text-sm mb-6">
+      {/* Mobile Menu Content */}
+      <div
+        className={`sm:hidden absolute top-full left-0 right-0 glass border-t border-white/10 px-6 py-8 transition-all duration-300 z-50 ${toggle ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-6 pointer-events-none'}`}
+      >
+        <ul className='flex flex-col gap-6 font-bold uppercase tracking-widest text-sm mb-6'>
           {navLinks.map((nav) => (
             <li key={nav.id}>
               <Link
                 to={getNavLink(nav.id)}
                 onClick={() => setToggle(false)}
-                className="text-white/80 hover:text-white transition-colors block"
+                className='text-white/80 hover:text-white transition-colors block py-2'
               >
-                <DynamicText colorMode="auto">{t(`nav.${nav.id}`)}</DynamicText>
+                <DynamicText colorMode='auto'>{t(`nav.${nav.id}`)}</DynamicText>
               </Link>
             </li>
           ))}
         </ul>
-        {/* Language Selector Mobile - menor, sem texto, cores vivas */}
-        <div className="flex items-center justify-center gap-3 pt-4 border-t border-white/10">
+        <div className='flex items-center justify-center gap-4 pt-4 border-t border-white/10'>
           <button
             onClick={() => {
               i18n.changeLanguage('pt');
               setToggle(false);
             }}
-            aria-label={t('nav.switch_to_pt')}
-            className="relative w-7 h-5 rounded overflow-hidden transition-all duration-200"
+            className='relative w-8 h-5 rounded overflow-hidden'
           >
             <div
-              className="absolute inset-0 bg-cover bg-center"
+              className='absolute inset-0 bg-cover bg-center'
               style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 700'%3E%3Crect fill='%23009c3b' width='1000' height='700'/%3E%3Cpolygon fill='%23ffdf00' points='500,80 920,350 500,620 80,350'/%3E%3Ccircle fill='%23002776' cx='500' cy='350' r='170'/%3E%3Cpath fill='white' d='M500,180 a170,170 0 1,0 0,340 a130,130 0 1,1 0,-340'/%3E%3C/svg%3E")`
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 700'%3E%3Crect fill='%23009c3b' width='1000' height='700'/%3E%3Cpolygon fill='%23ffdf00' points='500,80 920,350 500,620 80,350'/%3E%3Ccircle fill='%23002776' cx='500' cy='350' r='170'/%3E%3Cpath fill='white' d='M500,180 a170,170 0 1,0 0,340 a130,130 0 1,1 0,-340'/%3E%3C/svg%3E")`,
               }}
             />
             {i18n.language === 'pt' && (
-              <div className="absolute inset-0 ring-2 ring-[var(--cyber-purple)] ring-offset-1 ring-offset-transparent rounded" />
+              <div className='absolute inset-0 ring-2 ring-[var(--cyber-purple)] rounded' />
             )}
           </button>
           <button
@@ -296,17 +284,16 @@ const Navbar = memo(() => {
               i18n.changeLanguage('en');
               setToggle(false);
             }}
-            aria-label={t('nav.switch_to_en')}
-            className="relative w-7 h-5 rounded overflow-hidden transition-all duration-200"
+            className='relative w-8 h-5 rounded overflow-hidden'
           >
             <div
-              className="absolute inset-0 bg-cover bg-center"
+              className='absolute inset-0 bg-cover bg-center'
               style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 700'%3E%3Crect fill='%23bf0a30' width='1000' height='700'/%3E%3Cpath fill='white' d='M0,100 h1000 M0,200 h1000 M0,300 h1000 M0,400 h1000 M0,500 h1000 M0,600 h1000' stroke='white' stroke-width='50'/%3E%3Crect fill='%23002868' width='400' height='350'/%3E%3Cg fill='white'%3E%3Cpolygon points='50,30 53,45 68,45 56,54 60,69 50,60 40,69 44,54 32,45 47,45'/%3E%3C/g%3E%3C/svg%3E")`
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 700'%3E%3Crect fill='%23bf0a30' width='1000' height='700'/%3E%3Cpath fill='white' d='M0,100 h1000 M0,200 h1000 M0,300 h1000 M0,400 h1000 M0,500 h1000 M0,600 h1000' stroke='white' stroke-width='50'/%3E%3Crect fill='%23002868' width='400' height='350'/%3E%3Cg fill='white'%3E%3Cpolygon points='50,30 53,45 68,45 56,54 60,69 50,60 40,69 44,54 32,45 47,45'/%3E%3C/g%3E%3C/svg%3E")`,
               }}
             />
             {i18n.language === 'en' && (
-              <div className="absolute inset-0 ring-2 ring-[var(--cyber-cyan)] ring-offset-1 ring-offset-transparent rounded" />
+              <div className='absolute inset-0 ring-2 ring-[var(--cyber-cyan)] rounded' />
             )}
           </button>
         </div>

@@ -6,6 +6,10 @@ import shopify from './company/shopify.webp';
 import starbucks from './company/starbucks.webp';
 import comptester from './comptester.webp';
 import creator from './creator.webp';
+import diplomaPdf from './formacao/DiplomaDigital.pdf?url';
+// Formação
+import diploma from './formacao/diploma.png';
+import qrcode from './formacao/qrcode.png';
 import getnexo from './getnexo.webp';
 import github from './github.webp';
 import jobit from './jobit.webp';
@@ -41,10 +45,6 @@ import windows from './tech/windows.webp';
 import tripguide from './tripguide.webp';
 import web from './web.webp';
 import willy from './willy-CY6lWRPM.png';
-// Formação
-import diploma from './formacao/diploma.png';
-import qrcode from './formacao/qrcode.png';
-import diplomaPdf from './formacao/DiplomaDigital.pdf?url';
 
 export {
   android,
@@ -56,6 +56,8 @@ export {
   creator,
   css,
   daytek,
+  diploma,
+  diplomaPdf,
   docker,
   esp32,
   figma,
@@ -75,6 +77,7 @@ export {
   mobile,
   nodejs,
   python,
+  qrcode,
   reactjs,
   redux,
   shopify,
@@ -90,7 +93,4 @@ export {
   web,
   willy,
   windows,
-  diploma,
-  qrcode,
-  diplomaPdf,
 };

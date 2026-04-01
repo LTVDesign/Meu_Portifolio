@@ -1,273 +1,273 @@
 {
-    "common": {
-        "name": "Leandro Barbosa",
-        "email": "leandro@garagemod.com.br",
-        "language": "Idioma",
-        "close": "Fechar"
+  "common": {
+    "name": "Leandro Barbosa",
+    "email": "leandro@garagemod.com.br",
+    "language": "Idioma",
+    "close": "Fechar"
+  },
+  "tech": {
+    "arsenal": "Meu Arsenal",
+    "stackTitle": "Stack Tecnológica"
+  },
+  "nav": {
+    "about": "Sobre",
+    "formacao": "Formação",
+    "experience": "Experiência",
+    "cursos": "Cursos",
+    "works": "Projetos",
+    "curriculo": "Currículo",
+    "doom": "DOOM",
+    "contact": "Contato",
+    "menu_open": "Abrir Menu",
+    "menu_close": "Fechar Menu",
+    "logo": "Leandro Barbosa - Início",
+    "switch_to_pt": "Mudar para Português",
+    "switch_to_en": "Switch to English",
+    "translate_to_pt": "Traduzir para Português BR",
+    "translate_to_en": "Translation to English"
+  },
+  "hero": {
+    "title": "Olá, eu sou Leandro Barbosa",
+    "subtitle": [
+      "Bem-vindo à minha vida profissional",
+      "Desenvolvedor Full Stack & Especialista em IA",
+      "Transformando dados em decisões inteligentes",
+      "Construindo infraestruturas seguras e inovadoras",
+      "Arquitetando soluções completas do front-end ao back-end",
+      "Inteligência Artificial aplicada para resolver problemas complexos",
+      "Liderando transformações digitais com tecnologia de ponta",
+      "Inovando constantemente em um mundo em rápida evolução",
+      "Protegendo sistemas e dados com segurança cibernética avançada",
+      "Desenvolvendo aplicações escaláveis e de alta performance",
+      "Unindo criatividade e técnica em cada projeto",
+      "Explorando os limites da tecnologia moderna",
+      "Construindo pontes entre negócios e tecnologia",
+      "Especialista em arquitetura de software e sistemas distribuídos",
+      "Transformando ideias em produtos digitais impactantes",
+      "Integrando inteligência artificial em soluções empresariais",
+      "Garantindo a integridade e confidencialidade dos dados",
+      "Desenvolvedor full stack com visão arquitetural",
+      "Criando experiências digitais seguras e intuitivas",
+      "Pioneiro em tecnologias emergentes e inovação",
+      "Liderança técnica com foco em resultados e eficiência",
+      "Desenvolvimento ágil com qualidade e segurança",
+      "Construindo o futuro da tecnologia, uma linha de código por vez",
+      "Especialista em soluções que combinam IA, segurança e desenvolvimento"
+    ],
+    "titleMeta": "Leandro Saturnino Barbosa | Portfólio 3D Cyberpunk",
+    "descriptionMeta": "Portfólio interativo 3D com React, Three.js e Tailwind. Especialista em IA, Segurança e Desenvolvimento Full Stack.",
+    "dragToRotate": "Clique e Arraste",
+    "dragToRotateSubtitle": "360º"
+  },
+  "about": {
+    "p": "Engenheiro de Software • Tecnólogo em ADS • Pós-Graduando em IA & Data Science",
+    "h2": "Experiência Consolidada, Olhar no Futuro.",
+    "content": "Sou um profissional de tecnologia com uma trajetória sólida, unindo a resiliência do suporte técnico de alto nível à inovação da análise de dados. Recentemente, consolidei minha base acadêmica com o título de Tecnólogo em Análise e Desenvolvimento de Sistemas e estou em fase de especialização em Inteligência Artificial e Data Science pela Anhanguera.\n\nMinha bagagem inclui:\n• Domínio Técnico: Vasta experiência como Técnico de Informática Nível 2, com expertise em infraestrutura de redes, Microsoft Entra ID e gestão de ambientes 365.\n• Visão Estratégica: Certificado em Product Management pela University of Alberta e Scrum Master, focado em entregar valor real através de metodologias ágeis.\n• Segurança e Dados: Formação avançada em Cibersegurança pelo programa Hackers do Bem e certificações profissionais da Google e IBM.\n\nMais do que resolver problemas técnicos, busco transformar dados em decisões e infraestruturas em plataformas seguras e inteligentes. Sou um aprendiz constante, entusiasta de hardware modding e sempre pronto para o próximo desafio complexo."
+  },
+  "formacao": {
+    "p": "Minha formação acadêmica",
+    "h2": "Formação",
+    "content": "Aqui estão minhas qualificações acadêmicas e formações complementares.",
+    "viewDetails": "Ver Detalhes"
+  },
+  "experience": {
+    "p": "O que fiz até agora",
+    "h2": "Experiência Profissional",
+    "verMais": "Ver Mais Experiências"
+  },
+  "feedbacks": {
+    "p": "O que os outros dizem",
+    "h2": "Depoimentos."
+  },
+  "works": {
+    "p": "Criações & Experimentos",
+    "h2": "Projetos",
+    "content": "Uma vitrine de projetos que desenvolvi por paixão, hobby e para aprofundar meus conhecimentos técnicos. Cada iniciativa reflete minha curiosidade em explorar novas fronteiras, desde hardware modding até automações inteligentes com IA.",
+    "viewCode": "Visualizar Código Fonte",
+    "viewDemo": "Ver Demo",
+    "viewProjects": "Ver Meus Projetos"
+  },
+  "cursos": {
+    "p": "Cursos & Certificados",
+    "h2": "Cursos",
+    "viewDetails": "Ver Detalhes"
+  },
+  "certificados": {
+    "p": "Certificados",
+    "h2": "Certificados"
+  },
+  "curriculo": {
+    "p": "Minha trajetória profissional",
+    "h2": "Currículo.",
+    "content": "Acesse meu currículo completo para conhecer em detalhes minha formação acadêmica, experiências profissionais e as competências técnicas que desenvolvi ao longo da minha carreira. Estou sempre em busca de novos desafios e oportunidades para aplicar meu conhecimento em infraestrutura, redes e desenvolvimento.",
+    "viewOnline": "Ver Currículo Online",
+    "downloadPDF": "Download PDF",
+    "viewFull": "Ver Detalhes"
+  },
+  "contact": {
+    "p": "Entre em contato",
+    "h2": "Contato",
+    "form": {
+      "name": {
+        "span": "Seu Nome",
+        "placeholder": "Qual é o seu nome?"
+      },
+      "email": {
+        "span": "Seu Email",
+        "placeholder": "Qual é o seu email?"
+      },
+      "phone": {
+        "span": "Seu Telefone",
+        "placeholder": "Qual é o seu telefone?"
+      },
+      "company": {
+        "span": "Sua Empresa",
+        "placeholder": "Qual é a sua empresa?"
+      },
+      "message": {
+        "span": "Sua Mensagem",
+        "placeholder": "O que você quer dizer?"
+      }
     },
-    "tech": {
-        "arsenal": "Meu Arsenal",
-        "stackTitle": "Stack Tecnológica"
-    },
-    "nav": {
-        "about": "Sobre",
-        "formacao": "Formação",
-        "experience": "Experiência",
-        "cursos": "Cursos",
-        "works": "Projetos",
-        "curriculo": "Currículo",
-        "doom": "DOOM",
-        "contact": "Contato",
-        "menu_open": "Abrir Menu",
-        "menu_close": "Fechar Menu",
-        "logo": "Leandro Barbosa - Início",
-        "switch_to_pt": "Mudar para Português",
-        "switch_to_en": "Switch to English",
-        "translate_to_pt": "Traduzir para Português BR",
-        "translate_to_en": "Translation to English"
-    },
-    "hero": {
-        "title": "Olá, eu sou Leandro Barbosa",
-        "subtitle": [
-            "Bem-vindo à minha vida profissional",
-            "Desenvolvedor Full Stack & Especialista em IA",
-            "Transformando dados em decisões inteligentes",
-            "Construindo infraestruturas seguras e inovadoras",
-            "Arquitetando soluções completas do front-end ao back-end",
-            "Inteligência Artificial aplicada para resolver problemas complexos",
-            "Liderando transformações digitais com tecnologia de ponta",
-            "Inovando constantemente em um mundo em rápida evolução",
-            "Protegendo sistemas e dados com segurança cibernética avançada",
-            "Desenvolvendo aplicações escaláveis e de alta performance",
-            "Unindo criatividade e técnica em cada projeto",
-            "Explorando os limites da tecnologia moderna",
-            "Construindo pontes entre negócios e tecnologia",
-            "Especialista em arquitetura de software e sistemas distribuídos",
-            "Transformando ideias em produtos digitais impactantes",
-            "Integrando inteligência artificial em soluções empresariais",
-            "Garantindo a integridade e confidencialidade dos dados",
-            "Desenvolvedor full stack com visão arquitetural",
-            "Criando experiências digitais seguras e intuitivas",
-            "Pioneiro em tecnologias emergentes e inovação",
-            "Liderança técnica com foco em resultados e eficiência",
-            "Desenvolvimento ágil com qualidade e segurança",
-            "Construindo o futuro da tecnologia, uma linha de código por vez",
-            "Especialista em soluções que combinam IA, segurança e desenvolvimento"
-        ],
-        "titleMeta": "Leandro Saturnino Barbosa | Portfólio 3D Cyberpunk",
-        "descriptionMeta": "Portfólio interativo 3D com React, Three.js e Tailwind. Especialista em IA, Segurança e Desenvolvimento Full Stack.",
-        "dragToRotate": "Clique e Arraste",
-        "dragToRotateSubtitle": "360º"
-    },
-    "about": {
-        "p": "Engenheiro de Software • Tecnólogo em ADS • Pós-Graduando em IA & Data Science",
-        "h2": "Experiência Consolidada, Olhar no Futuro.",
-        "content": "Sou um profissional de tecnologia com uma trajetória sólida, unindo a resiliência do suporte técnico de alto nível à inovação da análise de dados. Recentemente, consolidei minha base acadêmica com o título de Tecnólogo em Análise e Desenvolvimento de Sistemas e estou em fase de especialização em Inteligência Artificial e Data Science pela Anhanguera.\n\nMinha bagagem inclui:\n• Domínio Técnico: Vasta experiência como Técnico de Informática Nível 2, com expertise em infraestrutura de redes, Microsoft Entra ID e gestão de ambientes 365.\n• Visão Estratégica: Certificado em Product Management pela University of Alberta e Scrum Master, focado em entregar valor real através de metodologias ágeis.\n• Segurança e Dados: Formação avançada em Cibersegurança pelo programa Hackers do Bem e certificações profissionais da Google e IBM.\n\nMais do que resolver problemas técnicos, busco transformar dados em decisões e infraestruturas em plataformas seguras e inteligentes. Sou um aprendiz constante, entusiasta de hardware modding e sempre pronto para o próximo desafio complexo."
-    },
-    "formacao": {
-        "p": "Minha formação acadêmica",
-        "h2": "Formação",
-        "content": "Aqui estão minhas qualificações acadêmicas e formações complementares.",
-        "viewDetails": "Ver Detalhes"
-    },
-    "experience": {
-        "p": "O que fiz até agora",
-        "h2": "Experiência Profissional",
-        "verMais": "Ver Mais Experiências"
-    },
-    "feedbacks": {
-        "p": "O que os outros dizem",
-        "h2": "Depoimentos."
-    },
-    "works": {
-        "p": "Criações & Experimentos",
-        "h2": "Projetos",
-        "content": "Uma vitrine de projetos que desenvolvi por paixão, hobby e para aprofundar meus conhecimentos técnicos. Cada iniciativa reflete minha curiosidade em explorar novas fronteiras, desde hardware modding até automações inteligentes com IA.",
-        "viewCode": "Visualizar Código Fonte",
-        "viewDemo": "Ver Demo",
-        "viewProjects": "Ver Meus Projetos"
-    },
-    "cursos": {
-        "p": "Cursos & Certificados",
-        "h2": "Cursos",
-        "viewDetails": "Ver Detalhes"
-    },
-    "certificados": {
-        "p": "Certificados",
-        "h2": "Certificados"
-    },
-    "curriculo": {
-        "p": "Minha trajetória profissional",
-        "h2": "Currículo.",
-        "content": "Acesse meu currículo completo para conhecer em detalhes minha formação acadêmica, experiências profissionais e as competências técnicas que desenvolvi ao longo da minha carreira. Estou sempre em busca de novos desafios e oportunidades para aplicar meu conhecimento em infraestrutura, redes e desenvolvimento.",
-        "viewOnline": "Ver Currículo Online",
-        "downloadPDF": "Download PDF",
-        "viewFull": "Ver Detalhes"
-    },
-    "contact": {
-        "p": "Entre em contato",
-        "h2": "Contato",
-        "form": {
-            "name": {
-                "span": "Seu Nome",
-                "placeholder": "Qual é o seu nome?"
-            },
-            "email": {
-                "span": "Seu Email",
-                "placeholder": "Qual é o seu email?"
-            },
-            "phone": {
-                "span": "Seu Telefone",
-                "placeholder": "Qual é o seu telefone?"
-            },
-            "company": {
-                "span": "Sua Empresa",
-                "placeholder": "Qual é a sua empresa?"
-            },
-            "message": {
-                "span": "Sua Mensagem",
-                "placeholder": "O que você quer dizer?"
-            }
-        },
-        "submit": "Enviar Mensagem",
-        "sending": "Enviando...",
-        "success": "Mensagem enviada com sucesso!",
-        "error": "Erro ao enviar mensagem. Tente novamente.",
-        "validationErrors": {
-            "nameRequired": "Nome é obrigatório",
-            "nameTooLong": "Nome muito longo",
-            "emailInvalid": "Email inválido",
-            "phoneTooLong": "Telefone muito longo",
-            "companyTooLong": "Empresa muito longa",
-            "messageTooShort": "Mensagem muito curta",
-            "messageTooLong": "Mensagem muito longa"
-        }
-    },
-    "footer": {
-        "quickAccess": "Acesso Rápido",
-        "allRightsReserved": "Todos os direitos reservados",
-        "backToTop": "Voltar ao Topo",
-        "backToTopLabel": "Voltar ao topo",
-        "emailUs": "Enviar e-mail para Leandro Barbosa"
-    },
-    "services": {
-        "infraestrutura": "Infraestrutura",
-        "infraestruturaDesc": "Especialista em suporte N2 e redes, com domínio em ambientes Microsoft 365, servidores e infraestrutura física/nuvem",
-        "ciberseguranca": "Cibersegurança",
-        "cibersegurancaDesc": "Focado em defesa digital, proteção de ativos e mitigação de vulnerabilidades, com base sólida em segurança de redes e compliance",
-        "iaDados": "IA & Dados",
-        "iaDadosDesc": "Desenvolvimento de soluções inteligentes e análise preditiva, utilizando algoritmos para transformar dados em decisões estratégicas",
-        "gestao": "Gestão",
-        "gestaoDesc": "Liderança de times através de frameworks ágeis (Scrum) e visão de produto focada na experiência do usuário e entrega de valor"
-    },
-    "status": {
-        "concluido": "CONCLUÍDO",
-        "emAndamento": "EM ANDAMENTO"
-    },
-    "education": {
-        "technologist": "Tecnólogo em Análise e Desenvolvimento de Sistemas",
-        "postgraduate": "Pós-Graduação em IA & Data Science",
-        "postgraduateTitle": "Pós-Graduação em Inteligência Artificial e Data Science",
-        "inProgress": "Em andamento",
-        "completed": "Concluído",
-        "completedOn": "Concluído em",
-        "period": "Período",
-        "workload": "Carga Horária",
-        "generalAverage": "Média Geral",
-        "completedIn": "Concluído em",
-        "totalHours": "horas totais",
-        "semesterEvolution": "Evolução Acadêmica por Semestre",
-        "semester": "Semestre",
-        "subjects": "disciplina(s)",
-        "semesterAverage": "Média do Semestre",
-        "subject": "Disciplina",
-        "grade": "Nota",
-        "professor": "Professor",
-        "hours": "Carga H.",
-        "diplomaAuthentication": "Diploma e Autenticação",
-        "diplomaPreview": "Preview do Diploma",
-        "clickToOpen": "Clique para Abrir Diploma",
-        "openDigitalDiploma": "📄 Abrir Diploma Digital",
-        "qrCode": "QR Code",
-        "authenticityVerification": "Verificação de Autenticidade",
-        "scanQRCode": "Escaneie o QR Code com seu smartphone ou clique no botão abaixo para verificar a autenticidade deste diploma no portal oficial da Cogna.",
-        "validateOnPortal": "🔗 Validar no Portal Oficial",
-        "description": "Formação superior focada no ciclo completo de desenvolvimento de software, análise de requisitos e gestão de projetos. Concluído com excelência acadêmica.",
-        "postgradDescription": "Especialização focada em Inteligência Artificial Generativa, Machine Learning e análise estatística para decisões baseadas em dados.",
-        "semesterHistory": "Histórico Acadêmico Completo",
-        "completeAcademicHistory": "Histórico Acadêmico Completo",
-        "noRecords": "Nenhum registro de disciplinas disponível.",
-        "trainingType": "Formação",
-        "diplomaStatus": "Diploma"
-    },
-    "subjects": {
-        "algorithmsAndProgramming": "Algoritmos e Programação Estruturada",
-        "systemsAnalysisAndModeling": "Análise e Modelagem de Sistemas",
-        "softwareEngineering": "Engenharia de Software",
-        "programmingLanguage": "Linguagem de Programação",
-        "computationalLogicAndMath": "Lógica e Matemática Computacional",
-        "objectOrientedAnalysis": "Análise Orientada a Objetos",
-        "objectOrientedLanguage": "Linguagem Orientada a Objetos",
-        "dataModeling": "Modelagem de Dados",
-        "extensionProjectI": "Projeto de Extensão I",
-        "qualityAndTestAutomation": "Qualidade e Automação de Testes",
-        "cloudComputing": "Computação em Nuvem",
-        "itGovernance": "Governança de Tecnologia",
-        "greenIT": "Green IT",
-        "databaseProgrammingAndDevelopment": "Programação e Desenv. de Banco de Dados",
-        "operatingSystems": "Sistemas Operacionais",
-        "javascriptDevelopment": "Desenvolvimento em Javascript",
-        "mobileDevelopment": "Desenvolvimento Mobile",
-        "responsiveDevelopment": "Desenvolvimento Responsivo",
-        "softwareDevelopmentFrameworks": "Frameworks para Desenv. de Software",
-        "webProgramming": "Programação Web",
-        "extensionProjectII": "Projeto de Extensão II",
-        "distributedSystems": "Sistemas Distribuídos",
-        "computerArchitectureAndOrganization": "Arquitetura e Org. de Computadores",
-        "interfaceAndUsability": "Interface e Usabilidade",
-        "softwareProject": "Projeto de Software",
-        "computerNetworks": "Redes de Computadores",
-        "securityAndSystemsAuditing": "Segurança e Auditoria de Sistemas",
-        "brazilianSocietyAndCitizenship": "Sociedade Brasileira e Cidadania"
-    },
-    "courses": {
-        "allTitle": "Todos os Cursos e Especializações",
-        "viewCertificate": "Ver Certificado",
-        "filterPlaceholder": "Filtrar cursos...",
-        "sortBy": "Ordenar por",
-        "sortYear": "Ano",
-        "sortDuration": "Duração",
-        "sortCompany": "Instituição",
-        "noResults": "Nenhum curso encontrado.",
-        "p": "Cursos & Especializações",
-        "h2": "Minha Base de Conhecimento",
-        "viewAll": "Veja Todos Cursos"
-    },
-    "allFormacao": {
-        "title": "Formação Acadêmica Completa",
-        "subtitle": "Educação & Certificados"
-    },
-    "allCurriculo": {
-        "title": "Currículo Completo",
-        "subtitle": "Experiência & Habilidades",
-        "downloadCV": "Fazer Download",
-        "viewFull": "Ver Currículo completo"
-    },
-    "allWorks": {
-        "title": "Todos os Projetos",
-        "subtitle": "Portfólio Completo"
-    },
-    "allCertificados": {
-        "title": "Todos os Certificados",
-        "subtitle": "Certificados & Credenciais"
-    },
-    "doom": {
-        "p": "Easter Egg - DOOM no Navegador",
-        "h2": "DOOM"
-    },
-    "backgrounds": {
-        "title": "Selecione o Background",
-        "subtitle": "Escolha um estilo para personalizar seu portfólio",
-        "hint": "Clique em um background para aplicá-lo"
+    "submit": "Enviar Mensagem",
+    "sending": "Enviando...",
+    "success": "Mensagem enviada com sucesso!",
+    "error": "Erro ao enviar mensagem. Tente novamente.",
+    "validationErrors": {
+      "nameRequired": "Nome é obrigatório",
+      "nameTooLong": "Nome muito longo",
+      "emailInvalid": "Email inválido",
+      "phoneTooLong": "Telefone muito longo",
+      "companyTooLong": "Empresa muito longa",
+      "messageTooShort": "Mensagem muito curta",
+      "messageTooLong": "Mensagem muito longa"
     }
+  },
+  "footer": {
+    "quickAccess": "Acesso Rápido",
+    "allRightsReserved": "Todos os direitos reservados",
+    "backToTop": "Voltar ao Topo",
+    "backToTopLabel": "Voltar ao topo",
+    "emailUs": "Enviar e-mail para Leandro Barbosa"
+  },
+  "services": {
+    "infraestrutura": "Infraestrutura",
+    "infraestruturaDesc": "Especialista em suporte N2 e redes, com domínio em ambientes Microsoft 365, servidores e infraestrutura física/nuvem",
+    "ciberseguranca": "Cibersegurança",
+    "cibersegurancaDesc": "Focado em defesa digital, proteção de ativos e mitigação de vulnerabilidades, com base sólida em segurança de redes e compliance",
+    "iaDados": "IA & Dados",
+    "iaDadosDesc": "Desenvolvimento de soluções inteligentes e análise preditiva, utilizando algoritmos para transformar dados em decisões estratégicas",
+    "gestao": "Gestão",
+    "gestaoDesc": "Liderança de times através de frameworks ágeis (Scrum) e visão de produto focada na experiência do usuário e entrega de valor"
+  },
+  "status": {
+    "concluido": "CONCLUÍDO",
+    "emAndamento": "EM ANDAMENTO"
+  },
+  "education": {
+    "technologist": "Tecnólogo em Análise e Desenvolvimento de Sistemas",
+    "postgraduate": "Pós-Graduação em IA & Data Science",
+    "postgraduateTitle": "Pós-Graduação em Inteligência Artificial e Data Science",
+    "inProgress": "Em andamento",
+    "completed": "Concluído",
+    "completedOn": "Concluído em",
+    "period": "Período",
+    "workload": "Carga Horária",
+    "generalAverage": "Média Geral",
+    "completedIn": "Concluído em",
+    "totalHours": "horas totais",
+    "semesterEvolution": "Evolução Acadêmica por Semestre",
+    "semester": "Semestre",
+    "subjects": "disciplina(s)",
+    "semesterAverage": "Média do Semestre",
+    "subject": "Disciplina",
+    "grade": "Nota",
+    "professor": "Professor",
+    "hours": "Carga H.",
+    "diplomaAuthentication": "Diploma e Autenticação",
+    "diplomaPreview": "Preview do Diploma",
+    "clickToOpen": "Clique para Abrir Diploma",
+    "openDigitalDiploma": "📄 Abrir Diploma Digital",
+    "qrCode": "QR Code",
+    "authenticityVerification": "Verificação de Autenticidade",
+    "scanQRCode": "Escaneie o QR Code com seu smartphone ou clique no botão abaixo para verificar a autenticidade deste diploma no portal oficial da Cogna.",
+    "validateOnPortal": "🔗 Validar no Portal Oficial",
+    "description": "Formação superior focada no ciclo completo de desenvolvimento de software, análise de requisitos e gestão de projetos. Concluído com excelência acadêmica.",
+    "postgradDescription": "Especialização focada em Inteligência Artificial Generativa, Machine Learning e análise estatística para decisões baseadas em dados.",
+    "semesterHistory": "Histórico Acadêmico Completo",
+    "completeAcademicHistory": "Histórico Acadêmico Completo",
+    "noRecords": "Nenhum registro de disciplinas disponível.",
+    "trainingType": "Formação",
+    "diplomaStatus": "Diploma"
+  },
+  "subjects": {
+    "algorithmsAndProgramming": "Algoritmos e Programação Estruturada",
+    "systemsAnalysisAndModeling": "Análise e Modelagem de Sistemas",
+    "softwareEngineering": "Engenharia de Software",
+    "programmingLanguage": "Linguagem de Programação",
+    "computationalLogicAndMath": "Lógica e Matemática Computacional",
+    "objectOrientedAnalysis": "Análise Orientada a Objetos",
+    "objectOrientedLanguage": "Linguagem Orientada a Objetos",
+    "dataModeling": "Modelagem de Dados",
+    "extensionProjectI": "Projeto de Extensão I",
+    "qualityAndTestAutomation": "Qualidade e Automação de Testes",
+    "cloudComputing": "Computação em Nuvem",
+    "itGovernance": "Governança de Tecnologia",
+    "greenIT": "Green IT",
+    "databaseProgrammingAndDevelopment": "Programação e Desenv. de Banco de Dados",
+    "operatingSystems": "Sistemas Operacionais",
+    "javascriptDevelopment": "Desenvolvimento em Javascript",
+    "mobileDevelopment": "Desenvolvimento Mobile",
+    "responsiveDevelopment": "Desenvolvimento Responsivo",
+    "softwareDevelopmentFrameworks": "Frameworks para Desenv. de Software",
+    "webProgramming": "Programação Web",
+    "extensionProjectII": "Projeto de Extensão II",
+    "distributedSystems": "Sistemas Distribuídos",
+    "computerArchitectureAndOrganization": "Arquitetura e Org. de Computadores",
+    "interfaceAndUsability": "Interface e Usabilidade",
+    "softwareProject": "Projeto de Software",
+    "computerNetworks": "Redes de Computadores",
+    "securityAndSystemsAuditing": "Segurança e Auditoria de Sistemas",
+    "brazilianSocietyAndCitizenship": "Sociedade Brasileira e Cidadania"
+  },
+  "courses": {
+    "allTitle": "Todos os Cursos e Especializações",
+    "viewCertificate": "Ver Certificado",
+    "filterPlaceholder": "Filtrar cursos...",
+    "sortBy": "Ordenar por",
+    "sortYear": "Ano",
+    "sortDuration": "Duração",
+    "sortCompany": "Instituição",
+    "noResults": "Nenhum curso encontrado.",
+    "p": "Cursos & Especializações",
+    "h2": "Minha Base de Conhecimento",
+    "viewAll": "Veja Todos Cursos"
+  },
+  "allFormacao": {
+    "title": "Formação Acadêmica Completa",
+    "subtitle": "Educação & Certificados"
+  },
+  "allCurriculo": {
+    "title": "Currículo Completo",
+    "subtitle": "Experiência & Habilidades",
+    "downloadCV": "Fazer Download",
+    "viewFull": "Ver Currículo completo"
+  },
+  "allWorks": {
+    "title": "Todos os Projetos",
+    "subtitle": "Portfólio Completo"
+  },
+  "allCertificados": {
+    "title": "Todos os Certificados",
+    "subtitle": "Certificados & Credenciais"
+  },
+  "doom": {
+    "p": "Easter Egg - DOOM no Navegador",
+    "h2": "DOOM"
+  },
+  "backgrounds": {
+    "title": "Selecione o Background",
+    "subtitle": "Escolha um estilo para personalizar seu portfólio",
+    "hint": "Clique em um background para aplicá-lo"
+  }
 }

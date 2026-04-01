@@ -1,20 +1,16 @@
 import { OrbitControls, Preload, useTexture } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
-import { Suspense, useRef, useEffect } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Suspense, useEffect, useRef } from 'react';
 import * as THREE from 'three';
-
-import CanvasLoader from '../layout/Loader';
-
 // Import textures as Vite assets to ensure correct paths in production build
 // Usando WebP otimizado para melhor performance
 import planetBaseColor from '../../../planet/textures/webp/Planet_baseColor.webp?url';
+import CanvasLoader from '../layout/Loader';
 
 const Earth = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   const texture = useTexture(planetBaseColor);
 
-  // Pré-carrega a textura para evitar flickering
   useEffect(() => {
     if (texture) {
       texture.colorSpace = THREE.SRGBColorSpace;
@@ -30,11 +26,7 @@ const Earth = () => {
   return (
     <mesh ref={meshRef}>
       <sphereGeometry args={[1, 64, 64]} />
-      <meshStandardMaterial
-        map={texture}
-        roughness={0.7}
-        metalness={0.0}
-      />
+      <meshStandardMaterial map={texture} roughness={0.7} metalness={0.0} />
     </mesh>
   );
 };
@@ -43,27 +35,34 @@ const EarthCanvas = () => {
   return (
     <Canvas
       shadows={{ type: THREE.PCFShadowMap }}
-      frameloop="demand"
+      frameloop='always'
       dpr={[1, 2]}
       gl={{
         preserveDrawingBuffer: true,
-        antialias: false,
+        antialias: true,
         powerPreference: 'high-performance',
+        alpha: true,
       }}
       camera={{
         fov: 45,
         near: 0.1,
         far: 200,
-        position: [0, 0, 6], // Vista frontal centralizada
+        position: [0, 0, 5],
       }}
     >
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[5, 5, 5]} intensity={1} />
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls
           autoRotate
+          autoRotateSpeed={0.5}
           enablePan={false}
-          enableZoom={false}
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={Math.PI / 2}
+          enableZoom={true}
+          zoomSpeed={0.6}
+          minDistance={3}
+          maxDistance={10}
+          maxPolarAngle={Math.PI}
+          minPolarAngle={0}
         />
         <Earth />
 

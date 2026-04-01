@@ -1,4 +1,4 @@
-import { Suspense, lazy, memo, useState } from 'react';
+import { lazy, memo, Suspense, useState } from 'react';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 
 // Lazy load heavy backgrounds
@@ -153,12 +153,19 @@ const BackgroundManager = memo(() => {
 
   return (
     <div
-      className="fixed inset-0 pointer-events-none overflow-hidden select-none bg-[#050816]"
+      className='fixed inset-0 pointer-events-none overflow-hidden select-none bg-[#050816]'
       style={{ zIndex: 0 }}
-      data-background="true"
+      data-background='true'
     >
       {isVisible && (
-        <Suspense fallback={<div className="w-full h-full bg-[#050816]" style={{ minHeight: '100vh', minWidth: '100vw' }} />}>
+        <Suspense
+          fallback={
+            <div
+              className='w-full h-full bg-[#050816]'
+              style={{ minHeight: '100vh', minWidth: '100vw' }}
+            />
+          }
+        >
           {renderBackground()}
         </Suspense>
       )}

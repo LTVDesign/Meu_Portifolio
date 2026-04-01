@@ -41,8 +41,11 @@ interface ButtonPosition {
 
 type ShapeFunction = (ctx: CanvasRenderingContext2D, cx: number, r: number) => void;
 
-export const initLaunchParticles = (canvas: HTMLCanvasElement, btn: HTMLElement): (() => void) => {
-  if (!canvas || !btn) return () => { };
+export const initLaunchParticles = (
+  canvas: HTMLCanvasElement,
+  btn: HTMLElement
+): (() => void) => {
+  if (!canvas || !btn) return () => {};
 
   const CONFIG: Config = {
     burstCount: 60, // Reduzido de 80 para 60
@@ -62,7 +65,7 @@ export const initLaunchParticles = (canvas: HTMLCanvasElement, btn: HTMLElement)
   };
 
   const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
-  if (!ctx) return () => { };
+  if (!ctx) return () => {};
 
   let particles: Particle[] = [];
   let frameCount: number = 0;
@@ -79,8 +82,10 @@ export const initLaunchParticles = (canvas: HTMLCanvasElement, btn: HTMLElement)
   const vw = (n: number): number => n * pxPerVw;
 
   const shapePathFns: Record<string, ShapeFunction> = {
-    circle: (ctx: CanvasRenderingContext2D, cx: number, r: number) => ctx.arc(cx, cx, r, 0, Math.PI * 2),
-    square: (ctx: CanvasRenderingContext2D, cx: number, r: number) => ctx.rect(cx - r, cx - r, r * 2, r * 2),
+    circle: (ctx: CanvasRenderingContext2D, cx: number, r: number) =>
+      ctx.arc(cx, cx, r, 0, Math.PI * 2),
+    square: (ctx: CanvasRenderingContext2D, cx: number, r: number) =>
+      ctx.rect(cx - r, cx - r, r * 2, r * 2),
     diamond: (ctx: CanvasRenderingContext2D, cx: number, r: number) => {
       ctx.moveTo(cx, cx - r);
       ctx.lineTo(cx + r, cx);
@@ -148,7 +153,7 @@ export const initLaunchParticles = (canvas: HTMLCanvasElement, btn: HTMLElement)
   const updateBtnPosition = (): void => {
     const now = performance.now();
     // Usa cache se disponível e válido
-    if (btnPosCache && (now - lastBtnPosUpdate) < BTN_POS_CACHE_DURATION) {
+    if (btnPosCache && now - lastBtnPosUpdate < BTN_POS_CACHE_DURATION) {
       btnPos = btnPosCache;
       return;
     }
@@ -203,7 +208,12 @@ export const initLaunchParticles = (canvas: HTMLCanvasElement, btn: HTMLElement)
     };
   };
 
-  const spawnParticle = (x: number, y: number, isBurst = false, baseHue: number | null = null): Particle => {
+  const spawnParticle = (
+    x: number,
+    y: number,
+    isBurst = false,
+    baseHue: number | null = null
+  ): Particle => {
     const {
       hueJitter,
       burstSpeed,
@@ -254,7 +264,9 @@ export const initLaunchParticles = (canvas: HTMLCanvasElement, btn: HTMLElement)
     const available = CONFIG.maxParticles - particles.length;
     const count = Math.min(burstCount, Math.max(0, available));
     if (count > 0) {
-      particles.push(...Array.from({ length: count }, () => spawnParticle(x, y, true, hue)));
+      particles.push(
+        ...Array.from({ length: count }, () => spawnParticle(x, y, true, hue))
+      );
     }
   };
 

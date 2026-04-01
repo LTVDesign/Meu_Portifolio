@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
+import type React from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface TerminalTextProps {
   words: string[];
@@ -53,8 +54,8 @@ const TerminalText: React.FC<TerminalTextProps> = ({
     setShowCursor(true);
 
     const typeInterval = setInterval(() => {
-      let currentWords = wordsRef.current;
-      let currentColors = colorsRef.current;
+      const currentWords = wordsRef.current;
+      const currentColors = colorsRef.current;
 
       if (letterCountRef.current === 0 && waitingRef.current === false) {
         waitingRef.current = true;
@@ -74,7 +75,10 @@ const TerminalText: React.FC<TerminalTextProps> = ({
           letterCountRef.current += xRef.current;
           waitingRef.current = false;
         }, pauseTime);
-      } else if (letterCountRef.current === currentWords[0].length + 1 && waitingRef.current === false) {
+      } else if (
+        letterCountRef.current === currentWords[0].length + 1 &&
+        waitingRef.current === false
+      ) {
         waitingRef.current = true;
         if (typeOnceRef.current) {
           setDisplayText(currentWords[0]);
@@ -115,8 +119,9 @@ const TerminalText: React.FC<TerminalTextProps> = ({
       </span>
       <span
         style={{ color: currentColor.current }}
-        className={`inline-block relative -top-[0.14em] ml-[10px] select-none transition-opacity duration-100 ${showCursor ? 'opacity-100' : 'opacity-0'
-          } ${cursorClassName}`}
+        className={`inline-block relative -top-[0.14em] ml-[10px] select-none transition-opacity duration-100 ${
+          showCursor ? 'opacity-100' : 'opacity-0'
+        } ${cursorClassName}`}
       >
         &#95;
       </span>

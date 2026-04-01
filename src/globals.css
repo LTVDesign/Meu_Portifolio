@@ -6,9 +6,9 @@
 
 @layer base {
   :root {
-    --cyber-purple: #915EFF;
-    --cyber-cyan: #00FFFF;
-    --cyber-glow: #A78BFA;
+    --cyber-purple: #915eff;
+    --cyber-cyan: #00ffff;
+    --cyber-glow: #a78bfa;
     --text-primary: #ffffff;
     --text-secondary: #d1d5db;
     --bg-glass: rgba(21, 16, 48, 0.88);
@@ -39,11 +39,12 @@
 
   /* Z-INDEX STACK - CRITICAL FOR LAYERING */
   /* Background layers (z-0 to z-9) */
-  canvas,
+  canvas[data-background],
+  canvas#particles-canvas,
   .background-layer,
   [data-background] {
     z-index: 0 !important;
-    position: fixed !important;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw !important;
@@ -63,8 +64,11 @@
   nav,
   .navbar,
   header {
-    position: relative;
-    z-index: 50 !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100 !important;
   }
 
   /* Footer (z-10+) */
@@ -164,6 +168,108 @@
     }
   }
 
+  @keyframes glow-pulse {
+
+    0%,
+    100% {
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3), 0 0 30px rgba(0, 255, 255, 0.2);
+      opacity: 1;
+    }
+
+    50% {
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.8), 0 0 40px rgba(0, 255, 255, 0.5), 0 0 60px rgba(0, 255, 255, 0.3);
+      opacity: 0.8;
+    }
+  }
+
+  /* Timeline glow line animation - brilho percorrendo de cima para baixo */
+  .timeline-glow-line {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .timeline-glow-line::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(0, 255, 255, 0.8) 20%,
+        rgba(0, 255, 255, 0.6) 40%,
+        rgba(0, 255, 255, 0.3) 60%,
+        rgba(0, 255, 255, 0.1) 80%,
+        transparent 100%);
+    animation: timeline-glow-travel 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes timeline-glow-travel {
+    0% {
+      top: -50%;
+      opacity: 0;
+    }
+
+    10% {
+      opacity: 1;
+    }
+
+    90% {
+      opacity: 1;
+    }
+
+    100% {
+      top: 100%;
+      opacity: 0;
+    }
+  }
+
+  /* Timeline glow line animation - brilho percorrendo de cima para baixo */
+  .timeline-glow-line {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .timeline-glow-line::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(0, 255, 255, 0.8) 20%,
+        rgba(0, 255, 255, 0.6) 40%,
+        rgba(0, 255, 255, 0.3) 60%,
+        rgba(0, 255, 255, 0.1) 80%,
+        transparent 100%);
+    animation: timeline-glow-travel 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes timeline-glow-travel {
+    0% {
+      top: -50%;
+      opacity: 0;
+    }
+
+    10% {
+      opacity: 1;
+    }
+
+    90% {
+      opacity: 1;
+    }
+
+    100% {
+      top: 100%;
+      opacity: 0;
+    }
+  }
+
   /* Rotating border animation */
   .animate-rotate-border {
     animation: rotateBorder 4s linear infinite;
@@ -237,7 +343,13 @@
   .name-part {
     position: relative;
     display: inline-block;
-    background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 25%, #a5b4fc 50%, #818cf8 75%, #6366f1 100%, #915EFF 100%);
+    background: linear-gradient(135deg,
+        #ffffff 0%,
+        #e0e7ff 25%,
+        #a5b4fc 50%,
+        #818cf8 75%,
+        #6366f1 100%,
+        #915eff 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -245,7 +357,9 @@
     filter: drop-shadow(0 0 10px rgba(145, 94, 255, 0.6)) drop-shadow(0 0 20px rgba(0, 255, 255, 0.4)) drop-shadow(0 0 30px rgba(145, 94, 255, 0.2));
     will-change: filter, transform;
     transform: translateZ(0);
-    transition: filter 0.3s ease, transform 0.3s ease;
+    transition:
+      filter 0.3s ease,
+      transform 0.3s ease;
   }
 
   .name-part:hover {
@@ -254,7 +368,12 @@
   }
 
   .name-accent {
-    background: linear-gradient(135deg, var(--cyber-cyan) 0%, #06b6d4 25%, #22d3ee 50%, #67e8f9 75%, #a5f3fc 100%);
+    background: linear-gradient(135deg,
+        var(--cyber-cyan) 0%,
+        #06b6d4 25%,
+        #22d3ee 50%,
+        #67e8f9 75%,
+        #a5f3fc 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -313,7 +432,9 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     border-radius: 1.5rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
     transform: translateZ(0);
   }
 
@@ -331,7 +452,9 @@
   .btn-primary {
     @apply bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)] font-bold py-5 px-10 rounded-3xl focus-visible:ring-4 focus-visible:ring-[var(--cyber-purple)] focus-visible:ring-offset-4 focus-visible:ring-offset-black;
     box-shadow: 0 0 25px rgba(145, 94, 255, 0.4);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
     transform: translateZ(0);
   }
 
@@ -349,7 +472,9 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
 
   .glass-btn:hover {
@@ -359,7 +484,9 @@
   }
 
   .neon-hover {
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    transition:
+      box-shadow 0.3s ease,
+      transform 0.3s ease;
     transform: translateZ(0);
   }
 
@@ -375,7 +502,9 @@
 
   .form-input {
     @apply bg-black/40 border border-white/20 rounded-2xl py-5 px-6 text-white placeholder:text-white/30 focus:border-[var(--cyber-purple)] focus:ring-4 focus:ring-[var(--cyber-purple)]/20 focus:outline-none backdrop-blur-md;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
     transform: translateZ(0);
   }
 }
@@ -393,7 +522,7 @@
   }
 
   .scanline::after {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background: linear-gradient(transparent, rgba(145, 94, 255, 0.15), transparent);

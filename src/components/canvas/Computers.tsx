@@ -1,13 +1,14 @@
 import { AdaptiveDpr, AdaptiveEvents, OrbitControls, useGLTF } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import type React from 'react';
-import { Suspense, useEffect, useState, useRef } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 
 import CanvasLoader from '../layout/Loader';
 
 const ComputersContent: React.FC<{ screenSize: string }> = ({ screenSize }) => {
   // Carregamento atrasado para não bloquear LCP
   const [shouldLoadModel, setShouldLoadModel] = useState(false);
+  const computer = useGLTF('/desktop_pc/scene-optimized.gltf');
 
   useEffect(() => {
     // Delay de 300ms após a montagem para priorizar LCP
@@ -17,9 +18,6 @@ const ComputersContent: React.FC<{ screenSize: string }> = ({ screenSize }) => {
 
     return () => clearTimeout(timer);
   }, []);
-
-  // Só carrega o modelo após o delay
-  const computer = shouldLoadModel ? useGLTF('/desktop_pc/scene-optimized.gltf') : null;
 
   const getPosition = () => {
     if (screenSize === 'watch') return [0, -3.5, 0];
@@ -37,13 +35,13 @@ const ComputersContent: React.FC<{ screenSize: string }> = ({ screenSize }) => {
     return 0.75;
   };
 
-  if (!computer || !computer.scene) {
+  if (!shouldLoadModel || !computer?.scene) {
     return null;
   }
 
   return (
     <mesh>
-      <hemisphereLight intensity={0.15} groundColor="black" />
+      <hemisphereLight intensity={0.15} groundColor='black' />
       <spotLight
         position={[-20, 50, 10]}
         angle={0.12}
@@ -106,11 +104,11 @@ const ComputersCanvas = () => {
   return (
     <div
       ref={containerRef}
-      className="relative h-full w-full"
-      style={{ minHeight: '100%', minWidth: '100%', zIndex: -1, pointerEvents: 'none' }}
+      className='relative h-full w-full'
+      style={{ minHeight: '100%', minWidth: '100%', zIndex: 0, pointerEvents: 'auto' }}
     >
       <Canvas
-        frameloop="demand"
+        frameloop='demand'
         shadows={false}
         camera={{
           position: [20, 3, 5],
