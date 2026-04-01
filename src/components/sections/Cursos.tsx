@@ -232,12 +232,32 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
       </div>
 
       <div className='mt-20 flex justify-center'>
-        <button
+        <motion.button
           onClick={() => setIsModalOpen(true)}
-          className='glass-btn px-8 py-3 rounded-lg font-bold tracking-wider'
+          whileHover={{
+            scale: 1.05,
+            y: -3,
+            boxShadow: '0 10px 40px rgba(0, 255, 255, 0.3)',
+          }}
+          whileTap={{ scale: 0.95 }}
+          className='relative px-8 py-4 text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden'
         >
-          {t('courses.viewAll') || 'Veja Todos Cursos'}
-        </button>
+          <motion.div
+            className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'
+            animate={{
+              x: ['-100%', '100%'],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: 'linear',
+            }}
+          />
+
+          <span className='relative z-10'>{t('courses.viewAll') || 'Veja Todos Cursos'}</span>
+
+          <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300' />
+        </motion.button>
       </div>
 
       <CursosModal

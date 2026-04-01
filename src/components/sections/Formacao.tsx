@@ -547,19 +547,19 @@ const Formacao = () => {
           >
             <div
               className={`absolute top-4 right-4 px-5 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-full text-white shadow-[0_0_15px_rgba(145,94,255,0.5)] border border-white/30 z-20 backdrop-blur-sm ${item.status === t('status.concluido')
-                  ? 'bg-gradient-to-r from-green-600 to-emerald-600'
-                  : 'bg-gradient-to-r from-yellow-600 to-orange-600'
+                ? 'bg-gradient-to-r from-green-600 to-emerald-600'
+                : 'bg-gradient-to-r from-yellow-600 to-orange-600'
                 }`}
             >
               {item.status}
             </div>
 
             <div className='flex flex-col md:flex-row items-start gap-8 pt-6'>
-              <div className='w-28 h-28 flex-shrink-0 rounded-2xl overflow-hidden border border-white/10 bg-black/50 p-4 flex items-center justify-center shadow-inner relative z-10 transition-transform group-hover:scale-105'>
+              <div className='w-28 h-28 flex-shrink-0 rounded-2xl overflow-hidden border border-white/10 bg-black/50 p-4 flex items-center justify-center shadow-inner relative z-10'>
                 <img
                   src={item.logo}
                   alt={item.institution}
-                  className='w-20 h-20 object-contain'
+                  className='w-20 h-20 object-contain transition-transform duration-500 ease-out group-hover:scale-110'
                 />
               </div>
 
