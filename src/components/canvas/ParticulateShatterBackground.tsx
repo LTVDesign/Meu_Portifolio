@@ -342,7 +342,7 @@ const ParticulateShatterBackground: React.FC<ParticulateShatterBackgroundProps> 
     window.addEventListener('mouseup', handleMouseUp);
     window.addEventListener('touchmove', handleTouchMove, { passive: true });
     window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchend', handleTouchEnd);
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     // Resize
     const handleResize = () => {
@@ -404,6 +404,9 @@ const ParticulateShatterBackground: React.FC<ParticulateShatterBackgroundProps> 
         zIndex: -1,
         width: '100%',
         height: '100%',
+        // Background nunca deve bloquear scroll da página
+        pointerEvents: 'none',
+        touchAction: 'pan-y',
       }}
     />
   );

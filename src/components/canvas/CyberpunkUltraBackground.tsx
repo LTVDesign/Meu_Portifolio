@@ -294,6 +294,8 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
         width: '100%',
         height: '100%',
         zIndex: -1,
+        pointerEvents: 'none' as const,
+        touchAction: 'pan-y' as const,
       }}
     />
   );

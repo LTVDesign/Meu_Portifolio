@@ -2,6 +2,7 @@ import { Canvas, useThree } from '@react-three/fiber';
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
+import { useTouchScrollGuard } from '../../hooks/useTouchScrollGuard';
 import ComputeInstancedLODParticles from '../three/ComputeInstancedLODParticles';
 
 interface MousePos {
@@ -14,39 +15,40 @@ interface MousePos {
 // Deve estar DENTRO do Canvas para ter acesso ao useThree()
 const MouseTracker = ({
   mouseRef,
+  active,
 }: {
   mouseRef: React.MutableRefObject<MousePos>;
+  active: boolean;
 }) => {
   const { camera, size } = useThree();
 
   useEffect(() => {
+    if (!active) return;
+
     const vec = new THREE.Vector3();
     const camPos = new THREE.Vector3();
 
     const updateMouse = (clientX: number, clientY: number) => {
-      // Converte coordenadas de tela para NDC (-1 a 1)
       const ndcX = (clientX / size.width) * 2 - 1;
       const ndcY = -(clientY / size.height) * 2 + 1;
 
-      // Projeta para o plano Z=0 no espaço 3D
       vec.set(ndcX, ndcY, 0.5).unproject(camera);
       camPos.copy(camera.position);
       const dir = vec.sub(camPos).normalize();
 
-      // Evita divisão por zero
       if (Math.abs(dir.z) < 0.0001) return;
 
       const distance = -camera.position.z / dir.z;
-      const posX = camera.position.x + dir.x * distance;
-      const posY = camera.position.y + dir.y * distance;
-
-      mouseRef.current = { x: posX, y: posY, z: 0 };
+      mouseRef.current = {
+        x: camera.position.x + dir.x * distance,
+        y: camera.position.y + dir.y * distance,
+        z: 0,
+      };
     };
 
-    const handleMouseMove = (e: MouseEvent) => {
-      updateMouse(e.clientX, e.clientY);
-    };
+    const handleMouseMove = (e: MouseEvent) => updateMouse(e.clientX, e.clientY);
 
+    // Touch: só atualiza posição, NÃO chama preventDefault (deixa o scroll funcionar)
     const handleTouchMove = (e: TouchEvent) => {
       if (e.touches.length === 0) return;
       updateMouse(e.touches[0].clientX, e.touches[0].clientY);
@@ -59,7 +61,7 @@ const MouseTracker = ({
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('touchmove', handleTouchMove);
     };
-  }, [camera, size, mouseRef]);
+  }, [camera, size, mouseRef, active]);
 
   return null;
 };
@@ -69,22 +71,50 @@ const BolhasBackground = () => {
   const mouseRef = useRef<MousePos>({ x: 0, y: 0, z: 0 });
 
   const interactionMode = config.interactionMode || 'none';
-  // Habilita pointer-events apenas quando há interação ativa
   const needsPointerEvents = interactionMode !== 'none';
+  
+  // Em dispositivos móveis, NUNCA permitir que o background capture pointer-events
+  // Isso garante que o scroll nativo sempre funcione.
+  const isTouch = typeof window !== 'undefined' && (('ontouchstart' in window) || navigator.maxTouchPoints > 0);
+  const canInteract = needsPointerEvents && !isTouch;
+
+  // Guard de scroll: só ativa quando o modo de interação está ligado E não é touch (para segurança extra)
+  const { containerRef, isTouchInteracting, touchStyle } = useTouchScrollGuard({
+    verticalThreshold: 25,
+    intentThreshold: 6,
+    enabled: canInteract,
+  });
+
+  const finalStyle: React.CSSProperties = canInteract
+    ? {
+        pointerEvents: 'auto',
+        touchAction: isTouchInteracting ? 'none' : 'pan-y',
+        ...touchStyle,
+      }
+    : {
+        pointerEvents: 'none',
+        touchAction: 'pan-y',
+      };
 
   return (
     <div
+      ref={containerRef}
       className='fixed inset-0 -z-10 w-full h-full'
-      style={{ pointerEvents: needsPointerEvents ? 'auto' : 'none' }}
+      data-engine={needsPointerEvents ? 'r3f' : undefined}
+      style={finalStyle}
     >
       <Canvas
         camera={{ position: [0, 0, 15], fov: 60 }}
         gl={{ antialias: false, alpha: true }}
         dpr={[1, 1.5]}
-        style={{ pointerEvents: needsPointerEvents ? 'auto' : 'none' }}
+        style={{
+          pointerEvents: needsPointerEvents ? 'auto' : 'none',
+          // touch-action: pan-y permite scroll vertical mesmo no canvas
+          touchAction: needsPointerEvents && isTouchInteracting ? 'none' : 'pan-y',
+        }}
       >
-        {/* MouseTracker DEVE estar dentro do Canvas */}
-        <MouseTracker mouseRef={mouseRef} />
+        {/* MouseTracker só ativo quando há modo de interação */}
+        <MouseTracker mouseRef={mouseRef} active={needsPointerEvents} />
         <ComputeInstancedLODParticles
           count={config.bolhasCount || 15000}
           speed={config.bolhasSpeed || 0.5}

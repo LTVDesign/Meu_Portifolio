@@ -51,7 +51,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-    chunkSizeWarningLimit: 500, // Reduzido para alertar sobre chunks grandes
+    chunkSizeWarningLimit: 1000, // Aumentado para 1000kB para evitar avisos desnecessários com Three.js
     cssCodeSplit: true, // Divide CSS para carregar apenas o necessário
     rollupOptions: {
       output: {
@@ -75,9 +75,12 @@ export default defineConfig({
               return 'vendor-motion';
             }
 
-            // Three.js e ecossistema
-            if (id.includes('node_modules/three')) {
-              return 'vendor-three';
+            // Three.js e ecossistema - Dividindo Three.js para melhor cache
+            if (id.includes('node_modules/three/build/three.module.js')) {
+              return 'vendor-three-core';
+            }
+            if (id.includes('node_modules/three/examples/jsm/')) {
+              return 'vendor-three-examples';
             }
             if (id.includes('node_modules/@react-three/fiber')) {
               return 'vendor-three-fiber';

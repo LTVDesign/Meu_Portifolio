@@ -50,11 +50,12 @@ const SolidColorBackground: React.FC<SolidColorBackgroundProps> = ({
   return (
     <>
       <div
-        className='fixed inset-0 -z-1'
+        className='fixed inset-0 -z-1 pointer-events-none'
         style={{
           ...backgroundStyle,
           opacity,
           filter: blur > 0 ? `blur(${blur}px)` : undefined,
+          touchAction: 'pan-y',
         }}
       />
       {grain && (

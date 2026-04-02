@@ -91,6 +91,11 @@ const CyberpunkTunnelBackground: React.FC<CyberpunkTunnelBackgroundProps> = ({
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.03;
+    // Desabilita interação touch para não bloquear scroll da página
+    controls.touches = {
+      ONE: 0,  // NONE
+      TWO: 0,  // NONE
+    };
 
     const renderScene = new RenderPass(scene, camera);
     const bloomPass = new UnrealBloomPass(new Vector2(w, h), 1.5, 0.4, 100);
@@ -312,6 +317,8 @@ const CyberpunkTunnelBackground: React.FC<CyberpunkTunnelBackgroundProps> = ({
         width: '100%',
         height: '100%',
         zIndex: -1,
+        pointerEvents: 'none' as const,
+        touchAction: 'none' as const,
       }}
     />
   );
