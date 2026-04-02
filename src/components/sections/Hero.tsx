@@ -106,7 +106,9 @@ const Hero = () => {
         </div>
 
         {/* Canvas 3D do Computador - abaixo do texto */}
-        <div className='absolute inset-0 z-0 pointer-events-auto flex items-end'>
+        <div className={`absolute inset-0 z-0 flex items-end ${isMobile || isTablet ? 'pointer-events-none' : 'pointer-events-auto'}`}
+          style={{ touchAction: 'pan-y' }}
+        >
           <ComputersCanvas />
         </div>
 

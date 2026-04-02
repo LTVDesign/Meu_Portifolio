@@ -5,6 +5,11 @@ import { Suspense, useEffect, useRef, useState } from 'react';
 
 import CanvasLoader from '../layout/Loader';
 
+// Touch devices: detect if the user has a coarse pointer (touch screen)
+const isTouchDevice = () =>
+  typeof window !== 'undefined' &&
+  (window.matchMedia?.('(pointer: coarse)').matches || 'ontouchstart' in window);
+
 // Preload do modelo para melhorar performance
 useGLTF.preload('/desktop_pc/scene-optimized.gltf');
 
@@ -132,6 +137,9 @@ const ComputersCanvas = () => {
 
   const cfg = SCREEN_CONFIG[screenSize];
 
+  // On small screens / touch devices, disable OrbitControls to allow page scroll
+  const isSmallScreen = screenSize === 'watch' || screenSize === 'mobileSmall' || screenSize === 'mobile' || screenSize === 'tablet' || isTouchDevice();
+
   // DPR adaptativo: menor em mobile para economizar bateria e memória
   const dpr = Math.min(
     typeof window !== 'undefined' ? window.devicePixelRatio : 1,
@@ -142,7 +150,14 @@ const ComputersCanvas = () => {
     <div
       ref={containerRef}
       className='relative h-full w-full'
-      style={{ minHeight: '100%', minWidth: '100%', zIndex: 0, pointerEvents: 'auto' }}
+      style={{
+        minHeight: '100%',
+        minWidth: '100%',
+        zIndex: 0,
+        // Allow vertical scroll to pass through on touch devices
+        pointerEvents: isSmallScreen ? 'none' : 'auto',
+        touchAction: 'pan-y',
+      }}
     >
       <Canvas
         frameloop='demand'
@@ -157,7 +172,6 @@ const ComputersCanvas = () => {
           powerPreference: screenSize === 'watch' || screenSize === 'mobileSmall' ? 'low-power' : 'high-performance',
           stencil: false,
           depth: true,
-          // Reduzir qualidade em mobile para melhorar performance
           precision: screenSize === 'watch' || screenSize === 'mobileSmall' ? 'lowp' : 'mediump',
         }}
         dpr={dpr}
@@ -166,20 +180,23 @@ const ComputersCanvas = () => {
           max: 1,
           debounce: 200,
         }}
+        style={{ touchAction: 'pan-y' }}
       >
         <AdaptiveDpr pixelated />
         <AdaptiveEvents />
         <Suspense fallback={<CanvasLoader />}>
-          <OrbitControls
-            enablePan={false}
-            enableZoom={false}
-            maxPolarAngle={Math.PI / 2}
-            minPolarAngle={Math.PI / 4}
-            // Rotação mais suave em touch
-            rotateSpeed={screenSize === 'watch' ? 0.5 : 1}
-            enableDamping={true}
-            dampingFactor={0.05}
-          />
+          {/* Disable OrbitControls on touch/small screens to not block scrolling */}
+          {!isSmallScreen && (
+            <OrbitControls
+              enablePan={false}
+              enableZoom={false}
+              maxPolarAngle={Math.PI / 2}
+              minPolarAngle={Math.PI / 4}
+              rotateSpeed={1}
+              enableDamping={true}
+              dampingFactor={0.05}
+            />
+          )}
           {shouldLoad && <ComputersContent screenSize={screenSize} />}
         </Suspense>
       </Canvas>
