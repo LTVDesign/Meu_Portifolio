@@ -20,11 +20,11 @@ export default defineConfig({
     ViteImageOptimizer({
       test: /\.(jpe?g|png|gif|tiff|webp|svg|avif)$/i,
       png: {
-        quality: [85, 95],
+        quality: 90,
         compressionLevel: 6,
       },
       jpeg: {
-        quality: [85, 95],
+        quality: 90,
         progressive: true,
       },
       webp: {
@@ -39,7 +39,7 @@ export default defineConfig({
         precision: 3,
       },
       avif: {
-        quality: [50, 70],
+        quality: 60,
         speed: 6,
       },
     }),

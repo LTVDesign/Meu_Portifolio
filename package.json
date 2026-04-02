@@ -67,8 +67,5 @@
     "glob": "^10.4.5",
     "inflight": "npm:lru-cache@latest",
     "three-mesh-bvh": "^0.9.9"
-  },
-  "engines": {
-    "node": "24.x"
   }
 }
