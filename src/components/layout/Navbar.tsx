@@ -137,11 +137,11 @@ const Navbar = memo(() => {
   const isMobile = screenWidth < 640;
 
   const logoSize = isWatch
-    ? 'h-14 w-14'
+    ? 'h-10 w-10'
     : isMobileSmall
-      ? 'h-20 w-20'
+      ? 'h-12 w-12'
       : isMobile
-        ? 'h-24 w-24'
+        ? 'h-14 w-14'
         : 'h-32 w-32 md:h-40 md:w-40';
 
   const logoLeft = isWatch
@@ -155,11 +155,11 @@ const Navbar = memo(() => {
   const logoTop = isWatch ? 'top-1' : 'top-2';
 
   const brandMargin = isWatch
-    ? 'ml-16'
+    ? 'ml-12'
     : isMobileSmall
-      ? 'ml-20'
+      ? 'ml-14'
       : isMobile
-        ? 'ml-24'
+        ? 'ml-16'
         : 'ml-28 md:ml-36 lg:ml-44';
 
   return (

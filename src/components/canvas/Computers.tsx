@@ -28,10 +28,10 @@ const SCREEN_CONFIG: Record<ScreenSize, {
   fov: number;
   dprMax: number;
 }> = {
-  watch: { position: [0, -2.8, 0], scale: 0.28, fov: 60, dprMax: 1 },
-  mobileSmall: { position: [0, -3.5, 0], scale: 0.38, fov: 55, dprMax: 1.5 },
-  mobile: { position: [0, -4.0, 0], scale: 0.45, fov: 50, dprMax: 1.5 },
-  tablet: { position: [0, -4.5, -1], scale: 0.58, fov: 40, dprMax: 2 },
+  watch: { position: [0, -2.2, -1.5], scale: 0.4, fov: 30, dprMax: 1 },
+  mobileSmall: { position: [0, -2.5, -1.5], scale: 0.5, fov: 30, dprMax: 1.5 },
+  mobile: { position: [0, -2.8, -1.5], scale: 0.6, fov: 28, dprMax: 1.5 },
+  tablet: { position: [0, -3.0, -1.5], scale: 0.65, fov: 28, dprMax: 2 },
   desktop: { position: [0, -3.25, -1.5], scale: 0.75, fov: 25, dprMax: 2 },
   tv: { position: [0, -3.5, -2], scale: 1.1, fov: 22, dprMax: 2 },
   '4k': { position: [0, -3.5, -2], scale: 1.3, fov: 20, dprMax: 2 },
@@ -138,9 +138,8 @@ export const ComputersCanvas = () => {
       style={{
         minHeight: screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k' ? '100%' : '75%',
         marginTop: screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k' ? '0' : '12%',
-        // Em tablets como o iPad Mini (768px), reduzimos a largura do canvas interativo 
-        // para garantir que as bordas da tela permitam o scroll nativo.
-        width: screenSize === 'tablet' || screenSize === 'mobile' || screenSize === 'mobileSmall' ? '85%' : '100%',
+        // Em mobile, mantemos 100% para não esmagar a renderização do modelo (o touch guard protege o scroll nativo)
+        width: '100%',
         marginRight: 'auto',
         marginLeft: 'auto',
         zIndex: 0,

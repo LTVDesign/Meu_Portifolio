@@ -1,16 +1,18 @@
 /**
- * useDebouncedResize - Hook otimizado para resize com debounce via requestAnimationFrame
- * 
- * Este hook evita reflows forçados causados por múltiplas leituras de window.innerWidth
- * durante o resize. Usa requestAnimationFrame para sincronizar com o ciclo de renderização
- * do navegador, garantindo que apenas UMA leitura de layout ocorra por frame.
- * 
- * Benefits:
- * - Evita layout thrashing durante resize
- * - Sincroniza com o paint cycle do navegador
- * - Previne reflows forçados relatados pelo PageSpeed
- */
-import { useState, useEffect, useRef } from 'react';
+* useDebouncedResize - Hook otimizado para resize com debounce via requestAnimationFrame
+*
+* Este hook evita reflows forçados causados por múltiplas leituras de window.innerWidth
+* durante o resize. Usa requestAnimationFrame para sincronizar com o ciclo de renderização
+* do navegador, garantindo que apenas UMA leitura de layout ocorra por frame.
+*
+* Benefits:
+* - Evita layout thrashing durante resize
+* - Sincroniza com o paint cycle do navegador
+* - Previne reflows forçados relatados pelo PageSpeed
+* - Usa visualViewport quando disponível (mais eficiente)
+* - Double RAF para garantir leitura após paint
+*/
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 interface DebouncedResizeOptions {
     /** Delay do debounce em ms (padrão: 100ms) */
@@ -21,23 +23,51 @@ interface DebouncedResizeOptions {
     elementRef?: React.RefObject<HTMLElement | null>;
 }
 
+// Valores padrão para evitar leitura de window na inicialização
+const DEFAULT_WIDTH = 1024;
+const DEFAULT_HEIGHT = 768;
+
 export function useDebouncedResize(
     options: DebouncedResizeOptions = {}
 ): { width: number; height: number } {
     const { debounceMs = 100, elementRef } = options;
 
-    // Estado inicial seguro (SSR-safe)
-    const [dimensions, setDimensions] = useState({
-        width: typeof window !== 'undefined' ? window.innerWidth : 1024,
-        height: typeof window !== 'undefined' ? window.innerHeight : 768,
-    });
+    // Estado inicial NÃO lê window para evitar reflow
+    const [dimensions, setDimensions] = useState({ width: DEFAULT_WIDTH, height: DEFAULT_HEIGHT });
 
     // Refs para cleanup e debounce
     const rafRef = useRef<number | null>(null);
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const dimensionsRef = useRef(dimensions);
+    const hasInitializedRef = useRef(false);
+
+    // Função para ler dimensões de forma segura
+    const getViewportDimensions = useCallback(() => {
+        // Usa visualViewport se disponível (mais eficiente, não causa reflow síncrono)
+        if (typeof window !== 'undefined' && window.visualViewport) {
+            return {
+                width: Math.round(window.visualViewport.width),
+                height: Math.round(window.visualViewport.height),
+            };
+        }
+        return {
+            width: typeof window !== 'undefined' ? window.innerWidth : DEFAULT_WIDTH,
+            height: typeof window !== 'undefined' ? window.innerHeight : DEFAULT_HEIGHT,
+        };
+    }, []);
 
     useEffect(() => {
+        // Inicialização adiada para evitar reflow síncrono
+        if (!hasInitializedRef.current) {
+            hasInitializedRef.current = true;
+            // Usa RAF para adiar a leitura inicial
+            requestAnimationFrame(() => {
+                const initial = getViewportDimensions();
+                dimensionsRef.current = initial;
+                setDimensions(initial);
+            });
+        }
+
         // Se temos um elementRef, usa ResizeObserver para observá-lo
         if (elementRef?.current) {
             const element = elementRef.current;
@@ -79,31 +109,30 @@ export function useDebouncedResize(
         }
 
         // Handler otimizado para window resize
-        // Usa RAF para garantir leitura única por frame
+        // Usa double RAF para garantir leitura após paint
         const handleResize = () => {
             // Cancela RAF anterior para evitar leituras duplicadas
             if (rafRef.current) {
                 cancelAnimationFrame(rafRef.current);
             }
 
-            // Schedule leitura no próximo frame
+            // Double RAF para garantir que estamos após o browser paint
             rafRef.current = requestAnimationFrame(() => {
-                const newDimensions = {
-                    width: window.innerWidth,
-                    height: window.innerHeight,
-                };
+                requestAnimationFrame(() => {
+                    const newDimensions = getViewportDimensions();
 
-                // Só atualiza se mudou significativamente (evita micro-updates)
-                const prev = dimensionsRef.current;
-                if (
-                    Math.abs(newDimensions.width - prev.width) > 1 ||
-                    Math.abs(newDimensions.height - prev.height) > 1
-                ) {
-                    dimensionsRef.current = newDimensions;
-                    setDimensions(newDimensions);
-                }
+                    // Só atualiza se mudou significativamente (evita micro-updates)
+                    const prev = dimensionsRef.current;
+                    if (
+                        Math.abs(newDimensions.width - prev.width) > 1 ||
+                        Math.abs(newDimensions.height - prev.height) > 1
+                    ) {
+                        dimensionsRef.current = newDimensions;
+                        setDimensions(newDimensions);
+                    }
 
-                rafRef.current = null;
+                    rafRef.current = null;
+                });
             });
         };
 
@@ -119,15 +148,15 @@ export function useDebouncedResize(
                 clearTimeout(timeoutRef.current);
             }
         };
-    }, [debounceMs, elementRef]);
+    }, [debounceMs, elementRef, getViewportDimensions]);
 
     return dimensions;
 }
 
 /**
- * Hook para obter breakpoints responsivos de forma otimizada
- * Evita múltiplas consultas de media query
- */
+* Hook para obter breakpoints responsivos de forma otimizada
+* Evita múltiplas consultas de media query
+*/
 export function useBreakpoints() {
     const { width } = useDebouncedResize();
 
@@ -146,9 +175,9 @@ export function useBreakpoints() {
 }
 
 /**
- * Hook para ler dimensões de elemento sem causar reflow
- * Usa ResizeObserver que é assíncrono e não causa layout thrashing
- */
+* Hook para ler dimensões de elemento sem causar reflow
+* Usa ResizeObserver que é assíncrono e não causa layout thrashing
+*/
 export function useElementDimensions(elementRef: React.RefObject<HTMLElement | null>) {
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 

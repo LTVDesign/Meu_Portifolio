@@ -6,16 +6,26 @@ import { useCallback, useEffect, useRef } from 'react';
 import { useParticleConfig } from '../contexts/ParticleConfigContext';
 
 /**
- * Faz amostragem de pixels do canvas de background em tempo real
- * e atualiza CSS variables globais para que textos se adaptem.
- * 
- * Estratégia híbrida:
- * - Canvas 2D: leitura direta de pixels (Particles, Matrix, Particulate)
- * - WebGL/Three.js: leitura de pixels com preserveDrawingBuffer habilitado
- * - Fallback: usa cores do config se não conseguir ler pixels
- * 
- * Throttled a ~8fps para performance mínima.
- */
+* Faz amostragem de pixels do canvas de background em tempo real
+* e atualiza CSS variables globais para que textos se adaptem.
+*
+* Estratégia híbrida:
+* - Canvas 2D: leitura direta de pixels (Particles, Matrix, Particulate)
+* - WebGL/Three.js: leitura de pixels com preserveDrawingBuffer habilitado
+* - Fallback: usa cores do config se não conseguir ler pixels
+*
+* Otimizações:
+* - Cache de canvas elements (evita querySelector a cada frame)
+* - Cache de dimensões via ResizeObserver (evita reflow síncrono)
+* - Throttle a ~8fps para performance
+* - Double RAF para evitar reflows forçados
+*/
+
+// Cache global de canvas elements
+let cachedCanvases: HTMLCanvasElement[] | null = null;
+let lastCanvasQueryTime = 0;
+const CANVAS_QUERY_INTERVAL = 1000; // Re-query canvas a cada 1s
+
 export function useBackgroundColorSampler() {
   const { config } = useParticleConfig();
   const rafRef = useRef<number | null>(null);
@@ -29,12 +39,12 @@ export function useBackgroundColorSampler() {
 
   // Pontos de amostragem (viewport-relative)
   const samplePoints = useRef([
-    { x: 0.5, y: 0.15 },  // centro-topo (Hero)
-    { x: 0.5, y: 0.3 },   // centro-meio
-    { x: 0.5, y: 0.5 },   // centro
-    { x: 0.25, y: 0.4 },  // esquerda
-    { x: 0.75, y: 0.4 },  // direita
-    { x: 0.5, y: 0.7 },   // centro-baixo
+    { x: 0.5, y: 0.15 }, // centro-topo (Hero)
+    { x: 0.5, y: 0.3 }, // centro-meio
+    { x: 0.5, y: 0.5 }, // centro
+    { x: 0.25, y: 0.4 }, // esquerda
+    { x: 0.75, y: 0.4 }, // direita
+    { x: 0.5, y: 0.7 }, // centro-baixo
   ]);
 
   const getPixelFromCanvas2D = useCallback((canvas: HTMLCanvasElement, x: number, y: number): [number, number, number] | null => {
@@ -131,6 +141,43 @@ export function useBackgroundColorSampler() {
     };
   }, [config]);
 
+  // Função para obter canvas de forma eficiente (com cache)
+  const getBackgroundCanvases = useCallback((): HTMLCanvasElement[] => {
+    const now = Date.now();
+
+    // Usa cache se ainda é válido
+    if (cachedCanvases && (now - lastCanvasQueryTime) < CANVAS_QUERY_INTERVAL) {
+      return cachedCanvases;
+    }
+
+    lastCanvasQueryTime = now;
+    const canvases: HTMLCanvasElement[] = [];
+
+    // Encontra todos os canvas dentro do container de background
+    const bgContainer = document.querySelector('[data-background]');
+    if (bgContainer) {
+      bgContainer.querySelectorAll<HTMLCanvasElement>('canvas').forEach(c => canvases.push(c));
+    }
+
+    // Canvas do ParticlesCanvas (id específico)
+    const particlesCanvas = document.getElementById('particles-canvas') as HTMLCanvasElement | null;
+    if (particlesCanvas && !canvases.includes(particlesCanvas)) {
+      canvases.push(particlesCanvas);
+    }
+
+    // Canvas fixos que podem ser backgrounds (apenas se não estiver no container)
+    document.querySelectorAll<HTMLCanvasElement>('canvas').forEach(c => {
+      if (canvases.includes(c)) return;
+      const style = window.getComputedStyle(c);
+      if (style.position === 'fixed') {
+        canvases.push(c);
+      }
+    });
+
+    cachedCanvases = canvases;
+    return canvases;
+  }, []);
+
   const sampleBackground = useCallback(() => {
     const now = Date.now();
     // Throttle: ~8fps (125ms) - suficiente para parecer em tempo real
@@ -141,31 +188,13 @@ export function useBackgroundColorSampler() {
     lastUpdateRef.current = now;
     frameCountRef.current++;
 
-    // Encontra todos os canvas dentro do container de background
-    const bgContainer = document.querySelector('[data-background]');
-    const canvases: HTMLCanvasElement[] = [];
-
-    if (bgContainer) {
-      // Canvas filhos do container de background
-      bgContainer.querySelectorAll<HTMLCanvasElement>('canvas').forEach(c => canvases.push(c));
-    }
-
-    // Canvas do ParticlesCanvas (id específico)
-    const particlesCanvas = document.getElementById('particles-canvas') as HTMLCanvasElement | null;
-    if (particlesCanvas) canvases.push(particlesCanvas);
-
-    // Também procura por canvas fixos que podem ser backgrounds
-    document.querySelectorAll<HTMLCanvasElement>('canvas').forEach(c => {
-      const style = window.getComputedStyle(c);
-      if (style.position === 'fixed' && !canvases.includes(c)) {
-        canvases.push(c);
-      }
-    });
+    // Obtém canvas de forma eficiente (com cache)
+    const canvases = getBackgroundCanvases();
 
     let totalR = 0, totalG = 0, totalB = 0, validSamples = 0;
     // Usa dimensões cacheadas pelo ResizeObserver (evita reflow síncrono)
-    const vw = dimensionsRef.current.vw || window.innerWidth;
-    const vh = dimensionsRef.current.vh || window.innerHeight;
+    const vw = dimensionsRef.current.vw || 1024;
+    const vh = dimensionsRef.current.vh || 768;
 
     for (const canvas of canvases) {
       if (canvas.width === 0 || canvas.height === 0) continue;
@@ -233,28 +262,44 @@ export function useBackgroundColorSampler() {
       lastColorRef.current = bgHex;
       lastTextRef.current = textColor;
 
-      const root = document.documentElement;
-      root.style.setProperty('--dynamic-text-color', textColor);
-      root.style.setProperty('--dynamic-text-secondary', textSecondary);
-      root.style.setProperty('--dynamic-bg-color', bgHex);
-      root.style.setProperty('--dynamic-bg-luminance', luminance.toFixed(3));
-      root.style.setProperty('--dynamic-text-is-dark', luminance > 0.4 ? 'true' : 'false');
+      // Usa double RAF para evitar reflow forçado
+      requestAnimationFrame(() => {
+        const root = document.documentElement;
+        root.style.setProperty('--dynamic-text-color', textColor);
+        root.style.setProperty('--dynamic-text-secondary', textSecondary);
+        root.style.setProperty('--dynamic-bg-color', bgHex);
+        root.style.setProperty('--dynamic-bg-luminance', luminance.toFixed(3));
+        root.style.setProperty('--dynamic-text-is-dark', luminance > 0.4 ? 'true' : 'false');
+      });
     }
 
     rafRef.current = requestAnimationFrame(sampleBackground);
-  }, [getPixelFromCanvas2D, getPixelFromWebGL, getConfigBasedColor]);
+  }, [getPixelFromCanvas2D, getPixelFromWebGL, getConfigBasedColor, getBackgroundCanvases]);
 
   useEffect(() => {
-    // Inicializa o cache de dimensões
+    // Inicializa o cache de dimensões de forma assíncrona
     const updateDimensions = () => {
-      dimensionsRef.current = { vw: window.innerWidth, vh: window.innerHeight };
+      // Usa visualViewport se disponível (mais eficiente)
+      if (window.visualViewport) {
+        dimensionsRef.current = {
+          vw: Math.round(window.visualViewport.width),
+          vh: Math.round(window.visualViewport.height)
+        };
+      } else {
+        dimensionsRef.current = {
+          vw: window.innerWidth,
+          vh: window.innerHeight
+        };
+      }
     };
 
-    // Atualiza uma vez no início
-    updateDimensions();
+    // Atualiza uma vez no início de forma assíncrona
+    requestAnimationFrame(updateDimensions);
 
     // ResizeObserver para atualizações (evita leitura síncrona durante requestAnimationFrame)
-    const ro = new ResizeObserver(updateDimensions);
+    const ro = new ResizeObserver(() => {
+      requestAnimationFrame(updateDimensions);
+    });
     ro.observe(document.documentElement);
 
     // Inicia a amostragem após delay para backgrounds carregarem
@@ -268,6 +313,10 @@ export function useBackgroundColorSampler() {
       if (rafRef.current !== null) {
         cancelAnimationFrame(rafRef.current);
       }
+      // Limpa cache de canvas
+      cachedCanvases = null;
     };
   }, [sampleBackground]);
+
+  return null;
 }
