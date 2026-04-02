@@ -241,6 +241,43 @@
     }
   }
 
+  /* Gear Button Animations - GPU Composited Only (transform, opacity) */
+  .gear-button-pulse {
+    animation: gearButtonPulse 3s ease-in-out infinite;
+    will-change: transform, opacity;
+    transform: translateZ(0);
+  }
+
+  @keyframes gearButtonPulse {
+
+    0%,
+    100% {
+      transform: scale(1) translateZ(0);
+      opacity: 1;
+    }
+
+    50% {
+      transform: scale(1.05) translateZ(0);
+      opacity: 0.9;
+    }
+  }
+
+  .gear-icon-spin {
+    animation: gearIconSpin 10s linear infinite;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  @keyframes gearIconSpin {
+    from {
+      transform: rotate(0deg) translateZ(0);
+    }
+
+    to {
+      transform: rotate(360deg) translateZ(0);
+    }
+  }
+
   /* Gear utility classes */
   .gear-rgb-glow {
     animation: gearRgbGlow 3s ease-in-out infinite;
@@ -950,6 +987,46 @@
   .interactive-element {
     transform: translateZ(0);
     backface-visibility: hidden;
+  }
+
+  /* ===== GEAR BUTTON - GPU COMPOSITING OPTIMIZATIONS ===== */
+  /* Promote to own layer to avoid non-composited animations */
+  [aria-label*="background"],
+  [aria-label*="configurações"] {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    contain: layout style paint;
+  }
+
+  /* Optimize box-shadow animation with pseudo-element */
+  [aria-label*="background"]::before,
+  [aria-label*="configurações"]::before {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    border-radius: inherit;
+    background: transparent;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  /* GPU layer for rotating elements */
+  .gear-shadow-outer,
+  .gear-shadow-inner {
+    will-change: transform;
+    transform: translateZ(0);
+    contain: layout style paint;
+  }
+
+  /* Optimize SVG rendering */
+  [aria-label*="background"] svg,
+  [aria-label*="configurações"] svg {
+    will-change: transform;
+    transform: translateZ(0);
+    contain: layout style paint;
   }
 }
 

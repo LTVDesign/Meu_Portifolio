@@ -1,20 +1,21 @@
 /**
- * useViewport - Hook centralizado para leitura de dimensões do viewport
- *
- * Este hook resolve o problema de "layout thrashing" causado por múltiplas
- * leituras síncronas de window.innerWidth/innerHeight durante a inicialização.
- *
- * Benefícios:
- * - Usa requestAnimationFrame para batch de leituras (evita reflows forçados)
- * - Usa ResizeObserver quando disponível (mais eficiente que resize event)
- * - Valores iniciais seguros para SSR (1024x768)
- * - Singleton pattern: apenas UM listener por página, compartilhado entre todos os componentes
- *
- * @example
- * const { width, height } = useViewport();
- * // Use width/height para inicialização de canvas, etc.
- */
-import { useState, useEffect } from 'react';
+* useViewport - Hook centralizado para leitura de dimensões do viewport
+*
+* Este hook resolve o problema de "layout thrashing" causado por múltiplas
+* leituras síncronas de window.innerWidth/innerHeight durante a inicialização.
+*
+* Benefícios:
+* - Usa requestAnimationFrame para batch de leituras (evita reflows forçados)
+* - Usa ResizeObserver quando disponível (mais eficiente que resize event)
+* - Valores iniciais seguros para SSR (1024x768)
+* - Singleton pattern: apenas UM listener por página, compartilhado entre todos os componentes
+* - Cache de dimensões para evitar leituras repetidas
+*
+* @example
+* const { width, height } = useViewport();
+* // Use width/height para inicialização de canvas, etc.
+*/
+import { useState, useEffect, useRef } from 'react';
 
 interface ViewportSize {
     width: number;
@@ -26,14 +27,13 @@ const DEFAULT_WIDTH = 1024;
 const DEFAULT_HEIGHT = 768;
 
 // Singleton state para compartilhar entre todos os consumidores
-let sharedState: ViewportSize = {
-    width: typeof window !== 'undefined' ? window.innerWidth : DEFAULT_WIDTH,
-    height: typeof window !== 'undefined' ? window.innerHeight : DEFAULT_HEIGHT,
-};
+// NÃO lemos window.innerWidth aqui para evitar reflow na inicialização
+let sharedState: ViewportSize = { width: DEFAULT_WIDTH, height: DEFAULT_HEIGHT };
 let listeners: Set<(size: ViewportSize) => void> = new Set();
 let isInitialized = false;
 let rafId: number | null = null;
 let observer: ResizeObserver | null = null;
+let hasReadInitial: boolean = false;
 
 // Função para atualizar todos os listeners
 const notifyListeners = () => {
@@ -41,20 +41,24 @@ const notifyListeners = () => {
 };
 
 // Função para ler dimensões com RAF (evita layout thrashing)
+// Usa double RAF para garantir que estamos após o paint
 const updateSizeWithRAF = () => {
     if (rafId !== null) {
         cancelAnimationFrame(rafId);
     }
     rafId = requestAnimationFrame(() => {
-        const newWidth = window.innerWidth;
-        const newHeight = window.innerHeight;
+        // Double RAF para garantir que estamos após o browser paint
+        requestAnimationFrame(() => {
+            const newWidth = window.innerWidth;
+            const newHeight = window.innerHeight;
 
-        // Só atualiza se houve mudança
-        if (sharedState.width !== newWidth || sharedState.height !== newHeight) {
-            sharedState = { width: newWidth, height: newHeight };
-            notifyListeners();
-        }
-        rafId = null;
+            // Só atualiza se houve mudança
+            if (sharedState.width !== newWidth || sharedState.height !== newHeight) {
+                sharedState = { width: newWidth, height: newHeight };
+                notifyListeners();
+            }
+            rafId = null;
+        });
     });
 };
 
@@ -63,8 +67,20 @@ const initializeGlobalListener = () => {
     if (isInitialized || typeof window === 'undefined') return;
     isInitialized = true;
 
-    // Leitura inicial após mount
-    updateSizeWithRAF();
+    // Leitura inicial adiada para após o paint
+    // Isso evita reflow síncrono durante a inicialização
+    if (!hasReadInitial) {
+        // Usa visualisViewport se disponível (mais eficiente)
+        if (window.visualViewport) {
+            sharedState = {
+                width: Math.round(window.visualViewport.width),
+                height: Math.round(window.visualViewport.height)
+            };
+        } else {
+            sharedState = { width: window.innerWidth, height: window.innerHeight };
+        }
+        hasReadInitial = true;
+    }
 
     // Prefer ResizeObserver se disponível (mais eficiente)
     if (typeof ResizeObserver !== 'undefined') {
@@ -94,10 +110,9 @@ const cleanupGlobalListener = () => {
 };
 
 export function useViewport(): ViewportSize {
-    const [size, setSize] = useState<ViewportSize>(() => ({
-        width: typeof window !== 'undefined' ? window.innerWidth : DEFAULT_WIDTH,
-        height: typeof window !== 'undefined' ? window.innerHeight : DEFAULT_HEIGHT,
-    }));
+    // Estado inicial NÃO lê window para evitar reflow
+    const [size, setSize] = useState<ViewportSize>(sharedState);
+    const hasUpdatedRef = useRef(false);
 
     useEffect(() => {
         // Inicializa o listener global se ainda não foi inicializado
@@ -109,9 +124,16 @@ export function useViewport(): ViewportSize {
         };
         listeners.add(handleUpdate);
 
-        // Retorna o estado atual imediatamente se já foi inicializado
-        if (sharedState.width !== size.width || sharedState.height !== size.height) {
-            setSize(sharedState);
+        // Atualiza com o estado atual se ainda não foi atualizado
+        // Isso é feito de forma assíncrona para evitar reflow
+        if (!hasUpdatedRef.current) {
+            hasUpdatedRef.current = true;
+            // Usa RAF para adiar a atualização
+            requestAnimationFrame(() => {
+                if (sharedState.width !== size.width || sharedState.height !== size.height) {
+                    setSize(sharedState);
+                }
+            });
         }
 
         return () => {

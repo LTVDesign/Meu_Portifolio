@@ -50,8 +50,7 @@ const GearButton = ({ onClick }: GearButtonProps) => {
             }}
           >
             <div className='relative' style={{ width: isWatch ? '80px' : isMobileSmall ? '90px' : isMobile ? '100px' : '140px', height: isWatch ? '80px' : isMobileSmall ? '90px' : isMobile ? '100px' : '140px' }}>
-              {/* ========== SOMBRAS RGB EXTERNAS GIRANDO - OTIMIZADO ========== */}
-              {/* Sombras RGB combinadas em um único elemento com múltiplas camadas de blur */}
+              {/* ========== SOMBRAS RGB EXTERNAS GIRANDO ========== */}
               <m.div
                 className='absolute rounded-full pointer-events-none'
                 style={{
@@ -69,7 +68,7 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                 transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
               />
 
-              {/* Sombra RGB interna - mantida para profundidade */}
+              {/* Sombra RGB interna */}
               <m.div
                 className='absolute rounded-full pointer-events-none'
                 style={{
@@ -87,8 +86,7 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                 transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
               />
 
-              {/* ========== LINHAS FINAS ORBITAIS - REDUZIDAS ========== */}
-              {/* Apenas 2 linhas orbitais em vez de 4 */}
+              {/* ========== LINHAS ORBITAIS ========== */}
               <m.div
                 className='absolute'
                 style={{
@@ -119,7 +117,7 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                 transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
               />
 
-              {/* ========== LINHAS DE LUZ FINAS - REDUZIDAS PARA 6 ========== */}
+              {/* ========== LINHAS DE LUZ ========== */}
               {[0, 60, 120, 180, 240, 300].map((angle, i) => (
                 <m.div
                   key={`light-line-${i}`}
@@ -146,7 +144,7 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                 />
               ))}
 
-              {/* ========== PONTOS BRILHANTES NAS LINHAS - REDUZIDOS PARA 4 ========== */}
+              {/* ========== PONTOS BRILHANTES ========== */}
               {[0, 90, 180, 270].map((angle, i) => (
                 <m.div
                   key={`dot-${i}`}
@@ -157,7 +155,6 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                     marginTop: '-3px',
                     marginLeft: '-3px',
                     background: ['#FF00FF', '#00D4FF', '#FFD700', '#00FF88'][i],
-                    boxShadow: `0 0 8px ${['#FF00FF', '#00D4FF', '#FFD700', '#00FF88'][i]}, 0 0 16px ${['#FF00FF', '#00D4FF', '#FFD700', '#00FF88'][i]}50`,
                     transformOrigin: '55px 0px',
                     transform: `rotate(${angle}deg)`,
                   }}
@@ -172,7 +169,7 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                 />
               ))}
 
-              {/* ========== ANÉIS PULSANTES - REDUZIDOS PARA 2 ========== */}
+              {/* ========== ANÉIS PULSANTES ========== */}
               <m.div
                 className='absolute rounded-full border border-[#FF00FF]/30'
                 style={{
@@ -219,7 +216,7 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                     transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
                   />
 
-                  {/* Botão */}
+                  {/* Botão - SEM box-shadow animado (usa opacity em vez disso) */}
                   <m.button
                     onClick={onClick}
                     aria-label={t('backgroundMenu.openSettings')}
@@ -227,20 +224,8 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                     style={{
                       boxShadow: 'inset 0 0 15px rgba(255, 255, 255, 0.05)',
                     }}
-                    animate={{
-                      boxShadow: [
-                        '0 0 15px rgba(255, 0, 255, 0.4), 0 0 30px rgba(0, 212, 255, 0.2)',
-                        '0 0 15px rgba(0, 212, 255, 0.4), 0 0 30px rgba(255, 215, 0, 0.2)',
-                        '0 0 15px rgba(255, 215, 0, 0.4), 0 0 30px rgba(255, 0, 255, 0.2)',
-                        '0 0 15px rgba(255, 0, 255, 0.4), 0 0 30px rgba(0, 212, 255, 0.2)',
-                      ],
-                    }}
-                    transition={{
-                      boxShadow: { duration: 4, repeat: Infinity, ease: 'linear' },
-                    }}
                     whileHover={{
                       scale: 1.15,
-                      boxShadow: '0 0 25px rgba(0, 212, 255, 0.6), 0 0 50px rgba(255, 0, 255, 0.4)',
                     }}
                     whileTap={{ scale: 0.95 }}
                   >

@@ -22,10 +22,10 @@ const ExperienceCard = forwardRef<
   return (
     <m.div
       ref={ref}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 0.3, delay: index * 0.05 }}
+      viewport={{ once: true, amount: 0.05 }}
+      transition={{ duration: 0.2, delay: index * 0.02 }}
       className='relative pl-14 sm:pl-20 pb-10 sm:pb-12 last:pb-0 group'
     >
       {/* Line & Circle */}

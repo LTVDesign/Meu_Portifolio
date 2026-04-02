@@ -110,14 +110,9 @@ export default defineConfig({
             return 'validation';
           }
 
-          // Three.js core - biblioteca 3D pura (sem dependências React)
-          if (id.includes('node_modules/three/') && !id.includes('@react-three')) {
-            return 'three-core';
-          }
-
-          // React Three Fiber/Drei - depende de three-core e react
-          if (id.includes('@react-three/fiber') || id.includes('@react-three/drei')) {
-            return 'react-three';
+          // Three.js - chunk separado para melhor cache e tree-shaking
+          if (id.includes('node_modules/three/') || id.includes('@react-three')) {
+            return 'three';
           }
 
           // Framer Motion - biblioteca de animação React
@@ -153,7 +148,22 @@ export default defineConfig({
           return 'assets/[name]-[hash][extname]';
         }
       }
-    }
+    },
+    // Otimizações de tree-shaking
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.debug'],
+        passes: 2,
+      },
+      mangle: {
+        safari10: true,
+      },
+      format: {
+        comments: false,
+      },
+    },
   },
   optimizeDeps: {
     include: ['react', 'react-dom', '@react-three/fiber', 'framer-motion']
