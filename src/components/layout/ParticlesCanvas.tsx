@@ -1,18 +1,47 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { initLaunchParticles } from '../../utils/particles/launchParticles';
+import { usePerformance } from '../../contexts/PerformanceContext';
 
 const ParticlesCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
+  const [isActive, setIsActive] = useState(false);
+  const { isLowPerformance } = usePerformance();
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const btn = btnRef.current;
     if (!canvas || !btn) return;
 
-    const cleanup = initLaunchParticles(canvas, btn);
-    return cleanup;
-  }, []);
+    // Só inicializa partículas se não for baixa performance
+    if (isLowPerformance) {
+      return;
+    }
+
+    const handleMouseEnter = () => setIsActive(true);
+    const handleMouseLeave = () => setIsActive(false);
+
+    btn.addEventListener('mouseenter', handleMouseEnter);
+    btn.addEventListener('mouseleave', handleMouseLeave);
+
+    let cleanup = () => { };
+
+    // Só inicializa quando ativo
+    if (isActive) {
+      cleanup = initLaunchParticles(canvas, btn);
+    }
+
+    return () => {
+      btn.removeEventListener('mouseenter', handleMouseEnter);
+      btn.removeEventListener('mouseleave', handleMouseLeave);
+      cleanup();
+    };
+  }, [isActive, isLowPerformance]);
+
+  // Não renderiza em baixa performance
+  if (isLowPerformance) {
+    return null;
+  }
 
   return (
     <>
@@ -20,7 +49,7 @@ const ParticlesCanvas = () => {
         ref={canvasRef}
         id='particles-canvas'
         className='fixed inset-0 pointer-events-none'
-        style={{ zIndex: 0 }}
+        style={{ zIndex: 0, opacity: isActive ? 1 : 0 }}
         data-background='true'
       />
       <button

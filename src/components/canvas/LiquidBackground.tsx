@@ -11,6 +11,7 @@ import {
   WebGLRenderer,
 } from 'three';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
+import { usePerformance } from '../../contexts/PerformanceContext';
 
 interface LiquidBackgroundProps {
   resolution: number;
@@ -48,6 +49,7 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
   const mountRef = useRef<HTMLDivElement>(null);
   const materialRef = useRef<ShaderMaterial | null>(null);
   const { config } = useParticleConfig();
+  const { isLowPerformance, level } = usePerformance();
   const mouseRef = useRef({ x: 0.5, y: 0.5 });
   const lastMouseMoveRef = useRef(0);
 
@@ -99,7 +101,9 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
 
   const handleMouseMove = (e: MouseEvent) => {
     const now = Date.now();
-    if (now - lastMouseMoveRef.current < 16) return;
+    // Throttle mais agressivo em baixa performance
+    const throttleTime = isLowPerformance ? 32 : 16;
+    if (now - lastMouseMoveRef.current < throttleTime) return;
     lastMouseMoveRef.current = now;
 
     // Normaliza as coordenadas do mouse para 0-1

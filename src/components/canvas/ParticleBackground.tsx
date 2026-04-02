@@ -35,14 +35,16 @@ const ParticleBackground = ({
   particleOpacity = 0.8,
   particleLineColor = '#915EFF',
 }: ParticleBackgroundProps) => {
-  const { isLowPerformance } = usePerformance();
+  const { isLowPerformance, level } = usePerformance();
   const { config } = useParticleConfig();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number | null>(null);
   const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef({ x: 0, y: 0 });
-  const mouseInteractionRadius = isLowPerformance ? 100 : 150;
-  const mouseForce = isLowPerformance ? 0.1 : 0.2;
+  const mouseInteractionRadius = isLowPerformance ? 80 : 150;
+  const mouseForce = isLowPerformance ? 0.08 : 0.2;
+  const adjustedConnectDistance = isLowPerformance ? Math.min(particleConnectDistance, 80) : particleConnectDistance;
+  const maxConnectionsLimit = isLowPerformance ? 20 : 50;
   const lastMouseMoveRef = useRef(0);
   const canvasRectRef = useRef<DOMRect | null>(null);
 
@@ -83,7 +85,12 @@ const ParticleBackground = ({
 
     particlesRef.current = [];
 
-    for (let i = 0; i < quantity; i++) {
+    // Ajusta quantidade baseado na performance
+    const adjustedQuantity = level === 'low' ? Math.min(quantity, 30) :
+      level === 'medium' ? Math.min(quantity, 60) :
+        quantity;
+
+    for (let i = 0; i < adjustedQuantity; i++) {
       particlesRef.current.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -129,8 +136,9 @@ const ParticleBackground = ({
 
     const particles = particlesRef.current;
 
-    // Draw particles
-    for (let i = 0; i < particles.length; i++) {
+    // Draw particles (pula algumas em baixa performance)
+    const particleStep = isLowPerformance ? 2 : 1;
+    for (let i = 0; i < particles.length; i += particleStep) {
       const particle = particles[i];
       ctx.beginPath();
       ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
@@ -139,9 +147,9 @@ const ParticleBackground = ({
       ctx.fill();
     }
 
-    // Draw connections (limitado a 50)
-    const maxConnections = 50;
-    const connectionDistance = particleConnectDistance;
+    // Draw connections (limitado baseado na performance)
+    const maxConnections = maxConnectionsLimit;
+    const connectionDistance = adjustedConnectDistance;
 
     for (let i = 0; i < particles.length; i++) {
       const p1 = particles[i];
@@ -195,7 +203,9 @@ const ParticleBackground = ({
 
   const handleMouseMove = (e: MouseEvent) => {
     const now = Date.now();
-    if (now - lastMouseMoveRef.current < 16) return;
+    // Throttle mais agressivo em baixa performance
+    const throttleTime = isLowPerformance ? 32 : 16;
+    if (now - lastMouseMoveRef.current < throttleTime) return;
     lastMouseMoveRef.current = now;
 
     mouseRef.current.x = e.clientX;
@@ -222,7 +232,7 @@ const ParticleBackground = ({
       window.removeEventListener('resize', onResize);
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [quantity]);
+  }, [quantity, isLowPerformance]);
 
   // Animação com requestAnimationFrame
   useEffect(() => {
