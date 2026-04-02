@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import close from '../../assets/close.svg';
@@ -140,7 +140,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
 
   return (
     <AnimatePresence>
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -215,7 +215,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
             {/* Grid de Cursos - Todos juntos */}
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8'>
               {sortedCursos.map((curso, index) => (
-                <motion.div
+                <m.div
                   key={curso.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -310,7 +310,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                       </a>
                     )}
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -339,7 +339,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
             </div>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </AnimatePresence>
   );
 };

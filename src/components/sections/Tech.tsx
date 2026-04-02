@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { technologies } from '../../constants';
 import { SectionWrapper } from '../../hoc';
@@ -32,7 +32,7 @@ const Tech = () => {
   return (
     <div className='max-w-7xl mx-auto px-4 sm:px-6'>
       {/* Box de texto informativo com animação */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
@@ -42,7 +42,7 @@ const Tech = () => {
         <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-6 sm:p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
           {/* Efeito de brilho animado no fundo */}
           <div className='absolute inset-0 opacity-30'>
-            <motion.div
+            <m.div
               className='absolute inset-0'
               style={{
                 background:
@@ -63,7 +63,7 @@ const Tech = () => {
           <div className='relative z-10'>
             {/* Título e subtítulo animados */}
             <div className='text-center'>
-              <motion.h3
+              <m.h3
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -73,10 +73,10 @@ const Tech = () => {
                 <span className='bg-gradient-to-r from-[var(--cyber-cyan)] via-white to-[var(--cyber-purple)] bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(0,255,255,0.5)]'>
                   {t('tech.experienceTitle')}
                 </span>
-              </motion.h3>
+              </m.h3>
 
               {/* Badges de destaque */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -87,15 +87,15 @@ const Tech = () => {
                   { text: t('tech.arsenal'), color: 'from-purple-500 to-pink-500' },
                   { text: t('tech.stackTitle'), color: 'from-cyan-500 to-blue-500' },
                 ].map((badge, idx) => (
-                  <motion.span
+                  <m.span
                     key={idx}
                     whileHover={{ scale: 1.05, y: -2 }}
                     className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
                   >
                     {badge.text}
-                  </motion.span>
+                  </m.span>
                 ))}
-              </motion.div>
+              </m.div>
             </div>
           </div>
 
@@ -103,14 +103,14 @@ const Tech = () => {
           <div className='absolute inset-0 rounded-3xl border border-[var(--cyber-cyan)]/10 pointer-events-none' />
           <div className='absolute -inset-1 bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-3xl opacity-20 blur-xl -z-10' />
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Grid de tecnologias com escadinhas */}
       <div className='space-y-10 sm:space-y-16'>
         {Object.entries(technologiesByCategory).map(([category, techs]) => (
           <div key={category}>
             {/* Título da categoria */}
-            <motion.div
+            <m.div
               variants={prefersReduced ? {} : textVariant()}
               className='text-center mb-8'
             >
@@ -120,12 +120,12 @@ const Tech = () => {
               <h3 className='section-title mt-2 drop-shadow-[0_0_15px_rgba(145,94,255,0.4)]'>
                 {techs.length} {t('tech.technologiesTitle')}
               </h3>
-            </motion.div>
+            </m.div>
 
             {/* Grid otimizado para 13 itens por linha no desktop */}
             <div className='grid grid-cols-4 xs:grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-13 gap-x-1 sm:gap-x-2 gap-y-8 sm:gap-y-10 justify-items-center'>
               {techs.map((tech: Technology, index: number) => (
-                <motion.div
+                <m.div
                   key={tech.name}
                   variants={
                     prefersReduced ? {} : fadeIn('up', 'spring', index * 0.05, 0.75)
@@ -138,7 +138,7 @@ const Tech = () => {
                   {/* Glass Icon Container com efeito de escadinha */}
                   <div className='relative'>
                     {/* Efeito de glow animado */}
-                    <motion.div
+                    <m.div
                       className='absolute inset-0 w-10 h-10 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/30 to-[var(--cyber-purple)]/30 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300'
                       animate={{
                         scale: [1, 1.1, 1],
@@ -166,14 +166,14 @@ const Tech = () => {
                   </p>
 
                   {/* Efeito de clique */}
-                  <motion.div
+                  <m.div
                     className='absolute inset-0 rounded-2xl border-2 border-[var(--cyber-cyan)]/50 opacity-0'
                     initial={false}
                     animate={{ opacity: 0 }}
                     whileHover={{ opacity: 1 }}
                     transition={{ duration: 0.2 }}
                   />
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>

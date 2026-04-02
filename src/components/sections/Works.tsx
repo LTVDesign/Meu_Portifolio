@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { projects } from '../../constants';
 import { SectionWrapper } from '../../hoc';
@@ -30,7 +30,7 @@ const Works = () => {
   return (
     <div className='max-w-7xl mx-auto px-4 sm:px-6'>
       {/* Box de texto informativo com animação */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
@@ -40,7 +40,7 @@ const Works = () => {
         <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-6 sm:p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
           {/* Efeito de brilho animado no fundo */}
           <div className='absolute inset-0 opacity-30'>
-            <motion.div
+            <m.div
               className='absolute inset-0'
               style={{
                 background:
@@ -59,17 +59,17 @@ const Works = () => {
 
           {/* Conteúdo da box */}
           <div className='relative z-10'>
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               <Header useMotion={true} p={t('works.p')} h2={t('works.h2')} />
-            </motion.div>
+            </m.div>
 
             {/* Linha com animação discreta de brilho */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -77,7 +77,7 @@ const Works = () => {
               className='relative w-full max-w-xl mx-auto my-6 sm:my-8'
             >
               <div className='h-[1px] bg-gradient-to-r from-transparent via-[var(--cyber-cyan)] to-transparent relative'>
-                <motion.div
+                <m.div
                   className='absolute top-1/2 -translate-y-1/2 w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-[var(--cyber-cyan)] blur-sm'
                   style={{ left: '50%' }}
                   animate={{
@@ -91,7 +91,7 @@ const Works = () => {
                     ease: 'easeInOut',
                   }}
                 />
-                <motion.div
+                <m.div
                   className='absolute top-1/2 -translate-y-1/2 w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-[var(--cyber-purple)] blur-sm'
                   style={{ right: '50%' }}
                   animate={{
@@ -106,10 +106,10 @@ const Works = () => {
                   }}
                 />
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Badges de destaque */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -122,22 +122,22 @@ const Works = () => {
                 { text: t('works.badgeNode'), color: 'from-green-500 to-emerald-500' },
                 { text: t('works.badgeFullStack'), color: 'from-orange-500 to-red-500' },
               ].map((badge, idx) => (
-                <motion.span
+                <m.span
                   key={idx}
                   whileHover={{ scale: 1.05, y: -2 }}
                   className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
                 >
                   {badge.text}
-                </motion.span>
+                </m.span>
               ))}
-            </motion.div>
+            </m.div>
           </div>
 
           {/* Borda decorativa com glow */}
           <div className='absolute inset-0 rounded-3xl border border-[var(--cyber-cyan)]/10 pointer-events-none' />
           <div className='absolute -inset-1 bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-3xl opacity-20 blur-xl -z-10' />
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Grid de projetos - responsivo */}
       <div className='mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8'>
@@ -151,7 +151,7 @@ const Works = () => {
           const projectTags = (Array.isArray(tags) ? tags : []) as { name: string; color: string }[];
 
           return (
-            <motion.div
+            <m.div
               key={projectKey}
               variants={prefersReduced ? {} : fadeIn('up', 'spring', index * 0.1, 0.75)}
               onClick={() => handleProjectClick(projectName)}
@@ -203,7 +203,7 @@ const Works = () => {
                 </p>
 
                 <div className='mt-5 sm:mt-8 w-full flex justify-center'>
-                  <motion.button
+                  <m.button
                     onClick={(e) => {
                       e.stopPropagation();
                       handleProjectClick(projectName);
@@ -215,7 +215,7 @@ const Works = () => {
                     whileTap={{ scale: 0.95 }}
                     className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
                   >
-                    <motion.div
+                    <m.div
                       className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'
                       animate={{
                         x: ['-100%', '100%'],
@@ -230,16 +230,16 @@ const Works = () => {
                     <span className='relative z-10'>{t('works.accessProject')}</span>
 
                     <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300' />
-                  </motion.button>
+                  </m.button>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           );
         })}
       </div>
 
       <div className='mt-10 sm:mt-16 flex justify-center'>
-        <motion.a
+        <m.a
           href='/cursos'
           whileHover={{
             scale: 1.05,
@@ -248,7 +248,7 @@ const Works = () => {
           whileTap={{ scale: 0.95 }}
           className='relative px-6 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
         >
-          <motion.div
+          <m.div
             className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'
             animate={{
               x: ['-100%', '100%'],
@@ -263,7 +263,7 @@ const Works = () => {
           <span className='relative z-10'>{t('works.viewProjects')}</span>
 
           <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300' />
-        </motion.a>
+        </m.a>
       </div>
     </div>
   );

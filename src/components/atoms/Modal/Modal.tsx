@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import type React from 'react';
 import { useContext, useEffect } from 'react';
 import {
@@ -257,7 +257,7 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           className={`fixed inset-0 z-[40] ${backdropBlurClasses} ${overlayColor} ${overlayClassName} ${positionClasses}`}
           onClick={handleBackdropClick}
           initial={animationConfig.overlay.initial as any}
@@ -265,7 +265,7 @@ const Modal: React.FC<ModalProps> = ({
           exit={animationConfig.overlay.exit as any}
           transition={transition}
         >
-          <motion.div
+          <m.div
             ref={modalRef}
             data-modal-role='dialog'
             role={finalRole}
@@ -315,7 +315,7 @@ const Modal: React.FC<ModalProps> = ({
 
               {/* Close Button */}
               {finalShowCloseButton && (
-                <motion.button
+                <m.button
                   onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                     e.stopPropagation();
                     onClose?.();
@@ -344,11 +344,11 @@ const Modal: React.FC<ModalProps> = ({
                       />
                     </svg>
                   )}
-                </motion.button>
+                </m.button>
               )}
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

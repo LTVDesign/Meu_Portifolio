@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { createPortal } from 'react-dom';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 import { useTranslation } from 'react-i18next';
@@ -58,7 +58,7 @@ const BackgroundEditorModal = ({
   return createPortal(
     <AnimatePresence mode='wait'>
       {isOpen && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -66,7 +66,7 @@ const BackgroundEditorModal = ({
           className='fixed inset-0 z-[2147483647] flex items-center justify-center bg-black/60 backdrop-blur-md p-2 sm:p-4'
           onClick={onClose}
         >
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.9, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 30 }}
@@ -76,7 +76,7 @@ const BackgroundEditorModal = ({
           >
             {/* Header com botão de fechar */}
             <div className='relative px-4 sm:px-6 py-3 sm:py-5 border-b border-white/10 bg-gradient-to-r from-[#1a1433]/80 to-[#0a0820]/80'>
-              <motion.button
+              <m.button
                 onClick={onClose}
                 whileHover={{ scale: 1.1, rotate: 90 }}
                 whileTap={{ scale: 0.9 }}
@@ -96,7 +96,7 @@ const BackgroundEditorModal = ({
                   <line x1='18' y1='6' x2='6' y2='18' />
                   <line x1='6' y1='6' x2='18' y2='18' />
                 </svg>
-              </motion.button>
+              </m.button>
 
               <div className='flex items-center justify-center gap-3'>
                 <div className='w-8 h-8 bg-gradient-to-br from-[#915EFF] to-[#00D4FF] rounded-xl flex items-center justify-center text-sm shadow-[0_0_15px_rgba(145,94,255,0.5)]'>
@@ -118,15 +118,15 @@ const BackgroundEditorModal = ({
 
             {/* Footer com botões Aplicar e Voltar */}
             <div className='px-6 py-4 border-t border-white/10 bg-gradient-to-r from-[#1a1433]/60 to-[#0a0820]/60 flex items-center justify-between gap-3'>
-              <motion.button
+              <m.button
                 onClick={onClose}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className='flex-1 py-3 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm uppercase tracking-wider transition-all duration-300 border border-white/20 hover:border-white/40'
               >
                 {t('backgroundEditor.back')}
-              </motion.button>
-              <motion.button
+              </m.button>
+              <m.button
                 onClick={onClose}
                 whileHover={{
                   scale: 1.02,
@@ -135,10 +135,10 @@ const BackgroundEditorModal = ({
                 className='flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#915EFF] to-[#00D4FF] hover:from-[#a17fff] hover:to-[#33ddff] text-white font-bold text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_0_20px_rgba(145,94,255,0.3)] hover:shadow-[0_0_30px_rgba(145,94,255,0.6)] btn-glow'
               >
                 {t('backgroundEditor.apply')}
-              </motion.button>
+              </m.button>
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>,
     document.body

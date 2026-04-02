@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import close from '../../assets/close.svg';
@@ -73,7 +73,7 @@ const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
 
   return (
     <AnimatePresence>
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -81,7 +81,7 @@ const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
         onClick={onClose}
         role='presentation'
       >
-        <motion.div
+        <m.div
           ref={modalRef}
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -114,8 +114,8 @@ const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
 
           {/* Content */}
           <div className='p-1.5 md:p-3'>{children}</div>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </AnimatePresence>
   );
 };

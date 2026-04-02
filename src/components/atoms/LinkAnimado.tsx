@@ -1,5 +1,5 @@
 import { type ReactNode, forwardRef } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 interface Props {
   href: string
@@ -12,7 +12,7 @@ interface Props {
 
 const LinkAnimado = forwardRef<HTMLAnchorElement, Props>(
   ({ href, children, className, target, rel, onClick }, ref) => (
-    <motion.a
+    <m.a
       ref={ref}
       href={href}
       className={`link-glow ${className || ''}`}
@@ -24,7 +24,7 @@ const LinkAnimado = forwardRef<HTMLAnchorElement, Props>(
       transition={{ type: 'spring', stiffness: 400, damping: 17 }}
     >
       {children}
-    </motion.a>
+    </m.a>
   ),
 )
 

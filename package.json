@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "build:ci": "tsc --noEmit && vite build --debug",
+    "build:ci": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "jest",
     "optimize:3d": "node scripts/optimize-3d-assets.js",

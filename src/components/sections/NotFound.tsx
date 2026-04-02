@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { SectionWrapper } from '../../hoc';
@@ -12,9 +12,9 @@ const NotFound = () => {
 
   return (
     <div className='min-h-[80vh] flex flex-col items-center justify-center px-6'>
-      <motion.div variants={fadeIn('up', 'tween', 0.2, 1)} className='text-center'>
+      <m.div variants={fadeIn('up', 'tween', 0.2, 1)} className='text-center'>
         {/* Número 404 Gigante */}
-        <motion.h1
+        <m.h1
           initial={prefersReduced ? {} : { scale: 0, rotate: -180 }}
           animate={prefersReduced ? { scale: 1, rotate: 0 } : { scale: 1, rotate: 0 }}
           transition={
@@ -25,11 +25,11 @@ const NotFound = () => {
           className='text-[clamp(6rem,20vw,12rem)] font-black text-transparent bg-clip-text bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] leading-none mb-4'
         >
           404
-        </motion.h1>
+        </m.h1>
 
         {/* Efeito de glitch no 404 */}
         <div className='relative'>
-          <motion.div
+          <m.div
             animate={
               prefersReduced
                 ? {}
@@ -46,7 +46,7 @@ const NotFound = () => {
             className='absolute inset-0 text-[clamp(6rem,20vw,12rem)] font-black text-[var(--cyber-cyan)] opacity-30 blur-sm'
           >
             404
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Header com título */}
@@ -57,7 +57,7 @@ const NotFound = () => {
         />
 
         {/* Descrição */}
-        <motion.p
+        <m.p
           variants={fadeIn('up', 'tween', 0.4, 1)}
           className='text-lg mt-6 max-w-md mx-auto leading-relaxed'
           style={{ color: 'var(--dynamic-text-secondary)' }}
@@ -66,15 +66,15 @@ const NotFound = () => {
             'notFound.description',
             'A página que você está procurando não existe ou foi movida.'
           )}
-        </motion.p>
+        </m.p>
 
         {/* Ícone decorativo */}
-        <motion.div
+        <m.div
           variants={fadeIn('up', 'tween', 0.5, 1)}
           className='mt-8 flex justify-center'
         >
           <div className='relative'>
-            <motion.div
+            <m.div
               animate={prefersReduced ? {} : { rotate: 360 }}
               transition={
                 prefersReduced
@@ -83,7 +83,7 @@ const NotFound = () => {
               }
               className='w-24 h-24 rounded-full border-4 border-dashed border-[var(--cyber-purple)]/30 flex items-center justify-center'
             >
-              <motion.div
+              <m.div
                 animate={prefersReduced ? {} : { rotate: -360 }}
                 transition={
                   prefersReduced
@@ -93,12 +93,12 @@ const NotFound = () => {
                 className='w-16 h-16 rounded-full border-2 border-[var(--cyber-cyan)]/50 flex items-center justify-center'
               >
                 <span className='text-3xl'>🔍</span>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
 
             {/* Partículas decorativas */}
             {[...Array(6)].map((_, i) => (
-              <motion.div
+              <m.div
                 key={i}
                 animate={
                   prefersReduced
@@ -128,16 +128,16 @@ const NotFound = () => {
               />
             ))}
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Botão de voltar */}
-        <motion.div
+        <m.div
           variants={prefersReduced ? {} : fadeIn('up', 'tween', 0.6, 1)}
           className='mt-10'
         >
           <Link to='/' className='btn-primary inline-flex items-center gap-3 group'>
             <span>{t('notFound.backHome', 'Voltar ao Início')}</span>
-            <motion.span
+            <m.span
               animate={prefersReduced ? {} : { x: [0, 5, 0] }}
               transition={
                 prefersReduced ? { duration: 0 } : { duration: 1.5, repeat: Infinity }
@@ -145,12 +145,12 @@ const NotFound = () => {
               className='text-xl group-hover:translate-x-1 transition-transform'
             >
               →
-            </motion.span>
+            </m.span>
           </Link>
-        </motion.div>
+        </m.div>
 
         {/* Links rápidos */}
-        <motion.div
+        <m.div
           variants={prefersReduced ? {} : fadeIn('up', 'tween', 0.7, 1)}
           className='mt-8 flex flex-wrap justify-center gap-4'
         >
@@ -160,7 +160,7 @@ const NotFound = () => {
             { path: '/projetos', label: t('nav.projetos', 'Projetos') },
             { path: '/contato', label: t('nav.contact', 'Contato') },
           ].map((link, index) => (
-            <motion.div
+            <m.div
               key={link.path}
               initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
               animate={prefersReduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
@@ -173,19 +173,19 @@ const NotFound = () => {
               >
                 {link.label}
               </Link>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
 
         {/* Mensagem de Easter Egg */}
-        <motion.p
+        <m.p
           variants={prefersReduced ? {} : fadeIn('up', 'tween', 0.9, 1)}
           className='mt-12 text-xs'
           style={{ color: 'var(--dynamic-text-secondary)', opacity: 0.3 }}
         >
           {t('tech.easterEgg')}
-        </motion.p>
-      </motion.div>
+        </m.p>
+      </m.div>
     </div>
   );
 };

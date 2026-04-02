@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { diploma, diplomaPdf, qrcode } from '../../assets';
@@ -425,7 +425,7 @@ const Formacao = () => {
       <Header useMotion={true} p={t('formacao.p')} h2={t('formacao.h2')} />
 
       {/* Linha com animação discreta de brilho */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
@@ -434,7 +434,7 @@ const Formacao = () => {
       >
         <div className='h-[1px] bg-gradient-to-r from-transparent via-[var(--cyber-cyan)] to-transparent relative'>
           {/* Brilho esquerdo */}
-          <motion.div
+          <m.div
             className='absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[var(--cyber-cyan)] blur-sm'
             style={{ left: '50%' }}
             animate={{
@@ -449,7 +449,7 @@ const Formacao = () => {
             }}
           />
           {/* Brilho direito */}
-          <motion.div
+          <m.div
             className='absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[var(--cyber-purple)] blur-sm'
             style={{ right: '50%' }}
             animate={{
@@ -464,11 +464,11 @@ const Formacao = () => {
             }}
           />
         </div>
-      </motion.div>
+      </m.div>
 
       <div className='mt-8 sm:mt-16 grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-8'>
         {formacoes.map((item, index) => (
-          <motion.div
+          <m.div
             key={item.title}
             variants={prefersReduced ? {} : fadeIn('up', 'spring', index * 0.1, 0.75)}
             onClick={() => openModal(item)}
@@ -511,7 +511,7 @@ const Formacao = () => {
             </div>
 
             <div className='mt-auto pt-6 sm:pt-10 flex justify-center'>
-              <motion.button
+              <m.button
                 whileHover={{
                   scale: 1.05,
                   y: -3,
@@ -519,7 +519,7 @@ const Formacao = () => {
                 whileTap={{ scale: 0.95 }}
                 className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
               >
-                <motion.div
+                <m.div
                   className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'
                   animate={{
                     x: ['-100%', '100%'],
@@ -534,9 +534,9 @@ const Formacao = () => {
                 <span className='relative z-10'>VER DETALHES</span>
 
                 <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300' />
-              </motion.button>
+              </m.button>
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
 
@@ -588,7 +588,7 @@ const Formacao = () => {
                         {data.sem}
                       </div>
                       <div className='flex-1 h-4 bg-white/5 rounded overflow-hidden relative'>
-                        <motion.div
+                        <m.div
                           initial={{ width: 0 }}
                           animate={{ width: `${(data.avg / 10) * 100}%` }}
                           transition={{ duration: 1, delay: index * 0.1 }}
@@ -683,7 +683,7 @@ const Formacao = () => {
 
             <div className='mt-4 flex flex-wrap gap-1.5'>
               {selectedFormation.diplomaPreview && (
-                <motion.div
+                <m.div
                   onClick={openDiplomaModal}
                   className='relative group rounded-3xl overflow-hidden border border-white/10 bg-black/40 cursor-pointer hover:border-[var(--cyber-cyan)]/50 transition-all'
                 >
@@ -706,11 +706,11 @@ const Formacao = () => {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               )}
 
               {selectedFormation.diplomaDownload && (
-                <motion.a
+                <m.a
                   href={selectedFormation.diplomaDownload}
                   download
                   className='relative group rounded-3xl overflow-hidden border border-white/10 bg-black/40 hover:border-[var(--cyber-cyan)]/50 transition-all'
@@ -742,11 +742,11 @@ const Formacao = () => {
                       </div>
                     </div>
                   </div>
-                </motion.a>
+                </m.a>
               )}
 
               {selectedFormation.id === '1' && selectedFormation.authLink && (
-                <motion.a
+                <m.a
                   href={selectedFormation.authLink}
                   target='_blank'
                   rel='noopener noreferrer'
@@ -779,7 +779,7 @@ const Formacao = () => {
                       </div>
                     </div>
                   </div>
-                </motion.a>
+                </m.a>
               )}
             </div>
           </div>

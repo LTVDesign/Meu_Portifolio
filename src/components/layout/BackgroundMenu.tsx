@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 import { useTranslation } from 'react-i18next';
 import { useBreakpoints } from '../../hooks/useDebouncedResize';
@@ -80,7 +80,7 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
   return (
     <>
       {/* Backdrop invisível que bloqueia cliques */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -88,7 +88,7 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
         className='fixed inset-0 z-[99998] pointer-events-auto'
         onClick={onClose}
       />
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.95, y: isMobile ? -10 : 0, x: isMobile ? 0 : 20 }}
         animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: isMobile ? -10 : 0, x: isMobile ? 0 : 20 }}
@@ -103,7 +103,7 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
             {t('backgroundMenu.settings')}
           </h3>
 
-          <motion.button
+          <m.button
             onClick={onClose}
             whileHover={{ scale: 1.1, rotate: 90 }}
             whileTap={{ scale: 0.9 }}
@@ -123,7 +123,7 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
               <line x1='18' y1='6' x2='6' y2='18' />
               <line x1='6' y1='6' x2='18' y2='18' />
             </svg>
-          </motion.button>
+          </m.button>
         </div>
 
         {/* Grid de opções */}
@@ -135,7 +135,7 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
             </h4>
             <div className={`grid gap-2 ${isWatch ? 'grid-cols-2' : isMobileSmall ? 'grid-cols-2' : 'grid-cols-2'}`}>
               {BG_TYPES.map((type) => (
-                <motion.button
+                <m.button
                   key={type}
                   onClick={() => {
                     updateConfig({ backgroundType: type });
@@ -150,18 +150,18 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
                 >
                   <span className='relative z-10'>{t(`backgrounds.${type}`)}</span>
                   {config.backgroundType === type && (
-                    <motion.div
+                    <m.div
                       layoutId='activeBg'
                       className='absolute inset-0 bg-gradient-to-r from-[#915EFF] to-[#00D4FF]'
                       style={{ opacity: 0.3 }}
                     />
                   )}
-                </motion.button>
+                </m.button>
               ))}
             </div>
           </div>
 
-          <motion.button
+          <m.button
             onClick={(e) => {
               e.stopPropagation();
               onEdit();
@@ -174,9 +174,9 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
           >
             <span>✏️</span>
             <span>{t('backgroundMenu.editBackground')}</span>
-          </motion.button>
+          </m.button>
         </div>
-      </motion.div>
+      </m.div>
     </>
   );
 };

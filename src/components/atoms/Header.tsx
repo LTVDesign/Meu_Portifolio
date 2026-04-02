@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import type React from 'react';
 
 import { styles } from '../../constants/styles';
@@ -78,14 +78,14 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
 
   if (useMotion === true) {
     return (
-      <motion.div
+      <m.div
         variants={containerVariants}
         initial='hidden'
         whileInView='show'
         viewport={{ once: true, amount: 0.15 }}
         className='text-center flex flex-col items-center justify-center'
       >
-        <motion.div
+        <m.div
           variants={nameVariants}
           className='mb-6 relative'
           style={{
@@ -103,17 +103,17 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
             <DynamicText colorMode='auto'>{h2}</DynamicText>
           </h2>
           {/* Efeito de brilho atrás do texto */}
-          <motion.div
+          <m.div
             className='absolute inset-0 bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] bg-clip-text text-transparent blur-xl opacity-30 -z-10'
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: [0.3, 0.5, 0.3], scale: [1, 1.1, 1] }}
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
           >
             <DynamicText colorMode='auto'>{h2}</DynamicText>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
         <div className='relative'>
-          <motion.p
+          <m.p
             variants={subtitleVariants}
             className={`${styles.sectionSubText} relative`}
             style={{
@@ -122,9 +122,9 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
             }}
           >
             <DynamicText colorMode='auto'>{p}</DynamicText>
-          </motion.p>
+          </m.p>
           {/* Linha animada abaixo do subtítulo */}
-          <motion.div
+          <m.div
             className='absolute -bottom-2 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)] to-transparent'
             initial={{ width: 0 }}
             whileInView={{ width: '100%' }}
@@ -132,7 +132,7 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
             transition={{ duration: 0.8, delay: 0.8 }}
           />
         </div>
-      </motion.div>
+      </m.div>
     );
   }
 

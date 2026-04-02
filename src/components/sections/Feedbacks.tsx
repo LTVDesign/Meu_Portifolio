@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { testimonials } from '../../constants';
 import { config } from '../../constants/config';
 import { styles } from '../../constants/styles';
@@ -15,7 +15,7 @@ const FeedbackCard: React.FC<{ index: number } & TTestimonial> = ({
   image,
 }) => {
   return (
-    <motion.div
+    <m.div
       variants={fadeIn('', 'spring', index * 0.5, 0.75)}
       className='bg-black-200 xs:w-[320px] w-full rounded-3xl p-10'
     >
@@ -45,7 +45,7 @@ const FeedbackCard: React.FC<{ index: number } & TTestimonial> = ({
           />
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

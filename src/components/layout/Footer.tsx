@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -169,7 +169,7 @@ const Footer: React.FC = () => {
 
             <div className='flex items-center gap-3 sm:gap-4 mb-4'>
               {socialLinks.map(({ icon: Icon, url, label, color }) => (
-                <motion.a
+                <m.a
                   key={label}
                   href={url}
                   target='_blank'
@@ -179,7 +179,7 @@ const Footer: React.FC = () => {
                   className={`text-[var(--dynamic-text-secondary)] ${color} transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)]`}
                 >
                   <Icon size={20} className='sm:text-[24px]' />
-                </motion.a>
+                </m.a>
               ))}
             </div>
 
@@ -208,13 +208,13 @@ const Footer: React.FC = () => {
             {/* Tela de desbloqueio */}
             <AnimatePresence>
               {showUnlockAnimation && (
-                <motion.div
+                <m.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   className='fixed inset-0 z-50 flex items-center justify-center bg-black'
                 >
-                  <motion.div
+                  <m.div
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.3 }}
@@ -227,8 +227,8 @@ const Footer: React.FC = () => {
                     <p className='text-white/60 mt-2'>
                       {i18n.language === 'pt' ? 'Iniciando DOOM...' : 'Starting DOOM...'}
                     </p>
-                  </motion.div>
-                </motion.div>
+                  </m.div>
+                </m.div>
               )}
             </AnimatePresence>
 
@@ -240,7 +240,7 @@ const Footer: React.FC = () => {
                 const isCurrent = konamiProgress === index;
 
                 return (
-                  <motion.div
+                  <m.div
                     key={index}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -267,7 +267,7 @@ const Footer: React.FC = () => {
                     <span className='relative z-10'>
                       {Icon ? <Icon size={12} className='sm:text-[14px]' /> : key.label}
                     </span>
-                  </motion.div>
+                  </m.div>
                 );
               })}
             </div>

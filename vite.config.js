@@ -5,6 +5,7 @@ import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import compression from 'vite-plugin-compression';
 
 export default defineConfig({
+  base: '/',
   define: {
     'process.env': JSON.stringify({}),
     'global': 'window',
@@ -19,16 +20,18 @@ export default defineConfig({
     }),
     ViteImageOptimizer({
       test: /\.(jpe?g|png|gif|tiff|webp|svg|avif)$/i,
+      exclude: [/node_modules/, /desktop_pc\/webp/],
       png: {
-        quality: 90,
+        quality: 80,
         compressionLevel: 6,
       },
       jpeg: {
-        quality: 90,
+        quality: 82,
         progressive: true,
+        mozjpeg: true,
       },
       webp: {
-        quality: 85,
+        quality: 80,
         lossless: false,
       },
       gif: {
@@ -39,9 +42,11 @@ export default defineConfig({
         precision: 3,
       },
       avif: {
-        quality: 60,
+        quality: 70,
         speed: 6,
       },
+      cache: true,
+      logStats: true,
     }),
     compression({
       algorithm: 'brotliCompress', // Brotli é mais eficiente que gzip
@@ -96,7 +101,7 @@ export default defineConfig({
             }
 
             // Framer Motion - otimizado para tree shaking
-            if (id.includes('node_modules/framer-motion')) {
+            if (id.includes('node_modules/framer-motion') || id.includes('node_modules/@motionone')) {
               return 'vendor-motion';
             }
 
@@ -125,6 +130,11 @@ export default defineConfig({
             // React Three Drei (utilitários)
             if (id.includes('node_modules/@react-three/drei')) {
               return 'vendor-three-drei';
+            }
+
+            // Troika (texto 3D)
+            if (id.includes('node_modules/troika-three-text') || id.includes('node_modules/bidi-js')) {
+              return 'vendor-three-troika';
             }
 
             // i18n
@@ -169,8 +179,8 @@ export default defineConfig({
       compress: {
         drop_console: true,
         drop_debugger: true,
-        pure_funcs: ['console.log', 'console.debug', 'console.info'],
-        passes: 2,
+        pure_funcs: ['console.log', 'console.debug', 'console.info', 'console.table'],
+        passes: 3, // Aumentado de 2 para 3 para compressão multi-estágio melhorada
         dead_code: true,
         unused: true,
         reduce_vars: true,
@@ -183,6 +193,8 @@ export default defineConfig({
         side_effects: true,
         keep_fnames: false,
         keep_classnames: false,
+        toplevel: true, // Compressão no nível superior para melhor tree shaking
+        typeofs: false,
       },
       output: {
         comments: false,
@@ -192,7 +204,7 @@ export default defineConfig({
         ascii_only: true,
       },
     },
-    sourcemap: true,
+    sourcemap: false,
   },
 
   optimizeDeps: {
@@ -202,6 +214,7 @@ export default defineConfig({
       'react-router-dom',
       'framer-motion',
       'framer-motion/m',
+      'three',
       '@react-three/fiber',
       '@react-three/drei',
     ],

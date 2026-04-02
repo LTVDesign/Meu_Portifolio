@@ -104,6 +104,7 @@ const BolhasBackground = () => {
       style={finalStyle}
     >
       <Canvas
+        frameloop='demand'
         camera={{ position: [0, 0, 15], fov: 60 }}
         gl={{ antialias: false, alpha: true }}
         dpr={[1, 1.5]}

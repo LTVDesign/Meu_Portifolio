@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import type React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Curso } from '../../types';
@@ -19,7 +19,7 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
 
   return (
     <AnimatePresence>
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -30,7 +30,7 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
         <div className='absolute inset-0 bg-black/80 backdrop-blur-sm' />
 
         {/* Modal */}
-        <motion.div
+        <m.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
@@ -153,8 +153,8 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
               {t('cursoDetailModal.close')}
             </button>
           </div>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </AnimatePresence>
   );
 };

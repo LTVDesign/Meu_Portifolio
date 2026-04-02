@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import close from '../../assets/close.svg';
@@ -154,7 +154,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
 
   return (
     <AnimatePresence>
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -176,7 +176,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
               </p>
             </div>
           </div>
-          <motion.button
+          <m.button
             onClick={onClose}
             whileHover={{ scale: 1.1, rotate: 90 }}
             whileTap={{ scale: 0.9 }}
@@ -184,7 +184,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
             aria-label={t('common.close')}
           >
             <img src={close} alt='' className='w-5 h-5 sm:w-6 sm:h-6 brightness-0 invert' />
-          </motion.button>
+          </m.button>
         </div>
 
         {/* Conteúdo Principal */}
@@ -310,7 +310,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
             {sortedCursos.length > 0 ? (
               <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8 md:gap-10'>
                 {sortedCursos.map((curso, index) => (
-                  <motion.div
+                  <m.div
                     key={curso.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -363,7 +363,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
                     </p>
 
                     <div className='mt-6 sm:mt-10 pt-5 sm:pt-8 border-t border-white/5 flex items-center justify-center'>
-                      <motion.button
+                      <m.button
                         onClick={(e) => {
                           e.stopPropagation();
                           setSelectedCurso(curso);
@@ -376,7 +376,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
                         whileTap={{ scale: 0.95 }}
                         className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
                       >
-                        <motion.div
+                        <m.div
                           className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'
                           animate={{
                             x: ['-100%', '100%'],
@@ -389,9 +389,9 @@ const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
                         />
                         <span className='relative z-10'>{t('cursos.verCertificado')}</span>
                         <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300' />
-                      </motion.button>
+                      </m.button>
                     </div>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
             ) : (
@@ -406,7 +406,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
 
             {/* Estatísticas no final da lista */}
             {sortedCursos.length > 0 && (
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
@@ -446,7 +446,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             )}
           </div>
         </div>
@@ -461,7 +461,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
             </div>
             <div className='flex items-center gap-3'>
               <p className='text-xs text-white/40'>{t('allCursos.footerCopyright')}</p>
-              <motion.button
+              <m.button
                 onClick={onClose}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -470,7 +470,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
               >
                 <img src={close} alt='' className='w-4 h-4' />
                 <span>{t('common.close')}</span>
-              </motion.button>
+              </m.button>
             </div>
           </div>
         </div>
@@ -483,7 +483,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
           }}
           curso={selectedCurso}
         />
-      </motion.div>
+      </m.div>
     </AnimatePresence>
   );
 };

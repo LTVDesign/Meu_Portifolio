@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import type React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -35,7 +35,7 @@ const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -46,7 +46,7 @@ const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = ({
           <div className='absolute inset-0 bg-black/80 backdrop-blur-md' />
 
           {/* Modal */}
-          <motion.div
+          <m.div
             initial={{ scale: 0.9, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -55,7 +55,7 @@ const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = ({
             onClick={(e) => e.stopPropagation()}
           >
             {/* Botão Fechar - Otimizado e Animado */}
-            <motion.button
+            <m.button
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ delay: 0.2, type: 'spring', damping: 20, stiffness: 200 }}
@@ -85,7 +85,7 @@ const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = ({
 
               {/* Efeito de brilho rotativo */}
               <div className='absolute inset-0 rounded-full overflow-hidden'>
-                <motion.div
+                <m.div
                   className='w-full h-full'
                   style={{
                     background: `conic-gradient(from 0deg, transparent, rgba(255,255,255,0.4), transparent)`,
@@ -96,24 +96,24 @@ const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = ({
               </div>
 
               {/* Pulsação interna */}
-              <motion.div
+              <m.div
                 className='absolute inset-1 rounded-full bg-gradient-to-br from-[var(--cyber-purple)] to-[var(--cyber-cyan)] opacity-0 group-hover:opacity-100 transition-opacity'
                 animate={{ scale: [1, 1.05, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
-            </motion.button>
+            </m.button>
 
             {/* Header */}
             <div className='p-8 border-b border-white/10 relative overflow-hidden'>
               <div className='absolute inset-0 bg-gradient-to-r from-[var(--cyber-purple)]/10 to-transparent' />
-              <motion.h2
+              <m.h2
                 initial={{ x: -50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.1 }}
                 className='text-3xl font-black text-white relative z-10'
               >
                 {t('backgrounds.title')}
-              </motion.h2>
+              </m.h2>
               <p className='text-white/60 mt-2 relative z-10'>
                 {t('backgrounds.subtitle')}
               </p>
@@ -123,7 +123,7 @@ const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = ({
             <div className='p-8 overflow-y-auto max-h-[50vh] custom-scrollbar'>
               <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {backgrounds.map((bg, index) => (
-                  <motion.div
+                  <m.div
                     key={bg.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -144,7 +144,7 @@ const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = ({
                       <div className='absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all' />
 
                       {/* Animações decorativas */}
-                      <motion.div
+                      <m.div
                         className='absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity'
                         animate={{
                           background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 50%)`,
@@ -159,7 +159,7 @@ const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = ({
                       </h3>
 
                       {/* Indicador de seleção */}
-                      <motion.div
+                      <m.div
                         initial={{ width: 0 }}
                         whileHover={{ width: '100%' }}
                         className='h-0.5 bg-gradient-to-r from-[var(--cyber-cyan)] to-[var(--cyber-purple)] mt-2 rounded-full'
@@ -167,7 +167,7 @@ const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = ({
                     </div>
 
                     {/* Botão Aplicar flutuante */}
-                    <motion.div
+                    <m.div
                       initial={{ opacity: 0, y: 10 }}
                       whileHover={{ opacity: 1, y: 0 }}
                       className='absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity'
@@ -175,28 +175,28 @@ const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = ({
                       <div className='px-6 py-3 rounded-xl bg-gradient-to-r from-[var(--cyber-cyan)] to-[var(--cyber-purple)] text-black font-bold text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(0,255,255,0.5)]'>
                         {t('backgrounds.apply')}
                       </div>
-                    </motion.div>
-                  </motion.div>
+                    </m.div>
+                  </m.div>
                 ))}
               </div>
             </div>
 
             {/* Footer com botões */}
             <div className='p-6 border-t border-white/10 flex items-center justify-between bg-black/20 backdrop-blur-md'>
-              <motion.button
+              <m.button
                 whileHover={{ x: -5 }}
                 onClick={onClose}
                 className='px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:text-white hover:bg-white/10 font-bold text-sm uppercase tracking-widest transition-all'
               >
                 {t('backgrounds.cancel')}
-              </motion.button>
+              </m.button>
 
               <div className='text-white/40 text-sm'>
                 {t('backgrounds.hint')}
               </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

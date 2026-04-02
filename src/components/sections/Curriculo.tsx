@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { FiDownload, FiExternalLink } from 'react-icons/fi';
 import { SectionWrapper } from '../../hoc';
@@ -14,7 +14,7 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
   return (
     <>
       {/* Box de texto informativo com animação */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
@@ -24,7 +24,7 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
         <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
           {/* Efeito de brilho animado no fundo */}
           <div className='absolute inset-0 opacity-30'>
-            <motion.div
+            <m.div
               className='absolute inset-0'
               style={{
                 background:
@@ -43,17 +43,17 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
 
           {/* Conteúdo da box */}
           <div className='relative z-10'>
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               <Header useMotion={true} p={t('curriculo.p')} h2={t('curriculo.h2')} />
-            </motion.div>
+            </m.div>
 
             {/* Linha com animação discreta de brilho */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -62,7 +62,7 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
             >
               <div className='h-[1px] bg-gradient-to-r from-transparent via-[var(--cyber-cyan)] to-transparent relative'>
                 {/* Brilho esquerdo */}
-                <motion.div
+                <m.div
                   className='absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[var(--cyber-cyan)] blur-sm'
                   style={{ left: '50%' }}
                   animate={{
@@ -77,7 +77,7 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
                   }}
                 />
                 {/* Brilho direito */}
-                <motion.div
+                <m.div
                   className='absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[var(--cyber-purple)] blur-sm'
                   style={{ right: '50%' }}
                   animate={{
@@ -92,9 +92,9 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
                   }}
                 />
               </div>
-            </motion.div>
+            </m.div>
 
-            <motion.p
+            <m.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -102,10 +102,10 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
               className='text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-6 text-[17px] leading-[30px] text-center max-w-3xl mx-auto'
             >
               {t('curriculo.content')}
-            </motion.p>
+            </m.p>
 
             {/* Badges de destaque */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -118,34 +118,34 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
                 { text: t('curriculo.badgeExperience'), color: 'from-purple-500 to-pink-500' },
                 { text: t('curriculo.badgeSkills'), color: 'from-orange-500 to-red-500' },
               ].map((badge, idx) => (
-                <motion.span
+                <m.span
                   key={idx}
                   whileHover={{ scale: 1.05, y: -2 }}
                   className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
                 >
                   {badge.text}
-                </motion.span>
+                </m.span>
               ))}
-            </motion.div>
+            </m.div>
           </div>
 
           {/* Borda decorativa com glow */}
           <div className='absolute inset-0 rounded-3xl border border-[var(--cyber-cyan)]/10 pointer-events-none' />
           <div className='absolute -inset-1 bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-3xl opacity-20 blur-xl -z-10' />
         </div>
-      </motion.div>
+      </m.div>
 
       <div className='mt-8 sm:mt-12 flex flex-wrap items-center justify-center gap-4 sm:gap-6'>
-        <motion.button
+        <m.button
           variants={prefersReduced ? {} : fadeIn('right', 'spring', 0.3, 0.75)}
           onClick={() => setViewMode?.('allcurriculo')}
           className='btn-primary flex items-center gap-3 px-5 sm:px-8 py-3 sm:py-4 rounded-xl font-bold tracking-wider group shadow-[0_0_20px_rgba(145,94,255,0.3)] min-h-[44px] text-sm sm:text-base'
         >
           <FiExternalLink className='text-xl group-hover:scale-110 transition-transform' />
           {t('curriculo.viewOnline')}
-        </motion.button>
+        </m.button>
 
-        <motion.a
+        <m.a
           variants={prefersReduced ? {} : fadeIn('left', 'spring', 0.4, 0.75)}
           href='/formacao/DiplomaDigital.pdf'
           download
@@ -155,7 +155,7 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
           <span className='text-white group-hover:text-[var(--cyber-cyan)] transition-colors'>
             {t('curriculo.downloadPDF')}
           </span>
-        </motion.a>
+        </m.a>
       </div>
     </>
   );

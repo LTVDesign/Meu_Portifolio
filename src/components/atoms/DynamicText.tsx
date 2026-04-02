@@ -3,7 +3,7 @@
 // Usa CSS variable --dynamic-text-color atualizada pelo useBackgroundColorSampler
 // + mix-blend-mode: difference como fallback para inversão pixel a pixel.
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import React, { forwardRef, useMemo } from 'react';
 
 interface DynamicTextProps {
@@ -43,7 +43,7 @@ const DynamicText = forwardRef<HTMLElement, DynamicTextProps>(
     }, [children]);
 
     return (
-      <motion.span
+      <m.span
         ref={ref as React.Ref<HTMLSpanElement>}
         className={`dynamic-text-blend ${className}`}
         style={{
@@ -56,7 +56,7 @@ const DynamicText = forwardRef<HTMLElement, DynamicTextProps>(
         {...props}
       >
         {safeChildren}
-      </motion.span>
+      </m.span>
     );
   }
 );

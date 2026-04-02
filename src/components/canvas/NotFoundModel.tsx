@@ -1,7 +1,8 @@
 import { Float, Text, useGLTF } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useRef } from 'react';
-import * as THREE from 'three';
+import type { Mesh as ThreeMesh } from 'three';
+import { MathUtils } from 'three';
 
 export default function NotFoundModel() {
   const { viewport } = useThree();
@@ -10,7 +11,7 @@ export default function NotFoundModel() {
   return (
     <group scale={viewport.width / 1.5}>
       {nodes.Scene.children.map((mesh, i) => (
-        <Mesh key={i} data={mesh as THREE.Mesh} />
+        <Mesh key={i} data={mesh as ThreeMesh} />
       ))}
       <Font />
     </group>
@@ -34,19 +35,19 @@ function Font() {
   );
 }
 
-function Mesh({ data }: { data: unknown }) {
-  const meshRef = useRef<THREE.Mesh>(null);
+function Mesh({ data }: { data: any }) {
+  const meshRef = useRef<ThreeMesh>(null);
   const { viewport } = useThree();
 
   useFrame((state) => {
     if (!meshRef.current) return;
     const { x, y } = state.mouse;
-    meshRef.current.rotation.x = THREE.MathUtils.lerp(
+    meshRef.current.rotation.x = MathUtils.lerp(
       meshRef.current.rotation.x,
       y * (viewport.height / 2),
       0.1
     );
-    meshRef.current.rotation.y = THREE.MathUtils.lerp(
+    meshRef.current.rotation.y = MathUtils.lerp(
       meshRef.current.rotation.y,
       x * (viewport.width / 2),
       0.1
@@ -57,7 +58,6 @@ function Mesh({ data }: { data: unknown }) {
     <Float>
       <mesh
         ref={meshRef}
-        // @ts-expect-error - Spread de propriedades do mesh do GLTF
         {...data}
       />
     </Float>

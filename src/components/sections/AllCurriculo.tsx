@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { SectionWrapper } from '../../hoc';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
@@ -13,12 +13,12 @@ const AllCurriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void })
     <div className='min-h-[60vh] flex flex-col justify-center items-center'>
       <Header useMotion={true} p={t('curriculo.p')} h2={t('curriculo.h2')} />
 
-      <motion.p
+      <m.p
         variants={prefersReduced ? {} : fadeIn('up', 'tween', 0.1, 1)}
         className='text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-4 text-[17px] leading-[30px] text-center max-w-3xl'
       >
         {t('curriculo.content')}
-      </motion.p>
+      </m.p>
 
       <div className='mt-12 flex flex-wrap gap-6 justify-center'>
         <button

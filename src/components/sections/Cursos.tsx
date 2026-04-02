@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import cursosData from '../../data/cursos.json';
@@ -51,7 +51,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
   return (
     <div className='max-w-7xl mx-auto px-4 sm:px-6 font-primary'>
       {/* Box de texto informativo com animação */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
@@ -61,7 +61,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
         <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-6 sm:p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
           {/* Efeito de brilho animado no fundo */}
           <div className='absolute inset-0 opacity-30'>
-            <motion.div
+            <m.div
               className='absolute inset-0'
               style={{
                 background:
@@ -80,17 +80,17 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
 
           {/* Conteúdo da box */}
           <div className='relative z-10'>
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               <Header useMotion={true} p={t('courses.p')} h2={t('courses.h2')} />
-            </motion.div>
+            </m.div>
 
             {/* Linha com animação discreta de brilho */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -99,7 +99,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
             >
               <div className='h-[1px] bg-gradient-to-r from-transparent via-[var(--cyber-cyan)] to-transparent relative'>
                 {/* Brilho esquerdo */}
-                <motion.div
+                <m.div
                   className='absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[var(--cyber-cyan)] blur-sm'
                   style={{ left: '50%' }}
                   animate={{
@@ -114,7 +114,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
                   }}
                 />
                 {/* Brilho direito */}
-                <motion.div
+                <m.div
                   className='absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[var(--cyber-purple)] blur-sm'
                   style={{ right: '50%' }}
                   animate={{
@@ -129,10 +129,10 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
                   }}
                 />
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Badges de destaque */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -143,27 +143,27 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
                 const badges = t('courses.badges', { returnObjects: true });
                 if (!Array.isArray(badges)) return null;
                 return badges.map((badge: { text: string, color: string }, idx: number) => (
-                  <motion.span
+                  <m.span
                     key={idx}
                     whileHover={{ scale: 1.05, y: -2 }}
                     className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
                   >
                     {badge.text}
-                  </motion.span>
+                  </m.span>
                 ));
               })()}
-            </motion.div>
+            </m.div>
           </div>
 
           {/* Borda decorativa com glow */}
           <div className='absolute inset-0 rounded-3xl border border-[var(--cyber-cyan)]/10 pointer-events-none' />
           <div className='absolute -inset-1 bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-3xl opacity-20 blur-xl -z-10' />
         </div>
-      </motion.div>
+      </m.div>
 
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8 md:gap-10'>
         {displayedCursos.map((curso, index) => (
-          <motion.div
+          <m.div
             key={curso.id}
             variants={fadeIn('up', 'spring', index * 0.1, 0.75)}
             className='glass-card p-5 sm:p-8 md:p-10 group neon-hover flex flex-col h-full border border-white/10'
@@ -200,7 +200,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
             </p>
 
             <div className='mt-6 sm:mt-10 pt-5 sm:pt-8 border-t border-white/5 flex items-center justify-center'>
-              <motion.button
+              <m.button
                 onClick={() => {
                   setSelectedCurso(curso);
                   setIsDetailOpen(true);
@@ -212,7 +212,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
                 whileTap={{ scale: 0.95 }}
                 className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
               >
-                <motion.div
+                <m.div
                   className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'
                   animate={{
                     x: ['-100%', '100%'],
@@ -227,14 +227,14 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
                 <span className='relative z-10'>{t('cursos.verCertificado')}</span>
 
                 <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300' />
-              </motion.button>
+              </m.button>
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
 
       <div className='mt-10 sm:mt-20 flex justify-center'>
-        <motion.button
+        <m.button
           onClick={() => setIsModalOpen(true)}
           whileHover={{
             scale: 1.05,
@@ -243,7 +243,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
           whileTap={{ scale: 0.95 }}
           className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
         >
-          <motion.div
+          <m.div
             className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'
             animate={{
               x: ['-100%', '100%'],
@@ -258,7 +258,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
           <span className='relative z-10'>{t('courses.viewAll')}</span>
 
           <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300' />
-        </motion.button>
+        </m.button>
       </div>
 
       <CursosModal

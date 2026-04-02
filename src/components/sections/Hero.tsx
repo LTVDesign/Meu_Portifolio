@@ -1,12 +1,14 @@
 import { domAnimation, LazyMotion, m } from 'framer-motion';
-import { useMemo } from 'react';
+import { lazy, Suspense, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useBackgroundMenu } from '../../contexts/ParticleConfigContext';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { useBreakpoints } from '../../hooks/useDebouncedResize';
 import TerminalText from '../atoms/TerminalText';
-import { ComputersCanvas } from '../canvas';
+
+// Lazy load do ComputersCanvas (Three.js + @react-three/fiber + @react-three/drei)
+const ComputersCanvas = lazy(() => import('../canvas/Computers').then(mod => ({ default: mod.ComputersCanvas })));
 
 /**
  * Hero - Seção principal da página
@@ -47,7 +49,7 @@ const Hero = () => {
   );
 
   return (
-    <LazyMotion features={domAnimation} strict={false}>
+    <LazyMotion features={domAnimation} strict>
       <m.section
         id='hero'
         initial={prefersReduced ? {} : { opacity: 0, y: 50 }}
@@ -103,7 +105,9 @@ const Hero = () => {
 
         {/* Canvas 3D do Computador - abaixo do texto */}
         <div className='absolute inset-0 z-0 pointer-events-auto flex items-end'>
-          <ComputersCanvas />
+          <Suspense fallback={null}>
+            <ComputersCanvas />
+          </Suspense>
         </div>
 
         {/* Engrenagem flutuante esquerda - Background selector (FIXA) */}

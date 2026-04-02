@@ -14,7 +14,7 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import BackgroundMenu from './components/layout/BackgroundMenu';
 import BackgroundEditorModal from './components/layout/BackgroundEditorModal';
-import ParticlesCanvas from './components/layout/ParticlesCanvas';
+const ParticlesCanvas = lazy(() => import('./components/layout/ParticlesCanvas'));
 
 // Lazy Loading (melhor performance)
 const BackgroundManager = lazy(() => import('./components/canvas/BackgroundManager'));
@@ -113,9 +113,10 @@ const AppContent = () => {
         </Suspense>
       </div>
 
-      {/* Partículas Canvas */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <ParticlesCanvas />
+        <Suspense fallback={null}>
+          <ParticlesCanvas />
+        </Suspense>
       </div>
 
       {/* Conteúdo principal */}

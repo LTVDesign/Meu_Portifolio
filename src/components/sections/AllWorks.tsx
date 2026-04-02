@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -21,7 +21,7 @@ const ProjectCard: React.FC<{ index: number } & Pick<TProject, 'tags' | 'image' 
   const { t } = useTranslation();
 
   return (
-    <motion.div
+    <m.div
       variants={prefersReduced ? {} : fadeIn('up', 'spring', index * 0.5, 0.75)}
       className='glass-card p-5 sm:w-[300px]'
     >
@@ -73,7 +73,7 @@ const ProjectCard: React.FC<{ index: number } & Pick<TProject, 'tags' | 'image' 
           </p>
         ))}
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 
@@ -94,12 +94,12 @@ const AllWorks = () => {
       <Header useMotion={true} p={t('works.p')} h2={t('works.h2')} />
 
       <div className='flex w-full justify-between items-center'>
-        <motion.p
+        <m.p
           variants={fadeIn('up', 'tween', 0.1, 1)}
           className='text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-3 text-[17px] leading-[30px]'
         >
           {t('works.content')}
-        </motion.p>
+        </m.p>
         <button
           type='button'
           onClick={() => navigate('/')}

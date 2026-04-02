@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import faculImg from '../../assets/facul.png';
@@ -20,12 +20,12 @@ const AllFormacao = () => {
       <Header useMotion={true} p={t('formacao.p')} h2={t('formacao.h2')} />
 
       <div className='flex w-full justify-between items-center'>
-        <motion.p
+        <m.p
           variants={prefersReduced ? {} : fadeIn('up', 'tween', 0.1, 1)}
           className='text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-3 max-w-3xl text-[17px] leading-[30px]'
         >
           {t('formacao.content')}
-        </motion.p>
+        </m.p>
         <button
           type='button'
           onClick={() => navigate('/')}
@@ -38,7 +38,7 @@ const AllFormacao = () => {
       <div className='mt-20 flex flex-col'>
         <div className='flex flex-wrap gap-7'>
           {[0, 1].map((index) => (
-            <motion.div
+            <m.div
               key={index}
               variants={fadeIn('up', 'spring', index * 0.5, 0.75)}
               className='w-full rounded-[20px] bg-tertiary p-5 sm:w-[360px]'
@@ -69,7 +69,7 @@ const AllFormacao = () => {
                   {t(`allFormacao.educationList.${index}.description`)}
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>
@@ -88,7 +88,7 @@ const AllFormacao = () => {
             { semestre: '5º Semestre', media: 9.1 },
             { semestre: '6º Semestre', media: 9.3 },
           ].map((item, index) => (
-            <motion.div
+            <m.div
               key={index}
               variants={fadeIn('up', 'spring', index * 0.1, 0.5)}
               className='bg-tertiary rounded-xl p-4'
@@ -105,7 +105,7 @@ const AllFormacao = () => {
               <p className='text-[14px] text-[var(--cyber-cyan)] mt-2 font-bold'>
                 {item.media.toFixed(1)}
               </p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>
