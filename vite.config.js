@@ -98,7 +98,14 @@ export default defineConfig({
     }
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', '@react-three/fiber']
+    include: [
+      'react',
+      'react-dom',
+      'three',
+      'framer-motion',
+      '@react-three/fiber',
+      '@react-three/drei'
+    ]
   },
 
   server: {

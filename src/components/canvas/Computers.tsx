@@ -7,7 +7,7 @@ import { useTouchScrollGuard } from '../../hooks/useTouchScrollGuard';
 import CanvasLoader from '../layout/Loader';
 
 // Preload do modelo para melhorar performance
-useGLTF.preload('/desktop_pc/scene-optimized.gltf');
+useGLTF.preload('/assets/3d-models/desktop-pc/scene-optimized.gltf');
 
 type ScreenSize = 'watch' | 'mobileSmall' | 'mobile' | 'tablet' | 'desktop' | 'tv' | '4k';
 
@@ -38,7 +38,7 @@ const SCREEN_CONFIG: Record<ScreenSize, {
 
 const ComputersContent: React.FC<{ screenSize: ScreenSize }> = ({ screenSize }) => {
   const [shouldLoadModel, setShouldLoadModel] = useState(false);
-  const computer = useGLTF('/desktop_pc/scene-optimized.gltf');
+  const computer = useGLTF('/assets/3d-models/desktop-pc/scene-optimized.gltf');
 
   useEffect(() => {
     // Delay adaptativo: menor em desktop, maior em mobile para priorizar LCP
