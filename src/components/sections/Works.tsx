@@ -21,6 +21,12 @@ const Works = () => {
     window.open(url, '_blank');
   };
 
+  const projectsList = [
+    { nameKey: '0', tagsKey: '0' },
+    { nameKey: '1', tagsKey: '1' },
+    { nameKey: '2', tagsKey: '2' },
+  ];
+
   return (
     <div className='max-w-7xl mx-auto px-4 sm:px-6'>
       {/* Box de texto informativo com animação */}
@@ -135,89 +141,99 @@ const Works = () => {
 
       {/* Grid de projetos - responsivo */}
       <div className='mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8'>
-        {projects.map((project, index) => (
-          <motion.div
-            key={project.name}
-            variants={prefersReduced ? {} : fadeIn('up', 'spring', index * 0.1, 0.75)}
-            onClick={() => handleProjectClick(project.name)}
-            className='glass-card group relative overflow-hidden h-full flex flex-col neon-hover border border-white/10 cursor-pointer transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl'
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <div className='relative h-48 sm:h-60 overflow-hidden'>
-              <img
-                src={project.image}
-                alt={project.name}
-                className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-105'
-                loading='lazy'
-              />
-              <div className='absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent' />
+        {projectsList.map((project, index) => {
+          const projectKey = project.nameKey;
+          const projectName = t(`projects.list.${projectKey}.name`);
+          const projectDescription = t(`projects.list.${projectKey}.description`);
+          const projectCategory = t(`projects.list.${projectKey}.category`);
+          const projectStatus = t(`projects.list.${projectKey}.status`);
+          const tags = t(`projects.list.${projectKey}.tags`, { returnObjects: true });
+          const projectTags = (Array.isArray(tags) ? tags : []) as { name: string; color: string }[];
 
-              {/* Category Badge */}
-              <div className='absolute top-3 sm:top-4 left-3 sm:left-4 px-3 sm:px-4 py-1 sm:py-1.5 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[9px] sm:text-[10px] font-bold text-[var(--cyber-cyan)] uppercase tracking-widest shadow-xl'>
-                {project.category}
+          return (
+            <motion.div
+              key={projectKey}
+              variants={prefersReduced ? {} : fadeIn('up', 'spring', index * 0.1, 0.75)}
+              onClick={() => handleProjectClick(projectName)}
+              className='glass-card group relative overflow-hidden h-full flex flex-col neon-hover border border-white/10 cursor-pointer transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl'
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <div className='relative h-48 sm:h-60 overflow-hidden'>
+                <img
+                  src={projects[parseInt(projectKey)].image}
+                  alt={projectName}
+                  className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-105'
+                  loading='lazy'
+                />
+                <div className='absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent' />
+
+                {/* Category Badge */}
+                <div className='absolute top-3 sm:top-4 left-3 sm:left-4 px-3 sm:px-4 py-1 sm:py-1.5 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[9px] sm:text-[10px] font-bold text-[var(--cyber-cyan)] uppercase tracking-widest shadow-xl'>
+                  {projectCategory}
+                </div>
+
+                {/* Status Badge */}
+                <div className='absolute top-3 sm:top-4 right-3 sm:right-4 px-2 sm:px-3 py-1 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[8px] sm:text-[9px] font-bold text-green-400 uppercase tracking-widest'>
+                  {projectStatus}
+                </div>
               </div>
 
-              {/* Status Badge */}
-              <div className='absolute top-3 sm:top-4 right-3 sm:right-4 px-2 sm:px-3 py-1 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[8px] sm:text-[9px] font-bold text-green-400 uppercase tracking-widest'>
-                {project.status}
-              </div>
-            </div>
+              <div className='p-5 sm:p-8 flex-1 flex flex-col'>
+                <div className='flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4'>
+                  {projectTags?.slice(0, 3).map((tag, i) => (
+                    <span
+                      key={i}
+                      className='text-[9px] sm:text-[10px] px-2 sm:px-3 py-0.5 sm:py-1 bg-white/5 border border-white/10 rounded-full text-[var(--text-secondary)] font-medium'
+                    >
+                      #{tag.name}
+                    </span>
+                  ))}
+                </div>
 
-            <div className='p-5 sm:p-8 flex-1 flex flex-col'>
-              <div className='flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4'>
-                {project.tags?.slice(0, 3).map((tag, i) => (
-                  <span
-                    key={i}
-                    className='text-[9px] sm:text-[10px] px-2 sm:px-3 py-0.5 sm:py-1 bg-white/5 border border-white/10 rounded-full text-[var(--text-secondary)] font-medium'
+                <h3 className='text-lg sm:text-2xl font-bold text-white group-hover:text-[var(--cyber-cyan)] transition-colors line-clamp-1 mb-2 sm:mb-3'>
+                  {projectName}
+                </h3>
+
+                <p className='mt-2 sm:mt-3 text-[var(--text-secondary)] line-clamp-3 text-xs sm:text-sm flex-1 leading-relaxed'>
+                  {projectDescription}
+                </p>
+
+                <div className='mt-5 sm:mt-8'>
+                  <motion.button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleProjectClick(projectName);
+                    }}
+                    whileHover={{
+                      scale: 1.05,
+                      y: -3,
+                      boxShadow: '0 10px 40px rgba(0, 255, 255, 0.3)',
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px]'
                   >
-                    #{tag.name}
-                  </span>
-                ))}
+                    <motion.div
+                      className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'
+                      animate={{
+                        x: ['-100%', '100%'],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: 'linear',
+                      }}
+                    />
+
+                    <span className='relative z-10'>{t('works.accessProject')}</span>
+
+                    <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300' />
+                  </motion.button>
+                </div>
               </div>
-
-              <h3 className='text-lg sm:text-2xl font-bold text-white group-hover:text-[var(--cyber-cyan)] transition-colors line-clamp-1 mb-2 sm:mb-3'>
-                {project.name}
-              </h3>
-
-              <p className='mt-2 sm:mt-3 text-[var(--text-secondary)] line-clamp-3 text-xs sm:text-sm flex-1 leading-relaxed'>
-                {project.description}
-              </p>
-
-              <div className='mt-5 sm:mt-8'>
-                <motion.button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleProjectClick(project.name);
-                  }}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -3,
-                    boxShadow: '0 10px 40px rgba(0, 255, 255, 0.3)',
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px]'
-                >
-                  <motion.div
-                    className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'
-                    animate={{
-                      x: ['-100%', '100%'],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: 'linear',
-                    }}
-                  />
-
-                  <span className='relative z-10'>{t('works.accessProject')}</span>
-
-                  <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300' />
-                </motion.button>
-              </div>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          );
+        })}
       </div>
 
       <div className='mt-10 sm:mt-16 flex justify-center'>

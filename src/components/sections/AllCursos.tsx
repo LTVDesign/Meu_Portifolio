@@ -1,10 +1,12 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import close from '../../assets/close.svg';
 import { SectionWrapper } from '../../hoc';
 import albertaImg from '../../logos/alberta.webp';
 import googleImg from '../../logos/google.webp';
+import ibmImg from '../../logos/ibm.webp';
+import cursosData from '../../data/cursos.json';
 import type { Curso } from '../../types';
 
 interface AllCursosProps {
@@ -15,10 +17,9 @@ interface AllCursosProps {
 const AllCursos = ({ isOpen = false, onClose = () => { } }: AllCursosProps) => {
   const [filter, setFilter] = useState('');
   const [sortBy, setSortBy] = useState<'year' | 'duration' | 'company'>('year');
-  const [visibleCount, setVisibleCount] = useState(6);
   const modalRef = useRef<HTMLDivElement>(null);
   const lastFocusedElement = useRef<HTMLElement | null>(null);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     if (isOpen) {
@@ -68,69 +69,15 @@ const AllCursos = ({ isOpen = false, onClose = () => { } }: AllCursosProps) => {
     }
   }, [isOpen, onClose]);
 
-  const allCursos: Curso[] = [
-    {
-      id: '1',
-      title: t('courses.list.0.title'),
-      platform: t('courses.list.0.platform'),
-      date: t('courses.list.0.date'),
-      duration: t('courses.list.0.duration'),
-      workload: t('courses.list.0.workload'),
-      icon: googleImg,
-      summary: t('courses.list.0.summary'),
-      description: t('courses.list.0.description'),
-      modules: t('courses.list.0.modules', { returnObjects: true }) as string[],
-      verificationLink:
-        'https://www.coursera.org/account/accomplishments/verify/XQUDR4SCZEYA',
-      link: 'https://www.coursera.org/learn/administracao-de-sistemas-servicos-infraestrutura-ti',
-    },
-    {
-      id: '2',
-      title: t('courses.list.1.title'),
-      platform: t('courses.list.1.platform'),
-      date: t('courses.list.1.date'),
-      duration: t('courses.list.1.duration'),
-      workload: t('courses.list.1.workload'),
-      icon: googleImg,
-      summary: t('courses.list.1.summary'),
-      description: t('courses.list.1.description'),
-      modules: t('courses.list.1.modules', { returnObjects: true }) as string[],
-      verificationLink:
-        'https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965',
-      isProfessionalCertificate: true,
-      link: 'https://www.coursera.org/learn/fundamentos-do-suporte-tecnico',
-    },
-    {
-      id: '3',
-      title: t('courses.list.2.title'),
-      platform: t('courses.list.2.platform'),
-      date: t('courses.list.2.date'),
-      duration: t('courses.list.2.duration'),
-      workload: t('courses.list.2.workload'),
-      icon: albertaImg,
-      summary: t('courses.list.2.summary'),
-      description: t('courses.list.2.description'),
-      modules: t('courses.list.2.modules', { returnObjects: true }) as string[],
-      verificationLink:
-        'https://www.coursera.org/account/accomplishments/verify/WKNDJF2YGF88',
-      link: 'https://www.coursera.org/learn/introduction-to-software-product-management-pt',
-    },
-    {
-      id: '4',
-      title: t('courses.list.3.title'),
-      platform: t('courses.list.3.platform'),
-      date: t('courses.list.3.date'),
-      duration: t('courses.list.3.duration'),
-      workload: t('courses.list.3.workload'),
-      icon: googleImg,
-      summary: t('courses.list.3.summary'),
-      description: t('courses.list.3.description'),
-      modules: t('courses.list.3.modules', { returnObjects: true }) as string[],
-      verificationLink:
-        'https://www.coursera.org/account/accomplishments/verify/5Z89ASL9BRCE',
-      link: 'https://www.coursera.org/learn/redes-computadores',
-    },
-  ];
+  const currentLanguage = (i18n.language || 'pt') as keyof typeof cursosData;
+
+  const allCursos: Curso[] = useMemo(() => {
+    const cursos = cursosData[currentLanguage] || cursosData.pt;
+    return cursos.map((curso) => ({
+      ...curso,
+      icon: curso.id === '3' ? albertaImg : curso.id === '7' ? ibmImg : googleImg,
+    }));
+  }, [currentLanguage]);
 
   const filteredCursos = allCursos.filter(
     (curso) =>
@@ -155,12 +102,6 @@ const AllCursos = ({ isOpen = false, onClose = () => { } }: AllCursosProps) => {
     }
     return 0;
   });
-
-  const displayedCursos = sortedCursos.slice(0, visibleCount);
-
-  const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + 6);
-  };
 
   if (!isOpen) return null;
 
@@ -238,9 +179,9 @@ const AllCursos = ({ isOpen = false, onClose = () => { } }: AllCursosProps) => {
               </div>
             </div>
 
-            {/* Grid de Cursos */}
+            {/* Grid de Cursos - MOSTRANDO TODOS OS CURSOS DE UMA VEZ */}
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-              {displayedCursos.map((curso, index) => (
+              {sortedCursos.map((curso, index) => (
                 <motion.div
                   key={curso.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -292,7 +233,7 @@ const AllCursos = ({ isOpen = false, onClose = () => { } }: AllCursosProps) => {
                           {t('courses.modulesLabel')}:
                         </p>
                         <ul className='space-y-1'>
-                          {curso.modules.slice(0, 3).map((module, idx) => (
+                          {curso.modules.slice(0, 3).map((module: string, idx: number) => (
                             <li
                               key={idx}
                               className='text-xs text-[var(--text-secondary)] flex items-start gap-2'
@@ -340,14 +281,11 @@ const AllCursos = ({ isOpen = false, onClose = () => { } }: AllCursosProps) => {
                 <p className='text-white/50 text-lg'>{t('courses.noResults')}</p>
               </div>
             ) : (
-              sortedCursos.length > visibleCount && (
+              sortedCursos.length > 0 && (
                 <div className='mt-12 text-center'>
-                  <button
-                    onClick={handleLoadMore}
-                    className='px-8 py-3 bg-gradient-to-r from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/20 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] font-bold uppercase tracking-widest rounded-xl hover:scale-105 transition-transform'
-                  >
-                    {t('courses.loadMore')}
-                  </button>
+                  <p className='text-white/60 text-sm'>
+                    {t('allCursos.footerTotalCourses', { count: sortedCursos.length })}
+                  </p>
                 </div>
               )
             )}

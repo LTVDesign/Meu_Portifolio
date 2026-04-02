@@ -188,7 +188,10 @@
   },
   "certificados": {
     "p": "Certificados",
-    "h2": "Certificados"
+    "h2": "Certificados",
+    "verificationCourse": "Verificação & Curso",
+    "knowledgeTrack": "Trilha de Conhecimento",
+    "validateAuthenticity": "Validar Autenticidade"
   },
   "curriculo": {
     "p": "Minha trajetória profissional",
@@ -254,7 +257,12 @@
     "github": "GitHub",
     "instagram": "Instagram",
     "facebook": "Facebook",
-    "whatsapp": "WhatsApp"
+    "whatsapp": "WhatsApp",
+    "description": "Engenheiro de Software • Especialista em Desenvolvimento Full Stack • Tecnólogo em Análise e Desenvolvimento de Sistemas • Pós-Graduando em IA & Data Science • Apaixonado por inovação tecnológica",
+    "easterEggHint": "Easter Egg",
+    "unlocking": "Desbloqueando...",
+    "accessDenied": "Acesso Negado",
+    "accessGranted": "Acesso Concedido"
   },
   "services": {
     "infraestrutura": "Infraestrutura",
@@ -527,9 +535,14 @@
         "description": "Simulação prática onde os alunos aplicam todas as técnicas anteriores (requisitos, priorização, planos de release e retrospectivas) em um cenário do mundo real."
       },
       "7": {
-        "name": "Certificado Profissional de Suporte de TI do Google",
+        "name": "Certificado Profissional de Suporte em TI do Google",
         "institution": "Google (via Coursera/Credly)",
-        "description": "Certificação profissional completa em suporte técnico de TI"
+        "description": "Certificação profissional completa em suporte técnico de TI, cobrindo hardware, redes, sistemas operacionais, segurança e atendimento ao cliente. Preparação para atuação como técnico de suporte N1/N2.",
+        "validationLink": "https://www.credly.com/badges/b573280d-6af1-4a73-8cf2-c1e434693c9f/print",
+        "authCode": "b573280d-6af1-4a73-8cf2-c1e434693c9f",
+        "date": "2024",
+        "workload": "Cerca de 120 horas",
+        "courseLink": "https://www.coursera.org/professional-certificates/google-it-support"
       },
       "8": {
         "name": "Suporte de TI do Google",
@@ -554,7 +567,12 @@
       "12": {
         "name": "Administração de Sistemas e Serviços de Infraestrutura de TI",
         "institution": "Google (via Coursera)",
-        "description": "Foca em serviços de infraestrutura como Active Directory, gerenciamento de frota e backup de dados."
+        "description": "Foca em serviços de infraestrutura como Active Directory, gerenciamento de frota e backup de dados.",
+        "validationLink": "https://www.coursera.org/account/accomplishments/verify/XQUDR4SCZEYA",
+        "authCode": "XQUDR4SCZEYA",
+        "date": "2024",
+        "workload": "120 horas",
+        "courseLink": "https://www.coursera.org/professional-certificates/google-it-support"
       },
       "13": {
         "name": "Segurança de TI: Defesa contra as Artes das Trevas",
@@ -582,9 +600,14 @@
         "description": "Fundamentos sobre ameaças, riscos e principais ferramentas usadas por profissionais de segurança digital."
       },
       "18": {
-        "name": "Nivelamento (Cibersegurança)",
+        "name": "Nivelamento em Cibersegurança",
         "institution": "Hackers do Bem (SENAI/RNP)",
-        "description": "Introdução técnica à área de segurança da informação para nivelamento em programas avançados."
+        "description": "Esse curso possui módulos online e assíncronos, abrangendo redes TCP/IP, desenvolvimento de sistemas, sistema operacional, internet e sistemas web. O curso é o passo inicial para uma carreira em cibersegurança.",
+        "validationLink": "https://ava.hackersdobem.org.br/mod/customcert/verify_certificate.php?contextid=366&code=EzFXn4WcDw&qrcode=1",
+        "authCode": "EzFXn4WcDw",
+        "date": "2024",
+        "workload": null,
+        "courseLink": "https://hackersdobem.org.br/"
       },
       "19": {
         "name": "Fundamentos de TI",
@@ -594,12 +617,22 @@
       "20": {
         "name": "Implementando Bancos de Dados",
         "institution": "Fundação Bradesco",
-        "description": "Focado na criação física de bancos de dados, usando linguagens de consulta e estruturação."
+        "description": "Focado na criação física de bancos de dados, usando linguagens de consulta e estruturação.",
+        "validationLink": "https://www.ev.org.br/validar-certificado",
+        "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923",
+        "date": "2024",
+        "workload": "20 horas",
+        "courseLink": "https://www.ev.org.br/trilhas-de-conhecimento/banco-de-dados"
       },
       "21": {
         "name": "Administração de Bancos de Dados",
         "institution": "Fundação Bradesco",
-        "description": "Gerenciamento de segurança, usuários, integridade e manutenção de sistemas de bancos de dados."
+        "description": "Gerenciamento de segurança, usuários, integridade e manutenção de sistemas de bancos de dados.",
+        "validationLink": "https://www.ev.org.br/validar-certificado",
+        "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923",
+        "date": "2024",
+        "workload": "20 horas",
+        "courseLink": "https://www.ev.org.br/trilhas-de-conhecimento/banco-de-dados"
       },
       "22": {
         "name": "Segurança de TI",

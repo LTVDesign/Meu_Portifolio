@@ -149,7 +149,7 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
           variants={prefersReduced ? {} : fadeIn('left', 'spring', 0.4, 0.75)}
           href='/formacao/DiplomaDigital.pdf'
           download
-          className='glass-card flex items-center gap-3 px-5 sm:px-8 py-3 sm:py-4 rounded-xl font-bold tracking-wider group border border-white/10 hover:border-[var(--cyber-cyan)]/50 transition-all shadow-lg min-h-[44px] text-sm sm:text-base'
+          className='btn-secondary flex items-center gap-3 px-5 sm:px-8 py-3 sm:py-4 rounded-xl font-bold tracking-wider group border border-white/10 hover:border-[var(--cyber-cyan)]/50 transition-all shadow-lg min-h-[44px] text-sm sm:text-base'
         >
           <FiDownload className='text-xl text-[var(--cyber-cyan)] group-hover:animate-bounce transition-transform' />
           <span className='text-white group-hover:text-[var(--cyber-cyan)] transition-colors'>

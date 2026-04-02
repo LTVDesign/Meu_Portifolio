@@ -6,8 +6,9 @@ import compression from 'vite-plugin-compression';
 
 export default defineConfig({
   define: {
-    'process.env': {},
-    '__DEFINES__': {}, // Algumas versões do Vite/plugins esperam isso
+    'process.env': JSON.stringify({}),
+    'global': 'window',
+    '__DEFINES__': JSON.stringify({}),
   },
   plugins: [
     tailwindcss(),

@@ -9,20 +9,18 @@ import React, {
 } from 'react';
 import { type ParticleConfig, validateLocalStorageData } from '../utils/validation';
 
-// Importamos o tipo do arquivo de validação
-// Hook para controle do menu de background - Refreshing module resolution
 const defaultConfig: ParticleConfig = {
   particleColor: '#915EFF',
-  speed: 1, // Reduzido de 2 para 1
+  speed: 1,
   intensity: 0.7,
-  quantity: 50, // Reduzido de 100 para 50
+  quantity: 50,
   zoom: 1,
   backgroundType: 'particles',
   liquidResolution: 0.5,
-  liquidOctaves: 3, // Reduzido de 4 para 3
+  liquidOctaves: 3,
   liquidSpeed: 0.5,
   liquidScale: 0.05,
-  liquidComplexity: 3.0, // Reduzido de 5.0 para 3.0
+  liquidComplexity: 3.0,
   liquidExpansion: 1.6,
   liquidTwist: 0.0,
   liquidGrain: 0.018,
@@ -37,11 +35,11 @@ const defaultConfig: ParticleConfig = {
   liquidNoiseScale: 1.0,
   liquidGloss: 0.6,
   liquidRefraction: 0.5,
-  particulateSpeed: 1, // Reduzido de 2 para 1
+  particulateSpeed: 1,
   particulateIntensity: 0.8,
   particulateColor: '#ffffff',
   particulateMode: 'blow',
-  particulateQuantity: 1000, // Reduzido de 3000 para 1000
+  particulateQuantity: 1000,
   particulateSize: 3,
   particulateFriction: 0.94,
   particulateSpring: 0.01,
@@ -52,9 +50,9 @@ const defaultConfig: ParticleConfig = {
   particulateColor4: '#96CEB4',
   particulateColor5: '#FFEAA7',
   particulateColor6: '#DDA0DD',
-  cyberpunkBloomStrength: 5, // Reduzido de 7 para 5
+  cyberpunkBloomStrength: 5,
   cyberpunkFogDensity: 0.7,
-  cyberpunkSpeed: 1, // Reduzido de 2 para 1
+  cyberpunkSpeed: 1,
   cyberpunkColor1: '#00ff00',
   cyberpunkColor2: '#ffff00',
   cyberpunkColor3: '#4499ff',
@@ -63,8 +61,8 @@ const defaultConfig: ParticleConfig = {
   cyberpunkPointSize: 0.015,
   cyberpunkLineOpacity: 0.5,
   cyberpunkCameraFOV: 75,
-  wavefieldSpeed: 1, // Reduzido de 2 para 1
-  wavefieldAmplitude: 1, // Reduzido de 2 para 1
+  wavefieldSpeed: 1,
+  wavefieldAmplitude: 1,
   wavefieldColor: '#00ffff',
   solidType: 'solid',
   solidColor1: '#08080c',
@@ -116,7 +114,6 @@ const defaultConfig: ParticleConfig = {
 interface ParticleConfigContextType {
   config: ParticleConfig;
   updateConfig: (newConfig: Partial<ParticleConfig>) => void;
-  // Menu de background global
   isBgMenuOpen: boolean;
   openBgMenu: () => void;
   closeBgMenu: () => void;
@@ -126,16 +123,10 @@ const ParticleConfigContext = createContext<ParticleConfigContextType | undefine
   undefined
 );
 
-export const useParticleConfig = () => {
-  const context = useContext(ParticleConfigContext);
-  if (!context) {
-    throw new Error('useParticleConfig must be used within a ParticleConfigProvider');
-  }
-  return context;
-};
-
-// Hook específico para controlar o menu de background
-export const useBackgroundMenu = () => {
+/**
+ * useBackgroundMenu hook
+ */
+const useBackgroundMenu = () => {
   const context = useContext(ParticleConfigContext);
   if (!context) {
     throw new Error('useBackgroundMenu must be used within a ParticleConfigProvider');
@@ -147,11 +138,19 @@ export const useBackgroundMenu = () => {
   };
 };
 
+const useParticleConfig = () => {
+  const context = useContext(ParticleConfigContext);
+  if (!context) {
+    throw new Error('useParticleConfig must be used within a ParticleConfigProvider');
+  }
+  return context;
+};
+
 interface ParticleConfigProviderProps {
   children: React.ReactNode;
 }
 
-export const ParticleConfigProvider: FC<ParticleConfigProviderProps> = ({ children }) => {
+const ParticleConfigProvider: FC<ParticleConfigProviderProps> = ({ children }) => {
   const [config, setConfig] = useState<ParticleConfig>(defaultConfig);
   const [isBgMenuOpen, setIsBgMenuOpen] = useState(false);
 
@@ -159,7 +158,6 @@ export const ParticleConfigProvider: FC<ParticleConfigProviderProps> = ({ childr
   const closeBgMenu = useCallback(() => setIsBgMenuOpen(false), []);
 
   useEffect(() => {
-    // Carregar e validar configurações do localStorage
     const savedConfig = localStorage.getItem('particleConfig');
     if (savedConfig) {
       try {
@@ -168,7 +166,6 @@ export const ParticleConfigProvider: FC<ParticleConfigProviderProps> = ({ childr
         if (validated) {
           setConfig({ ...defaultConfig, ...validated });
         } else {
-          // Se falhar a validação, usa o default e limpa o item corrompido
           localStorage.removeItem('particleConfig');
           setConfig(defaultConfig);
         }
@@ -178,7 +175,6 @@ export const ParticleConfigProvider: FC<ParticleConfigProviderProps> = ({ childr
     }
   }, []);
 
-  // Listener para mudanças de tema
   useEffect(() => {
     const updateParticleColorBasedOnTheme = () => {
       const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
@@ -187,7 +183,6 @@ export const ParticleConfigProvider: FC<ParticleConfigProviderProps> = ({ childr
         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       const newColor = currentTheme === 'light' ? '#000000' : '#ffffff';
 
-      // Só atualiza se a cor não foi personalizada pelo usuário
       if (
         config.particleColor === '#000000' ||
         config.particleColor === '#ffffff' ||
@@ -197,10 +192,8 @@ export const ParticleConfigProvider: FC<ParticleConfigProviderProps> = ({ childr
       }
     };
 
-    // Atualizar cor inicial baseada no tema
     updateParticleColorBasedOnTheme();
 
-    // Observar mudanças no localStorage
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === 'theme') {
         updateParticleColorBasedOnTheme();
@@ -208,10 +201,7 @@ export const ParticleConfigProvider: FC<ParticleConfigProviderProps> = ({ childr
     };
 
     window.addEventListener('storage', handleStorageChange);
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
+    return () => window.removeEventListener('storage', handleStorageChange);
   }, [config.particleColor]);
 
   const updateConfig = useCallback((newConfig: Partial<ParticleConfig>) => {
@@ -239,3 +229,6 @@ export const ParticleConfigProvider: FC<ParticleConfigProviderProps> = ({ childr
     </ParticleConfigContext.Provider>
   );
 };
+
+export { ParticleConfigProvider, useParticleConfig, useBackgroundMenu };
+

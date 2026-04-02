@@ -12,6 +12,42 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
 
   // Lista de arquivos de certificados organizados por categoria
   const certificadosFiles: Certificado[] = [
+    // Cibersegurança - Hackers do Bem (com validação)
+    {
+      name: t('certificates.list.18.name'),
+      path: '/certificados/Certificado - Nivelamento.pdf',
+      institution: t('certificates.list.18.institution'),
+      description: t('certificates.list.18.description'),
+      date: '2024',
+      courseLink: 'https://hackersdobem.org.br/',
+      validationLink: 'https://ava.hackersdobem.org.br/mod/customcert/verify_certificate.php?contextid=366&code=EzFXn4WcDw&qrcode=1',
+      authCode: 'EzFXn4WcDw'
+    },
+
+    // Banco de Dados - Fundação Bradesco (com validação)
+    {
+      name: t('certificates.list.20.name'),
+      path: '/certificados/Implementando Banco de Dados - Fundação Bradesco.pdf',
+      institution: t('certificates.list.20.institution'),
+      description: t('certificates.list.20.description'),
+      date: '2024',
+      workload: '20 horas',
+      courseLink: 'https://www.ev.org.br/trilhas-de-conhecimento/banco-de-dados',
+      validationLink: 'https://www.ev.org.br/validar-certificado',
+      authCode: 'AD76C8BE-50C2-46A8-84B1-81078939B923'
+    },
+    {
+      name: t('certificates.list.21.name'),
+      path: '/certificados/Administrando Banco de Dados - Fundação Bradesco.pdf',
+      institution: t('certificates.list.21.institution'),
+      description: t('certificates.list.21.description'),
+      date: '2024',
+      workload: '20 horas',
+      courseLink: 'https://www.ev.org.br/trilhas-de-conhecimento/banco-de-dados',
+      validationLink: 'https://www.ev.org.br/validar-certificado',
+      authCode: 'AD76C8BE-50C2-46A8-84B1-81078939B923'
+    },
+
     // Gerenciamento de Produtos - University of Alberta
     {
       name: t('certificates.list.0.name'),
@@ -32,24 +68,6 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
       description: t('certificates.list.2.description'),
     },
     {
-      name: t('certificates.list.3.name'),
-      path: '/certificados/Introdução ao Gerenciamento de produtos  ALBERTA.pdf',
-      institution: t('certificates.list.3.institution'),
-      description: t('certificates.list.3.description'),
-    },
-    {
-      name: t('certificates.list.4.name'),
-      path: '/certificados/Introdução ao Gerenciamento de produtos  ALBERTA.pdf',
-      institution: t('certificates.list.4.institution'),
-      description: t('certificates.list.4.description'),
-    },
-    {
-      name: t('certificates.list.5.name'),
-      path: '/certificados/Introdução ao Gerenciamento de produtos  ALBERTA.pdf',
-      institution: t('certificates.list.5.institution'),
-      description: t('certificates.list.5.description'),
-    },
-    {
       name: t('certificates.list.6.name'),
       path: '/certificados/Introdução ao Gerenciamento de produtos  ALBERTA.pdf',
       institution: t('certificates.list.6.institution'),
@@ -62,6 +80,11 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
       path: '/certificados/CertificadoProfissionaldeSuporteemTIdoGoogle_Badge20230225-28-1iiyqbg.pdf',
       institution: t('certificates.list.7.institution'),
       description: t('certificates.list.7.description'),
+      date: '2024',
+      workload: 'Cerca de 120 horas',
+      courseLink: 'https://www.coursera.org/professional-certificates/google-it-support',
+      validationLink: 'https://www.credly.com/badges/b573280d-6af1-4a73-8cf2-c1e434693c9f/print',
+      authCode: 'b573280d-6af1-4a73-8cf2-c1e434693c9f'
     },
     {
       name: t('certificates.list.8.name'),
@@ -92,6 +115,11 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
       path: '/certificados/Administração de Sistemas e Serviços de Infraestrutura de TI.pdf',
       institution: t('certificates.list.12.institution'),
       description: t('certificates.list.12.description'),
+      date: '2024',
+      workload: '120 horas',
+      courseLink: 'https://www.coursera.org/professional-certificates/google-it-support',
+      validationLink: 'https://www.coursera.org/account/accomplishments/verify/XQUDR4SCZEYA',
+      authCode: 'XQUDR4SCZEYA'
     },
     {
       name: t('certificates.list.13.name'),
@@ -129,32 +157,16 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
       institution: t('certificates.list.17.institution'),
       description: t('certificates.list.17.description'),
     },
-    {
-      name: t('certificates.list.18.name'),
-      path: '/certificados/Certificado - Nivelamento.pdf',
-      institution: t('certificates.list.18.institution'),
-      description: t('certificates.list.18.description'),
-    },
 
-    // Banco de Dados - Fundação Bradesco
+    // Banco de Dados - Fundação Bradesco (apenas o de fundamentos, sem os de implementação/administração que já estão no topo)
     {
       name: t('certificates.list.19.name'),
       path: '/certificados/fundamentos de ti - Fundação Bradesco.pdf',
       institution: t('certificates.list.19.institution'),
       description: t('certificates.list.19.description'),
     },
-    {
-      name: t('certificates.list.20.name'),
-      path: '/certificados/Implementando Banco de Dados - Fundação Bradesco.pdf',
-      institution: t('certificates.list.20.institution'),
-      description: t('certificates.list.20.description'),
-    },
-    {
-      name: t('certificates.list.21.name'),
-      path: '/certificados/Administrando Banco de Dados - Fundação Bradesco.pdf',
-      institution: t('certificates.list.21.institution'),
-      description: t('certificates.list.21.description'),
-    },
+
+    // Segurança de TI - Fundação Bradesco (índice 22)
     {
       name: t('certificates.list.22.name'),
       path: '/certificados/Segurança em Tecnologia da Informação - Fundação Bradesco.pdf',
@@ -302,32 +314,114 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
           <motion.div
             key={`certificado-${index}`}
             variants={fadeIn('up', 'spring', index * 0.5, 0.75)}
-            className='bg-tertiary w-full rounded-2xl p-5 sm:p-8 hover:scale-[1.02] sm:hover:scale-105 transition-transform shadow-card'
+            className='bg-tertiary w-full rounded-2xl p-5 sm:p-8 hover:scale-[1.02] sm:hover:scale-105 transition-transform shadow-card relative overflow-hidden group'
           >
-            <div className='mt-5'>
-              <h3 className='text-[16px] font-bold text-white sm:text-[18px] text-center'>
+            {/* Efeito de borda glow no hover */}
+            <div className='absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[var(--cyber-cyan)]/50 transition-all duration-500 pointer-events-none' />
+
+            <div className='mt-5 relative z-10'>
+              <h3 className='text-[16px] font-bold text-white sm:text-[18px] text-center leading-tight'>
                 {certificado.name}
               </h3>
               {certificado.institution && (
-                <p className='text-gray-300 text-[13px] text-center mt-2'>
+                <p className='text-gray-300 text-[13px] text-center mt-2 flex items-center justify-center gap-2'>
+                  <svg className='w-4 h-4' fill='currentColor' viewBox='0 0 20 20'>
+                    <path d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' />
+                  </svg>
                   {certificado.institution}
                 </p>
               )}
               {certificado.description && (
-                <p className='text-gray-400 text-[12px] text-center mt-2 leading-relaxed'>
+                <p className='text-gray-400 text-[12px] text-center mt-3 leading-relaxed'>
                   {certificado.description}
                 </p>
               )}
-              <div className='mt-4 flex w-full justify-center'>
+
+              {/* Informações adicionais - Data e Carga Horária */}
+              {(certificado.date || certificado.workload) && (
+                <div className='flex justify-center gap-4 mt-4 flex-wrap'>
+                  {certificado.date && (
+                    <span className='inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--cyber-purple)]/20 border border-[var(--cyber-purple)]/30 text-[11px] text-[var(--cyber-purple)]'>
+                      <svg className='w-3 h-3' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                        <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' />
+                      </svg>
+                      {certificado.date}
+                    </span>
+                  )}
+                  {certificado.workload && (
+                    <span className='inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--cyber-cyan)]/20 border border-[var(--cyber-cyan)]/30 text-[11px] text-[var(--cyber-cyan)]'>
+                      <svg className='w-3 h-3' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                        <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' />
+                      </svg>
+                      {certificado.workload}
+                    </span>
+                  )}
+                </div>
+              )}
+
+              {/* Botão principal - Ver Certificado */}
+              <div className='mt-5 flex w-full justify-center'>
                 <LinkAnimado
                   href={certificado.path}
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='glass-btn mt-4 text-[13px] px-5 py-2 text-center font-medium rounded-full min-h-[44px] flex items-center justify-center'
+                  className='glass-btn text-[13px] px-6 py-2.5 text-center font-medium rounded-full min-h-[44px] flex items-center justify-center gap-2 bg-gradient-to-r from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/20 border border-[var(--cyber-cyan)]/30 hover:border-[var(--cyber-cyan)]/60 hover:from-[var(--cyber-purple)]/30 hover:to-[var(--cyber-cyan)]/30 transition-all duration-300'
                 >
+                  <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' />
+                  </svg>
                   {t('certificates.viewAll')}
                 </LinkAnimado>
               </div>
+
+              {/* Links de validação e curso - apenas para certificados com essas informações */}
+              {(certificado.validationLink || certificado.courseLink) && (
+                <div className='mt-4 pt-4 border-t border-[var(--cyber-cyan)]/10'>
+                  <p className='text-[10px] text-gray-500 text-center mb-3 uppercase tracking-wider'>
+                    {t('certificados.verificationCourse')}
+                  </p>
+                  <div className='flex flex-col gap-2'>
+                    {certificado.courseLink && (
+                      <LinkAnimado
+                        href={certificado.courseLink}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='text-[11px] px-4 py-2 text-center font-medium rounded-lg min-h-[36px] flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/30 hover:border-blue-500/50 hover:from-blue-500/20 hover:to-cyan-500/20 transition-all duration-300 text-blue-300'
+                      >
+                        <svg className='w-3.5 h-3.5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z' />
+                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M21 12a9 9 0 11-18 0 9 9 0 0118 0z' />
+                        </svg>
+                        {t('certificados.knowledgeTrack')}
+                      </LinkAnimado>
+                    )}
+                    {certificado.validationLink && certificado.authCode && (
+                      <div className='relative'>
+                        <LinkAnimado
+                          href={certificado.validationLink}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          className='text-[11px] px-4 py-2 text-center font-medium rounded-lg min-h-[36px] flex items-center justify-center gap-2 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30 hover:border-green-500/50 hover:from-green-500/20 hover:to-emerald-500/20 transition-all duration-300 text-green-300'
+                        >
+                          <svg className='w-3.5 h-3.5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' />
+                          </svg>
+                          {t('certificados.validateAuthenticity')}
+                        </LinkAnimado>
+                        {/* Código de autenticidade tooltip */}
+                        <div className='absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20 min-w-max'>
+                          <p className='text-[10px] text-gray-300 text-center whitespace-nowrap'>
+                            Código: {certificado.authCode}
+                          </p>
+                          <div className='absolute top-full left-1/2 transform -translate-x-1/2 -mt-1'>
+                            <div className='border-4 border-transparent border-t-gray-900'></div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           </motion.div>
         ))}

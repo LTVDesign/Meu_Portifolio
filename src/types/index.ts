@@ -240,6 +240,11 @@ export interface Certificado {
   path: string;
   institution?: string;
   description?: string;
+  validationLink?: string;
+  authCode?: string;
+  date?: string;
+  workload?: string;
+  courseLink?: string;
 }
 
 // Tipos para Uniforms de shaders
