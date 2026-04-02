@@ -39,6 +39,8 @@
     /* Prevenir layout shift */
     min-height: 100vh;
     overflow-x: hidden;
+    /* Garante que scroll vertical sempre funciona em touch devices */
+    touch-action: pan-y;
   }
 
   html {
@@ -59,6 +61,8 @@
     width: 100vw !important;
     height: 100vh !important;
     pointer-events: none;
+    /* Garante que backgrounds nunca bloqueiam scroll em touch */
+    touch-action: none;
   }
 
   /* Content layers (z-10+) */

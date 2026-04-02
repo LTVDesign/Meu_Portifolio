@@ -5,6 +5,7 @@ import * as THREE from 'three';
 // Import textures as Vite assets to ensure correct paths in production build
 // Usando WebP otimizado para melhor performance
 import planetBaseColor from '../../../planet/textures/webp/Planet_baseColor.webp?url';
+import { useTouchScrollGuard } from '../../hooks/useTouchScrollGuard';
 import CanvasLoader from '../layout/Loader';
 
 const Earth = () => {
@@ -32,43 +33,55 @@ const Earth = () => {
 };
 
 const EarthCanvas = () => {
-  return (
-    <Canvas
-      shadows={{ type: THREE.PCFShadowMap }}
-      frameloop='always'
-      dpr={[1, 2]}
-      gl={{
-        preserveDrawingBuffer: true,
-        antialias: true,
-        powerPreference: 'high-performance',
-        alpha: true,
-      }}
-      camera={{
-        fov: 45,
-        near: 0.1,
-        far: 200,
-        position: [0, 0, 5],
-      }}
-    >
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[5, 5, 5]} intensity={1} />
-      <Suspense fallback={<CanvasLoader />}>
-        <OrbitControls
-          autoRotate
-          autoRotateSpeed={0.5}
-          enablePan={false}
-          enableZoom={true}
-          zoomSpeed={0.6}
-          minDistance={3}
-          maxDistance={10}
-          maxPolarAngle={Math.PI}
-          minPolarAngle={0}
-        />
-        <Earth />
+  const { containerRef, isTouchInteracting, touchStyle } = useTouchScrollGuard({
+    verticalThreshold: 30,
+    intentThreshold: 8,
+  });
 
-        <Preload all />
-      </Suspense>
-    </Canvas>
+  return (
+    <div
+      ref={containerRef}
+      className='w-full h-full'
+      style={touchStyle}
+    >
+      <Canvas
+        shadows={{ type: THREE.PCFShadowMap }}
+        frameloop='always'
+        dpr={[1, 2]}
+        gl={{
+          preserveDrawingBuffer: true,
+          antialias: true,
+          powerPreference: 'high-performance',
+          alpha: true,
+        }}
+        camera={{
+          fov: 45,
+          near: 0.1,
+          far: 200,
+          position: [0, 0, 5],
+        }}
+      >
+        <ambientLight intensity={0.5} />
+        <directionalLight position={[5, 5, 5]} intensity={1} />
+        <Suspense fallback={<CanvasLoader />}>
+          <OrbitControls
+            autoRotate
+            autoRotateSpeed={0.5}
+            enablePan={false}
+            // Em touch: zoom e rotação só quando o guard detectou intenção horizontal
+            enableZoom={isTouchInteracting}
+            enableRotate={isTouchInteracting}
+            zoomSpeed={0.6}
+            minDistance={3}
+            maxDistance={10}
+            maxPolarAngle={Math.PI}
+            minPolarAngle={0}
+          />
+          <Earth />
+          <Preload all />
+        </Suspense>
+      </Canvas>
+    </div>
   );
 };
 

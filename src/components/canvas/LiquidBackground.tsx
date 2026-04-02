@@ -396,6 +396,8 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
         top: 0,
         left: 0,
         zIndex: -1,
+        pointerEvents: 'none' as const,
+        touchAction: 'none' as const,
         width: '100%',
         height: '100%',
       }}

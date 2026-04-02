@@ -336,9 +336,10 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
     init();
     animate(performance.now()); // Pass initial time to animate
 
-    window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('touchmove', onTouchMove);
-    window.addEventListener('resize', onWindowResize);
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    // passive: true garante que o scroll da página não é bloqueado
+    window.addEventListener('touchmove', onTouchMove, { passive: true });
+    window.addEventListener('resize', onWindowResize, { passive: true });
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
@@ -363,6 +364,9 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
         width: '100%',
         height: '100%',
         zIndex: -1,
+        // Backgrounds de fundo NUNCA devem bloquear eventos da página
+        pointerEvents: 'none',
+        touchAction: 'none',
       }}
     />
   );

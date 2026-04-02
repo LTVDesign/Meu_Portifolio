@@ -2,6 +2,7 @@ import { AdaptiveDpr, AdaptiveEvents, OrbitControls, useGLTF } from '@react-thre
 import { Canvas } from '@react-three/fiber';
 import type React from 'react';
 import { Suspense, useEffect, useRef, useState } from 'react';
+import { useTouchScrollGuard } from '../../hooks/useTouchScrollGuard';
 
 import CanvasLoader from '../layout/Loader';
 
@@ -83,6 +84,10 @@ const ComputersContent: React.FC<{ screenSize: ScreenSize }> = ({ screenSize }) 
 };
 
 const ComputersCanvas = () => {
+  const { containerRef: touchRef, isTouchInteracting, touchStyle } = useTouchScrollGuard({
+    verticalThreshold: 25, // Mais sensível ao scroll vertical no computador 3D
+    intentThreshold: 6,
+  });
   const [shouldLoad, setShouldLoad] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const [screenSize, setScreenSize] = useState<ScreenSize>(() =>
@@ -140,9 +145,19 @@ const ComputersCanvas = () => {
 
   return (
     <div
-      ref={containerRef}
+      ref={(el) => {
+        // Combina os dois refs: containerRef (interno) e touchRef (scroll guard)
+        (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
+        (touchRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
+      }}
       className='relative h-full w-full'
-      style={{ minHeight: '100%', minWidth: '100%', zIndex: 0, pointerEvents: 'auto' }}
+      style={{
+        minHeight: '100%',
+        minWidth: '100%',
+        zIndex: 0,
+        pointerEvents: 'auto',
+        ...touchStyle,
+      }}
     >
       <Canvas
         frameloop='demand'
@@ -179,6 +194,8 @@ const ComputersCanvas = () => {
             rotateSpeed={screenSize === 'watch' ? 0.5 : 1}
             enableDamping={true}
             dampingFactor={0.05}
+            // Só permite rotação touch quando o guard detectou intenção de interação 3D
+            enabled={isTouchInteracting || screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k'}
           />
           {shouldLoad && <ComputersContent screenSize={screenSize} />}
         </Suspense>
