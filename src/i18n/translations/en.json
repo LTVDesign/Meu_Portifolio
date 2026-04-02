@@ -62,7 +62,9 @@
     ],
     "titleMeta": "Leandro Saturnino Barbosa | 3D Cyberpunk Portfolio",
     "descriptionMeta": "Interactive 3D portfolio with React, Three.js and Tailwind. Specialist in AI, Security and Full Stack Development.",
-    "dragToRotate": "Drag to rotate"
+    "dragToRotate": "Drag to rotate",
+    "dragToRotateSubtitle": "360º",
+    "ariaLabelRotate": "3D Planet Model - Click and drag to rotate"
   },
   "about": {
     "p": "Software Engineer • ADS Technologist • AI & Data Science Postgraduate Student",
@@ -191,7 +193,49 @@
     "sortCompany": "Institution",
     "noResults": "No courses found.",
     "viewAll": "View All Courses",
-    "verCertificado": "VIEW CERTIFICATE"
+    "verCertificado": "VIEW CERTIFICATE",
+    "badges": [
+      {
+        "text": "Google",
+        "color": "from-blue-500 to-cyan-500"
+      },
+      {
+        "text": "IBM",
+        "color": "from-indigo-500 to-blue-500"
+      },
+      {
+        "text": "University of Alberta",
+        "color": "from-purple-500 to-pink-500"
+      },
+      {
+        "text": "Johns Hopkins University",
+        "color": "from-orange-500 to-red-500"
+      },
+      {
+        "text": "Yonsei University",
+        "color": "from-teal-500 to-cyan-500"
+      },
+      {
+        "text": "Anhanguera",
+        "color": "from-green-500 to-emerald-500"
+      },
+      {
+        "text": "Hackers do Bem",
+        "color": "from-red-500 to-orange-500"
+      },
+      {
+        "text": "Fundação Bradesco",
+        "color": "from-blue-600 to-indigo-600"
+      },
+      {
+        "text": "Google Skillshop",
+        "color": "from-cyan-500 to-blue-500"
+      },
+      {
+        "text": "IPED",
+        "color": "from-yellow-500 to-orange-500"
+      }
+    ]
   },
   "certificados": {
     "p": "Certificates",
@@ -453,76 +497,7 @@
     "loadMore": "Load More",
     "modulesLabel": "Main modules",
     "moreModules": "more modules...",
-    "list": {
-      "0": {
-        "title": "Systems Administration, Services and IT Infrastructure",
-        "platform": "Google (via Coursera)",
-        "date": "2024",
-        "duration": "Approximately 6 months",
-        "workload": "About 120 hours",
-        "summary": "This course covers the administration of systems and IT infrastructure services, from operating system installation and configuration to network services and security management. Learn to keep systems running and configure essential network services.",
-        "description": "This course teaches the fundamental skills needed to administer IT infrastructure systems and services. You will learn to install and configure Windows and Linux operating systems, manage network services such as DNS and DHCP, implement security policies, and perform maintenance and support tasks. It's a solid foundation for any IT professional working with infrastructure.",
-        "modules": [
-          "Operating system installation and configuration",
-          "Network services management (DNS, DHCP)",
-          "User and permissions administration",
-          "System and network security",
-          "Monitoring and troubleshooting",
-          "Administrative task automation"
-        ]
-      },
-      "1": {
-        "title": "Technical Support Fundamentals",
-        "platform": "Google (via Coursera)",
-        "date": "2024",
-        "duration": "Approximately 6 months",
-        "workload": "About 120 hours",
-        "summary": "Professional Certificate covering the fundamentals of technical support, including hardware, networks, operating systems, security, and customer service. A complete foundation for N1/N2 support technician role.",
-        "description": "This professional certificate provides a comprehensive foundation for a career in IT technical support. It covers everything from basic hardware and software concepts to advanced topics like networking, operating systems, information security, and customer service best practices. It's the ideal starting point for those wishing to work as a support technician or Help Desk.",
-        "modules": [
-          "IT fundamentals and hardware",
-          "Computer networks and protocols",
-          "Operating systems (Windows, Linux, macOS)",
-          "Information security and cybersecurity",
-          "Customer service and communication",
-          "Problem solving and troubleshooting"
-        ]
-      },
-      "2": {
-        "title": "Introduction to Software Product Management (PT)",
-        "platform": "University of Alberta (via Coursera)",
-        "date": "2023",
-        "duration": "Approximately 6 weeks",
-        "workload": "About 30 hours",
-        "summary": "Introductory course in software product management, covering fundamental GPS concepts, differences between product and project management, and the importance of customer focus and value delivery.",
-        "description": "This course establishes the foundation for software product management (GPS), differentiating it from traditional project management. It focuses on three pillars for success: delivering the right product (validation), building it correctly (verification), and managing it properly (processes). It addresses the Agile philosophy and Agile Manifesto as tools to handle change and customer expectations.",
-        "modules": [
-          "Introduction to Software Product Management",
-          "Differences between Product Management and Project Management",
-          "The three pillars of GPS: Validation, Verification, and Processes",
-          "Agile Philosophy and Agile Manifesto",
-          "Customer focus and value delivery",
-          "Product Manager roles and responsibilities"
-        ]
-      },
-      "3": {
-        "title": "Computer Networks",
-        "platform": "Google (via Coursera)",
-        "date": "2024",
-        "duration": "Approximately 2 months",
-        "workload": "About 40 hours",
-        "summary": "Complete course on computer networks, covering from data communication fundamentals to protocols, network architectures, security, and troubleshooting. Essential for IT and development professionals.",
-        "description": "This course offers a comprehensive understanding of computer networks, from basic data communication concepts to complex network architectures. It covers protocols, reference models (OSI/TCP-IP), network devices, cybersecurity, and diagnostic and problem-solving techniques. Fundamental for any technology professional working with connected systems.",
-        "modules": [
-          "Data communication fundamentals",
-          "Reference models (OSI and TCP/IP)",
-          "Network protocols (IP, TCP, UDP, HTTP, DNS)",
-          "Network devices (routers, switches, firewalls)",
-          "Network security and encryption",
-          "Troubleshooting and network monitoring"
-        ]
-      }
-    }
+    "verifyAuthenticity": "Verify Authenticity"
   },
   "allFormacao": {
     "title": "Complete Academic Background",
@@ -638,6 +613,12 @@
       },
       {
         "text": "University of Alberta"
+      },
+      {
+        "text": "Johns Hopkins University"
+      },
+      {
+        "text": "Yonsei University"
       },
       {
         "text": "Hackers do Bem"
@@ -973,11 +954,36 @@
     "mainModules": "Main modules:",
     "moreModules": "+{count} more modules...",
     "totalCourses": "Total courses: {count}",
-    "footerCopyright": "Leandro Saturnino Barbosa © 2024"
+    "footerCopyright": "Leandro Saturnino Barbosa © 2026"
   },
   "allCursos": {
     "footerTotalCourses": "Total courses: {count}",
-    "footerCopyright": "Leandro Saturnino Barbosa © 2024"
+    "footerCopyright": "Leandro Saturnino Barbosa © 2026",
+    "coursesAvailable": "{count} course available",
+    "coursesAvailable_plural": "{count} courses available",
+    "totalCoursesLabel": "Total courses",
+    "professionalCertificates": "Professional certificates",
+    "platforms": "Platforms",
+    "differentYears": "Different years",
+    "noCoursesFound": "No courses found",
+    "adjustFilters": "Try adjusting your search filters",
+    "searchCourses": "🔍 Search courses",
+    "searchPlaceholder": "Search by title or platform...",
+    "filterByPlatform": "🏢 Platform",
+    "allPlatforms": "All platforms",
+    "filterByCertificate": "📜 Certificate Type",
+    "allTypes": "All types",
+    "professionalCertificate": "Professional Certificate",
+    "regularCertificate": "Regular Certificate",
+    "sortBy": "📊 Sort by",
+    "mostRecent": "Most recent",
+    "nameAZ": "Name (A-Z)",
+    "platform": "Platform",
+    "duration": "Duration",
+    "activeFilters": "Active filters:",
+    "clearFilters": "Clear filters",
+    "searchFilter": "Search: \"{filter}\"",
+    "viewCertificate": "View Certificate"
   },
   "editorLabels": {
     "speed": "Speed",
@@ -997,5 +1003,87 @@
     "blow": "Blow",
     "attract": "Attract",
     "freeze": "Freeze"
+  },
+  "constants": {
+    "navLinks": {
+      "about": "About",
+      "formacao": "Education",
+      "experience": "Professional Experience",
+      "cursos": "Courses",
+      "works": "Projects",
+      "curriculo": "Resume",
+      "contact": "Contact"
+    },
+    "services": {
+      "infraestrutura": "Infrastructure",
+      "infraestruturaDesc": "Specialist in N2 support and networks, with mastery of Microsoft 365 environments, servers, and physical/cloud infrastructure",
+      "ciberseguranca": "Cybersecurity",
+      "cibersegurancaDesc": "Focused on digital defense, asset protection, and vulnerability mitigation, with a solid foundation in network security and compliance",
+      "iaDados": "AI & Data",
+      "iaDadosDesc": "Development of intelligent solutions and predictive analytics, using algorithms to transform data into strategic decisions",
+      "gestao": "Management",
+      "gestaoDesc": "Team leadership through agile frameworks (Scrum) and product vision focused on user experience and value delivery"
+    },
+    "technologies": {
+      "categories": {
+        "sistemas": "Systems & Infrastructure",
+        "hardware": "Hardware & IoT",
+        "linguagens": "Languages & Backend",
+        "seguranca": "Security & Networks",
+        "frontend": "Front-end & Design",
+        "ferramentas": "Tools & DevOps"
+      }
+    },
+    "testimonials": {
+      "testimonial1": "I thought it was impossible to create a website as beautiful as our product, but Leandro proved otherwise.",
+      "testimonial2": "I've never met a web developer who cares so much about customer success like Leandro.",
+      "testimonial3": "After Leandro optimized our website, our traffic increased 50%. We can't thank him enough!"
+    },
+    "projects": {
+      "getnexo": "All-in-One sales automation and customer service intelligence platform that transforms WhatsApp into a high-performance channel with Generative AI and Augmented Reality.",
+      "comptester": "Advanced diagnostic ecosystem for electronic components with Arduino Uno and Pixel Art interface on TFT display.",
+      "willy": "Portable multi-tool security device with ESP32, multi-band RF protocols (Sub-GHz, NFC, IR) and modern LVGL interface."
+    }
+  },
+  "navbar": {
+    "portuguese": "Portuguese",
+    "english": "English",
+    "watchMode": "Watch Mode",
+    "normalMode": "Normal Mode"
+  },
+  "experienceCard": {
+    "viewMore": "View more",
+    "viewLess": "View less",
+    "present": "Present"
+  },
+  "techCard": {
+    "clickToLearn": "Click to learn more"
+  },
+  "serviceCard": {
+    "learnMore": "Learn more"
+  },
+  "projectCard": {
+    "viewProject": "View Project",
+    "viewCode": "View Code"
+  },
+  "testimonialCard": {
+    "designation": "of"
+  },
+  "formacaoCard": {
+    "viewDetails": "View Details",
+    "completed": "Completed",
+    "inProgress": "In Progress"
+  },
+  "cursoCard": {
+    "viewCertificate": "View Certificate",
+    "verifyAuthenticity": "Verify Authenticity"
+  },
+  "certificadoCard": {
+    "viewCredential": "View Credential",
+    "validate": "Validate"
+  },
+  "contactForm": {
+    "honeypotLabel": "Do not fill this field",
+    "cooldownMessage": "⏳ Wait {seconds}s before next submission"
   }
 }

@@ -25,10 +25,11 @@ const LinkAnimado = ({
       rel={rel}
       className={className}
       onClick={onClick}
+      initial={{ filter: 'drop-shadow(0 0 0px rgba(255, 255, 255, 0))' }}
+      animate={{ filter: 'drop-shadow(0 0 0px rgba(255, 255, 255, 0))' }}
       whileHover={{
         scale: 1.05,
-        filter:
-          'drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 15px rgba(145, 94, 255, 0.5))',
+        filter: 'drop-shadow(0 0 10px rgba(0, 255, 255, 0.8))',
       }}
       whileTap={{ scale: 0.95, opacity: 0.8 }}
       transition={{ type: 'spring', stiffness: 400, damping: 17 }}

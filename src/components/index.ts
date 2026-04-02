@@ -10,12 +10,10 @@ import Navbar from './layout/Navbar';
 
 // Sections (páginas)
 import About from './sections/About';
-import AllCertificados from './sections/AllCertificados';
-import AllCourses from './sections/AllCourses';
+import AllCursos from './sections/AllCursos';
 import AllCurriculo from './sections/AllCurriculo';
 import AllFormacao from './sections/AllFormacao';
 import AllWorks from './sections/AllWorks';
-import Certificados from './sections/Certificados';
 import Contact from './sections/Contact';
 import Curriculo from './sections/Curriculo';
 import Cursos from './sections/Cursos';
@@ -29,13 +27,11 @@ import Works from './sections/Works';
 export {
   // Sections
   About,
-  AllCertificados,
-  AllCourses,
+  AllCursos,
   AllCurriculo,
   AllFormacao,
   AllWorks,
   CanvasLoader,
-  Certificados,
   Contact,
   Curriculo,
   Cursos,

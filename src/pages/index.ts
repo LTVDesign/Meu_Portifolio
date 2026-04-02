@@ -1,7 +1,6 @@
 // Exportações de todas as páginas do projeto
 // Este arquivo centraliza as importações de páginas para facilitar o gerenciamento
 
-export { default as CertificadosPage } from './CertificadosPage';
 export { default as ContactPage } from './ContactPage';
 export { default as CursosPage } from './CursosPage';
 export { default as DoomPage } from './DoomPage';

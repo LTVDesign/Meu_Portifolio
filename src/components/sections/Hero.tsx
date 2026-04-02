@@ -235,10 +235,9 @@ const Hero = () => {
               {/* Text with enhanced effects */}
               <div className='flex flex-col items-center gap-1'>
                 <m.span
-                  className={`font-black tracking-[0.3em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] via-white to-[var(--cyber-purple)] bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(0,255,255,0.7)] ${isMobile ? 'text-[9px]' : isTV ? 'text-base' : 'text-xs'}`}
+                  className={`font-black tracking-[0.3em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] via-white to-[var(--cyber-purple)] bg-clip-text text-transparent ${isMobile ? 'text-[9px]' : isTV ? 'text-base' : 'text-xs'}`}
                   style={{
-                    filter:
-                      'drop-shadow(0 0 10px rgba(0,255,255,0.8)) drop-shadow(0 0 20px rgba(145,94,255,0.5))',
+                    filter: 'drop-shadow(0 0 15px rgba(0,255,255,0.7))',
                   }}
                   animate={{
                     opacity: [0.7, 1, 0.7],

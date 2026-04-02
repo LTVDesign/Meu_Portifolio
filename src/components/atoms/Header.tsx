@@ -40,12 +40,7 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
       opacity: 1,
       scale: 1,
       y: 0,
-      filter: [
-        'drop-shadow(0 0 10px rgba(145,94,255,0.5))',
-        'drop-shadow(0 0 20px rgba(145,94,255,0.8))',
-        'drop-shadow(0 0 40px rgba(0,255,255,0.6))',
-        'drop-shadow(0 0 10px rgba(145,94,255,0.5))',
-      ],
+      filter: 'drop-shadow(0 0 20px rgba(145,94,255,0.8))',
       transition: {
         scale: {
           duration: 0.6,
@@ -56,9 +51,8 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
           ease: [0.25, 0.46, 0.45, 0.94],
         },
         filter: {
-          duration: 2,
-          repeat: Infinity,
-          ease: 'easeInOut',
+          duration: 0.8,
+          ease: 'easeOut',
         },
       },
     },

@@ -19,7 +19,8 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/XQUDR4SCZEYA",
       "link": "https://www.coursera.org/learn/administracao-de-sistemas-servicos-infraestrutura-ti",
-      "isProfessionalCertificate": false
+      "isProfessionalCertificate": false,
+      "icon": "google"
     },
     {
       "id": "2",
@@ -40,7 +41,8 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
       "link": "https://www.coursera.org/learn/fundamentos-do-suporte-tecnico",
-      "isProfessionalCertificate": true
+      "isProfessionalCertificate": true,
+      "icon": "google"
     },
     {
       "id": "3",
@@ -61,7 +63,8 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/WKNDJF2YGF88",
       "link": "https://www.coursera.org/learn/introduction-to-software-product-management-pt",
-      "isProfessionalCertificate": false
+      "isProfessionalCertificate": false,
+      "icon": "alberta"
     },
     {
       "id": "4",
@@ -82,7 +85,8 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
       "link": "https://www.coursera.org/learn/redes-computadores",
-      "isProfessionalCertificate": false
+      "isProfessionalCertificate": false,
+      "icon": "google"
     },
     {
       "id": "5",
@@ -103,7 +107,8 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
       "link": "https://www.coursera.org/learn/sistemas-operacionais",
-      "isProfessionalCertificate": true
+      "isProfessionalCertificate": false,
+      "icon": "google"
     },
     {
       "id": "6",
@@ -124,7 +129,8 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
       "link": "https://www.coursera.org/learn/seguranca-de-it",
-      "isProfessionalCertificate": true
+      "isProfessionalCertificate": true,
+      "icon": "google"
     },
     {
       "id": "7",
@@ -145,12 +151,13 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/Y3TYLH6K7N4V",
       "link": "https://www.coursera.org/learn/introduction-to-technical-support",
-      "isProfessionalCertificate": false
+      "isProfessionalCertificate": false,
+      "icon": "ibm"
     },
     {
       "id": "8",
       "title": "Inteligência Artificial e Data Science",
-      "platform": "Google (via Coursera)",
+      "platform": "IBM (via Coursera)",
       "date": "2024",
       "duration": "Aproximadamente 2 meses",
       "workload": "Cerca de 40 horas",
@@ -166,12 +173,13 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/CVHSSYAKTBJQ",
       "link": "https://www.coursera.org/learn/introduction-to-ai",
-      "isProfessionalCertificate": false
+      "isProfessionalCertificate": false,
+      "icon": "ibm"
     },
     {
       "id": "9",
       "title": "TCP/IP",
-      "platform": "Google (via Coursera)",
+      "platform": "Yonsei University (via Coursera)",
       "date": "2024",
       "duration": "Aproximadamente 1 mês",
       "workload": "Cerca de 20 horas",
@@ -187,12 +195,13 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/3U83PYVA9SZZ",
       "link": "https://www.coursera.org/learn/tcpip",
-      "isProfessionalCertificate": true
+      "isProfessionalCertificate": false,
+      "icon": "cate"
     },
     {
       "id": "10",
       "title": "HTML, CSS e JavaScript para Desenvolvedores Web",
-      "platform": "Google (via Coursera)",
+      "platform": "Johns Hopkins University (via Coursera)",
       "date": "2024",
       "duration": "Aproximadamente 3 meses",
       "workload": "Cerca de 60 horas",
@@ -208,7 +217,8 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/FU6BSD4ECJFD",
       "link": "https://www.coursera.org/learn/html-css-javascript-for-web-developers",
-      "isProfessionalCertificate": true
+      "isProfessionalCertificate": false,
+      "icon": "johns"
     },
     {
       "id": "11",
@@ -229,7 +239,8 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/XP3ESDW5Z0F9",
       "link": "https://www.coursera.org/learn/introduction-to-scrum-master-profession",
-      "isProfessionalCertificate": false
+      "isProfessionalCertificate": false,
+      "icon": "google"
     },
     {
       "id": "12",
@@ -250,7 +261,124 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/H8G4LMDO77NR",
       "link": "https://www.coursera.org/learn/foundations-of-cybersecurity",
-      "isProfessionalCertificate": true
+      "isProfessionalCertificate": false,
+      "icon": "google"
+    },
+    {
+      "id": "13",
+      "title": "Nivelamento em Cibersegurança",
+      "platform": "Hackers do Bem (SENAI/RNP)",
+      "date": "2024",
+      "summary": "Curso de nivelamento em cibersegurança, abrangendo redes TCP/IP, desenvolvimento de sistemas, sistema operacional, internet e sistemas web. É o passo inicial para uma carreira em cibersegurança.",
+      "description": "Esse curso possui módulos online e assíncronos, abrangendo redes TCP/IP, desenvolvimento de sistemas, sistema operacional, internet e sistemas web. O curso é o passo inicial para uma carreira em cibersegurança.",
+      "verificationLink": "https://ava.hackersdobem.org.br/mod/customcert/verify_certificate.php?contextid=366&code=EzFXn4WcDw&qrcode=1",
+      "link": "https://hackersdobem.org.br/",
+      "icon": "hackers"
+    },
+    {
+      "id": "14",
+      "title": "Fundamentos de TI",
+      "platform": "Fundação Bradesco",
+      "date": "2024",
+      "summary": "Conceitos essenciais de arquitetura de computadores, hardware e lógica operacional.",
+      "description": "Conceitos essenciais de arquitetura de computadores, hardware e lógica operacional.",
+      "icon": "bradesco"
+    },
+    {
+      "id": "15",
+      "title": "Implementando Bancos de Dados",
+      "platform": "Fundação Bradesco",
+      "date": "2024",
+      "workload": "20 horas",
+      "summary": "Focado na criação física de bancos de dados, usando linguagens de consulta e estruturação.",
+      "description": "Focado na criação física de bancos de dados, usando linguagens de consulta e estruturação.",
+      "verificationLink": "https://www.ev.org.br/validar-certificado",
+      "link": "https://www.ev.org.br/trilhas-de-conhecimento/banco-de-dados",
+      "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923"
+    },
+    {
+      "id": "16",
+      "title": "Administração de Bancos de Dados",
+      "platform": "Fundação Bradesco",
+      "date": "2024",
+      "workload": "20 horas",
+      "summary": "Gerenciamento de segurança, usuários, integridade e manutenção de sistemas de bancos de dados.",
+      "description": "Gerenciamento de segurança, usuários, integridade e manutenção de sistemas de bancos de dados.",
+      "verificationLink": "https://www.ev.org.br/validar-certificado",
+      "link": "https://www.ev.org.br/trilhas-de-conhecimento/banco-de-dados",
+      "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923"
+    },
+    {
+      "id": "17",
+      "title": "Segurança de TI",
+      "platform": "Fundação Bradesco",
+      "date": "2024",
+      "summary": "Princípios de segurança de dados, políticas de segurança e defesa de perímetro.",
+      "description": "Princípios de segurança de dados, políticas de segurança e defesa de perímetro."
+    },
+    {
+      "id": "18",
+      "title": "Exame de Certificação Search Ads 360",
+      "platform": "Google Skillshop",
+      "date": "2024",
+      "summary": "Certificação avançada para gerenciamento e otimização de campanhas publicitárias em larga escala.",
+      "description": "Certificação avançada para gerenciamento e otimização de campanhas publicitárias em larga escala."
+    },
+    {
+      "id": "19",
+      "title": "Fundamentos do Waze Ads",
+      "platform": "Google Skillshop",
+      "date": "2024",
+      "summary": "Fundamentos para criação de publicidade direcionada a motoristas em tempo real.",
+      "description": "Fundamentos para criação de publicidade direcionada a motoristas em tempo real."
+    },
+    {
+      "id": "20",
+      "title": "Google Meu Negócio (Perfil da Empresa)",
+      "platform": "Google Skillshop",
+      "date": "2024",
+      "summary": "Ferramentas para otimizar a presença local de negócios no Google Maps e pesquisa.",
+      "description": "Ferramentas para otimizar a presença local de negócios no Google Maps e pesquisa."
+    },
+    {
+      "id": "21",
+      "title": "Exame de Certificação Criativo",
+      "platform": "Google Skillshop",
+      "date": "2024",
+      "summary": "Teste de conhecimento sobre desenvolvimento de criativos publicitários eficazes para plataformas Google.",
+      "description": "Teste de conhecimento sobre desenvolvimento de criativos publicitários eficazes para plataformas Google."
+    },
+    {
+      "id": "22",
+      "title": "Satisfação do Cliente",
+      "platform": "IPED",
+      "date": "2024",
+      "summary": "Métodos para medir e melhorar o índice de satisfação dos clientes com produtos e serviços.",
+      "description": "Métodos para medir e melhorar o índice de satisfação dos clientes com produtos e serviços."
+    },
+    {
+      "id": "23",
+      "title": "Atendimento ao Cliente",
+      "platform": "IPED",
+      "date": "2024",
+      "summary": "Técnicas de abordagem, postura profissional e resolução ágil de problemas durante o suporte.",
+      "description": "Técnicas de abordagem, postura profissional e resolução ágil de problemas durante o suporte."
+    },
+    {
+      "id": "24",
+      "title": "Ética, Política e Cidadania",
+      "platform": "IPED",
+      "date": "2024",
+      "summary": "Estudo de conduta ética no ambiente de trabalho e o papel social do profissional.",
+      "description": "Estudo de conduta ética no ambiente de trabalho e o papel social do profissional."
+    },
+    {
+      "id": "25",
+      "title": "Boas Práticas de Manipulação de Alimentos",
+      "platform": "IPED",
+      "date": "2024",
+      "summary": "Normas de higiene e segurança alimentar para processos de produção e manipulação.",
+      "description": "Normas de higiene e segurança alimentar para processos de produção e manipulação."
     }
   ],
   "en": [
@@ -273,7 +401,8 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/XQUDR4SCZEYA",
       "link": "https://www.coursera.org/learn/administracao-de-sistemas-servicos-infraestrutura-ti",
-      "isProfessionalCertificate": false
+      "isProfessionalCertificate": false,
+      "icon": "google"
     },
     {
       "id": "2",
@@ -294,7 +423,8 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
       "link": "https://www.coursera.org/learn/fundamentos-do-suporte-tecnico",
-      "isProfessionalCertificate": true
+      "isProfessionalCertificate": true,
+      "icon": "google"
     },
     {
       "id": "3",
@@ -315,7 +445,8 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/WKNDJF2YGF88",
       "link": "https://www.coursera.org/learn/introduction-to-software-product-management-pt",
-      "isProfessionalCertificate": false
+      "isProfessionalCertificate": false,
+      "icon": "alberta"
     },
     {
       "id": "4",
@@ -336,7 +467,8 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
       "link": "https://www.coursera.org/learn/redes-computadores",
-      "isProfessionalCertificate": false
+      "isProfessionalCertificate": false,
+      "icon": "google"
     },
     {
       "id": "5",
@@ -357,7 +489,8 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
       "link": "https://www.coursera.org/learn/sistemas-operacionais",
-      "isProfessionalCertificate": true
+      "isProfessionalCertificate": true,
+      "icon": "google"
     },
     {
       "id": "6",
@@ -378,7 +511,8 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
       "link": "https://www.coursera.org/learn/seguranca-de-it",
-      "isProfessionalCertificate": true
+      "isProfessionalCertificate": true,
+      "icon": "google"
     },
     {
       "id": "7",
@@ -399,12 +533,13 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/Y3TYLH6K7N4V",
       "link": "https://www.coursera.org/learn/introduction-to-technical-support",
-      "isProfessionalCertificate": false
+      "isProfessionalCertificate": false,
+      "icon": "ibm"
     },
     {
       "id": "8",
       "title": "Artificial Intelligence and Data Science",
-      "platform": "Google (via Coursera)",
+      "platform": "IBM (via Coursera)",
       "date": "2024",
       "duration": "Approximately 2 months",
       "workload": "About 40 hours",
@@ -420,12 +555,13 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/CVHSSYAKTBJQ",
       "link": "https://www.coursera.org/learn/introduction-to-ai",
-      "isProfessionalCertificate": false
+      "isProfessionalCertificate": false,
+      "icon": "ibm"
     },
     {
       "id": "9",
       "title": "TCP/IP",
-      "platform": "Google (via Coursera)",
+      "platform": "Yonsei University (via Coursera)",
       "date": "2024",
       "duration": "Approximately 1 month",
       "workload": "About 20 hours",
@@ -441,12 +577,13 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/3U83PYVA9SZZ",
       "link": "https://www.coursera.org/learn/tcpip",
-      "isProfessionalCertificate": true
+      "isProfessionalCertificate": true,
+      "icon": "cate"
     },
     {
       "id": "10",
       "title": "HTML, CSS, and JavaScript for Web Developers",
-      "platform": "Google (via Coursera)",
+      "platform": "Johns Hopkins University (via Coursera)",
       "date": "2024",
       "duration": "Approximately 3 months",
       "workload": "About 60 hours",
@@ -462,7 +599,8 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/FU6BSD4ECJFD",
       "link": "https://www.coursera.org/learn/html-css-javascript-for-web-developers",
-      "isProfessionalCertificate": true
+      "isProfessionalCertificate": true,
+      "icon": "johns"
     },
     {
       "id": "11",
@@ -483,7 +621,8 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/XP3ESDW5Z0F9",
       "link": "https://www.coursera.org/learn/introduction-to-scrum-master-profession",
-      "isProfessionalCertificate": false
+      "isProfessionalCertificate": false,
+      "icon": "google"
     },
     {
       "id": "12",
@@ -504,7 +643,123 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/H8G4LMDO77NR",
       "link": "https://www.coursera.org/learn/foundations-of-cybersecurity",
-      "isProfessionalCertificate": true
+      "isProfessionalCertificate": true,
+      "icon": "google"
+    },
+    {
+      "id": "13",
+      "title": "Cybersecurity Leveling",
+      "platform": "Hackers do Bem (SENAI/RNP)",
+      "date": "2024",
+      "summary": "Leveling course in cybersecurity, covering TCP/IP networks, systems development, operating systems, internet and web systems. It is the first step for a career in cybersecurity.",
+      "description": "This course features online and asynchronous modules, covering TCP/IP networks, systems development, operating systems, internet and web systems. The course is the first step for a career in cybersecurity.",
+      "verificationLink": "https://ava.hackersdobem.org.br/mod/customcert/verify_certificate.php?contextid=366&code=EzFXn4WcDw&qrcode=1",
+      "link": "https://hackersdobem.org.br/",
+      "icon": "hackers"
+    },
+    {
+      "id": "14",
+      "title": "IT Fundamentals",
+      "platform": "Fundação Bradesco",
+      "date": "2024",
+      "summary": "Essential concepts of computer architecture, hardware and operating logic.",
+      "description": "Essential concepts of computer architecture, hardware and operating logic."
+    },
+    {
+      "id": "15",
+      "title": "Implementing Databases",
+      "platform": "Fundação Bradesco",
+      "date": "2024",
+      "workload": "20 hours",
+      "summary": "Focused on physical database creation, using query and structuring languages.",
+      "description": "Focused on physical database creation, using query and structuring languages.",
+      "verificationLink": "https://www.ev.org.br/validar-certificate",
+      "link": "https://www.ev.org.br/trilhas-de-conhecimento/banco-de-dados",
+      "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923"
+    },
+    {
+      "id": "16",
+      "title": "Database Administration",
+      "platform": "Fundação Bradesco",
+      "date": "2024",
+      "workload": "20 hours",
+      "summary": "Security management, users, integrity and database systems maintenance.",
+      "description": "Security management, users, integrity and database systems maintenance.",
+      "verificationLink": "https://www.ev.org.br/validar-certificate",
+      "link": "https://www.ev.org.br/trilhas-de-conhecimento/banco-de-dados",
+      "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923"
+    },
+    {
+      "id": "17",
+      "title": "IT Security",
+      "platform": "Fundação Bradesco",
+      "date": "2024",
+      "summary": "Data security principles, security policies and perimeter defense.",
+      "description": "Data security principles, security policies and perimeter defense."
+    },
+    {
+      "id": "18",
+      "title": "Search Ads 360 Certification Exam",
+      "platform": "Google Skillshop",
+      "date": "2024",
+      "summary": "Advanced certification for managing and optimizing large-scale advertising campaigns.",
+      "description": "Advanced certification for managing and optimizing large-scale advertising campaigns."
+    },
+    {
+      "id": "19",
+      "title": "Waze Ads Fundamentals",
+      "platform": "Google Skillshop",
+      "date": "2024",
+      "summary": "Fundamentals for creating real-time driver-targeted advertising.",
+      "description": "Fundamentals for creating real-time driver-targeted advertising."
+    },
+    {
+      "id": "20",
+      "title": "Google My Business (Company Profile)",
+      "platform": "Google Skillshop",
+      "date": "2024",
+      "summary": "Tools to optimize local business presence on Google Maps and search.",
+      "description": "Tools to optimize local business presence on Google Maps and search."
+    },
+    {
+      "id": "21",
+      "title": "Creative Certification Exam",
+      "platform": "Google Skillshop",
+      "date": "2024",
+      "summary": "Knowledge test about developing effective advertising creatives for Google platforms.",
+      "description": "Knowledge test about developing effective advertising creatives for Google platforms."
+    },
+    {
+      "id": "22",
+      "title": "Customer Satisfaction",
+      "platform": "IPED",
+      "date": "2024",
+      "summary": "Methods to measure and improve customer contentment index with products and services.",
+      "description": "Methods to measure and improve customer contentment index with products and services."
+    },
+    {
+      "id": "23",
+      "title": "Customer Service",
+      "platform": "IPED",
+      "date": "2024",
+      "summary": "Approach techniques, professional posture and agile problem resolution during support.",
+      "description": "Approach techniques, professional posture and agile problem resolution during support."
+    },
+    {
+      "id": "24",
+      "title": "Ethics, Policy and Citizenship",
+      "platform": "IPED",
+      "date": "2024",
+      "summary": "Study of ethical conduct in the work environment and the professional's social role.",
+      "description": "Study of ethical conduct in the work environment and the professional's social role."
+    },
+    {
+      "id": "25",
+      "title": "Good Food Handling Practices",
+      "platform": "IPED",
+      "date": "2024",
+      "summary": "Hygiene and food safety standards for production and handling processes.",
+      "description": "Hygiene and food safety standards for production and handling processes."
     }
   ]
 }

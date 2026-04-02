@@ -22,7 +22,6 @@ const HomePage = lazy(() => import('./pages/HomePage'));
 const FormacaoPage = lazy(() => import('./pages/FormacaoPage'));
 const ExperiencePage = lazy(() => import('./pages/ExperiencePage'));
 const CursosPage = lazy(() => import('./pages/CursosPage'));
-const CertificadosPage = lazy(() => import('./pages/CertificadosPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const DoomPage = lazy(() => import('./pages/DoomPage'));
 const DynamicTextDemoPage = lazy(() => import('./pages/DynamicTextDemoPage'));
@@ -87,16 +86,16 @@ const BackgroundOverlays = memo(() => {
   return (
     <>
       {isBgMenuOpen && (
-        <BackgroundMenu 
-          onEdit={handleOpenEditor} 
-          onClose={closeBgMenu} 
+        <BackgroundMenu
+          onEdit={handleOpenEditor}
+          onClose={closeBgMenu}
         />
       )}
-      
-      <BackgroundEditorModal 
-        isOpen={isEditorOpen} 
-        selectedBg={config.backgroundType} 
-        onClose={handleCloseEditor} 
+
+      <BackgroundEditorModal
+        isOpen={isEditorOpen}
+        selectedBg={config.backgroundType}
+        onClose={handleCloseEditor}
       />
     </>
   );
@@ -137,7 +136,6 @@ const AppContent = () => {
                 <Route path="/formacao" element={<FormacaoPage />} />
                 <Route path="/projetos" element={<ExperiencePage />} />
                 <Route path="/cursos" element={<CursosPage />} />
-                <Route path="/certificados" element={<CertificadosPage />} />
                 <Route path="/contato" element={<ContactPage />} />
                 <Route path="/doom" element={<DoomPage />} />
                 <Route path="/dynamic-text-demo" element={<DynamicTextDemoPage />} />

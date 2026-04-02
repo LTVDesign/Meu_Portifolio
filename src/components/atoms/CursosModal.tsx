@@ -2,6 +2,16 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import close from '../../assets/close.svg';
+import anhangueraImg from '../../assets/anhanguera.svg';
+import albertaImg from '../../logos/alberta.webp';
+import bradescoImg from '../../logos/bradesco.webp';
+import cateImg from '../../logos/cate.webp';
+import googleImg from '../../logos/google.webp';
+import ibmImg from '../../logos/ibm.webp';
+import johnsImg from '../../logos/johns.webp';
+import hackersImg from '../../logos/hackers.png';
+import skillImg from '../../logos/skill.webp';
+import ipedImg from '../../logos/ipad.png';
 import type { Curso } from '../../types';
 
 interface CursosModalProps {
@@ -12,21 +22,19 @@ interface CursosModalProps {
 
 const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
   const [filter, setFilter] = useState('');
-  const [sortBy, setSortBy] = useState<'year' | 'duration' | 'company'>('year');
+  const [sortBy, setSortBy] = useState<'year' | 'duration' | 'company' | 'name'>('year');
   const modalRef = useRef<HTMLDivElement>(null);
   const lastFocusedElement = useRef<HTMLElement | null>(null);
   const { t } = useTranslation();
 
   useEffect(() => {
     if (isOpen) {
-      // Salvar o elemento que tinha foco antes de abrir o modal
       lastFocusedElement.current = document.activeElement as HTMLElement;
 
       const handleEscape = (e: KeyboardEvent) => {
         if (e.key === 'Escape') onClose();
       };
 
-      // Focus trap dentro do modal
       const handleTabKey = (e: KeyboardEvent) => {
         if (e.key === 'Tab' && modalRef.current) {
           const focusableElements = modalRef.current.querySelectorAll(
@@ -51,7 +59,6 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
       document.addEventListener('keydown', handleTabKey);
       document.body.style.overflow = 'hidden';
 
-      // Focar no modal quando abrir
       if (modalRef.current) {
         modalRef.current.focus();
       }
@@ -61,13 +68,48 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
         document.removeEventListener('keydown', handleTabKey);
         document.body.style.overflow = 'unset';
 
-        // Retornar foco ao elemento anterior
         if (lastFocusedElement.current) {
           lastFocusedElement.current.focus();
         }
       };
     }
   }, [isOpen, onClose]);
+
+  // Função para obter o logotipo correto baseado no ícone ou plataforma do curso
+  const getLogo = (iconName: string | undefined, platform: string) => {
+    const logoMap: { [key: string]: string } = {
+      'alberta': albertaImg,
+      'bradesco': bradescoImg,
+      'cate': cateImg,
+      'google': googleImg,
+      'ibm': ibmImg,
+      'johns': johnsImg,
+      'hackers': hackersImg,
+      'skill': skillImg,
+      'iped': ipedImg,
+      'anhanguera': anhangueraImg,
+    };
+
+    // Se tem ícone definido, usa ele
+    if (iconName && logoMap[iconName]) {
+      return logoMap[iconName];
+    }
+
+    // Se não tem ícone, extrai da plataforma
+    const platformLower = platform.toLowerCase();
+    if (platformLower.includes('google')) return googleImg;
+    if (platformLower.includes('ibm')) return ibmImg;
+    if (platformLower.includes('johns')) return johnsImg;
+    if (platformLower.includes('bradesco')) return bradescoImg;
+    if (platformLower.includes('iped')) return ipedImg;
+    if (platformLower.includes('alberta')) return albertaImg;
+    if (platformLower.includes('hackers')) return hackersImg;
+    if (platformLower.includes('cate')) return cateImg;
+    if (platformLower.includes('skill')) return skillImg;
+    if (platformLower.includes('anhanguera')) return anhangueraImg;
+
+    return googleImg;
+  };
 
   const filteredCursos = cursos.filter(
     (curso) =>
@@ -80,8 +122,9 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
       return parseInt(b.date, 10) - parseInt(a.date, 10);
     } else if (sortBy === 'company') {
       return a.platform.localeCompare(b.platform);
+    } else if (sortBy === 'name') {
+      return a.title.localeCompare(b.title);
     } else if (sortBy === 'duration') {
-      // Função segura para extrair número da duração
       const extractNumber = (duration: string | undefined): number => {
         if (!duration) return 0;
         const match = duration.match(/(\d+)/);
@@ -159,19 +202,20 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                 <select
                   value={sortBy}
                   onChange={(e) =>
-                    setSortBy(e.target.value as 'year' | 'duration' | 'company')
+                    setSortBy(e.target.value as 'year' | 'duration' | 'company' | 'name')
                   }
                   className='flex-1 sm:flex-none px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[var(--cyber-cyan)] transition-colors min-h-[44px]'
                   aria-label={t('courses.sortBy')}
                 >
                   <option value='year'>{t('courses.sortYear')}</option>
+                  <option value='name'>{t('courses.sortName')}</option>
                   <option value='duration'>{t('courses.sortDuration')}</option>
                   <option value='company'>{t('courses.sortCompany')}</option>
                 </select>
               </div>
             </div>
 
-            {/* Grid de Cursos */}
+            {/* Grid de Cursos - Todos juntos */}
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8'>
               {sortedCursos.map((curso, index) => (
                 <motion.div
@@ -182,19 +226,32 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                   className='glass-card p-8 neon-hover flex flex-col group border border-white/10'
                 >
                   <div className='flex-1'>
-                    <div className='flex items-start justify-between mb-3'>
-                      <h3 className='text-xl font-bold text-white group-hover:text-[var(--cyber-cyan)] transition-colors leading-tight'>
-                        {curso.title}
-                      </h3>
-                      {curso.isProfessionalCertificate && (
-                        <span className='text-yellow-400 text-sm ml-2 flex-shrink-0'>
-                          ★
-                        </span>
-                      )}
+                    {/* Header com logotipo */}
+                    <div className='flex items-start gap-4 mb-4'>
+                      <div className='w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 flex items-center justify-center flex-shrink-0 shadow-lg shadow-[var(--cyber-purple)]/20 border border-white/10 overflow-hidden p-2'>
+                        <img
+                          src={getLogo(curso.icon, curso.platform)}
+                          alt={curso.platform}
+                          className='w-full h-full object-contain filter drop-shadow-[0_0_6px_rgba(255,255,255,0.5)]'
+                        />
+                      </div>
+                      <div className='flex-1 min-w-0'>
+                        <div className='flex items-start justify-between mb-2'>
+                          <h3 className='text-xl font-bold text-white group-hover:text-[var(--cyber-cyan)] transition-colors leading-tight'>
+                            {curso.title}
+                          </h3>
+                          {curso.isProfessionalCertificate && (
+                            <span className='text-yellow-400 text-sm ml-2 flex-shrink-0'>
+                              ★
+                            </span>
+                          )}
+                        </div>
+                        <p className='text-[var(--cyber-purple)] font-bold uppercase tracking-widest text-sm'>
+                          {curso.platform}
+                        </p>
+                      </div>
                     </div>
-                    <p className='text-[var(--cyber-purple)] font-bold uppercase tracking-widest text-sm mb-4'>
-                      {curso.platform}
-                    </p>
+
                     <p className='text-[var(--text-secondary)] text-sm leading-relaxed mb-4'>
                       {curso.summary}
                     </p>

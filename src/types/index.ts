@@ -113,15 +113,16 @@ export interface Curso {
   title: string;
   platform: string;
   date: string;
-  duration: string;
-  workload: string;
+  duration?: string;
+  workload?: string;
   icon: string;
   description: string;
   summary: string;
-  modules: string[];
-  verificationLink: string;
+  modules?: string[];
+  verificationLink?: string;
   isProfessionalCertificate?: boolean;
-  link: string;
+  link?: string;
+  authCode?: string;
 }
 
 // Tipos para Formação

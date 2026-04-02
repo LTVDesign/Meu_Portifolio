@@ -63,7 +63,8 @@
     "titleMeta": "Leandro Saturnino Barbosa | Portfólio 3D Cyberpunk",
     "descriptionMeta": "Portfólio interativo 3D com React, Three.js e Tailwind. Especialista em IA, Segurança e Desenvolvimento Full Stack.",
     "dragToRotate": "Clique e Arraste",
-    "dragToRotateSubtitle": "360º"
+    "dragToRotateSubtitle": "360º",
+    "ariaLabelRotate": "Modelo 3D do planeta - Clique e arraste para rotacionar"
   },
   "about": {
     "p": "Engenheiro de Software • Tecnólogo em ADS • Pós-Graduando em IA & Data Science",
@@ -164,7 +165,8 @@
   },
   "feedbacks": {
     "p": "O que os outros dizem",
-    "h2": "Depoimentos."
+    "h2": "Depoimentos.",
+    "designationFormat": "{designation} de {company}"
   },
   "works": {
     "p": "Criações & Experimentos",
@@ -184,7 +186,66 @@
     "h2": "Cursos",
     "viewDetails": "Ver Detalhes",
     "viewAll": "Veja Todos Cursos",
-    "verCertificado": "VER CERTIFICADO"
+    "verCertificado": "VER CERTIFICADO",
+    "badges": [
+      {
+        "text": "Google",
+        "color": "from-blue-500 to-cyan-500"
+      },
+      {
+        "text": "IBM",
+        "color": "from-indigo-500 to-blue-500"
+      },
+      {
+        "text": "University of Alberta",
+        "color": "from-purple-500 to-pink-500"
+      },
+      {
+        "text": "Johns Hopkins University",
+        "color": "from-orange-500 to-red-500"
+      },
+      {
+        "text": "Yonsei University",
+        "color": "from-teal-500 to-cyan-500"
+      },
+      {
+        "text": "Anhanguera",
+        "color": "from-green-500 to-emerald-500"
+      },
+      {
+        "text": "Hackers do Bem",
+        "color": "from-red-500 to-orange-500"
+      },
+      {
+        "text": "Fundação Bradesco",
+        "color": "from-blue-600 to-indigo-600"
+      },
+      {
+        "text": "Google Skillshop",
+        "color": "from-cyan-500 to-blue-500"
+      },
+      {
+        "text": "IPED",
+        "color": "from-yellow-500 to-orange-500"
+      }
+    ]
+  },
+  "courses": {
+    "allTitle": "Todos os Cursos e Especializações",
+    "viewCertificate": "Ver Certificado",
+    "filterPlaceholder": "Filtrar cursos...",
+    "sortBy": "Ordenar por",
+    "sortYear": "Ano",
+    "sortDuration": "Duração",
+    "sortCompany": "Instituição",
+    "noResults": "Nenhum curso encontrado.",
+    "p": "Cursos & Especializações",
+    "h2": "Minha Base de Conhecimento",
+    "viewAll": "Veja Todos Cursos",
+    "loadMore": "Carregar Mais",
+    "modulesLabel": "Módulos principais",
+    "moreModules": "+{count} mais módulos...",
+    "verifyAuthenticity": "Verificar Autenticidade"
   },
   "certificados": {
     "p": "Certificados",
@@ -297,25 +358,24 @@
     "semesterEvolution": "Evolução Acadêmica por Semestre",
     "semester": "Semestre",
     "subjects": "disciplina(s)",
-    "semesterAverage": "Média do Semestre",
+    "semesterAverage": "Média Semestral",
     "subject": "Disciplina",
     "grade": "Nota",
     "professor": "Professor",
-    "hours": "Carga H.",
+    "hours": "Horas",
     "diplomaAuthentication": "Diploma e Autenticação",
-    "diplomaPreview": "Preview do Diploma",
-    "clickToOpen": "Clique para Abrir Diploma",
-    "openDigitalDiploma": "📄 Abrir Diploma Digital",
+    "diplomaPreview": "Visualização do Diploma",
+    "clickToOpen": "Clique para Abrir o Diploma",
+    "openDigitalDiploma": "Abrir Diploma Digital",
     "qrCode": "QR Code",
     "authenticityVerification": "Verificação de Autenticidade",
-    "scanQRCode": "Escaneie o QR Code com seu smartphone ou clique no botão abaixo para verificar a autenticidade deste diploma no portal oficial da Cogna.",
-    "validateOnPortal": "🔗 Validar no Portal Oficial",
-    "description": "Formação superior focada no ciclo completo de desenvolvimento de software, análise de requisitos e gestão de projetos. Concluído com excelência acadêmica.",
+    "scanQRCode": "Aponte a câmera do seu celular para o QR Code ou clique no botão abaixo para verificar a autenticidade deste diploma no portal oficial da Cogna.",
+    "validateOnPortal": "Validar no Portal Oficial",
+    "description": "Graduação focada no ciclo completo de desenvolvimento de software, análise de requisitos e gestão de projetos. Concluído com excelência acadêmica.",
     "postgradDescription": "Especialização focada em Inteligência Artificial Generativa, Machine Learning e análise estatística para decisões baseadas em dados.",
     "semesterHistory": "Histórico Acadêmico Completo",
     "completeAcademicHistory": "Histórico Acadêmico Completo",
     "noRecords": "Nenhum registro de disciplinas disponível.",
-    "trainingType": "Formação",
     "diplomaStatus": "Diploma"
   },
   "subjects": {
@@ -362,76 +422,9 @@
     "h2": "Minha Base de Conhecimento",
     "viewAll": "Veja Todos Cursos",
     "loadMore": "Carregar Mais",
-    "list": {
-      "0": {
-        "title": "Administração de Sistemas, Serviços e Infraestrutura de TI",
-        "platform": "Google (via Coursera)",
-        "date": "2024",
-        "duration": "Aproximadamente 6 meses",
-        "workload": "Cerca de 120 horas",
-        "summary": "Este curso aborda a administração de sistemas e serviços de infraestrutura de TI, cobrindo desde a instalação e configuração de sistemas operacionais até a gestão de serviços de rede e segurança. Aprenda a manter sistemas operacionais funcionando e a configurar serviços de rede essenciais.",
-        "description": "Este curso ensina as habilidades fundamentais necessárias para administrar sistemas e serviços de infraestrutura de TI. Você aprenderá a instalar e configurar sistemas operacionais Windows e Linux, gerenciar serviços de rede como DNS e DHCP, implementar políticas de segurança, e realizar tarefas de manutenção e suporte. É uma base sólida para qualquer profissional de TI que trabalha com infraestrutura.",
-        "modules": [
-          "Instalação e configuração de sistemas operacionais",
-          "Gerenciamento de serviços de rede (DNS, DHCP)",
-          "Administração de usuários e permissões",
-          "Segurança de sistemas e redes",
-          "Monitoramento e troubleshooting",
-          "Automação de tarefas administrativas"
-        ]
-      },
-      "1": {
-        "title": "Fundamentos do Suporte Técnico",
-        "platform": "Google (via Coursera)",
-        "date": "2024",
-        "duration": "Aproximadamente 6 meses",
-        "workload": "Cerca de 120 horas",
-        "summary": "Certificado Profissional que cobre os fundamentos do suporte técnico, incluindo hardware, redes, sistemas operacionais, segurança e atendimento ao cliente. Uma base completa para atuação como técnico de suporte N1/N2.",
-        "description": "Este certificado profissional fornece uma base abrangente para uma carreira em suporte técnico de TI. Abrange desde os conceitos básicos de hardware e software até tópicos avançados como redes, sistemas operacionais, segurança da informação e boas práticas de atendimento ao cliente. É o ponto de partida ideal para quem deseja atuar como técnico de suporte ou Help Desk.",
-        "modules": [
-          "Fundamentos de TI e hardware",
-          "Redes de computadores e protocolos",
-          "Sistemas operacionais (Windows, Linux, macOS)",
-          "Segurança da informação e cibersegurança",
-          "Atendimento ao cliente e comunicação",
-          "Resolução de problemas e troubleshooting"
-        ]
-      },
-      "2": {
-        "title": "Introduction to Software Product Management (PT)",
-        "platform": "University of Alberta (via Coursera)",
-        "date": "2023",
-        "duration": "Aproximadamente 6 semanas",
-        "workload": "Cerca de 30 horas",
-        "summary": "Curso introdutório em gerenciamento de produtos de software, abordando os conceitos fundamentais de GPS, diferenças entre gerenciamento de produtos e projetos, e a importância do foco no cliente e na entrega de valor.",
-        "description": "Este curso estabelece a base para o gerenciamento de produtos de software (GPS), diferenciando-o do gerenciamento de projetos tradicional. Foca em três pilares para o sucesso: fornecer o produto certo (validação), feito corretamente (verificação) e gerenciado adequadamente (processos). Aborda a filosofia Ágil e o Manifesto Ágil como ferramentas para lidar com a mudança e as expectativas dos clientes.",
-        "modules": [
-          "Introdução ao Gerenciamento de Produtos de Software",
-          "Diferenças entre Gerenciamento de Produtos e Projetos",
-          "Os três pilares do GPS: Validação, Verificação e Processos",
-          "Filosofia Ágil e Manifesto Ágil",
-          "Foco no cliente e valor delivery",
-          "Papéis e responsabilidades do Product Manager"
-        ]
-      },
-      "3": {
-        "title": "Redes de Computadores",
-        "platform": "Google (via Coursera)",
-        "date": "2024",
-        "duration": "Aproximadamente 2 meses",
-        "workload": "Cerca de 40 horas",
-        "summary": "Curso completo sobre redes de computadores, cobrindo desde os fundamentos de comunicação de dados até protocolos, arquiteturas de rede, segurança e troubleshooting. Essencial para profissionais de TI e desenvolvimento.",
-        "description": "Este curso oferece uma compreensão abrangente das redes de computadores, desde os conceitos básicos de comunicação de dados até arquiteturas de rede complexas. Aborda protocolos, modelos de referência (OSI/TCP-IP), dispositivos de rede, segurança cibernética e técnicas de diagnóstico e resolução de problemas. Fundamental para qualquer profissional de tecnologia que trabalhe com sistemas conectados.",
-        "modules": [
-          "Fundamentos de comunicação de dados",
-          "Modelos de referência (OSI e TCP/IP)",
-          "Protocolos de rede (IP, TCP, UDP, HTTP, DNS)",
-          "Dispositivos de rede (roteadores, switches, firewalls)",
-          "Segurança de redes e criptografia",
-          "Troubleshooting e monitoramento de redes"
-        ]
-      }
-    }
+    "modulesLabel": "Módulos principais",
+    "moreModules": "mais módulos...",
+    "verifyAuthenticity": "Verificar Autenticidade"
   },
   "allFormacao": {
     "title": "Formação Acadêmica Completa",
@@ -493,6 +486,12 @@
       },
       {
         "text": "University of Alberta"
+      },
+      {
+        "text": "Johns Hopkins University"
+      },
+      {
+        "text": "Yonsei University"
       },
       {
         "text": "Hackers do Bem"
@@ -793,11 +792,36 @@
     "mainModules": "Módulos principais:",
     "moreModules": "+{count} mais módulos...",
     "totalCourses": "Total de cursos: {count}",
-    "footerCopyright": "Leandro Saturnino Barbosa © 2024"
+    "footerCopyright": "Leandro Saturnino Barbosa © 2026"
   },
   "allCursos": {
     "footerTotalCourses": "Total de cursos: {count}",
-    "footerCopyright": "Leandro Saturnino Barbosa © 2024"
+    "footerCopyright": "Leandro Saturnino Barbosa © 2026",
+    "coursesAvailable": "{count} curso disponível",
+    "coursesAvailable_plural": "{count} cursos disponíveis",
+    "totalCoursesLabel": "Total de cursos",
+    "professionalCertificates": "Certificados profissionais",
+    "platforms": "Plataformas",
+    "differentYears": "Anos diferentes",
+    "noCoursesFound": "Nenhum curso encontrado",
+    "adjustFilters": "Tente ajustar os filtros de busca",
+    "searchCourses": "🔍 Buscar cursos",
+    "searchPlaceholder": "Buscar por título ou plataforma...",
+    "filterByPlatform": "🏢 Plataforma",
+    "allPlatforms": "Todas as plataformas",
+    "filterByCertificate": "📜 Tipo de Certificado",
+    "allTypes": "Todos os tipos",
+    "professionalCertificate": "Certificado Profissional",
+    "regularCertificate": "Certificado Regular",
+    "sortBy": "📊 Ordenar por",
+    "mostRecent": "Mais recentes",
+    "nameAZ": "Nome (A-Z)",
+    "platform": "Plataforma",
+    "duration": "Duração",
+    "activeFilters": "Filtros ativos:",
+    "clearFilters": "Limpar filtros",
+    "searchFilter": "Busca: \"{filter}\"",
+    "viewCertificate": "Ver Certificado"
   },
   "editorLabels": {
     "speed": "Velocidade",
@@ -817,5 +841,87 @@
     "blow": "Soprar",
     "attract": "Atrair",
     "freeze": "Congelar"
+  },
+  "constants": {
+    "navLinks": {
+      "about": "Sobre",
+      "formacao": "Formação",
+      "experience": "Experiência Profissional",
+      "cursos": "Cursos",
+      "works": "Projetos",
+      "curriculo": "Currículo",
+      "contact": "Contato"
+    },
+    "services": {
+      "infraestrutura": "Infraestrutura",
+      "infraestruturaDesc": "Especialista em suporte N2 e redes, com domínio em ambientes Microsoft 365, servidores e infraestrutura física/nuvem",
+      "ciberseguranca": "Cibersegurança",
+      "cibersegurancaDesc": "Focado em defesa digital, proteção de ativos e mitigação de vulnerabilidades, com base sólida em segurança de redes e compliance",
+      "iaDados": "IA & Dados",
+      "iaDadosDesc": "Desenvolvimento de soluções inteligentes e análise preditiva, utilizando algoritmos para transformar dados em decisões estratégicas",
+      "gestao": "Gestão",
+      "gestaoDesc": "Liderança de times através de frameworks ágeis (Scrum) e visão de produto focada na experiência do usuário e entrega de valor"
+    },
+    "technologies": {
+      "categories": {
+        "sistemas": "Sistemas & Infraestrutura",
+        "hardware": "Hardware & IoT",
+        "linguagens": "Linguagens & Backend",
+        "seguranca": "Segurança & Redes",
+        "frontend": "Front-end & Design",
+        "ferramentas": "Ferramentas & DevOps"
+      }
+    },
+    "testimonials": {
+      "testimonial1": "Pensei que fosse impossível criar um site tão bonito quanto nosso produto, mas Leandro provou o contrário.",
+      "testimonial2": "Nunca conheci um desenvolvedor web que se preocupa tanto com o sucesso dos clientes como Leandro.",
+      "testimonial3": "Depois que Leandro otimizou nosso site, nosso tráfego aumentou 50%. Não podemos agradecê-lo o suficiente!"
+    },
+    "projects": {
+      "getnexo": "Plataforma All-in-One de automação de vendas e inteligência de atendimento que transforma o WhatsApp em um canal de alta performance com IA Generativa e Realidade Aumentada.",
+      "comptester": "Ecossistema avançado de diagnóstico para componentes eletrônicos com Arduino Uno e interface Pixel Art em TFT.",
+      "willy": "Multi-ferramenta portátil de segurança com ESP32, protocolos RF multi-banda (Sub-GHz, NFC, IR) e interface LVGL moderna."
+    }
+  },
+  "navbar": {
+    "portuguese": "Português",
+    "english": "Inglês",
+    "watchMode": "Modo Relógio",
+    "normalMode": "Modo Normal"
+  },
+  "experienceCard": {
+    "viewMore": "Ver mais",
+    "viewLess": "Ver menos",
+    "present": "Presente"
+  },
+  "techCard": {
+    "clickToLearn": "Clique para aprender mais"
+  },
+  "serviceCard": {
+    "learnMore": "Saiba mais"
+  },
+  "projectCard": {
+    "viewProject": "Ver Projeto",
+    "viewCode": "Ver Código"
+  },
+  "testimonialCard": {
+    "designation": "de"
+  },
+  "formacaoCard": {
+    "viewDetails": "Ver Detalhes",
+    "completed": "Concluído",
+    "inProgress": "Em andamento"
+  },
+  "cursoCard": {
+    "viewCertificate": "Ver Certificado",
+    "verifyAuthenticity": "Verificar Autenticidade"
+  },
+  "certificadoCard": {
+    "viewCredential": "Ver Credencial",
+    "validate": "Validar"
+  },
+  "contactForm": {
+    "honeypotLabel": "Não preencha este campo",
+    "cooldownMessage": "⏳ Aguarde {seconds}s antes do próximo envio"
   }
 }

@@ -1,22 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import type React from 'react';
 import { useTranslation } from 'react-i18next';
-
-interface Curso {
-  id: string;
-  title: string;
-  platform: string;
-  date: string;
-  duration: string;
-  workload: string;
-  icon: string;
-  description: string;
-  summary: string;
-  modules: string[];
-  verificationLink: string;
-  isProfessionalCertificate?: boolean;
-  link: string;
-}
+import type { Curso } from '../../types';
 
 interface CursoDetailModalProps {
   isOpen: boolean;
@@ -68,7 +53,7 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
                   {curso.title}
                 </h3>
                 <p className='text-xs text-[var(--cyber-purple)] font-bold uppercase tracking-widest mt-1'>
-                  {t(`courses.list.${curso.id}.platform`)}
+                  {curso.platform}
                 </p>
                 <div className='flex flex-wrap items-center gap-2 sm:gap-4 mt-2'>
                   <span className='text-xs text-[var(--text-secondary)]'>
@@ -98,7 +83,7 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
                 {t('cursoDetailModal.summary')}
               </h4>
               <p className='text-[var(--text-secondary)] text-sm leading-relaxed'>
-                {t(`courses.list.${curso.id}.summary`)}
+                {curso.summary}
               </p>
             </div>
 
@@ -108,27 +93,29 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
                 {t('cursoDetailModal.detailedDescription')}
               </h4>
               <p className='text-[var(--text-secondary)] text-sm leading-relaxed'>
-                {t(`courses.list.${curso.id}.description`)}
+                {curso.description}
               </p>
             </div>
 
             {/* Módulos */}
-            <div className='mb-6'>
-              <h4 className='text-sm font-bold text-[var(--cyber-cyan)] uppercase tracking-wider mb-3'>
-                {t('cursoDetailModal.curriculum')}
-              </h4>
-              <ul className='space-y-2'>
-                {t(`courses.list.${curso.id}.modules`, { returnObjects: true }).map((module: string, index: number) => (
-                  <li
-                    key={index}
-                    className='flex items-start gap-2 text-sm text-[var(--text-secondary)]'
-                  >
-                    <span className='text-[var(--cyber-cyan)] mt-1'>▸</span>
-                    <span>{module}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {curso.modules && curso.modules.length > 0 && (
+              <div className='mb-6'>
+                <h4 className='text-sm font-bold text-[var(--cyber-cyan)] uppercase tracking-wider mb-3'>
+                  {t('cursoDetailModal.curriculum')}
+                </h4>
+                <ul className='space-y-2'>
+                  {curso.modules.map((module: string, index: number) => (
+                    <li
+                      key={index}
+                      className='flex items-start gap-2 text-sm text-[var(--text-secondary)]'
+                    >
+                      <span className='text-[var(--cyber-cyan)] mt-1'>▸</span>
+                      <span>{module}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* Link de Verificação */}
             {curso.verificationLink && curso.verificationLink !== '#' && (

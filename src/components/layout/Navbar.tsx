@@ -117,28 +117,28 @@ const Navbar = memo(() => {
   const logoSize = isWatch
     ? 'h-14 w-14'
     : isMobileSmall
-    ? 'h-20 w-20'
-    : isMobile
-    ? 'h-24 w-24'
-    : 'h-32 w-32 md:h-40 md:w-40';
+      ? 'h-20 w-20'
+      : isMobile
+        ? 'h-24 w-24'
+        : 'h-32 w-32 md:h-40 md:w-40';
 
   const logoLeft = isWatch
     ? 'left-1'
     : isMobileSmall
-    ? 'left-1'
-    : isMobile
-    ? 'left-2'
-    : 'left-2 md:left-6';
+      ? 'left-1'
+      : isMobile
+        ? 'left-2'
+        : 'left-2 md:left-6';
 
   const logoTop = isWatch ? 'top-1' : 'top-2';
 
   const brandMargin = isWatch
     ? 'ml-16'
     : isMobileSmall
-    ? 'ml-20'
-    : isMobile
-    ? 'ml-24'
-    : 'ml-28 md:ml-36 lg:ml-44';
+      ? 'ml-20'
+      : isMobile
+        ? 'ml-24'
+        : 'ml-28 md:ml-36 lg:ml-44';
 
   return (
     <nav
@@ -148,31 +148,38 @@ const Navbar = memo(() => {
       }}
     >
       {/* Logo Flutuante - Tamanho responsivo */}
-      <m.div
-        initial={{ scale: 0, y: -20 }}
-        animate={{
-          scale: 1,
-          y: [0, -10, 0],
-        }}
-        transition={{
-          scale: { duration: 0.5 },
-          y: {
-            duration: 5,
-            repeat: Infinity,
-            repeatType: 'reverse',
-            ease: 'easeInOut',
-          },
-        }}
-        className={`absolute ${logoLeft} ${logoTop} z-[60] ${logoSize} pointer-events-none logo-float`}
+      <Link
+        to='/'
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        className={`absolute ${logoLeft} ${logoTop} z-[60] ${logoSize} pointer-events-auto logo-float block`}
+        aria-label={t('nav.logo')}
       >
-        <img
-          src={logo}
-          alt={t('nav.logoAlt')}
-          className='w-full h-full object-contain drop-shadow-[0_0_20px_rgba(145,94,255,0.8)]'
-          width='128'
-          height='128'
-        />
-      </m.div>
+        <m.div
+          initial={{ scale: 0, y: -20 }}
+          animate={{
+            scale: 1,
+            y: [0, -10, 0],
+          }}
+          transition={{
+            scale: { duration: 0.5 },
+            y: {
+              duration: 5,
+              repeat: Infinity,
+              repeatType: 'reverse',
+              ease: 'easeInOut',
+            },
+          }}
+          className='w-full h-full'
+        >
+          <img
+            src={logo}
+            alt={t('nav.logoAlt')}
+            className='w-full h-full object-contain drop-shadow-[0_0_20px_rgba(145,94,255,0.8)]'
+            width='128'
+            height='128'
+          />
+        </m.div>
+      </Link>
 
       {/* Progress Line */}
       <div className='absolute bottom-0 left-0 h-[3px] sm:h-[4px] w-full bg-white/10 overflow-hidden'>
@@ -203,8 +210,8 @@ const Navbar = memo(() => {
                   fontSize: isWatch
                     ? 'clamp(0.7rem, 3vw, 0.9rem)'
                     : isMobileSmall
-                    ? 'clamp(0.85rem, 4vw, 1.1rem)'
-                    : undefined,
+                      ? 'clamp(0.85rem, 4vw, 1.1rem)'
+                      : undefined,
                   gap: isWatch ? '0.2rem' : undefined,
                 }}
               >
@@ -305,7 +312,7 @@ const Navbar = memo(() => {
       {/* Mobile Menu Content - Ajustado para iPad e Mobile com scroll interno */}
       <div
         className={`lg:hidden absolute top-full left-0 right-0 glass border-t border-white/10 transition-all duration-300 z-[999999] overflow-y-auto overflow-x-hidden ${toggle ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-6 pointer-events-none'}`}
-        style={{ 
+        style={{
           maxHeight: toggle ? 'calc(100vh - 80px)' : '0',
           overscrollBehavior: 'contain',
           // No iPad Mini (768px), forçamos que o menu ocupe toda a largura visível e não seja obstruído

@@ -37,7 +37,6 @@ type TConfig = {
     feedbacks: TSection;
     works: Required<TSection>;
     cursos: Required<TSection>;
-    certificados: Required<TSection>;
     curriculo: Required<TSection>;
   };
 };
@@ -99,14 +98,9 @@ Mais do que resolver problemas técnicos, busco transformar dados em decisões e
       content: `Uma vitrine de projetos que desenvolvi por paixão, hobby e para aprofundar meus conhecimentos técnicos. Cada iniciativa reflete minha curiosidade em explorar novas fronteiras, desde hardware modding até automações inteligentes com IA.`,
     },
     cursos: {
-      p: 'Meus cursos',
-      h2: 'Cursos',
+      p: 'Meus cursos & certificados',
+      h2: 'Cursos e Certificados',
       content: `Uma curadoria das minhas principais formações técnico-estratégicas, certificações profissionais e especializações em gestão de produtos e cibersegurança.`,
-    },
-    certificados: {
-      p: 'Meus certificados',
-      h2: 'Certificados.',
-      content: `Aqui estão os certificados que obtive através de cursos, treinamentos e exames de certificação em diferentes plataformas e instituições.`,
     },
     curriculo: {
       p: 'Meu currículo',

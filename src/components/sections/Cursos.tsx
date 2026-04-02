@@ -4,28 +4,19 @@ import { useTranslation } from 'react-i18next';
 import cursosData from '../../data/cursos.json';
 import { SectionWrapper } from '../../hoc';
 import albertaImg from '../../logos/alberta.webp';
+import bradescoImg from '../../logos/bradesco.webp';
+import cateImg from '../../logos/cate.webp';
 import googleImg from '../../logos/google.webp';
 import ibmImg from '../../logos/ibm.webp';
+import johnsImg from '../../logos/johns.webp';
+import hackersImg from '../../logos/hackers.png';
+import skillImg from '../../logos/skill.webp';
+import ipedImg from '../../logos/ipad.png';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms';
 import CursoDetailModal from '../atoms/CursoDetailModal';
 import CursosModal from '../atoms/CursosModal';
-
-interface Curso {
-  id: string;
-  title: string;
-  platform: string;
-  date: string;
-  duration: string;
-  workload: string;
-  icon: string;
-  description: string;
-  summary: string;
-  modules: string[];
-  verificationLink: string;
-  isProfessionalCertificate?: boolean;
-  link: string;
-}
+import type { Curso } from '../../types';
 
 const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,10 +28,22 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
 
   const allCursos: Curso[] = useMemo(() => {
     const cursos = cursosData[currentLanguage] || cursosData.pt;
-    return cursos.map((curso) => ({
-      ...curso,
-      icon: curso.id === '3' ? albertaImg : curso.id === '7' ? ibmImg : googleImg,
-    }));
+    return cursos.map((curso) => {
+      let iconSrc = googleImg;
+      if (curso.icon === 'alberta') iconSrc = albertaImg;
+      else if (curso.icon === 'ibm') iconSrc = ibmImg;
+      else if (curso.icon === 'cate') iconSrc = cateImg;
+      else if (curso.icon === 'johns') iconSrc = johnsImg;
+      else if (curso.icon === 'hackers') iconSrc = hackersImg;
+      else if (curso.icon === 'bradesco') iconSrc = bradescoImg;
+      else if (curso.icon === 'skill') iconSrc = skillImg;
+      else if (curso.icon === 'iped') iconSrc = ipedImg;
+
+      return {
+        ...curso,
+        icon: iconSrc,
+      };
+    });
   }, [currentLanguage]);
 
   const displayedCursos = isHomePage ? allCursos.slice(0, 6) : allCursos;
@@ -55,7 +58,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
         transition={{ duration: 0.8, delay: 0.2 }}
         className='mb-8 sm:mb-16'
       >
-          <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-6 sm:p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
+        <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-6 sm:p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
           {/* Efeito de brilho animado no fundo */}
           <div className='absolute inset-0 opacity-30'>
             <motion.div
@@ -136,20 +139,19 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
               transition={{ duration: 0.6, delay: 0.7 }}
               className='flex flex-wrap justify-center gap-2 sm:gap-3 mt-4'
             >
-              {[
-                { text: 'Google', color: 'from-blue-500 to-cyan-500' },
-                { text: 'University of Alberta', color: 'from-purple-500 to-pink-500' },
-                { text: 'IBM', color: 'from-indigo-500 to-blue-500' },
-                { text: 'Anhanguera', color: 'from-green-500 to-emerald-500' },
-              ].map((badge, idx) => (
-                <motion.span
-                  key={idx}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
-                >
-                  {badge.text}
-                </motion.span>
-              ))}
+              {(() => {
+                const badges = t('courses.badges', { returnObjects: true });
+                if (!Array.isArray(badges)) return null;
+                return badges.map((badge: { text: string, color: string }, idx: number) => (
+                  <motion.span
+                    key={idx}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
+                  >
+                    {badge.text}
+                  </motion.span>
+                ));
+              })()}
             </motion.div>
           </div>
 
@@ -185,7 +187,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
                   <div className='mt-2 flex items-center gap-1'>
                     <span className='text-yellow-400'>★</span>
                     <span className='text-xs text-yellow-400 font-bold'>
-                      Certificado Profissional
+                      {t('allCursos.professionalCertificates')}
                     </span>
                   </div>
                 )}
