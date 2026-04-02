@@ -20,7 +20,7 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
 
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: {
+    show: {
       opacity: 1,
       transition: {
         staggerChildren: 0.15,
@@ -36,7 +36,7 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
       y: 40,
       filter: 'drop-shadow(0 0 0px rgba(145,94,255,0))',
     },
-    visible: {
+    show: {
       opacity: 1,
       scale: 1,
       y: 0,
@@ -70,7 +70,7 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
       y: 30,
       scale: 0.9,
     },
-    visible: {
+    show: {
       opacity: 1,
       y: 0,
       scale: 1,
@@ -87,8 +87,8 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
       <motion.div
         variants={containerVariants}
         initial='hidden'
-        whileInView='visible'
-        viewport={{ once: true, amount: 0.3 }}
+        whileInView='show'
+        viewport={{ once: true, amount: 0.15 }}
         className='text-center flex flex-col items-center justify-center'
       >
         <motion.div

@@ -1,7 +1,7 @@
 import { AdaptiveDpr, AdaptiveEvents, OrbitControls, useGLTF } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import type React from 'react';
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useTouchScrollGuard } from '../../hooks/useTouchScrollGuard';
 
 import CanvasLoader from '../layout/Loader';
@@ -83,13 +83,12 @@ const ComputersContent: React.FC<{ screenSize: ScreenSize }> = ({ screenSize }) 
   );
 };
 
-const ComputersCanvas = () => {
-  const { containerRef: touchRef, isTouchInteracting, touchStyle } = useTouchScrollGuard({
+export const ComputersCanvas = () => {
+  const { containerRef, isTouchInteracting, touchStyle } = useTouchScrollGuard({
     verticalThreshold: 25, // Mais sensível ao scroll vertical no computador 3D
     intentThreshold: 6,
   });
   const [shouldLoad, setShouldLoad] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
   const [screenSize, setScreenSize] = useState<ScreenSize>(() =>
     typeof window !== 'undefined' ? getScreenSize(window.innerWidth) : 'desktop'
   );
@@ -133,7 +132,7 @@ const ComputersCanvas = () => {
     }
 
     return () => observer.disconnect();
-  }, [screenSize]);
+  }, [screenSize, containerRef]);
 
   const cfg = SCREEN_CONFIG[screenSize];
 
@@ -145,11 +144,7 @@ const ComputersCanvas = () => {
 
   return (
     <div
-      ref={(el) => {
-        // Combina os dois refs: containerRef (interno) e touchRef (scroll guard)
-        (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
-        (touchRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
-      }}
+      ref={containerRef}
       className='relative h-full w-full'
       data-engine='r3f'
       style={{
@@ -175,11 +170,11 @@ const ComputersCanvas = () => {
         gl={{
           preserveDrawingBuffer: false,
           antialias: screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k',
-          powerPreference: screenSize === 'watch' || screenSize === 'mobileSmall' ? 'low-power' : 'high-performance',
+          powerPreference: (screenSize === 'watch' || screenSize === 'mobileSmall') ? 'low-power' : 'high-performance',
           stencil: false,
           depth: true,
           // Reduzir qualidade em mobile para melhorar performance
-          precision: screenSize === 'watch' || screenSize === 'mobileSmall' ? 'lowp' : 'mediump',
+          precision: (screenSize === 'watch' || screenSize === 'mobileSmall') ? 'lowp' : 'mediump',
         }}
         dpr={dpr}
         performance={{

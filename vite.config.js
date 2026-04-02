@@ -5,6 +5,10 @@ import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import compression from 'vite-plugin-compression';
 
 export default defineConfig({
+  define: {
+    'process.env': {},
+    '__DEFINES__': {}, // Algumas versões do Vite/plugins esperam isso
+  },
   plugins: [
     tailwindcss(),
     react({

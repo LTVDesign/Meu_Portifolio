@@ -153,14 +153,6 @@ const Footer: React.FC = () => {
                 </DynamicText>
               </p>
             </div>
-
-            {/* Konami code */}
-            <p
-              className='text-[var(--dynamic-text-secondary)] tracking-[0.1em] text-center select-none'
-              style={{ fontSize: '1.2em' }}
-            >
-              {t('tech.easterEgg')}
-            </p>
           </div>
 
           {/* Coluna 3 - Direita - Contato */}

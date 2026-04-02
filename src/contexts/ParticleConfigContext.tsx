@@ -10,7 +10,7 @@ import React, {
 import { type ParticleConfig, validateLocalStorageData } from '../utils/validation';
 
 // Importamos o tipo do arquivo de validação
-
+// Hook para controle do menu de background - Refreshing module resolution
 const defaultConfig: ParticleConfig = {
   particleColor: '#915EFF',
   speed: 1, // Reduzido de 2 para 1

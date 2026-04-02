@@ -220,8 +220,8 @@ const Navbar = memo(() => {
         </div>
 
         {/* Right aligned Menu - Desktop/Tablet - Ajustado para aparecer apenas em telas maiores que iPad Air */}
-        <div className='hidden lg:flex items-center gap-3 lg:gap-6'>
-          <ul className='flex items-center gap-1 lg:gap-2 xl:gap-3'>
+        <div className='hidden lg:flex items-center gap-2 lg:gap-4'>
+          <ul className='flex items-center gap-0.5 lg:gap-1 xl:gap-2'>
             {navLinks.map((nav) => {
               const isActive = active === nav.id;
               return (
@@ -235,7 +235,7 @@ const Navbar = memo(() => {
                         setToggle(false);
                       }
                     }}
-                    className={`navbar-link py-1.5 px-1.5 md:px-2 text-[10px] md:text-xs lg:text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:text-[var(--cyber-cyan)] menu-glow relative group/link ${isActive ? 'text-white active-menu' : 'text-white/70'}`}
+                    className={`navbar-link py-1.5 px-1 md:px-1.5 text-[10px] md:text-xs lg:text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:text-[var(--cyber-cyan)] menu-glow relative group/link ${isActive ? 'text-white active-menu' : 'text-white/70'}`}
                   >
                     <DynamicText colorMode='auto'>{t(`nav.${nav.id}`)}</DynamicText>
                     <m.div
@@ -314,13 +314,13 @@ const Navbar = memo(() => {
         }}
       >
         <div className={`${isWatch ? 'px-3 py-4' : 'px-6 py-6'}`}>
-          <ul className={`flex flex-col font-bold uppercase tracking-widest mb-4 ${isWatch ? 'gap-3 text-xs' : 'gap-4 md:gap-6 text-sm'}`}>
+          <ul className={`flex flex-col font-bold uppercase tracking-widest mb-4 ${isWatch ? 'gap-2 text-xs' : 'gap-3 md:gap-4 text-sm'}`}>
             {navLinks.map((nav) => (
               <li key={nav.id}>
                 <Link
                   to={getNavLink(nav.id)}
                   onClick={() => setToggle(false)}
-                  className='text-white/80 hover:text-white transition-colors block py-2 min-h-[44px] flex items-center'
+                  className='text-white/80 hover:text-white transition-colors block py-1.5 min-h-[40px] flex items-center'
                 >
                   <DynamicText colorMode='auto'>{t(`nav.${nav.id}`)}</DynamicText>
                 </Link>

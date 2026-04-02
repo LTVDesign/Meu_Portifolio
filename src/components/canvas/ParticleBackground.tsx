@@ -116,13 +116,22 @@ const ParticleBackground = ({
       particle.x += particle.vx;
       particle.y += particle.vy;
 
-      if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-      if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+      // Bounce nas bordas sem teletransporte
+      if (particle.x < 0) {
+        particle.x = 0;
+        particle.vx *= -1;
+      } else if (particle.x > canvas.width) {
+        particle.x = canvas.width;
+        particle.vx *= -1;
+      }
 
-      if (particle.x < 0) particle.x = canvas.width;
-      if (particle.x > canvas.width) particle.x = 0;
-      if (particle.y < 0) particle.y = canvas.height;
-      if (particle.y > canvas.height) particle.y = 0;
+      if (particle.y < 0) {
+        particle.y = 0;
+        particle.vy *= -1;
+      } else if (particle.y > canvas.height) {
+        particle.y = canvas.height;
+        particle.vy *= -1;
+      }
     });
   };
 
