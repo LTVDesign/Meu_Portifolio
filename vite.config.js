@@ -83,7 +83,7 @@ export default defineConfig({
   },
 
   build: {
-    sourcemap: false,
+    sourcemap: true,
     minify: 'terser',
     chunkSizeWarningLimit: 1000,
     // CSS code splitting habilitado por padrão
@@ -162,8 +162,7 @@ export default defineConfig({
   server: {
     port: 5173,
     host: true,
-    hmr: {
-      clientPort: 5173,
-    },
+    // Removido clientPort hardcoded para evitar erro de WebSocket
+    // quando a porta 5173 está em uso e o Vite usa a próxima porta disponível
   },
 });

@@ -1,19 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
-  <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png" />
-  <link rel="manifest" href="/manifest.json" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- CSP (Content Security Policy) -->
-  <meta http-equiv="Content-Security-Policy" content="
+    <!-- CSP (Content Security Policy) -->
+    <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
     script-src 'self' 'unsafe-inline' 'unsafe-eval' data: https://cdn.jsdelivr.net https://unpkg.com https://va.vercel-scripts.com https://cdnjs.cloudflare.com;
     style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
@@ -26,92 +19,82 @@
     form-action 'self';
   ">
 
-  <!-- Google Fonts: Inter — premium typography with font-display=optional to prevent FOUT -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=optional"
-    rel="stylesheet" />
+    <!-- Google Fonts: Inter — premium typography with font-display=optional to prevent FOUT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=optional" rel="stylesheet">
 
-  <!-- EmailJS: carregado sob demanda no formulário de contato -->
-  <!-- <link rel="preconnect" href="https://api.emailjs.com" crossorigin /> -->
+    <!-- EmailJS: carregado sob demanda no formulário de contato -->
 
-  <link rel="canonical" href="https://leandrobarbosa.dev" />
-  <meta name="description"
-    content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial — Desenvolvedor Full Stack especializado em React, Node.js, Three.js e aplicações web modernas de alto desempenho." />
-  <meta name="keywords"
-    content="desenvolvedor, full stack, react, node.js, three.js, portfólio, 3d, web development, inteligência artificial, javascript, typescript" />
-  <meta name="author" content="Leandro Barbosa" />
-  <meta property="og:title" content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial" />
-  <meta property="og:description"
-    content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial — Desenvolvedor Full Stack especializado em React, Node.js, Three.js e aplicações web modernas de alto desempenho." />
-  <meta property="og:image" content="https://leandrobarbosa.dev/logo.webp" />
-  <meta property="og:url" content="https://leandrobarbosa.dev" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial" />
-  <meta name="twitter:description"
-    content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial — Desenvolvedor Full Stack" />
-  <meta name="twitter:image" content="https://leandrobarbosa.dev/logo.webp" />
-  <title>Leandro Saturnino Barbosa | Portfólio 3D - React & Three.js</title>
+    <!-- <link rel="preconnect" href="https://api.emailjs.com" crossorigin /> -->
+    <link rel="canonical" href="https://leandrobarbosa.dev">
+    <meta name="description" content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial — Desenvolvedor Full Stack especializado em React, Node.js, Three.js e aplicações web modernas de alto desempenho.">
+    <meta name="keywords" content="desenvolvedor, full stack, react, node.js, three.js, portfólio, 3d, web development, inteligência artificial, javascript, typescript">
+    <meta name="author" content="Leandro Barbosa">
+    <meta property="og:title" content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial">
+    <meta property="og:description" content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial — Desenvolvedor Full Stack especializado em React, Node.js, Three.js e aplicações web modernas de alto desempenho.">
+    <meta property="og:image" content="https://leandrobarbosa.dev/logo.webp">
+    <meta property="og:url" content="https://leandrobarbosa.dev">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial">
+    <meta name="twitter:description" content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial — Desenvolvedor Full Stack">
+    <meta name="twitter:image" content="https://leandrobarbosa.dev/logo.webp">
+    <title>Leandro Saturnino Barbosa | Portfólio 3D - React &amp; Three.js</title>
 
-  <!-- CSS será importado via main.tsx -->
+    <!-- CSS será importado via main.tsx -->
 
-  <!-- Module Preload Hints - Otimização da cadeia crítica -->
-  <!-- Preload do entrypoint principal -->
-  <link rel="modulepreload" href="/src/main.tsx" />
+    <!-- Preconnect para recursos externos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 
-  <!-- Preconnect para recursos externos -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-  <!-- DNS Prefetch para APIs externas -->
-  <link rel="dns-prefetch" href="https://api.emailjs.com" />
-
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Leandro Barbosa",
-      "url": "https://leandrobarbosa.dev",
-      "image": "https://leandrobarbosa.dev/logo.webp",
-      "jobTitle": "Desenvolvedor Full Stack & Especialista em IA",
-      "sameAs": [
-        "https://github.com/lelebrr",
-        "https://linkedin.com/in/leandro-saturnino-barbosa"
-      ],
-      "knowsAbout": [
-        "React",
-        "TypeScript",
-        "Three.js",
-        "Inteligência Artificial",
-        "Cibersegurança",
-        "Desenvolvimento Full Stack",
-        "Node.js",
-        "Python"
-      ],
-      "description": "Leandro Barbosa: De Infraestrutura a Inteligência Artificial — Desenvolvedor Full Stack especializado em React, Node.js, Three.js e aplicações web modernas de alto desempenho."
-    }
-  </script>
-</head>
-
-<body>
-  <div id="root"></div>
-  <script>
-    window.addEventListener('error', function (e) {
-      console.error('GLOBAL ERROR:', e.message, e.filename, e.lineno, e.colno, e.error);
-    });
-    window.addEventListener('unhandledrejection', function (e) {
-      console.error('UNHANDLED REJECTION:', e.reason);
-    });
-    console.log("HTML loaded, waiting for main.tsx");
-
-    // Forçar scroll para o topo no carregamento da página
-    window.scrollTo(0, 0);
-    window.addEventListener('load', function () {
+    <!-- DNS Prefetch para APIs externas -->
+    <link rel="dns-prefetch" href="https://api.emailjs.com">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Leandro Barbosa",
+        "url": "https://leandrobarbosa.dev",
+        "image": "https://leandrobarbosa.dev/logo.webp",
+        "jobTitle": "Desenvolvedor Full Stack & Especialista em IA",
+        "sameAs": [
+          "https://github.com/lelebrr",
+          "https://linkedin.com/in/leandro-saturnino-barbosa"
+        ],
+        "knowsAbout": [
+          "React",
+          "TypeScript",
+          "Three.js",
+          "Inteligência Artificial",
+          "Cibersegurança",
+          "Desenvolvimento Full Stack",
+          "Node.js",
+          "Python"
+        ],
+        "description": "Leandro Barbosa: De Infraestrutura a Inteligência Artificial — Desenvolvedor Full Stack especializado em React, Node.js, Three.js e aplicações web modernas de alto desempenho."
+      }
+    </script>
+    <link rel="icon" type="image/png" sizes="196x196" href="public/favicon-196.png">
+    <link rel="apple-touch-icon" href="public/apple-icon-180.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      window.addEventListener('error', function(e) {
+        console.error('GLOBAL ERROR:', e.message, e.filename, e.lineno, e.colno, e.error);
+      });
+      window.addEventListener('unhandledrejection', function(e) {
+        console.error('UNHANDLED REJECTION:', e.reason);
+      });
+      console.log("HTML loaded, waiting for main.tsx");
+      // Forçar scroll para o topo no carregamento da página
       window.scrollTo(0, 0);
-    });
-  </script>
-  <script type="module" src="/src/main.tsx"></script>
-</body>
-
+      window.addEventListener('load', function() {
+        window.scrollTo(0, 0);
+      });
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
