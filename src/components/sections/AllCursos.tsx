@@ -1,5 +1,5 @@
-import { AnimatePresence, m } from 'framer-motion';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { AnimatePresence, m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import close from '../../assets/close.svg';
 import { SectionWrapper } from '../../hoc';

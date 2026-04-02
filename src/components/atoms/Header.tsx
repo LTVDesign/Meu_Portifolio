@@ -1,5 +1,5 @@
-import { m } from 'framer-motion';
 import type React from 'react';
+import { m } from 'framer-motion';
 
 import { styles } from '../../constants/styles';
 import DynamicText from './DynamicText';

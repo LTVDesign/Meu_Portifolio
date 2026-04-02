@@ -1,5 +1,5 @@
-import { m } from 'framer-motion';
 import { useMemo, useState } from 'react';
+import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { diploma, diplomaPdf, qrcode } from '../../assets';
 import anhanguera from '../../assets/anhanguera.svg';

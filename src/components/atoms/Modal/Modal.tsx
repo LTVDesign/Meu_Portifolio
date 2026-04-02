@@ -1,6 +1,6 @@
-import { AnimatePresence, m } from 'framer-motion';
 import type React from 'react';
 import { useContext, useEffect } from 'react';
+import { AnimatePresence, m } from 'framer-motion';
 import {
   useModalAccessibility,
   useModalAria,

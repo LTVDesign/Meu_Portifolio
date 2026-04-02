@@ -1,5 +1,5 @@
-import { AnimatePresence, m } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { AnimatePresence, m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useViewport } from '../../hooks/useViewport';
 

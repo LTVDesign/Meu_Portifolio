@@ -1,5 +1,5 @@
-import { AnimatePresence, m } from 'framer-motion';
 import { createPortal } from 'react-dom';
+import { AnimatePresence, m } from 'framer-motion';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 import { useTranslation } from 'react-i18next';
 import React, { Suspense, lazy } from 'react';

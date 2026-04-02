@@ -1,5 +1,5 @@
-import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { m } from 'framer-motion';
 import { FiDownload, FiExternalLink } from 'react-icons/fi';
 import { SectionWrapper } from '../../hoc';
 import { useReducedMotion } from '../../hooks/useReducedMotion';

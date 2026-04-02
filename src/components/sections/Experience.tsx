@@ -1,5 +1,5 @@
-import { m } from 'framer-motion';
 import { forwardRef, useState } from 'react';
+import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { experiences } from '../../constants';
 import { SectionWrapper } from '../../hoc';

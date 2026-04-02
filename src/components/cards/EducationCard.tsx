@@ -1,5 +1,5 @@
-import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { m } from 'framer-motion';
 import { fadeIn } from '../../utils/motion';
 
 interface EducationCardProps {

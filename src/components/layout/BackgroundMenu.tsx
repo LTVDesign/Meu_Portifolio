@@ -1,5 +1,5 @@
-import { m } from 'framer-motion';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
+import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useBreakpoints } from '../../hooks/useDebouncedResize';
 

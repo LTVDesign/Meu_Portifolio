@@ -1,5 +1,5 @@
-import { m } from 'framer-motion';
 import { testimonials } from '../../constants';
+import { m } from 'framer-motion';
 import { config } from '../../constants/config';
 import { styles } from '../../constants/styles';
 import type { TTestimonial } from '../../types';

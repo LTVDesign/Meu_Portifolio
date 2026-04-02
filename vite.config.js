@@ -110,15 +110,13 @@ export default defineConfig({
             return 'validation';
           }
 
-          // Three.js - chunk separado para melhor cache e tree-shaking
-          if (id.includes('node_modules/three/') || id.includes('@react-three')) {
+          // Three.js - apenas three module, não @react-three (que depende de react)
+          if (id.includes('node_modules/three/') && !id.includes('@react-three')) {
             return 'three';
           }
 
-          // Framer Motion - biblioteca de animação React
-          if (id.includes('node_modules/framer-motion/')) {
-            return 'motion';
-          }
+          // Framer Motion - deve ficar no vendor junto com React para evitar erro de useLayoutEffect
+          // NÃO separar em chunk próprio pois causa "Cannot read properties of undefined (reading 'useLayoutEffect')"
 
           // Todos os outros node_modules em um único chunk
           // Isso elimina completamente a dependência circular
@@ -166,7 +164,9 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', '@react-three/fiber', 'framer-motion']
+    include: ['react', 'react-dom', 'framer-motion', '@react-three/fiber', '@react-three/drei'],
+    // Forçar pré-bundling de React para garantir ordem correta
+    force: false
   },
 
   server: {

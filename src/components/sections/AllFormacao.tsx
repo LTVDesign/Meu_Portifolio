@@ -1,5 +1,5 @@
-import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { m } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import faculImg from '../../assets/facul.webp';
 import { SectionWrapper } from '../../hoc';

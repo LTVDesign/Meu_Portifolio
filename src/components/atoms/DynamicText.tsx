@@ -3,8 +3,8 @@
 // Usa CSS variable --dynamic-text-color atualizada pelo useBackgroundColorSampler
 // + mix-blend-mode: difference como fallback para inversão pixel a pixel.
 
-import { m } from 'framer-motion';
 import React, { forwardRef, useMemo } from 'react';
+import { m } from 'framer-motion';
 
 interface DynamicTextProps {
   children: React.ReactNode;

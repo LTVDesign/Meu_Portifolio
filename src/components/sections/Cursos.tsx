@@ -1,5 +1,5 @@
-import { m } from 'framer-motion';
 import { useMemo, useState } from 'react';
+import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import cursosData from '../../data/cursos.json';
 import { SectionWrapper } from '../../hoc';

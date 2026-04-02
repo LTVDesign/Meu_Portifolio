@@ -1,5 +1,5 @@
-import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { m } from 'framer-motion';
 import { SectionWrapper } from '../../hoc';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { fadeIn } from '../../utils/motion';

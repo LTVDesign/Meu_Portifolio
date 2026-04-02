@@ -1,5 +1,5 @@
-import { m } from 'framer-motion';
 import { useMemo, useRef, useState } from 'react';
+import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { FaBuilding, FaEnvelope, FaPaperPlane, FaPhone, FaUser } from 'react-icons/fa';
 import { z } from 'zod';
