@@ -1,4 +1,4 @@
-import { domAnimation, LazyMotion } from 'framer-motion';
+import { LazyMotion, domAnimation } from 'framer-motion';
 import type React from 'react';
 
 /**
@@ -7,7 +7,7 @@ import type React from 'react';
  *
  * Uso:
  * <MotionProvider>
- *   <App />
+ * <App />
  * </MotionProvider>
  */
 interface MotionProviderProps {

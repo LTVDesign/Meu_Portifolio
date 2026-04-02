@@ -91,7 +91,9 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
     const mat = materialRef.current;
     if (!mat) return;
     mat.uniforms.u_mouse.value.set(mouseRef.current.x, mouseRef.current.y);
-    mat.uniforms.u_interactionMode.value = config.interactionMode || 'none';
+    // Converte string para int: none=0, blow=1, attract=2, freeze=3
+    const modeMap: Record<string, number> = { none: 0, blow: 1, attract: 2, freeze: 3 };
+    mat.uniforms.u_interactionMode.value = modeMap[config.interactionMode || 'none'] ?? 0;
   }, [config.interactionMode, mouseRef.current.x, mouseRef.current.y]);
 
   // Handle resolution changes
