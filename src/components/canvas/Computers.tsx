@@ -153,7 +153,8 @@ const ComputersCanvas = () => {
       className='relative h-full w-full'
       data-engine='r3f'
       style={{
-        minHeight: '100%',
+        minHeight: screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k' ? '100%' : '80%',
+        marginTop: screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k' ? '0' : '10%',
         minWidth: '100%',
         zIndex: 0,
         pointerEvents: 'auto',

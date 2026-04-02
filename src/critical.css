@@ -263,6 +263,7 @@ svg.gear-spin {
 html, body {
   overflow-x: hidden;
   max-width: 100%;
+  touch-action: auto;
 }
 
 /* Safe area para dispositivos com notch */

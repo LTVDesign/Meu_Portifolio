@@ -106,7 +106,7 @@ const Hero = () => {
         </div>
 
         {/* Canvas 3D do Computador - abaixo do texto */}
-        <div className='absolute inset-0 z-0 pointer-events-auto flex items-end'>
+        <div className='absolute inset-0 z-0 pointer-events-none flex items-end'>
           <ComputersCanvas />
         </div>
 

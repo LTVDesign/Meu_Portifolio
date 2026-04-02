@@ -85,21 +85,34 @@ export const useTouchScrollGuard = (
 
       // Intenção já decidida neste gesto
       if (intentDecidedRef.current) {
-        // Se é interação 3D, não precisa fazer nada especial
-        // Se é scroll, o browser já está cuidando
+        // Se decidimos que é interação 3D, podemos opcionalmente prevenir o scroll
+        // Mas como os listeners são passivos, o preventDefault não funcionaria aqui.
+        // A mágica acontece via CSS touch-action dinâmico.
         return;
       }
 
       const dx = Math.abs(e.touches[0].clientX - touchStartRef.current.x);
       const dy = Math.abs(e.touches[0].clientY - touchStartRef.current.y);
+      
+      // Se o movimento vertical for significativamente maior que o horizontal,
+      // assumimos IMEDIATAMENTE que é scroll e não ativamos interação 3D.
+      if (dy > dx && dy > 5) {
+        intentDecidedRef.current = true;
+        isTouchInteractingRef.current = false;
+        setIsTouchInteracting(false);
+        return;
+      }
+
       const totalMovement = Math.sqrt(dx * dx + dy * dy);
 
-      // Aguarda pixels suficientes para decidir a intenção
+      // Aguarda pixels suficientes para decidir a intenção (para gestos horizontais)
       if (totalMovement < intentThreshold) return;
 
       intentDecidedRef.current = true;
 
       // Calcula o ângulo do gesto em relação ao eixo vertical
+      // Atan2(dx, dy) -> dx é o oposto, dy é o adjacente. 
+      // Se dx for pequeno (horizontal pequeno) e dy grande (vertical grande), o ângulo será pequeno.
       const angleFromVertical = (Math.atan2(dx, dy) * 180) / Math.PI;
 
       if (angleFromVertical < verticalThreshold) {

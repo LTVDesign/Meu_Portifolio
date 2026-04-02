@@ -40,7 +40,8 @@
     min-height: 100vh;
     overflow-x: hidden;
     /* Garante que scroll vertical sempre funciona em touch devices */
-    touch-action: pan-y;
+    touch-action: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   html {
@@ -73,7 +74,7 @@
     z-index: 10 !important;
   }
 
-  /* Navigation (z-50+) */
+  /* Navigation (z-50+) - Aumentado para garantir prioridade sobre modais e 3D */
   nav,
   .navbar,
   header {
@@ -81,7 +82,7 @@
     top: 0;
     left: 0;
     right: 0;
-    z-index: 100 !important;
+    z-index: 100000 !important;
   }
 
   /* Footer (z-10+) */
