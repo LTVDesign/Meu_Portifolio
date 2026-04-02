@@ -191,7 +191,8 @@
     "iaDadosBadge": "AI & Data Science",
     "iaDadosDesc": "Development of intelligent solutions and predictive analytics, using algorithms to transform data into strategic decisions",
     "gestao": "Management",
-    "gestaoDesc": "Team leadership through agile frameworks (Scrum) and product vision focused on user experience and value delivery"
+    "gestaoDesc": "Team leadership through agile frameworks (Scrum) and product vision focused on user experience and value delivery",
+    "scrumMasterBadge": "Scrum Master"
   },
   "status": {
     "concluido": "COMPLETED",

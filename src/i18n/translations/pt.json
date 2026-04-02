@@ -266,7 +266,8 @@
     "iaDadosDesc": "Desenvolvimento de soluções inteligentes e análise preditiva, utilizando algoritmos para transformar dados em decisões estratégicas",
     "gestao": "Gestão",
     "gestaoBadge": "Product Management",
-    "gestaoDesc": "Liderança de times através de frameworks ágeis (Scrum) e visão de produto focada na experiência do usuário e entrega de valor"
+    "gestaoDesc": "Liderança de times através de frameworks ágeis (Scrum) e visão de produto focada na experiência do usuário e entrega de valor",
+    "scrumMasterBadge": "Scrum Master"
   },
   "status": {
     "concluido": "CONCLUÍDO",

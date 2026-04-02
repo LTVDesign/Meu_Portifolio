@@ -161,7 +161,7 @@ const Experience = () => {
                 className='text-2xl md:text-3xl font-black text-white mb-4 tracking-tight'
               >
                 <span className='bg-gradient-to-r from-[var(--cyber-cyan)] via-white to-[var(--cyber-purple)] bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(0,255,255,0.5)]'>
-                  {t('about.h2')}
+                  {t('experience.h2')}
                 </span>
               </m.h3>
 
@@ -172,7 +172,7 @@ const Experience = () => {
                 transition={{ duration: 0.6, delay: 0.5 }}
                 className='text-lg md:text-xl font-bold text-[var(--cyber-purple)] uppercase tracking-wider mb-8'
               >
-                {t('about.p')}
+                {t('experience.p')}
               </m.p>
 
               {/* Linha com animação discreta de brilho */}
@@ -240,7 +240,7 @@ const Experience = () => {
               >
                 {[
                   { text: t('services.gestaoBadge'), color: 'from-purple-500 to-pink-500' },
-                  { text: 'Scrum Master', color: 'from-green-500 to-emerald-500' },
+                  { text: t('services.scrumMasterBadge'), color: 'from-green-500 to-emerald-500' },
                   { text: t('services.cibersegurancaBadge'), color: 'from-red-500 to-orange-500' },
                   { text: t('services.iaDadosBadge'), color: 'from-cyan-500 to-blue-500' },
                 ].map((badge, idx) => (
