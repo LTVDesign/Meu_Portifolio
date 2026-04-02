@@ -66,9 +66,8 @@ canvas#particles-canvas {
   transform: translateZ(0);
 }
 
-/* Canvas 3D interativos - Permitir interação com mouse */
-canvas[data-engine],
-.r3f-canvas canvas {
+/* Canvas 3D interativos - Permitir interação com mouse apenas se explicitamente solicitado */
+canvas[data-engine] {
   pointer-events: auto !important;
 }
 

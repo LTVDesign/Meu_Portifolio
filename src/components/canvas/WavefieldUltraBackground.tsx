@@ -366,7 +366,7 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
         zIndex: -1,
         // Backgrounds de fundo NUNCA devem bloquear eventos da página
         pointerEvents: 'none',
-        touchAction: 'none',
+        touchAction: 'pan-y',
       }}
     />
   );

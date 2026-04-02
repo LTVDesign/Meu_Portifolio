@@ -406,7 +406,7 @@ const ParticulateShatterBackground: React.FC<ParticulateShatterBackgroundProps> 
         height: '100%',
         // Background nunca deve bloquear scroll da página
         pointerEvents: 'none',
-        touchAction: 'none',
+        touchAction: 'pan-y',
       }}
     />
   );

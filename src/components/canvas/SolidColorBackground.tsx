@@ -55,7 +55,7 @@ const SolidColorBackground: React.FC<SolidColorBackgroundProps> = ({
           ...backgroundStyle,
           opacity,
           filter: blur > 0 ? `blur(${blur}px)` : undefined,
-          touchAction: 'none',
+          touchAction: 'pan-y',
         }}
       />
       {grain && (

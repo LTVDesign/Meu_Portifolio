@@ -62,7 +62,7 @@
     height: 100vh !important;
     pointer-events: none;
     /* Garante que backgrounds nunca bloqueiam scroll em touch */
-    touch-action: none;
+    touch-action: pan-y;
   }
 
   /* Content layers (z-10+) */

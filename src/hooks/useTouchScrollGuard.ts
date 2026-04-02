@@ -142,9 +142,9 @@ export const useTouchScrollGuard = (
   }, [enabled, handleTouchStart, handleTouchMove, handleTouchEnd]);
 
   const touchStyle: React.CSSProperties = {
-    // pan-y: permite scroll vertical, bloqueia horizontal (para o canvas)
+    // auto: comportamento padrão (permite scroll vertical e horizontal)
     // none: bloqueia tudo (quando interagindo com o 3D)
-    touchAction: isTouchInteracting ? 'none' : 'pan-y',
+    touchAction: isTouchInteracting ? 'none' : 'auto',
   };
 
   return { containerRef, isTouchInteracting, touchStyle };

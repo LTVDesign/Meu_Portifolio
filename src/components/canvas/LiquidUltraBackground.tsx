@@ -353,7 +353,7 @@ const LiquidUltraBackground: React.FC<LiquidUltraBackgroundProps> = ({
     <div
       ref={mountRef}
       className='fixed inset-0 -z-10 w-full h-full pointer-events-none'
-      style={{ touchAction: 'none' }}
+      style={{ touchAction: 'pan-y' }}
     />
   );
 };

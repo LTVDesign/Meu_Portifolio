@@ -151,6 +151,7 @@ const ComputersCanvas = () => {
         (touchRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
       }}
       className='relative h-full w-full'
+      data-engine='r3f'
       style={{
         minHeight: '100%',
         minWidth: '100%',

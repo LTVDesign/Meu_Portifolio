@@ -154,7 +154,7 @@ const BackgroundManager = memo(() => {
   return (
     <div
       className='fixed inset-0 pointer-events-none overflow-hidden select-none bg-[#050816]'
-      style={{ zIndex: 0 }}
+      style={{ zIndex: 0, touchAction: 'pan-y' }}
       data-background='true'
     >
       {isVisible && (

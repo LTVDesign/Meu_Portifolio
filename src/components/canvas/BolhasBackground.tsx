@@ -97,6 +97,7 @@ const BolhasBackground = () => {
     <div
       ref={containerRef}
       className='fixed inset-0 -z-10 w-full h-full'
+      data-engine={needsPointerEvents ? 'r3f' : undefined}
       style={finalStyle}
     >
       <Canvas
