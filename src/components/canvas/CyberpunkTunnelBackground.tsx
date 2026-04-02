@@ -2,22 +2,22 @@ import type React from 'react';
 import { useEffect, useRef } from 'react';
 // Tree-shakeable Three.js imports for better performance
 import {
-  Scene,
-  PerspectiveCamera,
-  WebGLRenderer,
-  FogExp2,
-  Vector2,
-  Vector3,
+  ACESFilmicToneMapping,
   CatmullRomCurve3,
-  TubeGeometry,
-  SphereGeometry,
-  MeshBasicMaterial,
-  Mesh,
   EdgesGeometry,
+  FogExp2,
   LineBasicMaterial,
   LineSegments,
-  ACESFilmicToneMapping,
-  SRGBColorSpace
+  Mesh,
+  MeshBasicMaterial,
+  PerspectiveCamera,
+  Scene,
+  SphereGeometry,
+  SRGBColorSpace,
+  TubeGeometry,
+  Vector2,
+  Vector3,
+  WebGLRenderer,
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
@@ -91,6 +91,11 @@ const CyberpunkTunnelBackground: React.FC<CyberpunkTunnelBackgroundProps> = ({
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.03;
+    // Desabilita interação touch para não bloquear scroll da página
+    controls.touches = {
+      ONE: 0,  // NONE
+      TWO: 0,  // NONE
+    };
 
     const renderScene = new RenderPass(scene, camera);
     const bloomPass = new UnrealBloomPass(new Vector2(w, h), 1.5, 0.4, 100);
@@ -305,7 +310,16 @@ const CyberpunkTunnelBackground: React.FC<CyberpunkTunnelBackgroundProps> = ({
   return (
     <div
       ref={mountRef}
-      style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: -1,
+        pointerEvents: 'none' as const,
+        touchAction: 'none' as const,
+      }}
     />
   );
 };

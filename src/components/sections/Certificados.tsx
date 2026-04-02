@@ -1,241 +1,217 @@
 import { motion } from 'framer-motion';
 import { config } from '../../constants/config';
 import { SectionWrapper } from '../../hoc';
+import type { Certificado } from '../../types';
 import { fadeIn } from '../../utils/motion';
 import { LinkAnimado } from '../atoms';
 import { Header } from '../atoms/Header';
-import type { Certificado } from '../../types';
+import { useTranslation } from 'react-i18next';
 
 const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void }) => {
+  const { t } = useTranslation();
 
   // Lista de arquivos de certificados organizados por categoria
   const certificadosFiles: Certificado[] = [
     // Gerenciamento de Produtos - University of Alberta
     {
-      name: 'Especialização em Gerenciamento de Produtos de Software',
+      name: t('certificates.list.0.name'),
       path: '/certificados/Introdução ao Gerenciamento de produtos  ALBERTA.pdf',
-      institution: 'University of Alberta',
-      description: 'Programa completo de especialização em gerenciamento de produtos de software',
+      institution: t('certificates.list.0.institution'),
+      description: t('certificates.list.0.description'),
     },
     {
-      name: 'Introdução ao Gerenciamento de Produtos de Software',
+      name: t('certificates.list.1.name'),
       path: '/certificados/Introdução ao Gerenciamento de produtos  ALBERTA.pdf',
-      institution: 'University of Alberta',
-      description:
-        'Apresenta o papel do gerente de produto, focando em fornecer o produto certo, feito corretamente e gerenciado de forma eficaz, utilizando os valores do Manifesto Ágil.',
+      institution: t('certificates.list.1.institution'),
+      description: t('certificates.list.1.description'),
     },
     {
-      name: 'Software Processes and Agile Practices',
+      name: t('certificates.list.2.name'),
       path: '/certificados/Introdução ao Gerenciamento de produtos  ALBERTA.pdf',
-      institution: 'University of Alberta',
-      description:
-        'Explora modelos de processo como Waterfall, V-Model, Spiral e práticas ágeis como Scrum (sprints, backlog) e Extreme Programming (XP).',
+      institution: t('certificates.list.2.institution'),
+      description: t('certificates.list.2.description'),
     },
     {
-      name: 'Client Needs and Software Requirements',
+      name: t('certificates.list.3.name'),
       path: '/certificados/Introdução ao Gerenciamento de produtos  ALBERTA.pdf',
-      institution: 'University of Alberta',
-      description:
-        'Ensina técnicas para elicitar requisitos, criar User Stories, protótipos (wireframes e storyboards) e gerenciar o backlog do produto.',
+      institution: t('certificates.list.3.institution'),
+      description: t('certificates.list.3.description'),
     },
     {
-      name: 'Agile Planning for Software Products',
+      name: t('certificates.list.4.name'),
       path: '/certificados/Introdução ao Gerenciamento de produtos  ALBERTA.pdf',
-      institution: 'University of Alberta',
-      description:
-        'Cobre estimativas de tempo (Story Points), cálculo de velocidade da equipe, gerenciamento de riscos, cronogramas (Gantt) e planejamento de iterações e releases.',
+      institution: t('certificates.list.4.institution'),
+      description: t('certificates.list.4.description'),
     },
     {
-      name: 'Reviews and Metrics for Software Improvements',
+      name: t('certificates.list.5.name'),
       path: '/certificados/Introdução ao Gerenciamento de produtos  ALBERTA.pdf',
-      institution: 'University of Alberta',
-      description:
-        'Foca no monitoramento de progresso através de gráficos de Burndown, métricas de qualidade (GQM), análise de defeitos e reuniões de retrospectiva.',
+      institution: t('certificates.list.5.institution'),
+      description: t('certificates.list.5.description'),
     },
     {
-      name: 'Software Product Management Capstone',
+      name: t('certificates.list.6.name'),
       path: '/certificados/Introdução ao Gerenciamento de produtos  ALBERTA.pdf',
-      institution: 'University of Alberta',
-      description:
-        'Simulação prática de gerenciamento onde o aluno aplica todas as técnicas anteriores (requisitos, priorização, planos de release e retrospectivas) em um cenário real.',
+      institution: t('certificates.list.6.institution'),
+      description: t('certificates.list.6.description'),
     },
 
     // Certificações Google - Suporte em TI
     {
-      name: 'Certificado Profissional de Suporte em TI do Google',
+      name: t('certificates.list.7.name'),
       path: '/certificados/CertificadoProfissionaldeSuporteemTIdoGoogle_Badge20230225-28-1iiyqbg.pdf',
-      institution: 'Google (via Coursera/Credly)',
-      description: 'Certificação profissional completa em suporte técnico de TI',
+      institution: t('certificates.list.7.institution'),
+      description: t('certificates.list.7.description'),
     },
     {
-      name: 'Suporte em TI do Google',
+      name: t('certificates.list.8.name'),
       path: '/certificados/Suporte em TI do Google.pdf',
-      institution: 'Google (via Coursera)',
-      description:
-        'Introdução ao mundo da computação, cobrindo hardware, software, redes e atendimento ao cliente.',
+      institution: t('certificates.list.8.institution'),
+      description: t('certificates.list.8.description'),
     },
     {
-      name: 'Technical Support Basics',
+      name: t('certificates.list.9.name'),
       path: '/certificados/TechnicalSupportBasics_Badge20230225-28-ldlr1j.pdf',
-      institution: 'Google (via Coursera/Credly)',
-      description: 'Os Aspectos Básicos do Suporte Técnico',
+      institution: t('certificates.list.9.institution'),
+      description: t('certificates.list.9.description'),
     },
     {
-      name: 'Estrutura e Funcionamento das Redes de Computadores',
+      name: t('certificates.list.10.name'),
       path: '/certificados/Estrutura e Funcionamento das Redes de computadores.pdf',
-      institution: 'Google (via Coursera)',
-      description:
-        'Mergulho profundo em protocolos de rede (TCP/IP), serviços como DNS e DHCP, e ferramentas de solução de problemas de conectividade.',
+      institution: t('certificates.list.10.institution'),
+      description: t('certificates.list.10.description'),
     },
     {
-      name: 'Sistemas Operacionais e Você: Tornando-se um Usuário de Poder',
+      name: t('certificates.list.11.name'),
       path: '/certificados/Sistemas Operacionais e Você - Google.pdf',
-      institution: 'Google (via Coursera)',
-      description:
-        'Gerenciamento de diretórios, usuários, permissões e processos nos sistemas Windows e Linux.',
+      institution: t('certificates.list.11.institution'),
+      description: t('certificates.list.11.description'),
     },
     {
-      name: 'Administração de Sistemas e Serviços de Infraestrutura de TI',
+      name: t('certificates.list.12.name'),
       path: '/certificados/Administração de Sistemas e Serviços de Infraestrutura de TI.pdf',
-      institution: 'Google (via Coursera)',
-      description:
-        'Focado em serviços de infraestrutura como Active Directory, gerenciamento de frotas e backup de dados.',
+      institution: t('certificates.list.12.institution'),
+      description: t('certificates.list.12.description'),
     },
     {
-      name: 'Segurança de TI: Defesa Contra as Artes Obscuras do Mundo Digital',
+      name: t('certificates.list.13.name'),
       path: '/certificados/Defesa Contra as Artes Obscuras.pdf',
-      institution: 'Google (via Coursera)',
-      description:
-        'Cobre conceitos de criptografia, autenticação, tipos de ataques e como proteger redes e sistemas.',
+      institution: t('certificates.list.13.institution'),
+      description: t('certificates.list.13.description'),
     },
 
     // Certificações IBM
     {
-      name: 'Introduction to Technical Support',
+      name: t('certificates.list.14.name'),
       path: '/certificados/Introduction to Technical Support IBM.pdf',
-      institution: 'IBM (via Coursera)',
-      description:
-        'Aborda as habilidades essenciais para fornecer suporte técnico eficaz, incluindo metodologias de resolução de problemas e comunicação.',
+      institution: t('certificates.list.14.institution'),
+      description: t('certificates.list.14.description'),
     },
     {
-      name: 'Introduction to Scrum Master Profession',
+      name: t('certificates.list.15.name'),
       path: '/certificados/Introduction to Scrum Master Profession.pdf',
-      institution: 'IBM (via Coursera)',
-      description:
-        'Explora a mentalidade ágil e o papel específico do Scrum Master na facilitação de equipes de alto desempenho.',
+      institution: t('certificates.list.15.institution'),
+      description: t('certificates.list.15.description'),
     },
 
     // Desenvolvimento Web
     {
-      name: 'HTML, CSS, and Javascript for Web Developers',
+      name: t('certificates.list.16.name'),
       path: '/certificados/HTML, CSS, and Javascript for Web Developers.pdf',
-      institution: 'Johns Hopkins University (via Coursera)',
-      description:
-        'Ensina o desenvolvimento de páginas web modernas e responsivas utilizando as tecnologias fundamentais do front-end.',
+      institution: t('certificates.list.16.institution'),
+      description: t('certificates.list.16.description'),
     },
 
     // Cibersegurança
     {
-      name: 'Foundations of Cybersecurity',
+      name: t('certificates.list.17.name'),
       path: '/certificados/Foundations of Cybersecurity.pdf',
-      institution: 'Google (via Coursera)',
-      description:
-        'Base fundamental sobre ameaças, riscos e as principais ferramentas utilizadas por profissionais de segurança digital.',
+      institution: t('certificates.list.17.institution'),
+      description: t('certificates.list.17.description'),
     },
     {
-      name: 'Nivelamento (Cibersegurança)',
+      name: t('certificates.list.18.name'),
       path: '/certificados/Certificado - Nivelamento.pdf',
-      institution: 'Hackers do Bem (SENAI/RNP)',
-      description:
-        'Introdução técnica à área de segurança da informação para nivelamento em programas avançados.',
+      institution: t('certificates.list.18.institution'),
+      description: t('certificates.list.18.description'),
     },
 
     // Banco de Dados - Fundação Bradesco
     {
-      name: 'Fundamentos de TI',
+      name: t('certificates.list.19.name'),
       path: '/certificados/fundamentos de ti - Fundação Bradesco.pdf',
-      institution: 'Fundação Bradesco',
-      description:
-        'Conceitos essenciais de arquitetura de computadores, hardware e lógica de funcionamento.',
+      institution: t('certificates.list.19.institution'),
+      description: t('certificates.list.19.description'),
     },
     {
-      name: 'Implementando Banco de Dados',
+      name: t('certificates.list.20.name'),
       path: '/certificados/Implementando Banco de Dados - Fundação Bradesco.pdf',
-      institution: 'Fundação Bradesco',
-      description:
-        'Focado na criação física de bancos de dados, utilizando linguagens de consulta e estruturação.',
+      institution: t('certificates.list.20.institution'),
+      description: t('certificates.list.20.description'),
     },
     {
-      name: 'Administrando Banco de Dados',
+      name: t('certificates.list.21.name'),
       path: '/certificados/Administrando Banco de Dados - Fundação Bradesco.pdf',
-      institution: 'Fundação Bradesco',
-      description:
-        'Gerenciamento de segurança, usuários, integridade e manutenção de sistemas de banco de dados.',
+      institution: t('certificates.list.21.institution'),
+      description: t('certificates.list.21.description'),
     },
     {
-      name: 'Segurança em Tecnologia da Informação',
+      name: t('certificates.list.22.name'),
       path: '/certificados/Segurança em Tecnologia da Informação - Fundação Bradesco.pdf',
-      institution: 'Fundação Bradesco',
-      description:
-        'Princípios de segurança de dados, políticas de segurança e defesa de perímetros.',
+      institution: t('certificates.list.22.institution'),
+      description: t('certificates.list.22.description'),
     },
 
     // Marketing Digital - Google
     {
-      name: 'Exame de Certificação no Search Ads 360',
+      name: t('certificates.list.23.name'),
       path: '/certificados/Exame de certificação no Search Ads 360  Google.pdf',
-      institution: 'Google Skillshop',
-      description:
-        'Certificação avançada para gerenciar e otimizar campanhas de anúncios em larga escala.',
+      institution: t('certificates.list.23.institution'),
+      description: t('certificates.list.23.description'),
     },
     {
-      name: 'Waze Ads Fundamentals',
+      name: t('certificates.list.24.name'),
       path: '/certificados/Waze Ads Fundamentals  Google certificado.pdf',
-      institution: 'Google Skillshop',
-      description: 'Fundamentos para criação de publicidade voltada a motoristas em tempo real.',
+      institution: t('certificates.list.24.institution'),
+      description: t('certificates.list.24.description'),
     },
     {
-      name: 'Google My Business (Perfil da Empresa)',
+      name: t('certificates.list.25.name'),
       path: '/certificados/Google My Business  Google.pdf',
-      institution: 'Google Skillshop',
-      description:
-        'Ferramentas para otimizar a presença de negócios locais no Google Maps e na busca.',
+      institution: t('certificates.list.25.institution'),
+      description: t('certificates.list.25.description'),
     },
     {
-      name: 'Creative Certification Exam',
+      name: t('certificates.list.26.name'),
       path: '/certificados/Creative Certification Exam _ Google.pdf',
-      institution: 'Google Skillshop',
-      description:
-        'Teste de conhecimento sobre o desenvolvimento de criativos publicitários eficazes para plataformas Google.',
+      institution: t('certificates.list.26.institution'),
+      description: t('certificates.list.26.description'),
     },
 
     // Atendimento e Ética - IPED
     {
-      name: 'Satisfação de Clientes',
+      name: t('certificates.list.27.name'),
       path: '/certificados/Satisfação de clientes IPED.pdf',
-      institution: 'IPED',
-      description:
-        'Métodos para medir e melhorar o índice de contentamento dos clientes com produtos e serviços.',
+      institution: t('certificates.list.27.institution'),
+      description: t('certificates.list.27.description'),
     },
     {
-      name: 'Atendimento ao Cliente',
+      name: t('certificates.list.28.name'),
       path: '/certificados/Atendimento ao cliente IPED.pdf',
-      institution: 'IPED',
-      description:
-        'Técnicas de abordagem, postura profissional e resolução ágil de problemas durante o suporte.',
+      institution: t('certificates.list.28.institution'),
+      description: t('certificates.list.28.description'),
     },
     {
-      name: 'Ética, Política e Cidadania',
+      name: t('certificates.list.29.name'),
       path: '/certificados/etica politica e cidadania.pdf',
-      institution: 'IPED',
-      description:
-        'Estudo da conduta ética no ambiente de trabalho e o papel social do profissional.',
+      institution: t('certificates.list.29.institution'),
+      description: t('certificates.list.29.description'),
     },
     {
-      name: 'Boas Práticas de Manipulação de Alimentos',
+      name: t('certificates.list.30.name'),
       path: '/certificados/Boas Práticas de Manipulação de Alimentos.pdf',
-      institution: 'IPED',
-      description: 'Normas de higiene e segurança alimentar para processos de produção e manuseio.',
+      institution: t('certificates.list.30.institution'),
+      description: t('certificates.list.30.description'),
     },
   ];
 
@@ -247,29 +223,30 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="mb-16"
+        className='mb-8 sm:mb-16'
       >
-        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500">
+        <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-6 sm:p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
           {/* Efeito de brilho animado no fundo */}
-          <div className="absolute inset-0 opacity-30">
+          <div className='absolute inset-0 opacity-30'>
             <motion.div
-              className="absolute inset-0"
+              className='absolute inset-0'
               style={{
-                background: 'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)'
+                background:
+                  'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)',
               }}
               animate={{
                 background: [
                   'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)',
                   'radial-gradient(circle at 80% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)',
-                  'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)'
-                ]
+                  'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)',
+                ],
               }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
             />
           </div>
 
           {/* Conteúdo da box */}
-          <div className="relative z-10">
+          <div className='relative z-10'>
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -284,7 +261,7 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-6 text-[17px] leading-[30px] text-center"
+              className='text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-4 sm:mt-6 text-[14px] sm:text-[17px] leading-[26px] sm:leading-[30px] text-center'
             >
               {config.sections.certificados.content}
             </motion.p>
@@ -295,18 +272,18 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.7 }}
-              className="flex flex-wrap justify-center gap-3 mt-8"
+              className='flex flex-wrap justify-center gap-2 sm:gap-3 mt-5 sm:mt-8'
             >
               {[
-                { text: 'Google', color: 'from-blue-500 to-cyan-500' },
-                { text: 'IBM', color: 'from-indigo-500 to-blue-500' },
-                { text: 'University of Alberta', color: 'from-purple-500 to-pink-500' },
-                { text: 'Hackers do Bem', color: 'from-red-500 to-orange-500' }
+                { text: t('certificates.badges.0.text'), color: 'from-blue-500 to-cyan-500' },
+                { text: t('certificates.badges.1.text'), color: 'from-indigo-500 to-blue-500' },
+                { text: t('certificates.badges.2.text'), color: 'from-purple-500 to-pink-500' },
+                { text: t('certificates.badges.3.text'), color: 'from-red-500 to-orange-500' },
               ].map((badge, idx) => (
                 <motion.span
                   key={idx}
                   whileHover={{ scale: 1.05, y: -2 }}
-                  className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
                 >
                   {badge.text}
                 </motion.span>
@@ -315,40 +292,40 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
           </div>
 
           {/* Borda decorativa com glow */}
-          <div className="absolute inset-0 rounded-3xl border border-[var(--cyber-cyan)]/10 pointer-events-none" />
-          <div className="absolute -inset-1 bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-3xl opacity-20 blur-xl -z-10" />
+          <div className='absolute inset-0 rounded-3xl border border-[var(--cyber-cyan)]/10 pointer-events-none' />
+          <div className='absolute -inset-1 bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-3xl opacity-20 blur-xl -z-10' />
         </div>
       </motion.div>
 
-      <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-items-center">
+      <div className='mt-10 sm:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8 md:gap-10 justify-items-center'>
         {certificadosFiles.slice(0, 6).map((certificado, index) => (
           <motion.div
             key={`certificado-${index}`}
             variants={fadeIn('up', 'spring', index * 0.5, 0.75)}
-            className="bg-tertiary w-full rounded-2xl p-8 hover:scale-105 transition-transform shadow-card"
+            className='bg-tertiary w-full rounded-2xl p-5 sm:p-8 hover:scale-[1.02] sm:hover:scale-105 transition-transform shadow-card'
           >
-            <div className="mt-5">
-              <h3 className="text-[16px] font-bold text-[var(--dynamic-text-color)] sm:text-[18px] text-center">
+            <div className='mt-5'>
+              <h3 className='text-[16px] font-bold text-white sm:text-[18px] text-center'>
                 {certificado.name}
               </h3>
               {certificado.institution && (
-                <p className="text-[var(--dynamic-text-secondary)] text-[13px] text-center mt-2">
+                <p className='text-gray-300 text-[13px] text-center mt-2'>
                   {certificado.institution}
                 </p>
               )}
               {certificado.description && (
-                <p className="text-[var(--dynamic-text-secondary)] text-[12px] text-center mt-2 leading-relaxed">
+                <p className='text-gray-400 text-[12px] text-center mt-2 leading-relaxed'>
                   {certificado.description}
                 </p>
               )}
-              <div className="mt-4 flex w-full justify-center">
+              <div className='mt-4 flex w-full justify-center'>
                 <LinkAnimado
                   href={certificado.path}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="glass-btn mt-4 text-[14px] px-6 py-2 text-center font-medium rounded-full"
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='glass-btn mt-4 text-[13px] px-5 py-2 text-center font-medium rounded-full min-h-[44px] flex items-center justify-center'
                 >
-                  Ver Certificado
+                  {t('certificates.viewAll')}
                 </LinkAnimado>
               </div>
             </div>
@@ -357,13 +334,13 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
       </div>
 
       {certificadosFiles.length > 6 && (
-        <div className="mt-10 flex justify-center">
+        <div className='mt-10 flex justify-center'>
           <button
-            type="button"
+            type='button'
             onClick={() => setViewMode?.('allcertificados')}
-            className="glass-btn px-6 py-3 rounded-lg font-bold tracking-wider"
+            className='glass-btn px-5 sm:px-6 py-3 rounded-lg font-bold tracking-wider min-h-[44px]'
           >
-            Ver Todos
+            {t('allCertificados.loadMore')}
           </button>
         </div>
       )}

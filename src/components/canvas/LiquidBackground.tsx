@@ -1,7 +1,17 @@
 import type React from 'react';
 import { useEffect, useRef } from 'react';
-// Tree-shakeable Three.js imports for better performance
-import { Scene, OrthographicCamera, WebGLRenderer, ShaderMaterial, Mesh, Color, Vector2, PlaneGeometry } from 'three';
+import {
+  Color,
+  Mesh,
+  OrthographicCamera,
+  PlaneGeometry,
+  Scene,
+  ShaderMaterial,
+  Vector2,
+  WebGLRenderer,
+} from 'three';
+import { useParticleConfig } from '../../contexts/ParticleConfigContext';
+import { usePerformance } from '../../contexts/PerformanceContext';
 
 interface LiquidBackgroundProps {
   resolution: number;
@@ -38,6 +48,10 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const materialRef = useRef<ShaderMaterial | null>(null);
+  const { config } = useParticleConfig();
+  const { isLowPerformance } = usePerformance();
+  const mouseRef = useRef({ x: 0.5, y: 0.5 });
+  const lastMouseMoveRef = useRef(0);
 
   // Reactive uniform updates — avoids full WebGL rebuild
   useEffect(() => {
@@ -72,10 +86,30 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
     color5,
   ]);
 
+  // Update mouse uniform
+  useEffect(() => {
+    const mat = materialRef.current;
+    if (!mat) return;
+    mat.uniforms.u_mouse.value.set(mouseRef.current.x, mouseRef.current.y);
+    mat.uniforms.u_interactionMode.value = config.interactionMode || 'none';
+  }, [config.interactionMode, mouseRef.current.x, mouseRef.current.y]);
+
   // Handle resolution changes
   useEffect(() => {
     // Resolution requires renderer rebuild — handled by re-mount via key or full effect
   }, [resolution]);
+
+  const handleMouseMove = (e: MouseEvent) => {
+    const now = Date.now();
+    // Throttle mais agressivo em baixa performance
+    const throttleTime = isLowPerformance ? 32 : 16;
+    if (now - lastMouseMoveRef.current < throttleTime) return;
+    lastMouseMoveRef.current = now;
+
+    // Normaliza as coordenadas do mouse para 0-1
+    mouseRef.current.x = e.clientX / window.innerWidth;
+    mouseRef.current.y = 1.0 - e.clientY / window.innerHeight; // Inverte Y para corresponder ao UV
+  };
 
   useEffect(() => {
     if (!mountRef.current) return;
@@ -93,6 +127,9 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
     const fragmentShader = `
       uniform float u_time;
       uniform vec2 u_resolution;
+      uniform vec2 u_mouse;
+      uniform int u_interactionMode; // 0: none, 1: blow, 2: attract, 3: freeze
+
       uniform float u_speed;
       uniform float u_scale;
       uniform float u_complexity;
@@ -212,12 +249,24 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
       }
 
       // --- LIQUID SILK DOMAIN WARPING ---
-      float map(vec2 p, float t) {
-        vec2 q = vec2(fbm_tex(p * u_complexity + t * 0.2), fbm_tex(p * u_complexity + vec2(5.2, 1.3) - t * 0.2));
+      float map(vec2 p, float t, vec2 mouse, int mode) {
+        // Aplica distorção do mouse se o modo não for 'none' ou 'freeze'
+        vec2 distortedP = p;
+        if (mode != 0 && mode != 3) { // 0 = none, 3 = freeze
+          vec2 mouseEffect = (mouse - 0.5) * 2.0; // Normaliza para -1 a 1
+          float dist = distance(p, mouseEffect);
+          float influence = smoothstep(0.5, 0.0, dist);
+
+          // blow (1) = repulsa, attract (2) = atração
+          float direction = (mode == 1) ? -1.0 : 1.0; // 1 = blow (repel), 2 = attract
+          distortedP += mouseEffect * influence * 0.3 * direction;
+        }
+
+        vec2 q = vec2(fbm_tex(distortedP * u_complexity + t * 0.2), fbm_tex(distortedP * u_complexity + vec2(5.2, 1.3) - t * 0.2));
         q *= rot(u_twist);
 
-        vec2 r = vec2(fbm_tex(p + q * 2.0 + t * 0.1), fbm_tex(p + q * 2.0 - t * 0.15));
-        float f = fbm_tex(p + r * u_expansion * 3.0);
+        vec2 r = vec2(fbm_tex(distortedP + q * 2.0 + t * 0.1), fbm_tex(distortedP + q * 2.0 - t * 0.15));
+        float f = fbm_tex(distortedP + r * u_expansion * 3.0);
 
         // Introduce trigonometric wrapping for absolutely smooth, vector-like silk folds
         float folds = 0.5 - 0.5 * cos(f * mix(3.0, 8.0, u_smoothing) + t * 0.5);
@@ -233,13 +282,13 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
         float t = u_time * u_speed;
         vec2 st = p * u_scale;
 
-        float val = map(st, t);
+        float val = map(st, t, u_mouse, int(u_interactionMode));
 
         // Ultra-smooth normal calculation using Central Differences
         // Epsilon grows massively with smoothing to blur out any microscopic light bumps
         vec2 eps = vec2(mix(0.01, 0.15, u_smoothing), 0.0);
-        float dx = map(st + eps.xy, t) - map(st - eps.xy, t);
-        float dy = map(st + eps.yx, t) - map(st - eps.yx, t);
+        float dx = map(st + eps.xy, t, u_mouse, int(u_interactionMode)) - map(st - eps.xy, t, u_mouse, int(u_interactionMode));
+        float dy = map(st + eps.yx, t, u_mouse, int(u_interactionMode)) - map(st - eps.yx, t, u_mouse, int(u_interactionMode));
 
         vec2 normal = vec2(dx, dy);
         if (length(normal) > 0.0001) normal = normalize(normal);
@@ -287,6 +336,8 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
       uniforms: {
         u_time: { value: 0.0 },
         u_resolution: { value: new Vector2(window.innerWidth, window.innerHeight) },
+        u_mouse: { value: new Vector2(0.5, 0.5) },
+        u_interactionMode: { value: 0 }, // 0: none, 1: blow, 2: attract, 3: freeze
         u_speed: { value: speed },
         u_scale: { value: scale },
         u_complexity: { value: complexity },
@@ -327,9 +378,11 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
       material.uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
     };
     window.addEventListener('resize', handleResize);
+    window.addEventListener('mousemove', handleMouseMove);
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
       mountRef.current?.removeChild(renderer.domElement);
       renderer.dispose();
     };
@@ -338,7 +391,16 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
   return (
     <div
       ref={mountRef}
-      style={{ position: 'fixed', top: 0, left: 0, zIndex: -1, width: '100%', height: '100%' }}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        zIndex: -1,
+        pointerEvents: 'none' as const,
+        touchAction: 'none' as const,
+        width: '100%',
+        height: '100%',
+      }}
     />
   );
 };

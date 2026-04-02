@@ -1,25 +1,25 @@
-import React from 'react';
-import { LazyMotion, domAnimation } from 'framer-motion';
+import { domAnimation, LazyMotion } from 'framer-motion';
+import type React from 'react';
 
 /**
  * MotionProvider - Envolva sua aplicação com este componente para habilitar
  * LazyMotion globalmente, reduzindo o bundle size do framer-motion.
- * 
+ *
  * Uso:
  * <MotionProvider>
  *   <App />
  * </MotionProvider>
  */
 interface MotionProviderProps {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 
 export const MotionProvider: React.FC<MotionProviderProps> = ({ children }) => {
-    return (
-        <LazyMotion features={domAnimation} strict={false}>
-            {children}
-        </LazyMotion>
-    );
+  return (
+    <LazyMotion features={domAnimation} strict={false}>
+      {children}
+    </LazyMotion>
+  );
 };
 
 MotionProvider.displayName = 'MotionProvider';

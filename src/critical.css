@@ -4,24 +4,24 @@
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 /* Body - APENAS o essencial para First Paint */
 body {
-    margin: 0;
-    background: #050816;
+  margin: 0;
+  background: #050816;
 }
 
 /* Navbar - prevent CLS */
 nav.critical-navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 80px;
-    z-index: 100;
-    background: rgba(21, 16, 48, 0.92);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  z-index: 100;
+  background: rgba(21, 16, 48, 0.92);
 }
 
 /* ==========================================
@@ -29,39 +29,47 @@ nav.critical-navbar {
    ========================================== */
 
 /* Canvases - Isolamento de composição */
-canvas {
-    /* Isola o canvas em sua própria camada GPU */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+/* Apenas para canvases de background (não interativos) */
+canvas[data-background],
+canvas#particles-canvas {
+  /* Isola o canvas em sua própria camada GPU */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 
-    /* Previne layout thrashing */
-    contain: layout style paint;
+  /* Previne layout thrashing */
+  contain: layout style paint;
 
-    /* Otimizações de renderização */
-    will-change: transform;
-    -webkit-will-change: transform;
+  /* Otimizações de renderização */
+  will-change: transform;
+  -webkit-will-change: transform;
 
-    /* Melhora performance de scroll */
-    pointer-events: none;
+  /* Melhora performance de scroll */
+  pointer-events: none;
 }
 
 /* Canvas de partículas - Otimização específica */
 #particles-canvas {
-    /* Fixo para evitar recálculos de layout */
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    contain: strict;
-    will-change: transform;
+  /* Fixo para evitar recálculos de layout */
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  contain: strict;
+  will-change: transform;
 }
 
 /* Backgrounds 3D - Containment */
 .r3f-canvas,
 .canvas-container {
-    contain: layout style paint;
-    will-change: transform;
-    transform: translateZ(0);
+  contain: layout style paint;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Canvas 3D interativos - Permitir interação com mouse */
+canvas[data-engine],
+.r3f-canvas canvas {
+  pointer-events: auto !important;
 }
 
 /* Framer Motion - Otimizações */
@@ -69,108 +77,217 @@ canvas {
 .motion-section,
 .motion-button,
 .motion-a {
-    /* Previne layout shifts */
-    contain: layout style;
+  /* Previne layout shifts */
+  contain: layout style;
 
-    /* GPU acceleration para transformações */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+  /* GPU acceleration para transformações */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 
-    /* Apenas para elementos que realmente animam */
-    &.motion-animate {
-        will-change: transform, opacity;
-        -webkit-will-change: transform, opacity;
-    }
+  /* Apenas para elementos que realmente animam */
+  &.motion-animate {
+    will-change: transform, opacity;
+    -webkit-will-change: transform, opacity;
+  }
 }
 
 /* Elementos com animações pesadas */
 .hero-section,
 .background-menu {
-    contain: layout style paint;
-    will-change: transform;
+  contain: layout style paint;
+  will-change: transform;
 }
 
 /* Gear Button - Containment estrito para isolar animações */
 .gear-button,
 .theme-toggle-container {
-    contain: strict;
-    will-change: transform;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+  contain: strict;
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 /* Launch button wrap - Otimização específica */
 .launch-btn-wrap,
 .launch-btn {
-    contain: layout style paint;
-    will-change: transform;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+  contain: layout style paint;
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 /* Modais e overlays */
 .modal-overlay,
 .menu-overlay {
-    contain: layout style;
-    will-change: opacity;
+  contain: layout style;
+  will-change: opacity;
 }
 
 /* Grid e flex containers - Previne layout thrashing */
 .grid-container,
 .flex-container {
-    contain: layout style;
+  contain: layout style;
 }
 
 /* Imagens e mídia */
 img,
 video,
 svg {
-    contain: layout style;
-    will-change: auto;
-    /* Apenas se animado */
+  contain: layout style;
+  will-change: auto;
+  /* Apenas se animado */
+}
+
+/* Gear spin - Override containment para permitir animação contínua */
+svg.gear-spin {
+  contain: none !important;
+  will-change: transform !important;
+  animation: gearSpin 8s linear infinite !important;
 }
 
 /* ==========================================
    REDUCED MOTION - Acessibilidade
    ========================================== */
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
+  /* Desabilitar animações pesadas */
+  canvas[data-background],
+  canvas#particles-canvas,
+  .motion-div,
+  .motion-section,
+  .motion-button {
+    animation: none !important;
+    transition: none !important;
+    will-change: auto !important;
+    contain: none !important;
+  }
 
-    /* Desabilitar animações pesadas */
-    canvas,
-    .motion-div,
-    .motion-section,
-    .motion-button {
-        animation: none !important;
-        transition: none !important;
-        will-change: auto !important;
-        contain: none !important;
-    }
-
-    /* Partículas desligadas */
-    #particles-canvas {
-        display: none;
-    }
+  /* Partículas desligadas */
+  #particles-canvas {
+    display: none;
+  }
 }
 
 /* High contrast */
 @media (prefers-contrast: more) {
-    body {
-        background: #000;
-    }
+  body {
+    background: #000;
+  }
 }
 
 /* Dark mode (explicit) */
 @media (prefers-color-scheme: dark) {
-    body {
-        background: #050816;
+  body {
+    background: #050816;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE CRITICAL - NAVBAR HEIGHT & MAIN PADDING
+   ========================================== */
+
+/* Smartwatch - Navbar muito compacta */
+@media (max-width: 279px) {
+  nav.critical-navbar {
+    height: 48px;
+  }
+
+  main {
+    padding-top: 48px;
+  }
+}
+
+/* Mobile pequeno */
+@media (min-width: 280px) and (max-width: 379px) {
+  nav.critical-navbar {
+    height: 56px;
+  }
+
+  main {
+    padding-top: 56px;
+  }
+}
+
+/* Mobile */
+@media (min-width: 380px) and (max-width: 639px) {
+  nav.critical-navbar {
+    height: 64px;
+  }
+
+  main {
+    padding-top: 64px;
+  }
+}
+
+/* Tablet */
+@media (min-width: 640px) and (max-width: 1023px) {
+  nav.critical-navbar {
+    height: 72px;
+  }
+
+  main {
+    padding-top: 72px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  nav.critical-navbar {
+    height: 80px;
+  }
+
+  main {
+    padding-top: 80px;
+  }
+}
+
+/* TV Grande */
+@media (min-width: 2560px) {
+  nav.critical-navbar {
+    height: 100px;
+  }
+
+  main {
+    padding-top: 100px;
+  }
+}
+
+/* Prevenir overflow horizontal em todos os dispositivos */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* Safe area para dispositivos com notch */
+@supports (padding: env(safe-area-inset-top)) {
+  nav.critical-navbar {
+    padding-top: env(safe-area-inset-top);
+    height: calc(80px + env(safe-area-inset-top));
+  }
+
+  @media (max-width: 279px) {
+    nav.critical-navbar {
+      height: calc(48px + env(safe-area-inset-top));
     }
+  }
+
+  @media (min-width: 280px) and (max-width: 379px) {
+    nav.critical-navbar {
+      height: calc(56px + env(safe-area-inset-top));
+    }
+  }
+
+  @media (min-width: 380px) and (max-width: 639px) {
+    nav.critical-navbar {
+      height: calc(64px + env(safe-area-inset-top));
+    }
+  }
 }

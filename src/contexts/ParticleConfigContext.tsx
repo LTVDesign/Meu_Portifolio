@@ -1,4 +1,12 @@
-import React, { useState, useEffect, useContext, useCallback, useMemo, createContext, type FC } from 'react';
+import React, {
+  createContext,
+  type FC,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { type ParticleConfig, validateLocalStorageData } from '../utils/validation';
 
 // Importamos o tipo do arquivo de validação
@@ -102,6 +110,7 @@ const defaultConfig: ParticleConfig = {
   trailLength: 20,
   columnSpacing: 0,
   matrixCharSet: 'matrix',
+  interactionMode: 'none',
 };
 
 interface ParticleConfigContextType {
@@ -113,7 +122,9 @@ interface ParticleConfigContextType {
   closeBgMenu: () => void;
 }
 
-const ParticleConfigContext = createContext<ParticleConfigContextType | undefined>(undefined);
+const ParticleConfigContext = createContext<ParticleConfigContextType | undefined>(
+  undefined
+);
 
 export const useParticleConfig = () => {
   const context = useContext(ParticleConfigContext);
@@ -167,39 +178,6 @@ export const ParticleConfigProvider: FC<ParticleConfigProviderProps> = ({ childr
     }
   }, []);
 
-  // Dynamic Text Contrast Tracker
-  useEffect(() => {
-    const getLuminance = (hex: string) => {
-      if (!hex?.startsWith('#')) return 0;
-      const rgb = parseInt(hex.replace('#', ''), 16);
-      const r = (rgb >> 16) & 0xff;
-      const g = (rgb >> 8) & 0xff;
-      const b = (rgb >> 0) & 0xff;
-      return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-    };
-
-    let isLight = false;
-    if (config.backgroundType === 'solid') {
-      const hasLightGradient =
-        config.solidType !== 'solid' &&
-        (getLuminance(config.solidColor2) > 180 || getLuminance(config.solidColor3) > 180);
-      isLight = getLuminance(config.solidColor1) > 180 || hasLightGradient;
-    } else if (config.backgroundType === 'liquid') {
-      // Liquid has a dark base, but colors can be very bright
-      isLight = (getLuminance(config.liquidColor1) + getLuminance(config.liquidColor2)) / 2 > 190;
-    } else if (config.backgroundType === 'wavefield') {
-      // Wavefield is generally dark, check if the main wave color is extremely bright
-      isLight = getLuminance(config.wavefieldColor) > 200;
-    } else {
-      // particles, cyberpunk, particulate are always dark backgrounds
-      isLight = false;
-    }
-
-    const root = document.documentElement;
-    root.style.setProperty('--dynamic-text-color', isLight ? '#050816' : '#ffffff');
-    root.style.setProperty('--dynamic-text-secondary', isLight ? '#111111' : '#e5e7eb');
-  }, [config]);
-
   // Listener para mudanças de tema
   useEffect(() => {
     const updateParticleColorBasedOnTheme = () => {
@@ -244,15 +222,20 @@ export const ParticleConfigProvider: FC<ParticleConfigProviderProps> = ({ childr
     });
   }, []);
 
-  const contextValue = useMemo(() => ({
-    config,
-    updateConfig,
-    isBgMenuOpen,
-    openBgMenu,
-    closeBgMenu,
-  }), [config, updateConfig, isBgMenuOpen, openBgMenu, closeBgMenu]);
+  const contextValue = useMemo(
+    () => ({
+      config,
+      updateConfig,
+      isBgMenuOpen,
+      openBgMenu,
+      closeBgMenu,
+    }),
+    [config, updateConfig, isBgMenuOpen, openBgMenu, closeBgMenu]
+  );
 
   return (
-    <ParticleConfigContext.Provider value={contextValue}>{children}</ParticleConfigContext.Provider>
+    <ParticleConfigContext.Provider value={contextValue}>
+      {children}
+    </ParticleConfigContext.Provider>
   );
 };

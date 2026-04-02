@@ -1,44 +1,43 @@
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import { github } from '../../assets';
 import { projects } from '../../constants';
 import { SectionWrapper } from '../../hoc';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 import type { TProject } from '../../types';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms/Header';
-import { useReducedMotion } from '../../hooks/useReducedMotion';
 
-const ProjectCard: React.FC<{ index: number } & TProject> = ({
+const ProjectCard: React.FC<{ index: number } & Pick<TProject, 'tags' | 'image' | 'sourceCodeLink'>> = ({
   index,
-  name,
-  description,
   tags,
   image,
   sourceCodeLink,
 }) => {
   const prefersReduced = useReducedMotion();
+  const { t } = useTranslation();
 
   return (
     <motion.div
       variants={prefersReduced ? {} : fadeIn('up', 'spring', index * 0.5, 0.75)}
-      className="glass-card p-5 sm:w-[300px]"
+      className='glass-card p-5 sm:w-[300px]'
     >
-      <div className="relative h-[230px] w-full">
+      <div className='relative h-[230px] w-full'>
         <img
           src={image}
-          alt={name}
-          className="h-full w-full rounded-2xl object-cover"
-          loading="lazy"
-          decoding="async"
+          alt={t(`projects.list.${index}.name`)}
+          className='h-full w-full rounded-2xl object-cover'
+          loading='lazy'
+          decoding='async'
           width={300}
           height={230}
         />
-        <div className="card-img_hover absolute inset-0 m-3 flex justify-end">
+        <div className='card-img_hover absolute inset-0 m-3 flex justify-end'>
           <button
-            type="button"
+            type='button'
             onClick={() => {
               if (sourceCodeLink) {
                 try {
@@ -46,27 +45,28 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
                   if (['http:', 'https:'].includes(url.protocol)) {
                     window.open(sourceCodeLink, '_blank', 'noopener,noreferrer');
                   }
-                } catch {
-                }
+                } catch { }
               }
             }}
-            className="black-gradient flex h-10 w-10 cursor-pointer items-center justify-center rounded-full"
+            className='black-gradient flex h-10 w-10 cursor-pointer items-center justify-center rounded-full'
           >
             <img
               src={github}
-              alt="github"
-              className="h-1/2 w-1/2 object-contain"
-              loading="lazy"
-              decoding="async"
+              alt='github'
+              className='h-1/2 w-1/2 object-contain'
+              loading='lazy'
+              decoding='async'
             />
           </button>
         </div>
       </div>
-      <div className="mt-5">
-        <h3 className="text-[24px] font-bold text-[var(--dynamic-text-color)]">{name}</h3>
-        <p className="text-[var(--dynamic-text-secondary)] mt-2 text-[14px]">{description}</p>
+      <div className='mt-5'>
+        <h3 className='text-[24px] font-bold text-white'>{t(`projects.list.${index}.name`)}</h3>
+        <p className='text-gray-300 mt-2 text-[14px]'>
+          {t(`projects.list.${index}.description`)}
+        </p>
       </div>
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className='mt-4 flex flex-wrap gap-2'>
         {tags.map((tag) => (
           <p key={tag.name} className={`text-[14px] ${tag.color}`}>
             #{tag.name}
@@ -83,7 +83,7 @@ const AllWorks = () => {
   const [visibleCount, setVisibleCount] = useState(6);
 
   const handleLoadMore = () => {
-    setVisibleCount(prev => prev + 3);
+    setVisibleCount((prev) => prev + 3);
   };
 
   const visibleProjects = projects.slice(0, visibleCount);
@@ -93,36 +93,42 @@ const AllWorks = () => {
     <>
       <Header useMotion={true} p={t('works.p')} h2={t('works.h2')} />
 
-      <div className="flex w-full justify-between items-center">
+      <div className='flex w-full justify-between items-center'>
         <motion.p
           variants={fadeIn('up', 'tween', 0.1, 1)}
-          className="text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-3 text-[17px] leading-[30px]"
+          className='text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-3 text-[17px] leading-[30px]'
         >
           {t('works.content')}
         </motion.p>
         <button
-          type="button"
+          type='button'
           onClick={() => navigate('/')}
-          className="bg-primary text-[var(--dynamic-text-color)] px-6 py-3 rounded-lg hover:bg-primary/80 transition-colors mt-3"
+          className='bg-primary text-[var(--dynamic-text-color)] px-6 py-3 rounded-lg hover:bg-primary/80 transition-colors mt-3'
         >
-          Voltar
+          {t('allWorks.backToHome')}
         </button>
       </div>
 
-      <div className="mt-20 flex flex-wrap gap-7">
+      <div className='mt-20 flex flex-wrap gap-7'>
         {visibleProjects.map((project, index) => (
-          <ProjectCard key={`project-${project.name}`} index={index} {...project} />
+          <ProjectCard
+            key={`project-${index}`}
+            index={index}
+            tags={project.tags}
+            image={project.image}
+            sourceCodeLink={project.sourceCodeLink}
+          />
         ))}
       </div>
 
       {hasMore && (
-        <div className="mt-12 flex justify-center">
+        <div className='mt-12 flex justify-center'>
           <button
-            type="button"
+            type='button'
             onClick={handleLoadMore}
-            className="glass-btn px-8 py-3 rounded-lg font-bold tracking-wider hover:scale-105 transition-transform"
+            className='glass-btn px-8 py-3 rounded-lg font-bold tracking-wider hover:scale-105 transition-transform'
           >
-            Carregar Mais
+            {t('allWorks.loadMore')}
           </button>
         </div>
       )}

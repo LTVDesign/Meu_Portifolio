@@ -1,7 +1,7 @@
 import Contact from '../components/sections/Contact';
 
 const ContactPage = () => {
-    return <Contact />;
+  return <Contact />;
 };
 
 export default ContactPage;

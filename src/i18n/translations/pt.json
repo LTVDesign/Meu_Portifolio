@@ -1,272 +1,788 @@
 {
-    "common": {
-        "name": "Leandro Barbosa",
-        "email": "leandro@garagemod.com.br",
-        "language": "Idioma",
-        "close": "Fechar"
-    },
-    "tech": {
-        "arsenal": "Meu Arsenal",
-        "stackTitle": "Stack Tecnológica"
-    },
-    "nav": {
-        "about": "Sobre",
-        "formacao": "Formação",
-        "experience": "Experiência",
-        "cursos": "Cursos",
-        "works": "Projetos",
-        "curriculo": "Currículo",
-        "doom": "DOOM",
-        "contact": "Contato",
-        "menu_open": "Abrir Menu",
-        "menu_close": "Fechar Menu",
-        "logo": "Leandro Barbosa - Início",
-        "switch_to_pt": "Mudar para Português",
-        "switch_to_en": "Mudar para Inglês",
-        "translate_to_pt": "Traduzir para Português BR",
-        "translate_to_en": "Translation to English"
-    },
-    "hero": {
-        "title": "Olá, eu sou Leandro Barbosa",
-        "subtitle": [
-            "Bem-vindo à minha vida profissional",
-            "Desenvolvedor Full Stack & Especialista em IA",
-            "Transformando dados em decisões inteligentes",
-            "Construindo infraestruturas seguras e inovadoras",
-            "Arquitetando soluções completas do front-end ao back-end",
-            "Inteligência Artificial aplicada para resolver problemas complexos",
-            "Liderando transformações digitais com tecnologia de ponta",
-            "Inovando constantemente em um mundo em rápida evolução",
-            "Protegendo sistemas e dados com segurança cibernética avançada",
-            "Desenvolvendo aplicações escaláveis e de alta performance",
-            "Unindo criatividade e técnica em cada projeto",
-            "Explorando os limites da tecnologia moderna",
-            "Construindo pontes entre negócios e tecnologia",
-            "Especialista em arquitetura de software e sistemas distribuídos",
-            "Transformando ideias em produtos digitais impactantes",
-            "Integrando inteligência artificial em soluções empresariais",
-            "Garantindo a integridade e confidencialidade dos dados",
-            "Desenvolvedor full stack com visão arquitetural",
-            "Criando experiências digitais seguras e intuitivas",
-            "Pioneiro em tecnologias emergentes e inovação",
-            "Liderança técnica com foco em resultados e eficiência",
-            "Desenvolvimento ágil com qualidade e segurança",
-            "Construindo o futuro da tecnologia, uma linha de código por vez",
-            "Especialista em soluções que combinam IA, segurança e desenvolvimento"
-        ],
-        "titleMeta": "Leandro Saturnino Barbosa | Portfólio 3D Cyberpunk",
-        "descriptionMeta": "Portfólio interativo 3D com React, Three.js e Tailwind. Especialista em IA, Segurança e Desenvolvimento Full Stack.",
-        "dragToRotate": "Arraste para girar"
-    },
-    "about": {
-        "p": "Engenheiro de Software • Tecnólogo em ADS • Pós-Graduando em IA & Data Science",
-        "h2": "Experiência Consolidada, Olhar no Futuro.",
-        "content": "Sou um profissional de tecnologia com uma trajetória sólida, unindo a resiliência do suporte técnico de alto nível à inovação da análise de dados. Recentemente, consolidei minha base acadêmica com o título de Tecnólogo em Análise e Desenvolvimento de Sistemas e estou em fase de especialização em Inteligência Artificial e Data Science pela Anhanguera.\n\nMinha bagagem inclui:\n• Domínio Técnico: Vasta experiência como Técnico de Informática Nível 2, com expertise em infraestrutura de redes, Microsoft Entra ID e gestão de ambientes 365.\n• Visão Estratégica: Certificado em Product Management pela University of Alberta e Scrum Master, focado em entregar valor real através de metodologias ágeis.\n• Segurança e Dados: Formação avançada em Cibersegurança pelo programa Hackers do Bem e certificações profissionais da Google e IBM.\n\nMais do que resolver problemas técnicos, busco transformar dados em decisões e infraestruturas em plataformas seguras e inteligentes. Sou um aprendiz constante, entusiasta de hardware modding e sempre pronto para o próximo desafio complexo."
-    },
-    "formacao": {
-        "p": "Minha formação acadêmica",
-        "h2": "Formação",
-        "content": "Aqui estão minhas qualificações acadêmicas e formações complementares.",
-        "viewDetails": "Ver Detalhes"
-    },
-    "experience": {
-        "p": "O que fiz até agora",
-        "h2": "Experiência Profissional",
-        "verMais": "Ver Mais Experiências"
-    },
-    "feedbacks": {
-        "p": "O que os outros dizem",
-        "h2": "Depoimentos."
-    },
-    "works": {
-        "p": "Criações & Experimentos",
-        "h2": "Projetos",
-        "content": "Uma vitrine de projetos que desenvolvi por paixão, hobby e para aprofundar meus conhecimentos técnicos. Cada iniciativa reflete minha curiosidade em explorar novas fronteiras, desde hardware modding até automações inteligentes com IA.",
-        "viewCode": "Visualizar Código Fonte",
-        "viewDemo": "Ver Demo",
-        "viewProjects": "Ver Meus Projetos"
-    },
-    "cursos": {
-        "p": "Cursos & Certificados",
-        "h2": "Cursos",
-        "viewDetails": "Ver Detalhes"
-    },
-    "certificados": {
-        "p": "Certificados",
-        "h2": "Certificados"
-    },
-    "curriculo": {
-        "p": "Minha trajetória profissional",
-        "h2": "Currículo.",
-        "content": "Acesse meu currículo completo para conhecer em detalhes minha formação acadêmica, experiências profissionais e as competências técnicas que desenvolvi ao longo da minha carreira. Estou sempre em busca de novos desafios e oportunidades para aplicar meu conhecimento em infraestrutura, redes e desenvolvimento.",
-        "viewOnline": "Ver Currículo Online",
-        "downloadPDF": "Download PDF",
-        "viewFull": "Ver Detalhes"
-    },
-    "contact": {
-        "p": "Entre em contato",
-        "h2": "Contato",
-        "form": {
-            "name": {
-                "span": "Seu Nome",
-                "placeholder": "Qual é o seu nome?"
-            },
-            "email": {
-                "span": "Seu Email",
-                "placeholder": "Qual é o seu email?"
-            },
-            "phone": {
-                "span": "Seu Telefone",
-                "placeholder": "Qual é o seu telefone?"
-            },
-            "company": {
-                "span": "Sua Empresa",
-                "placeholder": "Qual é a sua empresa?"
-            },
-            "message": {
-                "span": "Sua Mensagem",
-                "placeholder": "O que você quer dizer?"
-            }
-        },
-        "submit": "Enviar Mensagem",
-        "sending": "Enviando...",
-        "success": "Mensagem enviada com sucesso!",
-        "error": "Erro ao enviar mensagem. Tente novamente.",
-        "validationErrors": {
-            "nameRequired": "Nome é obrigatório",
-            "nameTooLong": "Nome muito longo",
-            "emailInvalid": "Email inválido",
-            "phoneTooLong": "Telefone muito longo",
-            "companyTooLong": "Empresa muito longa",
-            "messageTooShort": "Mensagem muito curta",
-            "messageTooLong": "Mensagem muito longa"
-        }
-    },
-    "footer": {
-        "quickAccess": "Acesso Rápido",
-        "allRightsReserved": "Todos os direitos reservados",
-        "backToTop": "Voltar ao Topo",
-        "backToTopLabel": "Voltar ao topo",
-        "emailUs": "Enviar e-mail para Leandro Barbosa"
-    },
-    "services": {
-        "infraestrutura": "Infraestrutura",
-        "infraestruturaDesc": "Especialista em suporte N2 e redes, com domínio em ambientes Microsoft 365, servidores e infraestrutura física/nuvem",
-        "ciberseguranca": "Cibersegurança",
-        "cibersegurancaDesc": "Focado em defesa digital, proteção de ativos e mitigação de vulnerabilidades, com base sólida em segurança de redes e compliance",
-        "iaDados": "IA & Dados",
-        "iaDadosDesc": "Desenvolvimento de soluções inteligentes e análise preditiva, utilizando algoritmos para transformar dados em decisões estratégicas",
-        "gestao": "Gestão",
-        "gestaoDesc": "Liderança de times através de frameworks ágeis (Scrum) e visão de produto focada na experiência do usuário e entrega de valor"
-    },
-    "status": {
-        "concluido": "CONCLUÍDO",
-        "emAndamento": "EM ANDAMENTO"
-    },
-    "education": {
-        "technologist": "Tecnólogo em Análise e Desenvolvimento de Sistemas",
-        "postgraduate": "Pós-Graduação em IA & Data Science",
-        "postgraduateTitle": "Pós-Graduação em Inteligência Artificial e Data Science",
-        "inProgress": "Em andamento",
-        "completed": "Concluído",
-        "completedOn": "Concluído em",
-        "period": "Período",
-        "workload": "Carga Horária",
-        "generalAverage": "Média Geral",
-        "completedIn": "Concluído em",
-        "totalHours": "horas totais",
-        "semesterEvolution": "Evolução Acadêmica por Semestre",
-        "semester": "Semestre",
-        "subjects": "disciplina(s)",
-        "semesterAverage": "Média do Semestre",
-        "subject": "Disciplina",
-        "grade": "Nota",
-        "professor": "Professor",
-        "hours": "Carga H.",
-        "diplomaAuthentication": "Diploma e Autenticação",
-        "diplomaPreview": "Preview do Diploma",
-        "clickToOpen": "Clique para Abrir Diploma",
-        "openDigitalDiploma": "📄 Abrir Diploma Digital",
-        "qrCode": "QR Code",
-        "authenticityVerification": "Verificação de Autenticidade",
-        "scanQRCode": "Escaneie o QR Code com seu smartphone ou clique no botão abaixo para verificar a autenticidade deste diploma no portal oficial da Cogna.",
-        "validateOnPortal": "🔗 Validar no Portal Oficial",
-        "description": "Formação superior focada no ciclo completo de desenvolvimento de software, análise de requisitos e gestão de projetos. Concluído com excelência acadêmica.",
-        "postgradDescription": "Especialização focada em Inteligência Artificial Generativa, Machine Learning e análise estatística para decisões baseadas em dados.",
-        "semesterHistory": "Histórico Acadêmico Completo",
-        "completeAcademicHistory": "Histórico Acadêmico Completo",
-        "noRecords": "Nenhum registro de disciplinas disponível.",
-        "trainingType": "Formação",
-        "diplomaStatus": "Diploma"
-    },
-    "subjects": {
-        "algorithmsAndProgramming": "Algoritmos e Programação Estruturada",
-        "systemsAnalysisAndModeling": "Análise e Modelagem de Sistemas",
-        "softwareEngineering": "Engenharia de Software",
-        "programmingLanguage": "Linguagem de Programação",
-        "computationalLogicAndMath": "Lógica e Matemática Computacional",
-        "objectOrientedAnalysis": "Análise Orientada a Objetos",
-        "objectOrientedLanguage": "Linguagem Orientada a Objetos",
-        "dataModeling": "Modelagem de Dados",
-        "extensionProjectI": "Projeto de Extensão I",
-        "qualityAndTestAutomation": "Qualidade e Automação de Testes",
-        "cloudComputing": "Computação em Nuvem",
-        "itGovernance": "Governança de Tecnologia",
-        "greenIT": "Green IT",
-        "databaseProgrammingAndDevelopment": "Programação e Desenv. de Banco de Dados",
-        "operatingSystems": "Sistemas Operacionais",
-        "javascriptDevelopment": "Desenvolvimento em Javascript",
-        "mobileDevelopment": "Desenvolvimento Mobile",
-        "responsiveDevelopment": "Desenvolvimento Responsivo",
-        "softwareDevelopmentFrameworks": "Frameworks para Desenv. de Software",
-        "webProgramming": "Programação Web",
-        "extensionProjectII": "Projeto de Extensão II",
-        "distributedSystems": "Sistemas Distribuídos",
-        "computerArchitectureAndOrganization": "Arquitetura e Org. de Computadores",
-        "interfaceAndUsability": "Interface e Usabilidade",
-        "softwareProject": "Projeto de Software",
-        "computerNetworks": "Redes de Computadores",
-        "securityAndSystemsAuditing": "Segurança e Auditoria de Sistemas",
-        "brazilianSocietyAndCitizenship": "Sociedade Brasileira e Cidadania"
-    },
-    "courses": {
-        "allTitle": "Todos os Cursos e Especializações",
-        "viewCertificate": "Ver Certificado",
-        "filterPlaceholder": "Filtrar cursos...",
-        "sortBy": "Ordenar por",
-        "sortYear": "Ano",
-        "sortDuration": "Duração",
-        "sortCompany": "Instituição",
-        "noResults": "Nenhum curso encontrado.",
-        "p": "Cursos & Especializações",
-        "h2": "Minha Base de Conhecimento",
-        "viewAll": "Veja Todos Cursos"
-    },
-    "allFormacao": {
-        "title": "Formação Acadêmica Completa",
-        "subtitle": "Educação & Certificados"
-    },
-    "allCurriculo": {
-        "title": "Currículo Completo",
-        "subtitle": "Experiência & Habilidades",
-        "downloadCV": "Fazer Download",
-        "viewFull": "Ver Currículo completo"
-    },
-    "allWorks": {
-        "title": "Todos os Projetos",
-        "subtitle": "Portfólio Completo"
-    },
-    "allCertificados": {
-        "title": "Todos os Certificados",
-        "subtitle": "Certificados & Credenciais"
-    },
-    "doom": {
-        "p": "Easter Egg - DOOM no Navegador",
-        "h2": "DOOM"
-    },
-    "backgrounds": {
-        "title": "Selecione o Background",
-        "subtitle": "Escolha um estilo para personalizar seu portfólio",
-        "hint": "Clique em um background para aplicá-lo"
+  "common": {
+    "name": "Leandro Barbosa",
+    "email": "leandro@garagemod.com.br",
+    "language": "Idioma",
+    "close": "Fechar"
+  },
+  "tech": {
+    "arsenal": "Meu Arsenal",
+    "stackTitle": "Stack Tecnológica",
+    "clickInfo": "Clique em qualquer tecnologia para buscar tutoriais e documentação",
+    "technologiesTitle": "Tecnologias",
+    "easterEgg": "Dica: Tente o código Konami ⬆️⬆️⬇️⬇️⬅️➡️⬅️➡️🅱️🅰️"
+  },
+  "nav": {
+    "about": "Sobre",
+    "formacao": "Formação",
+    "experience": "Experiência",
+    "cursos": "Cursos",
+    "works": "Projetos",
+    "curriculo": "Currículo",
+    "doom": "DOOM",
+    "contact": "Contato",
+    "menu_open": "Abrir Menu",
+    "menu_close": "Fechar Menu",
+    "logo": "Leandro Barbosa - Início",
+    "logoAlt": "Logo Leandro Barbosa",
+    "switch_to_pt": "Mudar para Português",
+    "switch_to_en": "Switch to English",
+    "translate_to_pt": "Traduzir para Português BR",
+    "translate_to_en": "Translation to English",
+    "home": "Início"
+  },
+  "hero": {
+    "title": "Olá, eu sou Leandro Barbosa",
+    "backgroundSelectorHint": "Abrir seletor de background",
+    "subtitle": [
+      "Bem-vindo à minha vida profissional",
+      "Desenvolvedor Full Stack & Especialista em IA",
+      "Transformando dados em decisões inteligentes",
+      "Construindo infraestruturas seguras e inovadoras",
+      "Arquitetando soluções completas do front-end ao back-end",
+      "Inteligência Artificial aplicada para resolver problemas complexos",
+      "Liderando transformações digitais com tecnologia de ponta",
+      "Inovando constantemente em um mundo em rápida evolução",
+      "Protegendo sistemas e dados com segurança cibernética avançada",
+      "Desenvolvendo aplicações escaláveis e de alta performance",
+      "Unindo criatividade e técnica em cada projeto",
+      "Explorando os limites da tecnologia moderna",
+      "Construindo pontes entre negócios e tecnologia",
+      "Especialista em arquitetura de software e sistemas distribuídos",
+      "Transformando ideias em produtos digitais impactantes",
+      "Integrando inteligência artificial em soluções empresariais",
+      "Garantindo a integridade e confidencialidade dos dados",
+      "Desenvolvedor full stack com visão arquitetural",
+      "Criando experiências digitais seguras e intuitivas",
+      "Pioneiro em tecnologias emergentes e inovação",
+      "Liderança técnica com foco em resultados e eficiência",
+      "Desenvolvimento ágil com qualidade e segurança",
+      "Construindo o futuro da tecnologia, uma linha de código por vez",
+      "Especialista em soluções que combinam IA, segurança e desenvolvimento"
+    ],
+    "titleMeta": "Leandro Saturnino Barbosa | Portfólio 3D Cyberpunk",
+    "descriptionMeta": "Portfólio interativo 3D com React, Three.js e Tailwind. Especialista em IA, Segurança e Desenvolvimento Full Stack.",
+    "dragToRotate": "Clique e Arraste",
+    "dragToRotateSubtitle": "360º"
+  },
+  "about": {
+    "p": "Engenheiro de Software • Tecnólogo em ADS • Pós-Graduando em IA & Data Science",
+    "h2": "Experiência Consolidada, Olhar no Futuro.",
+    "content": "Sou um profissional de tecnologia com uma trajetória sólida, unindo a resiliência do suporte técnico de alto nível à inovação da análise de dados. Recentemente, consolidei minha base acadêmica com o título de Tecnólogo em Análise e Desenvolvimento de Sistemas e estou em fase de especialização em Inteligência Artificial e Data Science pela Anhanguera.\n\nMinha bagagem inclui:\n• Domínio Técnico: Vasta experiência como Técnico de Informática Nível 2, com expertise em infraestrutura de redes, Microsoft Entra ID e gestão de ambientes 365.\n• Visão Estratégica: Certificado em Product Management pela University of Alberta e Scrum Master, focado em entregar valor real através de metodologias ágeis.\n• Segurança e Dados: Formação avançada em Cibersegurança pelo programa Hackers do Bem e certificações profissionais da Google e IBM.\n\nMais do que resolver problemas técnicos, busco transformar dados em decisões e infraestruturas em plataformas seguras e inteligentes. Sou um aprendiz constante, entusiasta de hardware modding e sempre pronto para o próximo desafio complexo."
+  },
+  "formacao": {
+    "p": "Minha formação acadêmica",
+    "h2": "Formação",
+    "content": "Aqui estão minhas qualificações acadêmicas e formações complementares.",
+    "viewDetails": "Ver Detalhes"
+  },
+  "experience": {
+    "p": "O que fiz até agora",
+    "h2": "Experiência Profissional",
+    "verMais": "Ver Mais Experiências",
+    "technicalSupport": "Técnico de TI N2",
+    "webMaster": "Web Master",
+    "computerTechnician": "Técnico de Manutenção de Computadores",
+    "itResponsible": "Responsável Técnico de TI / Suporte Técnico",
+    "consultingCompany": "Terabyte Consultoria em TI",
+    "autonomous": "Autônomo",
+    "companyDotKom": "DotKom",
+    "companyMercedito": "Mercedito",
+    "present": "Presente",
+    "generalManager": "Gerente Geral",
+    "customerServiceManager": "Gerente de Atendimento ao Cliente",
+    "itTechnicianManager": "Técnico de TI / Gerente Técnico / Designer",
+    "ceoFounder": "CEO / Fundador e Gerente",
+    "itAnalystLogistics": "Analista de TI / Técnico de Informática / Logística",
+    "webDesignerMaster": "Web Designer / Web Master",
+    "salesSubManager": "Sub-Gerente de Vendas / Caixa",
+    "abraKebabs": "Abra Kebab's",
+    "mundoTrader": "Mundo Trader",
+    "blitzHaus": "Blitz Haus",
+    "garagemod": "Garagemod",
+    "colonialRacing": "Colonial Racing",
+    "ltvDesign": "LTV Design",
+    "cafeBeach": "Cafe Beach / Açai Beach",
+    "points": {
+      "terabyte1": "Suporte técnico N2 presencial e remoto para incidentes complexos com alta taxa de resolução no primeiro contato",
+      "terabyte2": "Administração de redes, servidores e sistemas corporativos",
+      "terabyte3": "Gerenciamento de usuários e acessos via Microsoft 365 e Entra ID",
+      "terabyte4": "Implantação e instalação de sistemas operacionais Windows e Linux",
+      "terabyte5": "Configuração de infraestrutura de rede, incluindo roteadores e switches DrayTek",
+      "terabyte6": "Implementação de firewall, proteção contra ataques e atualizações críticas de segurança",
+      "terabyte7": "Manutenção de sistemas de câmeras e som",
+      "terabyte8": "Atendimento consultativo ao cliente via WhatsApp e redes sociais com registro preciso de chamados",
+      "dotkom1": "Desenvolvimento de sites e plataformas E-commerce usando WordPress, Tray, Nuvemshop e Shopify",
+      "dotkom2": "Integração de sistemas ERP como Bling!, Alterdata e Linx",
+      "dotkom3": "Configuração e integração de gateways de pagamento, incluindo Mercado Pago, PagSeguro e Vindi",
+      "dotkom4": "Integração e configuração de ferramentas CRM como Wake, CRM&Bonus e RD Station",
+      "autonomo1": "Diagnóstico avançado de falhas, reparo de ineficiências e otimização de hardware/software",
+      "autonomo2": "Instalação e configuração de hardware, software e drivers",
+      "autonomo3": "Implementação de soluções de acesso remoto e VPN (AnyDesk/TeamViewer)",
+      "autonomo4": "Gerenciamento de redes LAN/WAN, servidores e IPs",
+      "autonomo5": "Gerenciamento de segurança e privacidade de dados, incluindo proteção contra ataques",
+      "autonomo6": "Execução de melhorias regulares para garantir que os sistemas estejam atualizados",
+      "autonomo7": "Manutenção de registros de reparo e correção para referência futura",
+      "autonomo8": "Instrução técnica aos usuários sobre uso adequado de hardware e software",
+      "mercedito1": "Manutenção completa do parque tecnológico: computadores, internet, software e sistemas de monitoramento",
+      "mercedito2": "Treinamento e orientação de funcionários para uso eficiente de dispositivos e solução de problemas de acesso",
+      "mercedito3": "Suporte operacional para registro de produtos e atualização de sistemas de vendas/cardápio",
+      "mercedito4": "Manutenção periódica de sistemas de câmeras e som",
+      "mercedito5": "Configuração e monitoramento de VPN",
+      "mercedito6": "Criação e atualização diária de ChatBot para suporte ao cliente via WhatsApp",
+      "mercedito7": "Gerenciamento de SEO em redes sociais e Google Meu Negócio",
+      "abrakebabs1": "Gerenciamento completo da operação da unidade, incluindo finanças, estoque e liderança de equipe",
+      "abrakebabs2": "Controle de fluxo de caixa e análise de indicadores de desempenho",
+      "trader1": "Liderança de Experiência do Cliente e gerenciamento de equipe de atendimento/suporte ao cliente",
+      "trader2": "Gerenciamento de SLA, resolução de conflitos e estratégias de fidelização",
+      "trader3": "Otimização de processos internos com base em feedback e registros de pedidos",
+      "trader4": "Manutenção de comunicação com clientes sobre mudanças de serviço e tendências de mercado",
+      "trader5": "Criação de Landing Pages para aquisição de clientes e recuperação de carrinhos abandonados",
+      "trader6": "Organização de vendas, reembolsos e gestão de sucesso do cliente com solução contratada",
+      "blitz1": "Planejamento, implantação de sistemas e avaliação de operações de dados eletrônicos",
+      "blitz2": "Garantia de segurança de dados, estabilidade de rede local e sistemas de backup",
+      "blitz3": "Manutenção e configuração completa de hardware e software da empresa",
+      "blitz4": "Treinamento de funcionários em procedimentos padrão e uso de software/periféricos",
+      "blitz5": "Identificação de áreas problemáticas e implementação de soluções estratégicas",
+      "blitz6": "Criação de arte para eventos e publicidade em mídia impressa e redes sociais",
+      "garagemod1": "Desenvolvimento completo da plataforma de e-commerce usando Magento",
+      "garagemod2": "Gerenciamento operacional de logística, métodos de pagamento, anti-fraude e controle de estoque",
+      "garagemod3": "Definição estratégica de mix de produtos, linguagem de comunicação e investimentos",
+      "garagemod4": "Monitoramento de métricas de vendas, indicadores e campanhas promocionais",
+      "garagemod5": "Responsabilidades administrativas, contábeis e de recursos humanos",
+      "colonial1": "Projeto e implantação de infraestrutura de rede para 18 computadores",
+      "colonial2": "Implementação do sistema ERP Cauto, otimizando as operações da empresa",
+      "colonial3": "Suporte técnico contínuo em hardware (CPUs, impressoras, roteadores) e configuração de software",
+      "colonial4": "Gerenciamento de opções de segurança e proteção da rede contra ataques",
+      "colonial5": "Diagnóstico e execução de melhorias para restauração da funcionalidade do sistema",
+      "ltv1": "Desenvolvimento de sites usando Flash, HTML, CSS, PHP, SQL, JavaScript, Magento e WordPress",
+      "ltv2": "Design gráfico, tratamento de imagens via Photoshop e criação de banners, folders e cartões",
+      "ltv3": "Desenvolvimento de navegação de aplicativos e interface visual",
+      "acai1": "Planejamento e controle de vendas e faturamento",
+      "acai2": "Gerenciamento de equipe e controle de indicadores de estoque"
     }
+  },
+  "feedbacks": {
+    "p": "O que os outros dizem",
+    "h2": "Depoimentos."
+  },
+  "works": {
+    "p": "Criações & Experimentos",
+    "h2": "Projetos",
+    "content": "Uma vitrine de projetos que desenvolvi por paixão, hobby e para aprofundar meus conhecimentos técnicos. Cada iniciativa reflete minha curiosidade em explorar novas fronteiras, desde hardware modding até automações inteligentes com IA.",
+    "viewCode": "Visualizar Código Fonte",
+    "viewDemo": "Ver Demo",
+    "viewProjects": "Ver Meus Projetos",
+    "accessProject": "ACESSAR PROJETO",
+    "badgeReact": "React",
+    "badgeThree": "Three.js",
+    "badgeNode": "Node.js",
+    "badgeFullStack": "Full Stack"
+  },
+  "cursos": {
+    "p": "Cursos & Certificados",
+    "h2": "Cursos",
+    "viewDetails": "Ver Detalhes",
+    "viewAll": "Veja Todos Cursos",
+    "verCertificado": "VER CERTIFICADO"
+  },
+  "certificados": {
+    "p": "Certificados",
+    "h2": "Certificados"
+  },
+  "curriculo": {
+    "p": "Minha trajetória profissional",
+    "h2": "Currículo.",
+    "content": "Acesse meu currículo completo para conhecer em detalhes minha formação acadêmica, experiências profissionais e as competências técnicas que desenvolvi ao longo da minha carreira. Estou sempre em busca de novos desafios e oportunidades para aplicar meu conhecimento em infraestrutura, redes e desenvolvimento.",
+    "viewOnline": "Ver Currículo Online",
+    "downloadPDF": "Download PDF",
+    "viewFull": "Ver Detalhes",
+    "badgeOnline": "Currículo Online",
+    "badgePDF": "Download PDF",
+    "badgeExperience": "Experiência Completa",
+    "badgeSkills": "Habilidades Técnicas"
+  },
+  "contact": {
+    "p": "Entre em contato",
+    "h2": "Contato",
+    "form": {
+      "name": {
+        "span": "Seu Nome",
+        "placeholder": "Qual é o seu nome?"
+      },
+      "email": {
+        "span": "Seu Email",
+        "placeholder": "Qual é o seu email?"
+      },
+      "phone": {
+        "span": "Seu Telefone",
+        "placeholder": "Qual é o seu telefone?"
+      },
+      "company": {
+        "span": "Sua Empresa",
+        "placeholder": "Qual é a sua empresa?"
+      },
+      "message": {
+        "span": "Sua Mensagem",
+        "placeholder": "O que você quer dizer?"
+      }
+    },
+    "submit": "Enviar Mensagem",
+    "sending": "Enviando...",
+    "success": "Mensagem enviada com sucesso!",
+    "error": "Erro ao enviar mensagem. Tente novamente.",
+    "rateLimit": "Aguarde {seconds} segundos antes de enviar outra mensagem.",
+    "validationErrors": {
+      "nameRequired": "Nome é obrigatório",
+      "nameTooLong": "Nome muito longo",
+      "emailInvalid": "Email inválido",
+      "phoneTooLong": "Telefone muito longo",
+      "companyTooLong": "Empresa muito longa",
+      "messageTooShort": "Mensagem muito curta",
+      "messageTooLong": "Mensagem muito longa",
+      "correctForm": "Por favor, corrija os erros do formulário",
+      "cooldown": "Aguarde {count} segundos antes de enviar outra mensagem"
+    }
+  },
+  "footer": {
+    "quickAccess": "Acesso Rápido",
+    "allRightsReserved": "Todos os direitos reservados",
+    "backToTop": "Voltar ao Topo",
+    "backToTopLabel": "Voltar ao topo",
+    "emailUs": "Enviar e-mail para Leandro Barbosa",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "whatsapp": "WhatsApp"
+  },
+  "services": {
+    "infraestrutura": "Infraestrutura",
+    "infraestruturaDesc": "Especialista em suporte N2 e redes, com domínio em ambientes Microsoft 365, servidores e infraestrutura física/nuvem",
+    "ciberseguranca": "Cibersegurança",
+    "cibersegurancaDesc": "Focado em defesa digital, proteção de ativos e mitigação de vulnerabilidades, com base sólida em segurança de redes e compliance",
+    "cibersegurancaBadge": "Cibersegurança",
+    "iaDados": "IA & Dados",
+    "iaDadosBadge": "IA & Data Science",
+    "iaDadosDesc": "Desenvolvimento de soluções inteligentes e análise preditiva, utilizando algoritmos para transformar dados em decisões estratégicas",
+    "gestao": "Gestão",
+    "gestaoBadge": "Product Management",
+    "gestaoDesc": "Liderança de times através de frameworks ágeis (Scrum) e visão de produto focada na experiência do usuário e entrega de valor",
+    "scrumMasterBadge": "Scrum Master"
+  },
+  "status": {
+    "concluido": "CONCLUÍDO",
+    "emAndamento": "EM ANDAMENTO"
+  },
+  "education": {
+    "technologist": "Tecnólogo em Análise e Desenvolvimento de Sistemas",
+    "postgraduate": "Pós-Graduação em IA & Data Science",
+    "postgraduateTitle": "Pós-Graduação em Inteligência Artificial e Data Science",
+    "inProgress": "Em andamento",
+    "completed": "Concluído",
+    "completedOn": "Concluído em",
+    "period": "Período",
+    "workload": "Carga Horária",
+    "generalAverage": "Média Geral",
+    "completedIn": "Concluído em",
+    "totalHours": "horas totais",
+    "semesterEvolution": "Evolução Acadêmica por Semestre",
+    "semester": "Semestre",
+    "subjects": "disciplina(s)",
+    "semesterAverage": "Média do Semestre",
+    "subject": "Disciplina",
+    "grade": "Nota",
+    "professor": "Professor",
+    "hours": "Carga H.",
+    "diplomaAuthentication": "Diploma e Autenticação",
+    "diplomaPreview": "Preview do Diploma",
+    "clickToOpen": "Clique para Abrir Diploma",
+    "openDigitalDiploma": "📄 Abrir Diploma Digital",
+    "qrCode": "QR Code",
+    "authenticityVerification": "Verificação de Autenticidade",
+    "scanQRCode": "Escaneie o QR Code com seu smartphone ou clique no botão abaixo para verificar a autenticidade deste diploma no portal oficial da Cogna.",
+    "validateOnPortal": "🔗 Validar no Portal Oficial",
+    "description": "Formação superior focada no ciclo completo de desenvolvimento de software, análise de requisitos e gestão de projetos. Concluído com excelência acadêmica.",
+    "postgradDescription": "Especialização focada em Inteligência Artificial Generativa, Machine Learning e análise estatística para decisões baseadas em dados.",
+    "semesterHistory": "Histórico Acadêmico Completo",
+    "completeAcademicHistory": "Histórico Acadêmico Completo",
+    "noRecords": "Nenhum registro de disciplinas disponível.",
+    "trainingType": "Formação",
+    "diplomaStatus": "Diploma"
+  },
+  "subjects": {
+    "algorithmsAndProgramming": "Algoritmos e Programação Estruturada",
+    "systemsAnalysisAndModeling": "Análise e Modelagem de Sistemas",
+    "softwareEngineering": "Engenharia de Software",
+    "programmingLanguage": "Linguagem de Programação",
+    "computationalLogicAndMath": "Lógica e Matemática Computacional",
+    "objectOrientedAnalysis": "Análise Orientada a Objetos",
+    "objectOrientedLanguage": "Linguagem Orientada a Objetos",
+    "dataModeling": "Modelagem de Dados",
+    "extensionProjectI": "Projeto de Extensão I",
+    "qualityAndTestAutomation": "Qualidade e Automação de Testes",
+    "cloudComputing": "Computação em Nuvem",
+    "itGovernance": "Governança de Tecnologia",
+    "greenIT": "Green IT",
+    "databaseProgrammingAndDevelopment": "Programação e Desenv. de Banco de Dados",
+    "operatingSystems": "Sistemas Operacionais",
+    "javascriptDevelopment": "Desenvolvimento em Javascript",
+    "mobileDevelopment": "Desenvolvimento Mobile",
+    "responsiveDevelopment": "Desenvolvimento Responsivo",
+    "softwareDevelopmentFrameworks": "Frameworks para Desenv. de Software",
+    "webProgramming": "Programação Web",
+    "extensionProjectII": "Projeto de Extensão II",
+    "distributedSystems": "Sistemas Distribuídos",
+    "computerArchitectureAndOrganization": "Arquitetura e Org. de Computadores",
+    "interfaceAndUsability": "Interface e Usabilidade",
+    "softwareProject": "Projeto de Software",
+    "computerNetworks": "Redes de Computadores",
+    "securityAndSystemsAuditing": "Segurança e Auditoria de Sistemas",
+    "brazilianSocietyAndCitizenship": "Sociedade Brasileira e Cidadania",
+    "aiConceptsToolsApplications": "Inteligência Artificial: Conceitos, Ferramentas e Aplicações"
+  },
+  "courses": {
+    "allTitle": "Todos os Cursos e Especializações",
+    "viewCertificate": "Ver Certificado",
+    "filterPlaceholder": "Filtrar cursos...",
+    "sortBy": "Ordenar por",
+    "sortYear": "Ano",
+    "sortDuration": "Duração",
+    "sortCompany": "Instituição",
+    "noResults": "Nenhum curso encontrado.",
+    "p": "Cursos & Especializações",
+    "h2": "Minha Base de Conhecimento",
+    "viewAll": "Veja Todos Cursos",
+    "loadMore": "Carregar Mais",
+    "list": {
+      "0": {
+        "title": "Administração de Sistemas, Serviços e Infraestrutura de TI",
+        "platform": "Google (via Coursera)",
+        "date": "2024",
+        "duration": "Aproximadamente 6 meses",
+        "workload": "Cerca de 120 horas",
+        "summary": "Este curso aborda a administração de sistemas e serviços de infraestrutura de TI, cobrindo desde a instalação e configuração de sistemas operacionais até a gestão de serviços de rede e segurança. Aprenda a manter sistemas operacionais funcionando e a configurar serviços de rede essenciais.",
+        "description": "Este curso ensina as habilidades fundamentais necessárias para administrar sistemas e serviços de infraestrutura de TI. Você aprenderá a instalar e configurar sistemas operacionais Windows e Linux, gerenciar serviços de rede como DNS e DHCP, implementar políticas de segurança, e realizar tarefas de manutenção e suporte. É uma base sólida para qualquer profissional de TI que trabalha com infraestrutura.",
+        "modules": [
+          "Instalação e configuração de sistemas operacionais",
+          "Gerenciamento de serviços de rede (DNS, DHCP)",
+          "Administração de usuários e permissões",
+          "Segurança de sistemas e redes",
+          "Monitoramento e troubleshooting",
+          "Automação de tarefas administrativas"
+        ]
+      },
+      "1": {
+        "title": "Fundamentos do Suporte Técnico",
+        "platform": "Google (via Coursera)",
+        "date": "2024",
+        "duration": "Aproximadamente 6 meses",
+        "workload": "Cerca de 120 horas",
+        "summary": "Certificado Profissional que cobre os fundamentos do suporte técnico, incluindo hardware, redes, sistemas operacionais, segurança e atendimento ao cliente. Uma base completa para atuação como técnico de suporte N1/N2.",
+        "description": "Este certificado profissional fornece uma base abrangente para uma carreira em suporte técnico de TI. Abrange desde os conceitos básicos de hardware e software até tópicos avançados como redes, sistemas operacionais, segurança da informação e boas práticas de atendimento ao cliente. É o ponto de partida ideal para quem deseja atuar como técnico de suporte ou Help Desk.",
+        "modules": [
+          "Fundamentos de TI e hardware",
+          "Redes de computadores e protocolos",
+          "Sistemas operacionais (Windows, Linux, macOS)",
+          "Segurança da informação e cibersegurança",
+          "Atendimento ao cliente e comunicação",
+          "Resolução de problemas e troubleshooting"
+        ]
+      },
+      "2": {
+        "title": "Introduction to Software Product Management (PT)",
+        "platform": "University of Alberta (via Coursera)",
+        "date": "2023",
+        "duration": "Aproximadamente 6 semanas",
+        "workload": "Cerca de 30 horas",
+        "summary": "Curso introdutório em gerenciamento de produtos de software, abordando os conceitos fundamentais de GPS, diferenças entre gerenciamento de produtos e projetos, e a importância do foco no cliente e na entrega de valor.",
+        "description": "Este curso estabelece a base para o gerenciamento de produtos de software (GPS), diferenciando-o do gerenciamento de projetos tradicional. Foca em três pilares para o sucesso: fornecer o produto certo (validação), feito corretamente (verificação) e gerenciado adequadamente (processos). Aborda a filosofia Ágil e o Manifesto Ágil como ferramentas para lidar com a mudança e as expectativas dos clientes.",
+        "modules": [
+          "Introdução ao Gerenciamento de Produtos de Software",
+          "Diferenças entre Gerenciamento de Produtos e Projetos",
+          "Os três pilares do GPS: Validação, Verificação e Processos",
+          "Filosofia Ágil e Manifesto Ágil",
+          "Foco no cliente e valor delivery",
+          "Papéis e responsabilidades do Product Manager"
+        ]
+      },
+      "3": {
+        "title": "Redes de Computadores",
+        "platform": "Google (via Coursera)",
+        "date": "2024",
+        "duration": "Aproximadamente 2 meses",
+        "workload": "Cerca de 40 horas",
+        "summary": "Curso completo sobre redes de computadores, cobrindo desde os fundamentos de comunicação de dados até protocolos, arquiteturas de rede, segurança e troubleshooting. Essencial para profissionais de TI e desenvolvimento.",
+        "description": "Este curso oferece uma compreensão abrangente das redes de computadores, desde os conceitos básicos de comunicação de dados até arquiteturas de rede complexas. Aborda protocolos, modelos de referência (OSI/TCP-IP), dispositivos de rede, segurança cibernética e técnicas de diagnóstico e resolução de problemas. Fundamental para qualquer profissional de tecnologia que trabalhe com sistemas conectados.",
+        "modules": [
+          "Fundamentos de comunicação de dados",
+          "Modelos de referência (OSI e TCP/IP)",
+          "Protocolos de rede (IP, TCP, UDP, HTTP, DNS)",
+          "Dispositivos de rede (roteadores, switches, firewalls)",
+          "Segurança de redes e criptografia",
+          "Troubleshooting e monitoramento de redes"
+        ]
+      }
+    }
+  },
+  "allFormacao": {
+    "title": "Formação Acadêmica Completa",
+    "subtitle": "Educação & Certificados",
+    "backToHome": "Voltar ao Início",
+    "loadMore": "Carregar Mais",
+    "academicHistory": "Histórico Acadêmico Completo",
+    "authentication": "Verificação de Autenticidade",
+    "diploma": "Diploma",
+    "officialDocument": "Documento oficial de conclusão do curso",
+    "conclusion": "Conclusão",
+    "institution": "Instituição",
+    "educationList": {
+      "0": {
+        "title": "Pós-Graduação em Inteligência Artificial e Data Science",
+        "institution": "Anhanguera",
+        "period": "Cursando – Previsão: Dezembro de 2026",
+        "description": "Especialização focada na criação de modelos preditivos e sistemas inteligentes utilizando técnicas avançadas de Machine Learning e Ciência de Dados. O curso abrange o processamento de grandes volumes de informações para a geração de insights estratégicos, automação de processos e desenvolvimento de soluções baseadas em dados."
+      },
+      "1": {
+        "title": "Tecnologia em Análise e Desenvolvimento de Sistemas",
+        "institution": "Universidade Pitágoras Unopar Anhanguera",
+        "period": "Concluído em Dezembro de 2025",
+        "description": "Formação superior com carga horária total de 2100h, voltada para o ciclo completo de desenvolvimento de software, incluindo análise de requisitos, arquitetura de sistemas e programação. Experiência prática na implementação de bancos de dados, engenharia de software e utilização de metodologias ágeis para garantir a qualidade e escalabilidade das entregas técnicas."
+      }
+    },
+    "semesterHistory": "Histórico Acadêmico Completo",
+    "semester": "Semestre",
+    "average": "Média",
+    "authenticityVerification": "Verificação de Autenticidade",
+    "diplomaAndAuthentication": "Diploma e Autenticação",
+    "diplomaDescription": "Documento oficial de conclusão do curso de Tecnologia em Análise e Desenvolvimento de Sistemas",
+    "institutionAndDate": "Universidade Pitágoras Unopar Anhanguera - Dezembro de 2025"
+  },
+  "allCurriculo": {
+    "title": "Currículo Completo",
+    "subtitle": "Experiência & Habilidades",
+    "downloadCV": "Fazer Download",
+    "viewFull": "Ver Currículo completo"
+  },
+  "allWorks": {
+    "title": "Todos os Projetos",
+    "subtitle": "Portfólio Completo"
+  },
+  "allCertificados": {
+    "title": "Todos os Certificados",
+    "subtitle": "Certificados & Credenciais",
+    "backToHome": "Voltar ao Início",
+    "loadMore": "Carregar Mais"
+  },
+  "certificates": {
+    "viewAll": "Ver Todos",
+    "badges": [
+      {
+        "text": "Google"
+      },
+      {
+        "text": "IBM"
+      },
+      {
+        "text": "University of Alberta"
+      },
+      {
+        "text": "Hackers do Bem"
+      }
+    ],
+    "list": {
+      "0": {
+        "name": "Especialização em Gerenciamento de Produtos de Software",
+        "institution": "University of Alberta",
+        "description": "Programa completo de especialização em gerenciamento de produtos de software"
+      },
+      "1": {
+        "name": "Introdução ao Gerenciamento de Produtos de Software",
+        "institution": "University of Alberta",
+        "description": "Introduz o papel de gerente de produtos, focando em fornecer o produto certo, construído corretamente e gerenciado efetivamente, usando valores do Manifesto Ágil."
+      },
+      "2": {
+        "name": "Processos de Software e Práticas Ágeis",
+        "institution": "University of Alberta",
+        "description": "Explora modelos de processos como Waterfall, V-Model, Spiral e práticas ágeis como Scrum (sprints, backlog) e Extreme Programming (XP)."
+      },
+      "3": {
+        "name": "Necessidades do Cliente e Requisitos de Software",
+        "institution": "University of Alberta",
+        "description": "Ensina técnicas para elicitação de requisitos, criação de User Stories, protótipos (wireframes e storyboards) e gerenciamento do backlog do produto."
+      },
+      "4": {
+        "name": "Planejamento Ágil para Produtos de Software",
+        "institution": "University of Alberta",
+        "description": "Cobre estimativa de tempo (Story Points), cálculo de velocidade da equipe, gerenciamento de riscos, cronogramas (Gantt) e planejamento de iterações e releases."
+      },
+      "5": {
+        "name": "Revisões e Métricas para Melhorias de Software",
+        "institution": "University of Alberta",
+        "description": "Foca em monitorar o progresso através de gráficos Burndown, métricas de qualidade (GQM), análise de defeitos e reuniões de retrospectiva."
+      },
+      "6": {
+        "name": "Capstone de Gerenciamento de Produtos de Software",
+        "institution": "University of Alberta",
+        "description": "Simulação prática onde os alunos aplicam todas as técnicas anteriores (requisitos, priorização, planos de release e retrospectivas) em um cenário do mundo real."
+      },
+      "7": {
+        "name": "Certificado Profissional de Suporte de TI do Google",
+        "institution": "Google (via Coursera/Credly)",
+        "description": "Certificação profissional completa em suporte técnico de TI"
+      },
+      "8": {
+        "name": "Suporte de TI do Google",
+        "institution": "Google (via Coursera)",
+        "description": "Introdução à computação, cobrindo hardware, software, redes e atendimento ao cliente."
+      },
+      "9": {
+        "name": "Básicos do Suporte Técnico",
+        "institution": "Google (via Coursera/Credly)",
+        "description": "Os Básicos do Suporte Técnico"
+      },
+      "10": {
+        "name": "Básicos de Redes de Computadores",
+        "institution": "Google (via Coursera)",
+        "description": "Mergulho profundo em protocolos de rede (TCP/IP), serviços como DNS e DHCP, e ferramentas de solução de problemas de conectividade."
+      },
+      "11": {
+        "name": "Sistemas Operacionais e Você: Tornando-se um Usuário Avançado",
+        "institution": "Google (via Coursera)",
+        "description": "Gerenciamento de diretórios, usuários, permissões e processos em sistemas Windows e Linux."
+      },
+      "12": {
+        "name": "Administração de Sistemas e Serviços de Infraestrutura de TI",
+        "institution": "Google (via Coursera)",
+        "description": "Foca em serviços de infraestrutura como Active Directory, gerenciamento de frota e backup de dados."
+      },
+      "13": {
+        "name": "Segurança de TI: Defesa contra as Artes das Trevas",
+        "institution": "Google (via Coursera)",
+        "description": "Cobre conceitos de criptografia, autenticação, tipos de ataques e como proteger redes e sistemas."
+      },
+      "14": {
+        "name": "Introdução ao Suporte Técnico",
+        "institution": "IBM (via Coursera)",
+        "description": "Aborda habilidades essenciais para fornecer suporte técnico eficaz, incluindo metodologias de resolução de problemas e comunicação."
+      },
+      "15": {
+        "name": "Introdução à Profissão de Scrum Master",
+        "institution": "IBM (via Coursera)",
+        "description": "Explora a mentalidade ágil e o papel específico do Scrum Master na facilitação de equipes de alto desempenho."
+      },
+      "16": {
+        "name": "HTML, CSS e JavaScript para Desenvolvedores Web",
+        "institution": "Johns Hopkins University (via Coursera)",
+        "description": "Ensina desenvolvimento moderno e responsivo de páginas web usando tecnologias front-end fundamentais."
+      },
+      "17": {
+        "name": "Fundamentos da Cibersegurança",
+        "institution": "Google (via Coursera)",
+        "description": "Fundamentos sobre ameaças, riscos e principais ferramentas usadas por profissionais de segurança digital."
+      },
+      "18": {
+        "name": "Nivelamento (Cibersegurança)",
+        "institution": "Hackers do Bem (SENAI/RNP)",
+        "description": "Introdução técnica à área de segurança da informação para nivelamento em programas avançados."
+      },
+      "19": {
+        "name": "Fundamentos de TI",
+        "institution": "Fundação Bradesco",
+        "description": "Conceitos essenciais de arquitetura de computadores, hardware e lógica operacional."
+      },
+      "20": {
+        "name": "Implementando Bancos de Dados",
+        "institution": "Fundação Bradesco",
+        "description": "Focado na criação física de bancos de dados, usando linguagens de consulta e estruturação."
+      },
+      "21": {
+        "name": "Administração de Bancos de Dados",
+        "institution": "Fundação Bradesco",
+        "description": "Gerenciamento de segurança, usuários, integridade e manutenção de sistemas de bancos de dados."
+      },
+      "22": {
+        "name": "Segurança de TI",
+        "institution": "Fundação Bradesco",
+        "description": "Princípios de segurança de dados, políticas de segurança e defesa de perímetro."
+      },
+      "23": {
+        "name": "Exame de Certificação Search Ads 360",
+        "institution": "Google Skillshop",
+        "description": "Certificação avançada para gerenciamento e otimização de campanhas publicitárias em larga escala."
+      },
+      "24": {
+        "name": "Fundamentos do Waze Ads",
+        "institution": "Google Skillshop",
+        "description": "Fundamentos para criação de publicidade direcionada a motoristas em tempo real."
+      },
+      "25": {
+        "name": "Google Meu Negócio (Perfil da Empresa)",
+        "institution": "Google Skillshop",
+        "description": "Ferramentas para otimizar a presença local de negócios no Google Maps e pesquisa."
+      },
+      "26": {
+        "name": "Exame de Certificação Criativo",
+        "institution": "Google Skillshop",
+        "description": "Teste de conhecimento sobre desenvolvimento de criativos publicitários eficazes para plataformas Google."
+      },
+      "27": {
+        "name": "Satisfação do Cliente",
+        "institution": "IPED",
+        "description": "Métodos para medir e melhorar o índice de satisfação dos clientes com produtos e serviços."
+      },
+      "28": {
+        "name": "Atendimento ao Cliente",
+        "institution": "IPED",
+        "description": "Técnicas de abordagem, postura profissional e resolução ágil de problemas durante o suporte."
+      },
+      "29": {
+        "name": "Ética, Política e Cidadania",
+        "institution": "IPED",
+        "description": "Estudo de conduta ética no ambiente de trabalho e o papel social do profissional."
+      },
+      "30": {
+        "name": "Boas Práticas de Manipulação de Alimentos",
+        "institution": "IPED",
+        "description": "Normas de higiene e segurança alimentar para processos de produção e manipulação."
+      }
+    }
+  },
+  "projects": {
+    "list": {
+      "0": {
+        "name": "GetNexo v1.0+",
+        "description": "Plataforma de automação de vendas e inteligência de atendimento All-in-One que transforma o WhatsApp em um canal de alta performance com IA Generativa e Realidade Aumentada.",
+        "status": "v1.0+ (Lançamento Completo)",
+        "category": "SaaS & Automação de IA"
+      },
+      "1": {
+        "name": "Component Tester PRO",
+        "description": "Ferramenta avançada de teste para componentes React com validação em tempo real, métricas de performance e verificações de acessibilidade.",
+        "status": "v2.3 (Estável)",
+        "category": "Ferramentas de Desenvolvimento"
+      },
+      "2": {
+        "name": "Willy Cyber-Multitool",
+        "description": "Kit completo de ferramentas de cibersegurança e administração de sistemas integrando múltiplas ferramentas de segurança e recursos de automação.",
+        "status": "v1.5 (Produção)",
+        "category": "Segurança & Utilitários"
+      }
+    }
+  },
+  "notFound": {
+    "p": "Página não encontrada",
+    "h2": "Ops! Algo deu errado",
+    "description": "A página que você está procurando não existe ou foi movida.",
+    "backHome": "Voltar ao Início"
+  },
+  "colors": {
+    "white": "Branco",
+    "black": "Preto",
+    "blue": "Azul",
+    "red": "Vermelho"
+  },
+  "doom": {
+    "p": "Easter Egg - DOOM no Navegador",
+    "h2": "DOOM",
+    "title": "DOOM - Leandro Barbosa",
+    "description": "DOOM rodando no navegador - Easter Egg",
+    "gameTitle": "Jogo DOOM"
+  },
+  "backgrounds": {
+    "title": "Selecione o Background",
+    "subtitle": "Escolha um estilo para personalizar seu portfólio",
+    "hint": "Clique em um background para aplicá-lo",
+    "close": "Fechar",
+    "apply": "Aplicar",
+    "cancel": "Cancelar",
+    "bolhas": "Bolhas",
+    "particles": "Partículas",
+    "liquid": "Líquidos",
+    "particulate": "Pontos",
+    "cyberpunk": "Túnel",
+    "wavefield": "Ondas",
+    "matrix": "Matrix",
+    "solid": "Fixo"
+  },
+  "dynamicTextDemo": {
+    "controlsLabel": "Controles",
+    "colorModeLabel": "Modo de cor:",
+    "backgroundLabel": "Background:",
+    "white": "Branco",
+    "black": "Preto",
+    "blue": "Azul",
+    "red": "Vermelho",
+    "pageTitle": "Texto Dinâmico Adaptativo",
+    "pageDescription": "Este texto muda de cor automaticamente baseado no fundo.",
+    "backgroundInfo": "Fundo: {bgColor} | Modo: {mode}",
+    "buttonText": "Botão também adapta"
+  },
+  "contactPage": {
+    "secureEmail": "Email Seguro",
+    "quickResponse": "Resposta Rápida",
+    "directContact": "Contato Direto",
+    "support247": "Suporte 24/7",
+    "successMessage": "Mensagem enviada com sucesso!"
+  },
+  "allCourses": {
+    "back": "Voltar",
+    "viewDiploma": "Ver Diploma"
+  },
+  "backgroundMenu": {
+    "closeMenu": "Fechar menu",
+    "settings": "Configurações",
+    "backgroundType": "Tipo de Background",
+    "editBackground": "Editar Background",
+    "openSettings": "Abrir configurações de background"
+  },
+  "backgroundEditor": {
+    "closeEditor": "Fechar editor",
+    "back": "Voltar",
+    "apply": "Aplicar",
+    "notImplemented": "Editor para \"{bg}\" ainda não implementado"
+  },
+  "modal": {
+    "closeModal": "Fechar modal",
+    "close": "Fechar"
+  },
+  "cursoDetailModal": {
+    "close": "Fechar",
+    "accessCourse": "Acessar Curso",
+    "summary": "Resumo",
+    "detailedDescription": "Descrição Detalhada",
+    "curriculum": "Conteúdo Programático",
+    "authenticityVerification": "Verificação de Autenticidade",
+    "verifyOnCoursera": "Verificar autenticidade no Coursera",
+    "professionalCertificate": "Certificado Profissional"
+  },
+  "cursosModal": {
+    "mainModules": "Módulos principais:",
+    "moreModules": "+{count} mais módulos...",
+    "totalCourses": "Total de cursos: {count}",
+    "footerCopyright": "Leandro Saturnino Barbosa © 2024"
+  },
+  "allCursos": {
+    "footerTotalCourses": "Total de cursos: {count}",
+    "footerCopyright": "Leandro Saturnino Barbosa © 2024"
+  },
+  "editorLabels": {
+    "speed": "Velocidade",
+    "quantity": "Quantidade",
+    "size": "Tamanho",
+    "density": "Densidade",
+    "resolution": "Resolução",
+    "smoothing": "Suavização",
+    "grain": "Granulação",
+    "complexity": "Complexidade",
+    "intensity": "Intensidade",
+    "refraction": "Refração",
+    "friction": "Fricção",
+    "amplitude": "Amplitude",
+    "frequency": "Frequência",
+    "none": "Nenhuma",
+    "blow": "Soprar",
+    "attract": "Atrair",
+    "freeze": "Congelar"
+  }
 }

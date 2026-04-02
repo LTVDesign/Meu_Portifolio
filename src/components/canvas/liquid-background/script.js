@@ -1,15 +1,15 @@
 import GUI from 'lil-gui';
 // Tree-shakeable imports - reduz bundle size do Three.js
 import {
-  Scene,
-  OrthographicCamera,
-  WebGLRenderer,
-  ShaderMaterial,
-  Mesh,
+  Clock,
   Color,
-  Vector2,
+  Mesh,
+  OrthographicCamera,
   PlaneGeometry,
-  Clock
+  Scene,
+  ShaderMaterial,
+  Vector2,
+  WebGLRenderer,
 } from 'three';
 
 // --- LIQUID SILK GENERATIVE ENGINE SHADERS ---
@@ -326,10 +326,19 @@ window.onload = () => {
   const folderMath = gui.addFolder('Fluid Dynamics & Form');
   folderMath.add(params, 'speed', 0.0, 0.5).name('Time Flow').onChange(updateUniforms);
   folderMath.add(params, 'scale', 0.01, 0.15).name('Zoom Scale').onChange(updateUniforms);
-  folderMath.add(params, 'complexity', 0.1, 5.0).name('Field Complexity').onChange(updateUniforms);
-  folderMath.add(params, 'expansion', 0.1, 3.0).name('Wave Expansion').onChange(updateUniforms);
+  folderMath
+    .add(params, 'complexity', 0.1, 5.0)
+    .name('Field Complexity')
+    .onChange(updateUniforms);
+  folderMath
+    .add(params, 'expansion', 0.1, 3.0)
+    .name('Wave Expansion')
+    .onChange(updateUniforms);
   folderMath.add(params, 'twist', 0.0, 3.0).name('Domain Twist').onChange(updateUniforms);
-  folderMath.add(params, 'smoothing', 0.0, 1.0).name('Liquid Smoothing').onChange(updateUniforms);
+  folderMath
+    .add(params, 'smoothing', 0.0, 1.0)
+    .name('Liquid Smoothing')
+    .onChange(updateUniforms);
   folderMath.add(params, 'grain', 0.0, 0.15).name('Film Grain').onChange(updateUniforms);
 
   const folderColors = gui.addFolder('Chromatic Spectrum');

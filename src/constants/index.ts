@@ -117,7 +117,6 @@ const technologies: TTechnology[] = [
     icon: docker,
     category: 'Sistemas & Infraestrutura',
   },
-  // Microsoft 365
   {
     name: 'Microsoft 365',
     icon: microsoft365,
@@ -275,7 +274,7 @@ const experiences: TExperience[] = [
   {
     title: 'Técnico de Manutenção de Computadores',
     companyName: 'Autônomo',
-    icon: '/empresas/autonomo.webp',
+    icon: '/logo.svg',
     iconBg: '#E6DEDD',
     date: 'Janeiro 2023 - Presente',
     points: [

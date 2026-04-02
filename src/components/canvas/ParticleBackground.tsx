@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 import { usePerformance } from '../../contexts/PerformanceContext';
 
 interface Particle {
@@ -34,13 +35,16 @@ const ParticleBackground = ({
   particleOpacity = 0.8,
   particleLineColor = '#915EFF',
 }: ParticleBackgroundProps) => {
-  const { isLowPerformance } = usePerformance();
+  const { isLowPerformance, level } = usePerformance();
+  const { config } = useParticleConfig();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number | null>(null);
   const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef({ x: 0, y: 0 });
-  const mouseInteractionRadius = isLowPerformance ? 100 : 150;
-  const mouseForce = isLowPerformance ? 0.1 : 0.2;
+  const mouseInteractionRadius = isLowPerformance ? 80 : 150;
+  const mouseForce = isLowPerformance ? 0.08 : 0.2;
+  const adjustedConnectDistance = isLowPerformance ? Math.min(particleConnectDistance, 80) : particleConnectDistance;
+  const maxConnectionsLimit = isLowPerformance ? 20 : 50;
   const lastMouseMoveRef = useRef(0);
   const canvasRectRef = useRef<DOMRect | null>(null);
 
@@ -52,19 +56,16 @@ const ParticleBackground = ({
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    // Fase 1: Escritas no DOM (todas juntas)
     canvas.width = width * dpr;
     canvas.height = height * dpr;
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (ctx) {
       ctx.scale(dpr, dpr);
     }
 
-    // Fase 2: Leitura - Usa valores conhecidos em vez de getBoundingClientRect()
-    // Isso evita reflow forçado já que o canvas tem position: fixed e inset: 0
     canvasRectRef.current = {
       left: 0,
       top: 0,
@@ -84,7 +85,12 @@ const ParticleBackground = ({
 
     particlesRef.current = [];
 
-    for (let i = 0; i < quantity; i++) {
+    // Ajusta quantidade baseado na performance
+    const adjustedQuantity = level === 'low' ? Math.min(quantity, 30) :
+      level === 'medium' ? Math.min(quantity, 60) :
+        quantity;
+
+    for (let i = 0; i < adjustedQuantity; i++) {
       particlesRef.current.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -99,7 +105,14 @@ const ParticleBackground = ({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    const mode = config.interactionMode || 'none';
+    const isFrozen = mode === 'freeze';
+
     particlesRef.current.forEach((particle) => {
+      if (isFrozen) {
+        return; // Não atualiza posições se congelado
+      }
+
       particle.x += particle.vx;
       particle.y += particle.vy;
 
@@ -115,7 +128,7 @@ const ParticleBackground = ({
 
   const drawParticles = () => {
     const canvas = canvasRef.current;
-    const ctx = canvas?.getContext('2d');
+    const ctx = canvas?.getContext('2d', { willReadFrequently: true });
     if (!ctx || !canvas) return;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -123,8 +136,9 @@ const ParticleBackground = ({
 
     const particles = particlesRef.current;
 
-    // Draw particles
-    for (let i = 0; i < particles.length; i++) {
+    // Draw particles (pula algumas em baixa performance)
+    const particleStep = isLowPerformance ? 2 : 1;
+    for (let i = 0; i < particles.length; i += particleStep) {
       const particle = particles[i];
       ctx.beginPath();
       ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
@@ -133,9 +147,9 @@ const ParticleBackground = ({
       ctx.fill();
     }
 
-    // Draw connections (limitado a 50)
-    const maxConnections = 50;
-    const connectionDistance = particleConnectDistance;
+    // Draw connections (limitado baseado na performance)
+    const maxConnections = maxConnectionsLimit;
+    const connectionDistance = adjustedConnectDistance;
 
     for (let i = 0; i < particles.length; i++) {
       const p1 = particles[i];
@@ -153,7 +167,10 @@ const ParticleBackground = ({
           ctx.lineTo(p2.x, p2.y);
           ctx.strokeStyle = particleLineColor;
           ctx.globalAlpha =
-            (1 - Math.sqrt(distanceSq) / connectionDistance) * intensity * particleOpacity * 0.5;
+            (1 - Math.sqrt(distanceSq) / connectionDistance) *
+            intensity *
+            particleOpacity *
+            0.5;
           ctx.lineWidth = lineThickness;
           ctx.stroke();
           connections++;
@@ -162,27 +179,35 @@ const ParticleBackground = ({
     }
 
     // Mouse interaction
-    particles.forEach((particle) => {
-      const dx = mouseRef.current.x - particle.x;
-      const dy = mouseRef.current.y - particle.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
+    const mode = config.interactionMode || 'none';
+    if (mode !== 'none' && mode !== 'freeze') {
+      const isAttract = mode === 'attract';
+      const forceMultiplier = isAttract ? 1 : -1; // Atração: positivo, Repulsão: negativo
 
-      if (distance < mouseInteractionRadius) {
-        const force = (mouseInteractionRadius - distance) / mouseInteractionRadius;
-        particle.vx += (dx / distance) * force * mouseForce;
-        particle.vy += (dy / distance) * force * mouseForce;
-      }
-    });
+      particles.forEach((particle) => {
+        const dx = mouseRef.current.x - particle.x;
+        const dy = mouseRef.current.y - particle.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < mouseInteractionRadius && distance > 0) {
+          const force = (mouseInteractionRadius - distance) / mouseInteractionRadius;
+          const directionX = (dx / distance) * force * mouseForce * forceMultiplier;
+          const directionY = (dy / distance) * force * mouseForce * forceMultiplier;
+
+          particle.vx += directionX;
+          particle.vy += directionY;
+        }
+      });
+    }
   };
 
   const handleMouseMove = (e: MouseEvent) => {
     const now = Date.now();
-    if (now - lastMouseMoveRef.current < 16) return;
+    // Throttle mais agressivo em baixa performance
+    const throttleTime = isLowPerformance ? 32 : 16;
+    if (now - lastMouseMoveRef.current < throttleTime) return;
     lastMouseMoveRef.current = now;
 
-    // Usa valores diretos do evento em vez de getBoundingClientRect()
-    // Como o canvas tem position: fixed e inset: 0, as coordenadas são (0, 0)
-    // Isso evita reflow forçado completamente
     mouseRef.current.x = e.clientX;
     mouseRef.current.y = e.clientY;
   };
@@ -207,7 +232,7 @@ const ParticleBackground = ({
       window.removeEventListener('resize', onResize);
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [quantity]);
+  }, [quantity, isLowPerformance]);
 
   // Animação com requestAnimationFrame
   useEffect(() => {
@@ -224,7 +249,19 @@ const ParticleBackground = ({
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [quantity, particleColor, speed, intensity, particleConnectDistance, lineThickness, particleOpacity, particleLineColor, particleSize, zoom]);
+  }, [
+    quantity,
+    particleColor,
+    speed,
+    intensity,
+    particleConnectDistance,
+    lineThickness,
+    particleOpacity,
+    particleLineColor,
+    particleSize,
+    zoom,
+    config.interactionMode,
+  ]);
 
   return (
     <canvas

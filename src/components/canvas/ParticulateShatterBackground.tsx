@@ -157,7 +157,8 @@ const ParticulateShatterBackground: React.FC<ParticulateShatterBackgroundProps> 
         this.particleFriction = frictionRef.current + (Math.random() - 0.5) * 0.04;
         this.springStrength = springRef.current + Math.random() * 0.008;
         this.wanderAngle = Math.random() * Math.PI * 2;
-        this.wanderSpeed = (wanderSpeedRef.current + Math.random() * 0.02) * speedRef.current;
+        this.wanderSpeed =
+          (wanderSpeedRef.current + Math.random() * 0.02) * speedRef.current;
         this.opacity = 0;
         this.targetOpacity = intensity;
       }
@@ -190,7 +191,8 @@ const ParticulateShatterBackground: React.FC<ParticulateShatterBackgroundProps> 
           const mdx = this.x - mx;
           const mdy = this.y - my;
           const dist = Math.sqrt(mdx * mdx + mdy * mdy);
-          const radius = currentMode === 'blow' ? 140 : currentMode === 'magnet' ? 200 : 0;
+          const radius =
+            currentMode === 'blow' ? 140 : currentMode === 'magnet' ? 200 : 0;
 
           if (dist < radius && dist > 0) {
             const force = (radius - dist) / radius;
@@ -232,13 +234,33 @@ const ParticulateShatterBackground: React.FC<ParticulateShatterBackgroundProps> 
         ctx.beginPath();
         ctx.moveTo(this.x - half + rad, this.y - half);
         ctx.lineTo(this.x + half - rad, this.y - half);
-        ctx.quadraticCurveTo(this.x + half, this.y - half, this.x + half, this.y - half + rad);
+        ctx.quadraticCurveTo(
+          this.x + half,
+          this.y - half,
+          this.x + half,
+          this.y - half + rad
+        );
         ctx.lineTo(this.x + half, this.y + half - rad);
-        ctx.quadraticCurveTo(this.x + half, this.y + half, this.x + half - rad, this.y + half);
+        ctx.quadraticCurveTo(
+          this.x + half,
+          this.y + half,
+          this.x + half - rad,
+          this.y + half
+        );
         ctx.lineTo(this.x - half + rad, this.y + half);
-        ctx.quadraticCurveTo(this.x - half, this.y + half, this.x - half, this.y + half - rad);
+        ctx.quadraticCurveTo(
+          this.x - half,
+          this.y + half,
+          this.x - half,
+          this.y + half - rad
+        );
         ctx.lineTo(this.x - half, this.y - half + rad);
-        ctx.quadraticCurveTo(this.x - half, this.y - half, this.x - half + rad, this.y - half);
+        ctx.quadraticCurveTo(
+          this.x - half,
+          this.y - half,
+          this.x - half + rad,
+          this.y - half
+        );
         ctx.fill();
         ctx.globalAlpha = 1;
       }
@@ -320,7 +342,7 @@ const ParticulateShatterBackground: React.FC<ParticulateShatterBackgroundProps> 
     window.addEventListener('mouseup', handleMouseUp);
     window.addEventListener('touchmove', handleTouchMove, { passive: true });
     window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchend', handleTouchEnd);
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     // Resize
     const handleResize = () => {
@@ -375,7 +397,17 @@ const ParticulateShatterBackground: React.FC<ParticulateShatterBackgroundProps> 
   return (
     <canvas
       ref={canvasRef}
-      style={{ position: 'fixed', top: 0, left: 0, zIndex: -1, width: '100%', height: '100%' }}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        zIndex: -1,
+        width: '100%',
+        height: '100%',
+        // Background nunca deve bloquear scroll da página
+        pointerEvents: 'none',
+        touchAction: 'none',
+      }}
     />
   );
 };

@@ -129,13 +129,33 @@ class Particle {
     ctx.beginPath();
     ctx.moveTo(this.x - half + rad, this.y - half);
     ctx.lineTo(this.x + half - rad, this.y - half);
-    ctx.quadraticCurveTo(this.x + half, this.y - half, this.x + half, this.y - half + rad);
+    ctx.quadraticCurveTo(
+      this.x + half,
+      this.y - half,
+      this.x + half,
+      this.y - half + rad
+    );
     ctx.lineTo(this.x + half, this.y + half - rad);
-    ctx.quadraticCurveTo(this.x + half, this.y + half, this.x + half - rad, this.y + half);
+    ctx.quadraticCurveTo(
+      this.x + half,
+      this.y + half,
+      this.x + half - rad,
+      this.y + half
+    );
     ctx.lineTo(this.x - half + rad, this.y + half);
-    ctx.quadraticCurveTo(this.x - half, this.y + half, this.x - half, this.y + half - rad);
+    ctx.quadraticCurveTo(
+      this.x - half,
+      this.y + half,
+      this.x - half,
+      this.y + half - rad
+    );
     ctx.lineTo(this.x - half, this.y - half + rad);
-    ctx.quadraticCurveTo(this.x - half, this.y - half, this.x - half + rad, this.y - half);
+    ctx.quadraticCurveTo(
+      this.x - half,
+      this.y - half,
+      this.x - half + rad,
+      this.y - half
+    );
     ctx.fill();
     ctx.globalAlpha = 1;
   }
@@ -160,7 +180,7 @@ function shatterImage(img) {
     const oc = document.createElement('canvas');
     oc.width = iw;
     oc.height = ih;
-    const octx = oc.getContext('2d');
+    const octx = oc.getContext('2d', { willReadFrequently: true });
     octx.drawImage(img, 0, 0, iw, ih);
     const imgData = octx.getImageData(0, 0, iw, ih).data;
 
@@ -402,7 +422,7 @@ function updatePaletteUI() {
 // ==================== COPY ====================
 function _copyColor(i) {
   if (!palette[i]) return;
-  navigator.clipboard.writeText(palette[i].hex.toUpperCase()).catch(() => {});
+  navigator.clipboard.writeText(palette[i].hex.toUpperCase()).catch(() => { });
   showToast(`Copied ${palette[i].hex.toUpperCase()}`);
 }
 
@@ -412,9 +432,12 @@ function copyCSS() {
     return;
   }
   const css = `:root {\n${palette
-    .map((c, i) => `  --color-${i + 1}: ${c.hex}; /* rgb(${c.r}, ${c.g}, ${c.b}) — ${c.pct}% */`)
+    .map(
+      (c, i) =>
+        `  --color-${i + 1}: ${c.hex}; /* rgb(${c.r}, ${c.g}, ${c.b}) — ${c.pct}% */`
+    )
     .join('\n')}\n}`;
-  navigator.clipboard.writeText(css).catch(() => {});
+  navigator.clipboard.writeText(css).catch(() => { });
   showToast('CSS variables copied');
 }
 
@@ -426,12 +449,14 @@ function _copySVG() {
   const sw = 100,
     sh = 120;
   const rects = palette
-    .map((c, i) => `  <rect x="${i * sw}" y="0" width="${sw}" height="${sh}" fill="${c.hex}"/>`)
+    .map(
+      (c, i) =>
+        `  <rect x="${i * sw}" y="0" width="${sw}" height="${sh}" fill="${c.hex}"/>`
+    )
     .join('\n');
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${
-    palette.length * sw
-  }" height="${sh}">\n${rects}\n</svg>`;
-  navigator.clipboard.writeText(svg).catch(() => {});
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${palette.length * sw
+    }" height="${sh}">\n${rects}\n</svg>`;
+  navigator.clipboard.writeText(svg).catch(() => { });
   showToast('SVG palette copied');
 }
 

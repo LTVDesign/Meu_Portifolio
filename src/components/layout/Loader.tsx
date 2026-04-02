@@ -4,8 +4,8 @@ const Loader = () => {
   const { progress } = useProgress();
   return (
     <Html center>
-      <div className="flex flex-col items-center justify-center translate-y-[-20px]">
-        <div className="motion-loader scale-50 md:scale-75"></div>
+      <div className='flex flex-col items-center justify-center translate-y-[-20px]'>
+        <div className='motion-loader scale-50 md:scale-75'></div>
         <p
           style={{
             fontSize: 14,

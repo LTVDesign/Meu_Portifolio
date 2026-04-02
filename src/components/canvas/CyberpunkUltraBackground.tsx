@@ -2,26 +2,26 @@ import type React from 'react';
 import { useEffect, useRef } from 'react';
 // Tree-shakeable Three.js imports for better performance
 import {
-  Scene,
-  PerspectiveCamera,
-  WebGLRenderer,
-  FogExp2,
-  Color,
-  Vector2,
-  Vector3,
-  CatmullRomCurve3,
-  TubeGeometry,
-  PointsMaterial,
-  Points,
-  BufferGeometry,
+  ACESFilmicToneMapping,
+  AdditiveBlending,
   BufferAttribute,
+  BufferGeometry,
+  CatmullRomCurve3,
+  Color,
   EdgesGeometry,
+  FogExp2,
   LineBasicMaterial,
   LineSegments,
-  MeshBasicMaterial,
-  ACESFilmicToneMapping,
+  type MeshBasicMaterial,
+  PerspectiveCamera,
+  Points,
+  PointsMaterial,
+  Scene,
   SRGBColorSpace,
-  AdditiveBlending
+  TubeGeometry,
+  Vector2,
+  Vector3,
+  WebGLRenderer,
 } from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
@@ -98,7 +98,9 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
     if (!mountRef.current) return;
 
     // --- ZOMBIE EXTERMINATOR: Remove any existing cyberpunk background canvases ---
-    const existingCanvases = document.querySelectorAll('canvas[data-bg-type="cyberpunk-bg"]');
+    const existingCanvases = document.querySelectorAll(
+      'canvas[data-bg-type="cyberpunk-bg"]'
+    );
     existingCanvases.forEach((c) => {
       c.remove();
     });
@@ -285,7 +287,16 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
   return (
     <div
       ref={mountRef}
-      style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: -1,
+        pointerEvents: 'none' as const,
+        touchAction: 'none' as const,
+      }}
     />
   );
 };
