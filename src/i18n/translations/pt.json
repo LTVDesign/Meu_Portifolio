@@ -696,12 +696,14 @@
     "close": "Fechar",
     "apply": "Aplicar",
     "cancel": "Cancelar",
-    "cyberpunk": "Cyberpunk",
+    "bolhas": "Bolhas",
+    "particles": "Partículas",
+    "liquid": "Líquidos",
+    "particulate": "Pontos",
+    "cyberpunk": "Túnel",
+    "wavefield": "Ondas",
     "matrix": "Matrix",
-    "ocean": "Ocean",
-    "sunset": "Sunset",
-    "aurora": "Aurora",
-    "minimal": "Minimal"
+    "solid": "Fixo"
   },
   "dynamicTextDemo": {
     "controlsLabel": "Controles",
