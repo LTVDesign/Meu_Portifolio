@@ -168,14 +168,17 @@ const Works = () => {
                 />
                 <div className='absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent' />
 
-                {/* Category Badge */}
-                <div className='absolute top-3 sm:top-4 left-3 sm:left-4 px-3 sm:px-4 py-1 sm:py-1.5 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[9px] sm:text-[10px] font-bold text-[var(--cyber-cyan)] uppercase tracking-widest shadow-xl'>
-                  {projectCategory}
-                </div>
+                {/* Badges Container */}
+                <div className='absolute top-3 sm:top-4 left-3 sm:left-4 right-3 sm:right-4 flex justify-between items-start gap-2'>
+                  {/* Category Badge */}
+                  <div className='flex-shrink-0 px-3 sm:px-4 py-1 sm:py-1.5 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[9px] sm:text-[10px] font-bold text-[var(--cyber-cyan)] uppercase tracking-widest shadow-xl'>
+                    {projectCategory}
+                  </div>
 
-                {/* Status Badge */}
-                <div className='absolute top-3 sm:top-4 right-3 sm:right-4 px-2 sm:px-3 py-1 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[8px] sm:text-[9px] font-bold text-green-400 uppercase tracking-widest'>
-                  {projectStatus}
+                  {/* Status Badge */}
+                  <div className='flex-shrink-0 px-2 sm:px-3 py-1 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[8px] sm:text-[9px] font-bold text-green-400 uppercase tracking-widest'>
+                    {projectStatus}
+                  </div>
                 </div>
               </div>
 
@@ -199,7 +202,7 @@ const Works = () => {
                   {projectDescription}
                 </p>
 
-                <div className='mt-5 sm:mt-8'>
+                <div className='mt-5 sm:mt-8 w-full flex justify-center'>
                   <motion.button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -208,10 +211,9 @@ const Works = () => {
                     whileHover={{
                       scale: 1.05,
                       y: -3,
-                      boxShadow: '0 10px 40px rgba(0, 255, 255, 0.3)',
                     }}
                     whileTap={{ scale: 0.95 }}
-                    className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px]'
+                    className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
                   >
                     <motion.div
                       className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'
@@ -242,10 +244,9 @@ const Works = () => {
           whileHover={{
             scale: 1.05,
             y: -3,
-            boxShadow: '0 10px 40px rgba(0, 255, 255, 0.3)',
           }}
           whileTap={{ scale: 0.95 }}
-          className='relative px-6 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px]'
+          className='relative px-6 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
         >
           <motion.div
             className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'

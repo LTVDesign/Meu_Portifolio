@@ -27,9 +27,6 @@ const Footer: React.FC = () => {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   const getNavLink = (navId: string) => {
-    if (navId === 'curriculo') {
-      return '/formacao';
-    }
     if (navId === 'doom') {
       return '/doom';
     }
@@ -42,6 +39,7 @@ const Footer: React.FC = () => {
       experience: '/',
       cursos: '/cursos',
       works: '/projetos',
+      curriculo: '/#curriculo',
       contact: '/contato',
     };
     return routeMap[navId] || '/';
@@ -137,7 +135,7 @@ const Footer: React.FC = () => {
                     <Link
                       to={getNavLink(link.id)}
                       onClick={() => {
-                        if (isHome && link.id !== 'curriculo') {
+                        if (isHome) {
                           const element = document.getElementById(link.id);
                           if (element) {
                             element.scrollIntoView({ behavior: 'smooth' });

@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { diploma, diplomaPdf, qrcode } from '../../assets';
 import anhanguera from '../../assets/anhanguera.svg';
+import facul from '../../assets/facul.png';
 import { SectionWrapper } from '../../hoc';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import type { Disciplina, FormacaoData } from '../../types';
@@ -45,7 +46,7 @@ const Formacao = () => {
       date: t('allFormacao.educationList.1.period'),
       status: t('status.concluido'),
       icon: anhanguera,
-      logo: anhanguera,
+      logo: facul,
       period: t('allFormacao.educationList.1.period'),
       description: t('allFormacao.educationList.1.description'),
       link: '#',
@@ -267,7 +268,7 @@ const Formacao = () => {
       date: t('allFormacao.educationList.0.period'),
       status: t('status.emAndamento'),
       icon: anhanguera,
-      logo: anhanguera,
+      logo: facul,
       period: t('allFormacao.educationList.0.period'),
       description: t('allFormacao.educationList.0.description'),
       link: '#',
@@ -485,7 +486,7 @@ const Formacao = () => {
             <div className='flex flex-col sm:flex-row items-start gap-4 sm:gap-8 pt-4 sm:pt-6'>
               <div className='w-20 h-20 sm:w-28 sm:h-28 flex-shrink-0 rounded-2xl overflow-hidden border border-white/10 bg-black/50 p-3 sm:p-4 flex items-center justify-center shadow-inner relative z-10'>
                 <img
-                  src={item.logo}
+                  src={facul}
                   alt={item.institution}
                   className='w-14 h-14 sm:w-20 sm:h-20 object-contain transition-transform duration-500 ease-out group-hover:scale-110'
                 />
@@ -514,10 +515,9 @@ const Formacao = () => {
                 whileHover={{
                   scale: 1.05,
                   y: -3,
-                  boxShadow: '0 10px 40px rgba(0, 255, 255, 0.3)',
                 }}
                 whileTap={{ scale: 0.95 }}
-                className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px]'
+                className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
               >
                 <motion.div
                   className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'

@@ -62,7 +62,6 @@ const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = ({
               whileHover={{
                 scale: 1.1,
                 rotate: 90,
-                boxShadow: '0 0 30px rgba(255, 255, 255, 0.5)',
               }}
               whileTap={{ scale: 0.95 }}
               onClick={onClose}

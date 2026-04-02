@@ -3,7 +3,10 @@ import ReactDOM from 'react-dom/client';
 
 import App from './App';
 import './i18n';
-// globals.css é carregado de forma assíncrona no index.html para não bloquear LCP
+// Importação de CSS - Vite vai processar e injetar automaticamente
+import './critical-base.css';
+import './critical.css';
+import './globals.css';
 
 // Detect reduced motion
 document.documentElement.classList.toggle(

@@ -130,10 +130,9 @@ const BackgroundEditorModal = ({
                 onClick={onClose}
                 whileHover={{
                   scale: 1.02,
-                  boxShadow: '0 8px 30px rgba(145, 94, 255, 0.4)',
                 }}
                 whileTap={{ scale: 0.98 }}
-                className='flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#915EFF] to-[#00D4FF] hover:from-[#a17fff] hover:to-[#33ddff] text-white font-bold text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_0_20px_rgba(145,94,255,0.3)] hover:shadow-[0_0_30px_rgba(145,94,255,0.6)]'
+                className='flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#915EFF] to-[#00D4FF] hover:from-[#a17fff] hover:to-[#33ddff] text-white font-bold text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_0_20px_rgba(145,94,255,0.3)] hover:shadow-[0_0_30px_rgba(145,94,255,0.6)] btn-glow'
               >
                 {t('backgroundEditor.apply')}
               </motion.button>

@@ -9,6 +9,15 @@ interface VirtualListProps<T> {
   overscan?: number;
 }
 
+/**
+ * VirtualList - Lista virtualizada otimizada para performance
+ * 
+ * Otimizações aplicadas:
+ * 1. RAF para deferir leitura de scrollTop (evita reflow forçado)
+ * 2. Threshold para evitar atualizações desnecessárias (mudança mínima de 8px)
+ * 3. contain: strict para isolar renderização
+ * 4. will-change: transform para elementos animados
+ */
 function VirtualList<T>({
   items,
   itemHeight,
@@ -18,12 +27,34 @@ function VirtualList<T>({
 }: VirtualListProps<T>) {
   const [scrollTop, setScrollTop] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
+  const lastScrollRef = useRef<number>(0);
 
   const handleScroll = useCallback(() => {
-    if (containerRef.current) {
-      setScrollTop(containerRef.current.scrollTop);
+    const container = containerRef.current;
+    if (!container) return;
+
+    // Cancela RAF anterior para evitar múltiplas leituras
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
     }
+
+    // Defer leitura de scrollTop para próximo frame (evita reflow forçado)
+    // Isso separa a leitura do DOM das escritas pendentes
+    rafRef.current = requestAnimationFrame(() => {
+      const newScrollTop = container.scrollTop;
+
+      // Threshold: só atualiza se mudou significativamente (evita micro-updates)
+      // Isso reduz o número de re-renders durante scroll contínuo
+      if (Math.abs(newScrollTop - lastScrollRef.current) > 8) {
+        lastScrollRef.current = newScrollTop;
+        setScrollTop(newScrollTop);
+      }
+
+      rafRef.current = null;
+    });
   }, []);
+
 
   const startIndex = Math.max(0, Math.floor(scrollTop / itemHeight) - overscan);
   const endIndex = Math.min(
@@ -42,6 +73,8 @@ function VirtualList<T>({
         height: containerHeight,
         overflow: 'auto',
         position: 'relative',
+        // Containment para isolar renderização e evitar reflows externos
+        contain: 'layout style paint',
       }}
       onScroll={handleScroll}
     >
@@ -59,6 +92,7 @@ function VirtualList<T>({
                 right: 0,
                 height: itemHeight,
                 transform: `translateY(${translateY}px)`,
+                // GPU acceleration para transform
                 willChange: 'transform',
               }}
             >

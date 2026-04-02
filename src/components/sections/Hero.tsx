@@ -1,35 +1,31 @@
 import { domAnimation, LazyMotion, m } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useBackgroundMenu } from '../../contexts/ParticleConfigContext';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
+import { useBreakpoints } from '../../hooks/useDebouncedResize';
 import TerminalText from '../atoms/TerminalText';
 import { ComputersCanvas } from '../canvas';
 
+/**
+ * Hero - Seção principal da página
+ * 
+ * Otimizações:
+ * - usa useBreakpoints hook com RAF debounce para resize
+ * - useMemo para cálculos de layout responsivo
+ * - contain: layout style paint para isolar animações
+ */
 const Hero = () => {
   const { t } = useTranslation();
   const prefersReduced = useReducedMotion();
   const { openBgMenu } = useBackgroundMenu();
-  const [screenWidth, setScreenWidth] = useState(
-    typeof window !== 'undefined' ? window.innerWidth : 1024
-  );
-
-  useEffect(() => {
-    const handleResize = () => setScreenWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  // Hook otimizado com RAF debounce para evitar reflows
+  const { isWatch, isMobileSmall, isMobile, isTablet, isTV } = useBreakpoints();
 
   const handleBackgroundClick = () => {
     openBgMenu();
   };
-
-  const isWatch = screenWidth < 280;
-  const isMobileSmall = screenWidth < 380;
-  const isMobile = screenWidth < 640;
-  const isTablet = screenWidth < 1024;
-  const isTV = screenWidth > 2560;
 
   const subtitles = [
     t('hero.subtitle.0'),
@@ -40,9 +36,15 @@ const Hero = () => {
     t('hero.subtitle.5'),
   ];
 
-  // Tamanho da engrenagem responsivo
-  const gearSize = isWatch ? 'w-7 h-7' : isMobileSmall ? 'w-8 h-8' : isMobile ? 'w-10 h-10' : isTV ? 'w-20 h-20' : 'w-14 h-14';
-  const gearLeft = isWatch ? 'left-1' : isMobileSmall ? 'left-1.5' : isMobile ? 'left-2' : isTablet ? 'left-4' : isTV ? 'left-16' : 'left-4 md:left-8';
+  // Memo para evitar recálculos desnecessários
+  const gearSize = useMemo(
+    () => isWatch ? 'w-7 h-7' : isMobileSmall ? 'w-8 h-8' : isMobile ? 'w-10 h-10' : isTV ? 'w-20 h-20' : 'w-14 h-14',
+    [isWatch, isMobileSmall, isMobile, isTV]
+  );
+  const gearLeft = useMemo(
+    () => isWatch ? 'left-1' : isMobileSmall ? 'left-1.5' : isMobile ? 'left-2' : isTablet ? 'left-4' : isTV ? 'left-16' : 'left-4 md:left-8',
+    [isWatch, isMobileSmall, isMobile, isTablet, isTV]
+  );
 
   return (
     <LazyMotion features={domAnimation} strict={false}>
@@ -71,10 +73,6 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className={`font-bold text-white tracking-wide uppercase mb-3 text-center px-4 pointer-events-auto
               ${isWatch ? 'text-sm' : isMobileSmall ? 'text-base' : isMobile ? 'text-xl' : isTV ? 'text-8xl' : 'text-2xl md:text-4xl lg:text-5xl'}`}
-            style={{
-              filter: 'drop-shadow(0 0 10px rgba(145,94,255,0.6))',
-              textShadow: '0 0 10px rgba(145,94,255,0.6)',
-            }}
           >
             {t('hero.title')}
           </m.h1>
@@ -84,9 +82,6 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.5 }}
             className={`text-white/70 lowercase italic text-center px-4
               ${isWatch ? 'text-[10px]' : isMobileSmall ? 'text-xs' : isMobile ? 'text-sm' : isTV ? 'text-3xl' : 'text-sm md:text-base'}`}
-            style={{
-              filter: 'drop-shadow(0 0 5px rgba(0,255,255,0.4))',
-            }}
           >
             <TerminalText
               words={subtitles}
@@ -133,8 +128,8 @@ const Hero = () => {
               ease: 'easeInOut',
             }}
           >
-            {/* RGB glow pulsante por trás */}
-            <div className='absolute inset-0 rounded-full gear-rgb-glow blur-md opacity-60' />
+            {/* RGB glow pulsante por trás - otimizado */}
+            <div className='absolute inset-0 rounded-full gear-rgb-glow opacity-60' />
 
             {/* Engrenagem que gira sem parar */}
             <m.div
@@ -236,9 +231,6 @@ const Hero = () => {
               <div className='flex flex-col items-center gap-1'>
                 <m.span
                   className={`font-black tracking-[0.3em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] via-white to-[var(--cyber-purple)] bg-clip-text text-transparent ${isMobile ? 'text-[9px]' : isTV ? 'text-base' : 'text-xs'}`}
-                  style={{
-                    filter: 'drop-shadow(0 0 15px rgba(0,255,255,0.7))',
-                  }}
                   animate={{
                     opacity: [0.7, 1, 0.7],
                   }}

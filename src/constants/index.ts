@@ -450,7 +450,7 @@ const projects: TProject[] = [
     ],
     image: getnexo,
     sourceCodeLink: 'https://github.com/lelebrr/GetNexo',
-    status: 'v1.0+ (Full Release)',
+    status: 'v1.3 (Em andamento)',
     category: 'SaaS & Automação AI',
   },
   {

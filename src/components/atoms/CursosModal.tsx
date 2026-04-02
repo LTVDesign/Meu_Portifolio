@@ -229,7 +229,8 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                         <img
                           src={getLogo(curso.icon, curso.platform)}
                           alt={curso.platform}
-                          className='w-full h-full object-contain filter drop-shadow-[0_0_6px_rgba(255,255,255,0.5)]'
+                          className='w-full h-full object-contain'
+                          style={{ filter: 'drop-shadow(0 0 6px rgba(255,255,255,0.5))' }}
                         />
                       </div>
                       <div className='flex-1 min-w-0'>

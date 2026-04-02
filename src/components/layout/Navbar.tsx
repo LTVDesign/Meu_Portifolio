@@ -1,5 +1,5 @@
 import { m, useScroll, useSpring } from 'framer-motion';
-import { memo, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { navLinks } from '../../constants';
@@ -12,6 +12,8 @@ const logo = '/logo.svg';
 const Navbar = memo(() => {
   const [active, setActive] = useState<string | null>(null);
   const [toggle, setToggle] = useState(false);
+  // RAF ref para evitar múltiplas leituras de innerWidth
+  const rafResizeRef = useRef<number | null>(null);
   const [screenWidth, setScreenWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 1024
   );
@@ -27,10 +29,27 @@ const Navbar = memo(() => {
   });
 
   // Detectar tamanho da tela para ajustes responsivos
+  // Otimizado com RAF para evitar reflows forçados
   useEffect(() => {
-    const handleResize = () => setScreenWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    // RAF para garantir leitura única de innerWidth por frame
+    const handleResize = () => {
+      if (rafResizeRef.current) {
+        cancelAnimationFrame(rafResizeRef.current);
+      }
+      rafResizeRef.current = requestAnimationFrame(() => {
+        setScreenWidth(window.innerWidth);
+        rafResizeRef.current = null;
+      });
+    };
+
+    // Passive: true para não bloquear scroll
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (rafResizeRef.current) {
+        cancelAnimationFrame(rafResizeRef.current);
+      }
+    };
   }, []);
 
   // Fechar menu ao redimensionar para desktop (LG breakpoint = 1024px)
@@ -40,7 +59,35 @@ const Navbar = memo(() => {
     }
   }, [screenWidth, toggle]);
 
+  // Ativar o link correto baseado na rota atual
   useEffect(() => {
+    const pathToSectionMap: Record<string, string> = {
+      '/formacao': 'formacao',
+      '/cursos': 'cursos',
+      '/contato': 'contact',
+      '/projetos': 'works',
+      '/doom': 'doom',
+    };
+
+    if (location.pathname === '/') {
+      // Na home, o IntersectionObserver cuida de atualizar o active
+      return;
+    }
+
+    const sectionId = pathToSectionMap[location.pathname];
+    if (sectionId) {
+      setActive(sectionId);
+    } else {
+      setActive(null);
+    }
+  }, [location.pathname]);
+
+  // IntersectionObserver para seções na Home
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      return;
+    }
+
     const observerOptions = {
       root: null,
       rootMargin: '-50px 0px -40% 0px',
@@ -51,7 +98,19 @@ const Navbar = memo(() => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const sectionId = entry.target.id;
-          setActive(sectionId);
+          // Mapear IDs das seções para IDs dos navLinks
+          const sectionToNavMap: Record<string, string> = {
+            'about': 'about',
+            'formacao': 'formacao',
+            'experience': 'experience',
+            'cursos': 'cursos',
+            'curriculo': 'curriculo',
+            'works': 'works',
+            'contact': 'contact',
+          };
+          if (sectionToNavMap[sectionId]) {
+            setActive(sectionToNavMap[sectionId]);
+          }
         }
       });
     };
@@ -71,42 +130,32 @@ const Navbar = memo(() => {
       clearTimeout(timer);
       observer.disconnect();
     };
-  }, []);
+  }, [location.pathname]);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+  // Scroll otimizado com RAF para evitar reflow forçado
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     if (isHome) {
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        setActive(id);
-        setToggle(false);
-        window.history.pushState(null, '', `#${id}`);
-      }
+      // RAF para deferir leitura do DOM e scrollIntoView
+      requestAnimationFrame(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+          setActive(id);
+          setToggle(false);
+          window.history.pushState(null, '', `#${id}`);
+        }
+      });
     } else {
       setToggle(false);
     }
-  };
+  }, [isHome, setActive, setToggle]);
 
   const getNavLink = (navId: string) => {
-    if (navId === 'curriculo') {
-      return '/formacao';
-    }
     if (navId === 'doom') {
       return '/doom';
     }
-    if (isHome) {
-      return `#${navId}`;
-    }
-    const routeMap: Record<string, string> = {
-      about: '/#about',
-      formacao: '/formacao',
-      experience: '/#experience',
-      cursos: '/cursos',
-      works: '/projetos',
-      contact: '/contato',
-    };
-    return routeMap[navId] || '/';
+    return `/#${navId}`;
   };
 
   // Tamanhos do logo responsivos
@@ -216,9 +265,11 @@ const Navbar = memo(() => {
                 }}
               >
                 <span className='name-part' data-text='Leandro'>
+                  <div className='name-glow-layer' />
                   <DynamicText colorMode='auto'>Leandro</DynamicText>
                 </span>
                 <span className='name-part name-accent' data-text='Barbosa'>
+                  <div className='name-glow-layer' />
                   <DynamicText colorMode='auto'>Barbosa</DynamicText>
                 </span>
               </span>
@@ -236,13 +287,11 @@ const Navbar = memo(() => {
                   <LinkAnimado
                     href={getNavLink(nav.id)}
                     onClick={(e) => {
-                      if (isHome && nav.id !== 'curriculo') {
+                      if (isHome) {
                         handleNavClick(e, nav.id);
-                      } else {
-                        setToggle(false);
                       }
                     }}
-                    className={`navbar-link py-1.5 px-1 md:px-1.5 text-[10px] md:text-xs lg:text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:text-[var(--cyber-cyan)] menu-glow relative group/link ${isActive ? 'text-white active-menu' : 'text-white/70'}`}
+                    className={`navbar-link py-1.5 px-1 md:px-1.5 text-[10px] md:text-xs lg:text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:text-[var(--cyber-cyan)] relative group/link ${isActive ? 'text-white active-menu-glow' : 'text-white/70'}`}
                   >
                     <DynamicText colorMode='auto'>{t(`nav.${nav.id}`)}</DynamicText>
                     <m.div
@@ -379,3 +428,4 @@ const Navbar = memo(() => {
 });
 
 export default Navbar;
+

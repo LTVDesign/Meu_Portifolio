@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 import { useTranslation } from 'react-i18next';
+import { useBreakpoints } from '../../hooks/useDebouncedResize';
 
 const BG_TYPES = ['bolhas', 'particles', 'liquid', 'particulate', 'cyberpunk', 'wavefield', 'solid', 'matrix'];
 
@@ -10,27 +10,22 @@ interface BackgroundMenuProps {
   onClose: () => void;
 }
 
+/**
+ * BackgroundMenu - Menu de seleção de background
+ * 
+ * Otimizações:
+ * - usa useBreakpoints hook com RAF debounce para resize
+ * - contain: layout style paint para isolar animações
+ */
 const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
   const { config, updateConfig } = useParticleConfig();
   const { t } = useTranslation();
-  const [screenWidth, setScreenWidth] = useState(
-    typeof window !== 'undefined' ? window.innerWidth : 1024
-  );
-
-  useEffect(() => {
-    const handleResize = () => setScreenWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  // Hook otimizado com RAF debounce para evitar reflows
+  const { isWatch, isMobileSmall, isMobile, isTablet } = useBreakpoints();
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     e.stopPropagation();
   };
-
-  const isWatch = screenWidth < 280;
-  const isMobileSmall = screenWidth < 380;
-  const isMobile = screenWidth < 640;
-  const isTablet = screenWidth < 1024;
 
   // Posicionamento responsivo do menu
   const getMenuPosition = () => {
@@ -173,10 +168,9 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
             }}
             whileHover={{
               scale: 1.02,
-              boxShadow: '0 8px 30px rgba(145, 94, 255, 0.4)',
             }}
             whileTap={{ scale: 0.98 }}
-            className={`w-full bg-gradient-to-r from-[#915EFF] to-[#00D4FF] hover:from-[#a17fff] hover:to-[#33ddff] text-white font-bold rounded-2xl uppercase tracking-widest flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(145,94,255,0.3)] hover:shadow-[0_0_30px_rgba(145,94,255,0.6)] transition-all duration-300 min-h-[44px] ${isWatch ? 'py-2 text-[9px]' : 'py-4 text-sm'}`}
+            className={`w-full bg-gradient-to-r from-[#915EFF] to-[#00D4FF] hover:from-[#a17fff] hover:to-[#33ddff] text-white font-bold rounded-2xl uppercase tracking-widest flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(145,94,255,0.3)] hover:shadow-[0_0_30px_rgba(145,94,255,0.6)] transition-all duration-300 min-h-[44px] ${isWatch ? 'py-2 text-[9px]' : 'py-4 text-sm'} btn-glow`}
           >
             <span>✏️</span>
             <span>{t('backgroundMenu.editBackground')}</span>

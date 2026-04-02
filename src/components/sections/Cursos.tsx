@@ -173,7 +173,8 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
                 <img
                   src={curso.icon}
                   alt={curso.platform}
-                  className='w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]'
+                  className='w-full h-full object-contain'
+                  style={{ filter: 'drop-shadow(0 0 8px rgba(255,255,255,0.6))' }}
                 />
               </div>
               <div className='flex-1'>
@@ -207,10 +208,9 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
                 whileHover={{
                   scale: 1.05,
                   y: -3,
-                  boxShadow: '0 10px 40px rgba(0, 255, 255, 0.3)',
                 }}
                 whileTap={{ scale: 0.95 }}
-                className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px]'
+                className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
               >
                 <motion.div
                   className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'
@@ -239,10 +239,9 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
           whileHover={{
             scale: 1.05,
             y: -3,
-            boxShadow: '0 10px 40px rgba(0, 255, 255, 0.3)',
           }}
           whileTap={{ scale: 0.95 }}
-          className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px]'
+          className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
         >
           <motion.div
             className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'

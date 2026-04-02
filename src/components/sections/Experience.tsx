@@ -38,10 +38,6 @@ const ExperienceCard = forwardRef<
         {/* Animated glow that travels down the line */}
         <m.div
           className='absolute left-[-4px] w-[10px] h-[10px] rounded-full bg-[var(--cyber-cyan)]'
-          style={{
-            boxShadow: '0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.5), 0 0 45px rgba(0, 255, 255, 0.3)',
-            filter: 'blur(1px)'
-          }}
           animate={{
             top: ['0%', '100%'],
             scale: [1, 0.8, 1],
@@ -59,23 +55,15 @@ const ExperienceCard = forwardRef<
       {/* Logo badge - responsivo */}
       <div
         className='absolute left-[-4px] sm:left-[-8px] top-0 w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-white border-2 border-[var(--cyber-cyan)] z-10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:scale-110'
-        style={{
-          boxShadow: '0 0 20px rgba(0, 255, 255, 0.4)'
-        }}
       >
         {/* External orbiting glow */}
         <m.div
           className='absolute w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-[var(--cyber-cyan)]'
-          style={{
-            boxShadow: '0 0 15px rgba(0, 255, 255, 0.9), 0 0 30px rgba(0, 255, 255, 0.6), 0 0 45px rgba(0, 255, 255, 0.3)',
-            top: '50%',
-            left: '50%',
-            marginTop: '-4px',
-            marginLeft: '-4px'
-          }}
           animate={{
             x: [0, 30, 0, -30, 0],
-            y: [-30, 0, 30, 0, -30]
+            y: [-30, 0, 30, 0, -30],
+            scale: [1, 1.5, 1],
+            opacity: [0.7, 1, 0.7]
           }}
           transition={{
             duration: 4,
@@ -270,10 +258,6 @@ const Experience = () => {
         {/* Timeline Line (Background) */}
         <div
           className='absolute left-[23px] sm:left-[31px] top-4 bottom-0 w-[2px] bg-gradient-to-b from-[var(--cyber-cyan)]/30 via-white/10 to-transparent'
-          style={{
-            boxShadow: '0 0 8px rgba(0, 255, 255, 0.3), 0 0 16px rgba(0, 255, 255, 0.2)',
-            animation: 'glow-pulse 2s ease-in-out infinite'
-          }}
         />
 
         {displayedExperiences.map((exp, index) => (
@@ -287,11 +271,10 @@ const Experience = () => {
             whileHover={{
               scale: 1.05,
               y: -3,
-              boxShadow: '0 10px 40px rgba(0, 255, 255, 0.3)',
             }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setShowAll(true)}
-            className='relative px-6 sm:px-8 py-3 sm:py-4 text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px]'
+            className='relative px-6 sm:px-8 py-3 sm:py-4 text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] hover:shadow-[0_8px_30px_rgba(0,255,255,0.3)]'
           >
             <m.div
               className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'

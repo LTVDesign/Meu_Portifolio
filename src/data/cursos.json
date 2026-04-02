@@ -294,7 +294,8 @@
       "description": "Focado na criação física de bancos de dados, usando linguagens de consulta e estruturação.",
       "verificationLink": "https://www.ev.org.br/validar-certificado",
       "link": "https://www.ev.org.br/trilhas-de-conhecimento/banco-de-dados",
-      "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923"
+      "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923",
+      "icon": "bradesco"
     },
     {
       "id": "16",
@@ -306,7 +307,8 @@
       "description": "Gerenciamento de segurança, usuários, integridade e manutenção de sistemas de bancos de dados.",
       "verificationLink": "https://www.ev.org.br/validar-certificado",
       "link": "https://www.ev.org.br/trilhas-de-conhecimento/banco-de-dados",
-      "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923"
+      "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923",
+      "icon": "bradesco"
     },
     {
       "id": "17",
@@ -314,7 +316,8 @@
       "platform": "Fundação Bradesco",
       "date": "2024",
       "summary": "Princípios de segurança de dados, políticas de segurança e defesa de perímetro.",
-      "description": "Princípios de segurança de dados, políticas de segurança e defesa de perímetro."
+      "description": "Princípios de segurança de dados, políticas de segurança e defesa de perímetro.",
+      "icon": "bradesco"
     },
     {
       "id": "18",
@@ -322,7 +325,8 @@
       "platform": "Google Skillshop",
       "date": "2024",
       "summary": "Certificação avançada para gerenciamento e otimização de campanhas publicitárias em larga escala.",
-      "description": "Certificação avançada para gerenciamento e otimização de campanhas publicitárias em larga escala."
+      "description": "Certificação avançada para gerenciamento e otimização de campanhas publicitárias em larga escala.",
+      "icon": "google"
     },
     {
       "id": "19",
@@ -330,7 +334,8 @@
       "platform": "Google Skillshop",
       "date": "2024",
       "summary": "Fundamentos para criação de publicidade direcionada a motoristas em tempo real.",
-      "description": "Fundamentos para criação de publicidade direcionada a motoristas em tempo real."
+      "description": "Fundamentos para criação de publicidade direcionada a motoristas em tempo real.",
+      "icon": "google"
     },
     {
       "id": "20",
@@ -338,7 +343,8 @@
       "platform": "Google Skillshop",
       "date": "2024",
       "summary": "Ferramentas para otimizar a presença local de negócios no Google Maps e pesquisa.",
-      "description": "Ferramentas para otimizar a presença local de negócios no Google Maps e pesquisa."
+      "description": "Ferramentas para otimizar a presença local de negócios no Google Maps e pesquisa.",
+      "icon": "google"
     },
     {
       "id": "21",
@@ -346,7 +352,8 @@
       "platform": "Google Skillshop",
       "date": "2024",
       "summary": "Teste de conhecimento sobre desenvolvimento de criativos publicitários eficazes para plataformas Google.",
-      "description": "Teste de conhecimento sobre desenvolvimento de criativos publicitários eficazes para plataformas Google."
+      "description": "Teste de conhecimento sobre desenvolvimento de criativos publicitários eficazes para plataformas Google.",
+      "icon": "google"
     },
     {
       "id": "22",
@@ -354,7 +361,8 @@
       "platform": "IPED",
       "date": "2024",
       "summary": "Métodos para medir e melhorar o índice de satisfação dos clientes com produtos e serviços.",
-      "description": "Métodos para medir e melhorar o índice de satisfação dos clientes com produtos e serviços."
+      "description": "Métodos para medir e melhorar o índice de satisfação dos clientes com produtos e serviços.",
+      "icon": "iped"
     },
     {
       "id": "23",
@@ -362,7 +370,8 @@
       "platform": "IPED",
       "date": "2024",
       "summary": "Técnicas de abordagem, postura profissional e resolução ágil de problemas durante o suporte.",
-      "description": "Técnicas de abordagem, postura profissional e resolução ágil de problemas durante o suporte."
+      "description": "Técnicas de abordagem, postura profissional e resolução ágil de problemas durante o suporte.",
+      "icon": "iped"
     },
     {
       "id": "24",
@@ -370,7 +379,8 @@
       "platform": "IPED",
       "date": "2024",
       "summary": "Estudo de conduta ética no ambiente de trabalho e o papel social do profissional.",
-      "description": "Estudo de conduta ética no ambiente de trabalho e o papel social do profissional."
+      "description": "Estudo de conduta ética no ambiente de trabalho e o papel social do profissional.",
+      "icon": "iped"
     },
     {
       "id": "25",
@@ -378,7 +388,8 @@
       "platform": "IPED",
       "date": "2024",
       "summary": "Normas de higiene e segurança alimentar para processos de produção e manipulação.",
-      "description": "Normas de higiene e segurança alimentar para processos de produção e manipulação."
+      "description": "Normas de higiene e segurança alimentar para processos de produção e manipulação.",
+      "icon": "iped"
     }
   ],
   "en": [

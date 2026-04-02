@@ -72,7 +72,7 @@ const BolhasBackground = () => {
 
   const interactionMode = config.interactionMode || 'none';
   const needsPointerEvents = interactionMode !== 'none';
-  
+
   // Em dispositivos móveis, NUNCA permitir que o background capture pointer-events
   // Isso garante que o scroll nativo sempre funcione.
   const isTouch = typeof window !== 'undefined' && (('ontouchstart' in window) || navigator.maxTouchPoints > 0);
@@ -87,14 +87,14 @@ const BolhasBackground = () => {
 
   const finalStyle: React.CSSProperties = canInteract
     ? {
-        pointerEvents: 'auto',
-        touchAction: isTouchInteracting ? 'none' : 'pan-y',
-        ...touchStyle,
-      }
+      pointerEvents: 'auto',
+      touchAction: isTouchInteracting ? 'none' : 'pan-y',
+      ...touchStyle,
+    }
     : {
-        pointerEvents: 'none',
-        touchAction: 'pan-y',
-      };
+      pointerEvents: 'none',
+      touchAction: 'pan-y',
+    };
 
   return (
     <div
@@ -125,7 +125,7 @@ const BolhasBackground = () => {
             config.bolhasColor2 || '#00D4FF',
             config.bolhasColor3 || '#FF6B9D',
           ]}
-          mouseRef={mouseRef}
+          mousePosition={mouseRef.current}
         />
       </Canvas>
     </div>
