@@ -409,23 +409,6 @@
     "brazilianSocietyAndCitizenship": "Sociedade Brasileira e Cidadania",
     "aiConceptsToolsApplications": "Inteligência Artificial: Conceitos, Ferramentas e Aplicações"
   },
-  "courses": {
-    "allTitle": "Todos os Cursos e Especializações",
-    "viewCertificate": "Ver Certificado",
-    "filterPlaceholder": "Filtrar cursos...",
-    "sortBy": "Ordenar por",
-    "sortYear": "Ano",
-    "sortDuration": "Duração",
-    "sortCompany": "Instituição",
-    "noResults": "Nenhum curso encontrado.",
-    "p": "Cursos & Especializações",
-    "h2": "Minha Base de Conhecimento",
-    "viewAll": "Veja Todos Cursos",
-    "loadMore": "Carregar Mais",
-    "modulesLabel": "Módulos principais",
-    "moreModules": "mais módulos...",
-    "verifyAuthenticity": "Verificar Autenticidade"
-  },
   "allFormacao": {
     "title": "Formação Acadêmica Completa",
     "subtitle": "Educação & Certificados",

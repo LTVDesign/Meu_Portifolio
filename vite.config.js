@@ -19,9 +19,29 @@ export default defineConfig({
     }),
     ViteImageOptimizer({
       test: /\.(jpe?g|png|gif|tiff|webp|svg|avif)$/i,
-      png: { quality: 80 },
-      jpeg: { quality: 80 },
-      webp: { lossless: true },
+      png: {
+        quality: [85, 95],
+        compressionLevel: 6,
+      },
+      jpeg: {
+        quality: [85, 95],
+        progressive: true,
+      },
+      webp: {
+        quality: 85,
+        lossless: false,
+      },
+      gif: {
+        compressionLevel: 3,
+      },
+      svg: {
+        multipass: true,
+        precision: 3,
+      },
+      avif: {
+        quality: [50, 70],
+        speed: 6,
+      },
     }),
     compression({
       algorithm: 'brotliCompress', // Brotli é mais eficiente que gzip
@@ -56,7 +76,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-    chunkSizeWarningLimit: 1000, // Aumentado para 1000kB para evitar avisos desnecessários com Three.js
+    chunkSizeWarningLimit: 500, // Reduzido para 500kB para detectar chunks grandes
     cssCodeSplit: true, // Divide CSS para carregar apenas o necessário
     rollupOptions: {
       output: {
@@ -92,9 +112,6 @@ export default defineConfig({
             }
             if (id.includes('node_modules/@react-three/drei')) {
               return 'vendor-three-drei';
-            }
-            if (id.includes('node_modules/three-mesh-bvh')) {
-              return 'vendor-three-utils';
             }
 
             // i18n

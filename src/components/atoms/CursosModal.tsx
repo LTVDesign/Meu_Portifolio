@@ -75,7 +75,6 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
     }
   }, [isOpen, onClose]);
 
-  // Função para obter o logotipo correto baseado no ícone ou plataforma do curso
   const getLogo = (iconName: string | undefined, platform: string) => {
     const logoMap: { [key: string]: string } = {
       'alberta': albertaImg,
@@ -90,12 +89,10 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
       'anhanguera': anhangueraImg,
     };
 
-    // Se tem ícone definido, usa ele
     if (iconName && logoMap[iconName]) {
       return logoMap[iconName];
     }
 
-    // Se não tem ícone, extrai da plataforma
     const platformLower = platform.toLowerCase();
     if (platformLower.includes('google')) return googleImg;
     if (platformLower.includes('ibm')) return ibmImg;
@@ -328,7 +325,17 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
         <div className='sticky bottom-0 z-20 p-6 border-t border-white/10 bg-black/80 backdrop-blur-md'>
           <div className='max-w-7xl mx-auto flex justify-between items-center text-sm text-white/40'>
             <p>{t('cursosModal.totalCourses', { count: sortedCursos.length })}</p>
-            <p>{t('cursosModal.footerCopyright')}</p>
+            <div className='flex items-center gap-4'>
+              <p>{t('cursosModal.footerCopyright')}</p>
+              <button
+                type="button"
+                onClick={onClose}
+                className='p-2 rounded-lg hover:bg-white/10 transition-colors'
+                aria-label={t('common.close')}
+              >
+                <img src={close} alt='' className='w-6 h-6' />
+              </button>
+            </div>
           </div>
         </div>
       </motion.div>
