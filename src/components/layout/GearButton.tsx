@@ -444,6 +444,58 @@ const GearButton = ({ onClick }: GearButtonProps) => {
               transition={{ duration: 4, repeat: Infinity, ease: 'easeOut', delay: 2.5 }}
             />
 
+            {/* ========== SOMBRA RGB EXTERNA GIRATÓRIA ========== */}
+            <m.div
+              className='absolute rounded-full'
+              style={{
+                top: '50%',
+                left: '50%',
+                width: '180px',
+                height: '180px',
+                marginTop: '-90px',
+                marginLeft: '-90px',
+                background: 'conic-gradient(from 0deg, #FF0000, #FF7700, #FFDD00, #00FF00, #00DDFF, #0077FF, #FF00FF, #FF0000)',
+                filter: 'blur(40px)',
+                opacity: 0.6,
+              }}
+              animate={{
+                rotate: 360,
+                scale: [1, 1.1, 1],
+                opacity: [0.4, 0.7, 0.4],
+              }}
+              transition={{
+                rotate: { duration: 8, repeat: Infinity, ease: 'linear' },
+                scale: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
+                opacity: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
+              }}
+            />
+
+            {/* ========== SOMBRA RGB EXTERNA 2 ========== */}
+            <m.div
+              className='absolute rounded-full'
+              style={{
+                top: '50%',
+                left: '50%',
+                width: '220px',
+                height: '220px',
+                marginTop: '-110px',
+                marginLeft: '-110px',
+                background: 'conic-gradient(from 90deg, #00D4FF, #915EFF, #FF00FF, #FF6B35, #00D4FF)',
+                filter: 'blur(50px)',
+                opacity: 0.5,
+              }}
+              animate={{
+                rotate: -360,
+                scale: [1, 1.15, 1],
+                opacity: [0.3, 0.6, 0.3],
+              }}
+              transition={{
+                rotate: { duration: 12, repeat: Infinity, ease: 'linear' },
+                scale: { duration: 5, repeat: Infinity, ease: 'easeInOut' },
+                opacity: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
+              }}
+            />
+
             {/* ========== RAIOS DE ENERGIA EXTRAS OTIMIZADOS ========== */}
             {[0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340].map((angle, i) => (
               <m.div

@@ -1,0 +1,9 @@
+# Ignore build cache and outputs
+node_modules
+dist
+.cache
+*.tsbuildinfo
+.turbo
+.vercel
+
+# Force clean builds

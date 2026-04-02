@@ -1,0 +1,10 @@
+{
+    "buildCommand": "npm run build:ci",
+    "outputDirectory": "dist",
+    "framework": "vite",
+    "installCommand": "npm install --legacy-peer-deps",
+    "env": {
+        "NODE_ENV": "production",
+        "NODE_OPTIONS": "--max-old-space-size=4096"
+    }
+}
