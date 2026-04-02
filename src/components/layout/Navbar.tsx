@@ -33,9 +33,9 @@ const Navbar = memo(() => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Fechar menu ao redimensionar para desktop
+  // Fechar menu ao redimensionar para desktop (LG breakpoint = 1024px)
   useEffect(() => {
-    if (screenWidth >= 640 && toggle) {
+    if (screenWidth >= 1024 && toggle) {
       setToggle(false);
     }
   }, [screenWidth, toggle]);
@@ -219,8 +219,8 @@ const Navbar = memo(() => {
           </Link>
         </div>
 
-        {/* Right aligned Menu - Desktop/Tablet */}
-        <div className='hidden sm:flex items-center gap-3 lg:gap-6'>
+        {/* Right aligned Menu - Desktop/Tablet - Ajustado para aparecer apenas em telas maiores que iPad Air */}
+        <div className='hidden lg:flex items-center gap-3 lg:gap-6'>
           <ul className='flex items-center gap-1 lg:gap-2 xl:gap-3'>
             {navLinks.map((nav) => {
               const isActive = active === nav.id;
@@ -279,8 +279,8 @@ const Navbar = memo(() => {
           </div>
         </div>
 
-        {/* Mobile Toggle */}
-        <div className='sm:hidden flex items-center'>
+        {/* Mobile Toggle - Agora aparece em telas menores que LG (iPad Air incluso) */}
+        <div className='lg:hidden flex items-center'>
           <button
             onClick={() => setToggle(!toggle)}
             className='text-white hover:text-[var(--cyber-cyan)] transition-colors p-2 min-w-[44px] min-h-[44px] flex items-center justify-center'
@@ -302,13 +302,16 @@ const Navbar = memo(() => {
         </div>
       </div>
 
-      {/* Mobile Menu Content */}
+      {/* Mobile Menu Content - Ajustado para iPad e Mobile com scroll interno */}
       <div
-        className={`sm:hidden absolute top-full left-0 right-0 glass border-t border-white/10 transition-all duration-300 z-50 ${toggle ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-6 pointer-events-none'}`}
-        style={{ maxHeight: toggle ? '100vh' : '0' }}
+        className={`lg:hidden absolute top-full left-0 right-0 glass border-t border-white/10 transition-all duration-300 z-50 overflow-y-auto overflow-x-hidden ${toggle ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-6 pointer-events-none'}`}
+        style={{ 
+          maxHeight: toggle ? 'calc(100vh - 80px)' : '0',
+          overscrollBehavior: 'contain'
+        }}
       >
-        <div className={`${isWatch ? 'px-3 py-4' : 'px-6 py-8'}`}>
-          <ul className={`flex flex-col font-bold uppercase tracking-widest mb-4 ${isWatch ? 'gap-3 text-xs' : 'gap-6 text-sm'}`}>
+        <div className={`${isWatch ? 'px-3 py-4' : 'px-6 py-6'}`}>
+          <ul className={`flex flex-col font-bold uppercase tracking-widest mb-4 ${isWatch ? 'gap-3 text-xs' : 'gap-4 md:gap-6 text-sm'}`}>
             {navLinks.map((nav) => (
               <li key={nav.id}>
                 <Link
