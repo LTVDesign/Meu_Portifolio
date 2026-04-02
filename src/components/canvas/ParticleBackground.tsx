@@ -217,10 +217,9 @@ const ParticleBackground = ({
     if (now - lastMouseMoveRef.current < throttleTime) return;
     lastMouseMoveRef.current = now;
 
-    // Converte coordenadas de tela para coordenadas do canvas (considerando DPR)
-    const canvas = canvasRef.current;
-    if (canvas) {
-      const rect = canvas.getBoundingClientRect();
+    // Usa o rect cacheado em vez de chamar getBoundingClientRect a cada evento
+    const rect = canvasRectRef.current;
+    if (rect) {
       mouseRef.current.x = e.clientX - rect.left;
       mouseRef.current.y = e.clientY - rect.top;
     } else {

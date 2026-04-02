@@ -173,21 +173,34 @@ export const initLaunchParticles = (
   };
 
   const syncLayout = (): void => {
-    dpr = window.devicePixelRatio ?? 1;
+    // Fase 1: LEITURAS (todas primeiro - antes de qualquer escrita)
     const w = window.innerWidth;
     const h = window.innerHeight;
+    const currentDpr = window.devicePixelRatio ?? 1;
 
-    // Fase 1: Escritas no DOM (todas juntas) - isso invalida o layout
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
+    // Fase 2: ESCRITAS (todas depois - sem leituras de layout entre elas)
+    canvas.width = w * currentDpr;
+    canvas.height = h * currentDpr;
     canvas.style.width = `${w}px`;
     canvas.style.height = `${h}px`;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.setTransform(currentDpr, 0, 0, currentDpr, 0, 0);
     pxPerVw = w / 100;
+    dpr = currentDpr;
 
-    // Fase 2: Leitura - Separada das escritas para evitar reflow forçado
-    // Atualiza a posição do botão de forma assíncrona
-    updateBtnPosition();
+    // Fase 3: Leitura de layout NO PRÓXIMO FRAME (duplo rAF para garantir)
+    // Isso evita o padrão "layout thrashing" de escrita seguida de leitura
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const rect = btn.getBoundingClientRect();
+        btnPosCache = {
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2,
+          w: rect.width,
+        };
+        btnPos = btnPosCache;
+        lastBtnPosUpdate = performance.now();
+      });
+    });
   };
 
   const gradientAngle = (): number => ((performance.now() % 4000) / 4000) * 360;

@@ -1,5 +1,5 @@
 import { AnimatePresence, m } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface GearButtonProps {
@@ -12,12 +12,22 @@ const GearButton = ({ onClick }: GearButtonProps) => {
     typeof window !== 'undefined' ? window.innerWidth : 1024
   );
   const { t } = useTranslation();
+  const rafResizeRef = useRef<number | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
-    const handleResize = () => setScreenWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const handleResize = () => {
+      if (rafResizeRef.current) cancelAnimationFrame(rafResizeRef.current);
+      rafResizeRef.current = requestAnimationFrame(() => {
+        setScreenWidth(window.innerWidth);
+        rafResizeRef.current = null;
+      });
+    };
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (rafResizeRef.current) cancelAnimationFrame(rafResizeRef.current);
+    };
   }, []);
 
   const isWatch = screenWidth < 280;

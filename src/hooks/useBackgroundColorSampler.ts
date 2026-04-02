@@ -24,6 +24,9 @@ export function useBackgroundColorSampler() {
   const lastTextRef = useRef('#ffffff');
   const frameCountRef = useRef(0);
 
+  // Cache de dimensões atualizado por ResizeObserver (evita reflow síncrono)
+  const dimensionsRef = useRef({ vw: 0, vh: 0 });
+
   // Pontos de amostragem (viewport-relative)
   const samplePoints = useRef([
     { x: 0.5, y: 0.15 },  // centro-topo (Hero)
@@ -160,8 +163,9 @@ export function useBackgroundColorSampler() {
     });
 
     let totalR = 0, totalG = 0, totalB = 0, validSamples = 0;
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
+    // Usa dimensões cacheadas pelo ResizeObserver (evita reflow síncrono)
+    const vw = dimensionsRef.current.vw || window.innerWidth;
+    const vh = dimensionsRef.current.vh || window.innerHeight;
 
     for (const canvas of canvases) {
       if (canvas.width === 0 || canvas.height === 0) continue;
@@ -241,12 +245,25 @@ export function useBackgroundColorSampler() {
   }, [getPixelFromCanvas2D, getPixelFromWebGL, getConfigBasedColor]);
 
   useEffect(() => {
+    // Inicializa o cache de dimensões
+    const updateDimensions = () => {
+      dimensionsRef.current = { vw: window.innerWidth, vh: window.innerHeight };
+    };
+
+    // Atualiza uma vez no início
+    updateDimensions();
+
+    // ResizeObserver para atualizações (evita leitura síncrona durante requestAnimationFrame)
+    const ro = new ResizeObserver(updateDimensions);
+    ro.observe(document.documentElement);
+
     // Inicia a amostragem após delay para backgrounds carregarem
     const timer = setTimeout(() => {
       rafRef.current = requestAnimationFrame(sampleBackground);
     }, 500);
 
     return () => {
+      ro.disconnect();
       clearTimeout(timer);
       if (rafRef.current !== null) {
         cancelAnimationFrame(rafRef.current);
