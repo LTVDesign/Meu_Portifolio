@@ -76,7 +76,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-    chunkSizeWarningLimit: 500, // Reduzido para 500kB para detectar chunks grandes
+    chunkSizeWarningLimit: 1500, // Aumentado para 1500kB - chunks grandes são esperados com Three.js
     cssCodeSplit: true, // Divide CSS para carregar apenas o necessário
     rollupOptions: {
       output: {
@@ -100,16 +100,29 @@ export default defineConfig({
               return 'vendor-motion';
             }
 
-            // Three.js e ecossistema - Dividindo Three.js para melhor cache
+            // Three.js e ecossistema - Divisão mais granular para melhor cache
+            // Core do Three.js (módulo principal)
             if (id.includes('node_modules/three/build/three.module.js')) {
               return 'vendor-three-core';
+            }
+            // Addons do Three.js (controles, loaders, etc)
+            if (id.includes('node_modules/three/examples/jsm/controls/')) {
+              return 'vendor-three-controls';
+            }
+            if (id.includes('node_modules/three/examples/jsm/loaders/')) {
+              return 'vendor-three-loaders';
+            }
+            if (id.includes('node_modules/three/examples/jsm/postprocessing/')) {
+              return 'vendor-three-postprocessing';
             }
             if (id.includes('node_modules/three/examples/jsm/')) {
               return 'vendor-three-examples';
             }
+            // React Three Fiber
             if (id.includes('node_modules/@react-three/fiber')) {
               return 'vendor-three-fiber';
             }
+            // React Three Drei (utilitários)
             if (id.includes('node_modules/@react-three/drei')) {
               return 'vendor-three-drei';
             }
@@ -179,18 +192,20 @@ export default defineConfig({
         ascii_only: true,
       },
     },
-    sourcemap: false,
+    sourcemap: true,
   },
 
   optimizeDeps: {
     include: [
       'react',
       'react-dom',
+      'react-router-dom',
       'framer-motion',
       'framer-motion/m',
       '@react-three/fiber',
       '@react-three/drei',
     ],
+    exclude: ['@vercel/speed-insights'],
   },
 
   server: {
