@@ -153,9 +153,13 @@ const ComputersCanvas = () => {
       className='relative h-full w-full'
       data-engine='r3f'
       style={{
-        minHeight: screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k' ? '100%' : '80%',
-        marginTop: screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k' ? '0' : '10%',
-        minWidth: '100%',
+        minHeight: screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k' ? '100%' : '75%',
+        marginTop: screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k' ? '0' : '12%',
+        // Em tablets como o iPad Mini (768px), reduzimos a largura do canvas interativo 
+        // para garantir que as bordas da tela permitam o scroll nativo.
+        width: screenSize === 'tablet' || screenSize === 'mobile' || screenSize === 'mobileSmall' ? '85%' : '100%',
+        marginRight: 'auto',
+        marginLeft: 'auto',
         zIndex: 0,
         pointerEvents: 'auto',
         ...touchStyle,

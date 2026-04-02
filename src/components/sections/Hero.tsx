@@ -53,6 +53,7 @@ const Hero = () => {
         transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: 'easeOut' }}
         viewport={prefersReduced ? {} : { once: true, amount: 0.25 }}
         className='relative min-h-screen flex items-start justify-center pt-0 overflow-hidden'
+        style={{ touchAction: 'pan-y' }}
       >
         <Helmet>
           <title>{t('hero.titleMeta')}</title>
@@ -61,14 +62,14 @@ const Hero = () => {
 
         {/* Texto de introdução - acima do 3D, abaixo do menu */}
         <div
-          className={`relative z-10 w-full flex flex-col items-center justify-start
+          className={`relative z-10 w-full flex flex-col items-center justify-start pointer-events-none
             ${isWatch ? 'pt-16 pb-4' : isMobileSmall ? 'pt-20 pb-6' : isMobile ? 'pt-24 pb-6' : isTV ? 'pt-48 pb-12' : 'pt-28 md:pt-36 pb-8'}`}
         >
           <m.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className={`font-bold text-white tracking-wide uppercase mb-3 text-center px-4
+            className={`font-bold text-white tracking-wide uppercase mb-3 text-center px-4 pointer-events-auto
               ${isWatch ? 'text-sm' : isMobileSmall ? 'text-base' : isMobile ? 'text-xl' : isTV ? 'text-8xl' : 'text-2xl md:text-4xl lg:text-5xl'}`}
             style={{
               filter: 'drop-shadow(0 0 10px rgba(145,94,255,0.6))',

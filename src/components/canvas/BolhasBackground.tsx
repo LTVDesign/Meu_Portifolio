@@ -72,25 +72,28 @@ const BolhasBackground = () => {
 
   const interactionMode = config.interactionMode || 'none';
   const needsPointerEvents = interactionMode !== 'none';
+  
+  // Em dispositivos móveis, NUNCA permitir que o background capture pointer-events
+  // Isso garante que o scroll nativo sempre funcione.
+  const isTouch = typeof window !== 'undefined' && (('ontouchstart' in window) || navigator.maxTouchPoints > 0);
+  const canInteract = needsPointerEvents && !isTouch;
 
-  // Guard de scroll: só ativa quando o modo de interação está ligado
+  // Guard de scroll: só ativa quando o modo de interação está ligado E não é touch (para segurança extra)
   const { containerRef, isTouchInteracting, touchStyle } = useTouchScrollGuard({
     verticalThreshold: 25,
     intentThreshold: 6,
-    enabled: needsPointerEvents,
+    enabled: canInteract,
   });
 
-  // Quando o modo é 'none', o canvas de fundo NUNCA deve bloquear o scroll
-  const finalStyle: React.CSSProperties = needsPointerEvents
+  const finalStyle: React.CSSProperties = canInteract
     ? {
         pointerEvents: 'auto',
-        // Só bloqueia scroll quando o guard confirma intenção de interação 3D
         touchAction: isTouchInteracting ? 'none' : 'pan-y',
         ...touchStyle,
       }
     : {
         pointerEvents: 'none',
-        touchAction: 'none', // Irrelevante pois pointer-events está none
+        touchAction: 'pan-y',
       };
 
   return (

@@ -304,10 +304,13 @@ const Navbar = memo(() => {
 
       {/* Mobile Menu Content - Ajustado para iPad e Mobile com scroll interno */}
       <div
-        className={`lg:hidden absolute top-full left-0 right-0 glass border-t border-white/10 transition-all duration-300 z-50 overflow-y-auto overflow-x-hidden ${toggle ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-6 pointer-events-none'}`}
+        className={`lg:hidden absolute top-full left-0 right-0 glass border-t border-white/10 transition-all duration-300 z-[999999] overflow-y-auto overflow-x-hidden ${toggle ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-6 pointer-events-none'}`}
         style={{ 
           maxHeight: toggle ? 'calc(100vh - 80px)' : '0',
-          overscrollBehavior: 'contain'
+          overscrollBehavior: 'contain',
+          // No iPad Mini (768px), forçamos que o menu ocupe toda a largura visível e não seja obstruído
+          width: '100vw',
+          backgroundColor: 'rgba(5, 8, 22, 0.95)'
         }}
       >
         <div className={`${isWatch ? 'px-3 py-4' : 'px-6 py-6'}`}>
