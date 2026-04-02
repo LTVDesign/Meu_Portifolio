@@ -7,12 +7,10 @@ import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms';
 
 const Works = () => {
-  console.log('[Works] Renderizando componente Works');
   const { t } = useTranslation();
   const prefersReduced = useReducedMotion();
 
   const handleProjectClick = (projectName: string) => {
-    // Abre o projeto em uma nova aba com base no nome do projeto
     const projectUrls: Record<string, string> = {
       'GetNexo v1.0+': 'https://getnexo.ai',
       'Component Tester PRO v2.0': 'https://github.com/lelebrr/Component_Tester',
@@ -24,16 +22,16 @@ const Works = () => {
   };
 
   return (
-    <div className='max-w-7xl mx-auto px-6'>
+    <div className='max-w-7xl mx-auto px-4 sm:px-6'>
       {/* Box de texto informativo com animação */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className='mb-16'
+        className='mb-10 sm:mb-16'
       >
-        <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
+        <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-6 sm:p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
           {/* Efeito de brilho animado no fundo */}
           <div className='absolute inset-0 opacity-30'>
             <motion.div
@@ -70,12 +68,11 @@ const Works = () => {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className='relative w-full max-w-xl mx-auto my-8'
+              className='relative w-full max-w-xl mx-auto my-6 sm:my-8'
             >
               <div className='h-[1px] bg-gradient-to-r from-transparent via-[var(--cyber-cyan)] to-transparent relative'>
-                {/* Brilho esquerdo */}
                 <motion.div
-                  className='absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[var(--cyber-cyan)] blur-sm'
+                  className='absolute top-1/2 -translate-y-1/2 w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-[var(--cyber-cyan)] blur-sm'
                   style={{ left: '50%' }}
                   animate={{
                     left: ['50%', '0%', '50%'],
@@ -88,9 +85,8 @@ const Works = () => {
                     ease: 'easeInOut',
                   }}
                 />
-                {/* Brilho direito */}
                 <motion.div
-                  className='absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[var(--cyber-purple)] blur-sm'
+                  className='absolute top-1/2 -translate-y-1/2 w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-[var(--cyber-purple)] blur-sm'
                   style={{ right: '50%' }}
                   animate={{
                     right: ['50%', '0%', '50%'],
@@ -112,7 +108,7 @@ const Works = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.7 }}
-              className='flex flex-wrap justify-center gap-3 mt-4'
+              className='flex flex-wrap justify-center gap-2 sm:gap-3 mt-4'
             >
               {[
                 { text: t('works.badgeReact'), color: 'from-cyan-500 to-blue-500' },
@@ -123,7 +119,7 @@ const Works = () => {
                 <motion.span
                   key={idx}
                   whileHover={{ scale: 1.05, y: -2 }}
-                  className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
                 >
                   {badge.text}
                 </motion.span>
@@ -137,7 +133,8 @@ const Works = () => {
         </div>
       </motion.div>
 
-      <div className='mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+      {/* Grid de projetos - responsivo */}
+      <div className='mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8'>
         {projects.map((project, index) => (
           <motion.div
             key={project.name}
@@ -147,46 +144,47 @@ const Works = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <div className='relative h-60 overflow-hidden'>
+            <div className='relative h-48 sm:h-60 overflow-hidden'>
               <img
                 src={project.image}
                 alt={project.name}
                 className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-105'
+                loading='lazy'
               />
               <div className='absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent' />
 
               {/* Category Badge */}
-              <div className='absolute top-4 left-4 px-4 py-1.5 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[10px] font-bold text-[var(--cyber-cyan)] uppercase tracking-widest shadow-xl'>
+              <div className='absolute top-3 sm:top-4 left-3 sm:left-4 px-3 sm:px-4 py-1 sm:py-1.5 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[9px] sm:text-[10px] font-bold text-[var(--cyber-cyan)] uppercase tracking-widest shadow-xl'>
                 {project.category}
               </div>
 
               {/* Status Badge */}
-              <div className='absolute top-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[9px] font-bold text-green-400 uppercase tracking-widest'>
+              <div className='absolute top-3 sm:top-4 right-3 sm:right-4 px-2 sm:px-3 py-1 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[8px] sm:text-[9px] font-bold text-green-400 uppercase tracking-widest'>
                 {project.status}
               </div>
             </div>
 
-            <div className='p-8 flex-1 flex flex-col'>
-              <div className='flex gap-2 mb-4'>
+            <div className='p-5 sm:p-8 flex-1 flex flex-col'>
+              <div className='flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4'>
                 {project.tags?.slice(0, 3).map((tag, i) => (
                   <span
                     key={i}
-                    className={`text-[10px] px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[var(--text-secondary)] font-medium`}
+                    className='text-[9px] sm:text-[10px] px-2 sm:px-3 py-0.5 sm:py-1 bg-white/5 border border-white/10 rounded-full text-[var(--text-secondary)] font-medium'
                   >
                     #{tag.name}
                   </span>
                 ))}
               </div>
 
-              <h3 className='text-2xl font-bold text-white group-hover:text-[var(--cyber-cyan)] transition-colors line-clamp-1 mb-3'>
+              <h3 className='text-lg sm:text-2xl font-bold text-white group-hover:text-[var(--cyber-cyan)] transition-colors line-clamp-1 mb-2 sm:mb-3'>
                 {project.name}
               </h3>
 
-              <p className='mt-3 text-[var(--text-secondary)] line-clamp-3 text-sm flex-1 leading-relaxed'>
+              <p className='mt-2 sm:mt-3 text-[var(--text-secondary)] line-clamp-3 text-xs sm:text-sm flex-1 leading-relaxed'>
                 {project.description}
               </p>
 
-              <div className='mt-8'>
+              <div className='mt-5 sm:mt-8'>
                 <motion.button
                   onClick={(e) => {
                     e.stopPropagation();
@@ -198,7 +196,7 @@ const Works = () => {
                     boxShadow: '0 10px 40px rgba(0, 255, 255, 0.3)',
                   }}
                   whileTap={{ scale: 0.95 }}
-                  className='relative px-8 py-4 text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden'
+                  className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px]'
                 >
                   <motion.div
                     className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'
@@ -222,7 +220,7 @@ const Works = () => {
         ))}
       </div>
 
-      <div className='mt-16 flex justify-center'>
+      <div className='mt-10 sm:mt-16 flex justify-center'>
         <motion.a
           href='/cursos'
           whileHover={{
@@ -231,7 +229,7 @@ const Works = () => {
             boxShadow: '0 10px 40px rgba(0, 255, 255, 0.3)',
           }}
           whileTap={{ scale: 0.95 }}
-          className='relative px-8 py-4 text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden'
+          className='relative px-6 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px]'
         >
           <motion.div
             className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'

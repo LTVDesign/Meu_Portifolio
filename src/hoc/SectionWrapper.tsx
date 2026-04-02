@@ -14,17 +14,16 @@ const SectionWrapperComponent = ({
   id,
   className = '',
 }: SectionWrapperProps) => {
-  console.log('[SectionWrapper] Renderizando SectionWrapper, id:', id);
   const prefersReduced = useReducedMotion();
 
   return (
     <motion.section
       id={id}
-      initial={prefersReduced ? {} : { opacity: 1, y: 0 }}
+      initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
       whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
       transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: 'easeOut' }}
-      viewport={prefersReduced ? {} : { once: true, amount: 0.25 }}
-      className={`relative py-[clamp(2.5rem,5vw,4rem)] ${className}`}
+      viewport={prefersReduced ? {} : { once: true, amount: 0.15 }}
+      className={`relative py-[clamp(1.5rem,4vw,4rem)] sm:py-[clamp(2rem,5vw,4rem)] ${className}`}
     >
       {children}
     </motion.section>

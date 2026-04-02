@@ -60,7 +60,7 @@ const AllCertificados = () => {
 
   return (
     <div className='pt-20 pb-32'>
-      <div className='max-w-7xl mx-auto px-6'>
+      <div className='max-w-7xl mx-auto px-4 sm:px-6'>
         <motion.div variants={textVariant()} className='text-center mb-16'>
           <Header
             useMotion={false}

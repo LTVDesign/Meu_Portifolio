@@ -5,35 +5,54 @@ import { Suspense, useEffect, useRef, useState } from 'react';
 
 import CanvasLoader from '../layout/Loader';
 
-const ComputersContent: React.FC<{ screenSize: string }> = ({ screenSize }) => {
-  // Carregamento atrasado para não bloquear LCP
+// Preload do modelo para melhorar performance
+useGLTF.preload('/desktop_pc/scene-optimized.gltf');
+
+type ScreenSize = 'watch' | 'mobileSmall' | 'mobile' | 'tablet' | 'desktop' | 'tv' | '4k';
+
+const getScreenSize = (width: number): ScreenSize => {
+  if (width < 280) return 'watch';
+  if (width < 380) return 'mobileSmall';
+  if (width < 640) return 'mobile';
+  if (width < 1024) return 'tablet';
+  if (width > 3840) return '4k';
+  if (width > 2560) return 'tv';
+  return 'desktop';
+};
+
+const SCREEN_CONFIG: Record<ScreenSize, {
+  position: [number, number, number];
+  scale: number;
+  fov: number;
+  dprMax: number;
+}> = {
+  watch:       { position: [0, -2.8, 0],  scale: 0.28, fov: 60, dprMax: 1 },
+  mobileSmall: { position: [0, -3.5, 0],  scale: 0.38, fov: 55, dprMax: 1.5 },
+  mobile:      { position: [0, -4.0, 0],  scale: 0.45, fov: 50, dprMax: 1.5 },
+  tablet:      { position: [0, -4.5, -1], scale: 0.58, fov: 40, dprMax: 2 },
+  desktop:     { position: [0, -3.25, -1.5], scale: 0.75, fov: 25, dprMax: 2 },
+  tv:          { position: [0, -3.5, -2], scale: 1.1, fov: 22, dprMax: 2 },
+  '4k':        { position: [0, -3.5, -2], scale: 1.3, fov: 20, dprMax: 2 },
+};
+
+const ComputersContent: React.FC<{ screenSize: ScreenSize }> = ({ screenSize }) => {
   const [shouldLoadModel, setShouldLoadModel] = useState(false);
   const computer = useGLTF('/desktop_pc/scene-optimized.gltf');
 
   useEffect(() => {
-    // Delay de 300ms após a montagem para priorizar LCP
+    // Delay adaptativo: menor em desktop, maior em mobile para priorizar LCP
+    const delay = screenSize === 'watch' || screenSize === 'mobileSmall' ? 600
+      : screenSize === 'mobile' ? 400
+      : 300;
+
     const timer = setTimeout(() => {
       setShouldLoadModel(true);
-    }, 300);
+    }, delay);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [screenSize]);
 
-  const getPosition = () => {
-    if (screenSize === 'watch') return [0, -3.5, 0];
-    if (screenSize === 'mobile') return [0, -4.5, 0];
-    if (screenSize === 'tablet') return [0, -4.8, 0];
-    if (screenSize === 'cinema') return [0, -3.5, -2];
-    return [0, -3.25, -1.5];
-  };
-
-  const getScale = () => {
-    if (screenSize === 'watch') return 0.35;
-    if (screenSize === 'mobile') return 0.45;
-    if (screenSize === 'tablet') return 0.6;
-    if (screenSize === 'cinema') return 1.2;
-    return 0.75;
-  };
+  const cfg = SCREEN_CONFIG[screenSize];
 
   if (!shouldLoadModel || !computer?.scene) {
     return null;
@@ -41,7 +60,10 @@ const ComputersContent: React.FC<{ screenSize: string }> = ({ screenSize }) => {
 
   return (
     <mesh>
-      <hemisphereLight intensity={0.15} groundColor='black' />
+      <hemisphereLight
+        intensity={screenSize === 'watch' ? 0.2 : 0.15}
+        groundColor='black'
+      />
       <spotLight
         position={[-20, 50, 10]}
         angle={0.12}
@@ -52,8 +74,8 @@ const ComputersContent: React.FC<{ screenSize: string }> = ({ screenSize }) => {
       <pointLight intensity={0.8} />
       <primitive
         object={computer.scene}
-        scale={getScale()}
-        position={getPosition()}
+        scale={cfg.scale}
+        position={cfg.position}
         rotation={[-0.01, -0.2, -0.1]}
       />
     </mesh>
@@ -63,21 +85,25 @@ const ComputersContent: React.FC<{ screenSize: string }> = ({ screenSize }) => {
 const ComputersCanvas = () => {
   const [shouldLoad, setShouldLoad] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [screenSize, setScreenSize] = useState('desktop');
+  const [screenSize, setScreenSize] = useState<ScreenSize>(() =>
+    typeof window !== 'undefined' ? getScreenSize(window.innerWidth) : 'desktop'
+  );
 
-  // Detectar tamanho da tela
+  // Detectar tamanho da tela com debounce
   useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
     const handleResize = () => {
-      if (window.innerWidth < 280) setScreenSize('watch');
-      else if (window.innerWidth < 640) setScreenSize('mobile');
-      else if (window.innerWidth < 1024) setScreenSize('tablet');
-      else if (window.innerWidth > 2560) setScreenSize('cinema');
-      else setScreenSize('desktop');
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        setScreenSize(getScreenSize(window.innerWidth));
+      }, 150);
     };
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   // Carregamento lazy com IntersectionObserver
@@ -91,7 +117,10 @@ const ComputersCanvas = () => {
           }
         });
       },
-      { threshold: 0.1, rootMargin: '200px' }
+      {
+        threshold: 0.05,
+        rootMargin: screenSize === 'watch' || screenSize === 'mobileSmall' ? '50px' : '200px'
+      }
     );
 
     if (containerRef.current) {
@@ -99,7 +128,15 @@ const ComputersCanvas = () => {
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [screenSize]);
+
+  const cfg = SCREEN_CONFIG[screenSize];
+
+  // DPR adaptativo: menor em mobile para economizar bateria e memória
+  const dpr = Math.min(
+    typeof window !== 'undefined' ? window.devicePixelRatio : 1,
+    cfg.dprMax
+  );
 
   return (
     <div
@@ -112,21 +149,23 @@ const ComputersCanvas = () => {
         shadows={false}
         camera={{
           position: [20, 3, 5],
-          fov:
-            screenSize === 'desktop' || screenSize === 'cinema'
-              ? 25
-              : screenSize === 'watch'
-                ? 55
-                : 45,
+          fov: cfg.fov,
         }}
         gl={{
           preserveDrawingBuffer: false,
-          antialias: false,
-          powerPreference: 'high-performance',
+          antialias: screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k',
+          powerPreference: screenSize === 'watch' || screenSize === 'mobileSmall' ? 'low-power' : 'high-performance',
           stencil: false,
           depth: true,
+          // Reduzir qualidade em mobile para melhorar performance
+          precision: screenSize === 'watch' || screenSize === 'mobileSmall' ? 'lowp' : 'mediump',
         }}
-        dpr={Math.min(window.devicePixelRatio, 2)}
+        dpr={dpr}
+        performance={{
+          min: 0.5,
+          max: 1,
+          debounce: 200,
+        }}
       >
         <AdaptiveDpr pixelated />
         <AdaptiveEvents />
@@ -136,6 +175,10 @@ const ComputersCanvas = () => {
             enableZoom={false}
             maxPolarAngle={Math.PI / 2}
             minPolarAngle={Math.PI / 4}
+            // Rotação mais suave em touch
+            rotateSpeed={screenSize === 'watch' ? 0.5 : 1}
+            enableDamping={true}
+            dampingFactor={0.05}
           />
           {shouldLoad && <ComputersContent screenSize={screenSize} />}
         </Suspense>

@@ -108,9 +108,9 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
         role='presentation'
       >
         {/* Header da Modal */}
-        <div className='sticky top-0 z-20 flex items-center justify-between p-6 border-b border-white/10 bg-black/80 backdrop-blur-md'>
+        <div className='sticky top-0 z-20 flex items-center justify-between p-4 sm:p-6 border-b border-white/10 bg-black/80 backdrop-blur-md'>
           <div className='flex items-center gap-4'>
-            <h2 id={modalTitleId} className='text-2xl font-bold text-white'>
+            <h2 id={modalTitleId} className='text-lg sm:text-2xl font-bold text-white'>
               {t('courses.allTitle')}
             </h2>
           </div>
@@ -129,7 +129,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
         {/* Conteúdo Principal */}
         <div
           ref={modalRef}
-          className='flex-1 overflow-y-auto p-6'
+          className='flex-1 overflow-y-auto p-4 sm:p-6'
           role='dialog'
           aria-modal='true'
           aria-labelledby={modalTitleId}
@@ -137,14 +137,14 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
         >
           <div className='max-w-7xl mx-auto'>
             {/* Barra de Filtros e Organização */}
-            <div className='mb-8 flex flex-col md:flex-row gap-4 items-center justify-between'>
-              <div className='relative w-full md:w-96'>
+            <div className='mb-5 sm:mb-8 flex flex-col gap-3 sm:gap-4 items-center justify-between sm:flex-row'>
+              <div className='relative w-full sm:w-96'>
                 <input
                   type='text'
                   placeholder={t('courses.filterPlaceholder')}
                   value={filter}
                   onChange={(e) => setFilter(e.target.value)}
-                  className='w-full px-6 py-3 pl-12 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:border-[var(--cyber-cyan)] transition-colors'
+                  className='w-full px-4 sm:px-6 py-3 pl-10 sm:pl-12 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:border-[var(--cyber-cyan)] transition-colors min-h-[44px]'
                   aria-label={t('courses.filterPlaceholder')}
                 />
                 <span className='absolute left-4 top-1/2 -translate-y-1/2 text-white/50'>
@@ -152,7 +152,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                 </span>
               </div>
 
-              <div className='flex items-center gap-4 w-full md:w-auto'>
+              <div className='flex items-center gap-3 w-full sm:w-auto'>
                 <span className='text-white/60 text-sm whitespace-nowrap'>
                   {t('courses.sortBy')}:
                 </span>
@@ -161,7 +161,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                   onChange={(e) =>
                     setSortBy(e.target.value as 'year' | 'duration' | 'company')
                   }
-                  className='px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[var(--cyber-cyan)] transition-colors'
+                  className='flex-1 sm:flex-none px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[var(--cyber-cyan)] transition-colors min-h-[44px]'
                   aria-label={t('courses.sortBy')}
                 >
                   <option value='year'>{t('courses.sortYear')}</option>
@@ -172,7 +172,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
             </div>
 
             {/* Grid de Cursos */}
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8'>
               {sortedCursos.map((curso, index) => (
                 <motion.div
                   key={curso.id}

@@ -1,4 +1,5 @@
 import { domAnimation, LazyMotion, m } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useBackgroundMenu } from '../../contexts/ParticleConfigContext';
@@ -10,12 +11,26 @@ const Hero = () => {
   const { t } = useTranslation();
   const prefersReduced = useReducedMotion();
   const { openBgMenu } = useBackgroundMenu();
+  const [screenWidth, setScreenWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 1024
+  );
+
+  useEffect(() => {
+    const handleResize = () => setScreenWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleBackgroundClick = () => {
     openBgMenu();
   };
 
-  // Subtítulos para animação de terminal
+  const isWatch = screenWidth < 280;
+  const isMobileSmall = screenWidth < 380;
+  const isMobile = screenWidth < 640;
+  const isTablet = screenWidth < 1024;
+  const isTV = screenWidth > 2560;
+
   const subtitles = [
     t('hero.subtitle.0'),
     t('hero.subtitle.1'),
@@ -24,6 +39,10 @@ const Hero = () => {
     t('hero.subtitle.4'),
     t('hero.subtitle.5'),
   ];
+
+  // Tamanho da engrenagem responsivo
+  const gearSize = isWatch ? 'w-7 h-7' : isMobileSmall ? 'w-8 h-8' : isMobile ? 'w-10 h-10' : isTV ? 'w-20 h-20' : 'w-14 h-14';
+  const gearLeft = isWatch ? 'left-1' : isMobileSmall ? 'left-1.5' : isMobile ? 'left-2' : isTablet ? 'left-4' : isTV ? 'left-16' : 'left-4 md:left-8';
 
   return (
     <LazyMotion features={domAnimation} strict={false}>
@@ -41,12 +60,16 @@ const Hero = () => {
         </Helmet>
 
         {/* Texto de introdução - acima do 3D, abaixo do menu */}
-        <div className='relative z-10 w-full flex flex-col items-center justify-start pt-28 md:pt-36 pb-8'>
+        <div
+          className={`relative z-10 w-full flex flex-col items-center justify-start
+            ${isWatch ? 'pt-16 pb-4' : isMobileSmall ? 'pt-20 pb-6' : isMobile ? 'pt-24 pb-6' : isTV ? 'pt-48 pb-12' : 'pt-28 md:pt-36 pb-8'}`}
+        >
           <m.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className='text-2xl md:text-4xl lg:text-5xl font-bold text-white tracking-wide uppercase mb-4'
+            className={`font-bold text-white tracking-wide uppercase mb-3 text-center px-4
+              ${isWatch ? 'text-sm' : isMobileSmall ? 'text-base' : isMobile ? 'text-xl' : isTV ? 'text-8xl' : 'text-2xl md:text-4xl lg:text-5xl'}`}
             style={{
               filter: 'drop-shadow(0 0 10px rgba(145,94,255,0.6))',
               textShadow: '0 0 10px rgba(145,94,255,0.6)',
@@ -58,7 +81,8 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className='text-sm md:text-base text-white/70 lowercase italic'
+            className={`text-white/70 lowercase italic text-center px-4
+              ${isWatch ? 'text-[10px]' : isMobileSmall ? 'text-xs' : isMobile ? 'text-sm' : isTV ? 'text-3xl' : 'text-sm md:text-base'}`}
             style={{
               filter: 'drop-shadow(0 0 5px rgba(0,255,255,0.4))',
             }}
@@ -73,7 +97,7 @@ const Hero = () => {
                 '#00FFFF',
                 '#915EFF',
               ]}
-              typingSpeed={80}
+              typingSpeed={isWatch ? 120 : 80}
               pauseTime={2000}
               loop={true}
               className='terminal-text'
@@ -89,7 +113,7 @@ const Hero = () => {
         {/* Engrenagem flutuante esquerda - Background selector (FIXA) */}
         <m.button
           onClick={handleBackgroundClick}
-          className='fixed left-4 md:left-8 top-1/2 -translate-y-1/2 z-[100001] cursor-pointer gear-rgb-container'
+          className={`fixed ${gearLeft} top-1/2 -translate-y-1/2 z-[100001] cursor-pointer gear-rgb-container`}
           aria-label={t('hero.backgroundSelectorHint')}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -98,7 +122,7 @@ const Hero = () => {
         >
           {/* Container com animação de respiração e brilho RGB */}
           <m.div
-            className='relative w-14 h-14 flex items-center justify-center'
+            className={`relative ${gearSize} flex items-center justify-center`}
             animate={{
               scale: [1, 1.1, 1],
             }}
@@ -160,111 +184,110 @@ const Hero = () => {
           </m.div>
         </m.button>
 
-        {/* Scroll / Interact Icon - Enhanced */}
-        <div className='absolute bottom-10 w-full flex justify-center items-center z-20 pointer-events-none'>
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 2 }}
-            className='flex flex-col items-center'
-          >
-            {/* Glow ring behind the scroll indicator */}
-            <div className='relative mb-3'>
-              <m.div
-                className='absolute inset-0 w-12 h-20 rounded-3xl border-2 border-[var(--cyber-cyan)]/30 blur-sm'
-                animate={{
-                  opacity: [0.3, 0.6, 0.3],
-                  scale: [0.95, 1.05, 0.95],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              />
-              <div className='relative w-[30px] h-[50px] rounded-3xl border-2 border-[var(--cyber-cyan)]/60 flex justify-center p-2 backdrop-blur-sm bg-black/20'>
+        {/* Scroll / Interact Icon - Responsivo */}
+        {!isWatch && (
+          <div className='absolute bottom-6 sm:bottom-10 w-full flex justify-center items-center z-20 pointer-events-none'>
+            <m.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 2 }}
+              className='flex flex-col items-center'
+            >
+              {/* Glow ring behind the scroll indicator */}
+              <div className='relative mb-3'>
                 <m.div
-                  animate={
-                    prefersReduced
-                      ? {}
-                      : {
-                        y: [0, 16, 0],
-                      }
-                  }
-                  transition={
-                    prefersReduced
-                      ? { duration: 0 }
-                      : {
-                        duration: 1.5,
-                        repeat: Infinity,
-                        repeatType: 'loop',
-                        ease: 'easeInOut',
-                      }
-                  }
-                  className='w-2.5 h-2.5 rounded-full bg-gradient-to-br from-[var(--cyber-cyan)] to-[var(--cyber-purple)] mb-1 shadow-[0_0_12px_rgba(0,255,255,0.9),0_0_20px_rgba(145,94,255,0.6)]'
+                  className={`absolute inset-0 rounded-3xl border-2 border-[var(--cyber-cyan)]/30 blur-sm ${isMobile ? 'w-8 h-14' : 'w-12 h-20'}`}
+                  animate={{
+                    opacity: [0.3, 0.6, 0.3],
+                    scale: [0.95, 1.05, 0.95],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
                 />
+                <div className={`relative rounded-3xl border-2 border-[var(--cyber-cyan)]/60 flex justify-center p-2 backdrop-blur-sm bg-black/20 ${isMobile ? 'w-[24px] h-[40px]' : 'w-[30px] h-[50px]'}`}>
+                  <m.div
+                    animate={
+                      prefersReduced
+                        ? {}
+                        : {
+                          y: [0, isMobile ? 10 : 16, 0],
+                        }
+                    }
+                    transition={
+                      prefersReduced
+                        ? { duration: 0 }
+                        : {
+                          duration: 1.5,
+                          repeat: Infinity,
+                          repeatType: 'loop',
+                          ease: 'easeInOut',
+                        }
+                    }
+                    className={`rounded-full bg-gradient-to-br from-[var(--cyber-cyan)] to-[var(--cyber-purple)] mb-1 shadow-[0_0_12px_rgba(0,255,255,0.9),0_0_20px_rgba(145,94,255,0.6)] ${isMobile ? 'w-2 h-2' : 'w-2.5 h-2.5'}`}
+                  />
+                </div>
               </div>
-            </div>
 
-            {/* Text with enhanced effects for better readability */}
-            <div className='flex flex-col items-center gap-1'>
-              <m.span
-                className='text-xs font-black tracking-[0.3em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] via-white to-[var(--cyber-purple)] bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(0,255,255,0.7)]'
-                style={{
-                  filter:
-                    'drop-shadow(0 0 10px rgba(0,255,255,0.8)) drop-shadow(0 0 20px rgba(145,94,255,0.5))',
-                }}
-                animate={{
-                  opacity: [0.7, 1, 0.7],
-                  filter: [
-                    'drop-shadow(0 0 10px rgba(0,255,255,0.8)) drop-shadow(0 0 20px rgba(145,94,255,0.5))',
-                    'drop-shadow(0 0 15px rgba(0,255,255,1)) drop-shadow(0 0 30px rgba(145,94,255,0.7))',
-                    'drop-shadow(0 0 10px rgba(0,255,255,0.8)) drop-shadow(0 0 20px rgba(145,94,255,0.5))',
-                  ],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              >
-                {t('hero.dragToRotate')}
-              </m.span>
-              <m.span
-                className='text-[10px] font-bold tracking-[0.2em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] to-[var(--cyber-purple)] bg-clip-text text-transparent'
-                animate={{
-                  opacity: [0.5, 1, 0.5],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              >
-                {t('hero.dragToRotateSubtitle')}
-              </m.span>
-            </div>
+              {/* Text with enhanced effects */}
+              <div className='flex flex-col items-center gap-1'>
+                <m.span
+                  className={`font-black tracking-[0.3em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] via-white to-[var(--cyber-purple)] bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(0,255,255,0.7)] ${isMobile ? 'text-[9px]' : isTV ? 'text-base' : 'text-xs'}`}
+                  style={{
+                    filter:
+                      'drop-shadow(0 0 10px rgba(0,255,255,0.8)) drop-shadow(0 0 20px rgba(145,94,255,0.5))',
+                  }}
+                  animate={{
+                    opacity: [0.7, 1, 0.7],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                >
+                  {t('hero.dragToRotate')}
+                </m.span>
+                <m.span
+                  className={`font-bold tracking-[0.2em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] to-[var(--cyber-purple)] bg-clip-text text-transparent ${isMobile ? 'text-[8px]' : isTV ? 'text-sm' : 'text-[10px]'}`}
+                  animate={{
+                    opacity: [0.5, 1, 0.5],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                >
+                  {t('hero.dragToRotateSubtitle')}
+                </m.span>
+              </div>
 
-            {/* Decorative lines */}
-            <div className='flex items-center gap-2 mt-2'>
-              <m.div
-                className='w-8 h-[1px] bg-gradient-to-r from-transparent to-[var(--cyber-cyan)]'
-                animate={{ width: [8, 16, 8] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-              />
-              <m.div
-                className='w-1 h-1 rounded-full bg-[var(--cyber-purple)]'
-                animate={{ opacity: [0.3, 1, 0.3] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              />
-              <m.div
-                className='w-8 h-[1px] bg-gradient-to-l from-transparent to-[var(--cyber-purple)]'
-                animate={{ width: [8, 16, 8] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-              />
-            </div>
-          </m.div>
-        </div>
+              {/* Decorative lines */}
+              {!isMobileSmall && (
+                <div className='flex items-center gap-2 mt-2'>
+                  <m.div
+                    className='h-[1px] bg-gradient-to-r from-transparent to-[var(--cyber-cyan)]'
+                    animate={{ width: [8, 16, 8] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                  />
+                  <m.div
+                    className='w-1 h-1 rounded-full bg-[var(--cyber-purple)]'
+                    animate={{ opacity: [0.3, 1, 0.3] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
+                  <m.div
+                    className='h-[1px] bg-gradient-to-l from-transparent to-[var(--cyber-purple)]'
+                    animate={{ width: [8, 16, 8] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                  />
+                </div>
+              )}
+            </m.div>
+          </div>
+        )}
       </m.section>
     </LazyMotion>
   );

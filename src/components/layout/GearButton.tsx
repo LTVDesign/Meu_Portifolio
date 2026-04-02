@@ -8,11 +8,22 @@ interface GearButtonProps {
 
 const GearButton = ({ onClick }: GearButtonProps) => {
   const [isMounted, setIsMounted] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 1024
+  );
   const { t } = useTranslation();
 
   useEffect(() => {
     setIsMounted(true);
+    const handleResize = () => setScreenWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const isWatch = screenWidth < 280;
+  const isMobileSmall = screenWidth < 380;
+  const isMobile = screenWidth < 640;
+  const isTV = screenWidth > 2560;
 
   return (
     <AnimatePresence>
@@ -32,7 +43,7 @@ const GearButton = ({ onClick }: GearButtonProps) => {
             x: { duration: 0.5 },
             y: { duration: 3, repeat: Infinity, ease: 'easeInOut' }
           }}
-          className='fixed left-4 sm:left-6 top-1/2 -translate-y-1/2 z-[10000]'
+          className={`fixed top-1/2 -translate-y-1/2 z-[10000] ${isWatch ? 'left-0.5' : isMobileSmall ? 'left-1' : isMobile ? 'left-2' : isTV ? 'left-12' : 'left-4 sm:left-6'}`}
         >
           <div className='relative group'>
             {/* ========== ANÉIS RGB GIRATÓRIOS EXTREMOS ========== */}

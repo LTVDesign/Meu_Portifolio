@@ -189,3 +189,105 @@ svg.gear-spin {
     background: #050816;
   }
 }
+
+/* ==========================================
+   RESPONSIVE CRITICAL - NAVBAR HEIGHT & MAIN PADDING
+   ========================================== */
+
+/* Smartwatch - Navbar muito compacta */
+@media (max-width: 279px) {
+  nav.critical-navbar {
+    height: 48px;
+  }
+
+  main {
+    padding-top: 48px;
+  }
+}
+
+/* Mobile pequeno */
+@media (min-width: 280px) and (max-width: 379px) {
+  nav.critical-navbar {
+    height: 56px;
+  }
+
+  main {
+    padding-top: 56px;
+  }
+}
+
+/* Mobile */
+@media (min-width: 380px) and (max-width: 639px) {
+  nav.critical-navbar {
+    height: 64px;
+  }
+
+  main {
+    padding-top: 64px;
+  }
+}
+
+/* Tablet */
+@media (min-width: 640px) and (max-width: 1023px) {
+  nav.critical-navbar {
+    height: 72px;
+  }
+
+  main {
+    padding-top: 72px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  nav.critical-navbar {
+    height: 80px;
+  }
+
+  main {
+    padding-top: 80px;
+  }
+}
+
+/* TV Grande */
+@media (min-width: 2560px) {
+  nav.critical-navbar {
+    height: 100px;
+  }
+
+  main {
+    padding-top: 100px;
+  }
+}
+
+/* Prevenir overflow horizontal em todos os dispositivos */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* Safe area para dispositivos com notch */
+@supports (padding: env(safe-area-inset-top)) {
+  nav.critical-navbar {
+    padding-top: env(safe-area-inset-top);
+    height: calc(80px + env(safe-area-inset-top));
+  }
+
+  @media (max-width: 279px) {
+    nav.critical-navbar {
+      height: calc(48px + env(safe-area-inset-top));
+    }
+  }
+
+  @media (min-width: 280px) and (max-width: 379px) {
+    nav.critical-navbar {
+      height: calc(56px + env(safe-area-inset-top));
+    }
+  }
+
+  @media (min-width: 380px) and (max-width: 639px) {
+    nav.critical-navbar {
+      height: calc(64px + env(safe-area-inset-top));
+    }
+  }
+}

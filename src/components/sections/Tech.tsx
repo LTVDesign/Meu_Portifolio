@@ -30,16 +30,16 @@ const Tech = () => {
   });
 
   return (
-    <div className='max-w-7xl mx-auto px-6'>
+    <div className='max-w-7xl mx-auto px-4 sm:px-6'>
       {/* Box de texto informativo com animação */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className='mb-16'
+        className='mb-8 sm:mb-16'
       >
-        <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
+        <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-6 sm:p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
           {/* Efeito de brilho animado no fundo */}
           <div className='absolute inset-0 opacity-30'>
             <motion.div
@@ -68,7 +68,7 @@ const Tech = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className='text-3xl md:text-4xl font-black text-white mb-6 tracking-tight'
+                className='text-xl sm:text-3xl md:text-4xl font-black text-white mb-4 sm:mb-6 tracking-tight'
               >
                 <span className='bg-gradient-to-r from-[var(--cyber-cyan)] via-white to-[var(--cyber-purple)] bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(0,255,255,0.5)]'>
                   {t('tech.experienceTitle')}
@@ -81,7 +81,7 @@ const Tech = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.5 }}
-                className='flex flex-wrap justify-center gap-3 mt-8'
+                className='flex flex-wrap justify-center gap-2 sm:gap-3 mt-5 sm:mt-8'
               >
                 {[
                   { text: t('tech.arsenal'), color: 'from-purple-500 to-pink-500' },
@@ -90,7 +90,7 @@ const Tech = () => {
                   <motion.span
                     key={idx}
                     whileHover={{ scale: 1.05, y: -2 }}
-                    className={`px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
+                    className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
                   >
                     {badge.text}
                   </motion.span>
@@ -106,7 +106,7 @@ const Tech = () => {
       </motion.div>
 
       {/* Grid de tecnologias com escadinhas */}
-      <div className='space-y-16'>
+      <div className='space-y-10 sm:space-y-16'>
         {Object.entries(technologiesByCategory).map(([category, techs]) => (
           <div key={category}>
             {/* Título da categoria */}
@@ -123,7 +123,7 @@ const Tech = () => {
             </motion.div>
 
             {/* Grid otimizado para 13 itens por linha no desktop */}
-            <div className='grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-13 gap-x-2 gap-y-10 justify-items-center'>
+            <div className='grid grid-cols-4 xs:grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-13 gap-x-1 sm:gap-x-2 gap-y-8 sm:gap-y-10 justify-items-center'>
               {techs.map((tech: Technology, index: number) => (
                 <motion.div
                   key={tech.name}
@@ -131,7 +131,7 @@ const Tech = () => {
                     prefersReduced ? {} : fadeIn('up', 'spring', index * 0.05, 0.75)
                   }
                   onClick={() => handleTechClick(tech.name)}
-                  className='flex flex-col items-center justify-center group relative h-24 w-16 cursor-pointer transform transition-all duration-300 hover:scale-110 hover:z-20'
+                  className='flex flex-col items-center justify-center group relative h-20 w-12 sm:h-24 sm:w-16 cursor-pointer transform transition-all duration-300 hover:scale-110 hover:z-20'
                   whileHover={{ y: -5 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -139,7 +139,7 @@ const Tech = () => {
                   <div className='relative'>
                     {/* Efeito de glow animado */}
                     <motion.div
-                      className='absolute inset-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/30 to-[var(--cyber-purple)]/30 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300'
+                      className='absolute inset-0 w-10 h-10 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/30 to-[var(--cyber-purple)]/30 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300'
                       animate={{
                         scale: [1, 1.1, 1],
                         opacity: [0, 0.8, 0],
@@ -151,11 +151,11 @@ const Tech = () => {
                       }}
                     />
 
-                    <div className='relative w-14 h-14 p-3 flex items-center justify-center rounded-2xl transition-all duration-300 border border-white/10 group-hover:border-[var(--cyber-cyan)]/60 group-hover:shadow-[0_0_25px_rgba(0,255,255,0.6)] bg-white/10 backdrop-blur-sm shadow-lg'>
+                    <div className='relative w-10 h-10 sm:w-14 sm:h-14 p-2 sm:p-3 flex items-center justify-center rounded-2xl transition-all duration-300 border border-white/10 group-hover:border-[var(--cyber-cyan)]/60 group-hover:shadow-[0_0_25px_rgba(0,255,255,0.6)] bg-white/10 backdrop-blur-sm shadow-lg'>
                       <img
                         src={tech.icon}
                         alt={tech.name}
-                        className='w-8 h-8 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500'
+                        className='w-6 h-6 sm:w-8 sm:h-8 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500'
                       />
                     </div>
                   </div>
@@ -181,7 +181,7 @@ const Tech = () => {
       </div>
 
       {/* Informação adicional */}
-      <div className='mt-16 text-center'>
+      <div className='mt-10 sm:mt-16 text-center'>
         <p className='text-[var(--text-secondary)] text-sm'>
           {t('tech.clickInfo')}
         </p>

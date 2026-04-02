@@ -223,9 +223,9 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className='mb-16'
+        className='mb-8 sm:mb-16'
       >
-        <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
+        <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-6 sm:p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
           {/* Efeito de brilho animado no fundo */}
           <div className='absolute inset-0 opacity-30'>
             <motion.div
@@ -261,7 +261,7 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className='text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-6 text-[17px] leading-[30px] text-center'
+              className='text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-4 sm:mt-6 text-[14px] sm:text-[17px] leading-[26px] sm:leading-[30px] text-center'
             >
               {config.sections.certificados.content}
             </motion.p>
@@ -272,7 +272,7 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.7 }}
-              className='flex flex-wrap justify-center gap-3 mt-8'
+              className='flex flex-wrap justify-center gap-2 sm:gap-3 mt-5 sm:mt-8'
             >
               {[
                 { text: t('certificates.badges.0.text'), color: 'from-blue-500 to-cyan-500' },
@@ -283,7 +283,7 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
                 <motion.span
                   key={idx}
                   whileHover={{ scale: 1.05, y: -2 }}
-                  className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
                 >
                   {badge.text}
                 </motion.span>
@@ -297,12 +297,12 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
         </div>
       </motion.div>
 
-      <div className='mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-items-center'>
+      <div className='mt-10 sm:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8 md:gap-10 justify-items-center'>
         {certificadosFiles.slice(0, 6).map((certificado, index) => (
           <motion.div
             key={`certificado-${index}`}
             variants={fadeIn('up', 'spring', index * 0.5, 0.75)}
-            className='bg-tertiary w-full rounded-2xl p-8 hover:scale-105 transition-transform shadow-card'
+            className='bg-tertiary w-full rounded-2xl p-5 sm:p-8 hover:scale-[1.02] sm:hover:scale-105 transition-transform shadow-card'
           >
             <div className='mt-5'>
               <h3 className='text-[16px] font-bold text-white sm:text-[18px] text-center'>
@@ -323,7 +323,7 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
                   href={certificado.path}
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='glass-btn mt-4 text-[14px] px-6 py-2 text-center font-medium rounded-full'
+                  className='glass-btn mt-4 text-[13px] px-5 py-2 text-center font-medium rounded-full min-h-[44px] flex items-center justify-center'
                 >
                   {t('certificates.viewAll')}
                 </LinkAnimado>
@@ -338,7 +338,7 @@ const Certificados = ({ setViewMode }: { setViewMode?: (mode: string) => void })
           <button
             type='button'
             onClick={() => setViewMode?.('allcertificados')}
-            className='glass-btn px-6 py-3 rounded-lg font-bold tracking-wider'
+            className='glass-btn px-5 sm:px-6 py-3 rounded-lg font-bold tracking-wider min-h-[44px]'
           >
             {t('allCertificados.loadMore')}
           </button>

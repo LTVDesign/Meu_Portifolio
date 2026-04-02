@@ -10,17 +10,17 @@ const About = () => {
   const { t } = useTranslation();
 
   return (
-    <div className='max-w-7xl mx-auto px-6'>
-      <div className='flex flex-col lg:flex-row gap-8 items-start'>
-        {/* Box de texto informativo grande - ocupa espaço baseado no conteúdo */}
+    <div className='max-w-7xl mx-auto px-4 sm:px-6'>
+      <div className='flex flex-col lg:flex-row gap-6 sm:gap-8 items-start'>
+        {/* Box de texto informativo grande */}
         <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className='flex-1'
+          className='flex-1 w-full'
         >
-          <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
+          <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-6 sm:p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
             {/* Efeito de brilho animado no fundo */}
             <div className='absolute inset-0 opacity-30'>
               <m.div
@@ -50,12 +50,11 @@ const About = () => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.5 }}
-                className='relative w-full max-w-xl mx-auto my-8'
+                className='relative w-full max-w-xl mx-auto my-6 sm:my-8'
               >
                 <div className='h-[1px] bg-gradient-to-r from-transparent via-[var(--cyber-cyan)] to-transparent relative'>
-                  {/* Brilho esquerdo */}
                   <m.div
-                    className='absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[var(--cyber-cyan)] blur-sm'
+                    className='absolute top-1/2 -translate-y-1/2 w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-[var(--cyber-cyan)] blur-sm'
                     style={{ left: '50%' }}
                     animate={{
                       left: ['50%', '0%', '50%'],
@@ -68,9 +67,8 @@ const About = () => {
                       ease: 'easeInOut',
                     }}
                   />
-                  {/* Brilho direito */}
                   <m.div
-                    className='absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[var(--cyber-purple)] blur-sm'
+                    className='absolute top-1/2 -translate-y-1/2 w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-[var(--cyber-purple)] blur-sm'
                     style={{ right: '50%' }}
                     animate={{
                       right: ['50%', '0%', '50%'],
@@ -91,11 +89,11 @@ const About = () => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.7 }}
-                className='prose prose-invert max-w-none mt-6 leading-relaxed text-base'
+                className='prose prose-invert max-w-none mt-4 sm:mt-6 leading-relaxed text-sm sm:text-base'
                 style={{ color: 'var(--dynamic-text-secondary, #666666)' }}
               >
                 {(t('about.content') as string).split('\n').map((paragraph, i) => (
-                  <p key={i} className='mb-4'>
+                  <p key={i} className='mb-3 sm:mb-4'>
                     {paragraph}
                   </p>
                 ))}
@@ -108,22 +106,24 @@ const About = () => {
           </div>
         </m.div>
 
-        {/* Card da imagem separado - do lado fora */}
+        {/* Card da imagem - responsivo */}
         <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className='lg:w-96 flex-shrink-0'
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className='w-full lg:w-80 xl:w-96 flex-shrink-0 mx-auto lg:mx-0'
+          style={{ maxWidth: '320px' }}
         >
-          <div className='glass-card aspect-square rounded-3xl overflow-hidden border border-[var(--cyber-purple)]/30 group-hover:border-[var(--cyber-cyan)]/50 transition-all duration-500 shadow-2xl'>
+          <div className='glass-card aspect-square rounded-3xl overflow-hidden border border-[var(--cyber-purple)]/30 hover:border-[var(--cyber-cyan)]/50 transition-all duration-500 shadow-2xl'>
             <img
               src={eu}
               alt='Leandro Saturnino Barbosa'
               className='w-full h-full object-cover'
+              loading='lazy'
             />
             {/* Overlay com gradiente */}
-            <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
+            <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500' />
           </div>
         </m.div>
       </div>

@@ -135,11 +135,11 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
         </div>
       </motion.div>
 
-      <div className='mt-12 flex flex-wrap items-center justify-center gap-6'>
+      <div className='mt-8 sm:mt-12 flex flex-wrap items-center justify-center gap-4 sm:gap-6'>
         <motion.button
           variants={prefersReduced ? {} : fadeIn('right', 'spring', 0.3, 0.75)}
           onClick={() => setViewMode?.('allcurriculo')}
-          className='btn-primary flex items-center gap-3 px-8 py-4 rounded-xl font-bold tracking-wider group shadow-[0_0_20px_rgba(145,94,255,0.3)]'
+          className='btn-primary flex items-center gap-3 px-5 sm:px-8 py-3 sm:py-4 rounded-xl font-bold tracking-wider group shadow-[0_0_20px_rgba(145,94,255,0.3)] min-h-[44px] text-sm sm:text-base'
         >
           <FiExternalLink className='text-xl group-hover:scale-110 transition-transform' />
           {t('curriculo.viewOnline')}
@@ -149,7 +149,7 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
           variants={prefersReduced ? {} : fadeIn('left', 'spring', 0.4, 0.75)}
           href='/assets/curriculo.pdf'
           download
-          className='glass-card flex items-center gap-3 px-8 py-4 rounded-xl font-bold tracking-wider group border border-white/10 hover:border-[var(--cyber-cyan)]/50 transition-all shadow-lg'
+          className='glass-card flex items-center gap-3 px-5 sm:px-8 py-3 sm:py-4 rounded-xl font-bold tracking-wider group border border-white/10 hover:border-[var(--cyber-cyan)]/50 transition-all shadow-lg min-h-[44px] text-sm sm:text-base'
         >
           <FiDownload className='text-xl text-[var(--cyber-cyan)] group-hover:animate-bounce transition-transform' />
           <span className='text-white group-hover:text-[var(--cyber-cyan)] transition-colors'>

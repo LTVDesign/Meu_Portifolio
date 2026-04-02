@@ -176,17 +176,17 @@ const Contact = () => {
   };
 
   return (
-    <div className='py-24'>
-      <div className='max-w-7xl mx-auto px-6'>
+    <div className='py-12 sm:py-16 md:py-24'>
+      <div className='max-w-7xl mx-auto px-4 sm:px-6'>
         {/* Box de texto informativo com animação */}
         <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className='mb-16'
+          className='mb-8 sm:mb-12 md:mb-16'
         >
-          <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
+          <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-6 sm:p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
             {/* Efeito de brilho animado no fundo */}
             <div className='absolute inset-0 opacity-30'>
               <m.div
@@ -265,7 +265,7 @@ const Contact = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.5 }}
-                className='flex flex-wrap justify-center gap-3 mt-8'
+                className='flex flex-wrap justify-center gap-2 sm:gap-3 mt-6 sm:mt-8'
               >
                 {[
                   { text: t('contactPage.secureEmail'), color: 'from-blue-500 to-cyan-500' },
@@ -276,7 +276,7 @@ const Contact = () => {
                   <m.span
                     key={idx}
                     whileHover={{ scale: 1.05, y: -2 }}
-                    className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
+                    className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
                   >
                     {badge.text}
                   </m.span>
@@ -290,14 +290,14 @@ const Contact = () => {
           </div>
         </m.div>
 
-        <div className='flex flex-col xl:flex-row gap-12 xl:gap-20 items-center'>
+        <div className='flex flex-col xl:flex-row gap-8 sm:gap-12 xl:gap-20 items-center'>
           {/* Formulário */}
           <m.div
             variants={prefersReduced ? {} : slideIn('left', 'tween', 0.2, 1)}
             className='flex-1 w-full'
           >
-            <div className='glass p-8 sm:p-10 md:p-12'>
-              <form ref={formRef} onSubmit={handleSubmit} className='mt-10 space-y-8'>
+            <div className='glass p-5 sm:p-8 md:p-10 lg:p-12'>
+              <form ref={formRef} onSubmit={handleSubmit} className='mt-6 sm:mt-10 space-y-5 sm:space-y-8'>
                 {/* Honeypot: campo oculto para bots */}
                 <div className='hidden' aria-hidden='true'>
                   <label htmlFor='website'>Não preencha este campo</label>
@@ -312,7 +312,7 @@ const Contact = () => {
                   />
                 </div>
 
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6'>
                   <div>
                     <label htmlFor='name' className='form-label'>
                       <FaUser className='text-[var(--cyber-purple)]' />{' '}
@@ -357,7 +357,7 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6'>
                   <div>
                     <label htmlFor='phone' className='form-label'>
                       <FaPhone className='text-[var(--cyber-purple)]' />{' '}
@@ -458,7 +458,7 @@ const Contact = () => {
           {/* Canvas 3D */}
           <m.div
             variants={slideIn('right', 'tween', 0.2, 1)}
-            className='flex-1 w-full xl:w-1/2 h-[350px] sm:h-[450px] md:h-[550px] xl:h-[600px] flex items-center justify-center relative overflow-hidden'
+            className='flex-1 w-full xl:w-1/2 h-[280px] sm:h-[380px] md:h-[480px] xl:h-[600px] flex items-center justify-center relative overflow-hidden'
           >
             <div className='w-full h-full'>
               <EarthCanvas />

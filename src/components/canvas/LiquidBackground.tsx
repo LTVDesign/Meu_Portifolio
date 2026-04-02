@@ -49,7 +49,7 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
   const mountRef = useRef<HTMLDivElement>(null);
   const materialRef = useRef<ShaderMaterial | null>(null);
   const { config } = useParticleConfig();
-  const { isLowPerformance, level } = usePerformance();
+  const { isLowPerformance } = usePerformance();
   const mouseRef = useRef({ x: 0.5, y: 0.5 });
   const lastMouseMoveRef = useRef(0);
 

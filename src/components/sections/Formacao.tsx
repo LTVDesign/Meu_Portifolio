@@ -419,7 +419,7 @@ const Formacao = () => {
   }, [selectedFormation]);
 
   return (
-    <div className='max-w-7xl mx-auto px-6 relative'>
+    <div className='max-w-7xl mx-auto px-4 sm:px-6 relative'>
 
       <Header useMotion={true} p={t('formacao.p')} h2={t('formacao.h2')} />
 
@@ -465,13 +465,13 @@ const Formacao = () => {
         </div>
       </motion.div>
 
-      <div className='mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8'>
+      <div className='mt-8 sm:mt-16 grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-8'>
         {formacoes.map((item, index) => (
           <motion.div
             key={item.title}
             variants={prefersReduced ? {} : fadeIn('up', 'spring', index * 0.1, 0.75)}
             onClick={() => openModal(item)}
-            className='glass-card group relative overflow-hidden p-8 md:p-10 flex flex-col h-full neon-hover border border-white/10 cursor-pointer'
+            className='glass-card group relative overflow-hidden p-5 sm:p-8 md:p-10 flex flex-col h-full neon-hover border border-white/10 cursor-pointer'
           >
             <div
               className={`absolute top-4 right-4 px-5 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-full text-white shadow-[0_0_15px_rgba(145,94,255,0.5)] border border-white/30 z-20 backdrop-blur-sm ${item.status === t('status.concluido')
@@ -482,12 +482,12 @@ const Formacao = () => {
               {item.status}
             </div>
 
-            <div className='flex flex-col md:flex-row items-start gap-8 pt-6'>
-              <div className='w-28 h-28 flex-shrink-0 rounded-2xl overflow-hidden border border-white/10 bg-black/50 p-4 flex items-center justify-center shadow-inner relative z-10'>
+            <div className='flex flex-col sm:flex-row items-start gap-4 sm:gap-8 pt-4 sm:pt-6'>
+              <div className='w-20 h-20 sm:w-28 sm:h-28 flex-shrink-0 rounded-2xl overflow-hidden border border-white/10 bg-black/50 p-3 sm:p-4 flex items-center justify-center shadow-inner relative z-10'>
                 <img
                   src={item.logo}
                   alt={item.institution}
-                  className='w-20 h-20 object-contain transition-transform duration-500 ease-out group-hover:scale-110'
+                  className='w-14 h-14 sm:w-20 sm:h-20 object-contain transition-transform duration-500 ease-out group-hover:scale-110'
                 />
               </div>
 
@@ -509,7 +509,7 @@ const Formacao = () => {
               </div>
             </div>
 
-            <div className='mt-auto pt-10 flex justify-center'>
+            <div className='mt-auto pt-6 sm:pt-10 flex justify-center'>
               <motion.button
                 whileHover={{
                   scale: 1.05,
@@ -517,7 +517,7 @@ const Formacao = () => {
                   boxShadow: '0 10px 40px rgba(0, 255, 255, 0.3)',
                 }}
                 whileTap={{ scale: 0.95 }}
-                className='relative px-8 py-4 text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden'
+                className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px]'
               >
                 <motion.div
                   className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'
