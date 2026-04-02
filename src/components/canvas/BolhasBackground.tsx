@@ -104,7 +104,7 @@ const BolhasBackground = () => {
       style={finalStyle}
     >
       <Canvas
-        frameloop='demand'
+        frameloop='always'
         camera={{ position: [0, 0, 15], fov: 60 }}
         gl={{ antialias: false, alpha: true }}
         dpr={[1, 1.5]}
@@ -126,7 +126,7 @@ const BolhasBackground = () => {
             config.bolhasColor2 || '#00D4FF',
             config.bolhasColor3 || '#FF6B9D',
           ]}
-          mousePosition={mouseRef.current}
+          mousePosition={mouseRef}
         />
       </Canvas>
     </div>

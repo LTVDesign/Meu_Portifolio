@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import compression from 'vite-plugin-compression';
+import path from 'path';
 
 export default defineConfig({
   base: '/',
@@ -67,6 +68,10 @@ export default defineConfig({
   ],
 
   resolve: {
+    alias: {
+      'react': path.resolve(process.cwd(), 'node_modules/react'),
+      'react-dom': path.resolve(process.cwd(), 'node_modules/react-dom'),
+    },
     dedupe: [
       'react',
       'react-dom',
@@ -148,7 +153,6 @@ export default defineConfig({
       'react-dom',
       'react-router-dom',
       'framer-motion',
-      'framer-motion/m',
       'three',
       '@react-three/fiber',
       '@react-three/drei',

@@ -4,13 +4,19 @@ import * as THREE from 'three';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 import { usePerformance } from '../../contexts/PerformanceContext';
 
+interface MousePos {
+    x: number;
+    y: number;
+    z: number;
+}
+
 interface ComputeInstancedLODParticlesProps {
     count?: number;
     colors?: string[];
     speed?: number;
     size?: number;
     spread?: number;
-    mousePosition?: { x: number; y: number; z: number };
+    mousePosition?: React.MutableRefObject<MousePos>;
 }
 
 const ComputeInstancedLODParticles = ({
@@ -27,12 +33,10 @@ const ComputeInstancedLODParticles = ({
     const { config } = useParticleConfig();
 
     const interactionMode = config.interactionMode || 'none';
-    const internalMousePosition = useRef({ x: 0, y: 0, z: 0 });
+    const internalMousePosition = useRef<MousePos>({ x: 0, y: 0, z: 0 });
 
     // Usa a posição externa se fornecida, senão usa a interna
-    const mousePositionRef = externalMousePosition
-        ? { current: externalMousePosition }
-        : internalMousePosition;
+    const mousePositionRef = externalMousePosition || internalMousePosition;
 
     // Ajusta quantidade de partículas baseado na performance com limites mais agressivos
     const actualCount = useMemo(() => {

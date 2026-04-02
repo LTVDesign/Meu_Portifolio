@@ -1,5 +1,6 @@
 import type React from 'react';
 import { useEffect, useRef } from 'react';
+import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 
 // Palette presets (from CodePen reference)
 const PALETTE_PRESETS: Record<string, string[]> = {
@@ -49,8 +50,21 @@ const ParticulateShatterBackground: React.FC<ParticulateShatterBackgroundProps> 
   wanderStrength,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { config } = useParticleConfig();
+
+  // Usa interactionMode global se disponível, senão usa o mode da prop
+  // Mapeia interactionMode para o modo do particulate: 'attract' -> 'magnet', 'blow' -> 'blow'
+  const getEffectiveMode = () => {
+    const interactionMode = config.interactionMode || 'none';
+    if (interactionMode === 'none') return mode; // Usa o modo da prop se não houver interação global
+    if (interactionMode === 'attract') return 'magnet';
+    if (interactionMode === 'blow') return 'blow';
+    if (interactionMode === 'freeze') return 'freeze';
+    return mode;
+  };
+
   // Store mutable refs for values used inside animation loop
-  const modeRef = useRef(mode);
+  const modeRef = useRef(getEffectiveMode());
   const speedRef = useRef(speed);
   const frictionRef = useRef(friction);
   const springRef = useRef(spring);
@@ -59,8 +73,8 @@ const ParticulateShatterBackground: React.FC<ParticulateShatterBackgroundProps> 
 
   // Update refs when props change (no re-render needed for animation loop values)
   useEffect(() => {
-    modeRef.current = mode;
-  }, [mode]);
+    modeRef.current = getEffectiveMode();
+  }, [mode, config.interactionMode]);
   useEffect(() => {
     speedRef.current = speed;
   }, [speed]);
@@ -106,10 +120,10 @@ const ParticulateShatterBackground: React.FC<ParticulateShatterBackgroundProps> 
       const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
       return result
         ? {
-            r: parseInt(result[1], 16),
-            g: parseInt(result[2], 16),
-            b: parseInt(result[3], 16),
-          }
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16),
+        }
         : { r: 255, g: 255, b: 255 };
     };
 

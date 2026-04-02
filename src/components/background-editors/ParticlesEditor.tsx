@@ -27,11 +27,10 @@ const ParticlesEditor: React.FC<ParticlesEditorProps> = ({ config, updateConfig 
               key={value}
               type='button'
               onClick={() => updateConfig({ interactionMode: value })}
-              className={`px-3 py-2 text-[10px] font-bold uppercase tracking-wider rounded transition-all ${
-                (config.interactionMode || 'none') === value
+              className={`px-3 py-2 text-[10px] font-bold uppercase tracking-wider rounded transition-all ${(config.interactionMode || 'none') === value
                   ? 'bg-cyan-600/80 text-white shadow-lg shadow-cyan-500/30 border border-cyan-400/50'
                   : 'bg-white/5 text-gray-300 border border-white/10 hover:bg-white/10 hover:border-cyan-500/40'
-              }`}
+                }`}
             >
               {label}
             </button>
@@ -58,6 +57,16 @@ const ParticlesEditor: React.FC<ParticlesEditorProps> = ({ config, updateConfig 
         onChange={(v) => updateConfig({ speed: v as number })}
       />
       <SliderControl
+        label='Tamanho'
+        value={config.particleSize}
+        min='0.5'
+        max='10'
+        step='0.5'
+        onChange={(v) => updateConfig({ particleSize: v as number })}
+      />
+    </div>
+    <div className='space-y-3'>
+      <SliderControl
         label='Intensidade (Alpha)'
         value={config.intensity}
         min='0.1'
@@ -73,16 +82,6 @@ const ParticlesEditor: React.FC<ParticlesEditorProps> = ({ config, updateConfig 
         step='10'
         onChange={(v) => updateConfig({ quantity: v as number })}
         decimals={0}
-      />
-    </div>
-    <div className='space-y-3'>
-      <SliderControl
-        label='Tamanho'
-        value={config.particleSize}
-        min='0.5'
-        max='10'
-        step='0.5'
-        onChange={(v) => updateConfig({ particleSize: v as number })}
       />
       <SliderControl
         label='Dist. Conexão'

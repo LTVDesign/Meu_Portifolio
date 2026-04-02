@@ -217,8 +217,16 @@ const ParticleBackground = ({
     if (now - lastMouseMoveRef.current < throttleTime) return;
     lastMouseMoveRef.current = now;
 
-    mouseRef.current.x = e.clientX;
-    mouseRef.current.y = e.clientY;
+    // Converte coordenadas de tela para coordenadas do canvas (considerando DPR)
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current.x = e.clientX - rect.left;
+      mouseRef.current.y = e.clientY - rect.top;
+    } else {
+      mouseRef.current.x = e.clientX;
+      mouseRef.current.y = e.clientY;
+    }
   };
 
   // Inicialização
