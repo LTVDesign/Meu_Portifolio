@@ -59,6 +59,11 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
+    // Ignorar requisições com esquemas não suportados (chrome-extension, etc)
+    if (!isSupportedScheme(url)) {
+        return;
+    }
+
     // Cache First para assets estáticos (JS, CSS, imagens, fontes)
     if (isStaticAsset(url)) {
         event.respondWith(cacheFirst(request));
@@ -78,6 +83,12 @@ self.addEventListener('fetch', (event) => {
 // Verifica se é um asset estático
 function isStaticAsset(url) {
     return url.pathname.match(/\.(js|css|png|jpg|jpeg|gif|webp|svg|woff2|woff|ttf|eot|ico)$/);
+}
+
+// Verifica se o esquema da URL é suportado pela Cache API
+function isSupportedScheme(url) {
+    const supportedSchemes = ['http:', 'https:'];
+    return supportedSchemes.includes(url.protocol);
 }
 
 // Estratégia: Cache First
