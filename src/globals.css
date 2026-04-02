@@ -22,6 +22,13 @@
   /* TV 4K */
 }
 
+/* Font Display - Prevenir FOUT (Flash of Unstyled Text) */
+@font-face {
+  font-family: 'Inter';
+  font-display: optional;
+  src: local('Inter'), local('Inter-Regular');
+}
+
 @layer base {
   :root {
     --cyber-purple: #915eff;
@@ -191,6 +198,23 @@
 }
 
 @layer components {
+
+  /* ===== CONTENT VISIBILITY - Otimização de renderização para seções fora do viewport ===== */
+  /* Reduz cálculos de layout e style para elementos não visíveis */
+  .section-wrapper,
+  section[id] {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 500px;
+    /* Altura estimada para evitar layout shift */
+  }
+
+  /* Seções que sempre precisam estar renderizadas */
+  .navbar,
+  .hero-section,
+  footer {
+    content-visibility: visible;
+    contain-intrinsic-size: auto;
+  }
 
   /* ===== DYNAMIC TEXT - Real-time color adaptation ===== */
   /* Cor atualizada em tempo real via useBackgroundColorSampler (~8fps)
@@ -753,9 +777,9 @@
   }
 
   .composited-hover {
-    transition: color 0.3s ease, 
-                background-color 0.3s ease, 
-                border-color 0.3s ease;
+    transition: color 0.3s ease,
+      background-color 0.3s ease,
+      border-color 0.3s ease;
     will-change: color, background-color, border-color, transform;
   }
 
@@ -880,14 +904,12 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(145, 94, 255, 0.06) 20%,
-      rgba(0, 255, 255, 0.08) 50%,
-      rgba(145, 94, 255, 0.06) 80%,
-      transparent 100%
-    );
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(145, 94, 255, 0.06) 20%,
+        rgba(0, 255, 255, 0.08) 50%,
+        rgba(145, 94, 255, 0.06) 80%,
+        transparent 100%);
     animation: shimmer 2s ease-in-out infinite;
     transform: translateZ(0);
   }
@@ -896,6 +918,7 @@
     0% {
       transform: translateX(-100%) translateZ(0);
     }
+
     100% {
       transform: translateX(100%) translateZ(0);
     }

@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { diploma, diplomaPdf, qrcode } from '../../assets';
 import anhanguera from '../../assets/anhanguera.svg';
-import facul from '../../assets/facul.png';
+import facul from '../../assets/facul.webp';
 import { SectionWrapper } from '../../hoc';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import type { Disciplina, FormacaoData } from '../../types';

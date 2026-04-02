@@ -5,7 +5,7 @@ import { PCFShadowMap, SRGBColorSpace } from 'three';
 import type { Mesh } from 'three';
 // Import textures as Vite assets to ensure correct paths in production build
 // Usando WebP otimizado para melhor performance
-import planetBaseColor from '/assets/3d-models/planet/textures/webp/Planet_baseColor.webp?url';
+import planetBaseColor from '/assets/3d-models/planet/textures/Planet_baseColor.png?url';
 import { useTouchScrollGuard } from '../../hooks/useTouchScrollGuard';
 import CanvasLoader from '../layout/Loader';
 

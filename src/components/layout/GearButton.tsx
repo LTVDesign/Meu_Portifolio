@@ -21,16 +21,6 @@ const GearButton = ({ onClick }: GearButtonProps) => {
   const isMobile = screenWidth < 640;
   const isTV = screenWidth > 2560;
 
-  // Cores das sombras RGB
-  const shadowColors = [
-    '#FF00FF', // Magenta
-    '#00D4FF', // Ciano
-    '#FFD700', // Dourado
-    '#00FF88', // Verde
-    '#FF6B35', // Laranja
-    '#0077FF', // Azul
-  ];
-
   return (
     <AnimatePresence>
       {isMounted && (
@@ -52,8 +42,8 @@ const GearButton = ({ onClick }: GearButtonProps) => {
           className={`fixed top-1/2 -translate-y-1/2 z-[10000] ${isWatch ? 'left-0.5' : isMobileSmall ? 'left-1' : isMobile ? 'left-2' : isTV ? 'left-12' : 'left-4 sm:left-6'}`}
         >
           <div className='relative' style={{ width: '140px', height: '140px' }}>
-            {/* ========== SOMBRAS RGB EXTERNAS GIRANDO ========== */}
-            {/* Sombra RGB externa 1 - Grande */}
+            {/* ========== SOMBRAS RGB EXTERNAS GIRANDO - OTIMIZADO ========== */}
+            {/* Sombras RGB combinadas em um único elemento com múltiplas camadas de blur */}
             <m.div
               className='absolute rounded-full pointer-events-none'
               style={{
@@ -71,25 +61,7 @@ const GearButton = ({ onClick }: GearButtonProps) => {
               transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
             />
 
-            {/* Sombra RGB externa 2 - Média */}
-            <m.div
-              className='absolute rounded-full pointer-events-none'
-              style={{
-                top: '50%',
-                left: '50%',
-                width: '150px',
-                height: '150px',
-                marginTop: '-75px',
-                marginLeft: '-75px',
-                background: 'conic-gradient(from 180deg, #00D4FF, #915EFF, #FF00FF, #FF6B35, #00D4FF)',
-                filter: 'blur(35px)',
-                opacity: 0.5,
-              }}
-              animate={{ rotate: -360 }}
-              transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
-            />
-
-            {/* Sombra RGB externa 3 - Interna */}
+            {/* Sombra RGB interna - mantida para profundidade */}
             <m.div
               className='absolute rounded-full pointer-events-none'
               style={{
@@ -107,8 +79,8 @@ const GearButton = ({ onClick }: GearButtonProps) => {
               transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
             />
 
-            {/* ========== LINHAS FINAS ORBITAIS ========== */}
-            {/* Linha orbital 1 - Externa */}
+            {/* ========== LINHAS FINAS ORBITAIS - REDUZIDAS ========== */}
+            {/* Apenas 2 linhas orbitais em vez de 4 */}
             <m.div
               className='absolute'
               style={{
@@ -118,31 +90,12 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                 bottom: '5px',
                 borderRadius: '50%',
                 border: '1px solid transparent',
-                background: `linear-gradient(#0a0a0a, #0a0a0a) padding-box, 
-                             linear-gradient(var(--angle), #FF00FF, #00D4FF, #FFD700, #FF00FF) border-box`,
+                background: `linear-gradient(#0a0a0a, #0a0a0a) padding-box, linear-gradient(var(--angle), #FF00FF, #00D4FF, #FFD700, #FF00FF) border-box`,
               }}
               animate={{ rotate: 360 }}
               transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
             />
 
-            {/* Linha orbital 2 */}
-            <m.div
-              className='absolute'
-              style={{
-                top: '15px',
-                left: '15px',
-                right: '15px',
-                bottom: '15px',
-                borderRadius: '50%',
-                border: '1px solid transparent',
-                background: `linear-gradient(#0a0a0a, #0a0a0a) padding-box, 
-                             linear-gradient(var(--angle), #00D4FF, #FFD700, #00FF88, #00D4FF) border-box`,
-              }}
-              animate={{ rotate: -360 }}
-              transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-            />
-
-            {/* Linha orbital 3 */}
             <m.div
               className='absolute'
               style={{
@@ -152,74 +105,14 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                 bottom: '25px',
                 borderRadius: '50%',
                 border: '1px solid transparent',
-                background: `linear-gradient(#0a0a0a, #0a0a0a) padding-box, 
-                             linear-gradient(var(--angle), #FFD700, #FF6B35, #FF00FF, #FFD700) border-box`,
+                background: `linear-gradient(#0a0a0a, #0a0a0a) padding-box, linear-gradient(var(--angle), #00FF88, #0077FF, #FF00FF, #00FF88) border-box`,
               }}
-              animate={{ rotate: 360 }}
+              animate={{ rotate: -360 }}
               transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
             />
 
-            {/* Linha orbital 4 - Interna */}
-            <m.div
-              className='absolute'
-              style={{
-                top: '35px',
-                left: '35px',
-                right: '35px',
-                bottom: '35px',
-                borderRadius: '50%',
-                border: '1px solid transparent',
-                background: `linear-gradient(#0a0a0a, #0a0a0a) padding-box, 
-                             linear-gradient(var(--angle), #00FF88, #0077FF, #FF00FF, #00FF88) border-box`,
-              }}
-              animate={{ rotate: -360 }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
-            />
-
-            {/* ========== SOMBRAS COLORIDAS MOVENTO-SE ========== */}
-            {shadowColors.map((color, i) => (
-              <m.div
-                key={`shadow-${i}`}
-                className='absolute rounded-full pointer-events-none'
-                style={{
-                  top: '50%',
-                  left: '50%',
-                  width: '80px',
-                  height: '80px',
-                  marginTop: '-40px',
-                  marginLeft: '-40px',
-                  background: `radial-gradient(circle, ${color}50 0%, transparent 70%)`,
-                  filter: 'blur(15px)',
-                }}
-                animate={{
-                  x: [
-                    0,
-                    Math.cos((i * Math.PI * 2) / 6) * 25,
-                    0,
-                    Math.cos((i * Math.PI * 2) / 6 + Math.PI) * 25,
-                    0,
-                  ],
-                  y: [
-                    0,
-                    Math.sin((i * Math.PI * 2) / 6) * 25,
-                    0,
-                    Math.sin((i * Math.PI * 2) / 6 + Math.PI) * 25,
-                    0,
-                  ],
-                  scale: [1, 1.3, 1, 1.2, 1],
-                  opacity: [0.4, 0.7, 0.4, 0.6, 0.4],
-                }}
-                transition={{
-                  duration: 4 + i * 0.5,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                  delay: i * 0.2,
-                }}
-              />
-            ))}
-
-            {/* ========== LINHAS DE LUZ FINAS ========== */}
-            {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle, i) => (
+            {/* ========== LINHAS DE LUZ FINAS - REDUZIDAS PARA 6 ========== */}
+            {[0, 60, 120, 180, 240, 300].map((angle, i) => (
               <m.div
                 key={`light-line-${i}`}
                 className='absolute'
@@ -245,8 +138,8 @@ const GearButton = ({ onClick }: GearButtonProps) => {
               />
             ))}
 
-            {/* ========== PONTOS BRILHANTES NAS LINHAS ========== */}
-            {[0, 60, 120, 180, 240, 300].map((angle, i) => (
+            {/* ========== PONTOS BRILHANTES NAS LINHAS - REDUZIDOS PARA 4 ========== */}
+            {[0, 90, 180, 270].map((angle, i) => (
               <m.div
                 key={`dot-${i}`}
                 className='absolute w-1.5 h-1.5 rounded-full'
@@ -255,8 +148,8 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                   left: '50%',
                   marginTop: '-3px',
                   marginLeft: '-3px',
-                  background: shadowColors[i],
-                  boxShadow: `0 0 8px ${shadowColors[i]}, 0 0 16px ${shadowColors[i]}50`,
+                  background: ['#FF00FF', '#00D4FF', '#FFD700', '#00FF88'][i],
+                  boxShadow: `0 0 8px ${['#FF00FF', '#00D4FF', '#FFD700', '#00FF88'][i]}, 0 0 16px ${['#FF00FF', '#00D4FF', '#FFD700', '#00FF88'][i]}50`,
                   transformOrigin: '55px 0px',
                   transform: `rotate(${angle}deg)`,
                 }}
@@ -271,33 +164,7 @@ const GearButton = ({ onClick }: GearButtonProps) => {
               />
             ))}
 
-            {/* ========== PONTOS EXTERNOS ORBITAIS ========== */}
-            {[30, 90, 150, 210, 270, 330].map((angle, i) => (
-              <m.div
-                key={`outer-dot-${i}`}
-                className='absolute w-1 h-1 rounded-full'
-                style={{
-                  top: '50%',
-                  left: '50%',
-                  marginTop: '-2px',
-                  marginLeft: '-2px',
-                  background: '#FFFFFF',
-                  boxShadow: `0 0 6px ${shadowColors[(i + 2) % 6]}`,
-                  transformOrigin: '65px 0px',
-                  transform: `rotate(${angle}deg)`,
-                }}
-                animate={{
-                  rotate: [angle, angle - 360],
-                  opacity: [0.5, 1, 0.5],
-                }}
-                transition={{
-                  rotate: { duration: 8 + i * 0.5, repeat: Infinity, ease: 'linear' },
-                  opacity: { duration: 1.5, repeat: Infinity, ease: 'easeInOut' },
-                }}
-              />
-            ))}
-
-            {/* ========== ANÉIS PULSANTES ========== */}
+            {/* ========== ANÉIS PULSANTES - REDUZIDOS PARA 2 ========== */}
             <m.div
               className='absolute rounded-full border border-[#FF00FF]/30'
               style={{
@@ -330,22 +197,6 @@ const GearButton = ({ onClick }: GearButtonProps) => {
               }}
               transition={{ duration: 2.5, repeat: Infinity, ease: 'easeOut', delay: 0.5 }}
             />
-            <m.div
-              className='absolute rounded-full border border-[#FFD700]/30'
-              style={{
-                top: '50%',
-                left: '50%',
-                width: '100px',
-                height: '100px',
-                marginTop: '-50px',
-                marginLeft: '-50px',
-              }}
-              animate={{
-                scale: [1, 2.2, 1],
-                opacity: [0.3, 0, 0.3],
-              }}
-              transition={{ duration: 3, repeat: Infinity, ease: 'easeOut', delay: 1 }}
-            />
 
             {/* ========== BOTÃO PRINCIPAL ========== */}
             <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
@@ -364,11 +215,7 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                 <m.button
                   onClick={onClick}
                   aria-label={t('backgroundMenu.openSettings')}
-                  className='relative w-16 h-16 rounded-full flex items-center justify-center
-                             bg-[#0a0a0a]/95 backdrop-blur-xl
-                             border border-white/10
-                             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50
-                             transition-all duration-300 cursor-pointer'
+                  className='relative w-16 h-16 rounded-full flex items-center justify-center bg-[#0a0a0a]/95 backdrop-blur-xl border border-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 transition-all duration-300 cursor-pointer'
                   style={{
                     boxShadow: 'inset 0 0 15px rgba(255, 255, 255, 0.05)',
                   }}

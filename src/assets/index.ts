@@ -13,7 +13,7 @@ import qrcode from './formacao/qrcode.png';
 import getnexo from './images/projects/getnexo.webp';
 import github from './github.webp';
 import jobit from './images/projects/jobit.webp';
-import logo from './images/logos/logo.svg';
+import logo from './images/logos/logo.webp';
 import menu from './menu.svg';
 import mobile from './images/projects/mobile.webp';
 import android from './tech/android.webp';

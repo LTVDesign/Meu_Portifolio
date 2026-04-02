@@ -92,33 +92,26 @@ export default defineConfig({
     assetsInlineLimit: 4096,
     rollupOptions: {
       output: {
-        // Função manualChunks otimizada para reduzir cadeia crítica
+        // Função manualChunks otimizada para eliminar dependência circular
+        // Estratégia: simplificar para evitar qualquer referência circular
         manualChunks: (id) => {
-          // Critical path - React core (carregar primeiro)
-          // Inclui react, react-dom, react-router-dom juntos para evitar dependência circular
-          if (id.includes('node_modules/react/') ||
-            id.includes('node_modules/react-dom/') ||
-            id.includes('node_modules/react-router-dom/') ||
-            id.includes('node_modules/scheduler/')) {
-            return 'vendor-react';
-          }
-
-          // Three.js core - pode ser preloadado separadamente
+          // Three.js core - biblioteca 3D pura (sem dependências React)
           if (id.includes('node_modules/three/') && !id.includes('@react-three')) {
             return 'three-core';
           }
 
-          // React Three - depende de three-core
+          // React Three Fiber/Drei - depende de three-core e react
           if (id.includes('@react-three/fiber') || id.includes('@react-three/drei')) {
             return 'react-three';
           }
 
-          // Framer Motion - não é crítico para LCP
+          // Framer Motion - biblioteca de animação React
           if (id.includes('node_modules/framer-motion/')) {
             return 'motion';
           }
 
-          // Outras dependências node_modules (exceto os já tratados acima)
+          // Todos os outros node_modules em um único chunk
+          // Isso elimina completamente a dependência circular
           if (id.includes('node_modules/')) {
             return 'vendor';
           }

@@ -1,5 +1,5 @@
 import { m, AnimatePresence } from 'framer-motion';
-import React from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   FaArrowDown,
@@ -23,6 +23,32 @@ const Footer: React.FC = () => {
   const location = useLocation();
   const isHome = location.pathname === '/';
   const { t, i18n } = useTranslation();
+
+  // Lazy load do Easter Egg - só carrega quando o footer entra no viewport
+  const footerRef = useRef<HTMLElement>(null);
+  const [easterEggVisible, setEasterEggVisible] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
+
+  useEffect(() => {
+    const footer = footerRef.current;
+    if (!footer) return;
+
+    // IntersectionObserver para carregar Easter Egg apenas quando visível
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setEasterEggVisible(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '100px' }
+    );
+
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, []);
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -93,23 +119,24 @@ const Footer: React.FC = () => {
     { code: 'KeyA', icon: null, label: 'A' },
   ];
 
-  const handleKeyClick = (index: number) => {
+  const handleKeyClick = useCallback((index: number) => {
+    setHasInteracted(true);
     simulateKeyPress(index);
-  };
+  }, [simulateKeyPress]);
 
   return (
     <footer
-      className='relative mt-4 sm:mt-6 pt-6 sm:pt-8 pb-2 sm:pb-4'
+      ref={footerRef}
+      className='footer-stable relative mt-4 sm:mt-6 pt-6 sm:pt-8 pb-2 sm:pb-4'
       role='contentinfo'
-      style={{ minHeight: '150px' }}
     >
       {/* Fundo com cor sólida igual ao header */}
       <div className='absolute inset-0 bg-[var(--bg-glass)] pointer-events-none' />
       <div className='absolute -top-24 left-1/2 -translate-x-1/2 w-full max-w-4xl h-48 bg-[#915EFF]/10 blur-[120px] rounded-full pointer-events-none' />
 
-      <div className='max-w-7xl mx-auto px-4 sm:px-8 md:px-16 relative z-10'>
+      <div className='footer-content max-w-7xl mx-auto px-4 sm:px-8 md:px-16 relative z-10'>
         {/* Grid de 3 colunas */}
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 justify-items-center items-start text-center mb-6'>
+        <div className='footer-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 justify-items-center items-start text-center mb-6'>
           {/* Coluna 1 - Esquerda: Nome e Descrição */}
           <div className='flex flex-col items-center text-center max-w-sm'>
             <h2 className='text-[clamp(1.2rem,4vw,1.5rem)] font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent mb-4'>
@@ -167,7 +194,7 @@ const Footer: React.FC = () => {
               </span>
             </a>
 
-            <div className='flex items-center gap-3 sm:gap-4 mb-4'>
+            <div className='social-links-container flex items-center gap-3 sm:gap-4 mb-4'>
               {socialLinks.map(({ icon: Icon, url, label, color }) => (
                 <m.a
                   key={label}
@@ -197,86 +224,96 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Barra Inferior - Easter Egg */}
+        {/* Barra Inferior - Easter Egg com Lazy Load */}
         <div className='pt-4 border-t border-white/5 flex flex-col items-center gap-2'>
-          {/* Easter Egg Interativo */}
-          <div className='flex flex-col items-center gap-2'>
-            <p className='text-[7px] text-[var(--dynamic-text-secondary)] uppercase tracking-[0.2em] opacity-50 text-center'>
-              <DynamicText colorMode='auto'>{t('footer.easterEggHint')}</DynamicText>
-            </p>
+          {/* Easter Egg Interativo - Só renderiza quando visível */}
+          {easterEggVisible && (
+            <div className='easter-egg-container flex flex-col items-center gap-2'>
+              <p className='text-[7px] text-[var(--dynamic-text-secondary)] uppercase tracking-[0.2em] opacity-50 text-center'>
+                <DynamicText colorMode='auto'>{t('footer.easterEggHint')}</DynamicText>
+              </p>
 
-            {/* Tela de desbloqueio */}
-            <AnimatePresence>
-              {showUnlockAnimation && (
-                <m.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className='fixed inset-0 z-50 flex items-center justify-center bg-black'
-                >
+              {/* Tela de desbloqueio */}
+              <AnimatePresence>
+                {showUnlockAnimation && (
                   <m.div
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                    className='text-center'
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className='fixed inset-0 z-50 flex items-center justify-center bg-black'
                   >
-                    <div className='text-6xl mb-8'>🔓</div>
-                    <p className='text-white text-2xl font-bold'>
-                      {t('footer.accessGranted')}
-                    </p>
-                    <p className='text-white/60 mt-2'>
-                      {i18n.language === 'pt' ? 'Iniciando DOOM...' : 'Starting DOOM...'}
-                    </p>
+                    <m.div
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: 0.3 }}
+                      className='text-center'
+                    >
+                      <div className='text-6xl mb-8'>🔓</div>
+                      <p className='text-white text-2xl font-bold'>
+                        {t('footer.accessGranted')}
+                      </p>
+                      <p className='text-white/60 mt-2'>
+                        {i18n.language === 'pt' ? 'Iniciando DOOM...' : 'Starting DOOM...'}
+                      </p>
+                    </m.div>
                   </m.div>
-                </m.div>
+                )}
+              </AnimatePresence>
+
+              {/* Teclas interativas - renderiza apenas após interação ou quando visível */}
+              {(hasInteracted || easterEggVisible) && (
+                <div className='flex items-center gap-1.5 sm:gap-2 p-3 rounded-2xl bg-gradient-to-r from-purple-900/20 via-black/30 to-blue-900/20 border border-white/10 flex-wrap justify-center shadow-[0_0_30px_rgba(145,94,255,0.15)]'>
+                  {konamiCodeKeys.map((key, index) => {
+                    const Icon = key.icon;
+                    const isActive = konamiProgress > index;
+                    const isCurrent = konamiProgress === index;
+
+                    return (
+                      <m.div
+                        key={index}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.03, duration: 0.3 }}
+                        whileHover={{ scale: 1.15 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => handleKeyClick(index)}
+                        className={`konami-key w-6 h-6 sm:w-7 sm:h-7 rounded-lg border-2 flex items-center justify-center cursor-pointer transition-all duration-200 text-xs font-bold relative group skill-icon
+                          ${isActive
+                            ? 'bg-gradient-to-br from-[#915EFF] via-[#6366f1] to-[#8b5cf6] border-[#915EFF] text-white shadow-[0_0_15px_rgba(145,94,255,0.5)]'
+                            : isCurrent
+                              ? 'bg-gradient-to-br from-purple-900/40 to-blue-900/30 border-[#915EFF] text-[#915EFF] shadow-[0_0_10px_rgba(145,94,255,0.4)]'
+                              : 'bg-gradient-to-br from-white/10 to-white/5 border-white/20 text-[var(--dynamic-text-secondary)] hover:border-[#915EFF]/50 hover:shadow-[0_0_10px_rgba(145,94,255,0.3)]'
+                          }
+                        `}
+                      >
+                        {/* Número da sequência no hover */}
+                        <div className='absolute -top-10 left-1/2 -translate-x-1/2 bg-[#915EFF] text-white text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap shadow-[0_0_8px_rgba(145,94,255,0.6)] z-[9999] pointer-events-none'>
+                          {index + 1}º
+                          <div className='absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#915EFF]' />
+                        </div>
+                        <span className='relative z-10'>
+                          {Icon ? <Icon size={12} className='sm:text-[14px]' /> : key.label}
+                        </span>
+                      </m.div>
+                    );
+                  })}
+                </div>
               )}
-            </AnimatePresence>
-
-            {/* Teclas interativas */}
-            <div className='flex items-center gap-1.5 sm:gap-2 p-3 rounded-2xl bg-gradient-to-r from-purple-900/20 via-black/30 to-blue-900/20 border border-white/10 flex-wrap justify-center shadow-[0_0_30px_rgba(145,94,255,0.15)]'>
-              {konamiCodeKeys.map((key, index) => {
-                const Icon = key.icon;
-                const isActive = konamiProgress > index;
-                const isCurrent = konamiProgress === index;
-
-                return (
-                  <m.div
-                    key={index}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.03, duration: 0.3 }}
-                    whileHover={{ scale: 1.15 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => handleKeyClick(index)}
-                    className={`
-                      w-6 h-6 sm:w-7 sm:h-7 rounded-lg border-2 flex items-center justify-center cursor-pointer
-                      transition-all duration-200 text-xs font-bold relative group skill-icon
-                      ${isActive
-                        ? 'bg-gradient-to-br from-[#915EFF] via-[#6366f1] to-[#8b5cf6] border-[#915EFF] text-white shadow-[0_0_15px_rgba(145,94,255,0.5)]'
-                        : isCurrent
-                          ? 'bg-gradient-to-br from-purple-900/40 to-blue-900/30 border-[#915EFF] text-[#915EFF] shadow-[0_0_10px_rgba(145,94,255,0.4)]'
-                          : 'bg-gradient-to-br from-white/10 to-white/5 border-white/20 text-[var(--dynamic-text-secondary)] hover:border-[#915EFF]/50 hover:shadow-[0_0_10px_rgba(145,94,255,0.3)]'
-                      }
-                    `}
-                  >
-                    {/* Número da sequência no hover */}
-                    <div className='absolute -top-10 left-1/2 -translate-x-1/2 bg-[#915EFF] text-white text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap shadow-[0_0_8px_rgba(145,94,255,0.6)] z-[9999] pointer-events-none'>
-                      {index + 1}º
-                      <div className='absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#915EFF]' />
-                    </div>
-                    <span className='relative z-10'>
-                      {Icon ? <Icon size={12} className='sm:text-[14px]' /> : key.label}
-                    </span>
-                  </m.div>
-                );
-              })}
             </div>
+          )}
 
-          </div>
+          {/* Placeholder do Easter Egg - mostra hint antes de carregar */}
+          {!easterEggVisible && (
+            <div className='easter-egg-placeholder h-12 flex items-center justify-center'>
+              <p className='text-[7px] text-[var(--dynamic-text-secondary)] uppercase tracking-[0.2em] opacity-30'>
+                ...
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Copyright */}
-        <div className='mt-4 pt-3 border-t border-white/5 flex flex-col items-center gap-1'>
+        <div className='footer-copyright mt-4 pt-3 border-t border-white/5 flex flex-col items-center gap-1'>
           <p className='text-[10px] sm:text-xs text-white/30 text-center tracking-wide'>
             © {new Date().getFullYear()} Leandro Saturnino Barbosa. {t('footer.allRightsReserved', 'All rights reserved.')}
           </p>
