@@ -22,7 +22,7 @@ const AllFormacao = () => {
       <div className='flex w-full justify-between items-center'>
         <m.p
           variants={prefersReduced ? {} : fadeIn('up', 'tween', 0.1, 1)}
-          className='text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-3 max-w-3xl text-[17px] leading-[30px]'
+          className='text-[var(--dynamic-text-secondary)] transition-colors composited-hover duration-500 mt-3 max-w-3xl text-[17px] leading-[30px]'
         >
           {t('formacao.content')}
         </m.p>

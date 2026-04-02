@@ -29,7 +29,6 @@ const INITIAL_FORM: ContactForm = {
 };
 
 const Contact = () => {
-  console.log('[Contact] Renderizando componente Contact');
   const formRef = useRef<HTMLFormElement>(null);
   const [form, setForm] = useState<ContactForm>(INITIAL_FORM);
   const [loading, setLoading] = useState(false);

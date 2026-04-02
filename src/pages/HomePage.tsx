@@ -1,8 +1,6 @@
 import { lazy, Suspense } from 'react';
 import Hero from '../components/sections/Hero';
 
-const ThreeExperience = lazy(() => import('../components/canvas/ThreeExperience'));
-
 // Lazy loading sections to minimize main thread work on initial load
 const About = lazy(() => import('../components/sections/About'));
 const Contact = lazy(() => import('../components/sections/Contact'));
@@ -19,13 +17,11 @@ const SectionLoader = () => (
 );
 
 const HomePage = () => {
-  console.log('[HomePage] Renderizando HomePage - Optimized');
-
   return (
     <>
       {/* Hero is critical, load immediately */}
       <Hero />
-      
+
       {/* Non-critical sections are lazy-loaded */}
       <Suspense fallback={<SectionLoader />}>
         <About />
@@ -35,14 +31,6 @@ const HomePage = () => {
         <Works />
         <Curriculo />
         <Contact />
-      </Suspense>
-
-      <Suspense fallback={
-        <div className="h-[600px] md:h-screen flex items-center justify-center bg-zinc-950">
-          <p className="text-zinc-400">Carregando experiência 3D...</p>
-        </div>
-      }>
-        <ThreeExperience />
       </Suspense>
     </>
   );

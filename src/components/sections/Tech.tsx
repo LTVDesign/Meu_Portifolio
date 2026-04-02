@@ -8,7 +8,6 @@ import { fadeIn, textVariant } from '../../utils/motion';
 type Technology = (typeof technologies)[0];
 
 const Tech = () => {
-  console.log('[Tech] Renderizando componente Tech');
   const { t } = useTranslation();
   const prefersReduced = useReducedMotion();
 
@@ -151,7 +150,7 @@ const Tech = () => {
                       }}
                     />
 
-                    <div className='relative w-10 h-10 sm:w-14 sm:h-14 p-2 sm:p-3 flex items-center justify-center rounded-2xl transition-all duration-300 border border-white/10 group-hover:border-[var(--cyber-cyan)]/60 group-hover:shadow-[0_0_25px_rgba(0,255,255,0.6)] bg-white/10 backdrop-blur-sm shadow-lg tech-badge-composited'>
+                    <div className='relative w-10 h-10 sm:w-14 sm:h-14 p-2 sm:p-3 flex items-center justify-center rounded-2xl transition-all duration-300 border border-white/10 group-hover:border-[var(--cyber-cyan)]/60 group-hover:shadow-[0_0_25px_rgba(0,255,255,0.6)] bg-white/10 backdrop-blur-sm shadow-lg tech-badge-composited skill-icon'>
                       <img
                         src={tech.icon}
                         alt={tech.name}

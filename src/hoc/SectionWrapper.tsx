@@ -14,7 +14,6 @@ const SectionWrapperComponent = ({
   id,
   className = '',
 }: SectionWrapperProps) => {
-  console.log('[SectionWrapper] Renderizando SectionWrapper, id:', id);
   const prefersReduced = useReducedMotion();
 
   return (

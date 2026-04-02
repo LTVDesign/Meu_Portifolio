@@ -5,20 +5,11 @@ import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import compression from 'vite-plugin-compression';
 
 export default defineConfig({
-  build: {
-    sourcemap: false,
-    minify: 'terser',
-    chunkSizeWarningLimit: 1000,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'three-core': ['three'],
-          'react-three': ['@react-three/fiber', '@react-three/drei'],
-          motion: ['framer-motion'],
-          vendor: ['react', 'react-dom', 'react-router-dom'],
-        },
-      },
-    },
+  base: '/',
+  define: {
+    'process.env': JSON.stringify({}),
+    'global': 'window',
+    '__DEFINES__': JSON.stringify({}),
   },
   plugins: [
     tailwindcss(),
@@ -74,7 +65,102 @@ export default defineConfig({
       deleteOriginalFile: false,
     }),
   ],
+
+  resolve: {
+    dedupe: [
+      'react',
+      'react-dom',
+      'framer-motion',
+      '@react-three/fiber',
+      '@react-three/drei',
+      'three',
+    ],
+  },
+
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+    sourcemap: false,
+    minify: 'terser',
+    chunkSizeWarningLimit: 1000,
+    cssCodeSplit: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Core Three.js - separado para cache otimizado
+          'three-core': ['three'],
+          // React Three ecosystem - carregado junto quando necessário
+          'react-three': ['@react-three/fiber', '@react-three/drei'],
+          // Framer Motion - lazy animations
+          'motion': ['framer-motion'],
+          // React core - sempre necessário
+          'vendor': ['react', 'react-dom', 'react-router-dom'],
+        },
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name?.split('.');
+          const ext = info?.[info.length - 1] || '';
+          if (['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'avif'].includes(ext)) {
+            return `assets/images/[name]-[hash].[ext]`;
+          }
+          if (['css', 'woff', 'woff2', 'ttf', 'eot'].includes(ext)) {
+            return `assets/[name]-[hash].[ext]`;
+          }
+          return 'assets/[name]-[hash].[ext]';
+        },
+      },
+    },
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.debug', 'console.info', 'console.table'],
+        passes: 3,
+        dead_code: true,
+        unused: true,
+        reduce_vars: true,
+        evaluate: true,
+        hoist_funs: true,
+        hoist_vars: true,
+        if_return: true,
+        loops: true,
+        switches: true,
+        side_effects: true,
+        keep_fnames: false,
+        keep_classnames: false,
+        toplevel: true,
+        typeofs: false,
+      },
+      output: {
+        comments: false,
+        beautify: false,
+        max_line_len: 0,
+        semicolons: false,
+        ascii_only: true,
+      },
+    },
+  },
+
   optimizeDeps: {
-    include: ['react', 'react-dom', '@react-three/fiber'],
+    include: [
+      'react',
+      'react-dom',
+      'react-router-dom',
+      'framer-motion',
+      'framer-motion/m',
+      'three',
+      '@react-three/fiber',
+      '@react-three/drei',
+    ],
+    exclude: ['@vercel/speed-insights'],
+  },
+
+  server: {
+    port: 5173,
+    host: true,
+    hmr: {
+      clientPort: 5173,
+    },
   },
 });

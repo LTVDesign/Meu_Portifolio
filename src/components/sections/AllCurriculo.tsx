@@ -15,7 +15,7 @@ const AllCurriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void })
 
       <m.p
         variants={prefersReduced ? {} : fadeIn('up', 'tween', 0.1, 1)}
-        className='text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-4 text-[17px] leading-[30px] text-center max-w-3xl'
+        className='text-[var(--dynamic-text-secondary)] transition-colors composited-hover duration-500 mt-4 text-[17px] leading-[30px] text-center max-w-3xl'
       >
         {t('curriculo.content')}
       </m.p>

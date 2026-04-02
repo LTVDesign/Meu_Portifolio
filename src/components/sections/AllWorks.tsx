@@ -96,7 +96,7 @@ const AllWorks = () => {
       <div className='flex w-full justify-between items-center'>
         <m.p
           variants={fadeIn('up', 'tween', 0.1, 1)}
-          className='text-[var(--dynamic-text-secondary)] transition-colors duration-500 mt-3 text-[17px] leading-[30px]'
+          className='text-[var(--dynamic-text-secondary)] transition-colors composited-hover duration-500 mt-3 text-[17px] leading-[30px]'
         >
           {t('works.content')}
         </m.p>

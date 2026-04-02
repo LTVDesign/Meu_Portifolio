@@ -73,7 +73,7 @@ const EducationCard = ({ item, index }: EducationCardProps) => {
           href={item.link}
           target='_blank'
           rel='noopener noreferrer'
-          className='mt-8 inline-flex items-center gap-2 text-sm font-medium text-[var(--cyber-cyan)] hover:text-white composited-link transition-colors'
+          className='mt-8 inline-flex items-center gap-2 text-sm font-medium text-[var(--cyber-cyan)] hover:text-white composited-hover transition-colors'
         >
           {t('education.diplomaPreview')} →
         </a>

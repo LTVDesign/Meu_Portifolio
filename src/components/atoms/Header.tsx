@@ -11,13 +11,6 @@ interface IHeader {
 }
 
 export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
-  console.log(
-    '[Header] Renderizando Header, p:',
-    p?.substring(0, 50),
-    'h2:',
-    h2?.substring(0, 50)
-  );
-
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {

@@ -5,6 +5,7 @@ import React, {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import { type ParticleConfig, validateLocalStorageData } from '../utils/validation';
@@ -175,6 +176,9 @@ const ParticleConfigProvider: FC<ParticleConfigProviderProps> = ({ children }) =
     }
   }, []);
 
+  // FIX: Usar ref para evitar loop infinito de re-renderizações
+  const hasInitializedThemeColor = useRef(false);
+
   useEffect(() => {
     const updateParticleColorBasedOnTheme = () => {
       const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
@@ -192,7 +196,11 @@ const ParticleConfigProvider: FC<ParticleConfigProviderProps> = ({ children }) =
       }
     };
 
-    updateParticleColorBasedOnTheme();
+    // Só executa uma vez na inicialização para evitar loop
+    if (!hasInitializedThemeColor.current) {
+      hasInitializedThemeColor.current = true;
+      updateParticleColorBasedOnTheme();
+    }
 
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === 'theme') {
@@ -202,7 +210,7 @@ const ParticleConfigProvider: FC<ParticleConfigProviderProps> = ({ children }) =
 
     window.addEventListener('storage', handleStorageChange);
     return () => window.removeEventListener('storage', handleStorageChange);
-  }, [config.particleColor]);
+  }, []); // FIX: Removido config.particleColor das dependências
 
   const updateConfig = useCallback((newConfig: Partial<ParticleConfig>) => {
     setConfig((prevConfig: ParticleConfig) => {
