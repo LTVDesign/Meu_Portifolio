@@ -821,6 +821,11 @@
     display: none;
   }
 
+  /* CRITICAL: Force canvas elements to allow vertical scrolling on mobile */
+  canvas {
+    touch-action: pan-y !important;
+  }
+
   /* Texto da navbar mais compacto */
   .navbar-link {
     font-size: 0.75rem !important;
@@ -845,6 +850,11 @@
   /* Grid de 2 colunas para tablet */
   .grid-auto-tablet {
     grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* CRITICAL: Force canvas elements to allow vertical scrolling on tablet */
+  canvas {
+    touch-action: pan-y !important;
   }
 
   /* Navbar tablet */
@@ -951,6 +961,21 @@
   button, a, [role="button"], input, select, textarea {
     min-height: 44px;
     min-width: 44px;
+  }
+
+  /* CRITICAL: Allow vertical scrolling through 3D canvas areas on touch devices */
+  canvas,
+  canvas[data-engine],
+  .r3f-canvas canvas {
+    touch-action: pan-y !important;
+    pointer-events: none !important;
+  }
+
+  /* Ensure all canvas containers allow scroll-through on touch */
+  [data-background],
+  .background-layer {
+    touch-action: pan-y !important;
+    pointer-events: none !important;
   }
 
   /* Remover hover effects em dispositivos touch */
