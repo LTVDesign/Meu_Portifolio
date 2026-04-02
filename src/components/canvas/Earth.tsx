@@ -7,7 +7,7 @@ import type { Mesh } from 'three';
 // Usando WebP otimizado para melhor performance
 import planetBaseColor from '/assets/3d-models/planet/textures/Planet_baseColor.png?url';
 import { useTouchScrollGuard } from '../../hooks/useTouchScrollGuard';
-import CanvasLoader from '../layout/Loader';
+
 
 const Earth = () => {
   const meshRef = useRef<Mesh>(null);
@@ -84,7 +84,7 @@ const EarthCanvas = () => {
       >
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} intensity={1} />
-        <Suspense fallback={<CanvasLoader />}>
+        <Suspense fallback={null}>
           {shouldLoad && (
             <>
               <OrbitControls

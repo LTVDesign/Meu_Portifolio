@@ -21,6 +21,8 @@ const GearButton = ({ onClick }: GearButtonProps) => {
   const isMobile = screenWidth < 640;
   const isTV = screenWidth > 2560;
 
+  const targetScale = isWatch ? 0.35 : isMobileSmall ? 0.45 : isMobile ? 0.55 : 1;
+
   return (
     <AnimatePresence>
       {isMounted && (
@@ -28,7 +30,7 @@ const GearButton = ({ onClick }: GearButtonProps) => {
           initial={{ opacity: 0, scale: 0, x: -20 }}
           animate={{
             opacity: 1,
-            scale: 1,
+            scale: targetScale,
             x: 0,
           }}
           exit={{ opacity: 0, scale: 0, x: -20 }}
@@ -39,7 +41,6 @@ const GearButton = ({ onClick }: GearButtonProps) => {
           }}
           className={`fixed top-1/2 -translate-y-1/2 z-[10000] origin-left ${isWatch ? 'left-0' : isMobileSmall ? 'left-0.5' : isMobile ? 'left-1' : isTV ? 'left-12' : 'left-4 sm:left-6'}`}
           style={{
-            scale: isWatch ? 0.35 : isMobileSmall ? 0.45 : isMobile ? 0.55 : 1,
             transformOrigin: 'left center'
           }}
         >

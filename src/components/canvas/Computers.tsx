@@ -5,7 +5,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { useTouchScrollGuard } from '../../hooks/useTouchScrollGuard';
 import { useViewport } from '../../hooks/useViewport';
 
-import CanvasLoader from '../layout/Loader';
+
 
 // Preload do modelo para melhorar performance
 useGLTF.preload('/desktop_pc/scene-optimized.gltf');
@@ -172,7 +172,7 @@ export const ComputersCanvas = () => {
       >
         <AdaptiveDpr pixelated />
         <AdaptiveEvents />
-        <Suspense fallback={<CanvasLoader />}>
+        <Suspense fallback={null}>
           <OrbitControls
             enablePan={false}
             enableZoom={false}

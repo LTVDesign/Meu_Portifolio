@@ -237,13 +237,13 @@ const Navbar = memo(() => {
                   gap: isWatch ? '0.2rem' : undefined,
                 }}
               >
-                <span className='name-part' data-text='Leandro'>
+                <span className='name-part' data-text='Meu'>
                   <div className='name-glow-layer' />
-                  <DynamicText colorMode='auto'>Leandro</DynamicText>
+                  <DynamicText colorMode='auto'>Meu</DynamicText>
                 </span>
-                <span className='name-part name-accent' data-text='Barbosa'>
+                <span className='name-part name-accent' data-text='portfólio'>
                   <div className='name-glow-layer' />
-                  <DynamicText colorMode='auto'>Barbosa</DynamicText>
+                  <DynamicText colorMode='auto'>portfólio</DynamicText>
                 </span>
               </span>
             </span>

@@ -44,11 +44,11 @@ type TConfig = {
 export const config: TConfig = {
   html: {
     title: 'Portfólio',
-    fullName: 'Leandro Barbosa',
-    email: import.meta.env.VITE_CONTACT_EMAIL || 'leandro@garagemod.com.br',
+    fullName: 'Meu portfólio',
+    email: import.meta.env.VITE_CONTACT_EMAIL || 'lelebrr@gmail.com',
   },
   hero: {
-    name: 'Leandro Barbosa',
+    name: 'Meu portfólio',
     p: ['Bem-vindo à minha vida profissional'],
   },
   contact: {
