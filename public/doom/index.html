@@ -11,7 +11,7 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="app.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Font Awesome removido - usando ícones SVG locais -->
 
   <!-- FAVICON -->
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -98,9 +98,19 @@
   <div style="margin-top:20px;" id="DOOM" class="dosbox-default"></div>
 
   <div class="controls">
-    <a id="fullscreen_DOOM" href="javascript: void 0;" class="fa-solid fa-expand"></a>&nbsp;&nbsp;
-    <a href="https://github.com/thedoggybrad/doom_on_js-dos/blob/main/MANUAL.MD" target="_blank">
-      <i class="fa-solid fa-book"></i>&nbsp;&nbsp;User Manual
+    <a id="fullscreen_DOOM" href="javascript: void 0;" title="Tela Cheia"
+      style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" fill="currentColor">
+        <path
+          d="M32 32C14.3 32 0 46.3 0 64v96c0 17.7 14.3 32 32 32s32-14.3 32-32V96h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H32zm448 0H352c-17.7 0-32 14.3-32 32s14.3 32 32 32h64v64c0 17.7 14.3 32 32 32s32-14.3 32-32V64c0-17.7-14.3-32-32-32zM32 480h128c17.7 0 32-14.3 32-32s-14.3-32-32-32H96V352c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7 14.3 32 32 32zm448 0V352c0-17.7-14.3-32-32-32s-32 14.3-32 32v64h-64c-17.7 0-32 14.3-32 32s14.3 32 32 32h128c17.7 0 32-14.3 32-32z" />
+      </svg>
+    </a>&nbsp;&nbsp;
+    <a href="MANUAL.MD" target="_blank" style="display: inline-flex; align-items: center; gap: 4px;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" fill="currentColor">
+        <path
+          d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
+      </svg>
+      &nbsp;User Manual
     </a>
   </div>
 
