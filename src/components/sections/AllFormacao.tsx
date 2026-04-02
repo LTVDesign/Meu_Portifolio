@@ -15,25 +15,6 @@ const AllFormacao = () => {
   const { t } = useTranslation();
   const prefersReduced = useReducedMotion();
 
-  const educations = [
-    {
-      title: 'Pós-Graduação em Inteligência Artificial e Data Science',
-      institution: 'Anhanguera',
-      period: 'Cursando – Previsão: Dezembro de 2026',
-      description:
-        'Especialização focada na criação de modelos preditivos e sistemas inteligentes utilizando técnicas avançadas de Machine Learning e Ciência de Dados. O curso abrange o processamento de grandes volumes de informações para a geração de insights estratégicos, automação de processos e desenvolvimento de soluções baseadas em dados.',
-      logo: faculImg,
-    },
-    {
-      title: 'Tecnologia em Análise e Desenvolvimento de Sistemas',
-      institution: 'Universidade Pitágoras Unopar Anhanguera',
-      period: 'Concluído em Dezembro de 2025',
-      description:
-        'Formação superior com carga horária total de 2100h, voltada para o ciclo completo de desenvolvimento de software, incluindo análise de requisitos, arquitetura de sistemas e programação. Experiência prática na implementação de bancos de dados, engenharia de software e utilização de metodologias ágeis para garantir a qualidade e escalabilidade das entregas técnicas.',
-      logo: faculImg,
-    },
-  ];
-
   return (
     <>
       <Header useMotion={true} p={t('formacao.p')} h2={t('formacao.h2')} />
@@ -50,42 +31,42 @@ const AllFormacao = () => {
           onClick={() => navigate('/')}
           className='bg-primary text-[var(--dynamic-text-color)] px-6 py-3 rounded-lg hover:bg-primary/80 transition-colors mt-3'
         >
-          Voltar
+          {t('allFormacao.backToHome')}
         </button>
       </div>
 
       <div className='mt-20 flex flex-col'>
         <div className='flex flex-wrap gap-7'>
-          {educations.map((education, index) => (
+          {[0, 1].map((index) => (
             <motion.div
-              key={education.title}
+              key={index}
               variants={fadeIn('up', 'spring', index * 0.5, 0.75)}
               className='w-full rounded-[20px] bg-tertiary p-5 sm:w-[360px]'
             >
               <div className='flex items-center gap-4 mb-4'>
                 <img
-                  src={education.logo}
-                  alt='Logo da faculdade'
+                  src={faculImg}
+                  alt={t(`allFormacao.educationList.${index}.institution`)}
                   className='w-16 h-16 object-contain'
                 />
                 <div>
-                  <h3 className='text-[18px] font-bold text-[var(--dynamic-text-color)]'>
-                    {education.institution}
+                  <h3 className='text-[18px] font-bold text-white'>
+                    {t(`allFormacao.educationList.${index}.institution`)}
                   </h3>
                   <p className='text-[16px] text-[var(--cyber-cyan)] font-semibold'>
-                    {education.period}
+                    {t(`allFormacao.educationList.${index}.period`)}
                   </p>
                 </div>
               </div>
               <div className='mt-5'>
                 <LinkAnimado
                   href='#curriculo'
-                  className='text-[20px] font-bold text-[var(--dynamic-text-color)] hover:text-secondary transition-colors sm:text-[24px]'
+                  className='text-[20px] font-bold text-white hover:text-secondary transition-colors sm:text-[24px]'
                 >
-                  {education.title}
+                  {t(`allFormacao.educationList.${index}.title`)}
                 </LinkAnimado>
-                <p className='mt-4 text-[14px] text-[var(--dynamic-text-secondary)]'>
-                  {education.description}
+                <p className='mt-4 text-[14px] text-gray-300'>
+                  {t(`allFormacao.educationList.${index}.description`)}
                 </p>
               </div>
             </motion.div>
@@ -96,7 +77,7 @@ const AllFormacao = () => {
       {/* Histórico Acadêmico Completo */}
       <div className='mt-16 min-h-screen'>
         <h3 className='text-[24px] font-bold text-[var(--dynamic-text-color)] mb-8 text-center'>
-          Histórico Acadêmico Completo
+          {t('allFormacao.semesterHistory')}
         </h3>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
           {[
@@ -108,12 +89,12 @@ const AllFormacao = () => {
             { semestre: '6º Semestre', media: 9.3 },
           ].map((item, index) => (
             <motion.div
-              key={item.semestre}
+              key={index}
               variants={fadeIn('up', 'spring', index * 0.1, 0.5)}
               className='bg-tertiary rounded-xl p-4'
             >
-              <p className='text-[16px] font-semibold text-[var(--dynamic-text-color)] mb-2'>
-                {item.semestre}
+              <p className='text-[16px] font-semibold text-white mb-2'>
+                {t('allFormacao.semester', { semester: index + 1 })}
               </p>
               <div className='w-full max-w-[200px] bg-white/10 rounded-full h-1.5'>
                 <div
@@ -137,25 +118,24 @@ const AllFormacao = () => {
         />
         <div className='relative z-10'>
           <h3 className='text-[24px] font-bold text-[var(--dynamic-text-color)] mb-8 text-center'>
-            Verificação de Autenticidade
+            {t('allFormacao.authenticityVerification')}
           </h3>
           <div className='max-w-2xl mx-auto bg-tertiary rounded-2xl p-8'>
             <div className='flex flex-col items-center'>
               <img
                 src={diplomaImg}
-                alt='Diploma'
+                alt={t('allFormacao.diploma')}
                 className='w-full max-w-md rounded-lg shadow-2xl mb-6'
               />
               <div className='text-center'>
-                <h4 className='text-[20px] font-bold text-[var(--dynamic-text-color)] mb-4'>
-                  Diploma e Autenticação
+                <h4 className='text-[20px] font-bold text-white mb-4'>
+                  {t('allFormacao.diplomaAndAuthentication')}
                 </h4>
-                <p className='text-[16px] text-[var(--dynamic-text-secondary)] mb-4'>
-                  Documento oficial de conclusão do curso de Tecnologia em Análise e
-                  Desenvolvimento de Sistemas
+                <p className='text-[16px] text-gray-300 mb-4'>
+                  {t('allFormacao.diplomaDescription')}
                 </p>
                 <p className='text-[14px] text-[var(--cyber-cyan)]'>
-                  Universidade Pitágoras Unopar Anhanguera - Dezembro de 2025
+                  {t('allFormacao.institutionAndDate')}
                 </p>
               </div>
             </div>

@@ -92,7 +92,66 @@
   }
 }
 
+/* ===== GEAR KEYFRAMES - Global scope (required for inline style animations) ===== */
+@keyframes gearSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes gearBreathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+@keyframes gearRingPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.4;
+    border-color: rgba(0, 255, 255, 0.4);
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
+  }
+  33% {
+    border-color: rgba(145, 94, 255, 0.5);
+    box-shadow: 0 0 12px rgba(145, 94, 255, 0.3);
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+  66% {
+    border-color: rgba(255, 0, 255, 0.4);
+    box-shadow: 0 0 8px rgba(255, 0, 255, 0.2);
+  }
+}
+
+@keyframes gearRgbGlow {
+  0% {
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.6), 0 0 30px rgba(0, 255, 255, 0.3), 0 0 50px rgba(0, 255, 255, 0.15);
+    opacity: 0.8;
+  }
+  33% {
+    box-shadow: 0 0 15px rgba(145, 94, 255, 0.7), 0 0 30px rgba(145, 94, 255, 0.4), 0 0 50px rgba(145, 94, 255, 0.2);
+    opacity: 1;
+  }
+  66% {
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.6), 0 0 30px rgba(255, 0, 255, 0.35), 0 0 50px rgba(255, 0, 255, 0.15);
+    opacity: 0.9;
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.6), 0 0 30px rgba(0, 255, 255, 0.3), 0 0 50px rgba(0, 255, 255, 0.15);
+    opacity: 0.8;
+  }
+}
+
 @layer components {
+
+  /* ===== DYNAMIC TEXT - Real-time color adaptation ===== */
+  /* Cor atualizada em tempo real via useBackgroundColorSampler (~8fps)
+     que lê pixels do canvas de background e atualiza CSS variables */
+  .dynamic-text-blend {
+    color: var(--dynamic-text-color, #ffffff);
+    transition: color 0.15s ease-out;
+  }
 
   /* Shine animation for neon lines - otimizado para GPU */
   .shine-anim {
@@ -111,42 +170,20 @@
     }
   }
 
-  /* Gear breathing animation */
-  .gear-breathing {
-    animation: gearPulse 3s infinite ease-in-out;
+  /* Gear utility classes */
+  .gear-rgb-glow {
+    animation: gearRgbGlow 3s ease-in-out infinite;
+    will-change: box-shadow, opacity;
+    border-radius: 50%;
   }
 
-  @keyframes gearPulse {
-
-    0%,
-    100% {
-      transform: scale(1);
-      opacity: 0.9;
-    }
-
-    50% {
-      transform: scale(1.12);
-      opacity: 1;
-    }
+  .gear-rgb-ring {
+    border: 1px solid rgba(0, 255, 255, 0.4);
   }
 
-  /* Enhanced gear breathing with smoother pulse */
-  .gear-breathing-enhanced {
-    animation: gearBreathingEnhanced 3s infinite ease-in-out;
-    will-change: transform;
-    transform: translateZ(0);
-  }
-
-  @keyframes gearBreathingEnhanced {
-
-    0%,
-    100% {
-      transform: scale(1) translateZ(0);
-    }
-
-    50% {
-      transform: scale(1.08) translateZ(0);
-    }
+  .gear-rgb-container:hover .gear-rgb-glow {
+    animation-duration: 1.5s;
+    opacity: 1;
   }
 
   /* Pulsating glow effect */
@@ -401,6 +438,24 @@
   /* Active menu item animation - usando filter: drop-shadow (composto) */
   .active-menu {
     animation: activeMenuGlow 1.5s infinite ease-in-out;
+    color: #00ffff !important;
+    text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #915eff;
+    position: relative;
+    font-weight: 700 !important;
+  }
+
+  .active-menu::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #00ffff, #915eff, #00ffff, transparent);
+    border-radius: 3px;
+    animation: activeMenuLine 1.5s infinite ease-in-out;
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #915eff;
   }
 
   @keyframes activeMenuGlow {
@@ -412,6 +467,20 @@
 
     50% {
       filter: drop-shadow(0 0 20px rgba(255, 255, 255, 1)) drop-shadow(0 0 40px rgba(145, 94, 255, 0.9)) drop-shadow(0 0 60px rgba(0, 255, 255, 0.5));
+    }
+  }
+
+  @keyframes activeMenuLine {
+
+    0%,
+    100% {
+      opacity: 0.5;
+      width: 40%;
+    }
+
+    50% {
+      opacity: 1;
+      width: 80%;
     }
   }
 

@@ -115,10 +115,10 @@ const Works = () => {
               className='flex flex-wrap justify-center gap-3 mt-4'
             >
               {[
-                { text: 'React', color: 'from-cyan-500 to-blue-500' },
-                { text: 'Three.js', color: 'from-purple-500 to-pink-500' },
-                { text: 'Node.js', color: 'from-green-500 to-emerald-500' },
-                { text: 'Full Stack', color: 'from-orange-500 to-red-500' },
+                { text: t('works.badgeReact'), color: 'from-cyan-500 to-blue-500' },
+                { text: t('works.badgeThree'), color: 'from-purple-500 to-pink-500' },
+                { text: t('works.badgeNode'), color: 'from-green-500 to-emerald-500' },
+                { text: t('works.badgeFullStack'), color: 'from-orange-500 to-red-500' },
               ].map((badge, idx) => (
                 <motion.span
                   key={idx}
@@ -212,7 +212,7 @@ const Works = () => {
                     }}
                   />
 
-                  <span className='relative z-10'>ACESSAR PROJETO</span>
+                  <span className='relative z-10'>{t('works.accessProject')}</span>
 
                   <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300' />
                 </motion.button>

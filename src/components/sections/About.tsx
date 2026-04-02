@@ -91,7 +91,8 @@ const About = () => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.7 }}
-                className='prose prose-invert max-w-none mt-6 text-[var(--text-secondary)] leading-relaxed text-base'
+                className='prose prose-invert max-w-none mt-6 leading-relaxed text-base'
+                style={{ color: 'var(--dynamic-text-secondary, #666666)' }}
               >
                 {(t('about.content') as string).split('\n').map((paragraph, i) => (
                   <p key={i} className='mb-4'>

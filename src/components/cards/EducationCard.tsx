@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { fadeIn } from '../../utils/motion';
 
 interface EducationCardProps {
@@ -17,6 +18,7 @@ interface EducationCardProps {
 }
 
 const EducationCard = ({ item, index }: EducationCardProps) => {
+  const { t } = useTranslation();
   return (
     <motion.div
       variants={fadeIn('up', 'spring', index * 0.07, 0.8)}
@@ -73,7 +75,7 @@ const EducationCard = ({ item, index }: EducationCardProps) => {
           rel='noopener noreferrer'
           className='mt-8 inline-flex items-center gap-2 text-sm font-medium text-[var(--cyber-cyan)] hover:text-white transition-colors'
         >
-          Ver Diploma / Detalhes →
+          {t('education.diplomaPreview')} →
         </a>
       )}
     </motion.div>

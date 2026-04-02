@@ -1,18 +1,8 @@
 import { motion } from 'framer-motion';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
+import { useTranslation } from 'react-i18next';
 
-const BG_LABELS: Record<string, string> = {
-  bolhas: 'Bolhas',
-  particles: 'Partículas',
-  liquid: 'Líquido',
-  particulate: 'Pontos',
-  cyberpunk: 'Túnel',
-  wavefield: 'Ondas',
-  solid: 'Cor Sólida',
-  matrix: 'Matrix',
-};
-
-const BG_TYPES = Object.keys(BG_LABELS);
+const BG_TYPES = ['bolhas', 'particles', 'liquid', 'particulate', 'cyberpunk', 'wavefield', 'solid', 'matrix'];
 
 interface BackgroundMenuProps {
   onEdit: () => void;
@@ -21,6 +11,7 @@ interface BackgroundMenuProps {
 
 const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
   const { config, updateConfig } = useParticleConfig();
+  const { t } = useTranslation();
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     // Previne que cliques fora do menu fechem o menu ou causem outros comportamentos
@@ -49,7 +40,7 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
         {/* Header com botão de fechar */}
         <div className='relative px-6 py-4 bg-gradient-to-r from-[#1a1433] to-black border-b border-white/10'>
           <h3 className='text-white font-bold text-sm uppercase tracking-widest text-center'>
-            Configurações
+            {t('backgroundMenu.settings')}
           </h3>
 
           <motion.button
@@ -57,7 +48,7 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
             whileHover={{ scale: 1.1, rotate: 90 }}
             whileTap={{ scale: 0.9 }}
             className='absolute right-4 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-all duration-300 shadow-[0_0_15px_rgba(145,94,255,0.3)] hover:shadow-[0_0_20px_rgba(145,94,255,0.6)]'
-            aria-label='Fechar menu'
+            aria-label={t('backgroundMenu.closeMenu')}
           >
             <svg
               width='14'
@@ -80,7 +71,7 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
           {/* Seção: Tipo de Background */}
           <div className='mb-6'>
             <h4 className='text-white/60 text-xs font-bold uppercase tracking-wider mb-3'>
-              Tipo de Background
+              {t('backgroundMenu.backgroundType')}
             </h4>
             <div className='grid grid-cols-2 gap-3'>
               {BG_TYPES.map((type) => (
@@ -92,13 +83,12 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
                   }}
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  className={`w-full py-3 text-xs font-bold uppercase tracking-widest rounded-2xl transition-all relative overflow-hidden ${
-                    config.backgroundType === type
-                      ? 'bg-gradient-to-r from-[#915EFF] to-[#00D4FF] text-white shadow-[0_0_20px_rgba(145,94,255,0.5)]'
-                      : 'bg-white/10 text-white/80 hover:bg-white/20 hover:shadow-[0_0_15px_rgba(145,94,255,0.2)]'
-                  }`}
+                  className={`w-full py-3 text-xs font-bold uppercase tracking-widest rounded-2xl transition-all relative overflow-hidden ${config.backgroundType === type
+                    ? 'bg-gradient-to-r from-[#915EFF] to-[#00D4FF] text-white shadow-[0_0_20px_rgba(145,94,255,0.5)]'
+                    : 'bg-white/10 text-white/80 hover:bg-white/20 hover:shadow-[0_0_15px_rgba(145,94,255,0.2)]'
+                    }`}
                 >
-                  <span className='relative z-10'>{BG_LABELS[type]}</span>
+                  <span className='relative z-10'>{t(`backgrounds.${type}`)}</span>
                   {config.backgroundType === type && (
                     <motion.div
                       layoutId='activeBg'
@@ -124,7 +114,7 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
             className='w-full bg-gradient-to-r from-[#915EFF] to-[#00D4FF] hover:from-[#a17fff] hover:to-[#33ddff] text-white font-bold py-4 rounded-2xl text-sm uppercase tracking-widest flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(145,94,255,0.3)] hover:shadow-[0_0_30px_rgba(145,94,255,0.6)] transition-all duration-300'
           >
             <span>✏️</span>
-            <span>EDITAR BACKGROUND</span>
+            <span>{t('backgroundMenu.editBackground')}</span>
           </motion.button>
         </div>
       </motion.div>

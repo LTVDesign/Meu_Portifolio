@@ -1,5 +1,6 @@
 import { AnimatePresence, m } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface GearButtonProps {
   onClick: () => void;
@@ -7,6 +8,7 @@ interface GearButtonProps {
 
 const GearButton = ({ onClick }: GearButtonProps) => {
   const [isMounted, setIsMounted] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setIsMounted(true);
@@ -23,6 +25,38 @@ const GearButton = ({ onClick }: GearButtonProps) => {
           className='fixed left-4 sm:left-6 top-1/2 -translate-y-1/2 z-[10000]'
         >
           <div className='relative group'>
+            {/* Anel RGB giratório rápido - MUITO CHAMATIVO */}
+            <m.div
+              className='absolute -inset-4 rounded-full'
+              style={{
+                background: 'conic-gradient(from 0deg, #00D4FF, #915EFF, #FF00FF, #00D4FF)',
+                filter: 'blur(8px)',
+                opacity: 0.7,
+              }}
+              animate={{ rotate: 360 }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: 'linear'
+              }}
+            />
+
+            {/* Segundo anel RGB contra-girando */}
+            <m.div
+              className='absolute -inset-6 rounded-full'
+              style={{
+                background: 'conic-gradient(from 180deg, #FF00FF, #00D4FF, #915EFF, #FF00FF)',
+                filter: 'blur(12px)',
+                opacity: 0.5,
+              }}
+              animate={{ rotate: -360 }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: 'linear'
+              }}
+            />
+
             {/* Glow effect suave */}
             <div className='absolute inset-0 flex items-center justify-center'>
               <m.div
@@ -42,17 +76,26 @@ const GearButton = ({ onClick }: GearButtonProps) => {
             {/* Botão principal redondo */}
             <m.button
               onClick={onClick}
-              aria-label='Abrir configurações de background'
+              aria-label={t("backgroundMenu.openSettings")}
               className='relative w-14 h-14 rounded-full flex items-center justify-center
                 bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10
                 border-2 border-[var(--cyber-cyan)]/40
-                shadow-[0_0_20px_rgba(0,212,255,0.3),0_0_40px_rgba(145,94,255,0.2)]
-                hover:border-[var(--cyber-cyan)]/70
-                hover:shadow-[0_0_30px_rgba(0,212,255,0.5),0_0_60px_rgba(145,94,255,0.3)]
                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cyber-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-black
-                transition-all duration-300 backdrop-blur-sm'
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
+                backdrop-blur-sm'
+              animate={{
+                scale: [1, 1.08, 1],
+                boxShadow: [
+                  '0 0 20px rgba(0, 212, 255, 0.3), 0 0 40px rgba(145, 94, 255, 0.2)',
+                  '0 0 30px rgba(0, 212, 255, 0.6), 0 0 60px rgba(145, 94, 255, 0.4)',
+                  '0 0 20px rgba(0, 212, 255, 0.3), 0 0 40px rgba(145, 94, 255, 0.2)'
+                ]
+              }}
+              transition={{
+                scale: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
+                boxShadow: { duration: 3, repeat: Infinity, ease: 'easeInOut' }
+              }}
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.9 }}
             >
               {/* Ícone SVG de engrenagem bonito */}
               <m.svg

@@ -71,7 +71,7 @@ const Tech = () => {
                 className='text-3xl md:text-4xl font-black text-white mb-6 tracking-tight'
               >
                 <span className='bg-gradient-to-r from-[var(--cyber-cyan)] via-white to-[var(--cyber-purple)] bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(0,255,255,0.5)]'>
-                  Experiência Profissional
+                  {t('tech.experienceTitle')}
                 </span>
               </motion.h3>
 
@@ -118,7 +118,7 @@ const Tech = () => {
                 {category}
               </p>
               <h3 className='section-title mt-2 drop-shadow-[0_0_15px_rgba(145,94,255,0.4)]'>
-                {techs.length} Tecnologias
+                {techs.length} {t('tech.technologiesTitle')}
               </h3>
             </motion.div>
 
@@ -183,7 +183,7 @@ const Tech = () => {
       {/* Informação adicional */}
       <div className='mt-16 text-center'>
         <p className='text-[var(--text-secondary)] text-sm'>
-          Clique em qualquer tecnologia para buscar tutoriais e documentação
+          {t('tech.clickInfo')}
         </p>
       </div>
     </div>

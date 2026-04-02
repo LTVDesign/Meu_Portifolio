@@ -12,7 +12,7 @@ interface AllCursosProps {
   onClose?: () => void;
 }
 
-const AllCursos = ({ isOpen = false, onClose = () => {} }: AllCursosProps) => {
+const AllCursos = ({ isOpen = false, onClose = () => { } }: AllCursosProps) => {
   const [filter, setFilter] = useState('');
   const [sortBy, setSortBy] = useState<'year' | 'duration' | 'company'>('year');
   const [visibleCount, setVisibleCount] = useState(6);
@@ -71,48 +71,30 @@ const AllCursos = ({ isOpen = false, onClose = () => {} }: AllCursosProps) => {
   const allCursos: Curso[] = [
     {
       id: '1',
-      title: 'Administração de Sistemas, Serviços e Infraestrutura de TI',
-      platform: 'Google (via Coursera)',
-      date: '2024',
-      duration: 'Aproximadamente 6 meses',
-      workload: 'Cerca de 120 horas',
+      title: t('courses.list.0.title'),
+      platform: t('courses.list.0.platform'),
+      date: t('courses.list.0.date'),
+      duration: t('courses.list.0.duration'),
+      workload: t('courses.list.0.workload'),
       icon: googleImg,
-      summary:
-        'Este curso aborda a administração de sistemas e serviços de infraestrutura de TI, cobrindo desde a instalação e configuração de sistemas operacionais até a gestão de serviços de rede e segurança. Aprenda a manter sistemas operacionais funcionando e a configurar serviços de rede essenciais.',
-      description:
-        'Este curso ensina as habilidades fundamentais necessárias para administrar sistemas e serviços de infraestrutura de TI. Você aprenderá a instalar e configurar sistemas operacionais Windows e Linux, gerenciar serviços de rede como DNS e DHCP, implementar políticas de segurança, e realizar tarefas de manutenção e suporte. É uma base sólida para qualquer profissional de TI que trabalha com infraestrutura.',
-      modules: [
-        'Instalação e configuração de sistemas operacionais',
-        'Gerenciamento de serviços de rede (DNS, DHCP)',
-        'Administração de usuários e permissões',
-        'Segurança de sistemas e redes',
-        'Monitoramento e troubleshooting',
-        'Automação de tarefas administrativas',
-      ],
+      summary: t('courses.list.0.summary'),
+      description: t('courses.list.0.description'),
+      modules: t('courses.list.0.modules', { returnObjects: true }) as string[],
       verificationLink:
         'https://www.coursera.org/account/accomplishments/verify/XQUDR4SCZEYA',
       link: 'https://www.coursera.org/learn/administracao-de-sistemas-servicos-infraestrutura-ti',
     },
     {
       id: '2',
-      title: 'Fundamentos do Suporte Técnico',
-      platform: 'Google (via Coursera)',
-      date: '2024',
-      duration: 'Aproximadamente 6 meses',
-      workload: 'Cerca de 120 horas',
+      title: t('courses.list.1.title'),
+      platform: t('courses.list.1.platform'),
+      date: t('courses.list.1.date'),
+      duration: t('courses.list.1.duration'),
+      workload: t('courses.list.1.workload'),
       icon: googleImg,
-      summary:
-        'Certificado Profissional que cobre os fundamentos do suporte técnico, incluindo hardware, redes, sistemas operacionais, segurança e atendimento ao cliente. Uma base completa para atuação como técnico de suporte N1/N2.',
-      description:
-        'Este certificado profissional fornece uma base abrangente para uma carreira em suporte técnico de TI. Abrange desde os conceitos básicos de hardware e software até tópicos avançados como redes, sistemas operacionais, segurança da informação e boas práticas de atendimento ao cliente. É o ponto de partida ideal para quem deseja atuar como técnico de suporte ou Help Desk.',
-      modules: [
-        'Fundamentos de TI e hardware',
-        'Redes de computadores e protocolos',
-        'Sistemas operacionais (Windows, Linux, macOS)',
-        'Segurança da informação e cibersegurança',
-        'Atendimento ao cliente e comunicação',
-        'Resolução de problemas e troubleshooting',
-      ],
+      summary: t('courses.list.1.summary'),
+      description: t('courses.list.1.description'),
+      modules: t('courses.list.1.modules', { returnObjects: true }) as string[],
       verificationLink:
         'https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965',
       isProfessionalCertificate: true,
@@ -120,48 +102,30 @@ const AllCursos = ({ isOpen = false, onClose = () => {} }: AllCursosProps) => {
     },
     {
       id: '3',
-      title: 'Introduction to Software Product Management (PT)',
-      platform: 'University of Alberta (via Coursera)',
-      date: '2023',
-      duration: 'Aproximadamente 6 semanas',
-      workload: 'Cerca de 30 horas',
+      title: t('courses.list.2.title'),
+      platform: t('courses.list.2.platform'),
+      date: t('courses.list.2.date'),
+      duration: t('courses.list.2.duration'),
+      workload: t('courses.list.2.workload'),
       icon: albertaImg,
-      summary:
-        'Curso introdutório em gerenciamento de produtos de software, abordando os conceitos fundamentais de GPS, diferenças entre gerenciamento de produtos e projetos, e a importância do foco no cliente e na entrega de valor.',
-      description:
-        'Este curso estabelece a base para o gerenciamento de produtos de software (GPS), diferenciando-o do gerenciamento de projetos tradicional. Foca em três pilares para o sucesso: fornecer o produto certo (validação), feito corretamente (verificação) e gerenciado adequadamente (processos). Aborda a filosofia Ágil e o Manifesto Ágil como ferramentas para lidar com a mudança e as expectativas dos clientes.',
-      modules: [
-        'Introdução ao Gerenciamento de Produtos de Software',
-        'Diferenças entre Gerenciamento de Produtos e Projetos',
-        'Os três pilares do GPS: Validação, Verificação e Processos',
-        'Filosofia Ágil e Manifesto Ágil',
-        'Foco no cliente e valor delivery',
-        'Papéis e responsabilidades do Product Manager',
-      ],
+      summary: t('courses.list.2.summary'),
+      description: t('courses.list.2.description'),
+      modules: t('courses.list.2.modules', { returnObjects: true }) as string[],
       verificationLink:
         'https://www.coursera.org/account/accomplishments/verify/WKNDJF2YGF88',
       link: 'https://www.coursera.org/learn/introduction-to-software-product-management-pt',
     },
     {
       id: '4',
-      title: 'Redes de Computadores',
-      platform: 'Google (via Coursera)',
-      date: '2024',
-      duration: 'Aproximadamente 2 meses',
-      workload: 'Cerca de 40 horas',
+      title: t('courses.list.3.title'),
+      platform: t('courses.list.3.platform'),
+      date: t('courses.list.3.date'),
+      duration: t('courses.list.3.duration'),
+      workload: t('courses.list.3.workload'),
       icon: googleImg,
-      summary:
-        'Curso completo sobre redes de computadores, cobrindo desde os fundamentos de comunicação de dados até protocolos, arquiteturas de rede, segurança e troubleshooting. Essencial para profissionais de TI e desenvolvimento.',
-      description:
-        'Este curso oferece uma compreensão abrangente das redes de computadores, desde os conceitos básicos de comunicação de dados até arquiteturas de rede complexas. Aborda protocolos, modelos de referência (OSI/TCP-IP), dispositivos de rede, segurança cibernética e técnicas de diagnóstico e resolução de problemas. Fundamental para qualquer profissional de tecnologia que trabalhe com sistemas conectados.',
-      modules: [
-        'Fundamentos de comunicação de dados',
-        'Modelos de referência (OSI e TCP/IP)',
-        'Protocolos de rede (IP, TCP, UDP, HTTP, DNS)',
-        'Dispositivos de rede (roteadores, switches, firewalls)',
-        'Segurança de redes e criptografia',
-        'Troubleshooting e monitoramento de redes',
-      ],
+      summary: t('courses.list.3.summary'),
+      description: t('courses.list.3.description'),
+      modules: t('courses.list.3.modules', { returnObjects: true }) as string[],
       verificationLink:
         'https://www.coursera.org/account/accomplishments/verify/5Z89ASL9BRCE',
       link: 'https://www.coursera.org/learn/redes-computadores',
@@ -325,7 +289,7 @@ const AllCursos = ({ isOpen = false, onClose = () => {} }: AllCursosProps) => {
                     {curso.modules && curso.modules.length > 0 && (
                       <div className='mt-4'>
                         <p className='text-xs text-[var(--cyber-cyan)] font-bold uppercase tracking-wider mb-2'>
-                          Módulos principais:
+                          {t('courses.modulesLabel')}:
                         </p>
                         <ul className='space-y-1'>
                           {curso.modules.slice(0, 3).map((module, idx) => (
@@ -339,7 +303,7 @@ const AllCursos = ({ isOpen = false, onClose = () => {} }: AllCursosProps) => {
                           ))}
                           {curso.modules.length > 3 && (
                             <li className='text-xs text-white/40 italic'>
-                              +{curso.modules.length - 3} mais módulos...
+                              +{curso.modules.length - 3} {t('courses.moreModules')}
                             </li>
                           )}
                         </ul>
@@ -363,7 +327,7 @@ const AllCursos = ({ isOpen = false, onClose = () => {} }: AllCursosProps) => {
                         onClick={(e) => e.stopPropagation()}
                       >
                         <span>🔗</span>
-                        <span>Verificar autenticidade</span>
+                        <span>{t('courses.verifyAuthenticity')}</span>
                       </a>
                     )}
                   </div>
@@ -382,7 +346,7 @@ const AllCursos = ({ isOpen = false, onClose = () => {} }: AllCursosProps) => {
                     onClick={handleLoadMore}
                     className='px-8 py-3 bg-gradient-to-r from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/20 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] font-bold uppercase tracking-widest rounded-xl hover:scale-105 transition-transform'
                   >
-                    Carregar Mais
+                    {t('courses.loadMore')}
                   </button>
                 </div>
               )
@@ -393,8 +357,8 @@ const AllCursos = ({ isOpen = false, onClose = () => {} }: AllCursosProps) => {
         {/* Footer da Modal */}
         <div className='sticky bottom-0 z-20 p-6 border-t border-white/10 bg-black/80 backdrop-blur-md'>
           <div className='max-w-7xl mx-auto flex justify-between items-center text-sm text-white/40'>
-            <p>Total de cursos: {sortedCursos.length}</p>
-            <p>Leandro Saturnino Barbosa © 2024</p>
+            <p>{t('allCursos.footerTotalCourses', { count: sortedCursos.length })}</p>
+            <p>{t('allCursos.footerCopyright')}</p>
           </div>
         </div>
       </motion.div>

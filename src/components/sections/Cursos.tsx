@@ -254,7 +254,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
             }}
           />
 
-          <span className='relative z-10'>{t('courses.viewAll') || 'Veja Todos Cursos'}</span>
+          <span className='relative z-10'>{t('courses.viewAll')}</span>
 
           <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300' />
         </motion.button>

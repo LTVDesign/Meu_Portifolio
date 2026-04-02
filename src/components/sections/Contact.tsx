@@ -1,5 +1,5 @@
 import { m } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaBuilding, FaEnvelope, FaPaperPlane, FaPhone, FaUser } from 'react-icons/fa';
 import { z } from 'zod';
@@ -10,17 +10,14 @@ import { slideIn } from '../../utils/motion';
 import { Header } from '../atoms';
 import { EarthCanvas } from '../canvas';
 
-// Schema de validação com Zod
-const contactSchema = z.object({
-  name: z.string().min(1, 'Nome é obrigatório').max(100, 'Nome muito longo'),
-  email: z.string().email('Email inválido'),
-  phone: z.string().max(20, 'Telefone muito longo').default(''),
-  company: z.string().max(100, 'Empresa muito longa').default(''),
-  message: z.string().min(20, 'Mensagem muito curta').max(1000, 'Mensagem muito longa'),
-  website: z.string().optional(), // Honeypot: campo oculto para bots
-});
-
-type ContactForm = z.infer<typeof contactSchema>;
+type ContactForm = {
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  message: string;
+  website?: string;
+};
 
 const INITIAL_FORM: ContactForm = {
   name: '',
@@ -43,6 +40,20 @@ const Contact = () => {
   >({});
   const { t } = useTranslation();
   const prefersReduced = useReducedMotion();
+
+  // Create validation schema with translated messages
+  const contactSchema = useMemo(
+    () =>
+      z.object({
+        name: z.string().min(1, t('contact.validationErrors.nameRequired')).max(100, t('contact.validationErrors.nameTooLong')),
+        email: z.string().email(t('contact.validationErrors.emailInvalid')),
+        phone: z.string().max(20, t('contact.validationErrors.phoneTooLong')).default(''),
+        company: z.string().max(100, t('contact.validationErrors.companyTooLong')).default(''),
+        message: z.string().min(20, t('contact.validationErrors.messageTooShort')).max(1000, t('contact.validationErrors.messageTooLong')),
+        website: z.string().optional(),
+      }),
+    [t]
+  );
 
   // Rate limiting: cooldown de 30 segundos entre envios
   const getLastSubmitTime = (): number => {
@@ -118,7 +129,7 @@ const Contact = () => {
     // Verificar rate limiting
     if (!canSubmit()) {
       const remaining = getRemainingCooldown();
-      setError(`Aguarde ${remaining} segundos antes de enviar outra mensagem.`);
+      setError(t('contact.rateLimit', { seconds: remaining }));
       return;
     }
 
@@ -257,10 +268,10 @@ const Contact = () => {
                 className='flex flex-wrap justify-center gap-3 mt-8'
               >
                 {[
-                  { text: 'Email Seguro', color: 'from-blue-500 to-cyan-500' },
-                  { text: 'Resposta Rápida', color: 'from-green-500 to-emerald-500' },
-                  { text: 'Contato Direto', color: 'from-purple-500 to-pink-500' },
-                  { text: 'Suporte 24/7', color: 'from-red-500 to-orange-500' },
+                  { text: t('contactPage.secureEmail'), color: 'from-blue-500 to-cyan-500' },
+                  { text: t('contactPage.quickResponse'), color: 'from-green-500 to-emerald-500' },
+                  { text: t('contactPage.directContact'), color: 'from-purple-500 to-pink-500' },
+                  { text: t('contactPage.support247'), color: 'from-red-500 to-orange-500' },
                 ].map((badge, idx) => (
                   <m.span
                     key={idx}

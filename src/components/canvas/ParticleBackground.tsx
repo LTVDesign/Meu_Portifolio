@@ -59,7 +59,7 @@ const ParticleBackground = ({
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (ctx) {
       ctx.scale(dpr, dpr);
     }
@@ -121,7 +121,7 @@ const ParticleBackground = ({
 
   const drawParticles = () => {
     const canvas = canvasRef.current;
-    const ctx = canvas?.getContext('2d');
+    const ctx = canvas?.getContext('2d', { willReadFrequently: true });
     if (!ctx || !canvas) return;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);

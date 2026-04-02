@@ -7,7 +7,10 @@
   },
   "tech": {
     "arsenal": "My Arsenal",
-    "stackTitle": "Tech Stack"
+    "stackTitle": "Tech Stack",
+    "clickInfo": "Click on any technology to search for tutorials and documentation",
+    "technologiesTitle": "Technologies",
+    "easterEgg": "Tip: Try the Konami code ⬆️⬆️⬇️⬇️⬅️➡️⬅️➡️🅱️🅰️"
   },
   "nav": {
     "about": "About",
@@ -21,18 +24,41 @@
     "menu_open": "Open Menu",
     "menu_close": "Close Menu",
     "logo": "Leandro Barbosa - Home",
+    "logoAlt": "Leandro Barbosa Logo",
     "switch_to_pt": "Switch to Portuguese",
     "switch_to_en": "Switch to English",
-    "translate_to_pt": "Traduzir para Português BR",
-    "translate_to_en": "Translation to English"
+    "translate_to_pt": "Translate to Portuguese BR",
+    "translate_to_en": "Translation to English",
+    "home": "Home"
   },
   "hero": {
     "title": "Hello, I'm Leandro Barbosa",
+    "backgroundSelectorHint": "Open background selector",
     "subtitle": [
       "Welcome to my professional life",
       "Full Stack Developer & AI Specialist",
       "Turning data into intelligent decisions",
-      "Building secure and innovative infrastructures"
+      "Building secure and innovative infrastructures",
+      "Architecting complete solutions from front-end to back-end",
+      "Artificial Intelligence applied to solve complex problems",
+      "Leading digital transformations with cutting-edge technology",
+      "Constantly innovating in a rapidly evolving world",
+      "Protecting systems and data with advanced cybersecurity",
+      "Developing scalable and high-performance applications",
+      "Combining creativity and technique in every project",
+      "Exploring the limits of modern technology",
+      "Building bridges between business and technology",
+      "Software architecture and distributed systems specialist",
+      "Transforming ideas into impactful digital products",
+      "Integrating artificial intelligence into business solutions",
+      "Ensuring data integrity and confidentiality",
+      "Full stack developer with architectural vision",
+      "Creating secure and intuitive digital experiences",
+      "Pioneer in emerging technologies and innovation",
+      "Technical leadership focused on results and efficiency",
+      "Agile development with quality and security",
+      "Building the future of technology, one line of code at a time",
+      "Specialist in solutions that combine AI, security and development"
     ],
     "titleMeta": "Leandro Saturnino Barbosa | 3D Cyberpunk Portfolio",
     "descriptionMeta": "Interactive 3D portfolio with React, Three.js and Tailwind. Specialist in AI, Security and Full Stack Development.",
@@ -64,12 +90,26 @@
     "content": "A showcase of projects I've developed out of passion, hobby, and to deepen my technical knowledge. Each initiative reflects my curiosity to explore new frontiers, from hardware modding to intelligent automations with AI.",
     "viewCode": "View Source Code",
     "viewDemo": "View Demo",
-    "viewProjects": "View My Projects"
+    "viewProjects": "View My Projects",
+    "accessProject": "ACCESS PROJECT",
+    "badgeReact": "React",
+    "badgeThree": "Three.js",
+    "badgeNode": "Node.js",
+    "badgeFullStack": "Full Stack"
   },
   "cursos": {
     "p": "Courses & Certificates",
     "h2": "Courses",
-    "viewDetails": "View Details"
+    "viewDetails": "View Details",
+    "allTitle": "All Courses and Certifications",
+    "viewCertificate": "View Certificate",
+    "filterPlaceholder": "Filter courses...",
+    "sortBy": "Sort by",
+    "sortYear": "Year",
+    "sortDuration": "Duration",
+    "sortCompany": "Institution",
+    "noResults": "No courses found.",
+    "viewAll": "View All Courses"
   },
   "certificados": {
     "p": "Certificates",
@@ -81,7 +121,11 @@
     "content": "Access my full resume to learn in detail about my academic background, professional experiences, and the technical skills I've developed throughout my career. I'm always looking for new challenges and opportunities to apply my knowledge in infrastructure, networking, and development.",
     "viewOnline": "View Online Resume",
     "downloadPDF": "Download PDF",
-    "viewFull": "View Details"
+    "viewFull": "View Details",
+    "badgeOnline": "Online Resume",
+    "badgePDF": "Download PDF",
+    "badgeExperience": "Complete Experience",
+    "badgeSkills": "Technical Skills"
   },
   "contact": {
     "p": "Get in touch",
@@ -112,6 +156,7 @@
     "sending": "Sending...",
     "success": "Message sent successfully!",
     "error": "Error sending message. Please try again.",
+    "rateLimit": "Please wait {seconds} seconds before sending another message.",
     "validationErrors": {
       "nameRequired": "Name is required",
       "nameTooLong": "Name too long",
@@ -119,7 +164,9 @@
       "phoneTooLong": "Phone number too long",
       "companyTooLong": "Company name too long",
       "messageTooShort": "Message too short",
-      "messageTooLong": "Message too long"
+      "messageTooLong": "Message too long",
+      "correctForm": "Please correct the form errors",
+      "cooldown": "Wait {count} seconds before sending another message"
     }
   },
   "footer": {
@@ -127,14 +174,21 @@
     "allRightsReserved": "All rights reserved",
     "backToTop": "Back to Top",
     "backToTopLabel": "Back to top",
-    "emailUs": "Email Leandro Barbosa"
+    "emailUs": "Email Leandro Barbosa",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "whatsapp": "WhatsApp"
   },
   "services": {
     "infraestrutura": "Infrastructure",
     "infraestruturaDesc": "Specialist in N2 support and networks, with mastery of Microsoft 365 environments, servers, and physical/cloud infrastructure",
     "ciberseguranca": "Cybersecurity",
+    "cibersegurancaBadge": "Cybersecurity",
     "cibersegurancaDesc": "Focused on digital defense, asset protection, and vulnerability mitigation, with a solid foundation in network security and compliance",
     "iaDados": "AI & Data",
+    "iaDadosBadge": "AI & Data Science",
     "iaDadosDesc": "Development of intelligent solutions and predictive analytics, using algorithms to transform data into strategic decisions",
     "gestao": "Management",
     "gestaoDesc": "Team leadership through agile frameworks (Scrum) and product vision focused on user experience and value delivery"
@@ -207,7 +261,8 @@
     "softwareProject": "Software Project",
     "computerNetworks": "Computer Networks",
     "securityAndSystemsAuditing": "Security and Systems Auditing",
-    "brazilianSocietyAndCitizenship": "Brazilian Society and Citizenship"
+    "brazilianSocietyAndCitizenship": "Brazilian Society and Citizenship",
+    "aiConceptsToolsApplications": "Artificial Intelligence: Concepts, Tools and Applications"
   },
   "experience": {
     "technicalSupport": "IT Technician N2",
@@ -303,33 +358,478 @@
     "noResults": "No courses found.",
     "p": "Courses & Specializations",
     "h2": "Academic Background",
-    "viewAll": "View All Courses"
+    "viewAll": "View All Courses",
+    "loadMore": "Load More",
+    "modulesLabel": "Main modules",
+    "moreModules": "more modules...",
+    "list": {
+      "0": {
+        "title": "Systems Administration, Services and IT Infrastructure",
+        "platform": "Google (via Coursera)",
+        "date": "2024",
+        "duration": "Approximately 6 months",
+        "workload": "About 120 hours",
+        "summary": "This course covers the administration of systems and IT infrastructure services, from operating system installation and configuration to network services and security management. Learn to keep systems running and configure essential network services.",
+        "description": "This course teaches the fundamental skills needed to administer IT infrastructure systems and services. You will learn to install and configure Windows and Linux operating systems, manage network services such as DNS and DHCP, implement security policies, and perform maintenance and support tasks. It's a solid foundation for any IT professional working with infrastructure.",
+        "modules": [
+          "Operating system installation and configuration",
+          "Network services management (DNS, DHCP)",
+          "User and permissions administration",
+          "System and network security",
+          "Monitoring and troubleshooting",
+          "Administrative task automation"
+        ]
+      },
+      "1": {
+        "title": "Technical Support Fundamentals",
+        "platform": "Google (via Coursera)",
+        "date": "2024",
+        "duration": "Approximately 6 months",
+        "workload": "About 120 hours",
+        "summary": "Professional Certificate covering the fundamentals of technical support, including hardware, networks, operating systems, security, and customer service. A complete foundation for N1/N2 support technician role.",
+        "description": "This professional certificate provides a comprehensive foundation for a career in IT technical support. It covers everything from basic hardware and software concepts to advanced topics like networking, operating systems, information security, and customer service best practices. It's the ideal starting point for those wishing to work as a support technician or Help Desk.",
+        "modules": [
+          "IT fundamentals and hardware",
+          "Computer networks and protocols",
+          "Operating systems (Windows, Linux, macOS)",
+          "Information security and cybersecurity",
+          "Customer service and communication",
+          "Problem solving and troubleshooting"
+        ]
+      },
+      "2": {
+        "title": "Introduction to Software Product Management (PT)",
+        "platform": "University of Alberta (via Coursera)",
+        "date": "2023",
+        "duration": "Approximately 6 weeks",
+        "workload": "About 30 hours",
+        "summary": "Introductory course in software product management, covering fundamental GPS concepts, differences between product and project management, and the importance of customer focus and value delivery.",
+        "description": "This course establishes the foundation for software product management (GPS), differentiating it from traditional project management. It focuses on three pillars for success: delivering the right product (validation), building it correctly (verification), and managing it properly (processes). It addresses the Agile philosophy and Agile Manifesto as tools to handle change and customer expectations.",
+        "modules": [
+          "Introduction to Software Product Management",
+          "Differences between Product Management and Project Management",
+          "The three pillars of GPS: Validation, Verification, and Processes",
+          "Agile Philosophy and Agile Manifesto",
+          "Customer focus and value delivery",
+          "Product Manager roles and responsibilities"
+        ]
+      },
+      "3": {
+        "title": "Computer Networks",
+        "platform": "Google (via Coursera)",
+        "date": "2024",
+        "duration": "Approximately 2 months",
+        "workload": "About 40 hours",
+        "summary": "Complete course on computer networks, covering from data communication fundamentals to protocols, network architectures, security, and troubleshooting. Essential for IT and development professionals.",
+        "description": "This course offers a comprehensive understanding of computer networks, from basic data communication concepts to complex network architectures. It covers protocols, reference models (OSI/TCP-IP), network devices, cybersecurity, and diagnostic and problem-solving techniques. Fundamental for any technology professional working with connected systems.",
+        "modules": [
+          "Data communication fundamentals",
+          "Reference models (OSI and TCP/IP)",
+          "Network protocols (IP, TCP, UDP, HTTP, DNS)",
+          "Network devices (routers, switches, firewalls)",
+          "Network security and encryption",
+          "Troubleshooting and network monitoring"
+        ]
+      }
+    }
   },
   "allFormacao": {
     "title": "Complete Academic Background",
-    "subtitle": "Education & Certificates"
+    "subtitle": "Education & Certificates",
+    "backToHome": "Back to Home",
+    "loadMore": "Load More",
+    "academicHistory": "Complete Academic History",
+    "authentication": "Authenticity Verification",
+    "diploma": "Diploma",
+    "officialDocument": "Official completion document",
+    "conclusion": "Conclusion",
+    "institution": "Institution",
+    "educationList": {
+      "0": {
+        "title": "Postgraduate in Artificial Intelligence and Data Science",
+        "institution": "Anhanguera",
+        "period": "In Progress – Expected: December 2026",
+        "description": "Specialization focused on creating predictive models and intelligent systems using advanced Machine Learning and Data Science techniques. The course covers processing large volumes of information to generate strategic insights, process automation, and development of data-driven solutions."
+      },
+      "1": {
+        "title": "Technology in Systems Analysis and Development",
+        "institution": "Universidade Pitágoras Unopar Anhanguera",
+        "period": "Completed in December 2025",
+        "description": "Higher education with a total workload of 2100 hours, focused on the complete software development cycle, including requirements analysis, system architecture, and programming. Practical experience in database implementation, software engineering, and using agile methodologies to ensure quality and scalability of technical deliveries."
+      }
+    },
+    "semesterHistory": "Complete Academic History",
+    "semester": "Semester",
+    "average": "Average",
+    "authenticityVerification": "Authenticity Verification",
+    "diplomaAndAuthentication": "Diploma and Authentication",
+    "diplomaDescription": "Official completion document for the Technology in Systems Analysis and Development course",
+    "institutionAndDate": "Universidade Pitágoras Unopar Anhanguera - December 2025"
   },
   "allCurriculo": {
     "title": "Complete Resume",
     "subtitle": "Experience & Skills",
     "downloadCV": "Download CV",
-    "viewFull": "View full resume"
+    "backToHome": "Back to Home",
+    "loadMore": "Load More"
   },
   "allWorks": {
     "title": "All Projects",
-    "subtitle": "Complete Portfolio"
+    "subtitle": "Complete Portfolio",
+    "backToHome": "Back to Home",
+    "loadMore": "Load More"
   },
   "allCertificados": {
     "title": "All Certificates",
-    "subtitle": "Certificates & Credentials"
+    "subtitle": "Certificates & Credentials",
+    "backToHome": "Back to Home",
+    "loadMore": "Load More",
+    "list": {
+      "0": {
+        "title": "React Developer",
+        "issuer": "Meta",
+        "date": "2023"
+      },
+      "1": {
+        "title": "TypeScript Specialist",
+        "issuer": "Microsoft",
+        "date": "2023"
+      },
+      "2": {
+        "title": "Three.js Developer",
+        "issuer": "Three.js",
+        "date": "2024"
+      },
+      "3": {
+        "title": "Cybersecurity Fundamentals",
+        "issuer": "IBM",
+        "date": "2023"
+      },
+      "4": {
+        "title": "Product Management",
+        "issuer": "University of Alberta",
+        "date": "2023"
+      },
+      "5": {
+        "title": "Node.js Backend",
+        "issuer": "OpenJS Foundation",
+        "date": "2024"
+      }
+    }
+  },
+  "notFound": {
+    "p": "Page not found",
+    "h2": "Oops! Something went wrong",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "backHome": "Back to Home"
   },
   "doom": {
     "p": "Easter Egg - DOOM in Browser",
-    "h2": "DOOM"
+    "h2": "DOOM",
+    "title": "DOOM - Leandro Barbosa",
+    "description": "DOOM running in the browser - Easter Egg",
+    "gameTitle": "DOOM Game"
+  },
+  "colors": {
+    "white": "White",
+    "black": "Black",
+    "blue": "Blue",
+    "red": "Red"
+  },
+  "certificates": {
+    "viewAll": "View All",
+    "badges": [
+      {
+        "text": "Google"
+      },
+      {
+        "text": "IBM"
+      },
+      {
+        "text": "University of Alberta"
+      },
+      {
+        "text": "Hackers do Bem"
+      }
+    ],
+    "list": {
+      "0": {
+        "name": "Specialization in Software Product Management",
+        "institution": "University of Alberta",
+        "description": "Complete specialization program in software product management"
+      },
+      "1": {
+        "name": "Introduction to Software Product Management",
+        "institution": "University of Alberta",
+        "description": "Introduces the role of product manager, focusing on delivering the right product, built correctly and managed effectively, using Agile Manifesto values."
+      },
+      "2": {
+        "name": "Software Processes and Agile Practices",
+        "institution": "University of Alberta",
+        "description": "Explores process models such as Waterfall, V-Model, Spiral and agile practices such as Scrum (sprints, backlog) and Extreme Programming (XP)."
+      },
+      "3": {
+        "name": "Client Needs and Software Requirements",
+        "institution": "University of Alberta",
+        "description": "Teaches techniques for eliciting requirements, creating User Stories, prototypes (wireframes and storyboards) and managing the product backlog."
+      },
+      "4": {
+        "name": "Agile Planning for Software Products",
+        "institution": "University of Alberta",
+        "description": "Covers time estimation (Story Points), team velocity calculation, risk management, schedules (Gantt) and iteration and release planning."
+      },
+      "5": {
+        "name": "Reviews and Metrics for Software Improvements",
+        "institution": "University of Alberta",
+        "description": "Focuses on monitoring progress through Burndown charts, quality metrics (GQM), defect analysis and retrospective meetings."
+      },
+      "6": {
+        "name": "Software Product Management Capstone",
+        "institution": "University of Alberta",
+        "description": "Practical simulation where students apply all previous techniques (requirements, prioritization, release plans and retrospectives) in a real-world scenario."
+      },
+      "7": {
+        "name": "Google IT Support Professional Certificate",
+        "institution": "Google (via Coursera/Credly)",
+        "description": "Complete professional certification in IT technical support"
+      },
+      "8": {
+        "name": "Google IT Support",
+        "institution": "Google (via Coursera)",
+        "description": "Introduction to computing, covering hardware, software, networks and customer service."
+      },
+      "9": {
+        "name": "Technical Support Basics",
+        "institution": "Google (via Coursera/Credly)",
+        "description": "The Basics of Technical Support"
+      },
+      "10": {
+        "name": "Computer Network Basics",
+        "institution": "Google (via Coursera)",
+        "description": "Deep dive into network protocols (TCP/IP), services like DNS and DHCP, and connectivity troubleshooting tools."
+      },
+      "11": {
+        "name": "Operating Systems and You: Becoming a Power User",
+        "institution": "Google (via Coursera)",
+        "description": "Directory management, users, permissions and processes in Windows and Linux systems."
+      },
+      "12": {
+        "name": "System Administration and IT Infrastructure Services",
+        "institution": "Google (via Coursera)",
+        "description": "Focuses on infrastructure services like Active Directory, fleet management and data backup."
+      },
+      "13": {
+        "name": "IT Security: Defense against the Dark Arts",
+        "institution": "Google (via Coursera)",
+        "description": "Covers cryptography concepts, authentication, attack types and how to protect networks and systems."
+      },
+      "14": {
+        "name": "Introduction to Technical Support",
+        "institution": "IBM (via Coursera)",
+        "description": "Addresses essential skills for providing effective technical support, including problem-solving methodologies and communication."
+      },
+      "15": {
+        "name": "Introduction to Scrum Master Profession",
+        "institution": "IBM (via Coursera)",
+        "description": "Explores the agile mindset and the specific role of Scrum Master in facilitating high-performance teams."
+      },
+      "16": {
+        "name": "HTML, CSS, and JavaScript for Web Developers",
+        "institution": "Johns Hopkins University (via Coursera)",
+        "description": "Teaches modern, responsive web page development using fundamental front-end technologies."
+      },
+      "17": {
+        "name": "Foundations of Cybersecurity",
+        "institution": "Google (via Coursera)",
+        "description": "Fundamental foundation on threats, risks and main tools used by digital security professionals."
+      },
+      "18": {
+        "name": "Leveling (Cybersecurity)",
+        "institution": "Hackers do Bem (SENAI/RNP)",
+        "description": "Technical introduction to information security area for leveling in advanced programs."
+      },
+      "19": {
+        "name": "IT Fundamentals",
+        "institution": "Fundação Bradesco",
+        "description": "Essential concepts of computer architecture, hardware and operating logic."
+      },
+      "20": {
+        "name": "Implementing Databases",
+        "institution": "Fundação Bradesco",
+        "description": "Focused on physical database creation, using query and structuring languages."
+      },
+      "21": {
+        "name": "Database Administration",
+        "institution": "Fundação Bradesco",
+        "description": "Security management, users, integrity and database systems maintenance."
+      },
+      "22": {
+        "name": "IT Security",
+        "institution": "Fundação Bradesco",
+        "description": "Data security principles, security policies and perimeter defense."
+      },
+      "23": {
+        "name": "Search Ads 360 Certification Exam",
+        "institution": "Google Skillshop",
+        "description": "Advanced certification for managing and optimizing large-scale advertising campaigns."
+      },
+      "24": {
+        "name": "Waze Ads Fundamentals",
+        "institution": "Google Skillshop",
+        "description": "Fundamentals for creating real-time driver-targeted advertising."
+      },
+      "25": {
+        "name": "Google My Business (Company Profile)",
+        "institution": "Google Skillshop",
+        "description": "Tools to optimize local business presence on Google Maps and search."
+      },
+      "26": {
+        "name": "Creative Certification Exam",
+        "institution": "Google Skillshop",
+        "description": "Knowledge test about developing effective advertising creatives for Google platforms."
+      },
+      "27": {
+        "name": "Customer Satisfaction",
+        "institution": "IPED",
+        "description": "Methods to measure and improve customer contentment index with products and services."
+      },
+      "28": {
+        "name": "Customer Service",
+        "institution": "IPED",
+        "description": "Approach techniques, professional posture and agile problem resolution during support."
+      },
+      "29": {
+        "name": "Ethics, Policy and Citizenship",
+        "institution": "IPED",
+        "description": "Study of ethical conduct in the work environment and the professional's social role."
+      },
+      "30": {
+        "name": "Good Food Handling Practices",
+        "institution": "IPED",
+        "description": "Hygiene and food safety standards for production and handling processes."
+      }
+    }
+  },
+  "projects": {
+    "list": {
+      "0": {
+        "name": "GetNexo v1.0+",
+        "description": "All-in-One sales automation and customer service intelligence platform that transforms WhatsApp into a high-performance channel with Generative AI and Augmented Reality.",
+        "status": "v1.0+ (Full Release)",
+        "category": "SaaS & AI Automation"
+      },
+      "1": {
+        "name": "Component Tester PRO",
+        "description": "Advanced testing tool for React components with real-time validation, performance metrics, and accessibility checks.",
+        "status": "v2.3 (Stable)",
+        "category": "Development Tools"
+      },
+      "2": {
+        "name": "Willy Cyber-Multitool",
+        "description": "Comprehensive cybersecurity and system administration toolkit integrating multiple security tools and automation features.",
+        "status": "v1.5 (Production)",
+        "category": "Security & Utilities"
+      }
+    }
   },
   "backgrounds": {
     "title": "Select Background",
     "subtitle": "Choose a style to customize your portfolio",
-    "hint": "Click on a background to apply it"
+    "hint": "Click on a background to apply it",
+    "close": "Close",
+    "apply": "Apply",
+    "cancel": "Cancel",
+    "cyberpunk": "Cyberpunk",
+    "matrix": "Matrix",
+    "ocean": "Ocean",
+    "sunset": "Sunset",
+    "aurora": "Aurora",
+    "minimal": "Minimal",
+    "bolhas": "Bubbles",
+    "particles": "Particles",
+    "liquid": "Liquid",
+    "particulate": "Particulate",
+    "wavefield": "Wavefield",
+    "solid": "Solid"
+  },
+  "dynamicTextDemo": {
+    "controlsLabel": "Controls",
+    "colorModeLabel": "Color mode:",
+    "backgroundLabel": "Background:",
+    "white": "White",
+    "black": "Black",
+    "blue": "Blue",
+    "red": "Red",
+    "pageTitle": "Adaptive Dynamic Text",
+    "pageDescription": "This text changes color automatically based on the background.",
+    "backgroundInfo": "Background: {bgColor} | Mode: {mode}",
+    "buttonText": "Button also adapts"
+  },
+  "contactPage": {
+    "secureEmail": "Secure Email",
+    "quickResponse": "Quick Response",
+    "directContact": "Direct Contact",
+    "support247": "24/7 Support",
+    "successMessage": "Message sent successfully!"
+  },
+  "allCourses": {
+    "back": "Back",
+    "viewDiploma": "View Diploma"
+  },
+  "backgroundMenu": {
+    "closeMenu": "Close menu",
+    "settings": "Settings",
+    "backgroundType": "Background Type",
+    "editBackground": "Edit Background",
+    "openSettings": "Open background settings"
+  },
+  "backgroundEditor": {
+    "closeEditor": "Close editor",
+    "back": "Back",
+    "apply": "Apply",
+    "notImplemented": "Editor for \"{bg}\" not yet implemented"
+  },
+  "modal": {
+    "closeModal": "Close modal",
+    "close": "Close"
+  },
+  "cursoDetailModal": {
+    "close": "Close",
+    "accessCourse": "Access Course",
+    "summary": "Summary",
+    "detailedDescription": "Detailed Description",
+    "curriculum": "Curriculum",
+    "authenticityVerification": "Authenticity Verification",
+    "verifyOnCoursera": "Verify authenticity on Coursera",
+    "professionalCertificate": "Professional Certificate"
+  },
+  "cursosModal": {
+    "mainModules": "Main modules:",
+    "moreModules": "+{count} more modules...",
+    "totalCourses": "Total courses: {count}",
+    "footerCopyright": "Leandro Saturnino Barbosa © 2024"
+  },
+  "allCursos": {
+    "footerTotalCourses": "Total courses: {count}",
+    "footerCopyright": "Leandro Saturnino Barbosa © 2024"
+  },
+  "editorLabels": {
+    "speed": "Speed",
+    "quantity": "Quantity",
+    "size": "Size",
+    "density": "Density",
+    "resolution": "Resolution",
+    "smoothing": "Smoothing",
+    "grain": "Grain",
+    "complexity": "Complexity",
+    "intensity": "Intensity",
+    "refraction": "Refraction",
+    "friction": "Friction",
+    "amplitude": "Amplitude",
+    "frequency": "Frequency",
+    "none": "None",
+    "blow": "Blow",
+    "attract": "Attract",
+    "freeze": "Freeze"
   }
 }

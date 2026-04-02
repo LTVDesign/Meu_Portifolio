@@ -11,15 +11,14 @@ import type { TProject } from '../../types';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms/Header';
 
-const ProjectCard: React.FC<{ index: number } & TProject> = ({
+const ProjectCard: React.FC<{ index: number } & Pick<TProject, 'tags' | 'image' | 'sourceCodeLink'>> = ({
   index,
-  name,
-  description,
   tags,
   image,
   sourceCodeLink,
 }) => {
   const prefersReduced = useReducedMotion();
+  const { t } = useTranslation();
 
   return (
     <motion.div
@@ -29,7 +28,7 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
       <div className='relative h-[230px] w-full'>
         <img
           src={image}
-          alt={name}
+          alt={t(`projects.list.${index}.name`)}
           className='h-full w-full rounded-2xl object-cover'
           loading='lazy'
           decoding='async'
@@ -46,7 +45,7 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
                   if (['http:', 'https:'].includes(url.protocol)) {
                     window.open(sourceCodeLink, '_blank', 'noopener,noreferrer');
                   }
-                } catch {}
+                } catch { }
               }
             }}
             className='black-gradient flex h-10 w-10 cursor-pointer items-center justify-center rounded-full'
@@ -62,9 +61,9 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
         </div>
       </div>
       <div className='mt-5'>
-        <h3 className='text-[24px] font-bold text-[var(--dynamic-text-color)]'>{name}</h3>
-        <p className='text-[var(--dynamic-text-secondary)] mt-2 text-[14px]'>
-          {description}
+        <h3 className='text-[24px] font-bold text-white'>{t(`projects.list.${index}.name`)}</h3>
+        <p className='text-gray-300 mt-2 text-[14px]'>
+          {t(`projects.list.${index}.description`)}
         </p>
       </div>
       <div className='mt-4 flex flex-wrap gap-2'>
@@ -106,13 +105,19 @@ const AllWorks = () => {
           onClick={() => navigate('/')}
           className='bg-primary text-[var(--dynamic-text-color)] px-6 py-3 rounded-lg hover:bg-primary/80 transition-colors mt-3'
         >
-          Voltar
+          {t('allWorks.backToHome')}
         </button>
       </div>
 
       <div className='mt-20 flex flex-wrap gap-7'>
         {visibleProjects.map((project, index) => (
-          <ProjectCard key={`project-${project.name}`} index={index} {...project} />
+          <ProjectCard
+            key={`project-${index}`}
+            index={index}
+            tags={project.tags}
+            image={project.image}
+            sourceCodeLink={project.sourceCodeLink}
+          />
         ))}
       </div>
 
@@ -123,7 +128,7 @@ const AllWorks = () => {
             onClick={handleLoadMore}
             className='glass-btn px-8 py-3 rounded-lg font-bold tracking-wider hover:scale-105 transition-transform'
           >
-            Carregar Mais
+            {t('allWorks.loadMore')}
           </button>
         </div>
       )}

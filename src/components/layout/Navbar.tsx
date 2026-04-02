@@ -24,42 +24,40 @@ const Navbar = memo(() => {
   });
 
   useEffect(() => {
-    // IntersectionObserver for active section detection (Reflow-free)
+    // IntersectionObserver for active section detection
     const observerOptions = {
       root: null,
-      rootMargin: '-80px 0px -50% 0px',
-      threshold: 0.1,
+      rootMargin: '-50px 0px -40% 0px',
+      threshold: 0.05,
     };
 
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
-      if (!isHome) return;
-
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          setActive(entry.target.id);
+          const sectionId = entry.target.id;
+          setActive(sectionId);
         }
       });
     };
 
     const observer = new IntersectionObserver(handleIntersect, observerOptions);
 
-    if (isHome) {
-      // Small delay to ensure sections are rendered
-      const timer = setTimeout(() => {
-        const sections = document.querySelectorAll('section[id]');
-        sections.forEach((section) => observer.observe(section));
-      }, 100);
+    // Observar seções
+    const observeSections = () => {
+      const sections = document.querySelectorAll('section[id]');
+      sections.forEach((section) => {
+        observer.observe(section);
+      });
+    };
 
-      return () => {
-        clearTimeout(timer);
-        observer.disconnect();
-      };
-    }
+    // Observar após delay para garantir que seções foram renderizadas
+    const timer = setTimeout(observeSections, 500);
 
     return () => {
+      clearTimeout(timer);
       observer.disconnect();
     };
-  }, [isHome]);
+  }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -124,7 +122,7 @@ const Navbar = memo(() => {
       >
         <img
           src={logo}
-          alt='Logo'
+          alt={t('nav.logoAlt')}
           className='w-full h-full object-contain drop-shadow-[0_0_20px_rgba(145,94,255,0.8)]'
           width='128'
           height='128'

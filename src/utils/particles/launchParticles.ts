@@ -45,7 +45,7 @@ export const initLaunchParticles = (
   canvas: HTMLCanvasElement,
   btn: HTMLElement
 ): (() => void) => {
-  if (!canvas || !btn) return () => {};
+  if (!canvas || !btn) return () => { };
 
   const CONFIG: Config = {
     burstCount: 60, // Reduzido de 80 para 60
@@ -64,8 +64,8 @@ export const initLaunchParticles = (
     maxParticles: 200, // Reduzido de 300 para 200
   };
 
-  const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
-  if (!ctx) return () => {};
+  const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true, willReadFrequently: true });
+  if (!ctx) return () => { };
 
   let particles: Particle[] = [];
   let frameCount: number = 0;
@@ -111,7 +111,7 @@ export const initLaunchParticles = (
     const offscreen = document.createElement('canvas');
     offscreen.width = spriteSize;
     offscreen.height = spriteSize;
-    const octx = offscreen.getContext('2d');
+    const octx = offscreen.getContext('2d', { willReadFrequently: true });
     if (!octx) return offscreen;
 
     const color = `oklch(78% 0.30 ${hue}deg)`;

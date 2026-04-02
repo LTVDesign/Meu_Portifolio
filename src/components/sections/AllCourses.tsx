@@ -4,8 +4,10 @@ import { SectionWrapper } from '../../hoc';
 import { fadeIn } from '../../utils/motion';
 import { LinkAnimado } from '../atoms';
 import { Header } from '../atoms/Header';
+import { useTranslation } from 'react-i18next';
 
 const AllCourses = ({ setViewMode }: { setViewMode?: (mode: string) => void }) => {
+  const { t } = useTranslation();
   // Lista completa de arquivos de cursos e certificados
   const cursosFiles = [
     // Especialização em Gerenciamento de Produtos de Software - University of Alberta
@@ -140,7 +142,7 @@ const AllCourses = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =
           onClick={() => setViewMode?.('default')}
           className='bg-primary text-[var(--dynamic-text-color)] px-6 py-3 rounded-lg hover:bg-primary/80 transition-colors mt-3'
         >
-          Voltar
+          {t('allCourses.back')}
         </button>
       </div>
 
@@ -152,7 +154,7 @@ const AllCourses = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =
             className='bg-tertiary w-full rounded-2xl p-8 hover:scale-105 transition-transform shadow-card'
           >
             <div className='mt-5'>
-              <h3 className='text-[20px] font-bold text-[var(--dynamic-text-color)] sm:text-[24px]'>
+              <h3 className='text-[20px] font-bold text-white sm:text-[24px]'>
                 {curso.name}
               </h3>
               <div className='mt-4 flex w-full justify-center'>
@@ -162,7 +164,7 @@ const AllCourses = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =
                   rel='noopener noreferrer'
                   className='glass-btn mt-4 text-[14px] px-6 py-2 text-center font-medium rounded-full'
                 >
-                  Ver Diploma
+                  {t('allCourses.viewDiploma')}
                 </LinkAnimado>
               </div>
             </div>

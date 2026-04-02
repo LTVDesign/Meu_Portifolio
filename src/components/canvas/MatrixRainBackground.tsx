@@ -28,7 +28,7 @@ const MatrixRainBackground: React.FC<MatrixRainBackgroundProps> = ({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d', { alpha: false });
+    const ctx = canvas.getContext('2d', { alpha: false, willReadFrequently: true });
     if (!ctx) return;
 
     let animationId: number;

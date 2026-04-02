@@ -316,7 +316,7 @@ const Modal: React.FC<ModalProps> = ({
               {/* Close Button */}
               {finalShowCloseButton && (
                 <motion.button
-                  onClick={(e) => {
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                     e.stopPropagation();
                     onClose?.();
                   }}

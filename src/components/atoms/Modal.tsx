@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import close from '../../assets/close.svg';
 
 interface ModalProps {
@@ -12,6 +13,7 @@ interface ModalProps {
 const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const lastFocusedElement = useRef<HTMLElement | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (isOpen) {
@@ -104,7 +106,7 @@ const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
               type="button"
               onClick={onClose}
               className='p-1 md:p-1.5 rounded hover:bg-white/10 transition-colors flex-shrink-0'
-              aria-label='Fechar modal'
+              aria-label={t('modal.closeModal')}
             >
               <img src={close} alt='' className='w-4 h-4' />
             </button>

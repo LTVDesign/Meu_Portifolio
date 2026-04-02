@@ -113,10 +113,10 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
               className='flex flex-wrap justify-center gap-4 mt-8'
             >
               {[
-                { text: 'Currículo Online', color: 'from-cyan-500 to-blue-500' },
-                { text: 'Download PDF', color: 'from-green-500 to-emerald-500' },
-                { text: 'Experiência Completa', color: 'from-purple-500 to-pink-500' },
-                { text: 'Habilidades Técnicas', color: 'from-orange-500 to-red-500' },
+                { text: t('curriculo.badgeOnline'), color: 'from-cyan-500 to-blue-500' },
+                { text: t('curriculo.badgePDF'), color: 'from-green-500 to-emerald-500' },
+                { text: t('curriculo.badgeExperience'), color: 'from-purple-500 to-pink-500' },
+                { text: t('curriculo.badgeSkills'), color: 'from-orange-500 to-red-500' },
               ].map((badge, idx) => (
                 <motion.span
                   key={idx}

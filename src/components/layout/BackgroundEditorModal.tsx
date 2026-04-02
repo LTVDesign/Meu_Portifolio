@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { createPortal } from 'react-dom';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
+import { useTranslation } from 'react-i18next';
 import {
   BolhasEditor,
   CyberpunkEditor,
@@ -11,17 +12,6 @@ import {
   SolidEditor,
   WavefieldEditor,
 } from '../background-editors';
-
-const BG_LABELS: Record<string, string> = {
-  bolhas: 'Bolhas',
-  particles: 'Partículas',
-  liquid: 'Líquido',
-  particulate: 'Pontos',
-  cyberpunk: 'Túnel',
-  wavefield: 'Ondas',
-  solid: 'Cor Sólida',
-  matrix: 'Matrix',
-};
 
 interface BackgroundEditorModalProps {
   isOpen: boolean;
@@ -35,6 +25,7 @@ const BackgroundEditorModal = ({
   onClose,
 }: BackgroundEditorModalProps) => {
   const { config, updateConfig } = useParticleConfig();
+  const { t } = useTranslation();
 
   const renderEditor = () => {
     const props = { config, updateConfig };
@@ -58,7 +49,7 @@ const BackgroundEditorModal = ({
       default:
         return (
           <div className='text-center py-16 text-gray-400'>
-            Editor para "{selectedBg}" ainda não implementado
+            {t('backgroundEditor.notImplemented', { bg: selectedBg })}
           </div>
         );
     }
@@ -90,7 +81,7 @@ const BackgroundEditorModal = ({
                 whileHover={{ scale: 1.1, rotate: 90 }}
                 whileTap={{ scale: 0.9 }}
                 className='absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-all duration-300 shadow-[0_0_15px_rgba(145,94,255,0.3)] hover:shadow-[0_0_20px_rgba(145,94,255,0.6)]'
-                aria-label='Fechar editor'
+                aria-label={t('backgroundEditor.closeEditor')}
               >
                 <svg
                   width='14'
@@ -114,7 +105,7 @@ const BackgroundEditorModal = ({
                 <div className='text-center'>
                   <h2 className='text-lg font-bold text-white tracking-tight'>Editor</h2>
                   <p className='text-[#915EFF] text-xs font-medium'>
-                    {BG_LABELS[selectedBg] || selectedBg}
+                    {t(`backgrounds.${selectedBg}`) || selectedBg}
                   </p>
                 </div>
               </div>
@@ -133,7 +124,7 @@ const BackgroundEditorModal = ({
                 whileTap={{ scale: 0.98 }}
                 className='flex-1 py-3 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm uppercase tracking-wider transition-all duration-300 border border-white/20 hover:border-white/40'
               >
-                Voltar
+                {t('backgroundEditor.back')}
               </motion.button>
               <motion.button
                 onClick={onClose}
@@ -144,7 +135,7 @@ const BackgroundEditorModal = ({
                 whileTap={{ scale: 0.98 }}
                 className='flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#915EFF] to-[#00D4FF] hover:from-[#a17fff] hover:to-[#33ddff] text-white font-bold text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_0_20px_rgba(145,94,255,0.3)] hover:shadow-[0_0_30px_rgba(145,94,255,0.6)]'
               >
-                Aplicar
+                {t('backgroundEditor.apply')}
               </motion.button>
             </div>
           </motion.div>

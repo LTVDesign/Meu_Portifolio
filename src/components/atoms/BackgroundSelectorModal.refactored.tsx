@@ -7,24 +7,24 @@ interface BackgroundSelectorModalProps {
   onClose: () => void;
 }
 
-const backgrounds = [
-  {
-    id: 'cyberpunk',
-    name: 'Cyberpunk',
-    gradient: 'from-[var(--cyber-purple)] to-[var(--cyber-cyan)]',
-  },
-  { id: 'matrix', name: 'Matrix', gradient: 'from-green-500 to-emerald-700' },
-  { id: 'ocean', name: 'Ocean', gradient: 'from-blue-500 to-cyan-500' },
-  { id: 'sunset', name: 'Sunset', gradient: 'from-orange-500 to-pink-500' },
-  { id: 'aurora', name: 'Aurora', gradient: 'from-purple-500 to-teal-400' },
-  { id: 'minimal', name: 'Minimal', gradient: 'from-gray-700 to-gray-900' },
-];
-
 const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = ({
   isOpen,
   onClose,
 }) => {
   const { t } = useTranslation();
+
+  const backgrounds = [
+    {
+      id: 'cyberpunk',
+      name: t('backgrounds.cyberpunk'),
+      gradient: 'from-[var(--cyber-purple)] to-[var(--cyber-cyan)]',
+    },
+    { id: 'matrix', name: t('backgrounds.matrix'), gradient: 'from-green-500 to-emerald-700' },
+    { id: 'ocean', name: t('backgrounds.ocean'), gradient: 'from-blue-500 to-cyan-500' },
+    { id: 'sunset', name: t('backgrounds.sunset'), gradient: 'from-orange-500 to-pink-500' },
+    { id: 'aurora', name: t('backgrounds.aurora'), gradient: 'from-purple-500 to-teal-400' },
+    { id: 'minimal', name: t('backgrounds.minimal'), gradient: 'from-gray-700 to-gray-900' },
+  ];
 
   const handleSelectBackground = (bgId: string) => {
     // Salvar no localStorage ou context
@@ -54,8 +54,7 @@ const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = ({
             {t('backgrounds.title') || 'Selecione o Background'}
           </h2>
           <p className='text-white/60 mt-2'>
-            {t('backgrounds.subtitle') ||
-              'Escolha um estilo para personalizar seu portfólio'}
+            {t('backgrounds.subtitle')}
           </p>
         </div>
       </div>
@@ -90,7 +89,7 @@ const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = ({
               {/* Botão Aplicar flutuante */}
               <div className='absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity'>
                 <div className='px-6 py-3 rounded-xl bg-gradient-to-r from-[var(--cyber-cyan)] to-[var(--cyber-purple)] text-black font-bold text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(0,255,255,0.5)]'>
-                  Aplicar
+                  {t('backgrounds.apply')}
                 </div>
               </div>
             </div>
@@ -104,7 +103,7 @@ const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = ({
           onClick={handleClose}
           className='px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:text-white hover:bg-white/10 font-bold text-sm uppercase tracking-widest transition-all'
         >
-          Cancelar
+          {t('backgrounds.cancel')}
         </button>
 
         <div className='text-white/40 text-sm'>

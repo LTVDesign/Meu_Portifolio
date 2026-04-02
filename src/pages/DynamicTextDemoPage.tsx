@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import DynamicText from '../components/atoms/DynamicText';
 
 export default function DynamicTextDemoPage() {
+  const { t } = useTranslation();
   const [bgColor, setBgColor] = useState('#ffffff');
   const [mode, setMode] = useState<'auto' | 'dark' | 'light' | 'high-contrast'>('auto');
   const [showPanel, setShowPanel] = useState(false);
@@ -44,10 +46,10 @@ export default function DynamicTextDemoPage() {
             zIndex: 9998,
           }}
         >
-          <h3 style={{ marginBottom: '1rem' }}>Controles</h3>
+          <h3 style={{ marginBottom: '1rem' }}>{t('dynamicTextDemo.controlsLabel')}</h3>
 
           <div style={{ marginBottom: '1rem' }}>
-            <p>Modo de cor:</p>
+            <p>{t('dynamicTextDemo.colorModeLabel')}</p>
             {(['auto', 'dark', 'light', 'high-contrast'] as const).map((m) => (
               <button
                 key={m}
@@ -70,12 +72,12 @@ export default function DynamicTextDemoPage() {
           </div>
 
           <div>
-            <p>Background:</p>
+            <p>{t('dynamicTextDemo.backgroundLabel')}</p>
             {[
-              { label: 'Branco', color: '#ffffff' },
-              { label: 'Preto', color: '#000000' },
-              { label: 'Azul', color: '#0000ff' },
-              { label: 'Vermelho', color: '#ff0000' },
+              { label: t('dynamicTextDemo.white'), color: '#ffffff' },
+              { label: t('dynamicTextDemo.black'), color: '#000000' },
+              { label: t('dynamicTextDemo.blue'), color: '#0000ff' },
+              { label: t('dynamicTextDemo.red'), color: '#ff0000' },
             ].map(({ label, color }) => (
               <button
                 key={label}
@@ -112,14 +114,14 @@ export default function DynamicTextDemoPage() {
           padding: '2rem',
         }}
       >
-        <h1 className='text-4xl font-bold mb-4'>Texto Dinâmico Adaptativo</h1>
+        <h1 className='text-4xl font-bold mb-4'>{t('dynamicTextDemo.pageTitle')}</h1>
         <p className='text-xl mb-4'>
-          Este texto muda de cor automaticamente baseado no fundo.
+          {t('dynamicTextDemo.pageDescription')}
         </p>
         <p className='text-lg mb-4'>
-          Fundo: {bgColor} | Modo: {mode}
+          {t('dynamicTextDemo.backgroundInfo', { bgColor, mode })}
         </p>
-        <button className='px-6 py-3 border rounded'>Botão também adapta</button>
+        <button className='px-6 py-3 border rounded'>{t('dynamicTextDemo.buttonText')}</button>
       </DynamicText>
     </>
   );

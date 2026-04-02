@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import type React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Curso {
   id: string;
@@ -29,6 +30,7 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
   curso,
 }) => {
   if (!isOpen || !curso) return null;
+  const { t } = useTranslation();
 
   return (
     <AnimatePresence>
@@ -66,7 +68,7 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
                   {curso.title}
                 </h3>
                 <p className='text-xs text-[var(--cyber-purple)] font-bold uppercase tracking-widest mt-1'>
-                  {curso.platform}
+                  {t(`courses.list.${curso.id}.platform`)}
                 </p>
                 <div className='flex items-center gap-4 mt-2'>
                   <span className='text-xs text-[var(--text-secondary)]'>
@@ -80,7 +82,7 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
                   </span>
                   {curso.isProfessionalCertificate && (
                     <span className='text-xs text-yellow-400 font-bold flex items-center gap-1'>
-                      ★ Certificado Profissional
+                      {t('cursoDetailModal.professionalCertificate')}
                     </span>
                   )}
                 </div>
@@ -93,30 +95,30 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
             {/* Resumo */}
             <div className='mb-6'>
               <h4 className='text-sm font-bold text-[var(--cyber-cyan)] uppercase tracking-wider mb-2'>
-                Resumo
+                {t('cursoDetailModal.summary')}
               </h4>
               <p className='text-[var(--text-secondary)] text-sm leading-relaxed'>
-                {curso.summary}
+                {t(`courses.list.${curso.id}.summary`)}
               </p>
             </div>
 
             {/* Descrição Completa */}
             <div className='mb-6'>
               <h4 className='text-sm font-bold text-[var(--cyber-cyan)] uppercase tracking-wider mb-2'>
-                Descrição Detalhada
+                {t('cursoDetailModal.detailedDescription')}
               </h4>
               <p className='text-[var(--text-secondary)] text-sm leading-relaxed'>
-                {curso.description}
+                {t(`courses.list.${curso.id}.description`)}
               </p>
             </div>
 
             {/* Módulos */}
             <div className='mb-6'>
               <h4 className='text-sm font-bold text-[var(--cyber-cyan)] uppercase tracking-wider mb-3'>
-                Conteúdo Programático
+                {t('cursoDetailModal.curriculum')}
               </h4>
               <ul className='space-y-2'>
-                {curso.modules.map((module, index) => (
+                {t(`courses.list.${curso.id}.modules`, { returnObjects: true }).map((module: string, index: number) => (
                   <li
                     key={index}
                     className='flex items-start gap-2 text-sm text-[var(--text-secondary)]'
@@ -132,7 +134,7 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
             {curso.verificationLink && curso.verificationLink !== '#' && (
               <div className='mb-4'>
                 <h4 className='text-sm font-bold text-[var(--cyber-cyan)] uppercase tracking-wider mb-2'>
-                  Verificação de Autenticidade
+                  {t('cursoDetailModal.authenticityVerification')}
                 </h4>
                 <a
                   href={curso.verificationLink}
@@ -141,7 +143,7 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
                   className='inline-flex items-center gap-2 text-sm text-[var(--cyber-purple)] hover:text-[var(--cyber-cyan)] transition-colors'
                 >
                   <span>🔗</span>
-                  <span>Verificar autenticidade no Coursera</span>
+                  <span>{t('cursoDetailModal.verifyOnCoursera')}</span>
                 </a>
               </div>
             )}
@@ -155,13 +157,13 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
               rel='noopener noreferrer'
               className='px-6 py-2.5 bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)] text-white font-bold text-xs uppercase tracking-widest rounded-lg hover:scale-105 transition-transform shadow-[0_0_20px_rgba(145,94,255,0.4)]'
             >
-              Acessar Curso
+              {t('cursoDetailModal.accessCourse')}
             </a>
             <button
               onClick={onClose}
               className='px-6 py-2.5 bg-white/5 border border-white/10 text-white/80 hover:text-white font-bold text-xs uppercase tracking-widest rounded-lg hover:bg-white/10 transition-all'
             >
-              Fechar
+              {t('cursoDetailModal.close')}
             </button>
           </div>
         </motion.div>

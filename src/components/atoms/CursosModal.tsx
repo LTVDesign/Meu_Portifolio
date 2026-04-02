@@ -212,7 +212,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                     {curso.modules && curso.modules.length > 0 && (
                       <div className='mt-4'>
                         <p className='text-xs text-[var(--cyber-cyan)] font-bold uppercase tracking-wider mb-2'>
-                          Módulos principais:
+                          {t('cursosModal.mainModules')}
                         </p>
                         <ul className='space-y-1'>
                           {curso.modules.slice(0, 3).map((module, idx) => (
@@ -226,7 +226,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                           ))}
                           {curso.modules.length > 3 && (
                             <li className='text-xs text-white/40 italic'>
-                              +{curso.modules.length - 3} mais módulos...
+                              {t('cursosModal.moreModules', { count: curso.modules.length - 3 })}
                             </li>
                           )}
                         </ul>
@@ -251,7 +251,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                         className='inline-flex items-center justify-center gap-2 text-xs text-[var(--cyber-purple)] hover:text-[var(--cyber-cyan)] transition-colors'
                       >
                         <span>🔗</span>
-                        <span>Verificar autenticidade</span>
+                        <span>{t('cursoDetailModal.authenticityVerification')}</span>
                       </a>
                     )}
                   </div>
@@ -270,8 +270,8 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
         {/* Footer da Modal */}
         <div className='sticky bottom-0 z-20 p-6 border-t border-white/10 bg-black/80 backdrop-blur-md'>
           <div className='max-w-7xl mx-auto flex justify-between items-center text-sm text-white/40'>
-            <p>Total de cursos: {sortedCursos.length}</p>
-            <p>Leandro Saturnino Barbosa © 2024</p>
+            <p>{t('cursosModal.totalCourses', { count: sortedCursos.length })}</p>
+            <p>{t('cursosModal.footerCopyright')}</p>
           </div>
         </div>
       </motion.div>

@@ -26,7 +26,7 @@ const AllCurriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void })
           onClick={() => setViewMode?.('default')}
           className='glass-btn px-8 py-3 rounded-xl font-bold tracking-wider hover:scale-105 transition-transform'
         >
-          Voltar
+          {t('allCurriculo.backToHome')}
         </button>
 
         <a

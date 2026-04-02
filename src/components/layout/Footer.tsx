@@ -48,31 +48,31 @@ const Footer: React.FC = () => {
     {
       icon: FaLinkedin,
       url: 'https://www.linkedin.com/in/leleltv',
-      label: 'LinkedIn',
+      label: t('footer.linkedin'),
       color: 'hover:text-[#0077b5]',
     },
     {
       icon: FaGithub,
       url: 'https://github.com/lelebrr',
-      label: 'GitHub',
+      label: t('footer.github'),
       color: 'hover:text-white',
     },
     {
       icon: FaInstagram,
       url: 'http://instagram.com/lelebrr',
-      label: 'Instagram',
+      label: t('footer.instagram'),
       color: 'hover:text-[#e1306c]',
     },
     {
       icon: FaFacebook,
       url: 'https://www.facebook.com/lelebrr',
-      label: 'Facebook',
+      label: t('footer.facebook'),
       color: 'hover:text-[#1877f2]',
     },
     {
       icon: FaWhatsapp,
       url: 'https://wa.me/5511984838629?text=Olá%20Vim%20pelo%20seu%20portifólio%20e%20gostaria%20de%20falar%20com%20você!',
-      label: 'WhatsApp',
+      label: t('footer.whatsapp'),
       color: 'hover:text-[#25d366]',
     },
   ];
@@ -96,8 +96,7 @@ const Footer: React.FC = () => {
             </h2>
             <p className='text-[var(--dynamic-text-secondary)] text-[clamp(0.8rem,2vw,0.9rem)] leading-relaxed mb-6'>
               <DynamicText colorMode='auto'>
-                Especialista em TI, Infraestrutura e Segurança, transformando dados em
-                inteligência e sistemas em plataformas ultra-performativas.
+                {t("footer.description")}
               </DynamicText>
             </p>
             {/* Social */}
@@ -160,7 +159,7 @@ const Footer: React.FC = () => {
               className='text-[var(--dynamic-text-secondary)] tracking-[0.1em] text-center select-none'
               style={{ fontSize: '1.2em' }}
             >
-              ⬆️⬆️⬇️⬇️⬅️➡️⬅️➡️🅱️🅰️
+              {t('tech.easterEgg')}
             </p>
           </div>
 

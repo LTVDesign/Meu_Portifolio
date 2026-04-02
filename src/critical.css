@@ -138,6 +138,13 @@ svg {
   /* Apenas se animado */
 }
 
+/* Gear spin - Override containment para permitir animação contínua */
+svg.gear-spin {
+  contain: none !important;
+  will-change: transform !important;
+  animation: gearSpin 8s linear infinite !important;
+}
+
 /* ==========================================
    REDUCED MOTION - Acessibilidade
    ========================================== */

@@ -10,75 +10,7 @@ import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms';
 import Modal from '../atoms/Modal';
 
-// Componente de engrenagem animada
-const AnimatedGear = () => {
-  const prefersReduced = useReducedMotion();
 
-  return (
-    <div className='absolute top-20 right-20 w-32 h-32 hidden lg:block opacity-30'>
-      {/* Container principal da engrenagem com pulsação */}
-      <motion.div
-        animate={
-          prefersReduced
-            ? {}
-            : {
-              scale: [1, 1.08, 1],
-            }
-        }
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-        className='relative w-full h-full'
-      >
-        {/* SVG da engrenagem com design realista */}
-        <svg
-          width='100%'
-          height='100%'
-          viewBox='0 0 100 100'
-          className='drop-shadow-[0_0_20px_rgba(145,94,255,0.8)]'
-        >
-          <defs>
-            <linearGradient id='gearGradFormacao' x1='0%' y1='0%' x2='100%' y2='100%'>
-              <stop offset='0%' stopColor='#00D4FF' />
-              <stop offset='50%' stopColor='#915EFF' />
-              <stop offset='100%' stopColor='#FF6B9D' />
-            </linearGradient>
-            <filter id='glow'>
-              <feGaussianBlur stdDeviation='2' result='coloredBlur' />
-              <feMerge>
-                <feMergeNode in='coloredBlur' />
-                <feMergeNode in='SourceGraphic' />
-              </feMerge>
-            </filter>
-          </defs>
-
-          <g filter='url(#glow)'>
-            {/* Corpo principal da engrenagem com dentes */}
-            <path
-              fill='rgba(20,20,30,0.9)'
-              stroke='url(#gearGradFormacao)'
-              strokeWidth='2.5'
-              d='M50 10 L57 10 L59 20 L67 16 L73 22 L67 30 L77 34 L75 42 L87 48 L87 56 L75 60 L79 70 L71 76 L63 66 L57 74 L50 88 L43 74 L37 66 L29 76 L21 70 L25 60 L13 56 L13 48 L25 44 L21 34 L29 28 L37 38 L43 30 L50 22 Z'
-            />
-            {/* Círculo interno */}
-            <circle
-              cx='50'
-              cy='50'
-              r='14'
-              fill='rgba(20,20,30,0.95)'
-              stroke='url(#gearGradFormacao)'
-              strokeWidth='2'
-            />
-            {/* Círculo central */}
-            <circle cx='50' cy='50' r='5' fill='url(#gearGradFormacao)' />
-          </g>
-        </svg>
-      </motion.div>
-    </div>
-  );
-};
 
 const Formacao = () => {
   const [selectedFormation, setSelectedFormation] = useState<FormacaoData | null>(null);
@@ -108,15 +40,14 @@ const Formacao = () => {
   const formacoes: FormacaoData[] = [
     {
       id: '1',
-      title: 'Tecnólogo em Análise e Desenvolvimento de Sistemas',
-      institution: 'Anhanguera',
-      date: '2023 - 2025',
+      title: t('allFormacao.educationList.1.title'),
+      institution: t('allFormacao.educationList.1.institution'),
+      date: t('allFormacao.educationList.1.period'),
       status: t('status.concluido'),
       icon: anhanguera,
       logo: anhanguera,
-      period: '2023 - 2025',
-      description:
-        'Formação superior com foco abrangente no ciclo completo de desenvolvimento de software, desde a concepção até a implantação e manutenção de sistemas. O curso proporciona uma base sólida em análise de requisitos, arquitetura de software, gestão de projetos e metodologias ágeis, preparando profissionais capazes de liderar iniciativas tecnológicas em diversos segmentos do mercado. Com uma abordagem prática e alinhada às demandas da indústria, a graduação enfatiza o desenvolvimento de soluções inovadoras, escaláveis e sustentáveis, capacitando os egressos a enfrentar os desafios contemporâneos da área de tecnologia da informação com excelência técnica e visão estratégica. Durante o curso, foram exploradas tecnologias modernas como React, Node.js, TypeScript, bancos de dados relacionais e não-relacionais, além de práticas de DevOps e CI/CD, proporcionando uma formação completa e atualizada com as necessidades do mercado de trabalho.',
+      period: t('allFormacao.educationList.1.period'),
+      description: t('allFormacao.educationList.1.description'),
       link: '#',
       cargaHorariaGeral: '2100h',
       dataConclusao: '13/12/2025',
@@ -331,17 +262,16 @@ const Formacao = () => {
     },
     {
       id: '2',
-      title: 'Inteligência Artificial: Conceitos, Ferramentas e Aplicações',
-      institution: 'Anhanguera',
-      date: '2026 - Em andamento',
+      title: t('allFormacao.educationList.0.title'),
+      institution: t('allFormacao.educationList.0.institution'),
+      date: t('allFormacao.educationList.0.period'),
       status: t('status.emAndamento'),
       icon: anhanguera,
       logo: anhanguera,
-      period: '2026 - Em andamento',
-      description:
-        'O curso de pós-graduação em Inteligência Artificial e Data Science é projetado para atender às demandas crescentes do mercado tecnológico, capacitando profissionais a desenvolver soluções inovadoras e baseadas em dados. Com uma abordagem prática e avançada, o curso prepara os alunos para enfrentar os desafios do mundo do trabalho, promovendo a inovação e a precisão em suas respectivas áreas de atuação.',
+      period: t('allFormacao.educationList.0.period'),
+      description: t('allFormacao.educationList.0.description'),
       link: '#',
-      tipoFormacao: 'Tecnólogo em Análise e Desenvolvimento de Sistemas',
+      tipoFormacao: t('education.technologist'),
       cargaHorariaGeral: '360h',
       statusDiploma: 'Em breve',
       nota: '10,0',
@@ -490,8 +420,6 @@ const Formacao = () => {
 
   return (
     <div className='max-w-7xl mx-auto px-6 relative'>
-      {/* Engrenagem animada decorativa */}
-      <AnimatedGear />
 
       <Header useMotion={true} p={t('formacao.p')} h2={t('formacao.h2')} />
 
