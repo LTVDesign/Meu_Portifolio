@@ -15,10 +15,10 @@
   <!-- CSP (Content Security Policy) -->
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    script-src 'self' 'unsafe-inline' 'unsafe-eval' data: https://cdn.jsdelivr.net https://unpkg.com https://va.vercel-scripts.com;
-    style-src 'self' 'unsafe-inline';
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' data: https://cdn.jsdelivr.net https://unpkg.com https://va.vercel-scripts.com https://cdnjs.cloudflare.com;
+    style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
     img-src 'self' data: https:;
-    font-src 'self' data:;
+    font-src 'self' data: https://cdnjs.cloudflare.com;
     connect-src 'self' https://api.emailjs.com ws://localhost:5174 ws://localhost:5173 https://va.vercel-scripts.com;
     frame-src 'self';
     object-src 'none';
@@ -53,9 +53,6 @@
   <title>Leandro Saturnino Barbosa | Portfólio 3D - React & Three.js</title>
 
   <!-- CSS será importado via main.tsx -->
-
-  <!-- Preload do módulo principal -->
-  <link rel="modulepreload" href="/src/main.tsx">
 
   <script type="application/ld+json">
     {
@@ -101,7 +98,7 @@
       window.scrollTo(0, 0);
     });
   </script>
-  <script type="module" src="/src/main.tsx"></script>
+  <!-- Script será injetado automaticamente pelo Vite durante o build -->
 </body>
 
 </html>
