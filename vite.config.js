@@ -86,13 +86,63 @@ export default defineConfig({
     sourcemap: false,
     minify: 'terser',
     chunkSizeWarningLimit: 1000,
+    // CSS code splitting habilitado por padrão
+    cssCodeSplit: true,
+    // Asset inlining para arquivos pequenos (< 4KB)
+    assetsInlineLimit: 4096,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'three-core': ['three'],
-          'react-three': ['@react-three/fiber', '@react-three/drei'],
-          motion: ['framer-motion'],
-          vendor: ['react', 'react-dom', 'react-router-dom']
+        // Função manualChunks otimizada para reduzir cadeia crítica
+        manualChunks: (id) => {
+          // Critical path - React core (carregar primeiro)
+          // Inclui react, react-dom, react-router-dom juntos para evitar dependência circular
+          if (id.includes('node_modules/react/') ||
+            id.includes('node_modules/react-dom/') ||
+            id.includes('node_modules/react-router-dom/') ||
+            id.includes('node_modules/scheduler/')) {
+            return 'vendor-react';
+          }
+
+          // Three.js core - pode ser preloadado separadamente
+          if (id.includes('node_modules/three/') && !id.includes('@react-three')) {
+            return 'three-core';
+          }
+
+          // React Three - depende de three-core
+          if (id.includes('@react-three/fiber') || id.includes('@react-three/drei')) {
+            return 'react-three';
+          }
+
+          // Framer Motion - não é crítico para LCP
+          if (id.includes('node_modules/framer-motion/')) {
+            return 'motion';
+          }
+
+          // Outras dependências node_modules (exceto os já tratados acima)
+          if (id.includes('node_modules/')) {
+            return 'vendor';
+          }
+        },
+        // Otimizar nomeação de chunks para melhor cache
+        chunkFileNames: (chunkInfo) => {
+          const facadeModuleId = chunkInfo.facadeModuleId
+            ? chunkInfo.facadeModuleId.split('/').pop()
+            : 'chunk';
+          return `assets/js/${chunkInfo.name || facadeModuleId}-[hash].js`;
+        },
+        entryFileNames: 'assets/js/[name]-[hash].js',
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name || '';
+          if (/\.(png|jpe?g|gif|svg|webp|avif)$/i.test(info)) {
+            return 'assets/images/[name]-[hash][extname]';
+          }
+          if (/\.(css)$/i.test(info)) {
+            return 'assets/css/[name]-[hash][extname]';
+          }
+          if (/\.(woff2?|ttf|eot)$/i.test(info)) {
+            return 'assets/fonts/[name]-[hash][extname]';
+          }
+          return 'assets/[name]-[hash][extname]';
         }
       }
     }

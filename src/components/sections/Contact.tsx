@@ -410,7 +410,7 @@ const Contact = () => {
                     onChange={handleChange}
                     rows={7}
                     required
-                    className='form-input w-full resize-y min-h-[180px]'
+                    className='form-input w-full resize-y min-h-[120px] sm:min-h-[180px]'
                   />
                   {fieldErrors.message && (
                     <p role='alert' className='text-red-400 text-sm mt-1'>
@@ -457,7 +457,7 @@ const Contact = () => {
           {/* Canvas 3D */}
           <m.div
             variants={slideIn('right', 'tween', 0.2, 1)}
-            className='flex-1 w-full xl:w-1/2 h-[280px] sm:h-[380px] md:h-[480px] xl:h-[600px] flex items-center justify-center relative overflow-hidden'
+            className='flex-1 w-full xl:w-1/2 h-[220px] sm:h-[320px] md:h-[420px] xl:h-[600px] flex items-center justify-center relative overflow-hidden'
           >
             <div className='w-full h-full'>
               <EarthCanvas />

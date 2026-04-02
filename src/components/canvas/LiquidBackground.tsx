@@ -12,6 +12,7 @@ import {
 } from 'three';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 import { usePerformance } from '../../contexts/PerformanceContext';
+import { useViewport } from '../../hooks/useViewport';
 
 interface LiquidBackgroundProps {
   resolution: number;
@@ -50,6 +51,7 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
   const materialRef = useRef<ShaderMaterial | null>(null);
   const { config } = useParticleConfig();
   const { isLowPerformance } = usePerformance();
+  const { width: viewportWidth, height: viewportHeight } = useViewport();
   const mouseRef = useRef({ x: 0.5, y: 0.5 });
   const lastMouseMoveRef = useRef(0);
 
@@ -109,8 +111,8 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
     lastMouseMoveRef.current = now;
 
     // Normaliza as coordenadas do mouse para 0-1
-    mouseRef.current.x = e.clientX / window.innerWidth;
-    mouseRef.current.y = 1.0 - e.clientY / window.innerHeight; // Inverte Y para corresponder ao UV
+    mouseRef.current.x = e.clientX / viewportWidth;
+    mouseRef.current.y = 1.0 - e.clientY / viewportHeight; // Inverte Y para corresponder ao UV
   };
 
   useEffect(() => {
@@ -327,7 +329,7 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
       alpha: true,
       powerPreference: 'high-performance',
     });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(viewportWidth, viewportHeight);
     renderer.setPixelRatio(window.devicePixelRatio * resolution);
     mountRef.current.appendChild(renderer.domElement);
 
@@ -337,7 +339,7 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
       fragmentShader,
       uniforms: {
         u_time: { value: 0.0 },
-        u_resolution: { value: new Vector2(window.innerWidth, window.innerHeight) },
+        u_resolution: { value: new Vector2(viewportWidth, viewportHeight) },
         u_mouse: { value: new Vector2(0.5, 0.5) },
         u_interactionMode: { value: 0 }, // 0: none, 1: blow, 2: attract, 3: freeze
         u_speed: { value: speed },
@@ -376,8 +378,8 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
 
     // Resize
     const handleResize = () => {
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      material.uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
+      renderer.setSize(viewportWidth, viewportHeight);
+      material.uniforms.u_resolution.value.set(viewportWidth, viewportHeight);
     };
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove);
@@ -388,7 +390,7 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
       mountRef.current?.removeChild(renderer.domElement);
       renderer.dispose();
     };
-  }, []);
+  }, [viewportWidth, viewportHeight]);
 
   return (
     <div

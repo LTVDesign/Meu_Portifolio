@@ -1,5 +1,6 @@
 import type React from 'react';
 import { useEffect, useRef } from 'react';
+import { useViewport } from '../../hooks/useViewport';
 
 interface MatrixRainBackgroundProps {
   density?: number;
@@ -23,6 +24,7 @@ const MatrixRainBackground: React.FC<MatrixRainBackgroundProps> = ({
   glowIntensity = 0.5,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { width: viewportWidth, height: viewportHeight } = useViewport();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -32,8 +34,8 @@ const MatrixRainBackground: React.FC<MatrixRainBackgroundProps> = ({
     if (!ctx) return;
 
     let animationId: number;
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
+    let width = (canvas.width = viewportWidth);
+    let height = (canvas.height = viewportHeight);
 
     const charSets: Record<string, string> = {
       matrix: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>[]{}+-*/=#!$%&?',
@@ -110,8 +112,8 @@ const MatrixRainBackground: React.FC<MatrixRainBackgroundProps> = ({
     animationId = requestAnimationFrame(draw);
 
     const handleResize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      width = canvas.width = viewportWidth;
+      height = canvas.height = viewportHeight;
 
       // Recalcula colunas no resize
       const newColumns = Math.floor(width / (fontSize * (100 / density)));
@@ -130,7 +132,7 @@ const MatrixRainBackground: React.FC<MatrixRainBackgroundProps> = ({
       cancelAnimationFrame(animationId);
       window.removeEventListener('resize', handleResize);
     };
-  }, [density, speed, fontSize, color, backgroundColor, charSet, glowIntensity]);
+  }, [density, speed, fontSize, color, backgroundColor, charSet, glowIntensity, viewportWidth, viewportHeight]);
 
   return (
     <canvas

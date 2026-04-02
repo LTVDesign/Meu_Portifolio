@@ -12,6 +12,7 @@ import {
   WebGLRenderer,
 } from 'three';
 import type { WavefieldUniforms } from '../../types';
+import { useViewport } from '../../hooks/useViewport';
 
 interface WavefieldUltraBackgroundProps {
   speed: number;
@@ -42,6 +43,7 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const uniformsRef = useRef<WavefieldUniforms | null>(null);
+  const { width: viewportWidth, height: viewportHeight } = useViewport();
 
   // Reactive uniform updates — avoids full WebGL rebuild
   useEffect(() => {
@@ -50,10 +52,10 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
       const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
       return result
         ? new Color(
-            parseInt(result[1], 16) / 255,
-            parseInt(result[2], 16) / 255,
-            parseInt(result[3], 16) / 255
-          )
+          parseInt(result[1], 16) / 255,
+          parseInt(result[2], 16) / 255,
+          parseInt(result[3], 16) / 255
+        )
         : new Color(0, 1, 1);
     };
     uniformsRef.current.speed.value = speed;
@@ -95,15 +97,15 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
       const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
       return result
         ? new Color(
-            parseInt(result[1], 16) / 255,
-            parseInt(result[2], 16) / 255,
-            parseInt(result[3], 16) / 255
-          )
+          parseInt(result[1], 16) / 255,
+          parseInt(result[2], 16) / 255,
+          parseInt(result[3], 16) / 255
+        )
         : new Color(0, 1, 1);
     };
     const uniforms = {
       t: { value: 0.0 },
-      r: { value: new Vector2(window.innerWidth, window.innerHeight) },
+      r: { value: new Vector2(viewportWidth, viewportHeight) },
       mouse: { value: new Vector2(0.5, 0.5) },
       speed: { value: speed },
       amplitude: { value: amplitude },
@@ -140,7 +142,7 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
       camera.position.z = 1;
       renderer = new WebGLRenderer({ antialias: true, alpha: true });
       renderer.setClearAlpha(0);
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setSize(viewportWidth, viewportHeight);
       renderer.setPixelRatio(window.devicePixelRatio);
 
       const canvas = renderer.domElement;
@@ -302,20 +304,20 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
     }
 
     const onMouseMove = (event: MouseEvent) => {
-      targetMouse.x = event.clientX / window.innerWidth;
-      targetMouse.y = 1.0 - event.clientY / window.innerHeight;
+      targetMouse.x = event.clientX / viewportWidth;
+      targetMouse.y = 1.0 - event.clientY / viewportHeight;
     };
 
     const onTouchMove = (event: TouchEvent) => {
       if (event.touches.length > 0) {
-        targetMouse.x = event.touches[0].clientX / window.innerWidth;
-        targetMouse.y = 1.0 - event.touches[0].clientY / window.innerHeight;
+        targetMouse.x = event.touches[0].clientX / viewportWidth;
+        targetMouse.y = 1.0 - event.touches[0].clientY / viewportHeight;
       }
     };
 
     const onWindowResize = () => {
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      uniforms.r.value.set(window.innerWidth, window.innerHeight);
+      renderer.setSize(viewportWidth, viewportHeight);
+      uniforms.r.value.set(viewportWidth, viewportHeight);
       renderer.setPixelRatio(window.devicePixelRatio);
     };
 
@@ -352,7 +354,7 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
       renderer.dispose();
       material.dispose();
     };
-  }, []);
+  }, [viewportWidth, viewportHeight]);
 
   return (
     <div

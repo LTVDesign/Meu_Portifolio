@@ -274,6 +274,16 @@ const Footer: React.FC = () => {
 
           </div>
         </div>
+
+        {/* Copyright */}
+        <div className='mt-4 pt-3 border-t border-white/5 flex flex-col items-center gap-1'>
+          <p className='text-[10px] sm:text-xs text-white/30 text-center tracking-wide'>
+            © {new Date().getFullYear()} Leandro Saturnino Barbosa. {t('footer.allRightsReserved', 'All rights reserved.')}
+          </p>
+          <p className='text-[8px] sm:text-[10px] text-white/20 text-center'>
+            {t('footer.madeWith', 'Made with')} React, Three.js & ❤️
+          </p>
+        </div>
       </div>
     </footer>
   );

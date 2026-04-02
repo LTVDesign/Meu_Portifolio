@@ -122,7 +122,7 @@ const Tech = () => {
             </m.div>
 
             {/* Grid otimizado para 13 itens por linha no desktop */}
-            <div className='grid grid-cols-4 xs:grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-13 gap-x-1 sm:gap-x-2 gap-y-8 sm:gap-y-10 justify-items-center'>
+            <div className='grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-7 lg:grid-cols-10 xl:grid-cols-13 gap-x-1.5 sm:gap-x-2 gap-y-6 sm:gap-y-10 justify-items-center'>
               {techs.map((tech: Technology, index: number) => (
                 <m.div
                   key={tech.name}

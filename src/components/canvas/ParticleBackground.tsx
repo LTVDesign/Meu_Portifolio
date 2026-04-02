@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 import { usePerformance } from '../../contexts/PerformanceContext';
+import { useViewport } from '../../hooks/useViewport';
 
 interface Particle {
   x: number;
@@ -37,6 +38,7 @@ const ParticleBackground = ({
 }: ParticleBackgroundProps) => {
   const { isLowPerformance, level } = usePerformance();
   const { config } = useParticleConfig();
+  const { width: viewportWidth, height: viewportHeight } = useViewport();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number | null>(null);
   const particlesRef = useRef<Particle[]>([]);
@@ -53,8 +55,8 @@ const ParticleBackground = ({
     if (!canvas) return;
 
     const dpr = window.devicePixelRatio || 1;
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const width = viewportWidth;
+    const height = viewportHeight;
 
     canvas.width = width * dpr;
     canvas.height = height * dpr;
@@ -248,7 +250,7 @@ const ParticleBackground = ({
       window.removeEventListener('resize', onResize);
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [quantity, isLowPerformance]);
+  }, [quantity, isLowPerformance, viewportWidth, viewportHeight]);
 
   // Animação com requestAnimationFrame
   useEffect(() => {

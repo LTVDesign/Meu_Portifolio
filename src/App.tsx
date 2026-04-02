@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useState, useCallback, memo } from 'react';
+import React, { lazy, Suspense, useState, useCallback, memo, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { SpeedInsights } from '@vercel/speed-insights/react';
@@ -14,6 +14,8 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import BackgroundMenu from './components/layout/BackgroundMenu';
 import BackgroundEditorModal from './components/layout/BackgroundEditorModal';
+
+// LCP Optimization: Lazy loading com delay para não bloquear renderização inicial
 const ParticlesCanvas = lazy(() => import('./components/layout/ParticlesCanvas'));
 
 // Lazy Loading (melhor performance)
@@ -104,22 +106,45 @@ const BackgroundOverlays = memo(() => {
 BackgroundOverlays.displayName = 'BackgroundOverlays';
 
 const AppContent = () => {
+  // LCP Optimization: Carregar backgrounds após LCP ser pintado
+  const [loadBackgrounds, setLoadBackgrounds] = useState(false);
+
+  useEffect(() => {
+    // Usar requestIdleCallback ou setTimeout para carregar backgrounds após LCP
+    const scheduleLoad = () => {
+      setLoadBackgrounds(true);
+    };
+
+    // Se requestIdleCallback estiver disponível, usar para não bloquear interação
+    if ('requestIdleCallback' in window) {
+      (window as Window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(scheduleLoad);
+    } else {
+      // Fallback: carregar após 500ms (após LCP típico)
+      const timer = setTimeout(scheduleLoad, 500);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   return (
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-      {/* Background 3D - Sempre atrás */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <Suspense fallback={null}>
-          <BackgroundManager />
-        </Suspense>
-      </div>
+      {/* LCP Optimization: Backgrounds só carregam após LCP */}
+      {loadBackgrounds && (
+        <div className="fixed inset-0 z-0 pointer-events-none">
+          <Suspense fallback={null}>
+            <BackgroundManager />
+          </Suspense>
+        </div>
+      )}
 
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <Suspense fallback={null}>
-          <ParticlesCanvas />
-        </Suspense>
-      </div>
+      {loadBackgrounds && (
+        <div className="fixed inset-0 z-0 pointer-events-none">
+          <Suspense fallback={null}>
+            <ParticlesCanvas />
+          </Suspense>
+        </div>
+      )}
 
-      {/* Conteúdo principal */}
+      {/* Conteúdo principal - renderiza primeiro para LCP */}
       <div className="relative z-10 min-h-screen">
         <Navbar />
 

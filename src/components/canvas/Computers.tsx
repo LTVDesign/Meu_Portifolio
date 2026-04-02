@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import type React from 'react';
 import { Suspense, useEffect, useState } from 'react';
 import { useTouchScrollGuard } from '../../hooks/useTouchScrollGuard';
+import { useViewport } from '../../hooks/useViewport';
 
 import CanvasLoader from '../layout/Loader';
 
@@ -27,13 +28,13 @@ const SCREEN_CONFIG: Record<ScreenSize, {
   fov: number;
   dprMax: number;
 }> = {
-  watch:       { position: [0, -2.8, 0],  scale: 0.28, fov: 60, dprMax: 1 },
-  mobileSmall: { position: [0, -3.5, 0],  scale: 0.38, fov: 55, dprMax: 1.5 },
-  mobile:      { position: [0, -4.0, 0],  scale: 0.45, fov: 50, dprMax: 1.5 },
-  tablet:      { position: [0, -4.5, -1], scale: 0.58, fov: 40, dprMax: 2 },
-  desktop:     { position: [0, -3.25, -1.5], scale: 0.75, fov: 25, dprMax: 2 },
-  tv:          { position: [0, -3.5, -2], scale: 1.1, fov: 22, dprMax: 2 },
-  '4k':        { position: [0, -3.5, -2], scale: 1.3, fov: 20, dprMax: 2 },
+  watch: { position: [0, -2.8, 0], scale: 0.28, fov: 60, dprMax: 1 },
+  mobileSmall: { position: [0, -3.5, 0], scale: 0.38, fov: 55, dprMax: 1.5 },
+  mobile: { position: [0, -4.0, 0], scale: 0.45, fov: 50, dprMax: 1.5 },
+  tablet: { position: [0, -4.5, -1], scale: 0.58, fov: 40, dprMax: 2 },
+  desktop: { position: [0, -3.25, -1.5], scale: 0.75, fov: 25, dprMax: 2 },
+  tv: { position: [0, -3.5, -2], scale: 1.1, fov: 22, dprMax: 2 },
+  '4k': { position: [0, -3.5, -2], scale: 1.3, fov: 20, dprMax: 2 },
 };
 
 const ComputersContent: React.FC<{ screenSize: ScreenSize }> = ({ screenSize }) => {
@@ -44,7 +45,7 @@ const ComputersContent: React.FC<{ screenSize: ScreenSize }> = ({ screenSize }) 
     // Delay adaptativo: menor em desktop, maior em mobile para priorizar LCP
     const delay = screenSize === 'watch' || screenSize === 'mobileSmall' ? 600
       : screenSize === 'mobile' ? 400
-      : 300;
+        : 300;
 
     const timer = setTimeout(() => {
       setShouldLoadModel(true);
@@ -89,26 +90,13 @@ export const ComputersCanvas = () => {
     intentThreshold: 6,
   });
   const [shouldLoad, setShouldLoad] = useState(false);
-  const [screenSize, setScreenSize] = useState<ScreenSize>(() =>
-    typeof window !== 'undefined' ? getScreenSize(window.innerWidth) : 'desktop'
-  );
+  const { width: viewportWidth } = useViewport();
+  const [screenSize, setScreenSize] = useState<ScreenSize>(() => 'desktop');
 
-  // Detectar tamanho da tela com debounce
+  // Detectar tamanho da tela baseado no viewportWidth do hook
   useEffect(() => {
-    let timeout: ReturnType<typeof setTimeout>;
-    const handleResize = () => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        setScreenSize(getScreenSize(window.innerWidth));
-      }, 150);
-    };
-
-    window.addEventListener('resize', handleResize, { passive: true });
-    return () => {
-      clearTimeout(timeout);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+    setScreenSize(getScreenSize(viewportWidth));
+  }, [viewportWidth]);
 
   // Carregamento lazy com IntersectionObserver
   useEffect(() => {

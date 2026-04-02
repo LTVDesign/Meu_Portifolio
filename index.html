@@ -16,9 +16,9 @@
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
     script-src 'self' 'unsafe-inline' 'unsafe-eval' data: https://cdn.jsdelivr.net https://unpkg.com https://va.vercel-scripts.com https://cdnjs.cloudflare.com;
-    style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
+    style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
     img-src 'self' data: https:;
-    font-src 'self' data: https://cdnjs.cloudflare.com;
+    font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com;
     connect-src 'self' https://api.emailjs.com ws://localhost:5174 ws://localhost:5173 https://va.vercel-scripts.com;
     frame-src 'self';
     object-src 'none';
@@ -26,9 +26,11 @@
     form-action 'self';
   ">
 
-  <!-- Preconnects removidos para otimização da árvore de dependências da rede -->
-  <!-- <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin /> -->
-  <!-- <link rel="dns-prefetch" href="https://fonts.gstatic.com" /> -->
+  <!-- Google Fonts: Inter — premium typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
 
   <!-- EmailJS: carregado sob demanda no formulário de contato -->
   <!-- <link rel="preconnect" href="https://api.emailjs.com" crossorigin /> -->
@@ -53,6 +55,17 @@
   <title>Leandro Saturnino Barbosa | Portfólio 3D - React & Three.js</title>
 
   <!-- CSS será importado via main.tsx -->
+
+  <!-- Module Preload Hints - Otimização da cadeia crítica -->
+  <!-- Preload do entrypoint principal -->
+  <link rel="modulepreload" href="/src/main.tsx" />
+
+  <!-- Preconnect para recursos externos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- DNS Prefetch para APIs externas -->
+  <link rel="dns-prefetch" href="https://api.emailjs.com" />
 
   <script type="application/ld+json">
     {

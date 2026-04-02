@@ -1,5 +1,6 @@
 import type React from 'react';
 import { useEffect, useRef } from 'react';
+import { useViewport } from '../../hooks/useViewport';
 // Tree-shakeable Three.js imports for better performance
 import {
   Color,
@@ -57,6 +58,7 @@ const LiquidUltraBackground: React.FC<LiquidUltraBackgroundProps> = ({
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const materialRef = useRef<ShaderMaterial | null>(null);
+  const { width: viewportWidth, height: viewportHeight } = useViewport();
 
   // Reactive uniform updates — avoids full WebGL rebuild
   useEffect(() => {
@@ -279,7 +281,7 @@ const LiquidUltraBackground: React.FC<LiquidUltraBackgroundProps> = ({
       alpha: true,
       powerPreference: 'high-performance',
     });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(viewportWidth, viewportHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5) * resolution);
 
     const canvas = renderer.domElement;
@@ -291,7 +293,7 @@ const LiquidUltraBackground: React.FC<LiquidUltraBackgroundProps> = ({
       fragmentShader,
       uniforms: {
         u_time: { value: 0.0 },
-        u_resolution: { value: new Vector2(window.innerWidth, window.innerHeight) },
+        u_resolution: { value: new Vector2(viewportWidth, viewportHeight) },
         u_speed: { value: speed },
         u_scale: { value: scale },
         u_complexity: { value: complexity },
@@ -332,8 +334,8 @@ const LiquidUltraBackground: React.FC<LiquidUltraBackgroundProps> = ({
     animate();
 
     const handleResize = () => {
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      material.uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
+      renderer.setSize(viewportWidth, viewportHeight);
+      material.uniforms.u_resolution.value.set(viewportWidth, viewportHeight);
     };
     window.addEventListener('resize', handleResize);
 
@@ -347,7 +349,7 @@ const LiquidUltraBackground: React.FC<LiquidUltraBackgroundProps> = ({
       material.dispose();
       renderer.dispose();
     };
-  }, [resolution]);
+  }, [resolution, viewportWidth, viewportHeight]);
 
   return (
     <div

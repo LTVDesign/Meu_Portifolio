@@ -44,13 +44,19 @@
 
   /* Apenas estilos que NÃO estão no critical.css */
   body {
-    @apply text-white font-sans antialiased;
+    @apply text-white antialiased;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     /* Prevenir layout shift */
     min-height: 100vh;
+    min-height: 100dvh;
     overflow-x: hidden;
     /* Garante que scroll vertical sempre funciona em touch devices */
     touch-action: auto;
     -webkit-overflow-scrolling: touch;
+    /* Better text rendering */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   html {
@@ -639,16 +645,24 @@
 
   .glass-card {
     background-color: var(--bg-glass);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    backdrop-filter: blur(16px) saturate(150%);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    border-radius: 1.5rem;
+    border-radius: 1.25rem;
     transition:
       border-color 0.3s ease,
       box-shadow 0.3s ease;
     will-change: transform, opacity;
     transform: translateZ(0);
+  }
+
+  @media (min-width: 640px) {
+    .glass-card {
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-radius: 1.5rem;
+    }
   }
 
   .glass-card:hover {
@@ -663,13 +677,22 @@
   }
 
   .btn-primary {
-    @apply bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)] font-bold py-5 px-10 rounded-3xl focus-visible:ring-4 focus-visible:ring-[var(--cyber-purple)] focus-visible:ring-offset-4 focus-visible:ring-offset-black;
+    @apply bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)] font-bold py-3.5 px-6 rounded-2xl focus-visible:ring-4 focus-visible:ring-[var(--cyber-purple)] focus-visible:ring-offset-4 focus-visible:ring-offset-black;
     box-shadow: 0 0 25px rgba(145, 94, 255, 0.4);
     transition:
       transform 0.3s ease,
       box-shadow 0.3s ease;
     will-change: transform;
     transform: translateZ(0);
+    min-height: 48px;
+    font-size: 0.875rem;
+  }
+
+  @media (min-width: 640px) {
+    .btn-primary {
+      @apply py-5 px-10 rounded-3xl;
+      font-size: 1rem;
+    }
   }
 
   .btn-primary:hover {
@@ -715,11 +738,18 @@
   }
 
   .form-input {
-    @apply bg-black/40 border border-white/20 rounded-2xl py-5 px-6 text-white placeholder:text-white/30 focus:border-[var(--cyber-purple)] focus:ring-4 focus:ring-[var(--cyber-purple)]/20 focus:outline-none backdrop-blur-md;
+    @apply bg-black/40 border border-white/20 rounded-xl py-3.5 px-4 text-white text-sm placeholder:text-white/30 focus:border-[var(--cyber-purple)] focus:ring-4 focus:ring-[var(--cyber-purple)]/20 focus:outline-none backdrop-blur-md;
     transition:
       border-color 0.3s ease,
       box-shadow 0.3s ease;
     transform: translateZ(0);
+    min-height: 48px;
+  }
+
+  @media (min-width: 640px) {
+    .form-input {
+      @apply py-5 px-6 rounded-2xl text-base;
+    }
   }
 
   .composited-hover {
@@ -836,6 +866,38 @@
 
     100% {
       transform: translateY(800%) translateZ(0);
+    }
+  }
+
+  /* Shimmer loading skeleton */
+  .shimmer-loading {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(21, 16, 48, 0.95) 0%, rgba(15, 12, 40, 0.98) 100%);
+  }
+
+  .shimmer-loading::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(145, 94, 255, 0.06) 20%,
+      rgba(0, 255, 255, 0.08) 50%,
+      rgba(145, 94, 255, 0.06) 80%,
+      transparent 100%
+    );
+    animation: shimmer 2s ease-in-out infinite;
+    transform: translateZ(0);
+  }
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%) translateZ(0);
+    }
+    100% {
+      transform: translateX(100%) translateZ(0);
     }
   }
 

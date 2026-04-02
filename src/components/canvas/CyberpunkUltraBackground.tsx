@@ -1,5 +1,6 @@
 import type React from 'react';
 import { useEffect, useRef } from 'react';
+import { useViewport } from '../../hooks/useViewport';
 // Tree-shakeable Three.js imports for better performance
 import {
   ACESFilmicToneMapping,
@@ -55,6 +56,7 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
   cameraFOV,
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
+  const { width: viewportWidth, height: viewportHeight } = useViewport();
 
   const bloomPassRef = useRef<UnrealBloomPass | null>(null);
   const fogRef = useRef<FogExp2 | null>(null);
@@ -112,8 +114,8 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
     }
     // -----------------------------------------------------------------------------
 
-    const w = window.innerWidth;
-    const h = window.innerHeight;
+    const w = viewportWidth;
+    const h = viewportHeight;
     const scene = new Scene();
     scene.fog = new FogExp2(0x000000, fogDensity);
     fogRef.current = scene.fog as FogExp2;
@@ -266,10 +268,10 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
     animate();
 
     const handleWindowResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.aspect = viewportWidth / viewportHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      composer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setSize(viewportWidth, viewportHeight);
+      composer.setSize(viewportWidth, viewportHeight);
     };
     window.addEventListener('resize', handleWindowResize, false);
 
@@ -282,7 +284,7 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
       renderer.dispose();
       composer.dispose();
     };
-  }, []);
+  }, [viewportWidth, viewportHeight]);
 
   return (
     <div

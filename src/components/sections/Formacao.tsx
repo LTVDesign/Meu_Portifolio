@@ -613,8 +613,9 @@ const Formacao = () => {
                   <h4 className='text-xs font-bold text-white mb-2'>
                     {t('education.semesterHistory')}
                   </h4>
-                  <div className='overflow-x-auto -mx-1 px-1'>
-                    <table className='w-full text-[10px]'>
+                  <div className='overflow-x-auto -mx-1 px-1 scrollbar-thin' style={{ WebkitOverflowScrolling: 'touch' }}>
+                    <p className='text-[8px] text-white/30 mb-1 sm:hidden text-right'>← {t('education.scrollToSee', 'deslize para ver')} →</p>
+                    <table className='w-full text-[10px] min-w-[400px]'>
                       <thead>
                         <tr className='border-b border-white/10'>
                           <th className='text-left py-2 px-1.5 text-white/70'>

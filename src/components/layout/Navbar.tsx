@@ -1,8 +1,9 @@
 import { m, useScroll, useSpring } from 'framer-motion';
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { navLinks } from '../../constants';
+import { useViewport } from '../../hooks/useViewport';
 import { LinkAnimado } from '../atoms';
 import DynamicText from '../atoms/DynamicText';
 
@@ -12,11 +13,7 @@ const logo = '/logo.svg';
 const Navbar = memo(() => {
   const [active, setActive] = useState<string | null>(null);
   const [toggle, setToggle] = useState(false);
-  // RAF ref para evitar múltiplas leituras de innerWidth
-  const rafResizeRef = useRef<number | null>(null);
-  const [screenWidth, setScreenWidth] = useState(
-    typeof window !== 'undefined' ? window.innerWidth : 1024
-  );
+  const { width: screenWidth } = useViewport();
   const location = useLocation();
   const isHome = location.pathname === '/';
   const { t, i18n } = useTranslation();
@@ -27,30 +24,6 @@ const Navbar = memo(() => {
     damping: 30,
     restDelta: 0.001,
   });
-
-  // Detectar tamanho da tela para ajustes responsivos
-  // Otimizado com RAF para evitar reflows forçados
-  useEffect(() => {
-    // RAF para garantir leitura única de innerWidth por frame
-    const handleResize = () => {
-      if (rafResizeRef.current) {
-        cancelAnimationFrame(rafResizeRef.current);
-      }
-      rafResizeRef.current = requestAnimationFrame(() => {
-        setScreenWidth(window.innerWidth);
-        rafResizeRef.current = null;
-      });
-    };
-
-    // Passive: true para não bloquear scroll
-    window.addEventListener('resize', handleResize, { passive: true });
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      if (rafResizeRef.current) {
-        cancelAnimationFrame(rafResizeRef.current);
-      }
-    };
-  }, []);
 
   // Fechar menu ao redimensionar para desktop (LG breakpoint = 1024px)
   useEffect(() => {
@@ -360,7 +333,7 @@ const Navbar = memo(() => {
 
       {/* Mobile Menu Content - Ajustado para iPad e Mobile com scroll interno */}
       <div
-        className={`lg:hidden absolute top-full left-0 right-0 glass border-t border-white/10 transition-all duration-300 z-[999999] overflow-y-auto overflow-x-hidden ${toggle ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-6 pointer-events-none'}`}
+        className={`lg:hidden absolute top-full left-0 right-0 glass border-t border-white/10 transition-all duration-300 ease-out z-[999999] overflow-y-auto overflow-x-hidden ${toggle ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-4 pointer-events-none'}`}
         style={{
           maxHeight: toggle ? 'calc(100vh - 80px)' : '0',
           overscrollBehavior: 'contain',
@@ -376,7 +349,7 @@ const Navbar = memo(() => {
                 <Link
                   to={getNavLink(nav.id)}
                   onClick={() => setToggle(false)}
-                  className='text-white/80 hover:text-white composited-hover transition-colors block py-1.5 min-h-[40px] flex items-center'
+                  className={`text-white/80 hover:text-white composited-hover transition-colors block py-2.5 min-h-[48px] flex items-center gap-3 px-2 rounded-xl active:bg-white/5 ${active === nav.id ? 'text-[var(--cyber-cyan)] font-bold border-l-2 border-[var(--cyber-cyan)] pl-4' : ''}`}
                 >
                   <DynamicText colorMode='auto'>{t(`nav.${nav.id}`)}</DynamicText>
                 </Link>

@@ -1,5 +1,6 @@
 import type React from 'react';
 import { useEffect, useRef } from 'react';
+import { useViewport } from '../../hooks/useViewport';
 // Tree-shakeable Three.js imports for better performance
 import {
   ACESFilmicToneMapping,
@@ -42,6 +43,7 @@ const CyberpunkTunnelBackground: React.FC<CyberpunkTunnelBackgroundProps> = ({
   color3,
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
+  const { width: viewportWidth, height: viewportHeight } = useViewport();
 
   const bloomPassRef = useRef<UnrealBloomPass | null>(null);
   const fogRef = useRef<FogExp2 | null>(null);
@@ -74,8 +76,8 @@ const CyberpunkTunnelBackground: React.FC<CyberpunkTunnelBackgroundProps> = ({
   useEffect(() => {
     if (!mountRef.current) return;
 
-    const w = window.innerWidth;
-    const h = window.innerHeight;
+    const w = viewportWidth;
+    const h = viewportHeight;
     const scene = new Scene();
     scene.fog = new FogExp2(0x000000, fogDensity);
     fogRef.current = scene.fog as FogExp2;
@@ -290,9 +292,9 @@ const CyberpunkTunnelBackground: React.FC<CyberpunkTunnelBackgroundProps> = ({
     animate();
 
     const handleWindowResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.aspect = viewportWidth / viewportHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setSize(viewportWidth, viewportHeight);
     };
     window.addEventListener('resize', handleWindowResize, false);
 
@@ -305,7 +307,7 @@ const CyberpunkTunnelBackground: React.FC<CyberpunkTunnelBackgroundProps> = ({
       renderer.dispose();
       composer.dispose();
     };
-  }, []);
+  }, [viewportWidth, viewportHeight]);
 
   return (
     <div

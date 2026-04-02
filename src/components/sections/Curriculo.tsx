@@ -20,7 +20,7 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
         transition={{ duration: 0.8, delay: 0.2 }}
         className='mb-16'
       >
-        <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
+        <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-5 sm:p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
           {/* Efeito de brilho animado no fundo */}
           <div className='absolute inset-0 opacity-30'>
             <m.div
@@ -109,7 +109,7 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className='flex flex-wrap justify-center gap-4 mt-8'
+              className='flex flex-wrap justify-center gap-2 sm:gap-4 mt-6 sm:mt-8'
             >
               {[
                 { text: t('curriculo.badgeOnline'), color: 'from-cyan-500 to-blue-500' },
@@ -120,7 +120,7 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
                 <m.span
                   key={idx}
                   whileHover={{ scale: 1.05, y: -2 }}
-                  className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
                 >
                   {badge.text}
                 </m.span>
@@ -134,7 +134,7 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
         </div>
       </m.div>
 
-      <div className='mt-8 sm:mt-12 flex flex-wrap items-center justify-center gap-4 sm:gap-6'>
+      <div className='mt-6 sm:mt-12 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-6'>
         <m.button
           variants={prefersReduced ? {} : fadeIn('right', 'spring', 0.3, 0.75)}
           onClick={() => setViewMode?.('allcurriculo')}

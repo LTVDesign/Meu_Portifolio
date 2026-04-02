@@ -159,7 +159,7 @@ const Works = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className='relative h-48 sm:h-60 overflow-hidden'>
+              <div className='relative h-44 sm:h-60 overflow-hidden'>
                 <img
                   src={projects[parseInt(projectKey)].image}
                   alt={projectName}

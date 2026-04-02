@@ -1,6 +1,7 @@
 import type React from 'react';
 import { useEffect, useRef } from 'react';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
+import { useViewport } from '../../hooks/useViewport';
 
 // Palette presets (from CodePen reference)
 const PALETTE_PRESETS: Record<string, string[]> = {
@@ -51,6 +52,7 @@ const ParticulateShatterBackground: React.FC<ParticulateShatterBackgroundProps> 
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { config } = useParticleConfig();
+  const { width: viewportWidth, height: viewportHeight } = useViewport();
 
   // Usa interactionMode global se disponível, senão usa o mode da prop
   // Mapeia interactionMode para o modo do particulate: 'attract' -> 'magnet', 'blow' -> 'blow'
@@ -98,8 +100,8 @@ const ParticulateShatterBackground: React.FC<ParticulateShatterBackgroundProps> 
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (!ctx) return;
 
-    let W = window.innerWidth;
-    let H = window.innerHeight;
+    let W = viewportWidth;
+    let H = viewportHeight;
     canvas.width = W;
     canvas.height = H;
 
@@ -358,10 +360,10 @@ const ParticulateShatterBackground: React.FC<ParticulateShatterBackgroundProps> 
     window.addEventListener('touchstart', handleTouchStart, { passive: true });
     window.addEventListener('touchend', handleTouchEnd, { passive: true });
 
-    // Resize
+    // Resize handler - usa valores do hook useViewport
     const handleResize = () => {
-      W = window.innerWidth;
-      H = window.innerHeight;
+      W = viewportWidth;
+      H = viewportHeight;
       canvas.width = W;
       canvas.height = H;
       createParticles();
@@ -406,6 +408,8 @@ const ParticulateShatterBackground: React.FC<ParticulateShatterBackgroundProps> 
     color6,
     wanderSpeed,
     wanderStrength,
+    viewportWidth,
+    viewportHeight,
   ]);
 
   return (

@@ -61,19 +61,17 @@ const Hero = () => {
         className={`relative z-10 w-full flex flex-col items-center justify-start pointer-events-none
           ${isWatch ? 'pt-16 pb-4' : isMobileSmall ? 'pt-20 pb-6' : isMobile ? 'pt-24 pb-6' : isTV ? 'pt-48 pb-12' : 'pt-28 md:pt-36 pb-8'}`}
       >
-        <m.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+        {/* LCP Critical: h1 renderiza imediatamente sem delay para melhor LCP */}
+        <h1
           className={`font-bold text-white tracking-wide uppercase mb-3 text-center px-4 pointer-events-auto
-            ${isWatch ? 'text-sm' : isMobileSmall ? 'text-base' : isMobile ? 'text-xl' : isTV ? 'text-8xl' : 'text-2xl md:text-4xl lg:text-5xl'}`}
+        ${isWatch ? 'text-sm' : isMobileSmall ? 'text-base' : isMobile ? 'text-xl' : isTV ? 'text-8xl' : 'text-2xl md:text-4xl lg:text-5xl'}`}
         >
           {t('hero.title')}
-        </m.h1>
+        </h1>
         <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
           className={`text-white/70 lowercase italic text-center px-4
             ${isWatch ? 'text-[10px]' : isMobileSmall ? 'text-xs' : isMobile ? 'text-sm' : isTV ? 'text-3xl' : 'text-sm md:text-base'}`}
         >
@@ -97,7 +95,14 @@ const Hero = () => {
 
       {/* Canvas 3D do Computador - abaixo do texto */}
       <div className='absolute inset-0 z-0 pointer-events-auto flex items-end'>
-        <Suspense fallback={<div className="h-screen bg-zinc-950" />}>
+        <Suspense fallback={
+          <div className="h-screen w-full shimmer-loading flex items-center justify-center">
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 border-2 border-[var(--cyber-purple)]/30 border-t-[var(--cyber-cyan)] rounded-full animate-spin" />
+              <span className="text-[10px] sm:text-xs text-white/30 uppercase tracking-[0.3em] font-medium">Loading 3D</span>
+            </div>
+          </div>
+        }>
           <ThreeExperience />
         </Suspense>
       </div>

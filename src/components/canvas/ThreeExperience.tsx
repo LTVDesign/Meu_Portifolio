@@ -3,11 +3,12 @@ import { Canvas } from '@react-three/fiber';
 import type React from 'react';
 import { Suspense, useEffect, useState } from 'react';
 import { useTouchScrollGuard } from '../../hooks/useTouchScrollGuard';
+import { useViewport } from '../../hooks/useViewport';
 
 import CanvasLoader from '../layout/Loader';
 
-// Preload do modelo para melhorar performance
-useGLTF.preload('/desktop_pc/scene-optimized.gltf');
+// LCP Optimization: Preload movido para dentro do componente para não bloquear renderização inicial
+// O preload será feito após o componente montar, não no nível do módulo
 
 type ScreenSize = 'watch' | 'mobileSmall' | 'mobile' | 'tablet' | 'desktop' | 'tv' | '4k';
 
@@ -28,9 +29,9 @@ const SCREEN_CONFIG: Record<ScreenSize, {
   dprMax: number;
 }> = {
   watch: { position: [0, -2.8, 0], scale: 0.28, fov: 60, dprMax: 1 },
-  mobileSmall: { position: [0, -3.5, 0], scale: 0.38, fov: 55, dprMax: 1.5 },
-  mobile: { position: [0, -4.0, 0], scale: 0.45, fov: 50, dprMax: 1.5 },
-  tablet: { position: [0, -4.5, -1], scale: 0.58, fov: 40, dprMax: 2 },
+  mobileSmall: { position: [0, -3.5, 0], scale: 0.38, fov: 55, dprMax: 1 },
+  mobile: { position: [0, -4.0, 0], scale: 0.45, fov: 50, dprMax: 1.25 },
+  tablet: { position: [0, -4.5, -1], scale: 0.58, fov: 40, dprMax: 1.5 },
   desktop: { position: [0, -3.25, -1.5], scale: 0.75, fov: 25, dprMax: 2 },
   tv: { position: [0, -3.5, -2], scale: 1.1, fov: 22, dprMax: 2 },
   '4k': { position: [0, -3.5, -2], scale: 1.3, fov: 20, dprMax: 2 },
@@ -113,26 +114,22 @@ const ThreeExperience: React.FC = () => {
     intentThreshold: 6,
   });
   const [shouldLoad, setShouldLoad] = useState(false);
-  const [screenSize, setScreenSize] = useState<ScreenSize>(() =>
-    typeof window !== 'undefined' ? getScreenSize(window.innerWidth) : 'desktop'
-  );
+  const { width: viewportWidth } = useViewport();
+  const [screenSize, setScreenSize] = useState<ScreenSize>(() => 'desktop');
 
-  // Detectar tamanho da tela com debounce
+  // LCP Optimization: Preload feito após montagem, não no nível do módulo
   useEffect(() => {
-    let timeout: ReturnType<typeof setTimeout>;
-    const handleResize = () => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        setScreenSize(getScreenSize(window.innerWidth));
-      }, 150);
-    };
-
-    window.addEventListener('resize', handleResize, { passive: true });
-    return () => {
-      clearTimeout(timeout);
-      window.removeEventListener('resize', handleResize);
-    };
+    // Preload após um pequeno delay para não bloquear LCP
+    const preloadTimer = setTimeout(() => {
+      useGLTF.preload('/desktop_pc/scene-optimized.gltf');
+    }, 100);
+    return () => clearTimeout(preloadTimer);
   }, []);
+
+  // Detectar tamanho da tela baseado no viewportWidth do hook
+  useEffect(() => {
+    setScreenSize(getScreenSize(viewportWidth));
+  }, [viewportWidth]);
 
   // Carregamento lazy com IntersectionObserver
   useEffect(() => {
