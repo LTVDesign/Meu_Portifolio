@@ -11,12 +11,14 @@ import { MotionProvider } from './components/layout/MotionProvider';
 
 // Layouts e Componentes
 import Navbar from './components/layout/Navbar';
-import Footer from './components/layout/Footer';
 import BackgroundMenu from './components/layout/BackgroundMenu';
 import BackgroundEditorModal from './components/layout/BackgroundEditorModal';
 
 // LCP Optimization: Lazy loading com delay para não bloquear renderização inicial
 const ParticlesCanvas = lazy(() => import('./components/layout/ParticlesCanvas'));
+
+// Performance: Footer lazy loaded - não é necessário para LCP
+const Footer = lazy(() => import('./components/layout/Footer'));
 
 // Lazy Loading (melhor performance)
 const BackgroundManager = lazy(() => import('./components/canvas/BackgroundManager'));
@@ -171,7 +173,10 @@ const AppContent = () => {
           </ErrorBoundary>
         </main>
 
-        <Footer />
+        {/* Footer com lazy loading - não é necessário para LCP */}
+        <Suspense fallback={<div className="h-48 bg-tertiary animate-pulse" />}>
+          <Footer />
+        </Suspense>
       </div>
 
       {/* Overlays de Background */}

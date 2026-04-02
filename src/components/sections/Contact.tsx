@@ -454,10 +454,10 @@ const Contact = () => {
             </div>
           </m.div>
 
-          {/* Canvas 3D */}
+          {/* Canvas 3D - Hidden on mobile/tablet */}
           <m.div
             variants={slideIn('right', 'tween', 0.2, 1)}
-            className='flex-1 w-full xl:w-1/2 h-[220px] sm:h-[320px] md:h-[420px] xl:h-[600px] flex items-center justify-center relative overflow-hidden'
+            className='hidden xl:flex flex-1 w-full xl:w-1/2 h-[600px] items-center justify-center relative overflow-hidden'
           >
             <div className='w-full h-full'>
               <EarthCanvas />

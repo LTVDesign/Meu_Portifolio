@@ -2,16 +2,37 @@ import { AnimatePresence, m } from 'framer-motion';
 import { createPortal } from 'react-dom';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 import { useTranslation } from 'react-i18next';
-import {
-  BolhasEditor,
-  CyberpunkEditor,
-  LiquidEditor,
-  MatrixEditor,
-  ParticlesEditor,
-  ParticulateEditor,
-  SolidEditor,
-  WavefieldEditor,
-} from '../background-editors';
+import React, { Suspense, lazy } from 'react';
+
+// Dynamic imports para carregar apenas o editor necessário
+const BolhasEditor = lazy(() => import('../background-editors/BolhasEditor').then(m => ({ default: m.default })));
+const CyberpunkEditor = lazy(() => import('../background-editors/CyberpunkEditor').then(m => ({ default: m.default })));
+const LiquidEditor = lazy(() => import('../background-editors/LiquidEditor').then(m => ({ default: m.default })));
+const MatrixEditor = lazy(() => import('../background-editors/MatrixEditor').then(m => ({ default: m.default })));
+const ParticlesEditor = lazy(() => import('../background-editors/ParticlesEditor').then(m => ({ default: m.default })));
+const ParticulateEditor = lazy(() => import('../background-editors/ParticulateEditor').then(m => ({ default: m.default })));
+const SolidEditor = lazy(() => import('../background-editors/SolidEditor').then(m => ({ default: m.default })));
+const WavefieldEditor = lazy(() => import('../background-editors/WavefieldEditor').then(m => ({ default: m.default })));
+
+// Mapeamento de editores para carregamento dinâmico
+const editorComponents: Record<string, React.LazyExoticComponent<React.ComponentType<any>>> = {
+  bolhas: BolhasEditor,
+  particles: ParticlesEditor,
+  liquid: LiquidEditor,
+  particulate: ParticulateEditor,
+  cyberpunk: CyberpunkEditor,
+  wavefield: WavefieldEditor,
+  solid: SolidEditor,
+  matrix: MatrixEditor,
+};
+
+// Componente de fallback para o Suspense
+const EditorLoadingFallback = () => (
+  <div className="flex flex-col items-center justify-center py-16 gap-4">
+    <div className="w-10 h-10 border-4 border-[#915EFF]/30 border-t-[#915EFF] rounded-full animate-spin" />
+    <p className="text-gray-400 text-sm">Carregando editor...</p>
+  </div>
+);
 
 interface BackgroundEditorModalProps {
   isOpen: boolean;
@@ -29,30 +50,21 @@ const BackgroundEditorModal = ({
 
   const renderEditor = () => {
     const props = { config, updateConfig };
-    switch (selectedBg) {
-      case 'bolhas':
-        return <BolhasEditor {...props} />;
-      case 'particles':
-        return <ParticlesEditor {...props} />;
-      case 'liquid':
-        return <LiquidEditor {...props} />;
-      case 'particulate':
-        return <ParticulateEditor {...props} />;
-      case 'cyberpunk':
-        return <CyberpunkEditor {...props} />;
-      case 'wavefield':
-        return <WavefieldEditor {...props} />;
-      case 'solid':
-        return <SolidEditor {...props} />;
-      case 'matrix':
-        return <MatrixEditor {...props} />;
-      default:
-        return (
-          <div className='text-center py-16 text-gray-400'>
-            {t('backgroundEditor.notImplemented', { bg: selectedBg })}
-          </div>
-        );
+    const EditorComponent = editorComponents[selectedBg];
+
+    if (EditorComponent) {
+      return (
+        <Suspense fallback={<EditorLoadingFallback />}>
+          <EditorComponent {...props} />
+        </Suspense>
+      );
     }
+
+    return (
+      <div className='text-center py-16 text-gray-400'>
+        {t('backgroundEditor.notImplemented', { bg: selectedBg })}
+      </div>
+    );
   };
 
   return createPortal(
@@ -97,7 +109,6 @@ const BackgroundEditorModal = ({
                   <line x1='6' y1='6' x2='18' y2='18' />
                 </svg>
               </m.button>
-
               <div className='flex items-center justify-center gap-3'>
                 <div className='w-8 h-8 bg-gradient-to-br from-[#915EFF] to-[#00D4FF] rounded-xl flex items-center justify-center text-sm shadow-[0_0_15px_rgba(145,94,255,0.5)]'>
                   ✏️

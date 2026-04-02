@@ -28,10 +28,10 @@ const SCREEN_CONFIG: Record<ScreenSize, {
   fov: number;
   dprMax: number;
 }> = {
-  watch: { position: [0, -2.8, 0], scale: 0.28, fov: 60, dprMax: 1 },
-  mobileSmall: { position: [0, -3.5, 0], scale: 0.38, fov: 55, dprMax: 1 },
-  mobile: { position: [0, -4.0, 0], scale: 0.45, fov: 50, dprMax: 1.25 },
-  tablet: { position: [0, -4.5, -1], scale: 0.58, fov: 40, dprMax: 1.5 },
+  watch: { position: [0, -1.5, 0], scale: 0.28, fov: 60, dprMax: 1 },
+  mobileSmall: { position: [0, -2.0, 0], scale: 0.38, fov: 55, dprMax: 1 },
+  mobile: { position: [0, -2.5, 0], scale: 0.45, fov: 50, dprMax: 1.25 },
+  tablet: { position: [0, -3.0, -1], scale: 0.58, fov: 40, dprMax: 1.5 },
   desktop: { position: [0, -3.25, -1.5], scale: 0.75, fov: 25, dprMax: 2 },
   tv: { position: [0, -3.5, -2], scale: 1.1, fov: 22, dprMax: 2 },
   '4k': { position: [0, -3.5, -2], scale: 1.3, fov: 20, dprMax: 2 },

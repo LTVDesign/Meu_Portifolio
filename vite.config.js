@@ -95,6 +95,21 @@ export default defineConfig({
         // Função manualChunks otimizada para eliminar dependência circular
         // Estratégia: simplificar para evitar qualquer referência circular
         manualChunks: (id) => {
+          // Bibliotecas de internacionalização
+          if (id.includes('node_modules/i18next/') || id.includes('node_modules/react-i18next/')) {
+            return 'i18n';
+          }
+
+          // React Icons - biblioteca de ícones
+          if (id.includes('node_modules/react-icons/')) {
+            return 'icons';
+          }
+
+          // Zod - validação de schemas
+          if (id.includes('node_modules/zod/')) {
+            return 'validation';
+          }
+
           // Three.js core - biblioteca 3D pura (sem dependências React)
           if (id.includes('node_modules/three/') && !id.includes('@react-three')) {
             return 'three-core';
@@ -141,7 +156,7 @@ export default defineConfig({
     }
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', '@react-three/fiber']
+    include: ['react', 'react-dom', '@react-three/fiber', 'framer-motion']
   },
 
   server: {

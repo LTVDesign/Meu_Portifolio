@@ -37,7 +37,7 @@ const MatrixEditor: React.FC<MatrixEditorProps> = ({ config, updateConfig }) => 
             label='Tamanho Fonte (vmin)'
             value={config.matrixFontSize}
             min='0.5'
-            max='10'
+            max='30'
             step='0.5'
             onChange={(v) => updateConfig({ matrixFontSize: v as number })}
           />

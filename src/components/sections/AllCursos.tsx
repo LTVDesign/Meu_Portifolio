@@ -329,7 +329,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
                         setIsDetailOpen(true);
                       }
                     }}
-                    aria-label={`Ver detalhes do curso ${curso.title}`}
+                    aria-label={`${t('cursos.viewDetails')} ${curso.title}`}
                   >
                     <div className='flex items-center gap-4 sm:gap-6 mb-5 sm:mb-8'>
                       <div className='w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/5 transition-transform group-hover:scale-110 overflow-hidden p-2'>

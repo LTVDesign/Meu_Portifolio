@@ -25,9 +25,9 @@ const Navbar = memo(() => {
     restDelta: 0.001,
   });
 
-  // Fechar menu ao redimensionar para desktop (LG breakpoint = 1024px)
+  // Fechar menu ao redimensionar para desktop (XL breakpoint = 1280px)
   useEffect(() => {
-    if (screenWidth >= 1024 && toggle) {
+    if (screenWidth >= 1280 && toggle) {
       setToggle(false);
     }
   }, [screenWidth, toggle]);
@@ -250,8 +250,8 @@ const Navbar = memo(() => {
           </Link>
         </div>
 
-        {/* Right aligned Menu - Desktop/Tablet - Ajustado para aparecer apenas em telas maiores que iPad Air */}
-        <div className='hidden lg:flex items-center gap-2 lg:gap-4'>
+        {/* Right aligned Menu - Desktop/Tablet - Ajustado para aparecer apenas em telas maiores que iPad Pro */}
+        <div className='hidden xl:flex items-center gap-2 lg:gap-4'>
           <ul className='flex items-center gap-0.5 lg:gap-1 xl:gap-2'>
             {navLinks.map((nav) => {
               const isActive = active === nav.id;

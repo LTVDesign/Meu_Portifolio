@@ -531,7 +531,7 @@ const Formacao = () => {
                   }}
                 />
 
-                <span className='relative z-10'>VER DETALHES</span>
+                <span className='relative z-10'>{t('formacao.viewDetails')}</span>
 
                 <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300' />
               </m.button>

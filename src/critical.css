@@ -76,12 +76,6 @@ canvas[data-engine] {
 .motion-section,
 .motion-button,
 .motion-a {
-  /* Previne layout shifts */
-  contain: layout style;
-
-  /* GPU acceleration para transformações */
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
 
   /* Apenas para elementos que realmente animam */
   &.motion-animate {
@@ -100,10 +94,9 @@ canvas[data-engine] {
 /* Gear Button - Containment estrito para isolar animações */
 .gear-button,
 .theme-toggle-container {
-  contain: strict;
+  /* Removido contain e transform para permitir animações de flutuação */
+  contain: none;
   will-change: transform;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
 }
 
 /* Launch button wrap - Otimização específica */

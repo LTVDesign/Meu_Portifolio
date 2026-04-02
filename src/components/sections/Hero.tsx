@@ -6,10 +6,12 @@ import { useBackgroundMenu } from '../../contexts/ParticleConfigContext';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { useBreakpoints } from '../../hooks/useDebouncedResize';
 import TerminalText from '../atoms/TerminalText';
-import GearButton from '../layout/GearButton';
 
 // Lazy load do ThreeExperience (Three.js + @react-three/fiber + @react-three/drei)
 const ThreeExperience = lazy(() => import('../canvas/ThreeExperience'));
+
+// LCP Optimization: Lazy loading do GearButton - botão flutuante não é crítico para LCP
+const GearButton = lazy(() => import('../layout/GearButton'));
 
 /**
  * Hero - Seção principal da página
@@ -42,6 +44,7 @@ const Hero = () => {
 
 
   return (
+    <>
     <m.section
       id='hero'
       initial={prefersReduced ? {} : { opacity: 0, y: 50 }}
@@ -59,12 +62,12 @@ const Hero = () => {
       {/* Texto de introdução - acima do 3D, abaixo do menu */}
       <div
         className={`relative z-10 w-full flex flex-col items-center justify-start pointer-events-none
-          ${isWatch ? 'pt-16 pb-4' : isMobileSmall ? 'pt-20 pb-6' : isMobile ? 'pt-24 pb-6' : isTV ? 'pt-48 pb-12' : 'pt-28 md:pt-36 pb-8'}`}
+          ${isWatch ? 'pt-6 pb-2' : isMobileSmall ? 'pt-8 pb-3' : isMobile ? 'pt-10 pb-4' : isTV ? 'pt-24 pb-12' : 'pt-10 md:pt-14 pb-8'}`}
       >
         {/* LCP Critical: h1 renderiza imediatamente sem delay para melhor LCP */}
         <h1
-          className={`font-bold text-white tracking-wide uppercase mb-3 text-center px-4 pointer-events-auto
-        ${isWatch ? 'text-sm' : isMobileSmall ? 'text-base' : isMobile ? 'text-xl' : isTV ? 'text-8xl' : 'text-2xl md:text-4xl lg:text-5xl'}`}
+          className={`font-bold text-white tracking-wide uppercase mb-2 text-center px-4 pointer-events-auto
+        ${isWatch ? 'text-xs' : isMobileSmall ? 'text-sm' : isMobile ? 'text-lg' : isTV ? 'text-8xl' : 'text-2xl md:text-4xl lg:text-5xl'}`}
         >
           {t('hero.title')}
         </h1>
@@ -72,8 +75,8 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className={`text-white/70 lowercase italic text-center px-4
-            ${isWatch ? 'text-[10px]' : isMobileSmall ? 'text-xs' : isMobile ? 'text-sm' : isTV ? 'text-3xl' : 'text-sm md:text-base'}`}
+          className={`text-white/70 lowercase italic text-center px-4 max-w-xs sm:max-w-sm
+            ${isWatch ? 'text-[9px] leading-tight' : isMobileSmall ? 'text-[10px] leading-tight' : isMobile ? 'text-xs leading-relaxed' : isTV ? 'text-3xl' : 'text-sm md:text-base'}`}
         >
           <TerminalText
             words={subtitles}
@@ -94,7 +97,7 @@ const Hero = () => {
       </div>
 
       {/* Canvas 3D do Computador - abaixo do texto */}
-      <div className='absolute inset-0 z-0 pointer-events-auto flex items-end'>
+      <div className='absolute inset-0 z-0 pointer-events-auto flex items-center -mt-16'>
         <Suspense fallback={
           <div className="h-screen w-full shimmer-loading flex items-center justify-center">
             <div className="flex flex-col items-center gap-3">
@@ -106,9 +109,6 @@ const Hero = () => {
           <ThreeExperience />
         </Suspense>
       </div>
-
-      {/* Engrenagem flutuante esquerda - Background selector (Componente GearButton com Efeitos RGB) */}
-      <GearButton onClick={handleBackgroundClick} />
 
       {/* Scroll / Interact Icon - Responsivo */}
       {!isWatch && (
@@ -211,6 +211,13 @@ const Hero = () => {
         </div>
       )}
     </m.section>
+
+      {/* Engrenagem flutuante esquerda - Background selector (Componente GearButton com Efeitos RGB) */}
+      {/* Movido para fora do m.section para não herdar transforms que quebram o position: fixed */}
+      <Suspense fallback={null}>
+        <GearButton onClick={handleBackgroundClick} />
+      </Suspense>
+    </>
   );
 };
 

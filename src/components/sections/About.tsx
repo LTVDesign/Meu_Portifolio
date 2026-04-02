@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { SectionWrapper } from '../../hoc';
 import { Header } from '../atoms';
 
-// Importando a foto pessoal de public/assets/images/
-import eu from '../../../public/assets/images/eu.jpg';
+// Importando a foto pessoal de src/assets/images/
+import eu from '../../assets/images/eu.jpg';
 
 const About = () => {
   const { t } = useTranslation();

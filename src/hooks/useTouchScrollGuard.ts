@@ -93,10 +93,11 @@ export const useTouchScrollGuard = (
 
       const dx = Math.abs(e.touches[0].clientX - touchStartRef.current.x);
       const dy = Math.abs(e.touches[0].clientY - touchStartRef.current.y);
-      
+
       // Se o movimento vertical for significativamente maior que o horizontal,
       // assumimos IMEDIATAMENTE que é scroll e não ativamos interação 3D.
-      if (dy > dx && dy > 5) {
+      // Threshold mais baixo para melhor detecção de scroll vertical
+      if (dy > dx && dy > 3) {
         intentDecidedRef.current = true;
         isTouchInteractingRef.current = false;
         setIsTouchInteracting(false);
