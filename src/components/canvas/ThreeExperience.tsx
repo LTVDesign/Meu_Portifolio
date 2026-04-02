@@ -36,6 +36,10 @@ const SCREEN_CONFIG: Record<ScreenSize, {
   '4k': { position: [0, -3.5, -2], scale: 1.3, fov: 20, dprMax: 2 },
 };
 
+/**
+ * ComputersContent - Componente interno que renderiza o modelo 3D do computador
+ * Contém todas as luzes e o modelo primitive
+ */
 const ComputersContent: React.FC<{ screenSize: ScreenSize }> = ({ screenSize }) => {
   const [shouldLoadModel, setShouldLoadModel] = useState(false);
   const computer = useGLTF('/desktop_pc/scene-optimized.gltf');
@@ -61,10 +65,12 @@ const ComputersContent: React.FC<{ screenSize: ScreenSize }> = ({ screenSize }) 
 
   return (
     <mesh>
+      {/* HemisphereLight - luz ambiente suave */}
       <hemisphereLight
         intensity={screenSize === 'watch' ? 0.2 : 0.15}
         groundColor='black'
       />
+      {/* SpotLight - luz direcional principal */}
       <spotLight
         position={[-20, 50, 10]}
         angle={0.12}
@@ -72,7 +78,9 @@ const ComputersContent: React.FC<{ screenSize: ScreenSize }> = ({ screenSize }) 
         intensity={0.8}
         castShadow={false}
       />
+      {/* PointLight - luz pontual adicional */}
       <pointLight intensity={0.8} />
+      {/* Modelo 3D do computador */}
       <primitive
         object={computer.scene}
         scale={cfg.scale}
@@ -83,7 +91,23 @@ const ComputersContent: React.FC<{ screenSize: ScreenSize }> = ({ screenSize }) 
   );
 };
 
-export default function ThreeExperience() {
+/**
+ * ThreeExperience - Componente principal da experiência Three.js
+ * 
+ * Este componente encapsula toda a experiência 3D incluindo:
+ * - Canvas configurado com otimizações de performance
+ * - OrbitControls para interação
+ * - AdaptiveDpr e AdaptiveEvents para performance adaptativa
+ * - Modelo 3D do computador com luzes
+ * 
+ * Otimizações:
+ * - frameloop="demand" para renderizar apenas quando necessário
+ * - DPR adaptativo baseado no dispositivo
+ * - Lazy loading com IntersectionObserver
+ * - Touch scroll guard para melhor UX em dispositivos touch
+ * - Configurações específicas por tamanho de tela
+ */
+const ThreeExperience: React.FC = () => {
   const { containerRef, isTouchInteracting, touchStyle } = useTouchScrollGuard({
     verticalThreshold: 25, // Mais sensível ao scroll vertical no computador 3D
     intentThreshold: 6,
@@ -183,9 +207,12 @@ export default function ThreeExperience() {
           debounce: 200,
         }}
       >
+        {/* Componentes de performance adaptativa */}
         <AdaptiveDpr pixelated />
         <AdaptiveEvents />
+
         <Suspense fallback={<CanvasLoader />}>
+          {/* Controles de órbita para rotação do modelo */}
           <OrbitControls
             enablePan={false}
             enableZoom={false}
@@ -198,9 +225,13 @@ export default function ThreeExperience() {
             // Só permite rotação touch quando o guard detectou intenção de interação 3D
             enabled={isTouchInteracting || screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k'}
           />
+
+          {/* Modelo 3D do computador com luzes */}
           {shouldLoad && <ComputersContent screenSize={screenSize} />}
         </Suspense>
       </Canvas>
     </div>
   );
-}
+};
+
+export default ThreeExperience;

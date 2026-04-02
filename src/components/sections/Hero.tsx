@@ -8,8 +8,8 @@ import { useBreakpoints } from '../../hooks/useDebouncedResize';
 import TerminalText from '../atoms/TerminalText';
 import GearButton from '../layout/GearButton';
 
-// Lazy load do ComputersCanvas (Three.js + @react-three/fiber + @react-three/drei)
-const ComputersCanvas = lazy(() => import('../canvas/Computers').then(mod => ({ default: mod.ComputersCanvas })));
+// Lazy load do ThreeExperience (Three.js + @react-three/fiber + @react-three/drei)
+const ThreeExperience = lazy(() => import('../canvas/ThreeExperience'));
 
 /**
  * Hero - Seção principal da página
@@ -97,8 +97,8 @@ const Hero = () => {
 
       {/* Canvas 3D do Computador - abaixo do texto */}
       <div className='absolute inset-0 z-0 pointer-events-auto flex items-end'>
-        <Suspense fallback={null}>
-          <ComputersCanvas />
+        <Suspense fallback={<div className="h-screen bg-zinc-950" />}>
+          <ThreeExperience />
         </Suspense>
       </div>
 
@@ -209,4 +209,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default Hero;

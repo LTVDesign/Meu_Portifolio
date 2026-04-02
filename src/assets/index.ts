@@ -1,21 +1,21 @@
-import backend from './backend.webp';
-import carrent from './carrent.webp';
+import backend from './images/projects/backend.webp';
+import carrent from './images/projects/carrent.webp';
 import close from './close.svg';
 import meta from './company/meta.webp';
 import shopify from './company/shopify.webp';
 import starbucks from './company/starbucks.webp';
-import comptester from './comptester.webp';
-import creator from './creator.webp';
+import comptester from './images/projects/comptester.webp';
+import creator from './images/projects/creator.webp';
 import diplomaPdf from './formacao/DiplomaDigital.pdf?url';
 // Formação
 import diploma from './formacao/diploma.png';
 import qrcode from './formacao/qrcode.png';
-import getnexo from './getnexo.webp';
+import getnexo from './images/projects/getnexo.webp';
 import github from './github.webp';
-import jobit from './jobit.webp';
-import logo from './logo.svg';
+import jobit from './images/projects/jobit.webp';
+import logo from './images/logos/logo.svg';
 import menu from './menu.svg';
-import mobile from './mobile.webp';
+import mobile from './images/projects/mobile.webp';
 import android from './tech/android.webp';
 import arduino from './tech/arduino.webp';
 import css from './tech/css.webp';
@@ -42,8 +42,8 @@ import typescript from './tech/typescript.webp';
 import ubiquiti from './tech/ubiquiti.webp';
 import vscode from './tech/vscode.webp';
 import windows from './tech/windows.webp';
-import tripguide from './tripguide.webp';
-import web from './web.webp';
+import tripguide from './images/projects/tripguide.webp';
+import web from './images/projects/web.webp';
 import willy from './willy-CY6lWRPM.png';
 
 export {
