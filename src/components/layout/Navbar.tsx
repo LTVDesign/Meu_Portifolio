@@ -291,7 +291,7 @@ const Navbar = memo(() => {
                         handleNavClick(e, nav.id);
                       }
                     }}
-                    className={`navbar-link py-1.5 px-1 md:px-1.5 text-[10px] md:text-xs lg:text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:text-[var(--cyber-cyan)] relative group/link ${isActive ? 'text-white active-menu-glow' : 'text-white/70'}`}
+                    className={`navbar-link composited-hover py-1.5 px-1 md:px-1.5 text-[10px] md:text-xs lg:text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:text-[var(--cyber-cyan)] relative group/link ${isActive ? 'text-white active-menu-glow' : 'text-white/70'}`}
                   >
                     <DynamicText colorMode='auto'>{t(`nav.${nav.id}`)}</DynamicText>
                     <m.div
@@ -339,7 +339,7 @@ const Navbar = memo(() => {
         <div className='lg:hidden flex items-center'>
           <button
             onClick={() => setToggle(!toggle)}
-            className='text-white hover:text-[var(--cyber-cyan)] transition-colors p-2 min-w-[44px] min-h-[44px] flex items-center justify-center'
+            className='text-white hover:text-[var(--cyber-cyan)] composited-hover transition-colors p-2 min-w-[44px] min-h-[44px] flex items-center justify-center'
             aria-label={toggle ? 'Fechar menu' : 'Abrir menu'}
             aria-expanded={toggle}
           >
@@ -376,7 +376,7 @@ const Navbar = memo(() => {
                 <Link
                   to={getNavLink(nav.id)}
                   onClick={() => setToggle(false)}
-                  className='text-white/80 hover:text-white transition-colors block py-1.5 min-h-[40px] flex items-center'
+                  className='text-white/80 hover:text-white composited-hover transition-colors block py-1.5 min-h-[40px] flex items-center'
                 >
                   <DynamicText colorMode='auto'>{t(`nav.${nav.id}`)}</DynamicText>
                 </Link>

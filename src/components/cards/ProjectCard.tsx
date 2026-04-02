@@ -33,7 +33,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
       </div>
 
       <div className='p-8 flex-1 flex flex-col'>
-        <h3 className='text-2xl font-bold text-white group-hover:text-[var(--cyber-cyan)] transition-colors'>
+        <h3 className='text-2xl font-bold text-white group-hover:text-[var(--cyber-cyan)] transition-composited transition-colors'>
           {project.title}
         </h3>
 
@@ -72,7 +72,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
               transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
             />
             <span className='relative z-10'>{t('works.viewCode')}</span>
-            <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300' />
+            <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300 composited-hover' />
           </m.button>
           {project.liveDemo && (
             <m.button
@@ -92,7 +92,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
                 transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
               />
               <span className='relative z-10'>{t('works.viewDemo')}</span>
-              <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-purple)]/0 group-hover/btn:border-[var(--cyber-purple)]/60 transition-all duration-300' />
+              <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-purple)]/0 group-hover/btn:border-[var(--cyber-purple)]/60 transition-all duration-300 composited-hover' />
             </m.button>
           )}
         </div>

@@ -142,7 +142,7 @@ const Footer: React.FC = () => {
                           }
                         }
                       }}
-                      className='text-[var(--dynamic-text-secondary)] hover:text-white text-[clamp(0.75rem,2vw,0.9rem)] transition-colors focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-xl px-2 sm:px-3 py-1 min-h-[44px] flex items-center gap-2'
+                      className='text-[var(--dynamic-text-secondary)] hover:text-white text-[clamp(0.75rem,2vw,0.9rem)] transition-colors composited-hover focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-xl px-2 sm:px-3 py-1 min-h-[44px] flex items-center gap-2'
                     >
                       <DynamicText colorMode='auto'>{t(`nav.${link.id}`)}</DynamicText>
                     </Link>
@@ -159,7 +159,7 @@ const Footer: React.FC = () => {
             <a
               href={`mailto:${config.html.email}`}
               aria-label={t('footer.emailUs')}
-              className='flex items-center gap-3 sm:gap-4 text-[clamp(0.75rem,2vw,0.9rem)] text-[var(--dynamic-text-secondary)] hover:text-white focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-2xl px-3 sm:px-4 py-2 transition-colors mb-4 min-h-[44px] break-all'
+              className='flex items-center gap-3 sm:gap-4 text-[clamp(0.75rem,2vw,0.9rem)] text-[var(--dynamic-text-secondary)] hover:text-white composited-hover focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-2xl px-3 sm:px-4 py-2 transition-colors mb-4 min-h-[44px] break-all'
             >
               <FaEnvelope className='text-[var(--cyber-purple)]' />
               <span>
@@ -176,7 +176,7 @@ const Footer: React.FC = () => {
                   rel='noopener noreferrer'
                   whileHover={{ y: -4, scale: 1.2 }}
                   aria-label={label}
-                  className={`text-[var(--dynamic-text-secondary)] ${color} transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)]`}
+                  className={`text-[var(--dynamic-text-secondary)] ${color} social-icon-composited composited-hover transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)]`}
                 >
                   <Icon size={20} className='sm:text-[24px]' />
                 </m.a>
@@ -190,7 +190,7 @@ const Footer: React.FC = () => {
               className='group flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-[var(--dynamic-text-secondary)] hover:text-white focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)]'
             >
               <DynamicText colorMode='auto'>{t('footer.backToTop')}</DynamicText>
-              <div className='rounded-2xl border border-white/10 bg-white/5 p-3 group-hover:border-[var(--cyber-purple)] transition-all'>
+              <div className='rounded-2xl border border-white/10 bg-white/5 p-3 group-hover:border-[var(--cyber-purple)] composited-hover transition-all'>
                 <FaArrowUp className='text-xs group-active:animate-bounce' />
               </div>
             </button>
@@ -250,7 +250,7 @@ const Footer: React.FC = () => {
                     onClick={() => handleKeyClick(index)}
                     className={`
                       w-6 h-6 sm:w-7 sm:h-7 rounded-lg border-2 flex items-center justify-center cursor-pointer
-                      transition-all duration-200 text-xs font-bold relative group
+                      transition-all duration-200 text-xs font-bold relative group skill-icon
                       ${isActive
                         ? 'bg-gradient-to-br from-[#915EFF] via-[#6366f1] to-[#8b5cf6] border-[#915EFF] text-white shadow-[0_0_15px_rgba(145,94,255,0.5)]'
                         : isCurrent

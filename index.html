@@ -26,10 +26,12 @@
     form-action 'self';
   ">
 
-  <!-- Preconnect para origens externas -->
+  <!-- Preconnect para origens essenciais (máximo 3) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://api.emailjs.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+  <!-- EmailJS: carregado sob demanda no formulário de contato -->
+  <!-- <link rel="preconnect" href="https://api.emailjs.com" crossorigin /> -->
 
   <link rel="canonical" href="https://leandrobarbosa.dev" />
   <meta name="description"
@@ -54,9 +56,6 @@
 
   <!-- Preload do módulo principal -->
   <link rel="modulepreload" href="/src/main.tsx">
-
-  <!-- DNS prefetch para fontes externas -->
-  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 
   <script type="application/ld+json">
     {

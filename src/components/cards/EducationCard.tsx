@@ -41,7 +41,7 @@ const EducationCard = ({ item, index }: EducationCardProps) => {
         )}
 
         <div className='flex-1'>
-          <h3 className='text-2xl font-bold leading-tight text-white group-hover:text-[var(--cyber-cyan)] transition-colors'>
+          <h3 className='text-2xl font-bold leading-tight text-white group-hover:text-[var(--cyber-cyan)] transition-composited transition-colors'>
             {item.title}
           </h3>
           <p className='text-[var(--cyber-purple)] font-medium mt-1'>
@@ -73,7 +73,7 @@ const EducationCard = ({ item, index }: EducationCardProps) => {
           href={item.link}
           target='_blank'
           rel='noopener noreferrer'
-          className='mt-8 inline-flex items-center gap-2 text-sm font-medium text-[var(--cyber-cyan)] hover:text-white transition-colors'
+          className='mt-8 inline-flex items-center gap-2 text-sm font-medium text-[var(--cyber-cyan)] hover:text-white composited-link transition-colors'
         >
           {t('education.diplomaPreview')} →
         </a>

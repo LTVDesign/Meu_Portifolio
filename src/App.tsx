@@ -2,6 +2,8 @@ import React, { lazy, Suspense, useState, useCallback, memo } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { SpeedInsights } from '@vercel/speed-insights/react';
+import { LazyMotion, domAnimation } from "framer-motion";
+// import * as m from "motion/react-m"; // O projeto já usa 'm' de 'framer-motion'
 
 // Providers
 import { ParticleConfigProvider, useBackgroundMenu, useParticleConfig } from './contexts/ParticleConfigContext';
@@ -158,17 +160,19 @@ const AppContent = () => {
 const App = () => {
   return (
     <HelmetProvider>
-      <ParticleConfigProvider>
-        <PerformanceProvider>
-          <MotionProvider>
-            <DynamicTextProvider defaultColorMode="auto">
-              <AppContent />
-            </DynamicTextProvider>
-          </MotionProvider>
-        </PerformanceProvider>
+      <LazyMotion features={domAnimation} strict>
+        <ParticleConfigProvider>
+          <PerformanceProvider>
+            <MotionProvider>
+              <DynamicTextProvider defaultColorMode="auto">
+                <AppContent />
+              </DynamicTextProvider>
+            </MotionProvider>
+          </PerformanceProvider>
 
-        <SpeedInsights />
-      </ParticleConfigProvider>
+          <SpeedInsights />
+        </ParticleConfigProvider>
+      </LazyMotion>
     </HelmetProvider>
   );
 };

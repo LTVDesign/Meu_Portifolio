@@ -647,6 +647,7 @@
     transition:
       border-color 0.3s ease,
       box-shadow 0.3s ease;
+    will-change: transform, opacity;
     transform: translateZ(0);
   }
 
@@ -667,6 +668,7 @@
     transition:
       transform 0.3s ease,
       box-shadow 0.3s ease;
+    will-change: transform;
     transform: translateZ(0);
   }
 
@@ -718,6 +720,18 @@
       border-color 0.3s ease,
       box-shadow 0.3s ease;
     transform: translateZ(0);
+  }
+
+  .composited-hover {
+    transition: color 0.3s ease, 
+                background-color 0.3s ease, 
+                border-color 0.3s ease;
+    will-change: color, background-color, border-color, transform;
+  }
+
+  .skill-icon {
+    transition: all 0.35s cubic-bezier(0.4, 0.0, 0.2, 1);
+    will-change: transform, opacity, color;
   }
 }
 
@@ -785,6 +799,18 @@
   .reduce-paint {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Classes de composição otimizadas para Framer Motion e transitions */
+  .motion-composited {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .tech-badge-composited {
+    will-change: transform, border-color, box-shadow;
+    transform: translateZ(0);
   }
 
   /* Scanline effect para fundo cyberpunk - otimizado para GPU */
@@ -1493,4 +1519,104 @@ img {
 /* Containment para animações pesadas */
 .animation-container {
   contain: strict;
+}
+
+/* ===== COMPOSITED ANIMATION OPTIMIZATIONS ===== */
+/* Solução para reduzir "non-composited animations" no PageSpeed */
+
+/* Classe principal para hovers de cor - otimizada para GPU */
+.composited-hover {
+  transition: color 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
+  will-change: transform, color;
+  transform: translateZ(0);
+}
+
+.composited-hover:hover {
+  transform: translateZ(0);
+}
+
+/* Para links e textos que mudam de cor no hover */
+.composited-link {
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, color;
+  transform: translateZ(0);
+}
+
+.composited-link:hover {
+  transform: translateY(-1px) translateZ(0);
+}
+
+/* Para os pequenos ícones/círculos (skill icons, tech badges) */
+.skill-icon {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, color;
+  transform: translateZ(0);
+}
+
+.skill-icon:hover {
+  transform: scale(1.08) translateY(-2px) translateZ(0);
+}
+
+/* Para Framer Motion elements - força composited layer */
+.motion-composited {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* Transição composta para cores dinâmicas */
+.transition-composited {
+  transition: color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, color;
+  transform: translateZ(0);
+}
+
+/* Para botões com hover de cor */
+.btn-composited {
+  transition: color 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.btn-composited:hover {
+  transform: scale(1.02) translateZ(0);
+}
+
+/* Para ícones sociais pequenos */
+.social-icon-composited {
+  transition: color 0.3s ease,
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, color;
+  transform: translateZ(0);
+}
+
+.social-icon-composited:hover {
+  transform: scale(1.15) translateY(-2px) translateZ(0);
+}
+
+/* Para badges/tags de tecnologia */
+.tech-badge-composited {
+  transition: color 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, color;
+  transform: translateZ(0);
+}
+
+.tech-badge-composited:hover {
+  transform: scale(1.05) translateZ(0);
 }

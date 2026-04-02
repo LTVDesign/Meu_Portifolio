@@ -90,7 +90,7 @@ const Tech = () => {
                   <m.span
                     key={idx}
                     whileHover={{ scale: 1.05, y: -2 }}
-                    className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
+                    className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20 motion-composited`}
                   >
                     {badge.text}
                   </m.span>
@@ -151,7 +151,7 @@ const Tech = () => {
                       }}
                     />
 
-                    <div className='relative w-10 h-10 sm:w-14 sm:h-14 p-2 sm:p-3 flex items-center justify-center rounded-2xl transition-all duration-300 border border-white/10 group-hover:border-[var(--cyber-cyan)]/60 group-hover:shadow-[0_0_25px_rgba(0,255,255,0.6)] bg-white/10 backdrop-blur-sm shadow-lg'>
+                    <div className='relative w-10 h-10 sm:w-14 sm:h-14 p-2 sm:p-3 flex items-center justify-center rounded-2xl transition-all duration-300 border border-white/10 group-hover:border-[var(--cyber-cyan)]/60 group-hover:shadow-[0_0_25px_rgba(0,255,255,0.6)] bg-white/10 backdrop-blur-sm shadow-lg tech-badge-composited'>
                       <img
                         src={tech.icon}
                         alt={tech.name}
