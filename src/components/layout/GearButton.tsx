@@ -18,10 +18,20 @@ const GearButton = ({ onClick }: GearButtonProps) => {
     <AnimatePresence>
       {isMounted && (
         <m.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0 }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
+          initial={{ opacity: 0, scale: 0, x: -20 }}
+          animate={{ 
+            opacity: 1, 
+            scale: 1, 
+            x: 0,
+            y: [0, -10, 0] 
+          }}
+          exit={{ opacity: 0, scale: 0, x: -20 }}
+          transition={{ 
+            opacity: { duration: 0.5 },
+            scale: { duration: 0.5 },
+            x: { duration: 0.5 },
+            y: { duration: 4, repeat: Infinity, ease: 'easeInOut' }
+          }}
           className='fixed left-4 sm:left-6 top-1/2 -translate-y-1/2 z-[10000]'
         >
           <div className='relative group'>
@@ -66,12 +76,35 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                   filter: 'blur(15px)',
                 }}
                 animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.5, 0.8, 0.5],
+                  scale: [1, 1.4, 1],
+                  opacity: [0.4, 0.9, 0.4],
                 }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
               />
             </div>
+
+            {/* Partículas Orbitais (Animação Externa) */}
+            {[0, 120, 240].map((angle, i) => (
+              <m.div
+                key={i}
+                className='absolute w-2 h-2 rounded-full bg-[var(--cyber-cyan)] shadow-[0_0_10px_var(--cyber-cyan)]'
+                animate={{
+                  rotate: [angle, angle + 360],
+                }}
+                style={{
+                  top: '50%',
+                  left: '50%',
+                  marginTop: '-4px',
+                  marginLeft: '-4px',
+                  transformOrigin: `${40 + i * 5}px 0px`,
+                }}
+                transition={{
+                  duration: 3 + i,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              />
+            ))}
 
             {/* Botão principal redondo */}
             <m.button
@@ -85,14 +118,20 @@ const GearButton = ({ onClick }: GearButtonProps) => {
               animate={{
                 scale: [1, 1.08, 1],
                 boxShadow: [
-                  '0 0 20px rgba(0, 212, 255, 0.3), 0 0 40px rgba(145, 94, 255, 0.2)',
-                  '0 0 30px rgba(0, 212, 255, 0.6), 0 0 60px rgba(145, 94, 255, 0.4)',
-                  '0 0 20px rgba(0, 212, 255, 0.3), 0 0 40px rgba(145, 94, 255, 0.2)'
+                  '0 0 20px rgba(0, 212, 255, 0.4), 0 0 40px rgba(145, 94, 255, 0.3)',
+                  '0 0 40px rgba(0, 212, 255, 0.7), 0 0 80px rgba(145, 94, 255, 0.5)',
+                  '0 0 20px rgba(0, 212, 255, 0.4), 0 0 40px rgba(145, 94, 255, 0.3)'
+                ],
+                filter: [
+                  'drop-shadow(0 0 5px rgba(0, 212, 255, 0.5))',
+                  'drop-shadow(0 0 15px rgba(0, 212, 255, 0.8))',
+                  'drop-shadow(0 0 5px rgba(0, 212, 255, 0.5))'
                 ]
               }}
               transition={{
                 scale: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
-                boxShadow: { duration: 3, repeat: Infinity, ease: 'easeInOut' }
+                boxShadow: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
+                filter: { duration: 2, repeat: Infinity, ease: 'easeInOut' }
               }}
               whileHover={{ scale: 1.15 }}
               whileTap={{ scale: 0.9 }}

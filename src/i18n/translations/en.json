@@ -109,7 +109,8 @@
     "sortDuration": "Duration",
     "sortCompany": "Institution",
     "noResults": "No courses found.",
-    "viewAll": "View All Courses"
+    "viewAll": "View All Courses",
+    "verCertificado": "VIEW CERTIFICATE"
   },
   "certificados": {
     "p": "Certificates",

@@ -183,7 +183,8 @@
     "p": "Cursos & Certificados",
     "h2": "Cursos",
     "viewDetails": "Ver Detalhes",
-    "viewAll": "Veja Todos Cursos"
+    "viewAll": "Veja Todos Cursos",
+    "verCertificado": "VER CERTIFICADO"
   },
   "certificados": {
     "p": "Certificados",
