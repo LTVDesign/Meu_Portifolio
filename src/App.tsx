@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useState } from 'react';
+import React, { lazy, Suspense, useState, useCallback, memo } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { SpeedInsights } from '@vercel/speed-insights/react';
@@ -69,11 +69,42 @@ class ErrorBoundary extends React.Component<
   }
 }
 
-const AppContent = () => {
+// Componente para os Overlays de Background para evitar re-renders desnecessários no AppContent
+const BackgroundOverlays = memo(() => {
   const { isBgMenuOpen, closeBgMenu } = useBackgroundMenu();
   const { config } = useParticleConfig();
   const [isEditorOpen, setIsEditorOpen] = useState(false);
 
+  const handleOpenEditor = useCallback(() => {
+    closeBgMenu();
+    setIsEditorOpen(true);
+  }, [closeBgMenu]);
+
+  const handleCloseEditor = useCallback(() => {
+    setIsEditorOpen(false);
+  }, []);
+
+  return (
+    <>
+      {isBgMenuOpen && (
+        <BackgroundMenu 
+          onEdit={handleOpenEditor} 
+          onClose={closeBgMenu} 
+        />
+      )}
+      
+      <BackgroundEditorModal 
+        isOpen={isEditorOpen} 
+        selectedBg={config.backgroundType} 
+        onClose={handleCloseEditor} 
+      />
+    </>
+  );
+});
+
+BackgroundOverlays.displayName = 'BackgroundOverlays';
+
+const AppContent = () => {
   return (
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       {/* Background 3D - Sempre atrás */}
@@ -119,22 +150,8 @@ const AppContent = () => {
         <Footer />
       </div>
 
-      {/* Overlays */}
-      {isBgMenuOpen && (
-        <BackgroundMenu 
-          onEdit={() => {
-            closeBgMenu();
-            setIsEditorOpen(true);
-          }} 
-          onClose={closeBgMenu} 
-        />
-      )}
-      
-      <BackgroundEditorModal 
-        isOpen={isEditorOpen} 
-        selectedBg={config.backgroundType} 
-        onClose={() => setIsEditorOpen(false)} 
-      />
+      {/* Overlays de Background */}
+      <BackgroundOverlays />
     </Router>
   );
 };
