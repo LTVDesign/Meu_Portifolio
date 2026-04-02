@@ -1,10 +1,10 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
 // Providers
-import { ParticleConfigProvider } from './contexts/ParticleConfigContext';
+import { ParticleConfigProvider, useBackgroundMenu, useParticleConfig } from './contexts/ParticleConfigContext';
 import { PerformanceProvider } from './contexts/PerformanceContext';
 import { DynamicTextProvider } from './components/atoms/DynamicTextProvider';
 import { MotionProvider } from './components/layout/MotionProvider';
@@ -69,6 +69,76 @@ class ErrorBoundary extends React.Component<
   }
 }
 
+const AppContent = () => {
+  const { isBgMenuOpen, closeBgMenu } = useBackgroundMenu();
+  const { config } = useParticleConfig();
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
+
+  return (
+    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      {/* Background 3D - Sempre atrás */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <Suspense fallback={null}>
+          <BackgroundManager />
+        </Suspense>
+      </div>
+
+      {/* Partículas Canvas */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <ParticlesCanvas />
+      </div>
+
+      {/* Conteúdo principal */}
+      <div className="relative z-10 min-h-screen">
+        <Navbar />
+
+        <main className="relative z-10">
+          <ErrorBoundary>
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center min-h-[70vh]">
+                  <div className="text-white/60 text-lg">Carregando conteúdo...</div>
+                </div>
+              }
+            >
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/formacao" element={<FormacaoPage />} />
+                <Route path="/projetos" element={<ExperiencePage />} />
+                <Route path="/cursos" element={<CursosPage />} />
+                <Route path="/certificados" element={<CertificadosPage />} />
+                <Route path="/contato" element={<ContactPage />} />
+                <Route path="/doom" element={<DoomPage />} />
+                <Route path="/dynamic-text-demo" element={<DynamicTextDemoPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </Suspense>
+          </ErrorBoundary>
+        </main>
+
+        <Footer />
+      </div>
+
+      {/* Overlays */}
+      {isBgMenuOpen && (
+        <BackgroundMenu 
+          onEdit={() => {
+            closeBgMenu();
+            setIsEditorOpen(true);
+          }} 
+          onClose={closeBgMenu} 
+        />
+      )}
+      
+      <BackgroundEditorModal 
+        isOpen={isEditorOpen} 
+        selectedBg={config.backgroundType} 
+        onClose={() => setIsEditorOpen(false)} 
+      />
+    </Router>
+  );
+};
+
 const App = () => {
   return (
     <HelmetProvider>
@@ -76,54 +146,7 @@ const App = () => {
         <PerformanceProvider>
           <MotionProvider>
             <DynamicTextProvider defaultColorMode="auto">
-              <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-                {/* Background 3D - Sempre atrás */}
-                <div className="fixed inset-0 z-0 pointer-events-none">
-                  <Suspense fallback={null}>
-                    <BackgroundManager />
-                  </Suspense>
-                </div>
-
-                {/* Partículas Canvas */}
-                <div className="fixed inset-0 z-0 pointer-events-none">
-                  <ParticlesCanvas />
-                </div>
-
-                {/* Conteúdo principal */}
-                <div className="relative z-10 min-h-screen">
-                  <Navbar />
-
-                  <main className="relative z-10">
-                    <ErrorBoundary>
-                      <Suspense
-                        fallback={
-                          <div className="flex items-center justify-center min-h-[70vh]">
-                            <div className="text-white/60 text-lg">Carregando conteúdo...</div>
-                          </div>
-                        }
-                      >
-                        <Routes>
-                          <Route path="/" element={<HomePage />} />
-                          <Route path="/formacao" element={<FormacaoPage />} />
-                          <Route path="/projetos" element={<ExperiencePage />} />
-                          <Route path="/cursos" element={<CursosPage />} />
-                          <Route path="/certificados" element={<CertificadosPage />} />
-                          <Route path="/contato" element={<ContactPage />} />
-                          <Route path="/doom" element={<DoomPage />} />
-                          <Route path="/dynamic-text-demo" element={<DynamicTextDemoPage />} />
-                          <Route path="*" element={<NotFoundPage />} />
-                        </Routes>
-                      </Suspense>
-                    </ErrorBoundary>
-                  </main>
-
-                  <Footer />
-                </div>
-
-                {/* Overlays */}
-                <BackgroundMenu />
-                <BackgroundEditorModal />
-              </Router>
+              <AppContent />
             </DynamicTextProvider>
           </MotionProvider>
         </PerformanceProvider>
