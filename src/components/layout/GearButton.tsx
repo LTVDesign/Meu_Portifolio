@@ -45,7 +45,7 @@ const GearButton = ({ onClick }: GearButtonProps) => {
           }}
           className={`fixed top-1/2 -translate-y-1/2 z-[10000] ${isWatch ? 'left-0.5' : isMobileSmall ? 'left-1' : isMobile ? 'left-2' : isTV ? 'left-12' : 'left-4 sm:left-6'}`}
         >
-          <div className='relative group'>
+          <div className='relative group' style={{ width: '280px', height: '280px', overflow: 'visible' }}>
             {/* ========== ANÉIS RGB GIRATÓRIOS OTIMIZADOS ========== */}
 
             {/* Anel 0 - Ultra externo */}
@@ -445,56 +445,52 @@ const GearButton = ({ onClick }: GearButtonProps) => {
             />
 
             {/* ========== SOMBRA RGB EXTERNA GIRATÓRIA ========== */}
-            <m.div
-              className='absolute rounded-full'
+            <div
+              className='absolute rounded-full pointer-events-none'
               style={{
                 top: '50%',
                 left: '50%',
-                width: '180px',
-                height: '180px',
-                marginTop: '-90px',
-                marginLeft: '-90px',
+                width: '200px',
+                height: '200px',
+                marginTop: '-100px',
+                marginLeft: '-100px',
                 background: 'conic-gradient(from 0deg, #FF0000, #FF7700, #FFDD00, #00FF00, #00DDFF, #0077FF, #FF00FF, #FF0000)',
-                filter: 'blur(40px)',
-                opacity: 0.6,
+                filter: 'blur(80px) saturate(2)',
+                opacity: 0.8,
               }}
-              animate={{
-                rotate: 360,
-                scale: [1, 1.1, 1],
-                opacity: [0.4, 0.7, 0.4],
-              }}
-              transition={{
-                rotate: { duration: 8, repeat: Infinity, ease: 'linear' },
-                scale: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
-                opacity: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
-              }}
-            />
+            >
+              <m.div
+                className='w-full h-full rounded-full'
+                animate={{ rotate: 360 }}
+                transition={{
+                  rotate: { duration: 6, repeat: Infinity, ease: 'linear' },
+                }}
+              />
+            </div>
 
             {/* ========== SOMBRA RGB EXTERNA 2 ========== */}
-            <m.div
-              className='absolute rounded-full'
+            <div
+              className='absolute rounded-full pointer-events-none'
               style={{
                 top: '50%',
                 left: '50%',
-                width: '220px',
-                height: '220px',
-                marginTop: '-110px',
-                marginLeft: '-110px',
-                background: 'conic-gradient(from 90deg, #00D4FF, #915EFF, #FF00FF, #FF6B35, #00D4FF)',
-                filter: 'blur(50px)',
-                opacity: 0.5,
+                width: '240px',
+                height: '240px',
+                marginTop: '-120px',
+                marginLeft: '-120px',
+                background: 'conic-gradient(from 180deg, #00D4FF, #915EFF, #FF00FF, #FF6B35, #00D4FF)',
+                filter: 'blur(90px) saturate(2)',
+                opacity: 0.7,
               }}
-              animate={{
-                rotate: -360,
-                scale: [1, 1.15, 1],
-                opacity: [0.3, 0.6, 0.3],
-              }}
-              transition={{
-                rotate: { duration: 12, repeat: Infinity, ease: 'linear' },
-                scale: { duration: 5, repeat: Infinity, ease: 'easeInOut' },
-                opacity: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
-              }}
-            />
+            >
+              <m.div
+                className='w-full h-full rounded-full'
+                animate={{ rotate: -360 }}
+                transition={{
+                  rotate: { duration: 9, repeat: Infinity, ease: 'linear' },
+                }}
+              />
+            </div>
 
             {/* ========== RAIOS DE ENERGIA EXTRAS OTIMIZADOS ========== */}
             {[0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340].map((angle, i) => (

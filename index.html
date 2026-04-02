@@ -15,11 +15,11 @@
   <!-- CSP (Content Security Policy) -->
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    script-src 'self' 'unsafe-inline' 'unsafe-eval' data: https://cdn.jsdelivr.net https://unpkg.com;
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' data: https://cdn.jsdelivr.net https://unpkg.com https://va.vercel-scripts.com;
     style-src 'self' 'unsafe-inline';
     img-src 'self' data: https:;
     font-src 'self' data:;
-    connect-src 'self' https://api.emailjs.com ws://localhost:5174 ws://localhost:5173;
+    connect-src 'self' https://api.emailjs.com ws://localhost:5174 ws://localhost:5173 https://va.vercel-scripts.com;
     frame-src 'none';
     object-src 'none';
     base-uri 'self';

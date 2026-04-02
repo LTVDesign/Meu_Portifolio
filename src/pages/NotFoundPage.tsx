@@ -1,27 +1,20 @@
-import { Canvas } from '@react-three/fiber';
-import { Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import NotFoundModel from '../components/canvas/NotFoundModel';
+
+// Lazy load Three.js components to reduce initial bundle size
+const NotFoundScene = lazy(() => import('../components/canvas/NotFoundScene'));
 
 const NotFoundPage = () => {
   const { t } = useTranslation();
 
   return (
     <div className='relative min-h-screen flex flex-col items-center justify-center'>
-      {/* 3D Canvas Background */}
+      {/* 3D Canvas Background - Lazy loaded */}
       <div className='absolute inset-0 z-0'>
-        <Canvas
-          camera={{ position: [0, 0, 5], fov: 50 }}
-          dpr={[1, 2]}
-          gl={{ antialias: true, alpha: true }}
-        >
-          <Suspense fallback={null}>
-            <ambientLight intensity={0.5} />
-            <pointLight position={[10, 10, 10]} />
-            <NotFoundModel />
-          </Suspense>
-        </Canvas>
+        <Suspense fallback={null}>
+          <NotFoundScene />
+        </Suspense>
       </div>
 
       {/* Content Overlay */}
