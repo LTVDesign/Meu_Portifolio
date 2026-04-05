@@ -147,7 +147,7 @@ const AppContent = () => {
       )}
 
       {/* Conteúdo principal - renderiza primeiro para LCP */}
-      <div className="relative z-10 min-h-screen">
+      <div className="relative z-20 min-h-screen">
         <Navbar />
 
         <main className="relative z-10">

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta name="description" content="Play DOOM via JS-DOS.">
+  <meta name="keywords" content="DOOM,pc,game,javscript">
+  <title>Play DOOM via JS-DOS</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="app.css">
+  <!-- Font Awesome removido - usando ícones SVG locais -->
+
+  <!-- FAVICON -->
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- JS-DOS API - usando arquivo local -->
+  <script type="text/javascript" src="js-dos-api.js"></script>
+
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    #DOOM>.dosbox-container {
+      width: 640px;
+      height: 400px;
+    }
+
+    #DOOM>.dosbox-container>.dosbox-overlay {
+      background: url("DOOM.png");
+      background-size: cover;
+    }
+
+    #DOOM>.dosbox-container>.dosbox-overlay>.dosbox-start {
+      border-radius: 17px 17px 17px 17px;
+      -moz-border-radius: 17px 17px 17px 17px;
+      -webkit-border-radius: 17px 17px 17px 17px;
+      border: 0px solid #000000;
+      background-color: rgba(90, 90, 90, 0.57);
+      padding: 5px;
+      text-align: center;
+      vertical-align: middle;
+      width: 10em;
+      margin: 0 auto;
+    }
+
+    a:link {
+      color: white;
+    }
+
+    h1 {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      margin-bottom: 10px;
+      font-size: 12px;
+      color: #888;
+    }
+
+    .controls {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .controls a {
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+    }
+
+    .controls a:hover {
+      color: #268bd2;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Play DOOM via JS-DOS</h1>
+  <footer>©TheDoggyBrad Software Lab. All Rights Reserved.</footer>
+
+  <div style="margin-top:20px;" id="DOOM" class="dosbox-default"></div>
+
+  <div class="controls">
+    <a id="fullscreen_DOOM" href="javascript: void 0;" title="Tela Cheia"
+      style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" fill="currentColor">
+        <path
+          d="M32 32C14.3 32 0 46.3 0 64v96c0 17.7 14.3 32 32 32s32-14.3 32-32V96h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H32zm448 0H352c-17.7 0-32 14.3-32 32s14.3 32 32 32h64v64c0 17.7 14.3 32 32 32s32-14.3 32-32V64c0-17.7-14.3-32-32-32zM32 480h128c17.7 0 32-14.3 32-32s-14.3-32-32-32H96V352c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7 14.3 32 32 32zm448 0V352c0-17.7-14.3-32-32-32s-32 14.3-32 32v64h-64c-17.7 0-32 14.3-32 32s14.3 32 32 32h128c17.7 0 32-14.3 32-32z" />
+      </svg>
+    </a>&nbsp;&nbsp;
+    <a href="MANUAL.MD" target="_blank" style="display: inline-flex; align-items: center; gap: 4px;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" fill="currentColor">
+        <path
+          d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
+      </svg>
+      &nbsp;User Manual
+    </a>
+  </div>
+
+  <script type="text/javascript">
+    var dosbox_DOOM = new Dosbox({
+      id: "DOOM",
+      onload: function (dosbox) {
+        // Usando arquivo ZIP local
+        dosbox_DOOM.run("DOOM-@evilution.zip", "./DOOM/DOOM.EXE");
+      },
+      onrun: function (dosbox, app) {
+        console.log("App '" + app + "' is running");
+      }
+    });
+
+    document.getElementById("fullscreen_DOOM").addEventListener("click", function () {
+      dosbox_DOOM.requestFullScreen();
+    });
+  </script>
+</body>
+
+</html>

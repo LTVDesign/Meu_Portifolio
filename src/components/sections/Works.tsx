@@ -21,11 +21,7 @@ const Works = () => {
     window.open(url, '_blank');
   };
 
-  const projectsList = [
-    { nameKey: '0', tagsKey: '0' },
-    { nameKey: '1', tagsKey: '1' },
-    { nameKey: '2', tagsKey: '2' },
-  ];
+
 
   return (
     <div className='max-w-7xl mx-auto px-4 sm:px-6'>
@@ -141,19 +137,16 @@ const Works = () => {
 
       {/* Grid de projetos - responsivo */}
       <div className='mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8'>
-        {projectsList.map((project, index) => {
-          const projectKey = project.nameKey;
-          const projectName = t(`projects.list.${projectKey}.name`);
-          const projectDescription = t(`projects.list.${projectKey}.description`);
-          const projectCategory = t(`projects.list.${projectKey}.category`);
-          const projectStatus = t(`projects.list.${projectKey}.status`);
-          const tags = t(`projects.list.${projectKey}.tags`, { returnObjects: true });
-          const projectTags = (Array.isArray(tags) ? tags : []) as { name: string; color: string }[];
+        {projects.map((project) => {
+          const projectName = project.name; // Nomes de projetos geralmente não mudam entre línguas, mas se mudar use t()
+          const projectDescription = t(project.description);
+          const projectCategory = t(project.category);
+          const projectStatus = t(project.status);
 
           return (
             <m.div
-              key={projectKey}
-              variants={prefersReduced ? {} : fadeIn('up', 'spring', index * 0.1, 0.75)}
+              key={projectName}
+              variants={prefersReduced ? {} : fadeIn('up', 'spring', 0, 0.75)}
               onClick={() => handleProjectClick(projectName)}
               className='glass-card group relative overflow-hidden h-full flex flex-col neon-hover border border-white/10 cursor-pointer transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl'
               whileHover={{ scale: 1.02 }}
@@ -161,15 +154,15 @@ const Works = () => {
             >
               <div className='relative h-44 sm:h-60 overflow-hidden'>
                 <img
-                  src={projects[parseInt(projectKey)].image}
+                  src={project.image}
                   alt={projectName}
                   className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-105'
-                  loading='lazy'
+                  loading='eager'
                 />
                 <div className='absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent' />
 
                 {/* Badges Container */}
-                <div className='absolute top-3 sm:top-4 left-3 sm:left-4 right-3 sm:right-4 flex justify-between items-start gap-2'>
+                <div className='absolute top-3 sm:top-4 left-3 sm:left-4 right-3 sm:right-4 flex flex-col items-start gap-2'>
                   {/* Category Badge */}
                   <div className='flex-shrink-0 px-3 sm:px-4 py-1 sm:py-1.5 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[9px] sm:text-[10px] font-bold text-[var(--cyber-cyan)] uppercase tracking-widest shadow-xl'>
                     {projectCategory}
@@ -184,7 +177,7 @@ const Works = () => {
 
               <div className='p-5 sm:p-8 flex-1 flex flex-col'>
                 <div className='flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4'>
-                  {projectTags?.slice(0, 3).map((tag, i) => (
+                  {project.tags?.slice(0, 3).map((tag, i) => (
                     <span
                       key={i}
                       className='text-[9px] sm:text-[10px] px-2 sm:px-3 py-0.5 sm:py-1 bg-white/5 border border-white/10 rounded-full text-[var(--text-secondary)] font-medium'

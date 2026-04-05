@@ -6,6 +6,7 @@ import anhangueraImg from '../../assets/anhanguera.svg';
 import albertaImg from '../../assets/images/logos/alberta.webp';
 import bradescoImg from '../../assets/images/logos/bradesco.webp';
 import cateImg from '../../assets/images/logos/cate.webp';
+import yonseiImg from '../../assets/images/logos/yonsei.png';
 import googleImg from '../../assets/images/logos/google.webp';
 import ibmImg from '../../assets/images/logos/ibm.webp';
 import johnsImg from '../../assets/images/logos/johns.webp';
@@ -87,6 +88,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
       'skill': skillImg,
       'iped': ipedImg,
       'anhanguera': anhangueraImg,
+      'yonsei': yonseiImg,
     };
 
     if (iconName && logoMap[iconName]) {
@@ -104,6 +106,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
     if (platformLower.includes('cate')) return cateImg;
     if (platformLower.includes('skill')) return skillImg;
     if (platformLower.includes('anhanguera')) return anhangueraImg;
+    if (platformLower.includes('yonsei')) return yonseiImg;
 
     return googleImg;
   };
@@ -225,7 +228,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                   <div className='flex-1'>
                     {/* Header com logotipo */}
                     <div className='flex items-start gap-4 mb-4'>
-                      <div className='w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 flex items-center justify-center flex-shrink-0 shadow-lg shadow-[var(--cyber-purple)]/20 border border-white/10 overflow-hidden p-2'>
+                      <div className='w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 flex items-center justify-center flex-shrink-0 shadow-lg shadow-[var(--cyber-purple)]/20 border border-white/10 overflow-hidden p-2 sm:p-2.5'>
                         <img
                           src={getLogo(curso.icon, curso.platform)}
                           alt={curso.platform}

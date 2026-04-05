@@ -5,12 +5,16 @@ import { fadeIn } from '../../utils/motion';
 interface ProjectCardProps {
   project: {
     id?: string;
-    title: string;
+    title?: string;
+    name?: string;
     description: string;
     image: string;
-    tags?: string[];
-    sourceCode: string;
+    tags?: { name: string; color: string }[];
+    sourceCodeLink?: string;
+    sourceCode?: string;
     liveDemo?: string;
+    status?: string;
+    category?: string;
   };
   index: number;
 }
@@ -26,7 +30,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
       <div className='relative h-64 overflow-hidden'>
         <img
           src={project.image}
-          alt={project.title}
+          alt={project.title || project.name}
           className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-110'
         />
         <div className='absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent' />
@@ -34,7 +38,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
 
       <div className='p-8 flex-1 flex flex-col'>
         <h3 className='text-2xl font-bold text-white group-hover:text-[var(--cyber-cyan)] transition-composited transition-colors'>
-          {project.title}
+          {project.title || project.name}
         </h3>
 
         <p className='mt-4 text-[var(--text-secondary)] line-clamp-4 flex-1'>
@@ -42,19 +46,32 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
         </p>
 
         {project.tags && (
-          <div className='flex flex-wrap gap-2 mt-6'>
+          <div className='flex flex-col gap-2 mt-6'>
             {project.tags.slice(0, 4).map((tag, i) => (
               <span
                 key={i}
-                className='text-xs px-4 py-1.5 bg-white/5 border border-white/10 rounded-full'
+                className={`text-xs px-4 py-1.5 bg-white/5 border border-white/10 rounded-full ${tag.color}`}
               >
-                #{tag}
+                #{tag.name}
               </span>
             ))}
           </div>
         )}
 
+        {/* Badges Container - stacked vertically */}
         <div className='mt-auto pt-8 w-full flex flex-col items-center gap-4'>
+          <div className='flex flex-col items-center gap-2'>
+            {project.category && (
+              <div className='px-3 py-1 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[9px] text-[var(--cyber-cyan)] uppercase tracking-widest shadow-xl'>
+                {t(project.category)}
+              </div>
+            )}
+            {project.status && (
+              <div className='px-2 py-1 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[8px] text-green-400 uppercase tracking-widest'>
+                {t(project.status)}
+              </div>
+            )}
+          </div>
           <m.button
             whileHover={{
               scale: 1.05,
@@ -62,7 +79,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
             }}
             whileTap={{ scale: 0.95 }}
             onClick={() =>
-              window.open(project.sourceCode, '_blank', 'noopener,noreferrer')
+              window.open(project.sourceCodeLink || project.sourceCode, '_blank', 'noopener,noreferrer')
             }
             className='relative px-8 py-4 text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden btn-glow-cyan'
           >

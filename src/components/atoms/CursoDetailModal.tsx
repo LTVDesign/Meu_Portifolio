@@ -41,7 +41,7 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
           {/* Header */}
           <div className='p-4 sm:p-6 border-b border-white/10'>
             <div className='flex items-center gap-4'>
-              <div className='w-10 h-10 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 flex items-center justify-center flex-shrink-0 overflow-hidden p-2'>
+              <div className='w-14 h-14 sm:w-20 sm:h-20 rounded-xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 flex items-center justify-center flex-shrink-0 overflow-hidden p-2 sm:p-3'>
                 <img
                   src={curso.icon}
                   alt={curso.platform}

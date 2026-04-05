@@ -21,7 +21,7 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
   const { config, updateConfig } = useParticleConfig();
   const { t } = useTranslation();
   // Hook otimizado com RAF debounce para evitar reflows
-  const { isWatch, isMobileSmall, isMobile, isTablet } = useBreakpoints();
+  const { isWatch, isMobileSmall, isMobile } = useBreakpoints();
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -29,49 +29,37 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
 
   // Posicionamento responsivo do menu
   const getMenuPosition = () => {
+    // Para telas muito pequenas, mantemos o menu alinhado à esquerda e ocupando toda a largura
     if (isWatch) {
       return {
-        top: '10%',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: 'calc(100vw - 16px)',
-        maxWidth: '260px',
+        // Posiciona o menu abaixo da engrenagem, evitando sobreposição
+        top: 'calc(50% - 10px)',
+        left: '0',
+        width: '100vw',
+        maxWidth: 'none',
         minWidth: 'unset',
       };
     }
-    if (isMobileSmall) {
+
+    // Para dispositivos móveis, posicionamos o menu ocupando toda a largura
+    if (isMobileSmall || isMobile) {
       return {
-        top: '12%',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: 'calc(100vw - 24px)',
-        maxWidth: '320px',
+        // Posiciona o menu abaixo da engrenagem, evitando sobreposição
+        top: 'calc(50% - 10px)',
+        left: '0',
+        width: '100vw',
+        maxWidth: 'none',
         minWidth: 'unset',
       };
     }
-    if (isMobile) {
-      return {
-        top: '15%',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: 'calc(100vw - 32px)',
-        maxWidth: '360px',
-        minWidth: 'unset',
-      };
-    }
-    if (isTablet) {
-      return {
-        top: '18%',
-        left: '80px',
-        width: '320px',
-        minWidth: 'unset',
-      };
-    }
-    // Desktop
+
+    // Desktop: posicionamento ao lado direito da engrenagem
     return {
-      top: '20%',
-      left: '100px',
-      minWidth: '340px',
+      top: 'calc(50% - 10px)',
+      left: '140px',
+      width: 'calc(100vw - 140px)',
+      maxWidth: '340px',
+      minWidth: 'unset',
     };
   };
 
@@ -93,7 +81,7 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
         animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: isMobile ? -10 : 0, x: isMobile ? 0 : 20 }}
         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-        className='fixed bg-black/85 backdrop-blur-3xl rounded-3xl shadow-2xl p-0 z-[99999] border border-white/20 overflow-hidden pointer-events-auto'
+        className='fixed bg-black/85 backdrop-blur-3xl rounded-3xl shadow-2xl p-0 z-[99999] border border-white/20 overflow-hidden pointer-events-auto w-full sm:max-w-md lg:max-w-lg'
         style={menuStyle}
         onClick={handleBackdropClick}
       >

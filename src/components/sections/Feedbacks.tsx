@@ -1,6 +1,6 @@
+import { useTranslation } from 'react-i18next';
 import { testimonials } from '../../constants';
 import { m } from 'framer-motion';
-import { config } from '../../constants/config';
 import { styles } from '../../constants/styles';
 import type { TTestimonial } from '../../types';
 import { fadeIn } from '../../utils/motion';
@@ -14,6 +14,7 @@ const FeedbackCard: React.FC<{ index: number } & TTestimonial> = ({
   company,
   image,
 }) => {
+  const { t } = useTranslation();
   return (
     <m.div
       variants={fadeIn('', 'spring', index * 0.5, 0.75)}
@@ -23,7 +24,7 @@ const FeedbackCard: React.FC<{ index: number } & TTestimonial> = ({
 
       <div className='mt-1'>
         <p className='text-[18px] tracking-wider text-white'>
-          {testimonial}
+          {t(testimonial)}
         </p>
 
         <div className='mt-7 flex items-center justify-between gap-1'>
@@ -32,7 +33,7 @@ const FeedbackCard: React.FC<{ index: number } & TTestimonial> = ({
               <span className='blue-text-gradient'>@</span> {name}
             </p>
             <p className='text-gray-400 mt-1 text-[12px]'>
-              {designation} de {company}
+              {t(designation)} {t('at')} {t(company)}
             </p>
           </div>
 
@@ -50,10 +51,11 @@ const FeedbackCard: React.FC<{ index: number } & TTestimonial> = ({
 };
 
 const Feedbacks = () => {
+  const { t } = useTranslation();
   return (
     <div className='bg-black-100 mt-12 rounded-[20px]'>
       <div className={`${styles.padding} bg-tertiary min-h-[300px] rounded-2xl`}>
-        <Header useMotion={true} {...config.sections.feedbacks} />
+        <Header useMotion={true} p={t('feedbacks.p')} h2={t('feedbacks.h2')} />
       </div>
       <div
         className={`${styles.paddingX} -mt-20 flex flex-wrap gap-7 pb-14 max-sm:justify-center items-center`}

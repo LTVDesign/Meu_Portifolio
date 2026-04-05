@@ -7,6 +7,7 @@ import anhangueraImg from '../../assets/anhanguera.svg';
 import albertaImg from '../../assets/images/logos/alberta.webp';
 import bradescoImg from '../../assets/images/logos/bradesco.webp';
 import cateImg from '../../assets/images/logos/cate.webp';
+import yonseiImg from '../../assets/images/logos/yonsei.png';
 import googleImg from '../../assets/images/logos/google.webp';
 import ibmImg from '../../assets/images/logos/ibm.webp';
 import johnsImg from '../../assets/images/logos/johns.webp';
@@ -91,6 +92,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
       else if (curso.icon === 'ibm') iconSrc = ibmImg;
       else if (curso.icon === 'anhanguera') iconSrc = anhangueraImg;
       else if (curso.icon === 'cate') iconSrc = cateImg;
+      else if (curso.icon === 'yonsei') iconSrc = yonseiImg;
       else if (curso.icon === 'johns') iconSrc = johnsImg;
       else if (curso.icon === 'hackers') iconSrc = hackersImg;
       else if (curso.icon === 'bradesco') iconSrc = bradescoImg;
@@ -332,7 +334,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
                     aria-label={`${t('cursos.viewDetails')} ${curso.title}`}
                   >
                     <div className='flex items-center gap-4 sm:gap-6 mb-5 sm:mb-8'>
-                      <div className='w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/5 transition-transform group-hover:scale-110 overflow-hidden p-2'>
+                      <div className='w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/5 transition-transform group-hover:scale-110 overflow-hidden p-2 sm:p-3'>
                         <img
                           src={curso.icon}
                           alt={curso.platform}

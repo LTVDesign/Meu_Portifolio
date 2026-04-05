@@ -13,6 +13,7 @@ const ExperienceCard = forwardRef<
   HTMLDivElement,
   { experience: TExperience; index: number }
 >(({ experience, index }, ref) => {
+  const { t } = useTranslation();
   const prefersReduced = useReducedMotion();
   const [loadedIcon, isLoading, imgRef] = useLazyImage(experience.icon, {
     rootMargin: '100px',
@@ -95,14 +96,14 @@ const ExperienceCard = forwardRef<
         <div className='flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 mb-4 sm:mb-6'>
           <div>
             <h3 className='text-lg sm:text-2xl font-bold text-white group-hover:text-[var(--cyber-cyan)] transition-colors tracking-tight'>
-              {experience.title}
+              {t(experience.title)}
             </h3>
             <p className='text-white/70 font-medium text-sm sm:text-lg mt-1'>
-              {experience.companyName}
+              {t(experience.companyName)}
             </p>
           </div>
           <div className='text-[var(--cyber-purple)] font-mono text-xs sm:text-sm tracking-widest bg-white/5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl h-fit border border-white/5 shadow-inner self-start sm:self-auto'>
-            {experience.date}
+            {t(experience.date)}
           </div>
         </div>
 
@@ -115,7 +116,7 @@ const ExperienceCard = forwardRef<
               <span className='text-[var(--cyber-cyan)] mt-1.5 flex-shrink-0 animate-pulse text-base sm:text-lg leading-none'>
                 •
               </span>
-              {point}
+              {t(point)}
             </li>
           ))}
         </ul>

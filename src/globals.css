@@ -1,6 +1,8 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
+:root {
   /* Breakpoints customizados para todos os dispositivos */
   --breakpoint-watch: 200px;
   /* Smartwatch */
@@ -50,6 +52,29 @@
   }
 
   /* Apenas estilos que NÃO estão no critical.css */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--tertiary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--cyber-purple);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--cyber-glow);
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--cyber-purple) var(--tertiary);
+  }
+
   body {
     @apply text-white antialiased;
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

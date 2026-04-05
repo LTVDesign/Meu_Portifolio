@@ -4,7 +4,7 @@
       "id": "1",
       "title": "Administração de Sistemas, Serviços e Infraestrutura de TI",
       "platform": "Google (via Coursera)",
-      "date": "2024",
+      "date": "2023",
       "duration": "Aproximadamente 6 meses",
       "workload": "Cerca de 120 horas",
       "summary": "Este curso aborda a administração de sistemas e serviços de infraestrutura de TI, cobrindo desde a instalação e configuração de sistemas operacionais até a gestão de serviços de rede e segurança. Aprenda a manter sistemas operacionais funcionando e a configurar serviços de rede essenciais.",
@@ -18,7 +18,7 @@
         "Automação de tarefas administrativas"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/XQUDR4SCZEYA",
-      "link": "https://www.coursera.org/learn/administracao-de-sistemas-servicos-infraestrutura-ti",
+      "link": "/certificados/ID_1_Administracao_Sistemas_Google.pdf",
       "isProfessionalCertificate": false,
       "icon": "google"
     },
@@ -26,7 +26,7 @@
       "id": "2",
       "title": "Fundamentos do Suporte Técnico",
       "platform": "Google (via Coursera)",
-      "date": "2024",
+      "date": "2023",
       "duration": "Aproximadamente 6 meses",
       "workload": "Cerca de 120 horas",
       "summary": "Certificado Profissional que cobre os fundamentos do suporte técnico, incluindo hardware, redes, sistemas operacionais, segurança e atendimento ao cliente. Uma base completa para atuação como técnico de suporte N1/N2.",
@@ -40,7 +40,7 @@
         "Resolução de problemas e troubleshooting"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
-      "link": "https://www.coursera.org/learn/fundamentos-do-suporte-tecnico",
+      "link": "/certificados/ID_2_Fundamentos_Suporte_Tecnico_Google.pdf",
       "isProfessionalCertificate": true,
       "icon": "google"
     },
@@ -62,7 +62,7 @@
         "Papéis e responsabilidades do Product Manager"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/WKNDJF2YGF88",
-      "link": "https://www.coursera.org/learn/introduction-to-software-product-management-pt",
+      "link": "/certificados/ID_3_Intro_Software_Product_Management.pdf",
       "isProfessionalCertificate": false,
       "icon": "alberta"
     },
@@ -70,7 +70,7 @@
       "id": "4",
       "title": "Redes de Computadores",
       "platform": "Google (via Coursera)",
-      "date": "2024",
+      "date": "2023",
       "duration": "Aproximadamente 2 meses",
       "workload": "Cerca de 40 horas",
       "summary": "Curso completo sobre redes de computadores, cobrindo desde os fundamentos de comunicação de dados até protocolos, arquiteturas de rede, segurança e troubleshooting. Essencial para profissionais de TI e desenvolvimento.",
@@ -84,7 +84,7 @@
         "Troubleshooting e monitoramento de redes"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
-      "link": "https://www.coursera.org/learn/redes-computadores",
+      "link": "/certificados/ID_4_Redes_Computadores_Google.pdf",
       "isProfessionalCertificate": false,
       "icon": "google"
     },
@@ -92,7 +92,7 @@
       "id": "5",
       "title": "Sistemas Operacionais",
       "platform": "Google (via Coursera)",
-      "date": "2024",
+      "date": "2023",
       "duration": "Aproximadamente 2 meses",
       "workload": "Cerca de 40 horas",
       "summary": "Curso completo sobre sistemas operacionais, abordando instalação, configuração, gerenciamento de processos, memória, armazenamento e segurança. Essencial para profissionais de TI que trabalham com infraestrutura.",
@@ -106,7 +106,7 @@
         "Segurança e virtualização"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
-      "link": "https://www.coursera.org/learn/sistemas-operacionais",
+      "link": "/certificados/ID_5_Sistemas_Operacionais_Google.pdf",
       "isProfessionalCertificate": false,
       "icon": "google"
     },
@@ -114,7 +114,7 @@
       "id": "6",
       "title": "Segurança de TI",
       "platform": "Google (via Coursera)",
-      "date": "2024",
+      "date": "2023",
       "duration": "Aproximadamente 4 meses",
       "workload": "Cerca de 80 horas",
       "summary": "Curso completo sobre segurança da informação e cibersegurança, abordando ameaças, vulnerabilidades, controles de acesso, criptografia, segurança de redes e resposta a incidentes. Formação para profissionais de segurança de TI.",
@@ -128,7 +128,7 @@
         "Resposta a incidentes e recuperação"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
-      "link": "https://www.coursera.org/learn/seguranca-de-it",
+      "link": "/certificados/ID_6_Seguranca_TI_Google.pdf",
       "isProfessionalCertificate": true,
       "icon": "google"
     },
@@ -150,7 +150,7 @@
         "Resolução de problemas e troubleshooting"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/Y3TYLH6K7N4V",
-      "link": "https://www.coursera.org/learn/introduction-to-technical-support",
+      "link": "/certificados/ID_7_Intro_Technical_Support_IBM.pdf",
       "isProfessionalCertificate": false,
       "icon": "ibm"
     },
@@ -196,13 +196,13 @@
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/3U83PYVA9SZZ",
       "link": "https://www.coursera.org/learn/tcpip",
       "isProfessionalCertificate": false,
-      "icon": "cate"
+      "icon": "yonsei"
     },
     {
       "id": "10",
       "title": "HTML, CSS e JavaScript para Desenvolvedores Web",
       "platform": "Johns Hopkins University (via Coursera)",
-      "date": "2024",
+      "date": "2025",
       "duration": "Aproximadamente 3 meses",
       "workload": "Cerca de 60 horas",
       "summary": "Curso completo de desenvolvimento web front-end com HTML5, CSS3 e JavaScript ES6+. Aprenda a criar páginas responsivas, interativas e modernas do zero.",
@@ -216,7 +216,7 @@
         "APIs modernas e boas práticas"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/FU6BSD4ECJFD",
-      "link": "https://www.coursera.org/learn/html-css-javascript-for-web-developers",
+      "link": "/certificados/ID_10_HTML_CSS_JS_Johns_Hopkins.pdf",
       "isProfessionalCertificate": false,
       "icon": "johns"
     },
@@ -224,7 +224,7 @@
       "id": "11",
       "title": "Introduction to Scrum Master Profession",
       "platform": "Google (via Coursera)",
-      "date": "2024",
+      "date": "2025",
       "duration": "Aproximadamente 2 meses",
       "workload": "Cerca de 40 horas",
       "summary": "Curso introdutório sobre a profissão de Scrum Master, cobrindo fundamentos do Scrum, papéis, eventos, artefatos e práticas ágeis. Preparação para atuação como Scrum Master.",
@@ -238,7 +238,7 @@
         "Impedimentos, coaching e melhoria contínua"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/XP3ESDW5Z0F9",
-      "link": "https://www.coursera.org/learn/introduction-to-scrum-master-profession",
+      "link": "/certificados/ID_11_Scrum_Master_Google.pdf",
       "isProfessionalCertificate": false,
       "icon": "google"
     },
@@ -246,7 +246,7 @@
       "id": "12",
       "title": "Foundations of Cybersecurity",
       "platform": "Google (via Coursera)",
-      "date": "2024",
+      "date": "2025",
       "duration": "Aproximadamente 6 meses",
       "workload": "Cerca de 120 horas",
       "summary": "Curso completo de fundamentos em cibersegurança, abordando segurança de redes, sistemas, dados, identidade, ameaças, vulnerabilidades e resposta a incidentes. Certificado profissional da Google.",
@@ -260,7 +260,7 @@
         "Monitoramento, detecção e resposta a incidentes"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/H8G4LMDO77NR",
-      "link": "https://www.coursera.org/learn/foundations-of-cybersecurity",
+      "link": "/certificados/ID_12_Foundations_Cybersecurity_Google.pdf",
       "isProfessionalCertificate": false,
       "icon": "google"
     },
@@ -272,28 +272,30 @@
       "summary": "Curso de nivelamento em cibersegurança, abrangendo redes TCP/IP, desenvolvimento de sistemas, sistema operacional, internet e sistemas web. É o passo inicial para uma carreira em cibersegurança.",
       "description": "Esse curso possui módulos online e assíncronos, abrangendo redes TCP/IP, desenvolvimento de sistemas, sistema operacional, internet e sistemas web. O curso é o passo inicial para uma carreira em cibersegurança.",
       "verificationLink": "https://ava.hackersdobem.org.br/mod/customcert/verify_certificate.php?contextid=366&code=EzFXn4WcDw&qrcode=1",
-      "link": "https://hackersdobem.org.br/",
+      "link": "/certificados/ID_13_Nivelamento_Hackers_do_Bem.pdf",
       "icon": "hackers"
     },
     {
       "id": "14",
       "title": "Fundamentos de TI",
       "platform": "Fundação Bradesco",
-      "date": "2024",
+      "date": "2023",
       "summary": "Conceitos essenciais de arquitetura de computadores, hardware e lógica operacional.",
       "description": "Conceitos essenciais de arquitetura de computadores, hardware e lógica operacional.",
-      "icon": "bradesco"
+      "icon": "bradesco",
+      "link": "/certificados/ID_14_Fundamentos_TI_Bradesco.pdf",
+      "workload": "7 horas"
     },
     {
       "id": "15",
       "title": "Implementando Bancos de Dados",
       "platform": "Fundação Bradesco",
-      "date": "2024",
-      "workload": "20 horas",
+      "date": "2023",
+      "workload": "15 horas",
       "summary": "Focado na criação física de bancos de dados, usando linguagens de consulta e estruturação.",
       "description": "Focado na criação física de bancos de dados, usando linguagens de consulta e estruturação.",
       "verificationLink": "https://www.ev.org.br/validar-certificado",
-      "link": "https://www.ev.org.br/trilhas-de-conhecimento/banco-de-dados",
+      "link": "/certificados/ID_15_Implementando_BD_Bradesco.pdf",
       "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923",
       "icon": "bradesco"
     },
@@ -301,12 +303,12 @@
       "id": "16",
       "title": "Administração de Bancos de Dados",
       "platform": "Fundação Bradesco",
-      "date": "2024",
-      "workload": "20 horas",
+      "date": "2023",
+      "workload": "15 horas",
       "summary": "Gerenciamento de segurança, usuários, integridade e manutenção de sistemas de bancos de dados.",
       "description": "Gerenciamento de segurança, usuários, integridade e manutenção de sistemas de bancos de dados.",
       "verificationLink": "https://www.ev.org.br/validar-certificado",
-      "link": "https://www.ev.org.br/trilhas-de-conhecimento/banco-de-dados",
+      "link": "/certificados/ID_16_Administracao_BD_Bradesco.pdf",
       "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923",
       "icon": "bradesco"
     },
@@ -314,82 +316,104 @@
       "id": "17",
       "title": "Segurança de TI",
       "platform": "Fundação Bradesco",
-      "date": "2024",
+      "date": "2023",
       "summary": "Princípios de segurança de dados, políticas de segurança e defesa de perímetro.",
       "description": "Princípios de segurança de dados, políticas de segurança e defesa de perímetro.",
-      "icon": "bradesco"
+      "icon": "bradesco",
+      "link": "/certificados/ID_17_Seguranca_TI_Bradesco.pdf",
+      "workload": "12 horas"
     },
     {
       "id": "18",
       "title": "Exame de Certificação Search Ads 360",
       "platform": "Google Skillshop",
-      "date": "2024",
+      "date": "2022",
       "summary": "Certificação avançada para gerenciamento e otimização de campanhas publicitárias em larga escala.",
       "description": "Certificação avançada para gerenciamento e otimização de campanhas publicitárias em larga escala.",
-      "icon": "google"
+      "icon": "google",
+      "link": "/certificados/ID_18_Search_Ads_360_Google.pdf"
     },
     {
       "id": "19",
       "title": "Fundamentos do Waze Ads",
       "platform": "Google Skillshop",
-      "date": "2024",
+      "date": "2022",
       "summary": "Fundamentos para criação de publicidade direcionada a motoristas em tempo real.",
       "description": "Fundamentos para criação de publicidade direcionada a motoristas em tempo real.",
-      "icon": "google"
+      "icon": "google",
+      "link": "/certificados/ID_19_Waze_Ads_Fundamentals_Google.pdf"
     },
     {
       "id": "20",
       "title": "Google Meu Negócio (Perfil da Empresa)",
       "platform": "Google Skillshop",
-      "date": "2024",
+      "date": "2022",
       "summary": "Ferramentas para otimizar a presença local de negócios no Google Maps e pesquisa.",
       "description": "Ferramentas para otimizar a presença local de negócios no Google Maps e pesquisa.",
-      "icon": "google"
+      "icon": "google",
+      "link": "/certificados/ID_20_Google_Meu_Negocio.pdf"
     },
     {
       "id": "21",
       "title": "Exame de Certificação Criativo",
       "platform": "Google Skillshop",
-      "date": "2024",
+      "date": "2023",
       "summary": "Teste de conhecimento sobre desenvolvimento de criativos publicitários eficazes para plataformas Google.",
       "description": "Teste de conhecimento sobre desenvolvimento de criativos publicitários eficazes para plataformas Google.",
-      "icon": "google"
+      "icon": "google",
+      "link": "/certificados/ID_21_Creative_Certification_Google.pdf"
     },
     {
       "id": "22",
-      "title": "Satisfação do Cliente",
+      "title": "Gerar Satisfação de Clientes",
       "platform": "IPED",
-      "date": "2024",
-      "summary": "Métodos para medir e melhorar o índice de satisfação dos clientes com produtos e serviços.",
-      "description": "Métodos para medir e melhorar o índice de satisfação dos clientes com produtos e serviços.",
+      "date": "2021",
+      "workload": "40 horas",
+      "summary": "O curso aborda a psicologia do consumidor para impulsionar a satisfação e fidelização.",
+      "description": "O curso aborda a psicologia e o comportamento do consumidor para impulsionar a satisfação e fidelização. Cobre a identificação de necessidades, a transparência no relacionamento e como utilizar as redes sociais como ferramenta de prospecção. Tópicos incluem estratégias de precificação, padrões psicológicos de compra e como agregar valor à experiência do consumidor.",
+      "modules": [
+        "Capítulo 1: Entendendo o Cliente, necessidades e redes sociais",
+        "Capítulo 2: Psicologia de Marketing e Vendas, transparência e prospecção",
+        "Capítulo 3: Estratégia e Retenção, precificação e valor"
+      ],
+      "verificationLink": "https://www.iped.com.br/certificado?numero=1173384",
+      "link": "/certificados/ID_22_Satisfacao_Clientes_IPED.pdf",
+      "authCode": "1173384",
+      "isProfessionalCertificate": false,
       "icon": "iped"
     },
     {
       "id": "23",
       "title": "Atendimento ao Cliente",
       "platform": "IPED",
-      "date": "2024",
+      "date": "2021",
       "summary": "Técnicas de abordagem, postura profissional e resolução ágil de problemas durante o suporte.",
       "description": "Técnicas de abordagem, postura profissional e resolução ágil de problemas durante o suporte.",
-      "icon": "iped"
+      "icon": "iped",
+      "link": "/certificados/ID_23_Atendimento_Cliente_IPED.pdf",
+      "workload": "80 horas"
     },
     {
       "id": "24",
       "title": "Ética, Política e Cidadania",
       "platform": "IPED",
-      "date": "2024",
+      "date": "2021",
       "summary": "Estudo de conduta ética no ambiente de trabalho e o papel social do profissional.",
       "description": "Estudo de conduta ética no ambiente de trabalho e o papel social do profissional.",
-      "icon": "iped"
+      "icon": "iped",
+      "link": "/certificados/ID_24_Etica_Politica_Cidadania_IPED.pdf",
+      "workload": "4 horas"
     },
     {
       "id": "25",
       "title": "Boas Práticas de Manipulação de Alimentos",
-      "platform": "IPED",
-      "date": "2024",
+      "platform": "CATe",
+      "date": "2022",
       "summary": "Normas de higiene e segurança alimentar para processos de produção e manipulação.",
       "description": "Normas de higiene e segurança alimentar para processos de produção e manipulação.",
-      "icon": "iped"
+      "icon": "iped",
+      "link": "/certificados/ID_25_Boas_Praticas_Alimentos_IPED.pdf",
+      "workload": "8 horas"
     }
   ],
   "en": [
@@ -397,7 +421,7 @@
       "id": "1",
       "title": "Systems Administration, Services and IT Infrastructure",
       "platform": "Google (via Coursera)",
-      "date": "2024",
+      "date": "2023",
       "duration": "Approximately 6 months",
       "workload": "About 120 hours",
       "summary": "This course covers IT infrastructure systems and services administration, from operating system installation and configuration to network services and security management. Learn to keep operating systems running and configure essential network services.",
@@ -411,7 +435,7 @@
         "Administrative task automation"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/XQUDR4SCZEYA",
-      "link": "https://www.coursera.org/learn/administracao-de-sistemas-servicos-infraestrutura-ti",
+      "link": "/certificados/ID_1_Administracao_Sistemas_Google.pdf",
       "isProfessionalCertificate": false,
       "icon": "google"
     },
@@ -419,7 +443,7 @@
       "id": "2",
       "title": "Technical Support Fundamentals",
       "platform": "Google (via Coursera)",
-      "date": "2024",
+      "date": "2023",
       "duration": "Approximately 6 months",
       "workload": "About 120 hours",
       "summary": "Professional Certificate covering technical support fundamentals, including hardware, networks, operating systems, security, and customer service. A complete foundation for N1/N2 support technician roles.",
@@ -433,7 +457,7 @@
         "Problem solving and troubleshooting"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
-      "link": "https://www.coursera.org/learn/fundamentos-do-suporte-tecnico",
+      "link": "/certificados/ID_2_Fundamentos_Suporte_Tecnico_Google.pdf",
       "isProfessionalCertificate": true,
       "icon": "google"
     },
@@ -455,7 +479,7 @@
         "Product Manager roles and responsibilities"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/WKNDJF2YGF88",
-      "link": "https://www.coursera.org/learn/introduction-to-software-product-management-pt",
+      "link": "/certificados/ID_3_Intro_Software_Product_Management.pdf",
       "isProfessionalCertificate": false,
       "icon": "alberta"
     },
@@ -463,7 +487,7 @@
       "id": "4",
       "title": "Computer Networks",
       "platform": "Google (via Coursera)",
-      "date": "2024",
+      "date": "2023",
       "duration": "Approximately 2 months",
       "workload": "About 40 hours",
       "summary": "Complete course on computer networks, covering from data communication fundamentals to protocols, network architectures, security, and troubleshooting. Essential for IT and development professionals.",
@@ -477,7 +501,7 @@
         "Network troubleshooting and monitoring"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
-      "link": "https://www.coursera.org/learn/redes-computadores",
+      "link": "/certificados/ID_4_Redes_Computadores_Google.pdf",
       "isProfessionalCertificate": false,
       "icon": "google"
     },
@@ -485,7 +509,7 @@
       "id": "5",
       "title": "Operating Systems",
       "platform": "Google (via Coursera)",
-      "date": "2024",
+      "date": "2023",
       "duration": "Approximately 2 months",
       "workload": "About 40 hours",
       "summary": "Complete course on operating systems, covering installation, configuration, process management, memory, storage, and security. Essential for IT infrastructure professionals.",
@@ -499,7 +523,7 @@
         "Security and virtualization"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
-      "link": "https://www.coursera.org/learn/sistemas-operacionais",
+      "link": "/certificados/ID_5_Sistemas_Operacionais_Google.pdf",
       "isProfessionalCertificate": true,
       "icon": "google"
     },
@@ -507,7 +531,7 @@
       "id": "6",
       "title": "IT Security",
       "platform": "Google (via Coursera)",
-      "date": "2024",
+      "date": "2023",
       "duration": "Approximately 4 months",
       "workload": "About 80 hours",
       "summary": "Complete course on information security and cybersecurity, covering threats, vulnerabilities, access controls, encryption, network security, and incident response. Training for IT security professionals.",
@@ -521,7 +545,7 @@
         "Incident response and recovery"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
-      "link": "https://www.coursera.org/learn/seguranca-de-it",
+      "link": "/certificados/ID_6_Seguranca_TI_Google.pdf",
       "isProfessionalCertificate": true,
       "icon": "google"
     },
@@ -543,7 +567,7 @@
         "Problem solving and troubleshooting"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/Y3TYLH6K7N4V",
-      "link": "https://www.coursera.org/learn/introduction-to-technical-support",
+      "link": "/certificados/ID_7_Intro_Technical_Support_IBM.pdf",
       "isProfessionalCertificate": false,
       "icon": "ibm"
     },
@@ -595,7 +619,7 @@
       "id": "10",
       "title": "HTML, CSS, and JavaScript for Web Developers",
       "platform": "Johns Hopkins University (via Coursera)",
-      "date": "2024",
+      "date": "2025",
       "duration": "Approximately 3 months",
       "workload": "About 60 hours",
       "summary": "Complete front-end web development course with HTML5, CSS3, and JavaScript ES6+. Learn to create responsive, interactive, and modern web pages from scratch.",
@@ -609,7 +633,7 @@
         "Modern APIs and best practices"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/FU6BSD4ECJFD",
-      "link": "https://www.coursera.org/learn/html-css-javascript-for-web-developers",
+      "link": "/certificados/ID_10_HTML_CSS_JS_Johns_Hopkins.pdf",
       "isProfessionalCertificate": true,
       "icon": "johns"
     },
@@ -617,7 +641,7 @@
       "id": "11",
       "title": "Introduction to Scrum Master Profession",
       "platform": "Google (via Coursera)",
-      "date": "2024",
+      "date": "2025",
       "duration": "Approximately 2 months",
       "workload": "About 40 hours",
       "summary": "Introductory course on the Scrum Master profession, covering Scrum fundamentals, roles, events, artifacts, and agile practices. Preparation for working as a Scrum Master.",
@@ -631,7 +655,7 @@
         "Impediments, coaching, and continuous improvement"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/XP3ESDW5Z0F9",
-      "link": "https://www.coursera.org/learn/introduction-to-scrum-master-profession",
+      "link": "/certificados/ID_11_Scrum_Master_Google.pdf",
       "isProfessionalCertificate": false,
       "icon": "google"
     },
@@ -639,7 +663,7 @@
       "id": "12",
       "title": "Foundations of Cybersecurity",
       "platform": "Google (via Coursera)",
-      "date": "2024",
+      "date": "2025",
       "duration": "Approximately 6 months",
       "workload": "About 120 hours",
       "summary": "Complete cybersecurity fundamentals course, covering network security, systems, data, identity, threats, vulnerabilities, and incident response. Professional certificate from Google.",
@@ -653,7 +677,7 @@
         "Monitoring, detection, and incident response"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/H8G4LMDO77NR",
-      "link": "https://www.coursera.org/learn/foundations-of-cybersecurity",
+      "link": "/certificados/ID_12_Foundations_Cybersecurity_Google.pdf",
       "isProfessionalCertificate": true,
       "icon": "google"
     },
@@ -665,112 +689,137 @@
       "summary": "Leveling course in cybersecurity, covering TCP/IP networks, systems development, operating systems, internet and web systems. It is the first step for a career in cybersecurity.",
       "description": "This course features online and asynchronous modules, covering TCP/IP networks, systems development, operating systems, internet and web systems. The course is the first step for a career in cybersecurity.",
       "verificationLink": "https://ava.hackersdobem.org.br/mod/customcert/verify_certificate.php?contextid=366&code=EzFXn4WcDw&qrcode=1",
-      "link": "https://hackersdobem.org.br/",
+      "link": "/certificados/ID_13_Nivelamento_Hackers_do_Bem.pdf",
       "icon": "hackers"
     },
     {
       "id": "14",
       "title": "IT Fundamentals",
       "platform": "Fundação Bradesco",
-      "date": "2024",
+      "date": "2023",
       "summary": "Essential concepts of computer architecture, hardware and operating logic.",
-      "description": "Essential concepts of computer architecture, hardware and operating logic."
+      "description": "Essential concepts of computer architecture, hardware and operating logic.",
+      "link": "/certificados/ID_14_Fundamentos_TI_Bradesco.pdf",
+      "workload": "7 hours"
     },
     {
       "id": "15",
       "title": "Implementing Databases",
       "platform": "Fundação Bradesco",
-      "date": "2024",
-      "workload": "20 hours",
+      "date": "2023",
+      "workload": "15 hours",
       "summary": "Focused on physical database creation, using query and structuring languages.",
       "description": "Focused on physical database creation, using query and structuring languages.",
       "verificationLink": "https://www.ev.org.br/validar-certificate",
-      "link": "https://www.ev.org.br/trilhas-de-conhecimento/banco-de-dados",
+      "link": "/certificados/ID_15_Implementando_BD_Bradesco.pdf",
       "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923"
     },
     {
       "id": "16",
       "title": "Database Administration",
       "platform": "Fundação Bradesco",
-      "date": "2024",
-      "workload": "20 hours",
+      "date": "2023",
+      "workload": "15 hours",
       "summary": "Security management, users, integrity and database systems maintenance.",
       "description": "Security management, users, integrity and database systems maintenance.",
       "verificationLink": "https://www.ev.org.br/validar-certificate",
-      "link": "https://www.ev.org.br/trilhas-de-conhecimento/banco-de-dados",
+      "link": "/certificados/ID_16_Administracao_BD_Bradesco.pdf",
       "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923"
     },
     {
       "id": "17",
       "title": "IT Security",
       "platform": "Fundação Bradesco",
-      "date": "2024",
+      "date": "2023",
       "summary": "Data security principles, security policies and perimeter defense.",
-      "description": "Data security principles, security policies and perimeter defense."
+      "description": "Data security principles, security policies and perimeter defense.",
+      "link": "/certificados/ID_17_Seguranca_TI_Bradesco.pdf",
+      "workload": "12 hours"
     },
     {
       "id": "18",
       "title": "Search Ads 360 Certification Exam",
       "platform": "Google Skillshop",
-      "date": "2024",
+      "date": "2022",
       "summary": "Advanced certification for managing and optimizing large-scale advertising campaigns.",
-      "description": "Advanced certification for managing and optimizing large-scale advertising campaigns."
+      "description": "Advanced certification for managing and optimizing large-scale advertising campaigns.",
+      "link": "/certificados/ID_18_Search_Ads_360_Google.pdf"
     },
     {
       "id": "19",
       "title": "Waze Ads Fundamentals",
       "platform": "Google Skillshop",
-      "date": "2024",
+      "date": "2022",
       "summary": "Fundamentals for creating real-time driver-targeted advertising.",
-      "description": "Fundamentals for creating real-time driver-targeted advertising."
+      "description": "Fundamentals for creating real-time driver-targeted advertising.",
+      "link": "/certificados/ID_19_Waze_Ads_Fundamentals_Google.pdf"
     },
     {
       "id": "20",
       "title": "Google My Business (Company Profile)",
       "platform": "Google Skillshop",
-      "date": "2024",
+      "date": "2022",
       "summary": "Tools to optimize local business presence on Google Maps and search.",
-      "description": "Tools to optimize local business presence on Google Maps and search."
+      "description": "Tools to optimize local business presence on Google Maps and search.",
+      "link": "/certificados/ID_20_Google_Meu_Negocio.pdf"
     },
     {
       "id": "21",
       "title": "Creative Certification Exam",
       "platform": "Google Skillshop",
-      "date": "2024",
+      "date": "2023",
       "summary": "Knowledge test about developing effective advertising creatives for Google platforms.",
-      "description": "Knowledge test about developing effective advertising creatives for Google platforms."
+      "description": "Knowledge test about developing effective advertising creatives for Google platforms.",
+      "link": "/certificados/ID_21_Creative_Certification_Google.pdf"
     },
     {
       "id": "22",
-      "title": "Customer Satisfaction",
+      "title": "Customer Satisfaction Generation",
       "platform": "IPED",
-      "date": "2024",
-      "summary": "Methods to measure and improve customer contentment index with products and services.",
-      "description": "Methods to measure and improve customer contentment index with products and services."
+      "date": "2021",
+      "workload": "40 hours",
+      "summary": "The course focuses on customer psychology and behavior to drive satisfaction and loyalty.",
+      "description": "The course focuses on customer psychology and behavior to drive satisfaction and loyalty. It covers identifying customer needs, relationship transparency, and using social media for prospection. Key topics include pricing strategies, psychological buying patterns, and adding value to the consumer experience.",
+      "modules": [
+        "Chapter 1: Understanding the Customer, needs and social media",
+        "Chapter 2: Marketing and Sales Psychology, transparency and prospection",
+        "Chapter 3: Strategy and Retention, pricing and value"
+      ],
+      "verificationLink": "https://www.iped.com.br/certificado?numero=1173384",
+      "link": "/certificados/ID_22_Satisfacao_Clientes_IPED.pdf",
+      "authCode": "1173384",
+      "isProfessionalCertificate": false,
+      "icon": "iped"
     },
     {
       "id": "23",
       "title": "Customer Service",
       "platform": "IPED",
-      "date": "2024",
+      "date": "2021",
       "summary": "Approach techniques, professional posture and agile problem resolution during support.",
-      "description": "Approach techniques, professional posture and agile problem resolution during support."
+      "description": "Approach techniques, professional posture and agile problem resolution during support.",
+      "link": "/certificados/ID_23_Atendimento_Cliente_IPED.pdf",
+      "workload": "80 hours"
     },
     {
       "id": "24",
       "title": "Ethics, Policy and Citizenship",
       "platform": "IPED",
-      "date": "2024",
+      "date": "2021",
       "summary": "Study of ethical conduct in the work environment and the professional's social role.",
-      "description": "Study of ethical conduct in the work environment and the professional's social role."
+      "description": "Study of ethical conduct in the work environment and the professional's social role.",
+      "link": "/certificados/ID_24_Etica_Politica_Cidadania_IPED.pdf",
+      "workload": "4 hours"
     },
     {
       "id": "25",
       "title": "Good Food Handling Practices",
-      "platform": "IPED",
-      "date": "2024",
+      "platform": "CATe",
+      "date": "2022",
       "summary": "Hygiene and food safety standards for production and handling processes.",
-      "description": "Hygiene and food safety standards for production and handling processes."
+      "description": "Hygiene and food safety standards for production and handling processes.",
+      "link": "/certificados/ID_25_Boas_Praticas_Alimentos_IPED.pdf",
+      "workload": "8 hours"
     }
   ]
 }

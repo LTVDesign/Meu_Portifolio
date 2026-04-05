@@ -169,7 +169,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
             className='glass-card p-5 sm:p-8 md:p-10 group neon-hover flex flex-col h-full border border-white/10'
           >
             <div className='flex items-center gap-4 sm:gap-6 mb-5 sm:mb-8'>
-              <div className='w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/5 transition-transform group-hover:scale-110 overflow-hidden p-2'>
+              <div className='w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/5 transition-transform group-hover:scale-110 overflow-hidden p-2 sm:p-3'>
                 <img
                   src={curso.icon}
                   alt={curso.platform}

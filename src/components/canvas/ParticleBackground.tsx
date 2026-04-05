@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 import { usePerformance } from '../../contexts/PerformanceContext';
 import { useViewport } from '../../hooks/useViewport';
@@ -39,16 +39,18 @@ const ParticleBackground = ({
   const { isLowPerformance, level } = usePerformance();
   const { config } = useParticleConfig();
   const { width: viewportWidth, height: viewportHeight } = useViewport();
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number | null>(null);
-  const particlesRef = useRef<Particle[]>([]);
-  const mouseRef = useRef({ x: 0, y: 0 });
+  
+  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+  const animationRef = React.useRef<number | null>(null);
+  const particlesRef = React.useRef<Particle[]>([]);
+  const mouseRef = React.useRef({ x: 0, y: 0 });
+  const lastMouseMoveRef = React.useRef(0);
+  const canvasRectRef = React.useRef<DOMRect | null>(null);
+
   const mouseInteractionRadius = isLowPerformance ? 80 : 150;
   const mouseForce = isLowPerformance ? 0.08 : 0.2;
   const adjustedConnectDistance = isLowPerformance ? Math.min(particleConnectDistance, 80) : particleConnectDistance;
   const maxConnectionsLimit = isLowPerformance ? 20 : 50;
-  const lastMouseMoveRef = useRef(0);
-  const canvasRectRef = useRef<DOMRect | null>(null);
 
   const resizeCanvas = () => {
     const canvas = canvasRef.current;

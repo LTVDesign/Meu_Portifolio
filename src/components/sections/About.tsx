@@ -17,7 +17,7 @@ const About = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0 }}
           className='flex-1 w-full'
         >
           <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-6 sm:p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
@@ -49,7 +49,7 @@ const About = () => {
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.5 }}
+                transition={{ duration: 0.8, delay: 0 }}
                 className='relative w-full max-w-xl mx-auto my-6 sm:my-8'
               >
                 <div className='h-[1px] bg-gradient-to-r from-transparent via-[var(--cyber-cyan)] to-transparent relative'>
@@ -88,7 +88,7 @@ const About = () => {
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.7 }}
+                transition={{ duration: 0.8, delay: 0 }}
                 className='prose prose-invert max-w-none mt-4 sm:mt-6 leading-relaxed text-sm sm:text-base'
                 style={{ color: 'var(--dynamic-text-secondary, #666666)' }}
               >
@@ -111,7 +111,7 @@ const About = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.8, delay: 0 }}
           className='w-full lg:w-80 xl:w-96 flex-shrink-0 mx-auto lg:mx-0'
           style={{ maxWidth: '280px' }}
         >
@@ -120,7 +120,7 @@ const About = () => {
               src={eu}
               alt='Leandro Saturnino Barbosa'
               className='w-full h-full object-cover'
-              loading='lazy'
+              loading='eager'
             />
             {/* Overlay com gradiente */}
             <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500' />

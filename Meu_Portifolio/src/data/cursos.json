@@ -1,0 +1,776 @@
+{
+  "pt": [
+    {
+      "id": "1",
+      "title": "Administração de Sistemas, Serviços e Infraestrutura de TI",
+      "platform": "Google (via Coursera)",
+      "date": "2024",
+      "duration": "Aproximadamente 6 meses",
+      "workload": "Cerca de 120 horas",
+      "summary": "Este curso aborda a administração de sistemas e serviços de infraestrutura de TI, cobrindo desde a instalação e configuração de sistemas operacionais até a gestão de serviços de rede e segurança. Aprenda a manter sistemas operacionais funcionando e a configurar serviços de rede essenciais.",
+      "description": "Este curso ensina as habilidades fundamentais necessárias para administrar sistemas e serviços de infraestrutura de TI. Você aprenderá a instalar e configurar sistemas operacionais Windows e Linux, gerenciar serviços de rede como DNS e DHCP, implementar políticas de segurança, e realizar tarefas de manutenção e suporte. É uma base sólida para qualquer profissional de TI que trabalha com infraestrutura.",
+      "modules": [
+        "Instalação e configuração de sistemas operacionais",
+        "Gerenciamento de serviços de rede (DNS, DHCP)",
+        "Administração de usuários e permissões",
+        "Segurança de sistemas e redes",
+        "Monitoramento e troubleshooting",
+        "Automação de tarefas administrativas"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/verify/XQUDR4SCZEYA",
+      "link": "https://www.coursera.org/learn/administracao-de-sistemas-servicos-infraestrutura-ti",
+      "isProfessionalCertificate": false,
+      "icon": "google"
+    },
+    {
+      "id": "2",
+      "title": "Fundamentos do Suporte Técnico",
+      "platform": "Google (via Coursera)",
+      "date": "2024",
+      "duration": "Aproximadamente 6 meses",
+      "workload": "Cerca de 120 horas",
+      "summary": "Certificado Profissional que cobre os fundamentos do suporte técnico, incluindo hardware, redes, sistemas operacionais, segurança e atendimento ao cliente. Uma base completa para atuação como técnico de suporte N1/N2.",
+      "description": "Este certificado profissional fornece uma base abrangente para uma carreira em suporte técnico de TI. Abrange desde os conceitos básicos de hardware e software até tópicos avançados como redes, sistemas operacionais, segurança da informação e boas práticas de atendimento ao cliente. É o ponto de partida ideal para quem deseja atuar como técnico de suporte ou Help Desk.",
+      "modules": [
+        "Fundamentos de TI e hardware",
+        "Redes de computadores e protocolos",
+        "Sistemas operacionais (Windows, Linux, macOS)",
+        "Segurança da informação e cibersegurança",
+        "Atendimento ao cliente e comunicação",
+        "Resolução de problemas e troubleshooting"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
+      "link": "https://www.coursera.org/learn/fundamentos-do-suporte-tecnico",
+      "isProfessionalCertificate": true,
+      "icon": "google"
+    },
+    {
+      "id": "3",
+      "title": "Introduction to Software Product Management (PT)",
+      "platform": "University of Alberta (via Coursera)",
+      "date": "2023",
+      "duration": "Aproximadamente 6 semanas",
+      "workload": "Cerca de 30 horas",
+      "summary": "Curso introdutório em gerenciamento de produtos de software, abordando os conceitos fundamentais de GPS, diferenças entre gerenciamento de produtos e projetos, e a importância do foco no cliente e na entrega de valor.",
+      "description": "Este curso estabelece a base para o gerenciamento de produtos de software (GPS), diferenciando-o do gerenciamento de projetos tradicional. Foca em três pilares para o sucesso: fornecer o produto certo (validação), feito corretamente (verificação) e gerenciado adequadamente (processos). Aborda a filosofia Ágil e o Manifesto Ágil como ferramentas para lidar com a mudança e as expectativas dos clientes.",
+      "modules": [
+        "Introdução ao Gerenciamento de Produtos de Software",
+        "Diferenças entre Gerenciamento de Produtos e Projetos",
+        "Os três pilares do GPS: Validação, Verificação e Processos",
+        "Filosofia Ágil e Manifesto Ágil",
+        "Foco no cliente e valor delivery",
+        "Papéis e responsabilidades do Product Manager"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/verify/WKNDJF2YGF88",
+      "link": "https://www.coursera.org/learn/introduction-to-software-product-management-pt",
+      "isProfessionalCertificate": false,
+      "icon": "alberta"
+    },
+    {
+      "id": "4",
+      "title": "Redes de Computadores",
+      "platform": "Google (via Coursera)",
+      "date": "2024",
+      "duration": "Aproximadamente 2 meses",
+      "workload": "Cerca de 40 horas",
+      "summary": "Curso completo sobre redes de computadores, cobrindo desde os fundamentos de comunicação de dados até protocolos, arquiteturas de rede, segurança e troubleshooting. Essencial para profissionais de TI e desenvolvimento.",
+      "description": "Este curso oferece uma compreensão abrangente das redes de computadores, desde os conceitos básicos de comunicação de dados até arquiteturas de rede complexas. Aborda protocolos, modelos de referência (OSI/TCP-IP), dispositivos de rede, segurança cibernética e técnicas de diagnóstico e resolução de problemas. Fundamental para qualquer profissional de tecnologia que trabalhe com sistemas conectados.",
+      "modules": [
+        "Fundamentos de comunicação de dados",
+        "Modelos de referência (OSI e TCP/IP)",
+        "Protocolos de rede (IP, TCP, UDP, HTTP, DNS)",
+        "Dispositivos de rede (roteadores, switches, firewalls)",
+        "Segurança de redes e criptografia",
+        "Troubleshooting e monitoramento de redes"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
+      "link": "https://www.coursera.org/learn/redes-computadores",
+      "isProfessionalCertificate": false,
+      "icon": "google"
+    },
+    {
+      "id": "5",
+      "title": "Sistemas Operacionais",
+      "platform": "Google (via Coursera)",
+      "date": "2024",
+      "duration": "Aproximadamente 2 meses",
+      "workload": "Cerca de 40 horas",
+      "summary": "Curso completo sobre sistemas operacionais, abordando instalação, configuração, gerenciamento de processos, memória, armazenamento e segurança. Essencial para profissionais de TI que trabalham com infraestrutura.",
+      "description": "Este curso oferece uma compreensão profunda dos sistemas operacionais modernos, incluindo Windows e Linux. Aborda conceitos fundamentais como processos, threads, memória virtual, sistemas de arquivos, entrada/saída, segurança e virtualização. Você aprenderá a instalar, configurar, otimizar e solucionar problemas em sistemas operacionais, habilidades essenciais para administradores de sistemas e profissionais de infraestrutura de TI.",
+      "modules": [
+        "Introdução aos sistemas operacionais",
+        "Gerenciamento de processos e threads",
+        "Gerenciamento de memória e memória virtual",
+        "Sistemas de arquivos e armazenamento",
+        "Entrada e saída (I/O) e dispositivos",
+        "Segurança e virtualização"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
+      "link": "https://www.coursera.org/learn/sistemas-operacionais",
+      "isProfessionalCertificate": false,
+      "icon": "google"
+    },
+    {
+      "id": "6",
+      "title": "Segurança de TI",
+      "platform": "Google (via Coursera)",
+      "date": "2024",
+      "duration": "Aproximadamente 4 meses",
+      "workload": "Cerca de 80 horas",
+      "summary": "Curso completo sobre segurança da informação e cibersegurança, abordando ameaças, vulnerabilidades, controles de acesso, criptografia, segurança de redes e resposta a incidentes. Formação para profissionais de segurança de TI.",
+      "description": "Este curso fornece conhecimentos fundamentais e práticos em segurança da informação e cibersegurança. Aborda os principais conceitos, como confidencialidade, integridade e disponibilidade, além de técnicas de identificação de ameaças, implementação de controles de segurança, criptografia, segurança de redes, segurança de aplicações e resposta a incidentes. É uma base sólida para quem deseja atuar na área de segurança da informação ou complementar conhecimentos em TI.",
+      "modules": [
+        "Fundamentos de segurança da informação",
+        "Ameaças e vulnerabilidades",
+        "Controles de acesso e autenticação",
+        "Criptografia e segurança de dados",
+        "Segurança de redes e firewalls",
+        "Resposta a incidentes e recuperação"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
+      "link": "https://www.coursera.org/learn/seguranca-de-it",
+      "isProfessionalCertificate": true,
+      "icon": "google"
+    },
+    {
+      "id": "7",
+      "title": "Introduction to Technical Support",
+      "platform": "IBM (via Coursera)",
+      "date": "2023",
+      "duration": "Aproximadamente 2 meses",
+      "workload": "Cerca de 40 horas",
+      "summary": "Curso introdutório sobre suporte técnico de TI, cobrindo fundamentos de hardware, software, redes, sistemas operacionais, atendimento ao cliente e resolução de problemas. Ideal para iniciantes na área de TI.",
+      "description": "Este curso oferece uma visão geral do ecossistema de suporte técnico de TI, preparando o aluno para atuar como técnico de suporte ou Help Desk. Abrange desde os conceitos básicos de hardware e software até tópicos mais avançados como redes, sistemas operacionais, ferramentas de diagnóstico e boas práticas de atendimento ao cliente. Ensina a resolver problemas comuns, usar ferramentas de acesso remoto e seguir procedimentos de suporte.",
+      "modules": [
+        "Fundamentos de hardware e software",
+        "Sistemas operacionais (Windows, Linux, macOS)",
+        "Conceitos de redes e conectividade",
+        "Ferramentas de diagnóstico e suporte remoto",
+        "Atendimento ao cliente e comunicação",
+        "Resolução de problemas e troubleshooting"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/verify/Y3TYLH6K7N4V",
+      "link": "https://www.coursera.org/learn/introduction-to-technical-support",
+      "isProfessionalCertificate": false,
+      "icon": "ibm"
+    },
+    {
+      "id": "8",
+      "title": "Inteligência Artificial e Data Science",
+      "platform": "IBM (via Coursera)",
+      "date": "2024",
+      "duration": "Aproximadamente 2 meses",
+      "workload": "Cerca de 40 horas",
+      "summary": "Curso introdutório sobre Inteligência Artificial, cobrindo conceitos fundamentais de IA, machine learning, redes neurais e aplicações práticas. Ideal para iniciantes que desejam entender o básico de IA.",
+      "description": "Este curso oferece uma introdução acessível ao mundo da Inteligência Artificial. Aborda os conceitos fundamentais de IA, diferenças entre IA, machine learning e deep learning, funcionamento de redes neurais, e aplicações práticas em diversos setores. Você aprenderá como os sistemas de IA tomam decisões, reconhecem padrões e interagem com o mundo real. É o ponto de partida perfeito para quem quer entrar na área de IA ou entender suas possibilidades.",
+      "modules": [
+        "Introdução à Inteligência Artificial",
+        "História e evolução da IA",
+        "Machine Learning vs Deep Learning",
+        "Redes neurais e neurônios artificiais",
+        "Aplicações práticas de IA",
+        "Ética e futuro da IA"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/verify/CVHSSYAKTBJQ",
+      "link": "https://www.coursera.org/learn/introduction-to-ai",
+      "isProfessionalCertificate": false,
+      "icon": "ibm"
+    },
+    {
+      "id": "9",
+      "title": "TCP/IP",
+      "platform": "Yonsei University (via Coursera)",
+      "date": "2024",
+      "duration": "Aproximadamente 1 mês",
+      "workload": "Cerca de 20 horas",
+      "summary": "Curso completo sobre o protocolo TCP/IP, abordando arquitetura, camadas, endereçamento IP, roteamento, DNS e comunicação de redes. Essencial para profissionais de TI e redes.",
+      "description": "Este curso oferece um entendimento profundo do conjunto de protocolos TCP/IP, a base da internet e das redes modernas. Aborda a arquitetura em camadas, endereçamento IP (IPv4 e IPv6), roteamento, DNS, DHCP, e os protocolos essenciais como TCP, UDP, HTTP e HTTPS. Você aprenderá como os dados são transmitidos através da rede, como configurar redes e solucionar problemas de conectividade. Fundamental para qualquer profissional de TI que trabalhe com redes.",
+      "modules": [
+        "Introdução ao TCP/IP e arquitetura de redes",
+        "Camadas do modelo TCP/IP",
+        "Endereçamento IP e sub-redes",
+        "Protocolos de transporte (TCP e UDP)",
+        "DNS, DHCP e serviços de rede",
+        "Roteamento e troubleshooting de redes"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/verify/3U83PYVA9SZZ",
+      "link": "https://www.coursera.org/learn/tcpip",
+      "isProfessionalCertificate": false,
+      "icon": "cate"
+    },
+    {
+      "id": "10",
+      "title": "HTML, CSS e JavaScript para Desenvolvedores Web",
+      "platform": "Johns Hopkins University (via Coursera)",
+      "date": "2024",
+      "duration": "Aproximadamente 3 meses",
+      "workload": "Cerca de 60 horas",
+      "summary": "Curso completo de desenvolvimento web front-end com HTML5, CSS3 e JavaScript ES6+. Aprenda a criar páginas responsivas, interativas e modernas do zero.",
+      "description": "Este curso fornece uma base sólida em desenvolvimento web front-end, ensinando as três tecnologias fundamentais da web: HTML5 para estrutura semântica, CSS3 para estilização avançada e design responsivo, e JavaScript ES6+ para interatividade e dinamismo. Você aprenderá a criar páginas web acessíveis, responsivas e com boas práticas de SEO. O curso inclui projetos práticos que simulam situações reais de desenvolvimento, preparando você para atuar como desenvolvedor web front-end ou complementar suas habilidades em desenvolvimento full stack.",
+      "modules": [
+        "Fundamentos de HTML5 e semântica",
+        "CSS3: seletores, box model, flexbox e grid",
+        "Design responsivo e mobile-first",
+        "JavaScript ES6+: variáveis, funções, objetos",
+        "Manipulação do DOM e eventos",
+        "APIs modernas e boas práticas"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/verify/FU6BSD4ECJFD",
+      "link": "https://www.coursera.org/learn/html-css-javascript-for-web-developers",
+      "isProfessionalCertificate": false,
+      "icon": "johns"
+    },
+    {
+      "id": "11",
+      "title": "Introduction to Scrum Master Profession",
+      "platform": "Google (via Coursera)",
+      "date": "2024",
+      "duration": "Aproximadamente 2 meses",
+      "workload": "Cerca de 40 horas",
+      "summary": "Curso introdutório sobre a profissão de Scrum Master, cobrindo fundamentos do Scrum, papéis, eventos, artefatos e práticas ágeis. Preparação para atuação como Scrum Master.",
+      "description": "Este curso oferece uma compreensão completa do framework Scrum e do papel do Scrum Master. Aborda os fundamentos do Manifesto Ágil, os papéis do Scrum (Product Owner, Development Team, Scrum Master), eventos (Sprint, Planning, Daily Scrum, Review, Retrospective) e artefatos (Product Backlog, Sprint Backlog, Increment). Você aprenderá a facilitar reuniões, remover impedimentos, coach de equipes e promover a melhoria contínua. É a base ideal para quem deseja atuar como Scrum Master ou entender as dinâmicas de equipes ágeis.",
+      "modules": [
+        "Fundamentos do Manifesto Ágil e Scrum",
+        "Papéis e responsabilidades no Scrum",
+        "Eventos e cerimônias Scrum",
+        "Artefatos e gestão de backlog",
+        "Facilitação e liderança servidora",
+        "Impedimentos, coaching e melhoria contínua"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/verify/XP3ESDW5Z0F9",
+      "link": "https://www.coursera.org/learn/introduction-to-scrum-master-profession",
+      "isProfessionalCertificate": false,
+      "icon": "google"
+    },
+    {
+      "id": "12",
+      "title": "Foundations of Cybersecurity",
+      "platform": "Google (via Coursera)",
+      "date": "2024",
+      "duration": "Aproximadamente 6 meses",
+      "workload": "Cerca de 120 horas",
+      "summary": "Curso completo de fundamentos em cibersegurança, abordando segurança de redes, sistemas, dados, identidade, ameaças, vulnerabilidades e resposta a incidentes. Certificado profissional da Google.",
+      "description": "Este curso fornece uma base abrangente em cibersegurança, preparando você para entender e proteger sistemas e redes contra ataques. Aborda segurança de redes, sistemas operacionais, identidade e acesso, dados, aplicações, e operações de segurança. Você aprenderá a identificar ameaças, implementar controles de segurança, usar ferramentas de segurança e responder a incidentes. É uma formação completa para iniciantes que desejam entrar na área de cibersegurança ou complementar suas habilidades em TI com foco em segurança.",
+      "modules": [
+        "Introdução à cibersegurança e CIA triad",
+        "Segurança de redes e dispositivos",
+        "Segurança de sistemas e aplicações",
+        "Identidade, acesso e autenticação",
+        "Proteção de dados e criptografia",
+        "Monitoramento, detecção e resposta a incidentes"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/verify/H8G4LMDO77NR",
+      "link": "https://www.coursera.org/learn/foundations-of-cybersecurity",
+      "isProfessionalCertificate": false,
+      "icon": "google"
+    },
+    {
+      "id": "13",
+      "title": "Nivelamento em Cibersegurança",
+      "platform": "Hackers do Bem (SENAI/RNP)",
+      "date": "2024",
+      "summary": "Curso de nivelamento em cibersegurança, abrangendo redes TCP/IP, desenvolvimento de sistemas, sistema operacional, internet e sistemas web. É o passo inicial para uma carreira em cibersegurança.",
+      "description": "Esse curso possui módulos online e assíncronos, abrangendo redes TCP/IP, desenvolvimento de sistemas, sistema operacional, internet e sistemas web. O curso é o passo inicial para uma carreira em cibersegurança.",
+      "verificationLink": "https://ava.hackersdobem.org.br/mod/customcert/verify_certificate.php?contextid=366&code=EzFXn4WcDw&qrcode=1",
+      "link": "https://hackersdobem.org.br/",
+      "icon": "hackers"
+    },
+    {
+      "id": "14",
+      "title": "Fundamentos de TI",
+      "platform": "Fundação Bradesco",
+      "date": "2024",
+      "summary": "Conceitos essenciais de arquitetura de computadores, hardware e lógica operacional.",
+      "description": "Conceitos essenciais de arquitetura de computadores, hardware e lógica operacional.",
+      "icon": "bradesco"
+    },
+    {
+      "id": "15",
+      "title": "Implementando Bancos de Dados",
+      "platform": "Fundação Bradesco",
+      "date": "2024",
+      "workload": "20 horas",
+      "summary": "Focado na criação física de bancos de dados, usando linguagens de consulta e estruturação.",
+      "description": "Focado na criação física de bancos de dados, usando linguagens de consulta e estruturação.",
+      "verificationLink": "https://www.ev.org.br/validar-certificado",
+      "link": "https://www.ev.org.br/trilhas-de-conhecimento/banco-de-dados",
+      "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923",
+      "icon": "bradesco"
+    },
+    {
+      "id": "16",
+      "title": "Administração de Bancos de Dados",
+      "platform": "Fundação Bradesco",
+      "date": "2024",
+      "workload": "20 horas",
+      "summary": "Gerenciamento de segurança, usuários, integridade e manutenção de sistemas de bancos de dados.",
+      "description": "Gerenciamento de segurança, usuários, integridade e manutenção de sistemas de bancos de dados.",
+      "verificationLink": "https://www.ev.org.br/validar-certificado",
+      "link": "https://www.ev.org.br/trilhas-de-conhecimento/banco-de-dados",
+      "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923",
+      "icon": "bradesco"
+    },
+    {
+      "id": "17",
+      "title": "Segurança de TI",
+      "platform": "Fundação Bradesco",
+      "date": "2024",
+      "summary": "Princípios de segurança de dados, políticas de segurança e defesa de perímetro.",
+      "description": "Princípios de segurança de dados, políticas de segurança e defesa de perímetro.",
+      "icon": "bradesco"
+    },
+    {
+      "id": "18",
+      "title": "Exame de Certificação Search Ads 360",
+      "platform": "Google Skillshop",
+      "date": "2024",
+      "summary": "Certificação avançada para gerenciamento e otimização de campanhas publicitárias em larga escala.",
+      "description": "Certificação avançada para gerenciamento e otimização de campanhas publicitárias em larga escala.",
+      "icon": "google"
+    },
+    {
+      "id": "19",
+      "title": "Fundamentos do Waze Ads",
+      "platform": "Google Skillshop",
+      "date": "2024",
+      "summary": "Fundamentos para criação de publicidade direcionada a motoristas em tempo real.",
+      "description": "Fundamentos para criação de publicidade direcionada a motoristas em tempo real.",
+      "icon": "google"
+    },
+    {
+      "id": "20",
+      "title": "Google Meu Negócio (Perfil da Empresa)",
+      "platform": "Google Skillshop",
+      "date": "2024",
+      "summary": "Ferramentas para otimizar a presença local de negócios no Google Maps e pesquisa.",
+      "description": "Ferramentas para otimizar a presença local de negócios no Google Maps e pesquisa.",
+      "icon": "google"
+    },
+    {
+      "id": "21",
+      "title": "Exame de Certificação Criativo",
+      "platform": "Google Skillshop",
+      "date": "2024",
+      "summary": "Teste de conhecimento sobre desenvolvimento de criativos publicitários eficazes para plataformas Google.",
+      "description": "Teste de conhecimento sobre desenvolvimento de criativos publicitários eficazes para plataformas Google.",
+      "icon": "google"
+    },
+    {
+      "id": "22",
+      "title": "Satisfação do Cliente",
+      "platform": "IPED",
+      "date": "2024",
+      "summary": "Métodos para medir e melhorar o índice de satisfação dos clientes com produtos e serviços.",
+      "description": "Métodos para medir e melhorar o índice de satisfação dos clientes com produtos e serviços.",
+      "icon": "iped"
+    },
+    {
+      "id": "23",
+      "title": "Atendimento ao Cliente",
+      "platform": "IPED",
+      "date": "2024",
+      "summary": "Técnicas de abordagem, postura profissional e resolução ágil de problemas durante o suporte.",
+      "description": "Técnicas de abordagem, postura profissional e resolução ágil de problemas durante o suporte.",
+      "icon": "iped"
+    },
+    {
+      "id": "24",
+      "title": "Ética, Política e Cidadania",
+      "platform": "IPED",
+      "date": "2024",
+      "summary": "Estudo de conduta ética no ambiente de trabalho e o papel social do profissional.",
+      "description": "Estudo de conduta ética no ambiente de trabalho e o papel social do profissional.",
+      "icon": "iped"
+    },
+    {
+      "id": "25",
+      "title": "Boas Práticas de Manipulação de Alimentos",
+      "platform": "IPED",
+      "date": "2024",
+      "summary": "Normas de higiene e segurança alimentar para processos de produção e manipulação.",
+      "description": "Normas de higiene e segurança alimentar para processos de produção e manipulação.",
+      "icon": "iped"
+    }
+  ],
+  "en": [
+    {
+      "id": "1",
+      "title": "Systems Administration, Services and IT Infrastructure",
+      "platform": "Google (via Coursera)",
+      "date": "2024",
+      "duration": "Approximately 6 months",
+      "workload": "About 120 hours",
+      "summary": "This course covers IT infrastructure systems and services administration, from operating system installation and configuration to network services and security management. Learn to keep operating systems running and configure essential network services.",
+      "description": "This course teaches the fundamental skills needed to administer IT infrastructure systems and services. You will learn to install and configure Windows and Linux operating systems, manage network services such as DNS and DHCP, implement security policies, and perform maintenance and support tasks. It's a solid foundation for any IT professional working with infrastructure.",
+      "modules": [
+        "Operating system installation and configuration",
+        "Network services management (DNS, DHCP)",
+        "User administration and permissions",
+        "System and network security",
+        "Monitoring and troubleshooting",
+        "Administrative task automation"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/verify/XQUDR4SCZEYA",
+      "link": "https://www.coursera.org/learn/administracao-de-sistemas-servicos-infraestrutura-ti",
+      "isProfessionalCertificate": false,
+      "icon": "google"
+    },
+    {
+      "id": "2",
+      "title": "Technical Support Fundamentals",
+      "platform": "Google (via Coursera)",
+      "date": "2024",
+      "duration": "Approximately 6 months",
+      "workload": "About 120 hours",
+      "summary": "Professional Certificate covering technical support fundamentals, including hardware, networks, operating systems, security, and customer service. A complete foundation for N1/N2 support technician roles.",
+      "description": "This professional certificate provides a comprehensive foundation for a career in IT technical support. It covers everything from basic hardware and software concepts to advanced topics like networking, operating systems, information security, and best practices in customer service. It's the ideal starting point for those wanting to work as a support technician or Help Desk.",
+      "modules": [
+        "IT fundamentals and hardware",
+        "Computer networks and protocols",
+        "Operating systems (Windows, Linux, macOS)",
+        "Information security and cybersecurity",
+        "Customer service and communication",
+        "Problem solving and troubleshooting"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
+      "link": "https://www.coursera.org/learn/fundamentos-do-suporte-tecnico",
+      "isProfessionalCertificate": true,
+      "icon": "google"
+    },
+    {
+      "id": "3",
+      "title": "Introduction to Software Product Management",
+      "platform": "University of Alberta (via Coursera)",
+      "date": "2023",
+      "duration": "Approximately 6 weeks",
+      "workload": "About 30 hours",
+      "summary": "Introductory course in software product management, covering fundamental GPS concepts, differences between product and project management, and the importance of customer focus and value delivery.",
+      "description": "This course establishes the foundation for software product management (GPS), differentiating it from traditional project management. It focuses on three pillars for success: delivering the right product (validation), doing it correctly (verification), and managing it properly (processes). It covers the Agile philosophy and Agile Manifesto as tools to deal with change and customer expectations.",
+      "modules": [
+        "Introduction to Software Product Management",
+        "Differences between Product Management and Project Management",
+        "The three pillars of GPS: Validation, Verification, and Processes",
+        "Agile Philosophy and Agile Manifesto",
+        "Customer focus and value delivery",
+        "Product Manager roles and responsibilities"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/verify/WKNDJF2YGF88",
+      "link": "https://www.coursera.org/learn/introduction-to-software-product-management-pt",
+      "isProfessionalCertificate": false,
+      "icon": "alberta"
+    },
+    {
+      "id": "4",
+      "title": "Computer Networks",
+      "platform": "Google (via Coursera)",
+      "date": "2024",
+      "duration": "Approximately 2 months",
+      "workload": "About 40 hours",
+      "summary": "Complete course on computer networks, covering from data communication fundamentals to protocols, network architectures, security, and troubleshooting. Essential for IT and development professionals.",
+      "description": "This course provides a comprehensive understanding of computer networks, from basic data communication concepts to complex network architectures. It covers protocols, reference models (OSI/TCP-IP), network devices, cybersecurity, and diagnostic and problem-solving techniques. Fundamental for any technology professional working with connected systems.",
+      "modules": [
+        "Data communication fundamentals",
+        "Reference models (OSI and TCP/IP)",
+        "Network protocols (IP, TCP, UDP, HTTP, DNS)",
+        "Network devices (routers, switches, firewalls)",
+        "Network security and cryptography",
+        "Network troubleshooting and monitoring"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
+      "link": "https://www.coursera.org/learn/redes-computadores",
+      "isProfessionalCertificate": false,
+      "icon": "google"
+    },
+    {
+      "id": "5",
+      "title": "Operating Systems",
+      "platform": "Google (via Coursera)",
+      "date": "2024",
+      "duration": "Approximately 2 months",
+      "workload": "About 40 hours",
+      "summary": "Complete course on operating systems, covering installation, configuration, process management, memory, storage, and security. Essential for IT infrastructure professionals.",
+      "description": "This course provides a deep understanding of modern operating systems, including Windows and Linux. It covers fundamental concepts such as processes, threads, virtual memory, file systems, input/output, security, and virtualization. You will learn to install, configure, optimize, and troubleshoot operating systems—essential skills for system administrators and IT infrastructure professionals.",
+      "modules": [
+        "Introduction to operating systems",
+        "Process and thread management",
+        "Memory management and virtual memory",
+        "File systems and storage",
+        "Input/Output (I/O) and devices",
+        "Security and virtualization"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
+      "link": "https://www.coursera.org/learn/sistemas-operacionais",
+      "isProfessionalCertificate": true,
+      "icon": "google"
+    },
+    {
+      "id": "6",
+      "title": "IT Security",
+      "platform": "Google (via Coursera)",
+      "date": "2024",
+      "duration": "Approximately 4 months",
+      "workload": "About 80 hours",
+      "summary": "Complete course on information security and cybersecurity, covering threats, vulnerabilities, access controls, encryption, network security, and incident response. Training for IT security professionals.",
+      "description": "This course provides fundamental and practical knowledge in information security and cybersecurity. It covers key concepts such as confidentiality, integrity, and availability, along with threat identification, security control implementation, encryption, network security, application security, and incident response. It's a solid foundation for those wanting to work in information security or complement their IT knowledge.",
+      "modules": [
+        "Information security fundamentals",
+        "Threats and vulnerabilities",
+        "Access controls and authentication",
+        "Encryption and data security",
+        "Network security and firewalls",
+        "Incident response and recovery"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
+      "link": "https://www.coursera.org/learn/seguranca-de-it",
+      "isProfessionalCertificate": true,
+      "icon": "google"
+    },
+    {
+      "id": "7",
+      "title": "Introduction to Technical Support",
+      "platform": "IBM (via Coursera)",
+      "date": "2023",
+      "duration": "Approximately 2 months",
+      "workload": "About 40 hours",
+      "summary": "Introductory course on IT technical support, covering hardware, software, networks, operating systems, customer service, and problem-solving fundamentals. Ideal for beginners in IT.",
+      "description": "This course offers an overview of the IT technical support ecosystem, preparing students to work as support technicians or Help Desk. It covers everything from basic hardware and software concepts to more advanced topics like networking, operating systems, diagnostic tools, and best practices in customer service. It teaches how to solve common problems, use remote access tools, and follow support procedures.",
+      "modules": [
+        "Hardware and software fundamentals",
+        "Operating systems (Windows, Linux, macOS)",
+        "Networking and connectivity concepts",
+        "Diagnostic and remote support tools",
+        "Customer service and communication",
+        "Problem solving and troubleshooting"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/verify/Y3TYLH6K7N4V",
+      "link": "https://www.coursera.org/learn/introduction-to-technical-support",
+      "isProfessionalCertificate": false,
+      "icon": "ibm"
+    },
+    {
+      "id": "8",
+      "title": "Artificial Intelligence and Data Science",
+      "platform": "IBM (via Coursera)",
+      "date": "2024",
+      "duration": "Approximately 2 months",
+      "workload": "About 40 hours",
+      "summary": "Introductory course on Artificial Intelligence and Data Science, covering fundamental AI concepts, machine learning, neural networks, and practical applications. Ideal for beginners who want to understand the basics of AI and Data Science.",
+      "description": "This course provides an accessible introduction to the world of Artificial Intelligence. It covers fundamental AI concepts, differences between AI, machine learning, and deep learning, how neural networks work, and practical applications across various sectors. You will learn how AI systems make decisions, recognize patterns, and interact with the real world. It's the perfect starting point for those wanting to enter the AI field or understand its possibilities.",
+      "modules": [
+        "Introduction to Artificial Intelligence",
+        "History and evolution of AI",
+        "Machine Learning vs Deep Learning",
+        "Neural networks and artificial neurons",
+        "Practical applications of AI",
+        "Ethics and future of AI"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/verify/CVHSSYAKTBJQ",
+      "link": "https://www.coursera.org/learn/introduction-to-ai",
+      "isProfessionalCertificate": false,
+      "icon": "ibm"
+    },
+    {
+      "id": "9",
+      "title": "TCP/IP",
+      "platform": "Yonsei University (via Coursera)",
+      "date": "2024",
+      "duration": "Approximately 1 month",
+      "workload": "About 20 hours",
+      "summary": "Complete course on the TCP/IP protocol, covering architecture, layers, IP addressing, routing, DNS, and network communication. Essential for IT and networking professionals.",
+      "description": "This course provides a deep understanding of the TCP/IP protocol suite, the foundation of the internet and modern networks. It covers the layered architecture, IP addressing (IPv4 and IPv6), routing, DNS, DHCP, and essential protocols like TCP, UDP, HTTP, and HTTPS. You will learn how data is transmitted across the network, how to configure networks, and troubleshoot connectivity issues. Fundamental for any IT professional working with networks.",
+      "modules": [
+        "Introduction to TCP/IP and network architecture",
+        "TCP/IP model layers",
+        "IP addressing and subnets",
+        "Transport protocols (TCP and UDP)",
+        "DNS, DHCP, and network services",
+        "Routing and network troubleshooting"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/verify/3U83PYVA9SZZ",
+      "link": "https://www.coursera.org/learn/tcpip",
+      "isProfessionalCertificate": true,
+      "icon": "cate"
+    },
+    {
+      "id": "10",
+      "title": "HTML, CSS, and JavaScript for Web Developers",
+      "platform": "Johns Hopkins University (via Coursera)",
+      "date": "2024",
+      "duration": "Approximately 3 months",
+      "workload": "About 60 hours",
+      "summary": "Complete front-end web development course with HTML5, CSS3, and JavaScript ES6+. Learn to create responsive, interactive, and modern web pages from scratch.",
+      "description": "This course provides a solid foundation in front-end web development, teaching the three fundamental technologies of the web: HTML5 for semantic structure, CSS3 for advanced styling and responsive design, and JavaScript ES6+ for interactivity and dynamism. You will learn to create accessible, responsive web pages with good SEO practices. The course includes hands-on projects that simulate real-world development scenarios, preparing you to work as a front-end web developer or complement your full-stack development skills.",
+      "modules": [
+        "HTML5 fundamentals and semantics",
+        "CSS3: selectors, box model, flexbox and grid",
+        "Responsive design and mobile-first",
+        "JavaScript ES6+: variables, functions, objects",
+        "DOM manipulation and events",
+        "Modern APIs and best practices"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/verify/FU6BSD4ECJFD",
+      "link": "https://www.coursera.org/learn/html-css-javascript-for-web-developers",
+      "isProfessionalCertificate": true,
+      "icon": "johns"
+    },
+    {
+      "id": "11",
+      "title": "Introduction to Scrum Master Profession",
+      "platform": "Google (via Coursera)",
+      "date": "2024",
+      "duration": "Approximately 2 months",
+      "workload": "About 40 hours",
+      "summary": "Introductory course on the Scrum Master profession, covering Scrum fundamentals, roles, events, artifacts, and agile practices. Preparation for working as a Scrum Master.",
+      "description": "This course offers a comprehensive understanding of the Scrum framework and the Scrum Master role. It covers the fundamentals of the Agile Manifesto, Scrum roles (Product Owner, Development Team, Scrum Master), events (Sprint, Planning, Daily Scrum, Review, Retrospective), and artifacts (Product Backlog, Sprint Backlog, Increment). You will learn to facilitate meetings, remove impediments, coach teams, and promote continuous improvement. It's the ideal foundation for those wanting to work as a Scrum Master or understand agile team dynamics.",
+      "modules": [
+        "Agile Manifesto and Scrum fundamentals",
+        "Scrum roles and responsibilities",
+        "Scrum events and ceremonies",
+        "Artifacts and backlog management",
+        "Facilitation and servant leadership",
+        "Impediments, coaching, and continuous improvement"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/verify/XP3ESDW5Z0F9",
+      "link": "https://www.coursera.org/learn/introduction-to-scrum-master-profession",
+      "isProfessionalCertificate": false,
+      "icon": "google"
+    },
+    {
+      "id": "12",
+      "title": "Foundations of Cybersecurity",
+      "platform": "Google (via Coursera)",
+      "date": "2024",
+      "duration": "Approximately 6 months",
+      "workload": "About 120 hours",
+      "summary": "Complete cybersecurity fundamentals course, covering network security, systems, data, identity, threats, vulnerabilities, and incident response. Professional certificate from Google.",
+      "description": "This course provides a comprehensive foundation in cybersecurity, preparing you to understand and protect systems and networks against attacks. It covers network security, operating systems, identity and access, data, applications, and security operations. You will learn to identify threats, implement security controls, use security tools, and respond to incidents. It's a complete training for beginners wanting to enter the cybersecurity field or complement their IT skills with a security focus.",
+      "modules": [
+        "Introduction to cybersecurity and CIA triad",
+        "Network and device security",
+        "System and application security",
+        "Identity, access, and authentication",
+        "Data protection and encryption",
+        "Monitoring, detection, and incident response"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/verify/H8G4LMDO77NR",
+      "link": "https://www.coursera.org/learn/foundations-of-cybersecurity",
+      "isProfessionalCertificate": true,
+      "icon": "google"
+    },
+    {
+      "id": "13",
+      "title": "Cybersecurity Leveling",
+      "platform": "Hackers do Bem (SENAI/RNP)",
+      "date": "2024",
+      "summary": "Leveling course in cybersecurity, covering TCP/IP networks, systems development, operating systems, internet and web systems. It is the first step for a career in cybersecurity.",
+      "description": "This course features online and asynchronous modules, covering TCP/IP networks, systems development, operating systems, internet and web systems. The course is the first step for a career in cybersecurity.",
+      "verificationLink": "https://ava.hackersdobem.org.br/mod/customcert/verify_certificate.php?contextid=366&code=EzFXn4WcDw&qrcode=1",
+      "link": "https://hackersdobem.org.br/",
+      "icon": "hackers"
+    },
+    {
+      "id": "14",
+      "title": "IT Fundamentals",
+      "platform": "Fundação Bradesco",
+      "date": "2024",
+      "summary": "Essential concepts of computer architecture, hardware and operating logic.",
+      "description": "Essential concepts of computer architecture, hardware and operating logic."
+    },
+    {
+      "id": "15",
+      "title": "Implementing Databases",
+      "platform": "Fundação Bradesco",
+      "date": "2024",
+      "workload": "20 hours",
+      "summary": "Focused on physical database creation, using query and structuring languages.",
+      "description": "Focused on physical database creation, using query and structuring languages.",
+      "verificationLink": "https://www.ev.org.br/validar-certificate",
+      "link": "https://www.ev.org.br/trilhas-de-conhecimento/banco-de-dados",
+      "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923"
+    },
+    {
+      "id": "16",
+      "title": "Database Administration",
+      "platform": "Fundação Bradesco",
+      "date": "2024",
+      "workload": "20 hours",
+      "summary": "Security management, users, integrity and database systems maintenance.",
+      "description": "Security management, users, integrity and database systems maintenance.",
+      "verificationLink": "https://www.ev.org.br/validar-certificate",
+      "link": "https://www.ev.org.br/trilhas-de-conhecimento/banco-de-dados",
+      "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923"
+    },
+    {
+      "id": "17",
+      "title": "IT Security",
+      "platform": "Fundação Bradesco",
+      "date": "2024",
+      "summary": "Data security principles, security policies and perimeter defense.",
+      "description": "Data security principles, security policies and perimeter defense."
+    },
+    {
+      "id": "18",
+      "title": "Search Ads 360 Certification Exam",
+      "platform": "Google Skillshop",
+      "date": "2024",
+      "summary": "Advanced certification for managing and optimizing large-scale advertising campaigns.",
+      "description": "Advanced certification for managing and optimizing large-scale advertising campaigns."
+    },
+    {
+      "id": "19",
+      "title": "Waze Ads Fundamentals",
+      "platform": "Google Skillshop",
+      "date": "2024",
+      "summary": "Fundamentals for creating real-time driver-targeted advertising.",
+      "description": "Fundamentals for creating real-time driver-targeted advertising."
+    },
+    {
+      "id": "20",
+      "title": "Google My Business (Company Profile)",
+      "platform": "Google Skillshop",
+      "date": "2024",
+      "summary": "Tools to optimize local business presence on Google Maps and search.",
+      "description": "Tools to optimize local business presence on Google Maps and search."
+    },
+    {
+      "id": "21",
+      "title": "Creative Certification Exam",
+      "platform": "Google Skillshop",
+      "date": "2024",
+      "summary": "Knowledge test about developing effective advertising creatives for Google platforms.",
+      "description": "Knowledge test about developing effective advertising creatives for Google platforms."
+    },
+    {
+      "id": "22",
+      "title": "Customer Satisfaction",
+      "platform": "IPED",
+      "date": "2024",
+      "summary": "Methods to measure and improve customer contentment index with products and services.",
+      "description": "Methods to measure and improve customer contentment index with products and services."
+    },
+    {
+      "id": "23",
+      "title": "Customer Service",
+      "platform": "IPED",
+      "date": "2024",
+      "summary": "Approach techniques, professional posture and agile problem resolution during support.",
+      "description": "Approach techniques, professional posture and agile problem resolution during support."
+    },
+    {
+      "id": "24",
+      "title": "Ethics, Policy and Citizenship",
+      "platform": "IPED",
+      "date": "2024",
+      "summary": "Study of ethical conduct in the work environment and the professional's social role.",
+      "description": "Study of ethical conduct in the work environment and the professional's social role."
+    },
+    {
+      "id": "25",
+      "title": "Good Food Handling Practices",
+      "platform": "IPED",
+      "date": "2024",
+      "summary": "Hygiene and food safety standards for production and handling processes.",
+      "description": "Hygiene and food safety standards for production and handling processes."
+    }
+  ]
+}

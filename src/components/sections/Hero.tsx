@@ -102,7 +102,7 @@ const Hero = () => {
             <div className="h-screen w-full shimmer-loading flex items-center justify-center">
               <div className="flex flex-col items-center gap-3">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 border-2 border-[var(--cyber-purple)]/30 border-t-[var(--cyber-cyan)] rounded-full animate-spin" />
-                <span className="text-[10px] sm:text-xs text-white/30 uppercase tracking-[0.3em] font-medium">Loading 3D</span>
+                <span className="text-[10px] sm:text-xs text-white/30 uppercase tracking-[0.3em] font-medium">{t('common.loading3d')}</span>
               </div>
             </div>
           }>

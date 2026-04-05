@@ -3,14 +3,24 @@
     "name": "Leandro Barbosa",
     "email": "lelebrr@gmail.com",
     "language": "Language",
-    "close": "Close"
+    "close": "Close",
+    "at": "at",
+    "loading3d": "Loading 3D"
   },
   "tech": {
     "arsenal": "My Arsenal",
     "stackTitle": "Tech Stack",
     "clickInfo": "Click on any technology to search for tutorials and documentation",
     "technologiesTitle": "Technologies",
-    "easterEgg": "Tip: Try the Konami code ⬆️⬆️⬇️⬇️⬅️➡️⬅️➡️🅱️🅰️"
+    "easterEgg": "Tip: Try the Konami code ⬆️⬆️⬇️⬇️⬅️➡️⬅️➡️🅱️🅰️",
+    "categories": {
+      "infra": "Systems & Infrastructure",
+      "hardware": "Hardware & IoT",
+      "languages": "Languages & Backend",
+      "frontend": "Front-end & Design",
+      "security": "Security & Networks",
+      "devops": "Tools & DevOps"
+    }
   },
   "nav": {
     "about": "About",
@@ -29,6 +39,8 @@
     "switch_to_en": "Switch to English",
     "translate_to_pt": "Translate to Portuguese BR",
     "translate_to_en": "Translation to English",
+    "brand_part1": "My",
+    "brand_part2": "portfolio",
     "home": "Home"
   },
   "hero": {
@@ -161,6 +173,19 @@
       "ltv3": "Application navigation and visual interface development",
       "acai1": "Sales and billing planning and control",
       "acai2": "Team management and inventory indicators control"
+    },
+    "dates": {
+      "terabyte": "March 2024 - December 2025",
+      "dotkom": "June 2023 - January 2024",
+      "autonomo": "January 2023 - Present",
+      "mercedito": "March 2022 - December 2022",
+      "abrakebabs": "2022",
+      "trader": "March 2016 - February 2021",
+      "blitzhaus": "March 2015 - February 2016",
+      "garagemod": "May 2014 - February 2015",
+      "colonial": "March 2012 - May 2014",
+      "ltv": "February 2009 - February 2012",
+      "acai": "February 2007 - February 2009"
     }
   },
   "feedbacks": {
@@ -178,7 +203,13 @@
     "badgeReact": "React",
     "badgeThree": "Three.js",
     "badgeNode": "Node.js",
-    "badgeFullStack": "Full Stack"
+    "badgeFullStack": "Full Stack",
+    "category_saas": "SaaS & AI Automation",
+    "category_hardware": "Hardware & IoT",
+    "category_security": "Cybersecurity & Hardware",
+    "status_ongoing": "v1.3 (Ongoing)",
+    "status_finished": "v2.0 (Finished)",
+    "status_prototype": "v1.0 (Prototype)"
   },
   "cursos": {
     "p": "Courses & Certificates",
@@ -285,7 +316,7 @@
     "sending": "Sending...",
     "success": "Message sent successfully!",
     "error": "Error sending message. Please try again.",
-    "rateLimit": "Please wait {seconds} seconds before sending another message.",
+    "rateLimit": "Please wait {{seconds}} seconds before sending another message.",
     "validationErrors": {
       "nameRequired": "Name is required",
       "nameTooLong": "Name too long",
@@ -295,25 +326,26 @@
       "messageTooShort": "Message too short",
       "messageTooLong": "Message too long",
       "correctForm": "Please correct the form errors",
-      "cooldown": "Wait {count} seconds before sending another message"
+      "cooldown": "Wait {{count}} seconds before sending another message"
     }
   },
   "footer": {
     "quickAccess": "Quick Access",
-    "allRightsReserved": "All Rights Reserved",
+    "allRightsReserved": "All rights reserved.",
     "backToTop": "Back to Top",
-    "backToTopLabel": "Back to top",
-    "emailUs": "Email Leandro Barbosa",
+    "backToTopLabel": "Back to top of the page",
+    "emailUs": "Email us",
     "linkedin": "LinkedIn",
     "github": "GitHub",
     "instagram": "Instagram",
     "facebook": "Facebook",
     "whatsapp": "WhatsApp",
-    "description": "Software Engineer • Full Stack Development Specialist • Systems Analysis and Development Technologist • Postgraduate in AI & Data Science • Passionate about technological innovation",
-    "easterEggHint": "Easter Egg",
+    "description": "Building the future of technology with precision, passion, and advanced cybersecurity.",
+    "easterEggHint": "Try the legendary code...",
     "unlocking": "Unlocking...",
     "accessDenied": "Access Denied",
-    "accessGranted": "Access Granted"
+    "accessGranted": "ACCESS GRANTED",
+    "iniciandoDoom": "Starting DOOM..."
   },
   "services": {
     "infraestrutura": "Infrastructure",
@@ -909,7 +941,7 @@
     "red": "Red",
     "pageTitle": "Adaptive Dynamic Text",
     "pageDescription": "This text changes color automatically based on the background.",
-    "backgroundInfo": "Background: {bgColor} | Mode: {mode}",
+    "backgroundInfo": "Background: {{bgColor}} | Mode: {{mode}}",
     "buttonText": "Button also adapts"
   },
   "contactPage": {
@@ -934,7 +966,7 @@
     "closeEditor": "Close editor",
     "back": "Back",
     "apply": "Apply",
-    "notImplemented": "Editor for \"{bg}\" not yet implemented"
+    "notImplemented": "Editor for \"{{bg}}\" not yet implemented"
   },
   "modal": {
     "closeModal": "Close modal",
@@ -952,15 +984,15 @@
   },
   "cursosModal": {
     "mainModules": "Main modules:",
-    "moreModules": "+{count} more modules...",
-    "totalCourses": "Total courses: {count}",
+    "moreModules": "+{{count}} more modules...",
+    "totalCourses": "Total courses: {{count}}",
     "footerCopyright": "Leandro Saturnino Barbosa © 2026"
   },
   "allCursos": {
-    "footerTotalCourses": "Total courses: {count}",
+    "footerTotalCourses": "Total courses: {{count}}",
     "footerCopyright": "Leandro Saturnino Barbosa © 2026",
-    "coursesAvailable": "{count} course available",
-    "coursesAvailable_plural": "{count} courses available",
+    "coursesAvailable": "{{count}} course available",
+    "coursesAvailable_plural": "{{count}} courses available",
     "totalCoursesLabel": "Total courses",
     "professionalCertificates": "Professional certificates",
     "platforms": "Platforms",
@@ -982,7 +1014,7 @@
     "duration": "Duration",
     "activeFilters": "Active filters:",
     "clearFilters": "Clear filters",
-    "searchFilter": "Search: \"{filter}\"",
+    "searchFilter": "Search: \"{{filter}}\"",
     "viewCertificate": "View Certificate"
   },
   "editorLabels": {
@@ -1083,7 +1115,6 @@
     "validate": "Validate"
   },
   "contactForm": {
-    "honeypotLabel": "Do not fill this field",
-    "cooldownMessage": "⏳ Wait {seconds}s before next submission"
+    "cooldownMessage": "⏳ Wait {{seconds}}s before next submission"
   }
 }

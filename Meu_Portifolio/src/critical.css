@@ -1,0 +1,381 @@
+/* Critical CSS - First Paint essentials */
+
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Body - APENAS o essencial para First Paint */
+body {
+  margin: 0;
+  background: #050816;
+}
+
+/* Navbar - prevent CLS */
+nav.critical-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  z-index: 100;
+  background: rgba(21, 16, 48, 0.92);
+}
+
+/* ==========================================
+   OTIMIZAÇÕES DE PERFORMANCE - THREAD PRINCIPAL
+   ========================================== */
+
+/* Canvases - Isolamento de composição */
+/* Apenas para canvases de background (não interativos) */
+canvas[data-background],
+canvas#particles-canvas {
+  /* Isola o canvas em sua própria camada GPU */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+
+  /* Previne layout thrashing */
+  contain: layout style paint;
+
+  /* Otimizações de renderização */
+  will-change: transform;
+  -webkit-will-change: transform;
+
+  /* Melhora performance de scroll */
+  pointer-events: none;
+}
+
+/* Canvas de partículas - Otimização específica */
+#particles-canvas {
+  /* Fixo para evitar recálculos de layout */
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  contain: strict;
+  will-change: transform;
+}
+
+/* Backgrounds 3D - Containment */
+.r3f-canvas,
+.canvas-container {
+  contain: layout style paint;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Canvas 3D interativos - Permitir interação com mouse apenas se explicitamente solicitado */
+canvas[data-engine] {
+  pointer-events: auto !important;
+}
+
+/* Framer Motion - Otimizações */
+.motion-div,
+.motion-section,
+.motion-button,
+.motion-a {
+
+  /* Apenas para elementos que realmente animam */
+  &.motion-animate {
+    will-change: transform, opacity;
+    -webkit-will-change: transform, opacity;
+  }
+}
+
+/* Elementos com animações pesadas */
+.hero-section,
+.background-menu {
+  contain: layout style paint;
+  will-change: transform;
+}
+
+/* Gear Button - Containment estrito para isolar animações */
+.gear-button,
+.theme-toggle-container {
+  /* Removido contain e transform para permitir animações de flutuação */
+  contain: none;
+  will-change: transform;
+}
+
+/* Launch button wrap - Otimização específica */
+.launch-btn-wrap,
+.launch-btn {
+  contain: layout style paint;
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Modais e overlays */
+.modal-overlay,
+.menu-overlay {
+  contain: layout style;
+  will-change: opacity;
+}
+
+/* Grid e flex containers - Previne layout thrashing */
+.grid-container,
+.flex-container {
+  contain: layout style;
+}
+
+/* Imagens e mídia */
+img,
+video,
+svg {
+  contain: layout style;
+  will-change: auto;
+  /* Apenas se animado */
+}
+
+/* Gear spin - Override containment para permitir animação contínua */
+svg.gear-spin {
+  contain: none !important;
+  will-change: transform !important;
+  animation: gearSpin 8s linear infinite !important;
+}
+
+/* ==========================================
+   REDUCED MOTION - Acessibilidade
+   ========================================== */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Desabilitar animações pesadas */
+  canvas[data-background],
+  canvas#particles-canvas,
+  .motion-div,
+  .motion-section,
+  .motion-button {
+    animation: none !important;
+    transition: none !important;
+    will-change: auto !important;
+    contain: none !important;
+  }
+
+  /* Partículas desligadas */
+  #particles-canvas {
+    display: none;
+  }
+}
+
+/* High contrast */
+@media (prefers-contrast: more) {
+  body {
+    background: #000;
+  }
+}
+
+/* Dark mode (explicit) */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #050816;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE CRITICAL - NAVBAR HEIGHT & MAIN PADDING
+   ========================================== */
+
+/* Smartwatch - Navbar muito compacta */
+@media (max-width: 279px) {
+  nav.critical-navbar {
+    height: 48px;
+  }
+
+  main {
+    padding-top: 48px;
+  }
+}
+
+/* Mobile pequeno */
+@media (min-width: 280px) and (max-width: 379px) {
+  nav.critical-navbar {
+    height: 56px;
+  }
+
+  main {
+    padding-top: 56px;
+  }
+}
+
+/* Mobile */
+@media (min-width: 380px) and (max-width: 639px) {
+  nav.critical-navbar {
+    height: 64px;
+  }
+
+  main {
+    padding-top: 64px;
+  }
+}
+
+/* Tablet */
+@media (min-width: 640px) and (max-width: 1023px) {
+  nav.critical-navbar {
+    height: 72px;
+  }
+
+  main {
+    padding-top: 72px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  nav.critical-navbar {
+    height: 80px;
+  }
+
+  main {
+    padding-top: 80px;
+  }
+}
+
+/* TV Grande */
+@media (min-width: 2560px) {
+  nav.critical-navbar {
+    height: 100px;
+  }
+
+  main {
+    padding-top: 100px;
+  }
+}
+
+/* Prevenir overflow horizontal em todos os dispositivos */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+  touch-action: auto;
+}
+
+/* Safe area para dispositivos com notch */
+@supports (padding: env(safe-area-inset-top)) {
+  nav.critical-navbar {
+    padding-top: env(safe-area-inset-top);
+    height: calc(80px + env(safe-area-inset-top));
+  }
+
+  @media (max-width: 279px) {
+    nav.critical-navbar {
+      height: calc(48px + env(safe-area-inset-top));
+    }
+  }
+
+  @media (min-width: 280px) and (max-width: 379px) {
+    nav.critical-navbar {
+      height: calc(56px + env(safe-area-inset-top));
+    }
+  }
+
+  @media (min-width: 380px) and (max-width: 639px) {
+    nav.critical-navbar {
+      height: calc(64px + env(safe-area-inset-top));
+    }
+  }
+}
+
+/* ==========================================
+FOOTER CLS PREVENTION - Layout Shift Fix
+========================================== */
+
+/* Footer - Prevenir CLS com altura mínima reservada */
+footer[role="contentinfo"],
+footer.footer-stable {
+  /* Altura mínima calculada baseada no conteúdo real */
+  min-height: 280px;
+
+  /* Isola o footer de afetar outros elementos */
+  contain: layout style;
+
+  /* Reserva espaço durante o carregamento */
+  content-visibility: auto;
+  contain-intrinsic-size: 280px;
+}
+
+/* Container interno do footer - previne shifts do conteúdo */
+.footer-content {
+  min-height: 150px;
+  contain: layout style;
+}
+
+/* Easter Egg Container - Reserva espaço para as 10 teclas */
+.easter-egg-container {
+  min-height: 50px;
+  min-width: 280px;
+  contain: layout style;
+}
+
+/* Teclas do Easter Egg - dimensões fixas */
+.konami-key {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+/* Grid do footer - previne recálculos */
+.footer-grid {
+  contain: layout style;
+}
+
+/* Seção de copyright - altura fixa */
+.footer-copyright {
+  min-height: 60px;
+  contain: layout style;
+}
+
+/* Links sociais - previne shifts durante hover */
+.social-links-container {
+  min-height: 32px;
+  contain: layout style;
+}
+
+/* Animações de entrada - previnem CLS com will-change */
+footer .motion-div {
+  will-change: auto;
+  contain: layout style;
+}
+
+/* Responsivo - Ajusta altura mínima por viewport */
+@media (max-width: 639px) {
+
+  footer[role="contentinfo"],
+  footer.footer-stable {
+    min-height: 400px;
+    contain-intrinsic-size: 400px;
+  }
+
+  .easter-egg-container {
+    min-height: 60px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+
+  footer[role="contentinfo"],
+  footer.footer-stable {
+    min-height: 320px;
+    contain-intrinsic-size: 320px;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  footer[role="contentinfo"],
+  footer.footer-stable {
+    min-height: 280px;
+    contain-intrinsic-size: 280px;
+  }
+}

@@ -25,7 +25,7 @@ const Navbar = memo(() => {
     restDelta: 0.001,
   });
 
-  // Fechar menu ao redimensionar para desktop (XL breakpoint = 1280px)
+  // Fechar menu ao redimensionar para desktop   (XL breakpoint = 1280px)
   useEffect(() => {
     if (screenWidth >= 1280 && toggle) {
       setToggle(false);
@@ -237,21 +237,21 @@ const Navbar = memo(() => {
                   gap: isWatch ? '0.2rem' : undefined,
                 }}
               >
-                <span className='name-part' data-text='Meu'>
+                <span className='name-part' data-text={t('nav.brand_part1')}>
                   <div className='name-glow-layer' />
-                  <DynamicText colorMode='auto'>Meu</DynamicText>
+                  <DynamicText colorMode='auto'>{t('nav.brand_part1')}</DynamicText>
                 </span>
-                <span className='name-part name-accent' data-text='portfólio'>
+                <span className='name-part name-accent' data-text={t('nav.brand_part2')}>
                   <div className='name-glow-layer' />
-                  <DynamicText colorMode='auto'>portfólio</DynamicText>
+                  <DynamicText colorMode='auto'>{t('nav.brand_part2')}</DynamicText>
                 </span>
               </span>
             </span>
           </Link>
         </div>
 
-        {/* Right aligned Menu - Desktop/Tablet - Ajustado para aparecer apenas em telas maiores que iPad Pro */}
-        <div className='hidden xl:flex items-center gap-2 lg:gap-4'>
+        {/* Right aligned Menu - Desktop/Tablet - Agora alinhado com o breakpoint LG */}
+        <div className='hidden lg:flex items-center gap-2 lg:gap-4'>
           <ul className='flex items-center gap-0.5 lg:gap-1 xl:gap-2'>
             {navLinks.map((nav) => {
               const isActive = active === nav.id;
@@ -338,8 +338,20 @@ const Navbar = memo(() => {
           maxHeight: toggle ? 'calc(100vh - 80px)' : '0',
           overscrollBehavior: 'contain',
           // No iPad Mini (768px), forçamos que o menu ocupe toda a largura visível e não seja obstruído
-          width: '100vw',
-          backgroundColor: 'rgba(5, 8, 22, 0.95)'
+          // Ajuste de posicionamento para não sobrepor o GearButton flutuante
+          // Para telas muito pequenas (watch) mantemos largura total e alinhamento à esquerda
+          // Para dispositivos móveis até 640px usamos largura total para evitar sobreposição e garantir usabilidade
+          // Em telas maiores posicionamos ao lado da engragem (aprox. 140px de deslocamento)
+          // Responsivo: telas muito pequenas (watch) ocupam largura total sem deslocamento
+          // Telas pequenas até md (mobileSmall, mobile, tablet) ocupam largura total abaixo da engrenagem
+          // Telas maiores (lg+) posicionam ao lado da engrenagem com deslocamento de 140px
+          // Responsivo: telas muito pequenas (watch) ocupam largura total sem deslocamento
+          // Telas pequenas até md (mobileSmall, mobile) ocupam largura total abaixo da engrenagem
+          // Telas maiores (lg+) posicionam ao lado da engrenagem com deslocamento de 140px
+          left: isWatch ? '0' : (isMobileSmall || isMobile) ? '0' : '140px',
+          width: isWatch ? '100vw' : (isMobileSmall || isMobile) ? '100vw' : 'calc(100vw - 140px)',
+          maxWidth: isWatch ? 'none' : (isMobileSmall || isMobile) ? 'none' : '340px',
+          backgroundColor: 'rgba(5, 8, 22, 0.95)',
         }}
       >
         <div className={`${isWatch ? 'px-3 py-4' : 'px-6 py-6'}`}>
@@ -396,7 +408,7 @@ const Navbar = memo(() => {
           </div>
         </div>
       </div>
-    </nav>
+    </nav >
   );
 });
 

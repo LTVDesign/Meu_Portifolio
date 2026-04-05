@@ -151,7 +151,7 @@ const ArrowRightIcon: React.FC<{ className?: string; size?: number }> = ({ class
 const Footer: React.FC = () => {
   const location = useLocation();
   const isHome = location.pathname === '/';
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   // Lazy load do Easter Egg - só carrega quando o footer entra no viewport
   const footerRef = useRef<HTMLElement>(null);
@@ -382,7 +382,7 @@ const Footer: React.FC = () => {
                         {t('footer.accessGranted')}
                       </p>
                       <p className='text-white/60 mt-2'>
-                        {i18n.language === 'pt' ? 'Iniciando DOOM...' : 'Starting DOOM...'}
+                        {t('footer.iniciandoDoom')}
                       </p>
                     </m.div>
                   </m.div>

@@ -114,7 +114,7 @@ const Tech = () => {
               className='text-center mb-8'
             >
               <p className='text-[var(--cyber-purple)] uppercase tracking-widest text-sm font-bold opacity-60'>
-                {category}
+                {t(category)}
               </p>
               <h3 className='section-title mt-2 drop-shadow-[0_0_15px_rgba(145,94,255,0.4)]'>
                 {techs.length} {t('tech.technologiesTitle')}
@@ -161,7 +161,7 @@ const Tech = () => {
 
                   {/* Label name - Floating reveal on hover com intenso brilho neon */}
                   <p className='absolute bottom-2 text-[10px] font-black text-white uppercase tracking-[0.2em] transform translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 drop-shadow-[0_0_12px_rgba(0,255,255,1)] pointer-events-none text-center leading-none'>
-                    {tech.name}
+                    {t(tech.name)}
                   </p>
 
                   {/* Efeito de clique */}

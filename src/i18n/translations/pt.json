@@ -3,14 +3,24 @@
     "name": "Leandro Barbosa",
     "email": "lelebrr@gmail.com",
     "language": "Idioma",
-    "close": "Fechar"
+    "close": "Fechar",
+    "at": "em",
+    "loading3d": "Carregando 3D"
   },
   "tech": {
     "arsenal": "Meu Arsenal",
     "stackTitle": "Stack Tecnológica",
     "clickInfo": "Clique em qualquer tecnologia para buscar tutoriais e documentação",
     "technologiesTitle": "Tecnologias",
-    "easterEgg": "Dica: Tente o código Konami ⬆️⬆️⬇️⬇️⬅️➡️⬅️➡️🅱️🅰️"
+    "easterEgg": "Dica: Tente o código Konami ⬆️⬆️⬇️⬇️⬅️➡️⬅️➡️🅱️🅰️",
+    "categories": {
+      "infra": "Sistemas & Infraestrutura",
+      "hardware": "Hardware & IoT",
+      "languages": "Linguagens & Backend",
+      "frontend": "Front-end & Design",
+      "security": "Segurança & Redes",
+      "devops": "Ferramentas & DevOps"
+    }
   },
   "nav": {
     "about": "Sobre",
@@ -29,6 +39,8 @@
     "switch_to_en": "Switch to English",
     "translate_to_pt": "Traduzir para Português BR",
     "translate_to_en": "Translation to English",
+    "brand_part1": "Meu",
+    "brand_part2": "portfólio",
     "home": "Início"
   },
   "hero": {
@@ -161,12 +173,25 @@
       "ltv3": "Desenvolvimento de navegação de aplicativos e interface visual",
       "acai1": "Planejamento e controle de vendas e faturamento",
       "acai2": "Gerenciamento de equipe e controle de indicadores de estoque"
+    },
+    "dates": {
+      "terabyte": "Março 2024 - Dezembro 2025",
+      "dotkom": "Junho 2023 - Janeiro 2024",
+      "autonomo": "Janeiro 2023 - Presente",
+      "mercedito": "Março 2022 - Dezembro 2022",
+      "abrakebabs": "2022",
+      "trader": "Março 2016 - Fevereiro 2021",
+      "blitzhaus": "Março 2015 - Fevereiro 2016",
+      "garagemod": "Maio 2014 - Fevereiro 2015",
+      "colonial": "Março 2012 - Maio 2014",
+      "ltv": "Fevereiro 2009 - Fevereiro 2012",
+      "acai": "Fevereiro 2007 - Fevereiro 2009"
     }
   },
   "feedbacks": {
     "p": "O que os outros dizem",
     "h2": "Depoimentos.",
-    "designationFormat": "{designation} de {company}"
+    "designationFormat": "{{designation}} de {{company}}"
   },
   "works": {
     "p": "Criações & Experimentos",
@@ -179,7 +204,13 @@
     "badgeReact": "React",
     "badgeThree": "Three.js",
     "badgeNode": "Node.js",
-    "badgeFullStack": "Full Stack"
+    "badgeFullStack": "Full Stack",
+    "category_saas": "SaaS & Automação AI",
+    "category_hardware": "Hardware & IoT",
+    "category_security": "Cibersegurança & Hardware",
+    "status_ongoing": "v1.3 (Em andamento)",
+    "status_finished": "v2.0 (Finalizado)",
+    "status_prototype": "v1.0 (Protótipo)"
   },
   "cursos": {
     "p": "Cursos & Certificados",
@@ -244,7 +275,7 @@
     "viewAll": "Veja Todos Cursos",
     "loadMore": "Carregar Mais",
     "modulesLabel": "Módulos principais",
-    "moreModules": "+{count} mais módulos...",
+    "moreModules": "+{{count}} mais módulos...",
     "verifyAuthenticity": "Verificar Autenticidade"
   },
   "certificados": {
@@ -295,7 +326,7 @@
     "sending": "Enviando...",
     "success": "Mensagem enviada com sucesso!",
     "error": "Erro ao enviar mensagem. Tente novamente.",
-    "rateLimit": "Aguarde {seconds} segundos antes de enviar outra mensagem.",
+    "rateLimit": "Aguarde {{seconds}} segundos antes de enviar outra mensagem.",
     "validationErrors": {
       "nameRequired": "Nome é obrigatório",
       "nameTooLong": "Nome muito longo",
@@ -305,25 +336,26 @@
       "messageTooShort": "Mensagem muito curta",
       "messageTooLong": "Mensagem muito longa",
       "correctForm": "Por favor, corrija os erros do formulário",
-      "cooldown": "Aguarde {count} segundos antes de enviar outra mensagem"
+      "cooldown": "Aguarde {{count}} segundos antes de enviar outra mensagem"
     }
   },
   "footer": {
     "quickAccess": "Acesso Rápido",
-    "allRightsReserved": "Todos os direitos reservados",
+    "allRightsReserved": "Todos os direitos reservados.",
     "backToTop": "Voltar ao Topo",
-    "backToTopLabel": "Voltar ao topo",
-    "emailUs": "Enviar e-mail para Leandro Barbosa",
+    "backToTopLabel": "Voltar para o topo da página",
+    "emailUs": "Envie um e-mail",
     "linkedin": "LinkedIn",
     "github": "GitHub",
     "instagram": "Instagram",
     "facebook": "Facebook",
     "whatsapp": "WhatsApp",
-    "description": "Engenheiro de Software • Especialista em Desenvolvimento Full Stack • Tecnólogo em Análise e Desenvolvimento de Sistemas • Pós-Graduando em IA & Data Science • Apaixonado por inovação tecnológica",
-    "easterEggHint": "Easter Egg",
+    "description": "Construindo o futuro da tecnologia com precisão, paixão e cibersegurança avançada.",
+    "easterEggHint": "Tente o código lendário...",
     "unlocking": "Desbloqueando...",
     "accessDenied": "Acesso Negado",
-    "accessGranted": "Acesso Concedido"
+    "accessGranted": "ACESSO CONCEDIDO",
+    "iniciandoDoom": "Iniciando DOOM..."
   },
   "services": {
     "infraestrutura": "Infraestrutura",
@@ -420,6 +452,102 @@
     "officialDocument": "Documento oficial de conclusão do curso",
     "conclusion": "Conclusão",
     "institution": "Instituição",
+    "experienceDetails": {
+      "technicalSupport": "Técnico de TI N2",
+      "webMaster": "Web Master",
+      "computerTechnician": "Técnico de Manutenção de Computadores",
+      "itResponsible": "Responsável Técnico de TI / Suporte Técnico",
+      "consultingCompany": "Terabyte Consultoria em TI",
+      "autonomous": "Autônomo",
+      "companyDotKom": "DotKom",
+      "companyMercedito": "Mercedito",
+      "present": "Presente",
+      "generalManager": "Gerente Geral",
+      "customerServiceManager": "Gerente de Atendimento ao Cliente",
+      "itTechnicianManager": "Técnico de TI / Gerente Técnico / Designer",
+      "ceoFounder": "CEO / Fundador e Gerente",
+      "itAnalystLogistics": "Analista de TI / Técnico de Informática / Logística",
+      "webDesignerMaster": "Web Designer / Web Master",
+      "salesSubManager": "Subgerente de Vendas / Caixa",
+      "abraKebabs": "Abra Kebab's",
+      "mundoTrader": "Mundo Trader",
+      "blitzHaus": "Blitz Haus",
+      "garagemod": "Garagemod",
+      "colonialRacing": "Colonial Racing",
+      "ltvDesign": "LTV Design",
+      "cafeBeach": "Cafe Beach / Açai Beach",
+      "points": {
+        "terabyte1": "Suporte técnico N2 presencial e remoto para incidentes complexos com alta taxa de resolução no primeiro contato",
+        "terabyte2": "Administração de redes, servidores e sistemas corporativos",
+        "terabyte3": "Gestão de usuários e acessos via Microsoft 365 e Entra ID",
+        "terabyte4": "Implantação e instalação de sistemas operacionais Windows e Linux",
+        "terabyte5": "Configuração de infraestrutura de rede, incluindo roteadores DrayTek e switches",
+        "terabyte6": "Implementação de firewall, proteção contra ataques e atualizações críticas de segurança",
+        "terabyte7": "Manutenção de sistemas de câmeras e som",
+        "terabyte8": "Atendimento consultivo ao cliente via WhatsApp e redes sociais com registro preciso de chamados",
+        "dotkom1": "Desenvolvimento de sites e plataformas de E-commerce utilizando WordPress, Tray, Nuvemshop e Shopify",
+        "dotkom2": "Integração de sistemas ERP como Bling!, Alterdata e Linx",
+        "dotkom3": "Configuração e integração de gateways de pagamento, incluindo Mercado Pago, PagSeguro e Vindi",
+        "dotkom4": "Integração e configuração de ferramentas de CRM como Wake, CRM&Bonus e RD Station",
+        "autonomo1": "Diagnóstico avançado de falhas, reparo de ineficiências e otimização de hardware/software",
+        "autonomo2": "Instalação e configuração de hardware, software e drivers",
+        "autonomo3": "Implementação de soluções de acesso remoto e VPN (AnyDesk/TeamViewer)",
+        "autonomo4": "Gestão de redes LAN/WAN, servidores e IPs",
+        "autonomo5": "Gestão de segurança e privacidade de dados, incluindo proteção contra ataques",
+        "autonomo6": "Execução de melhorias regulares para garantir que os sistemas estejam atualizados",
+        "autonomo7": "Manutenção de registros de reparos e correções para referência futura",
+        "autonomo8": "Instrução técnica aos usuários sobre o uso adequado de hardware e software",
+        "mercedito1": "Manutenção completa do parque tecnológico: computadores, internet, softwares e sistemas de monitoramento",
+        "mercedito2": "Treinamento e orientação de funcionários para uso eficiente de dispositivos e resolução de problemas de acesso",
+        "mercedito3": "Suporte operacional para cadastro de produtos e atualização de sistemas de vendas/cardápio",
+        "mercedito4": "Manutenção periódica de sistemas de câmeras e som",
+        "mercedito5": "Configuração e monitoramento de VPN",
+        "mercedito6": "Criação e atualização diária de ChatBot para suporte ao cliente via WhatsApp",
+        "mercedito7": "Gestão de SEO em redes sociais e Google Meu Negócio",
+        "abrakebabs1": "Gestão completa da operação da unidade, incluindo finanças, estoque e liderança de equipe",
+        "abrakebabs2": "Controle de fluxo de caixa e análise de indicadores de desempenho",
+        "trader1": "Liderança de Customer Experience e gestão de equipe de atendimento/suporte ao cliente",
+        "trader2": "Gestão de SLAs, resolução de conflitos e estratégias de fidelização",
+        "trader3": "Otimização de processos internos baseada em feedbacks e registros de pedidos",
+        "trader4": "Manutenção da comunicação com clientes sobre alterações de serviços e tendências de mercado",
+        "trader5": "Criação de Landing Pages para captação de clientes e recuperação de carrinhos abandonados",
+        "trader6": "Organização de vendas, reembolsos e gestão de sucesso do cliente com solução contratada",
+        "blitz1": "Planejamento, implantação de sistemas e avaliação de operações de dados eletrônicos",
+        "blitz2": "Garantia da segurança de dados, estabilidade da rede local e sistemas de backup",
+        "blitz3": "Manutenção e configuração completa de hardware e software da empresa",
+        "blitz4": "Treinamento de funcionários sobre procedimentos padrão e uso de softwares/periféricos",
+        "blitz5": "Identificação de áreas problemáticas e implementação de soluções estratégicas",
+        "blitz6": "Criação de arte para eventos e publicidade em mídia impressa e redes sociais",
+        "garagemod1": "Desenvolvimento completo de plataforma de e-commerce utilizando Magento",
+        "garagemod2": "Gestão operacional de logística, métodos de pagamento, antifraude e controle de estoque",
+        "garagemod3": "Definição estratégica de mix de produtos, linguagem de comunicação e investimentos",
+        "garagemod4": "Monitoramento de métricas de vendas, indicadores e campanhas promocionais",
+        "garagemod5": "Responsabilidades administrativas, contábeis e de recursos humanos",
+        "colonial1": "Projeto e implantação de infraestrutura de rede para 18 computadores",
+        "colonial2": "Implementação do sistema ERP Cauto, otimizando as operações da empresa",
+        "colonial3": "Suporte técnico contínuo em hardware (CPUs, impressoras, roteadores) e configuração de software",
+        "colonial4": "Gestão de opções de segurança e proteção de rede contra ataques",
+        "colonial5": "Diagnóstico e execução de melhorias para restauração da funcionalidade do sistema",
+        "ltv1": "Desenvolvimento de sites utilizando Flash, HTML, CSS, PHP, SQL, JavaScript, Magento e WordPress",
+        "ltv2": "Design gráfico, tratamento de imagem via Photoshop e criação de banners, folders e cartões",
+        "ltv3": "Desenvolvimento de navegação e interface visual de aplicativos",
+        "acai1": "Planejamento e controle de vendas e faturamento",
+        "acai2": "Gestão de equipe e controle de indicadores de estoque"
+      },
+      "dates": {
+        "terabyte": "Março 2024 - Dezembro 2025",
+        "dotkom": "Junho 2023 - Janeiro 2024",
+        "autonomo": "Janeiro 2023 - Presente",
+        "mercedito": "Março 2022 - Dezembro 2022",
+        "abrakebabs": "2022",
+        "trader": "Março 2016 - Fevereiro 2021",
+        "blitzhaus": "Março 2015 - Fevereiro 2016",
+        "garagemod": "Maio 2014 - Fevereiro 2015",
+        "colonial": "Março 2012 - Maio 2014",
+        "ltv": "Fevereiro 2009 - Fevereiro 2012",
+        "acai": "Fevereiro 2007 - Fevereiro 2009"
+      }
+    },
     "educationList": {
       "0": {
         "title": "Pós-Graduação em Inteligência Artificial e Data Science",
@@ -730,7 +858,7 @@
     "red": "Vermelho",
     "pageTitle": "Texto Dinâmico Adaptativo",
     "pageDescription": "Este texto muda de cor automaticamente baseado no fundo.",
-    "backgroundInfo": "Fundo: {bgColor} | Modo: {mode}",
+    "backgroundInfo": "Fundo: {{bgColor}} | Modo: {{mode}}",
     "buttonText": "Botão também adapta"
   },
   "contactPage": {
@@ -755,7 +883,7 @@
     "closeEditor": "Fechar editor",
     "back": "Voltar",
     "apply": "Aplicar",
-    "notImplemented": "Editor para \"{bg}\" ainda não implementado"
+    "notImplemented": "Editor para \"{{bg}}\" ainda não implementado"
   },
   "modal": {
     "closeModal": "Fechar modal",
@@ -773,15 +901,15 @@
   },
   "cursosModal": {
     "mainModules": "Módulos principais:",
-    "moreModules": "+{count} mais módulos...",
-    "totalCourses": "Total de cursos: {count}",
+    "moreModules": "+{{count}} mais módulos...",
+    "totalCourses": "Total de cursos: {{count}}",
     "footerCopyright": "Leandro Saturnino Barbosa © 2026"
   },
   "allCursos": {
-    "footerTotalCourses": "Total de cursos: {count}",
+    "footerTotalCourses": "Total de cursos: {{count}}",
     "footerCopyright": "Leandro Saturnino Barbosa © 2026",
-    "coursesAvailable": "{count} curso disponível",
-    "coursesAvailable_plural": "{count} cursos disponíveis",
+    "coursesAvailable": "{{count}} curso disponível",
+    "coursesAvailable_plural": "{{count}} cursos disponíveis",
     "totalCoursesLabel": "Total de cursos",
     "professionalCertificates": "Certificados profissionais",
     "platforms": "Plataformas",
@@ -803,7 +931,7 @@
     "duration": "Duração",
     "activeFilters": "Filtros ativos:",
     "clearFilters": "Limpar filtros",
-    "searchFilter": "Busca: \"{filter}\"",
+    "searchFilter": "Busca: \"{{filter}}\"",
     "viewCertificate": "Ver Certificado"
   },
   "editorLabels": {
@@ -905,6 +1033,6 @@
   },
   "contactForm": {
     "honeypotLabel": "Não preencha este campo",
-    "cooldownMessage": "⏳ Aguarde {seconds}s antes do próximo envio"
+    "cooldownMessage": "⏳ Aguarde {{seconds}}s antes do próximo envio"
   }
 }
