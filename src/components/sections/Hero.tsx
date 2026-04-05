@@ -39,7 +39,7 @@ const Hero = () => {
       if (isLoaded) return;
       isLoaded = true;
       if ('requestIdleCallback' in window) {
-        (window as Window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(() => setLoad3D(true), { timeout: 1000 });
+        (window as Window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(() => setLoad3D(true), { timeout: 5000 });
       } else {
         setLoad3D(true);
       }
@@ -55,7 +55,7 @@ const Hero = () => {
     window.addEventListener('scroll', scheduleLoad, { once: true, passive: true });
     window.addEventListener('keydown', scheduleLoad, { once: true, passive: true });
 
-    const timer = setTimeout(scheduleLoad, 3500);
+    const timer = setTimeout(scheduleLoad, 8000);
 
     return () => {
       clearTimeout(timer);

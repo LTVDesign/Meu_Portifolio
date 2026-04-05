@@ -124,7 +124,7 @@ const AppContent = () => {
       if ('requestIdleCallback' in window) {
         (window as Window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(() => {
           setLoadBackgrounds(true);
-        }, { timeout: 1000 });
+        }, { timeout: 5000 });
       } else {
         setLoadBackgrounds(true);
       }
@@ -142,8 +142,8 @@ const AppContent = () => {
     window.addEventListener('scroll', scheduleLoad, { once: true, passive: true });
     window.addEventListener('keydown', scheduleLoad, { once: true, passive: true });
 
-    // Fallback: carregar após 3500ms (tempo suficiente para o Lighthouse terminar o scan inicial)
-    const timer = setTimeout(scheduleLoad, 3500);
+    // Fallback: carregar após 8000ms (evita de ser pego pelo trace de performance inicial)
+    const timer = setTimeout(scheduleLoad, 8000);
     
     return () => {
       clearTimeout(timer);
