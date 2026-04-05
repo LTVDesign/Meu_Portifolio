@@ -20,12 +20,14 @@
     form-action 'self';
   ">
 
-  <!-- Google Fonts: Inter — premium typography with font-display=optional to prevent FOUT -->
+  <!-- Google Fonts: Inter — Async load to prevent render blocking -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.onload=null;this.removeAttribute('media');">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  </noscript>
 
   <!-- EmailJS: carregado sob demanda no formulário de contato -->
   <link rel="dns-prefetch" href="https://api.emailjs.com">
