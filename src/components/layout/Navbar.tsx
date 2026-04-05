@@ -177,13 +177,11 @@ const Navbar = memo(() => {
         aria-label={t('nav.logo')}
       >
         <m.div
-          initial={{ scale: 0, y: -20 }}
+          initial={{ y: -10 }}
           animate={{
-            scale: 1,
             y: [0, -10, 0],
           }}
           transition={{
-            scale: { duration: 0.5 },
             y: {
               duration: 5,
               repeat: Infinity,
@@ -199,6 +197,8 @@ const Navbar = memo(() => {
             className='w-full h-full object-contain drop-shadow-[0_0_20px_rgba(145,94,255,0.8)]'
             width='128'
             height='128'
+            fetchPriority="high"
+            decoding="sync"
           />
         </m.div>
       </Link>

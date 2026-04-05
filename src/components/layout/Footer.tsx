@@ -406,7 +406,7 @@ const Footer: React.FC = () => {
                         whileHover={{ scale: 1.15 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => handleKeyClick(index)}
-                        className={`konami-key w-6 h-6 sm:w-7 sm:h-7 rounded-lg border-2 flex items-center justify-center cursor-pointer transition-all duration-200 text-xs font-bold relative group skill-icon
+                        className={`konami-key w-6 h-6 sm:w-7 sm:h-7 rounded-lg border-2 flex items-center justify-center cursor-pointer transition-[transform,opacity,box-shadow] duration-200 text-xs font-bold relative group skill-icon
                           ${isActive
                             ? 'bg-gradient-to-br from-[#915EFF] via-[#6366f1] to-[#8b5cf6] border-[#915EFF] text-white shadow-[0_0_15px_rgba(145,94,255,0.5)]'
                             : isCurrent
