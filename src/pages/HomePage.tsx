@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
+import Hero from '../components/sections/Hero';
 // Lazy loading sections to minimize main thread work on initial load
-const Hero = lazy(() => import('../components/sections/Hero'));
 const About = lazy(() => import('../components/sections/About'));
 const Contact = lazy(() => import('../components/sections/Contact'));
 const Curriculo = lazy(() => import('../components/sections/Curriculo'));
@@ -18,10 +18,8 @@ const SectionLoader = () => (
 const HomePage = () => {
   return (
     <>
-      {/* Hero is heavy and contains 3D assets, move to lazy loading */}
-      <Suspense fallback={<SectionLoader />}>
-        <Hero />
-      </Suspense>
+      {/* Hero is critical, load immediately for maximum stability */}
+      <Hero />
 
       {/* Non-critical sections are lazy-loaded */}
       <Suspense fallback={<SectionLoader />}>

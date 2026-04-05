@@ -83,6 +83,7 @@ export default defineConfig({
   },
 
   build: {
+    modulePreload: true,
     sourcemap: true,
     minify: 'terser',
     chunkSizeWarningLimit: 1000,
@@ -92,8 +93,7 @@ export default defineConfig({
     assetsInlineLimit: 4096,
     rollupOptions: {
       output: {
-        // Função manualChunks otimizada para eliminar dependência circular
-        // Estratégia: simplificar para evitar qualquer referência circular
+        // Função manualChunks otimizada para estabilidade e isolamento do Three.js pesado
         manualChunks: (id) => {
           // Bibliotecas de internacionalização
           if (id.includes('node_modules/i18next/') || id.includes('node_modules/react-i18next/')) {
@@ -110,19 +110,20 @@ export default defineConfig({
             return 'validation';
           }
 
-          // Three.js Core Ecosystem - Isolamento de bibliotecas pesadas NÃO-React
+          // Three.js Core Ecosystem - O motor pesado NÃO-React (170KB+)
+          // Isolamos aqui para resolver o aviso de "Unused JS" Lighthouse
           if (
             id.includes('node_modules/three/') ||
             id.includes('node_modules/three-stdlib/') ||
-            id.includes('node_modules/troika-three-text/')
+            id.includes('node_modules/troika-three-text/') ||
+            id.includes('node_modules/bidi-js/') ||
+            id.includes('node_modules/webgl-sdf-generator/')
           ) {
             return 'three-bundle';
           }
 
-          // Framer Motion, @react-three/fiber, @react-three/drei - DEVEM ficar no vendor junto com React
-          // para evitar erros de inicialização de Hooks e useLayoutEffect.
-
-          // Todos os outros node_modules em um único chunk (React, etc)
+          // Todos os outros node_modules em um único chunk (React Core, R3F, Framer Motion)
+          // Importante manter juntos para evitar erros de Hooks e Context
           if (id.includes('node_modules/')) {
             return 'vendor';
           }
