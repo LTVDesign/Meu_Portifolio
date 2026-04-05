@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   /* Breakpoints customizados para todos os dispositivos */
@@ -50,6 +48,7 @@
     --transition-duration-slow: 0.6s;
     --reduced-motion-duration: 0.01ms;
   }
+
 
   /* Apenas estilos que NÃO estão no critical.css */
   ::-webkit-scrollbar {
