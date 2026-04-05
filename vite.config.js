@@ -110,18 +110,17 @@ export default defineConfig({
             return 'validation';
           }
 
-          // Three.js Ecosystem - Isolamento total para resolver "Unused JS"
+          // Three.js Core Ecosystem - Isolamento de bibliotecas pesadas NÃO-React
           if (
             id.includes('node_modules/three/') ||
-            id.includes('node_modules/@react-three/') ||
             id.includes('node_modules/three-stdlib/') ||
             id.includes('node_modules/troika-three-text/')
           ) {
             return 'three-bundle';
           }
 
-          // Framer Motion - deve ficar no vendor junto com React para evitar erro de useLayoutEffect
-          // NÃO separar em chunk próprio pois causa "Cannot read properties of undefined (reading 'useLayoutEffect')"
+          // Framer Motion, @react-three/fiber, @react-three/drei - DEVEM ficar no vendor junto com React
+          // para evitar erros de inicialização de Hooks e useLayoutEffect.
 
           // Todos os outros node_modules em um único chunk (React, etc)
           if (id.includes('node_modules/')) {
