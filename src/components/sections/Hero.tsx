@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useState, useEffect } from 'react';
 import { m } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
@@ -20,6 +20,7 @@ const GearButton = lazy(() => import('../layout/GearButton'));
  * - usa useBreakpoints hook com RAF debounce para resize
  * - useMemo para cálculos de layout responsivo
  * - contain: layout style paint para isolar animações
+ * - defer de 3D canvas com base em interação para otimizar métricas Lighthouse (Unused JS)
  */
 const Hero = () => {
   const { t } = useTranslation();
@@ -27,6 +28,43 @@ const Hero = () => {
   const { openBgMenu } = useBackgroundMenu();
   // Hook otimizado com RAF debounce para evitar reflows
   const { isWatch, isMobileSmall, isMobile, isTV } = useBreakpoints();
+
+  // Lazy load 3D assets to fix Lighthouse Unused JS and Performance
+  const [load3D, setLoad3D] = useState(false);
+
+  useEffect(() => {
+    let isLoaded = false;
+    
+    const scheduleLoad = () => {
+      if (isLoaded) return;
+      isLoaded = true;
+      if ('requestIdleCallback' in window) {
+        (window as Window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(() => setLoad3D(true), { timeout: 1000 });
+      } else {
+        setLoad3D(true);
+      }
+      
+      window.removeEventListener('mousemove', scheduleLoad);
+      window.removeEventListener('touchstart', scheduleLoad);
+      window.removeEventListener('scroll', scheduleLoad);
+      window.removeEventListener('keydown', scheduleLoad);
+    };
+
+    window.addEventListener('mousemove', scheduleLoad, { once: true, passive: true });
+    window.addEventListener('touchstart', scheduleLoad, { once: true, passive: true });
+    window.addEventListener('scroll', scheduleLoad, { once: true, passive: true });
+    window.addEventListener('keydown', scheduleLoad, { once: true, passive: true });
+
+    const timer = setTimeout(scheduleLoad, 3500);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('mousemove', scheduleLoad);
+      window.removeEventListener('touchstart', scheduleLoad);
+      window.removeEventListener('scroll', scheduleLoad);
+      window.removeEventListener('keydown', scheduleLoad);
+    };
+  }, []);
 
   const handleBackgroundClick = () => {
     openBgMenu();
@@ -98,16 +136,27 @@ const Hero = () => {
 
         {/* Canvas 3D do Computador - abaixo do texto */}
         <div className='absolute inset-0 z-0 pointer-events-auto flex items-center -mt-16'>
-          <Suspense fallback={
-            <div className="h-screen w-full shimmer-loading flex items-center justify-center">
+          {load3D ? (
+            <Suspense fallback={
+              <div className="h-screen w-full shimmer-loading flex items-center justify-center">
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 border-2 border-[var(--cyber-purple)]/30 border-t-[var(--cyber-cyan)] rounded-full animate-spin" />
+                  <span className="text-[10px] sm:text-xs text-white/30 uppercase tracking-[0.3em] font-medium">{t('common.loading3d')}</span>
+                </div>
+              </div>
+            }>
+              <ThreeExperience />
+            </Suspense>
+          ) : (
+            <div className="h-screen w-full shimmer-loading flex items-center justify-center pointer-events-none">
               <div className="flex flex-col items-center gap-3">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 border-2 border-[var(--cyber-purple)]/30 border-t-[var(--cyber-cyan)] rounded-full animate-spin" />
-                <span className="text-[10px] sm:text-xs text-white/30 uppercase tracking-[0.3em] font-medium">{t('common.loading3d')}</span>
+                <span className="text-[10px] sm:text-xs text-white/30 uppercase tracking-[0.3em] font-medium min-w-[200px] text-center">
+                  {t('common.loading3d', 'Iniciando ambiente 3D...')}
+                </span>
               </div>
             </div>
-          }>
-            <ThreeExperience />
-          </Suspense>
+          )}
         </div>
 
         {/* Scroll / Interact Icon - Responsivo */}

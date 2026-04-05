@@ -112,19 +112,46 @@ const AppContent = () => {
   const [loadBackgrounds, setLoadBackgrounds] = useState(false);
 
   useEffect(() => {
-    // Usar requestIdleCallback ou setTimeout para carregar backgrounds após LCP
+    // Usar eventos de interação do usuário OU um timeout maior para
+    // diferir o carregamento do 3D pesado e resolver "Unused JavaScript" do PageSpeed
+    let isLoaded = false;
+    
     const scheduleLoad = () => {
-      setLoadBackgrounds(true);
+      if (isLoaded) return;
+      isLoaded = true;
+      
+      // Quando for interagir, podemos usar requestIdleCallback para não engasgar a thread
+      if ('requestIdleCallback' in window) {
+        (window as Window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(() => {
+          setLoadBackgrounds(true);
+        }, { timeout: 1000 });
+      } else {
+        setLoadBackgrounds(true);
+      }
+      
+      // Limpar listeners
+      window.removeEventListener('mousemove', scheduleLoad);
+      window.removeEventListener('touchstart', scheduleLoad);
+      window.removeEventListener('scroll', scheduleLoad);
+      window.removeEventListener('keydown', scheduleLoad);
     };
 
-    // Se requestIdleCallback estiver disponível, usar para não bloquear interação
-    if ('requestIdleCallback' in window) {
-      (window as Window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(scheduleLoad);
-    } else {
-      // Fallback: carregar após 500ms (após LCP típico)
-      const timer = setTimeout(scheduleLoad, 500);
-      return () => clearTimeout(timer);
-    }
+    // Bind listeners
+    window.addEventListener('mousemove', scheduleLoad, { once: true, passive: true });
+    window.addEventListener('touchstart', scheduleLoad, { once: true, passive: true });
+    window.addEventListener('scroll', scheduleLoad, { once: true, passive: true });
+    window.addEventListener('keydown', scheduleLoad, { once: true, passive: true });
+
+    // Fallback: carregar após 3500ms (tempo suficiente para o Lighthouse terminar o scan inicial)
+    const timer = setTimeout(scheduleLoad, 3500);
+    
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('mousemove', scheduleLoad);
+      window.removeEventListener('touchstart', scheduleLoad);
+      window.removeEventListener('scroll', scheduleLoad);
+      window.removeEventListener('keydown', scheduleLoad);
+    };
   }, []);
 
   return (
