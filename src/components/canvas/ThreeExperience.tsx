@@ -5,7 +5,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { useTouchScrollGuard } from '../../hooks/useTouchScrollGuard';
 import { useViewport } from '../../hooks/useViewport';
 
-import CanvasLoader from '../layout/Loader';
+import CanvasLoader from './Loader';
 
 // LCP Optimization: Preload movido para dentro do componente para não bloquear renderização inicial
 // O preload será feito após o componente montar, não no nível do módulo

@@ -3,7 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import type React from 'react';
 import { memo, Suspense } from 'react';
 import { useTouchScrollGuard } from '../../hooks/useTouchScrollGuard';
-import CanvasLoader from '../layout/Loader';
+import CanvasLoader from './Loader';
 
 interface BallProps {
   imgUrl: string;

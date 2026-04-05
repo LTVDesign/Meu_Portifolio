@@ -110,16 +110,20 @@ export default defineConfig({
             return 'validation';
           }
 
-          // Three.js - apenas three module, não @react-three (que depende de react)
-          if (id.includes('node_modules/three/') && !id.includes('@react-three')) {
-            return 'three';
+          // Three.js Ecosystem - Isolamento total para resolver "Unused JS"
+          if (
+            id.includes('node_modules/three/') ||
+            id.includes('node_modules/@react-three/') ||
+            id.includes('node_modules/three-stdlib/') ||
+            id.includes('node_modules/troika-three-text/')
+          ) {
+            return 'three-bundle';
           }
 
           // Framer Motion - deve ficar no vendor junto com React para evitar erro de useLayoutEffect
           // NÃO separar em chunk próprio pois causa "Cannot read properties of undefined (reading 'useLayoutEffect')"
 
-          // Todos os outros node_modules em um único chunk
-          // Isso elimina completamente a dependência circular
+          // Todos os outros node_modules em um único chunk (React, etc)
           if (id.includes('node_modules/')) {
             return 'vendor';
           }
