@@ -494,7 +494,7 @@ const projects: TProject[] = [
     ],
     image: willy,
     sourceCodeLink: 'https://github.com/lelebrr/Willy',
-    status: 'Em desenvolvimento',
+    status: 'status_ongoing',
     category: 'Security',
   },
 ];

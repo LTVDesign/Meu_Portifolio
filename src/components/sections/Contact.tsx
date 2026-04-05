@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from 'react';
-import { m } from 'framer-motion';
+import { useInView, m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { FaBuilding, FaEnvelope, FaPaperPlane, FaPhone, FaUser } from 'react-icons/fa';
 import { z } from 'zod';
@@ -8,7 +8,9 @@ import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { emailService } from '../../utils/emailService';
 import { slideIn } from '../../utils/motion';
 import { Header } from '../atoms';
-import { EarthCanvas } from '../canvas';
+import { lazy, Suspense } from 'react';
+
+const EarthCanvas = lazy(() => import('../canvas/Earth'));
 
 type ContactForm = {
   name: string;
@@ -39,6 +41,8 @@ const Contact = () => {
   >({});
   const { t } = useTranslation();
   const prefersReduced = useReducedMotion();
+  const canvasContainerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(canvasContainerRef, { once: true, amount: 0.1 });
 
   // Create validation schema with translated messages
   const contactSchema = useMemo(
@@ -456,11 +460,25 @@ const Contact = () => {
 
           {/* Canvas 3D - Hidden on mobile/tablet */}
           <m.div
+            ref={canvasContainerRef}
             variants={slideIn('right', 'tween', 0.2, 1)}
             className='hidden xl:flex flex-1 w-full xl:w-1/2 h-[600px] items-center justify-center relative overflow-hidden'
           >
             <div className='w-full h-full'>
-              <EarthCanvas />
+              {isInView ? (
+                <Suspense fallback={
+                  <div className="flex items-center justify-center w-full h-full">
+                    <div className="w-10 h-10 border-4 border-[var(--cyber-purple)]/30 border-t-[var(--cyber-cyan)] rounded-full animate-spin" />
+                  </div>
+                }>
+                  <EarthCanvas />
+                </Suspense>
+              ) : (
+                <div className="flex flex-col items-center justify-center w-full h-full gap-4 opacity-50">
+                  <div className="w-10 h-10 border-4 border-[var(--cyber-purple)]/30 border-t-[var(--cyber-cyan)] rounded-full animate-spin" />
+                  <span className="text-xs text-[var(--cyber-cyan)] uppercase tracking-widest">{t('common.loading3d', 'Iniciando ambiente 3D...')}</span>
+                </div>
+              )}
             </div>
           </m.div>
         </div>
