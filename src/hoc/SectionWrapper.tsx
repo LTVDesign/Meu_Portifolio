@@ -1,4 +1,5 @@
-import type { ComponentType, PropsWithChildren, ReactNode } from 'react';
+import React from "react";
+import type { ComponentType, PropsWithChildren, ReactNode } from "react";
 
 interface SectionWrapperProps {
   children: ReactNode;
@@ -6,11 +7,13 @@ interface SectionWrapperProps {
   className?: string;
 }
 
-// Componente JSX
+/**
+ * Componente base que aplica o layout e ID padrão às seções.
+ */
 const SectionWrapperComponent = ({
   children,
   id,
-  className = '',
+  className = "",
 }: SectionWrapperProps) => {
   return (
     <section
@@ -22,20 +25,26 @@ const SectionWrapperComponent = ({
   );
 };
 
-// HOC pattern para compatibilidade com código existente
+/**
+ * HOC (Higher-Order Component) para envolver seções.
+ * Refatorado para estabilidade absoluta em React 18/19.
+ */
 const SectionWrapper = <P extends object>(
   Component: ComponentType<P>,
   idName: string
 ) => {
-  return function HOC(props: PropsWithChildren<P>) {
+  const HOC = (props: PropsWithChildren<P>) => {
     return (
       <SectionWrapperComponent id={idName}>
         <Component {...props} />
       </SectionWrapperComponent>
     );
   };
+
+  HOC.displayName = `SectionWrapper(${Component.displayName || Component.name || "Component"})`;
+
+  return HOC;
 };
 
-// Exportar ambos para compatibilidade
-export { SectionWrapperComponent };
+export { SectionWrapperComponent, SectionWrapper };
 export default SectionWrapper;

@@ -135,14 +135,16 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
       </m.div>
 
       <div className='mt-6 sm:mt-12 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-6'>
-        <m.button
+        <m.a
           variants={prefersReduced ? {} : fadeIn('right', 'spring', 0.3, 0.75)}
-          onClick={() => setViewMode?.('allcurriculo')}
-          className='btn-primary flex items-center gap-3 px-5 sm:px-8 py-3 sm:py-4 rounded-xl font-bold tracking-wider group shadow-[0_0_20px_rgba(145,94,255,0.3)] min-h-[44px] text-sm sm:text-base'
+          href='/online-cv'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='btn-primary flex items-center gap-3 px-5 sm:px-8 py-3 sm:py-4 rounded-xl font-bold tracking-wider group shadow-[0_0_20px_rgba(145,94,255,0.3)] min-h-[44px] text-sm sm:text-base cursor-pointer'
         >
           <FiExternalLink className='text-xl group-hover:scale-110 transition-transform' />
           {t('curriculo.viewOnline')}
-        </m.button>
+        </m.a>
 
         <m.a
           variants={prefersReduced ? {} : fadeIn('left', 'spring', 0.4, 0.75)}

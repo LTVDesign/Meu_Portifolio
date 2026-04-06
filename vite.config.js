@@ -68,18 +68,7 @@ export default defineConfig({
   ],
 
   resolve: {
-    alias: {
-      'react': path.resolve(process.cwd(), 'node_modules/react'),
-      'react-dom': path.resolve(process.cwd(), 'node_modules/react-dom'),
-    },
-    dedupe: [
-      'react',
-      'react-dom',
-      'framer-motion',
-      '@react-three/fiber',
-      '@react-three/drei',
-      'three',
-    ],
+    dedupe: ['react', 'react-dom'],
   },
 
   build: {
@@ -87,54 +76,11 @@ export default defineConfig({
     sourcemap: true,
     minify: 'terser',
     chunkSizeWarningLimit: 1000,
-    // CSS code splitting habilitado por padrão
     cssCodeSplit: true,
-    // Asset inlining para arquivos pequenos (< 4KB)
     assetsInlineLimit: 4096,
     rollupOptions: {
       output: {
-        // Função manualChunks otimizada para estabilidade e isolamento do Three.js pesado
-        manualChunks: (id) => {
-          // Bibliotecas de internacionalização
-          if (id.includes('node_modules/i18next/') || id.includes('node_modules/react-i18next/')) {
-            return 'i18n';
-          }
-
-          // React Icons - biblioteca de ícones
-          if (id.includes('node_modules/react-icons/')) {
-            return 'icons';
-          }
-
-          // Zod - validação de schemas
-          if (id.includes('node_modules/zod/')) {
-            return 'validation';
-          }
-
-          // Three.js Core Ecosystem - O motor pesado NÃO-React (170KB+)
-          // Isolamos aqui para resolver o aviso de "Unused JS" Lighthouse
-          if (
-            id.includes('node_modules/three/') ||
-            id.includes('node_modules/three-stdlib/') ||
-            id.includes('node_modules/troika-three-text/') ||
-            id.includes('node_modules/bidi-js/') ||
-            id.includes('node_modules/webgl-sdf-generator/')
-          ) {
-            return 'three-bundle';
-          }
-
-          // Todos os outros node_modules em um único chunk (React Core, R3F, Framer Motion)
-          // Importante manter juntos para evitar erros de Hooks e Context
-          if (id.includes('node_modules/')) {
-            return 'vendor';
-          }
-        },
-        // Otimizar nomeação de chunks para melhor cache
-        chunkFileNames: (chunkInfo) => {
-          const facadeModuleId = chunkInfo.facadeModuleId
-            ? chunkInfo.facadeModuleId.split('/').pop()
-            : 'chunk';
-          return `assets/js/${chunkInfo.name || facadeModuleId}-[hash].js`;
-        },
+        chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: (assetInfo) => {
           const info = assetInfo.name || '';

@@ -70,14 +70,10 @@ const Hero = () => {
     openBgMenu();
   };
 
-  const subtitles = [
-    t('hero.subtitle.0'),
-    t('hero.subtitle.1'),
-    t('hero.subtitle.2'),
-    t('hero.subtitle.3'),
-    t('hero.subtitle.4'),
-    t('hero.subtitle.5'),
-  ];
+  const rawSubtitles = t('hero.subtitle', { returnObjects: true });
+  const subtitles = Array.isArray(rawSubtitles) 
+    ? rawSubtitles.map(s => String(s)) 
+    : ['Full Stack Developer', 'AI Specialist']; // Safe fallback
 
 
 

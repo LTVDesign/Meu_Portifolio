@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, memo } from 'react';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 import { usePerformance } from '../../contexts/PerformanceContext';
 import { useViewport } from '../../hooks/useViewport';
@@ -40,12 +40,12 @@ const ParticleBackground = ({
   const { config } = useParticleConfig();
   const { width: viewportWidth, height: viewportHeight } = useViewport();
   
-  const canvasRef = React.useRef<HTMLCanvasElement>(null);
-  const animationRef = React.useRef<number | null>(null);
-  const particlesRef = React.useRef<Particle[]>([]);
-  const mouseRef = React.useRef({ x: 0, y: 0 });
-  const lastMouseMoveRef = React.useRef(0);
-  const canvasRectRef = React.useRef<DOMRect | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationRef = useRef<number | null>(null);
+  const particlesRef = useRef<Particle[]>([]);
+  const mouseRef = useRef({ x: 0, y: 0 });
+  const lastMouseMoveRef = useRef(0);
+  const canvasRectRef = useRef<DOMRect | null>(null);
 
   const mouseInteractionRadius = isLowPerformance ? 80 : 150;
   const mouseForce = isLowPerformance ? 0.08 : 0.2;
@@ -300,4 +300,4 @@ const ParticleBackground = ({
   );
 };
 
-export default React.memo(ParticleBackground);
+export default memo(ParticleBackground);

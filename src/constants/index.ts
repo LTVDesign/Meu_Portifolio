@@ -238,8 +238,8 @@ const technologies: TTechnology[] = [
 
 const experiences: TExperience[] = [
   {
-    title: 'experience.technicalSupport',
-    companyName: 'experience.consultingCompany',
+    title: 'experience.titles.technicalSupport',
+    companyName: 'experience.companies.consultingCompany',
     icon: '/empresas/terabyte.webp',
     iconBg: '#E6DEDD',
     date: 'experience.dates.terabyte',
@@ -255,8 +255,8 @@ const experiences: TExperience[] = [
     ],
   },
   {
-    title: 'experience.webMaster',
-    companyName: 'experience.companyDotKom',
+    title: 'experience.titles.webMaster',
+    companyName: 'experience.companies.companyDotKom',
     icon: '/empresas/dotkom.webp',
     iconBg: '#383E56',
     date: 'experience.dates.dotkom',
@@ -268,8 +268,8 @@ const experiences: TExperience[] = [
     ],
   },
   {
-    title: 'experience.computerTechnician',
-    companyName: 'experience.autonomous',
+    title: 'experience.titles.computerTechnician',
+    companyName: 'experience.companies.autonomous',
     icon: '/logo.svg',
     iconBg: '#E6DEDD',
     date: 'experience.dates.autonomo',
@@ -285,8 +285,8 @@ const experiences: TExperience[] = [
     ],
   },
   {
-    title: 'experience.itResponsible',
-    companyName: 'experience.companyMercedito',
+    title: 'experience.titles.itResponsible',
+    companyName: 'experience.companies.companyMercedito',
     icon: '/empresas/mercedito.webp',
     iconBg: '#E6DEDD',
     date: 'experience.dates.mercedito',
@@ -301,8 +301,8 @@ const experiences: TExperience[] = [
     ],
   },
   {
-    title: 'experience.generalManager',
-    companyName: "experienceDetails.abraKebabs",
+    title: 'experience.titles.generalManager',
+    companyName: "experience.companies.abraKebabs",
     icon: '/empresas/abrakebab.webp',
     iconBg: '#E6DEDD',
     date: 'experience.dates.abrakebabs',
@@ -312,8 +312,8 @@ const experiences: TExperience[] = [
     ],
   },
   {
-    title: 'experience.customerServiceManager',
-    companyName: 'experience.mundoTrader',
+    title: 'experience.titles.customerServiceManager',
+    companyName: 'experience.companies.mundoTrader',
     icon: '/empresas/trader.webp',
     iconBg: '#383E56',
     date: 'experience.dates.trader',
@@ -327,8 +327,8 @@ const experiences: TExperience[] = [
     ],
   },
   {
-    title: 'experience.itTechnicianManager',
-    companyName: 'experience.blitzHaus',
+    title: 'experience.titles.itTechnicianManager',
+    companyName: 'experience.companies.blitzHaus',
     icon: '/empresas/blitz.webp',
     iconBg: '#383E56',
     date: 'experience.dates.blitzhaus',
@@ -342,8 +342,8 @@ const experiences: TExperience[] = [
     ],
   },
   {
-    title: 'experience.ceoFounder',
-    companyName: 'experience.garagemod',
+    title: 'experience.titles.ceoFounder',
+    companyName: 'experience.companies.garagemod',
     icon: '/empresas/garage.webp',
     iconBg: '#383E56',
     date: 'experience.dates.garagemod',
@@ -356,8 +356,8 @@ const experiences: TExperience[] = [
     ],
   },
   {
-    title: 'experience.itAnalystLogistics',
-    companyName: 'experience.colonialRacing',
+    title: 'experience.titles.itAnalystLogistics',
+    companyName: 'experience.companies.colonialRacing',
     icon: '/empresas/colonial.webp',
     iconBg: '#E6DEDD',
     date: 'experience.dates.colonial',
@@ -370,8 +370,8 @@ const experiences: TExperience[] = [
     ],
   },
   {
-    title: 'experience.webDesignerMaster',
-    companyName: 'experience.ltvDesign',
+    title: 'experience.titles.webDesignerMaster',
+    companyName: 'experience.companies.ltvDesign',
     icon: '/empresas/ltv.webp',
     iconBg: '#383E56',
     date: 'experience.dates.ltv',
@@ -382,8 +382,8 @@ const experiences: TExperience[] = [
     ],
   },
   {
-    title: 'experience.salesSubManager',
-    companyName: 'experience.cafeBeach',
+    title: 'experience.titles.salesSubManager',
+    companyName: 'experience.companies.cafeBeach',
     icon: '/empresas/acai.webp',
     iconBg: '#383E56',
     date: 'experience.dates.acai',

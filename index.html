@@ -50,6 +50,20 @@
   <meta name="twitter:description"
     content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial — Desenvolvedor Full Stack">
   <meta name="twitter:image" content="https://leandrobarbosa.dev/logo.webp">
+  <script>
+    console.clear();
+    // Force unregister all service workers to clear stale/broken chunks
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for(let registration of registrations) {
+          registration.unregister();
+          console.log('[RECOVERY] Service Worker unregistered successfully');
+        }
+      }).catch(function(err) {
+        console.log('[RECOVERY] Service Worker unregistration failed: ', err);
+      });
+    }
+  </script>
   <title>Leandro Saturnino Barbosa | Portfólio 3D - React &amp; Three.js</title>
 
   <!-- CSS será importado via main.tsx -->

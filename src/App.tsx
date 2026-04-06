@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useState, useCallback, memo, useEffect } from 'react';
+import React, { useState, useCallback, memo, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { SpeedInsights } from '@vercel/speed-insights/react';
@@ -13,23 +13,20 @@ import { MotionProvider } from './components/layout/MotionProvider';
 import Navbar from './components/layout/Navbar';
 import BackgroundMenu from './components/layout/BackgroundMenu';
 import BackgroundEditorModal from './components/layout/BackgroundEditorModal';
+import ParticlesCanvas from './components/layout/ParticlesCanvas';
+import Footer from './components/layout/Footer';
 
-// LCP Optimization: Lazy loading com delay para não bloquear renderização inicial
-const ParticlesCanvas = lazy(() => import('./components/layout/ParticlesCanvas'));
-
-// Performance: Footer lazy loaded - não é necessário para LCP
-const Footer = lazy(() => import('./components/layout/Footer'));
-
-// Lazy Loading (melhor performance)
-const BackgroundManager = lazy(() => import('./components/canvas/BackgroundManager'));
-const HomePage = lazy(() => import('./pages/HomePage'));
-const FormacaoPage = lazy(() => import('./pages/FormacaoPage'));
-const ExperiencePage = lazy(() => import('./pages/ExperiencePage'));
-const CursosPage = lazy(() => import('./pages/CursosPage'));
-const ContactPage = lazy(() => import('./pages/ContactPage'));
-const DoomPage = lazy(() => import('./pages/DoomPage'));
-const DynamicTextDemoPage = lazy(() => import('./pages/DynamicTextDemoPage'));
-const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+// Componentes Síncronos (Restauração de Estabilidade)
+import BackgroundManager from './components/canvas/BackgroundManager';
+import HomePage from './pages/HomePage';
+import FormacaoPage from './pages/FormacaoPage';
+import ExperiencePage from './pages/ExperiencePage';
+import CursosPage from './pages/CursosPage';
+import ContactPage from './pages/ContactPage';
+import DoomPage from './pages/DoomPage';
+import DynamicTextDemoPage from './pages/DynamicTextDemoPage';
+import OnlineResume from './pages/OnlineResume';
+import NotFoundPage from './pages/NotFoundPage';
 
 // Simple Error Boundary
 class ErrorBoundary extends React.Component<
@@ -159,17 +156,13 @@ const AppContent = () => {
       {/* LCP Optimization: Backgrounds só carregam após LCP */}
       {loadBackgrounds && (
         <div className="fixed inset-0 z-0 pointer-events-none">
-          <Suspense fallback={null}>
-            <BackgroundManager />
-          </Suspense>
+          <BackgroundManager />
         </div>
       )}
 
       {loadBackgrounds && (
         <div className="fixed inset-0 z-0 pointer-events-none">
-          <Suspense fallback={null}>
-            <ParticlesCanvas />
-          </Suspense>
+          <ParticlesCanvas />
         </div>
       )}
 
@@ -179,31 +172,22 @@ const AppContent = () => {
 
         <main className="relative z-10">
           <ErrorBoundary>
-            <Suspense
-              fallback={
-                <div className="flex items-center justify-center min-h-[70vh]">
-                  <div className="text-white/60 text-lg">Carregando conteúdo...</div>
-                </div>
-              }
-            >
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/formacao" element={<FormacaoPage />} />
-                <Route path="/projetos" element={<ExperiencePage />} />
-                <Route path="/cursos" element={<CursosPage />} />
-                <Route path="/contato" element={<ContactPage />} />
-                <Route path="/doom" element={<DoomPage />} />
-                <Route path="/dynamic-text-demo" element={<DynamicTextDemoPage />} />
-                <Route path="*" element={<NotFoundPage />} />
-              </Routes>
-            </Suspense>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/formacao" element={<FormacaoPage />} />
+              <Route path="/projetos" element={<ExperiencePage />} />
+              <Route path="/cursos" element={<CursosPage />} />
+              <Route path="/contato" element={<ContactPage />} />
+              <Route path="/doom" element={<DoomPage />} />
+              <Route path="/dynamic-text-demo" element={<DynamicTextDemoPage />} />
+              <Route path="/online-cv" element={<OnlineResume />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
           </ErrorBoundary>
         </main>
 
-        {/* Footer com lazy loading - não é necessário para LCP */}
-        <Suspense fallback={<div className="h-48 bg-tertiary animate-pulse" />}>
-          <Footer />
-        </Suspense>
+        {/* Footer síncrono para estabilidade */}
+        <Footer />
       </div>
 
       {/* Overlays de Background */}
