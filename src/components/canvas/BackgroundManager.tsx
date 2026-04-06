@@ -1,4 +1,4 @@
-import { lazy, memo, Suspense, useState } from 'react';
+import { memo, useState } from 'react';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 
 // Lazy load heavy backgrounds

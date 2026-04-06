@@ -16,12 +16,7 @@ const GearButton = ({ onClick }: GearButtonProps) => {
     setIsMounted(true);
   }, []);
 
-  const isWatch = screenWidth < 280;
-  const isMobileSmall = screenWidth < 380;
-  const isMobile = screenWidth < 640;
-  const isTV = screenWidth > 2560;
-
-  const targetScale = isWatch ? 0.35 : isMobileSmall ? 0.45 : isMobile ? 0.55 : 1;
+  const targetScale = Math.max(0.35, Math.min(1.2, screenWidth / 1024 + 0.15));
 
   return (
     <AnimatePresence>
@@ -39,9 +34,10 @@ const GearButton = ({ onClick }: GearButtonProps) => {
             scale: { duration: 0.5 },
             x: { duration: 0.5 },
           }}
-          className={`fixed top-1/2 -translate-y-1/2 z-[10000] origin-left ${isWatch ? 'left-0' : isMobileSmall ? 'left-0.5' : isMobile ? 'left-1' : isTV ? 'left-12' : 'left-4 sm:left-6'}`}
+          className="fixed top-1/2 -translate-y-1/2 z-[10000] origin-left"
           style={{
-            transformOrigin: 'left center'
+            transformOrigin: 'left center',
+            left: 'clamp(0px, 2vw, 1.5rem)'
           }}
         >
           <m.div
@@ -54,7 +50,7 @@ const GearButton = ({ onClick }: GearButtonProps) => {
               ease: 'easeInOut',
             }}
           >
-            <div className='relative' style={{ width: isWatch ? '80px' : isMobileSmall ? '90px' : isMobile ? '100px' : '140px', height: isWatch ? '80px' : isMobileSmall ? '90px' : isMobile ? '100px' : '140px' }}>
+            <div className='relative' style={{ width: 'clamp(80px, 15vw, 140px)', height: 'clamp(80px, 15vw, 140px)' }}>
               {/* ========== SOMBRAS RGB EXTERNAS GIRANDO ========== */}
               <m.div
                 className='absolute rounded-full pointer-events-none'

@@ -28,13 +28,13 @@ const SCREEN_CONFIG: Record<ScreenSize, {
   fov: number;
   dprMax: number;
 }> = {
-  watch: { position: [0, -2.2, -1.5], scale: 0.4, fov: 30, dprMax: 1 },
-  mobileSmall: { position: [0, -2.5, -1.5], scale: 0.5, fov: 30, dprMax: 1.5 },
-  mobile: { position: [0, -2.8, -1.5], scale: 0.6, fov: 28, dprMax: 1.5 },
-  tablet: { position: [0, -3.0, -1.5], scale: 0.65, fov: 28, dprMax: 2 },
-  desktop: { position: [0, -3.25, -1.5], scale: 0.75, fov: 25, dprMax: 2 },
-  tv: { position: [0, -3.5, -2], scale: 1.1, fov: 22, dprMax: 2 },
-  '4k': { position: [0, -3.5, -2], scale: 1.3, fov: 20, dprMax: 2 },
+  watch: { position: [0, -1.2, -1.0], scale: 0.65, fov: 32, dprMax: 1 },
+  mobileSmall: { position: [0, -1.4, -1.0], scale: 0.75, fov: 30, dprMax: 1.5 },
+  mobile: { position: [0, -1.6, -1.0], scale: 0.85, fov: 28, dprMax: 1.5 },
+  tablet: { position: [0, -2.0, -1.5], scale: 0.85, fov: 28, dprMax: 2 },
+  desktop: { position: [0, -2.8, -1.5], scale: 0.75, fov: 25, dprMax: 2 },
+  tv: { position: [0, -3.0, -2], scale: 1.1, fov: 22, dprMax: 2 },
+  '4k': { position: [0, -3.0, -2], scale: 1.3, fov: 20, dprMax: 2 },
 };
 
 const ComputersContent: React.FC<{ screenSize: ScreenSize }> = ({ screenSize }) => {
@@ -136,8 +136,8 @@ export const ComputersCanvas = () => {
       className='relative h-full w-full'
       data-engine='r3f'
       style={{
-        minHeight: screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k' ? '100%' : '75%',
-        marginTop: screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k' ? '0' : '12%',
+        minHeight: '100%',
+        marginTop: '0px',
         // Em mobile, mantemos 100% para não esmagar a renderização do modelo (o touch guard protege o scroll nativo)
         width: '100%',
         marginRight: 'auto',

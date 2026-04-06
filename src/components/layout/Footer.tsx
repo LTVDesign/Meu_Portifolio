@@ -256,16 +256,16 @@ const Footer: React.FC = () => {
   return (
     <footer
       ref={footerRef}
-      className='footer-stable relative mt-4 sm:mt-6 pt-6 sm:pt-8 pb-2 sm:pb-4'
+      className='footer-stable relative mt-[clamp(1rem,3vw,1.5rem)] pt-[clamp(1.5rem,4vw,2rem)] pb-[clamp(0.5rem,1.5vw,1rem)]'
       role='contentinfo'
     >
       {/* Fundo com cor sólida igual ao header */}
       <div className='absolute inset-0 bg-[var(--bg-glass)] pointer-events-none' />
       <div className='absolute -top-24 left-1/2 -translate-x-1/2 w-full max-w-4xl h-48 bg-[#915EFF]/10 blur-[120px] rounded-full pointer-events-none' />
 
-      <div className='footer-content max-w-7xl mx-auto px-4 sm:px-8 md:px-16 relative z-10'>
-        {/* Grid de 3 colunas */}
-        <div className='footer-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 justify-items-center items-start text-center mb-6'>
+      <div className='footer-content max-w-7xl mx-auto px-[clamp(1rem,4vw,4rem)] relative z-10'>
+        {/* Grid de colunas */}
+        <div className='footer-grid grid grid-cols-[repeat(auto-fit,minmax(min(100%,250px),1fr))] gap-[clamp(1.5rem,4vw,2rem)] justify-items-center items-start text-center mb-[clamp(1.5rem,4vw,2rem)]'>
           {/* Coluna 1 - Esquerda: Nome e Descrição */}
           <div className='flex flex-col items-center text-center max-w-sm'>
             <h2 className='text-[clamp(1.2rem,4vw,1.5rem)] font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent mb-4'>
@@ -283,7 +283,7 @@ const Footer: React.FC = () => {
             <h3 className='text-[clamp(0.7rem,2vw,0.85rem)] font-bold uppercase tracking-widest text-[var(--cyber-purple)] mb-6'>
               <DynamicText colorMode='auto'>{t('footer.quickAccess')}</DynamicText>
             </h3>
-            <ul className='grid grid-cols-2 gap-x-2 sm:gap-x-4 gap-y-2 justify-items-center'>
+            <ul className='grid grid-cols-2 gap-x-[clamp(0.5rem,2vw,1rem)] gap-y-[clamp(0.5rem,1vw,0.5rem)] justify-items-center'>
               {navLinks
                 .filter((link) => link.id !== 'contact' && link.id !== 'doom')
                 .map((link) => (
@@ -298,7 +298,7 @@ const Footer: React.FC = () => {
                           }
                         }
                       }}
-                      className='text-[var(--dynamic-text-secondary)] hover:text-white text-[clamp(0.75rem,2vw,0.9rem)] transition-colors composited-hover focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-xl px-2 sm:px-3 py-1 min-h-[44px] flex items-center gap-2'
+                      className='text-[var(--dynamic-text-secondary)] hover:text-white text-[clamp(0.75rem,2vw,0.9rem)] transition-colors composited-hover focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-xl px-[clamp(0.5rem,1vw,0.75rem)] py-1 min-h-[44px] flex items-center gap-2'
                     >
                       <DynamicText colorMode='auto'>{t(`nav.${link.id}`)}</DynamicText>
                     </Link>
@@ -315,7 +315,7 @@ const Footer: React.FC = () => {
             <a
               href={`mailto:${config.html.email}`}
               aria-label={t('footer.emailUs')}
-              className='flex items-center gap-3 sm:gap-4 text-[clamp(0.75rem,2vw,0.9rem)] text-[var(--dynamic-text-secondary)] hover:text-white composited-hover focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-2xl px-3 sm:px-4 py-2 transition-colors mb-4 min-h-[44px] break-all'
+              className='flex items-center gap-[clamp(0.75rem,1.5vw,1rem)] text-[clamp(0.75rem,2vw,0.9rem)] text-[var(--dynamic-text-secondary)] hover:text-white composited-hover focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-2xl px-[clamp(0.75rem,1.5vw,1rem)] py-[clamp(0.5rem,1vw,0.5rem)] transition-colors mb-[clamp(1rem,2vw,1rem)] min-h-[44px] break-all'
             >
               <EnvelopeIcon className='text-[var(--cyber-purple)]' />
               <span>
@@ -323,7 +323,7 @@ const Footer: React.FC = () => {
               </span>
             </a>
 
-            <div className='social-links-container flex items-center gap-3 sm:gap-4 mb-4'>
+            <div className='social-links-container flex items-center gap-[clamp(0.75rem,1.5vw,1rem)] mb-[clamp(1rem,2vw,1rem)]'>
               {socialLinks.map(({ icon: Icon, url, label, color }) => (
                 <m.a
                   key={label}
@@ -334,7 +334,7 @@ const Footer: React.FC = () => {
                   aria-label={label}
                   className={`text-[var(--dynamic-text-secondary)] ${color} social-icon-composited composited-hover transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)]`}
                 >
-                  <Icon size={20} className='sm:text-[24px]' />
+                  <Icon size={24} />
                 </m.a>
               ))}
             </div>
@@ -391,7 +391,7 @@ const Footer: React.FC = () => {
 
               {/* Teclas interativas - renderiza apenas após interação ou quando visível */}
               {(hasInteracted || easterEggVisible) && (
-                <div className='flex items-center gap-1.5 sm:gap-2 p-3 rounded-2xl bg-gradient-to-r from-purple-900/20 via-black/30 to-blue-900/20 border border-white/10 flex-wrap justify-center shadow-[0_0_30px_rgba(145,94,255,0.15)]'>
+                <div className='flex items-center gap-[clamp(0.375rem,1vw,0.5rem)] p-[clamp(0.5rem,1.5vw,0.75rem)] rounded-2xl bg-gradient-to-r from-purple-900/20 via-black/30 to-blue-900/20 border border-white/10 flex-wrap justify-center shadow-[0_0_30px_rgba(145,94,255,0.15)]'>
                   {konamiCodeKeys.map((key, index) => {
                     const Icon = key.icon;
                     const isActive = konamiProgress > index;
@@ -406,7 +406,7 @@ const Footer: React.FC = () => {
                         whileHover={{ scale: 1.15 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => handleKeyClick(index)}
-                        className={`konami-key w-6 h-6 sm:w-7 sm:h-7 rounded-lg border-2 flex items-center justify-center cursor-pointer transition-[transform,opacity,box-shadow] duration-200 text-xs font-bold relative group skill-icon
+                        className={`konami-key w-[clamp(1.5rem,3vw,1.75rem)] h-[clamp(1.5rem,3vw,1.75rem)] rounded-lg border-2 flex items-center justify-center cursor-pointer transition-[transform,opacity,box-shadow] duration-200 text-xs font-bold relative group skill-icon
                           ${isActive
                             ? 'bg-gradient-to-br from-[#915EFF] via-[#6366f1] to-[#8b5cf6] border-[#915EFF] text-white shadow-[0_0_15px_rgba(145,94,255,0.5)]'
                             : isCurrent
@@ -421,7 +421,7 @@ const Footer: React.FC = () => {
                           <div className='absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#915EFF]' />
                         </div>
                         <span className='relative z-10'>
-                          {Icon ? <Icon size={12} className='sm:text-[14px]' /> : key.label}
+                          {Icon ? <Icon size={14} /> : key.label}
                         </span>
                       </m.div>
                     );
@@ -443,7 +443,7 @@ const Footer: React.FC = () => {
 
         {/* Copyright */}
         <div className='footer-copyright mt-4 pt-3 border-t border-white/5 flex flex-col items-center gap-1'>
-          <p className='text-[10px] sm:text-xs text-white/30 text-center tracking-wide'>
+          <p className='text-[clamp(0.625rem,1.5vw,0.75rem)] text-white/30 text-center tracking-wide'>
             © {new Date().getFullYear()} Leandro Saturnino Barbosa. {t('footer.allRightsReserved', 'All rights reserved.')}
           </p>
         </div>

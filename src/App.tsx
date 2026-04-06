@@ -167,10 +167,10 @@ const AppContent = () => {
       )}
 
       {/* Conteúdo principal - renderiza primeiro para LCP */}
-      <div className="relative z-20 min-h-screen">
+      <div className="relative z-20 min-h-screen flex flex-col">
         <Navbar />
 
-        <main className="relative z-10">
+        <main className="relative z-10 flex-1 w-[min(100%,_var(--max-width,100vw))] mx-auto">
           <ErrorBoundary>
             <Routes>
               <Route path="/" element={<HomePage />} />

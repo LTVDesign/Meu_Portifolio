@@ -131,37 +131,7 @@ const Navbar = memo(() => {
     return `/#${navId}`;
   };
 
-  // Tamanhos do logo responsivos
-  const isWatch = screenWidth < 280;
-  const isMobileSmall = screenWidth < 380;
-  const isMobile = screenWidth < 640;
-
-  const logoSize = isWatch
-    ? 'h-10 w-10'
-    : isMobileSmall
-      ? 'h-12 w-12'
-      : isMobile
-        ? 'h-14 w-14'
-        : 'h-32 w-32 md:h-40 md:w-40';
-
-  const logoLeft = isWatch
-    ? 'left-1'
-    : isMobileSmall
-      ? 'left-1'
-      : isMobile
-        ? 'left-2'
-        : 'left-2 md:left-6';
-
-  const logoTop = isWatch ? 'top-1' : 'top-2';
-
-  const brandMargin = isWatch
-    ? 'ml-12'
-    : isMobileSmall
-      ? 'ml-14'
-      : isMobile
-        ? 'ml-16'
-        : 'ml-28 md:ml-36 lg:ml-44';
-
+  // Fluid logo logic handled via Tailwind clamp utilities now!
   return (
     <nav
       className='critical-navbar glass transition-all duration-300'
@@ -169,11 +139,11 @@ const Navbar = memo(() => {
         boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5)',
       }}
     >
-      {/* Logo Flutuante - Tamanho responsivo */}
+      {/* Logo Flutuante - Tamanho responsivo usando clamp */}
       <Link
         to='/'
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className={`absolute ${logoLeft} ${logoTop} z-[60] ${logoSize} pointer-events-auto logo-float block`}
+        className={`absolute left-[clamp(0.25rem,2vw,1.5rem)] top-[clamp(0.25rem,1vw,0.5rem)] z-[60] w-[clamp(2.5rem,10vw,10rem)] h-[clamp(2.5rem,10vw,10rem)] pointer-events-auto logo-float block`}
         aria-label={t('nav.logo')}
       >
         <m.div
@@ -197,14 +167,13 @@ const Navbar = memo(() => {
             className='w-full h-full object-contain drop-shadow-[0_0_20px_rgba(145,94,255,0.8)]'
             width='128'
             height='128'
-            fetchPriority="high"
             decoding="sync"
           />
         </m.div>
       </Link>
 
       {/* Progress Line */}
-      <div className='absolute bottom-0 left-0 h-[3px] sm:h-[4px] w-full bg-white/10 overflow-hidden'>
+      <div className='absolute bottom-0 left-0 h-[clamp(2px,0.5vh,4px)] w-full bg-white/10 overflow-hidden'>
         <m.div
           className='h-full bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] origin-left shadow-[0_0_20px_rgba(0,255,255,0.8)] relative overflow-hidden'
           style={{ scaleX }}
@@ -214,27 +183,22 @@ const Navbar = memo(() => {
       </div>
 
       <div
-        className={`max-w-screen-2xl mx-auto flex items-center justify-between gap-2 sm:gap-4
-          ${isWatch ? 'px-2 py-1' : isMobile ? 'px-3 py-2' : 'px-6 md:px-12 lg:px-16 py-3'}`}
+        className={`w-[min(100%,_var(--max-width,100vw))] mx-auto flex items-center justify-between gap-[clamp(0.5rem,2vw,1rem)] px-[clamp(0.5rem,5vw,4rem)] py-[clamp(0.25rem,1.5vw,0.75rem)]`}
       >
         {/* Left side: Brand and Tagline */}
-        <div className={`flex items-center gap-2 sm:gap-6 ${brandMargin}`}>
+        <div className={`flex items-center gap-[clamp(0.5rem,3vw,1.5rem)] ml-[clamp(3rem,12vw,11.5rem)]`}>
           <Link
             to='/'
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className='flex items-center gap-2 md:gap-3 group relative'
+            className='flex items-center gap-[clamp(0.4rem,1vw,0.75rem)] group relative'
             aria-label={t('nav.logo')}
           >
             <span className='navbar-brand-text'>
               <span
                 className='cyber-name'
                 style={{
-                  fontSize: isWatch
-                    ? 'clamp(0.7rem, 3vw, 0.9rem)'
-                    : isMobileSmall
-                      ? 'clamp(0.85rem, 4vw, 1.1rem)'
-                      : undefined,
-                  gap: isWatch ? '0.2rem' : undefined,
+                  fontSize: 'clamp(1rem, 2.5vw + 0.5rem, 2.25rem)',
+                  gap: 'clamp(0.3rem, 1vw, 0.75rem)',
                 }}
               >
                 <span className='name-part' data-text={t('nav.brand_part1')}>
@@ -264,7 +228,7 @@ const Navbar = memo(() => {
                         handleNavClick(e, nav.id);
                       }
                     }}
-                    className={`navbar-link composited-hover py-1.5 px-1 md:px-1.5 text-[10px] md:text-xs lg:text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:text-[var(--cyber-cyan)] relative group/link ${isActive ? 'text-white active-menu-glow' : 'text-white/70'}`}
+                    className={`navbar-link composited-hover py-[clamp(0.25rem,0.6vw,0.5rem)] px-[clamp(0.3rem,1vw,0.75rem)] text-[clamp(0.65rem,1.2vw,0.85rem)] font-bold uppercase tracking-widest transition-all duration-300 hover:text-[var(--cyber-cyan)] relative group/link ${isActive ? 'text-white active-menu-glow' : 'text-white/70'}`}
                   >
                     <DynamicText colorMode='auto'>{t(`nav.${nav.id}`)}</DynamicText>
                     <m.div
@@ -316,15 +280,15 @@ const Navbar = memo(() => {
             aria-label={toggle ? 'Fechar menu' : 'Abrir menu'}
             aria-expanded={toggle}
           >
-            <div className={`flex flex-col justify-between items-end ${isWatch ? 'w-4 h-3.5' : 'w-6 h-5'}`}>
+            <div className={`flex flex-col justify-between items-end w-[clamp(1rem,4vw,1.5rem)] h-[clamp(0.875rem,3vw,1.25rem)]`}>
               <span
-                className={`h-0.5 bg-current transition-all duration-300 ${toggle ? 'w-full translate-y-[7px] -rotate-45' : 'w-full'} ${isWatch ? 'h-px' : ''}`}
+                className={`h-[clamp(1px,0.2vh,2px)] bg-current transition-all duration-300 ${toggle ? 'w-full translate-y-[clamp(4px,1vw,7px)] -rotate-45' : 'w-full'}`}
               />
               <span
-                className={`h-0.5 bg-current transition-all duration-300 ${toggle ? 'opacity-0' : isWatch ? 'w-3' : 'w-4'} ${isWatch ? 'h-px' : ''}`}
+                className={`h-[clamp(1px,0.2vh,2px)] bg-current transition-all duration-300 ${toggle ? 'opacity-0' : 'w-[75%]'}`}
               />
               <span
-                className={`h-0.5 bg-current transition-all duration-300 ${toggle ? 'w-full -translate-y-[7px] rotate-45' : isWatch ? 'w-3.5' : 'w-5'} ${isWatch ? 'h-px' : ''}`}
+                className={`h-[clamp(1px,0.2vh,2px)] bg-current transition-all duration-300 ${toggle ? 'w-full -translate-y-[clamp(4px,1vw,7px)] rotate-45' : 'w-[85%]'}`}
               />
             </div>
           </button>
@@ -333,48 +297,36 @@ const Navbar = memo(() => {
 
       {/* Mobile Menu Content - Ajustado para iPad e Mobile com scroll interno */}
       <div
-        className={`lg:hidden absolute top-full left-0 right-0 glass border-t border-white/10 transition-all duration-300 ease-out z-[999999] overflow-y-auto overflow-x-hidden ${toggle ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-4 pointer-events-none'}`}
+        className={`lg:hidden absolute top-full left-0 right-0 glass border-t border-white/10 transition-all duration-300 ease-out z-[999999] overflow-y-auto overflow-x-hidden ${toggle ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-4 pointer-events-none'} md:w-screen lg:w-auto lg:left-[140px]`}
         style={{
-          maxHeight: toggle ? 'calc(100vh - 80px)' : '0',
+          maxHeight: toggle ? 'calc(100dvh - clamp(40px, 10vh, 80px))' : '0',
           overscrollBehavior: 'contain',
-          // No iPad Mini (768px), forçamos que o menu ocupe toda a largura visível e não seja obstruído
-          // Ajuste de posicionamento para não sobrepor o GearButton flutuante
-          // Para telas muito pequenas (watch) mantemos largura total e alinhamento à esquerda
-          // Para dispositivos móveis até 640px usamos largura total para evitar sobreposição e garantir usabilidade
-          // Em telas maiores posicionamos ao lado da engragem (aprox. 140px de deslocamento)
-          // Responsivo: telas muito pequenas (watch) ocupam largura total sem deslocamento
-          // Telas pequenas até md (mobileSmall, mobile, tablet) ocupam largura total abaixo da engrenagem
-          // Telas maiores (lg+) posicionam ao lado da engrenagem com deslocamento de 140px
-          // Responsivo: telas muito pequenas (watch) ocupam largura total sem deslocamento
-          // Telas pequenas até md (mobileSmall, mobile) ocupam largura total abaixo da engrenagem
-          // Telas maiores (lg+) posicionam ao lado da engrenagem com deslocamento de 140px
-          left: isWatch ? '0' : (isMobileSmall || isMobile) ? '0' : '140px',
-          width: isWatch ? '100vw' : (isMobileSmall || isMobile) ? '100vw' : 'calc(100vw - 140px)',
-          maxWidth: isWatch ? 'none' : (isMobileSmall || isMobile) ? 'none' : '340px',
+          left: 'clamp(0px, 5vw, 140px)',
+          width: 'clamp(100vw, 100vw, calc(100vw - 140px))',
           backgroundColor: 'rgba(5, 8, 22, 0.95)',
         }}
       >
-        <div className={`${isWatch ? 'px-3 py-4' : 'px-6 py-6'}`}>
-          <ul className={`flex flex-col font-bold uppercase tracking-widest mb-4 ${isWatch ? 'gap-2 text-xs' : 'gap-3 md:gap-4 text-sm'}`}>
+        <div className="px-[clamp(0.75rem,3vw,1.5rem)] py-[clamp(1rem,4vw,1.5rem)]">
+          <ul className="flex flex-col font-bold uppercase tracking-widest mb-4 gap-[clamp(0.5rem,1.5vw,1rem)] text-[clamp(0.75rem,2vw,0.875rem)]">
             {navLinks.map((nav) => (
               <li key={nav.id}>
                 <Link
                   to={getNavLink(nav.id)}
                   onClick={() => setToggle(false)}
-                  className={`text-white/80 hover:text-white composited-hover transition-colors block py-2.5 min-h-[48px] flex items-center gap-3 px-2 rounded-xl active:bg-white/5 ${active === nav.id ? 'text-[var(--cyber-cyan)] font-bold border-l-2 border-[var(--cyber-cyan)] pl-4' : ''}`}
+                  className={`text-white/80 hover:text-white composited-hover transition-colors block py-[clamp(0.5rem,1.5vw,0.625rem)] min-h-[clamp(36px,10vw,48px)] flex items-center gap-3 px-2 rounded-xl active:bg-white/5 ${active === nav.id ? 'text-[var(--cyber-cyan)] font-bold border-l-2 border-[var(--cyber-cyan)] pl-4' : ''}`}
                 >
                   <DynamicText colorMode='auto'>{t(`nav.${nav.id}`)}</DynamicText>
                 </Link>
               </li>
             ))}
           </ul>
-          <div className={`flex items-center justify-center gap-4 border-t border-white/10 ${isWatch ? 'pt-3' : 'pt-4'}`}>
+          <div className="flex items-center justify-center gap-[clamp(0.5rem,2vw,1rem)] border-t border-white/10 pt-[clamp(0.75rem,2vw,1rem)]">
             <button
               onClick={() => {
                 i18n.changeLanguage('pt');
                 setToggle(false);
               }}
-              className={`relative rounded overflow-hidden min-w-[44px] min-h-[44px] flex items-center justify-center ${isWatch ? 'w-8 h-5' : 'w-10 h-6'}`}
+              className={`relative rounded overflow-hidden min-w-[44px] min-h-[44px] flex items-center justify-center w-[clamp(2rem,6vw,2.5rem)] h-[clamp(1.25rem,4vw,1.5rem)]`}
               aria-label="Português"
             >
               <div
@@ -392,7 +344,7 @@ const Navbar = memo(() => {
                 i18n.changeLanguage('en');
                 setToggle(false);
               }}
-              className={`relative rounded overflow-hidden min-w-[44px] min-h-[44px] flex items-center justify-center ${isWatch ? 'w-8 h-5' : 'w-10 h-6'}`}
+              className={`relative rounded overflow-hidden min-w-[44px] min-h-[44px] flex items-center justify-center w-[clamp(2rem,6vw,2.5rem)] h-[clamp(1.25rem,4vw,1.5rem)]`}
               aria-label="English"
             >
               <div

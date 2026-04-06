@@ -252,6 +252,10 @@ const experiences: TExperience[] = [
       'experience.points.terabyte6',
       'experience.points.terabyte7',
       'experience.points.terabyte8',
+      'experience.points.terabyte9',
+      'experience.points.terabyte10',
+      'experience.points.terabyte11',
+      'experience.points.terabyte12',
     ],
   },
   {
@@ -265,6 +269,10 @@ const experiences: TExperience[] = [
       'experience.points.dotkom2',
       'experience.points.dotkom3',
       'experience.points.dotkom4',
+      'experience.points.dotkom5',
+      'experience.points.dotkom6',
+      'experience.points.dotkom7',
+      'experience.points.dotkom8',
     ],
   },
   {
@@ -282,6 +290,9 @@ const experiences: TExperience[] = [
       'experience.points.autonomo6',
       'experience.points.autonomo7',
       'experience.points.autonomo8',
+      'experience.points.autonomo9',
+      'experience.points.autonomo10',
+      'experience.points.autonomo11',
     ],
   },
   {
@@ -309,6 +320,10 @@ const experiences: TExperience[] = [
     points: [
       'experience.points.abrakebabs1',
       'experience.points.abrakebabs2',
+      'experience.points.abrakebabs3',
+      'experience.points.abrakebabs4',
+      'experience.points.abrakebabs5',
+      'experience.points.abrakebabs6',
     ],
   },
   {
@@ -324,6 +339,9 @@ const experiences: TExperience[] = [
       'experience.points.trader4',
       'experience.points.trader5',
       'experience.points.trader6',
+      'experience.points.trader7',
+      'experience.points.trader8',
+      'experience.points.trader9',
     ],
   },
   {
@@ -339,6 +357,9 @@ const experiences: TExperience[] = [
       'experience.points.blitz4',
       'experience.points.blitz5',
       'experience.points.blitz6',
+      'experience.points.blitz7',
+      'experience.points.blitz8',
+      'experience.points.blitz9',
     ],
   },
   {
@@ -353,6 +374,10 @@ const experiences: TExperience[] = [
       'experience.points.garagemod3',
       'experience.points.garagemod4',
       'experience.points.garagemod5',
+      'experience.points.garagemod6',
+      'experience.points.garagemod7',
+      'experience.points.garagemod8',
+      'experience.points.garagemod9',
     ],
   },
   {
@@ -367,6 +392,9 @@ const experiences: TExperience[] = [
       'experience.points.colonial3',
       'experience.points.colonial4',
       'experience.points.colonial5',
+      'experience.points.colonial6',
+      'experience.points.colonial7',
+      'experience.points.colonial8',
     ],
   },
   {
@@ -379,6 +407,9 @@ const experiences: TExperience[] = [
       'experience.points.ltv1',
       'experience.points.ltv2',
       'experience.points.ltv3',
+      'experience.points.ltv4',
+      'experience.points.ltv5',
+      'experience.points.ltv6',
     ],
   },
   {
@@ -390,6 +421,9 @@ const experiences: TExperience[] = [
     points: [
       'experience.points.acai1',
       'experience.points.acai2',
+      'experience.points.acai3',
+      'experience.points.acai4',
+      'experience.points.acai5',
     ],
   },
 ];
@@ -443,7 +477,7 @@ const projects: TProject[] = [
     image: getnexo,
     sourceCodeLink: 'https://github.com/lelebrr/GetNexo',
     status: 'status_ongoing',
-    category: 'SaaS',
+    category: 'category_saas',
   },
   {
     name: 'Component Tester PRO v2.0',
@@ -469,7 +503,7 @@ const projects: TProject[] = [
     image: comptester,
     sourceCodeLink: 'https://github.com/lelebrr/Component_Tester',
     status: 'status_finished',
-    category: 'Hardware',
+    category: 'category_hardware',
   },
   {
     name: 'Willy Cyber-Multitool',
@@ -495,7 +529,7 @@ const projects: TProject[] = [
     image: willy,
     sourceCodeLink: 'https://github.com/lelebrr/Willy',
     status: 'status_ongoing',
-    category: 'Security',
+    category: 'category_security',
   },
 ];
 

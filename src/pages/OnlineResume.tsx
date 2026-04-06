@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { m } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
@@ -6,7 +6,6 @@ import {
   FiMail, 
   FiPhone, 
   FiLinkedin, 
-  FiGithub, 
   FiMapPin, 
   FiDownload, 
   FiPrinter,
@@ -14,10 +13,7 @@ import {
   FiBookOpen,
   FiBriefcase,
   FiCode,
-  FiExternalLink,
   FiZap,
-  FiCpu,
-  FiShield,
   FiGlobe,
   FiCheckCircle,
   FiStar

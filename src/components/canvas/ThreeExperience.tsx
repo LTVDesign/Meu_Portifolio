@@ -10,55 +10,50 @@ import CanvasLoader from './Loader';
 // LCP Optimization: Preload movido para dentro do componente para não bloquear renderização inicial
 // O preload será feito após o componente montar, não no nível do módulo
 
-type ScreenSize = 'watch' | 'mobileSmall' | 'mobile' | 'tablet' | 'desktop' | 'tv' | '4k';
+// Fluid configuration parameters based on container width
+const getFluidConfig = (width: number) => {
+  // Base scale calculation: linear interpolation scaled by width
+  // From 0.28 (at 280px) to 1.3 (at 3840px)
+  const scale = Math.max(0.28, Math.min(1.3, width / 1800 + 0.15));
+  
+  // Position adjustments based on width
+  const posY = Math.max(-3.5, Math.min(-1.5, -1.5 - ((width - 280) / 2000) * 1.5));
+  const posZ = Math.max(-2, Math.min(0, -((width - 640) / 1000) * 1.5));
+  
+  // FOV adjustments: wider FOV on smaller screens
+  const fov = Math.max(20, Math.min(60, 60 - ((width - 280) / 1500) * 35));
+  
+  // DPR adjustments
+  const dprMax = width < 640 ? 1 : width < 1024 ? 1.5 : 2;
 
-const getScreenSize = (width: number): ScreenSize => {
-  if (width < 280) return 'watch';
-  if (width < 380) return 'mobileSmall';
-  if (width < 640) return 'mobile';
-  if (width < 1024) return 'tablet';
-  if (width > 3840) return '4k';
-  if (width > 2560) return 'tv';
-  return 'desktop';
-};
-
-const SCREEN_CONFIG: Record<ScreenSize, {
-  position: [number, number, number];
-  scale: number;
-  fov: number;
-  dprMax: number;
-}> = {
-  watch: { position: [0, -1.5, 0], scale: 0.28, fov: 60, dprMax: 1 },
-  mobileSmall: { position: [0, -2.0, 0], scale: 0.38, fov: 55, dprMax: 1 },
-  mobile: { position: [0, -2.5, 0], scale: 0.45, fov: 50, dprMax: 1.25 },
-  tablet: { position: [0, -3.0, -1], scale: 0.58, fov: 40, dprMax: 1.5 },
-  desktop: { position: [0, -3.25, -1.5], scale: 0.75, fov: 25, dprMax: 2 },
-  tv: { position: [0, -3.5, -2], scale: 1.1, fov: 22, dprMax: 2 },
-  '4k': { position: [0, -3.5, -2], scale: 1.3, fov: 20, dprMax: 2 },
+  return {
+    scale,
+    position: [0, posY, posZ] as [number, number, number],
+    fov,
+    dprMax
+  };
 };
 
 /**
  * ComputersContent - Componente interno que renderiza o modelo 3D do computador
  * Contém todas as luzes e o modelo primitive
  */
-const ComputersContent: React.FC<{ screenSize: ScreenSize }> = ({ screenSize }) => {
+const ComputersContent: React.FC<{ viewportWidth: number }> = ({ viewportWidth }) => {
   const [shouldLoadModel, setShouldLoadModel] = useState(false);
   const computer = useGLTF('/desktop_pc/scene-optimized.gltf');
 
   useEffect(() => {
-    // Delay adaptativo: menor em desktop, maior em mobile para priorizar LCP
-    const delay = screenSize === 'watch' || screenSize === 'mobileSmall' ? 600
-      : screenSize === 'mobile' ? 400
-        : 300;
+    // Delay adaptativo: menor em telas maiores
+    const delay = viewportWidth < 640 ? 600 : 300;
 
     const timer = setTimeout(() => {
       setShouldLoadModel(true);
     }, delay);
 
     return () => clearTimeout(timer);
-  }, [screenSize]);
+  }, [viewportWidth]);
 
-  const cfg = SCREEN_CONFIG[screenSize];
+  const cfg = getFluidConfig(viewportWidth);
 
   if (!shouldLoadModel || !computer?.scene) {
     return null;
@@ -68,7 +63,7 @@ const ComputersContent: React.FC<{ screenSize: ScreenSize }> = ({ screenSize }) 
     <mesh>
       {/* HemisphereLight - luz ambiente suave */}
       <hemisphereLight
-        intensity={screenSize === 'watch' ? 0.2 : 0.15}
+        intensity={viewportWidth < 380 ? 0.2 : 0.15}
         groundColor='black'
       />
       {/* SpotLight - luz direcional principal */}
@@ -115,7 +110,6 @@ const ThreeExperience: React.FC = () => {
   });
   const [shouldLoad, setShouldLoad] = useState(false);
   const { width: viewportWidth } = useViewport();
-  const [screenSize, setScreenSize] = useState<ScreenSize>(() => 'desktop');
 
   // LCP Optimization: Preload feito após montagem, não no nível do módulo
   useEffect(() => {
@@ -126,10 +120,7 @@ const ThreeExperience: React.FC = () => {
     return () => clearTimeout(preloadTimer);
   }, []);
 
-  // Detectar tamanho da tela baseado no viewportWidth do hook
-  useEffect(() => {
-    setScreenSize(getScreenSize(viewportWidth));
-  }, [viewportWidth]);
+
 
   // Carregamento lazy com IntersectionObserver
   useEffect(() => {
@@ -144,7 +135,7 @@ const ThreeExperience: React.FC = () => {
       },
       {
         threshold: 0.05,
-        rootMargin: screenSize === 'watch' || screenSize === 'mobileSmall' ? '50px' : '200px'
+        rootMargin: viewportWidth < 380 ? '50px' : '200px'
       }
     );
 
@@ -153,9 +144,9 @@ const ThreeExperience: React.FC = () => {
     }
 
     return () => observer.disconnect();
-  }, [screenSize, containerRef]);
+  }, [viewportWidth, containerRef]);
 
-  const cfg = SCREEN_CONFIG[screenSize];
+  const cfg = getFluidConfig(viewportWidth);
 
   // DPR adaptativo: menor em mobile para economizar bateria e memória
   const dpr = Math.min(
@@ -169,11 +160,11 @@ const ThreeExperience: React.FC = () => {
       className='relative h-full w-full'
       data-engine='r3f'
       style={{
-        minHeight: screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k' ? '100%' : '75%',
-        marginTop: screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k' ? '0' : '12%',
+        minHeight: viewportWidth >= 1024 ? '100%' : '75%',
+        marginTop: viewportWidth >= 1024 ? '0' : '12%',
         // Em tablets como o iPad Mini (768px), reduzimos a largura do canvas interativo
         // para garantir que as bordas da tela permitam o scroll nativo.
-        width: screenSize === 'tablet' || screenSize === 'mobile' || screenSize === 'mobileSmall' ? '85%' : '100%',
+        width: viewportWidth > 640 && viewportWidth < 1024 ? '85%' : '100%',
         marginRight: 'auto',
         marginLeft: 'auto',
         zIndex: 0,
@@ -190,12 +181,12 @@ const ThreeExperience: React.FC = () => {
         }}
         gl={{
           preserveDrawingBuffer: false,
-          antialias: screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k',
-          powerPreference: (screenSize === 'watch' || screenSize === 'mobileSmall') ? 'low-power' : 'high-performance',
+          antialias: viewportWidth >= 1024,
+          powerPreference: viewportWidth < 380 ? 'low-power' : 'high-performance',
           stencil: false,
           depth: true,
           // Reduzir qualidade em mobile para melhorar performance
-          precision: (screenSize === 'watch' || screenSize === 'mobileSmall') ? 'lowp' : 'mediump',
+          precision: viewportWidth < 380 ? 'lowp' : 'mediump',
         }}
         dpr={dpr}
         performance={{
@@ -216,15 +207,15 @@ const ThreeExperience: React.FC = () => {
             maxPolarAngle={Math.PI / 2}
             minPolarAngle={Math.PI / 4}
             // Rotação mais suave em touch
-            rotateSpeed={screenSize === 'watch' ? 0.5 : 1}
+            rotateSpeed={viewportWidth < 280 ? 0.5 : 1}
             enableDamping={true}
             dampingFactor={0.05}
             // Só permite rotação touch quando o guard detectou intenção de interação 3D
-            enabled={isTouchInteracting || screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k'}
+            enabled={isTouchInteracting || viewportWidth >= 1024}
           />
 
           {/* Modelo 3D do computador com luzes */}
-          {shouldLoad && <ComputersContent screenSize={screenSize} />}
+          {shouldLoad && <ComputersContent viewportWidth={viewportWidth} />}
         </Suspense>
       </Canvas>
     </div>

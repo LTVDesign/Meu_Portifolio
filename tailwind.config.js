@@ -44,6 +44,30 @@ module.exports = {
                 // Placeholder for custom animations defined in globals.css
                 // (Tailwind will still generate the @keyframes you wrote manually)
             },
+            // Fluid Typography
+            fontSize: {
+                'fluid-xs': 'clamp(0.75rem, 1vw + 0.5rem, 0.875rem)',   // 12px to 14px
+                'fluid-sm': 'clamp(0.875rem, 1.2vw + 0.5rem, 1rem)',    // 14px to 16px
+                'fluid-base': 'clamp(1rem, 1.5vw + 0.5rem, 1.125rem)',  // 16px to 18px
+                'fluid-lg': 'clamp(1.125rem, 2vw + 0.5rem, 1.25rem)',   // 18px to 20px
+                'fluid-xl': 'clamp(1.25rem, 2.5vw + 0.5rem, 1.5rem)',   // 20px to 24px
+                'fluid-2xl': 'clamp(1.5rem, 3vw + 0.5rem, 2rem)',       // 24px to 32px
+                'fluid-3xl': 'clamp(1.875rem, 4vw + 0.5rem, 2.5rem)',   // 30px to 40px
+                'fluid-4xl': 'clamp(2.25rem, 5vw + 0.5rem, 3rem)',      // 36px to 48px
+                'fluid-5xl': 'clamp(3rem, 6vw + 0.5rem, 4rem)',         // 48px to 64px
+                'fluid-h1': 'clamp(2.5rem, 7vw, 5rem)',
+                'fluid-h2': 'clamp(2rem, 5vw, 4rem)',
+                'fluid-h3': 'clamp(1.5rem, 4vw, 3rem)',
+            },
+            // Fluid Spacing
+            spacing: {
+                'fluid-sm': 'clamp(0.5rem, 1vw, 1rem)',
+                'fluid-md': 'clamp(1rem, 2vw, 1.5rem)',
+                'fluid-lg': 'clamp(1.5rem, 3vw, 2.5rem)',
+                'fluid-xl': 'clamp(2rem, 5vw, 4rem)',
+                'fluid-2xl': 'clamp(3rem, 7vw, 6rem)',
+                'fluid-section': 'clamp(4rem, 10vw, 8rem)',
+            },
         },
     },
     // Enable future‑proof features

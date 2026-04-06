@@ -6,7 +6,7 @@ import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms/Header';
 
-const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) => {
+const Curriculo = () => {
   const { t } = useTranslation();
   const prefersReduced = useReducedMotion();
 
@@ -18,9 +18,9 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className='mb-16'
+        className='mb-[clamp(2.5rem,8vw,4rem)]'
       >
-        <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-5 sm:p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
+        <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-[clamp(1.25rem,4vw,3rem)] shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
           {/* Efeito de brilho animado no fundo */}
           <div className='absolute inset-0 opacity-30'>
             <m.div
@@ -57,7 +57,7 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className='relative w-full max-w-xl mx-auto my-8'
+              className='relative w-full max-w-xl mx-auto my-[clamp(1.5rem,5vw,2rem)]'
             >
               <div className='h-[1px] bg-gradient-to-r from-transparent via-[var(--cyber-cyan)] to-transparent relative'>
                 {/* Brilho esquerdo */}
@@ -98,7 +98,7 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className='text-[var(--dynamic-text-secondary)] transition-colors composited-hover duration-500 mt-6 text-[17px] leading-[30px] text-center max-w-3xl mx-auto'
+              className='text-[var(--dynamic-text-secondary)] transition-colors composited-hover duration-500 mt-[clamp(1rem,3vw,1.5rem)] text-[clamp(0.875rem,2vw,1.0625rem)] leading-relaxed text-center max-w-3xl mx-auto'
             >
               {t('curriculo.content')}
             </m.p>
@@ -109,7 +109,7 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className='flex flex-wrap justify-center gap-2 sm:gap-4 mt-6 sm:mt-8'
+              className='flex flex-wrap justify-center gap-[clamp(0.5rem,1.5vw,1rem)] mt-[clamp(1.5rem,3vw,2rem)]'
             >
               {[
                 { text: t('curriculo.badgeOnline'), color: 'from-cyan-500 to-blue-500' },
@@ -120,7 +120,7 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
                 <m.span
                   key={idx}
                   whileHover={{ scale: 1.05, y: -2 }}
-                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
+                  className={`px-[clamp(0.75rem,2vw,1rem)] py-[clamp(0.375rem,1vw,0.5rem)] rounded-full text-[clamp(0.625rem,1.5vw,0.75rem)] font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
                 >
                   {badge.text}
                 </m.span>
@@ -134,13 +134,13 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
         </div>
       </m.div>
 
-      <div className='mt-6 sm:mt-12 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-6'>
+      <div className='mt-[clamp(1.5rem,4vw,3rem)] flex flex-col sm:flex-row flex-wrap items-center justify-center gap-[clamp(0.75rem,2vw,1.5rem)]'>
         <m.a
           variants={prefersReduced ? {} : fadeIn('right', 'spring', 0.3, 0.75)}
           href='/online-cv'
           target='_blank'
           rel='noopener noreferrer'
-          className='btn-primary flex items-center gap-3 px-5 sm:px-8 py-3 sm:py-4 rounded-xl font-bold tracking-wider group shadow-[0_0_20px_rgba(145,94,255,0.3)] min-h-[44px] text-sm sm:text-base cursor-pointer'
+          className='btn-primary flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)] px-[clamp(1.25rem,3vw,2rem)] py-[clamp(0.75rem,2vw,1rem)] rounded-xl font-bold tracking-wider group shadow-[0_0_20px_rgba(145,94,255,0.3)] min-h-[44px] text-[clamp(0.875rem,2vw,1rem)] cursor-pointer'
         >
           <FiExternalLink className='text-xl group-hover:scale-110 transition-transform' />
           {t('curriculo.viewOnline')}
@@ -150,7 +150,7 @@ const Curriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) =>
           variants={prefersReduced ? {} : fadeIn('left', 'spring', 0.4, 0.75)}
           href='/formacao/DiplomaDigital.pdf'
           download
-          className='btn-secondary flex items-center gap-3 px-5 sm:px-8 py-3 sm:py-4 rounded-xl font-bold tracking-wider group border border-white/10 hover:border-[var(--cyber-cyan)]/50 transition-all shadow-lg min-h-[44px] text-sm sm:text-base'
+          className='btn-secondary flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)] px-[clamp(1.25rem,3vw,2rem)] py-[clamp(0.75rem,2vw,1rem)] rounded-xl font-bold tracking-wider group border border-white/10 hover:border-[var(--cyber-cyan)]/50 transition-all shadow-lg min-h-[44px] text-[clamp(0.875rem,2vw,1rem)]'
         >
           <FiDownload className='text-xl text-[var(--cyber-cyan)] group-hover:animate-bounce transition-transform' />
           <span className='text-white group-hover:text-[var(--cyber-cyan)] transition-colors'>

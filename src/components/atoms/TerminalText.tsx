@@ -38,11 +38,13 @@ const TerminalText: React.FC<TerminalTextProps> = ({
   const loopRef = useRef(loop);
   const typeOnceRef = useRef(typeOnce);
   const onCompleteRef = useRef(onComplete);
+  const typingSpeedMsRef = useRef(typingSpeed);
 
   useEffect(() => {
     loopRef.current = loop;
     typeOnceRef.current = typeOnce;
     onCompleteRef.current = onComplete;
+    typingSpeedMsRef.current = typingSpeed;
 
     wordsRef.current = [...words];
     colorsRef.current = [...colors];
@@ -53,79 +55,109 @@ const TerminalText: React.FC<TerminalTextProps> = ({
     setDisplayText(words[0].substring(0, 1));
     setShowCursor(true);
 
-    const typeInterval = setInterval(() => {
+    let animationFrameId: number;
+    let lastTimestamp: number = 0;
+
+    const typeLoop = (timestamp: number) => {
+      if (!lastTimestamp) lastTimestamp = timestamp;
+      const elapsed = timestamp - lastTimestamp;
+
+      if (elapsed >= typingSpeedMsRef.current) {
+        lastTimestamp = timestamp;
+      }
+
       const currentWords = wordsRef.current;
-      const currentColors = colorsRef.current;
+      const shouldContinue = !typeOnceRef.current || (typeOnceRef.current && letterCountRef.current <= currentWords[0].length + 1);
 
-      if (letterCountRef.current === 0 && waitingRef.current === false) {
-        waitingRef.current = true;
-        setDisplayText(currentWords[0].substring(0, letterCountRef.current));
+      if (!shouldContinue) {
+        return;
+      }
 
-        setTimeout(() => {
-          const usedColor = currentColors.shift();
-          if (usedColor) currentColors.push(usedColor);
-          currentColor.current = currentColors[0];
+      if (elapsed >= typingSpeedMsRef.current) {
+        const currentColors = colorsRef.current;
 
-          if (loopRef.current) {
-            const usedWord = currentWords.shift();
-            if (usedWord) currentWords.push(usedWord);
-          }
+        if (letterCountRef.current === 0 && waitingRef.current === false) {
+          waitingRef.current = true;
+          setDisplayText(currentWords[0].substring(0, letterCountRef.current));
 
-          xRef.current = 1;
-          letterCountRef.current += xRef.current;
-          waitingRef.current = false;
-        }, pauseTime);
-      } else if (
-        letterCountRef.current === currentWords[0].length + 1 &&
-        waitingRef.current === false
-      ) {
-        waitingRef.current = true;
-        if (typeOnceRef.current) {
-          setDisplayText(currentWords[0]);
-          // Call onComplete callback when typeOnce finishes
-          if (onCompleteRef.current) {
-            setTimeout(() => {
-              onCompleteRef.current!();
-            }, 100);
-          }
-          clearInterval(typeInterval);
-        } else {
           setTimeout(() => {
-            xRef.current = -1;
+            const usedColor = currentColors.shift();
+            if (usedColor) currentColors.push(usedColor);
+            currentColor.current = currentColors[0];
+
+            if (loopRef.current) {
+              const usedWord = currentWords.shift();
+              if (usedWord) currentWords.push(usedWord);
+            }
+
+            xRef.current = 1;
             letterCountRef.current += xRef.current;
             waitingRef.current = false;
           }, pauseTime);
+        } else if (
+          letterCountRef.current === currentWords[0].length + 1 &&
+          waitingRef.current === false
+        ) {
+          waitingRef.current = true;
+          if (typeOnceRef.current) {
+            setDisplayText(currentWords[0]);
+            if (onCompleteRef.current) {
+              setTimeout(() => {
+                onCompleteRef.current!();
+              }, 100);
+            }
+          } else {
+            setTimeout(() => {
+              xRef.current = -1;
+              letterCountRef.current += xRef.current;
+              waitingRef.current = false;
+            }, pauseTime);
+          }
+        } else if (waitingRef.current === false) {
+          setDisplayText(currentWords[0].substring(0, letterCountRef.current));
+          letterCountRef.current += xRef.current;
         }
-      } else if (waitingRef.current === false) {
-        setDisplayText(currentWords[0].substring(0, letterCountRef.current));
-        letterCountRef.current += xRef.current;
       }
-    }, typingSpeed);
 
-    return () => clearInterval(typeInterval);
+      animationFrameId = requestAnimationFrame(typeLoop);
+    };
+
+    animationFrameId = requestAnimationFrame(typeLoop);
+
+    return () => cancelAnimationFrame(animationFrameId);
   }, [words, colors, typingSpeed, pauseTime, loop, typeOnce]);
 
   useEffect(() => {
-    const cursorInterval = setInterval(() => {
-      setShowCursor((prev) => !prev);
-    }, 400);
-    return () => clearInterval(cursorInterval);
+    let cursorFrameId: number;
+    let lastCursorTime = 0;
+    const cursorIntervalMs = 400;
+
+    const cursorLoop = (timestamp: number) => {
+      if (timestamp - lastCursorTime >= cursorIntervalMs) {
+        lastCursorTime = timestamp;
+        setShowCursor((prev) => !prev);
+      }
+      cursorFrameId = requestAnimationFrame(cursorLoop);
+    };
+
+    cursorFrameId = requestAnimationFrame(cursorLoop);
+
+    return () => cancelAnimationFrame(cursorFrameId);
   }, []);
 
   return (
-    <span className={`inline-block whitespace-nowrap ${className}`} style={style}>
+    <div className={`${className}`} style={style}>
       <span style={{ color: currentColor.current, transition: 'color 0.2s ease' }}>
         {displayText}
       </span>
       <span
         style={{ color: currentColor.current }}
-        className={`inline-block relative -top-[0.14em] ml-[10px] select-none transition-opacity duration-100 ${
-          showCursor ? 'opacity-100' : 'opacity-0'
-        } ${cursorClassName}`}
+        className={`inline-block relative -top-[0.14em] ml-[10px] select-none transition-opacity duration-100 ${showCursor ? 'opacity-100' : 'opacity-0'
+          } ${cursorClassName}`}
       >
         &#95;
       </span>
-    </span>
+    </div>
   );
 };
 
