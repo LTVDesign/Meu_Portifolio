@@ -74,17 +74,11 @@ const TerminalText: React.FC<TerminalTextProps> = ({
       }
 
       if (elapsed >= typingSpeedMsRef.current) {
-        const currentColors = colorsRef.current;
-
         if (letterCountRef.current === 0 && waitingRef.current === false) {
           waitingRef.current = true;
           setDisplayText(currentWords[0].substring(0, letterCountRef.current));
 
           setTimeout(() => {
-            const usedColor = currentColors.shift();
-            if (usedColor) currentColors.push(usedColor);
-            currentColor.current = currentColors[0];
-
             if (loopRef.current) {
               const usedWord = currentWords.shift();
               if (usedWord) currentWords.push(usedWord);
@@ -147,12 +141,12 @@ const TerminalText: React.FC<TerminalTextProps> = ({
 
   return (
     <div className={`${className}`} style={style}>
-      <span style={{ color: currentColor.current, transition: 'color 0.2s ease' }}>
+      <span style={{ color: currentColor.current }}>
         {displayText}
       </span>
       <span
         style={{ color: currentColor.current }}
-        className={`inline-block relative -top-[0.14em] ml-[10px] select-none transition-opacity duration-100 ${showCursor ? 'opacity-100' : 'opacity-0'
+        className={`inline-block relative -top-[0.14em] ml-[10px] select-none ${showCursor ? 'opacity-100' : 'opacity-0'
           } ${cursorClassName}`}
       >
         &#95;

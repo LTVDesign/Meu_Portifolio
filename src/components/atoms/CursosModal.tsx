@@ -253,7 +253,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                       </div>
                     </div>
 
-                    <p className='text-[var(--text-secondary)] text-sm leading-relaxed mb-4'>
+                    <p className='text-white/80 text-sm leading-relaxed mb-4' style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}>
                       {curso.summary}
                     </p>
                     <div className='flex flex-wrap gap-3 text-xs text-white/50 font-mono mb-4'>
@@ -276,7 +276,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                           {curso.modules.slice(0, 3).map((module, idx) => (
                             <li
                               key={idx}
-                              className='text-xs text-[var(--text-secondary)] flex items-start gap-2'
+                              className='text-xs text-white/80 flex items-start gap-2' style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}
                             >
                               <span className='text-[var(--cyber-cyan)]'>▸</span>
                               <span>{module}</span>

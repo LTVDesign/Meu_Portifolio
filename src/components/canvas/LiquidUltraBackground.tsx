@@ -280,6 +280,7 @@ const LiquidUltraBackground: React.FC<LiquidUltraBackgroundProps> = ({
       antialias: false,
       alpha: true,
       powerPreference: 'high-performance',
+      preserveDrawingBuffer: true,
     });
     renderer.setSize(viewportWidth, viewportHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5) * resolution);

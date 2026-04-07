@@ -6,8 +6,8 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 // Providers
 import { ParticleConfigProvider, useBackgroundMenu, useParticleConfig } from './contexts/ParticleConfigContext';
 import { PerformanceProvider } from './contexts/PerformanceContext';
-import { DynamicTextProvider } from './components/atoms/DynamicTextProvider';
 import { MotionProvider } from './components/layout/MotionProvider';
+import { DynamicTextProvider } from './components/atoms/DynamicTextProvider';
 
 // Layouts e Componentes
 import Navbar from './components/layout/Navbar';
@@ -112,11 +112,11 @@ const AppContent = () => {
     // Usar eventos de interação do usuário OU um timeout maior para
     // diferir o carregamento do 3D pesado e resolver "Unused JavaScript" do PageSpeed
     let isLoaded = false;
-    
+
     const scheduleLoad = () => {
       if (isLoaded) return;
       isLoaded = true;
-      
+
       // Quando for interagir, podemos usar requestIdleCallback para não engasgar a thread
       if ('requestIdleCallback' in window) {
         (window as Window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(() => {
@@ -125,7 +125,7 @@ const AppContent = () => {
       } else {
         setLoadBackgrounds(true);
       }
-      
+
       // Limpar listeners
       window.removeEventListener('mousemove', scheduleLoad);
       window.removeEventListener('touchstart', scheduleLoad);
@@ -141,7 +141,7 @@ const AppContent = () => {
 
     // Fallback: carregar após 8000ms (evita de ser pego pelo trace de performance inicial)
     const timer = setTimeout(scheduleLoad, 8000);
-    
+
     return () => {
       clearTimeout(timer);
       window.removeEventListener('mousemove', scheduleLoad);
@@ -201,11 +201,11 @@ const App = () => {
     <HelmetProvider>
       <ParticleConfigProvider>
         <PerformanceProvider>
-          <MotionProvider>
-            <DynamicTextProvider defaultColorMode="auto">
+          <DynamicTextProvider>
+            <MotionProvider>
               <AppContent />
-            </DynamicTextProvider>
-          </MotionProvider>
+            </MotionProvider>
+          </DynamicTextProvider>
         </PerformanceProvider>
 
         <SpeedInsights />

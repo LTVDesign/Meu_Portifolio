@@ -23,7 +23,7 @@ const NotFoundPage = () => {
           404
         </h1>
 
-        <p className='text-[var(--text-secondary)] text-lg mt-6 max-w-md mx-auto leading-relaxed'>
+        <p className='text-white/80 text-lg mt-6 max-w-md mx-auto leading-relaxed' style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}>
           {t('notFound.description')}
         </p>
 

@@ -5,6 +5,7 @@ import { FaBuilding, FaEnvelope, FaPaperPlane, FaPhone, FaUser } from 'react-ico
 import { z } from 'zod';
 import { SectionWrapper } from '../../hoc';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
+import { useBreakpoints } from '../../hooks/useDebouncedResize';
 import { emailService } from '../../utils/emailService';
 import { slideIn } from '../../utils/motion';
 import { Header } from '../atoms';
@@ -41,6 +42,8 @@ const Contact = () => {
   >({});
   const { t } = useTranslation();
   const prefersReduced = useReducedMotion();
+  const { width } = useBreakpoints();
+  const isMobileOrTablet = width <= 1024;
   const canvasContainerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(canvasContainerRef, { once: true, amount: 0.1 });
 
@@ -272,7 +275,6 @@ const Contact = () => {
                   { text: t('contactPage.secureEmail'), color: 'from-blue-500 to-cyan-500' },
                   { text: t('contactPage.quickResponse'), color: 'from-green-500 to-emerald-500' },
                   { text: t('contactPage.directContact'), color: 'from-purple-500 to-pink-500' },
-                  { text: t('contactPage.support247'), color: 'from-red-500 to-orange-500' },
                 ].map((badge, idx) => (
                   <m.span
                     key={idx}
@@ -456,14 +458,14 @@ const Contact = () => {
             </div>
           </m.div>
 
-          {/* Canvas 3D - Visível mobile para alinhar à refatoração fluida */}
+          {/* Canvas 3D - Em desktop mostra EarthCanvas 3D, em mobile/tablet mostra globo estático */}
           <m.div
             ref={canvasContainerRef}
             variants={slideIn('right', 'tween', 0.2, 1)}
             className='flex flex-1 w-full xl:w-[50vw] h-[clamp(300px,50vw,600px)] items-center justify-center relative overflow-hidden'
           >
-            <div className='w-full h-full'>
-              {isInView ? (
+            <div className='w-full h-full flex items-center justify-center'>
+              {isMobileOrTablet ? null : isInView ? (
                 <Suspense fallback={
                   <div className="flex items-center justify-center w-full h-full">
                     <div className="w-10 h-10 border-4 border-[var(--cyber-purple)]/30 border-t-[var(--cyber-cyan)] rounded-full animate-spin" />

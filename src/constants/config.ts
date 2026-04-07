@@ -39,9 +39,23 @@ type TConfig = {
     cursos: Required<TSection>;
     curriculo: Required<TSection>;
   };
+  social: {
+    linkedin: string;
+    github: string;
+    instagram: string;
+    facebook: string;
+    whatsapp: string;
+  };
 };
 
 export const config: TConfig = {
+  social: {
+    linkedin: 'https://linkedin.com/in/leandrobarbosax',
+    github: 'https://github.com/lelebrr',
+    instagram: 'https://instagram.com/lelebrr',
+    facebook: 'https://facebook.com/lelebrr',
+    whatsapp: 'https://wa.me/5511999999999',
+  },
   html: {
     title: 'Portfólio',
     fullName: 'Meu portfólio',
@@ -85,7 +99,7 @@ Mais do que resolver problemas técnicos, busco transformar dados em decisões e
       content: `Aqui estão minhas qualificações acadêmicas e formações complementares.`,
     },
     experience: {
-      p: 'O que fiz até agora',
+      p: 'Por onde andei',
       h2: 'Experiência Profissional',
     },
     feedbacks: {

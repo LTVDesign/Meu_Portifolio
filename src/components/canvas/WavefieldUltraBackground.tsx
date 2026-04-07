@@ -140,7 +140,7 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
       scene = new Scene();
       camera = new OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
       camera.position.z = 1;
-      renderer = new WebGLRenderer({ antialias: true, alpha: true });
+      renderer = new WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
       renderer.setClearAlpha(0);
       renderer.setSize(viewportWidth, viewportHeight);
       renderer.setPixelRatio(window.devicePixelRatio);

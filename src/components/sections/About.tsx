@@ -90,7 +90,7 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0 }}
                 className='prose prose-invert max-w-none mt-[clamp(0.75rem,2.5vw,1.25rem)] leading-relaxed text-[clamp(0.85rem,2vw,1rem)]'
-                style={{ color: 'var(--dynamic-text-secondary, #666666)' }}
+                style={{ color: 'var(--text-primary)' }}
               >
                 {(t('about.content') as string).split('\n').map((paragraph, i) => (
                   <p key={i} className='mb-[clamp(0.5rem,1.5vw,0.85rem)]'>

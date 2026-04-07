@@ -106,7 +106,7 @@ const BolhasBackground = () => {
       <Canvas
         frameloop='always'
         camera={{ position: [0, 0, 15], fov: 60 }}
-        gl={{ antialias: false, alpha: true }}
+        gl={{ antialias: false, alpha: true, preserveDrawingBuffer: true }}
         dpr={[1, 1.5]}
         style={{
           pointerEvents: needsPointerEvents ? 'auto' : 'none',

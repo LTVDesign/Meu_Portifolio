@@ -180,7 +180,7 @@ const ThreeExperience: React.FC = () => {
           fov: cfg.fov,
         }}
         gl={{
-          preserveDrawingBuffer: false,
+          preserveDrawingBuffer: true,
           antialias: viewportWidth >= 1024,
           powerPreference: viewportWidth < 380 ? 'low-power' : 'high-performance',
           stencil: false,

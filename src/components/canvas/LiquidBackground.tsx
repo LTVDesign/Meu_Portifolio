@@ -328,6 +328,7 @@ const LiquidBackground: React.FC<LiquidBackgroundProps> = ({
       antialias: false, // Desativado para performance
       alpha: true,
       powerPreference: 'high-performance',
+      preserveDrawingBuffer: true,
     });
     renderer.setSize(viewportWidth, viewportHeight);
     renderer.setPixelRatio(window.devicePixelRatio * resolution);

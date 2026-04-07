@@ -1,4 +1,4 @@
-// src/components/atoms/DynamicTextProvider.tsx
+﻿// src/components/atoms/DynamicTextProvider.tsx
 import { createContext, type ReactNode, useContext, useMemo } from 'react';
 import { useBackgroundColorSampler } from '../../hooks/useBackgroundColorSampler';
 

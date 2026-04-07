@@ -59,8 +59,10 @@ const NotFound = () => {
         {/* Descrição */}
         <m.p
           variants={fadeIn('up', 'tween', 0.4, 1)}
-          className='text-lg mt-6 max-w-md mx-auto leading-relaxed'
-          style={{ color: 'var(--dynamic-text-secondary)' }}
+          className='text-lg mt-6 max-w-md mx-auto leading-relaxed text-white/80'
+          style={{
+            textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)',
+          }}
         >
           {t(
             'notFound.description',
@@ -168,8 +170,10 @@ const NotFound = () => {
             >
               <Link
                 to={link.path}
-                className='px-4 py-2 text-sm hover:text-[var(--cyber-cyan)] transition-colors border border-white/10 rounded-lg hover:border-[var(--cyber-cyan)]/50 hover:bg-white/5'
-                style={{ color: 'var(--dynamic-text-secondary)' }}
+                className='px-4 py-2 text-sm hover:text-[var(--cyber-cyan)] transition-colors border border-white/10 rounded-lg hover:border-[var(--cyber-cyan)]/50 hover:bg-white/5 text-white/80'
+                style={{
+                  textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)',
+                }}
               >
                 {link.label}
               </Link>
@@ -180,8 +184,7 @@ const NotFound = () => {
         {/* Mensagem de Easter Egg */}
         <m.p
           variants={prefersReduced ? {} : fadeIn('up', 'tween', 0.9, 1)}
-          className='mt-12 text-xs'
-          style={{ color: 'var(--dynamic-text-secondary)', opacity: 0.3 }}
+          className='mt-12 text-xs text-white/40'
         >
           {t('tech.easterEgg')}
         </m.p>

@@ -484,7 +484,7 @@ const Formacao = () => {
             </div>
 
             <div className='flex flex-col sm:flex-row items-start gap-4 sm:gap-8 pt-4 sm:pt-6'>
-              <div className='w-20 h-20 sm:w-28 sm:h-28 flex-shrink-0 rounded-2xl overflow-hidden border border-white/10 bg-black/50 p-3 sm:p-4 flex items-center justify-center shadow-inner relative z-10'>
+              <div className='w-20 h-20 sm:w-28 sm:h-28 flex-shrink-0 rounded-2xl overflow-hidden bg-black/50 p-3 sm:p-4 flex items-center justify-center shadow-inner relative z-10'>
                 <img
                   src={facul}
                   alt={item.institution}
@@ -503,7 +503,7 @@ const Formacao = () => {
                   {t('education.period')}: {item.period}
                 </div>
 
-                <p className='mt-4 text-[var(--text-secondary)] leading-relaxed text-sm md:text-base opacity-80 group-hover:opacity-100 transition-opacity line-clamp-4'>
+                <p className='mt-4 text-white/80 leading-relaxed text-sm md:text-base opacity-80 group-hover:opacity-100 transition-opacity line-clamp-4' style={{ textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}>
                   {item.description}
                 </p>
                 {/* Ajuste de layout para cards de formação */}

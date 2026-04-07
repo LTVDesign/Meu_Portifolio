@@ -98,7 +98,10 @@ const Curriculo = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className='text-[var(--dynamic-text-secondary)] transition-colors composited-hover duration-500 mt-[clamp(1rem,3vw,1.5rem)] text-[clamp(0.875rem,2vw,1.0625rem)] leading-relaxed text-center max-w-3xl mx-auto'
+              className='text-white transition-colors composited-hover duration-500 mt-[clamp(1rem,3vw,1.5rem)] text-[clamp(0.875rem,2vw,1.0625rem)] leading-relaxed text-center max-w-3xl mx-auto'
+              style={{
+                textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(145, 94, 255, 0.3)',
+              }}
             >
               {t('curriculo.content')}
             </m.p>

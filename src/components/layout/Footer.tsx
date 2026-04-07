@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { navLinks } from '../../constants';
 import { config } from '../../constants/config';
-import DynamicText from '../atoms/DynamicText';
 import { useFooterKonami } from '../../hooks/useFooterKonami';
 
 // SVG Icons inline - elimina dependência de react-icons/fa (~15-20KB)
@@ -148,6 +147,49 @@ const ArrowRightIcon: React.FC<{ className?: string; size?: number }> = ({ class
   </svg>
 );
 
+const socialLinksRaw = [
+  {
+    icon: LinkedinIcon,
+    url: 'https://www.linkedin.com/in/leleltv',
+    translationKey: 'linkedin',
+    color: 'hover:text-[#0077b5]',
+  },
+  {
+    icon: GithubIcon,
+    url: 'https://github.com/lelebrr',
+    translationKey: 'github',
+    color: 'hover:text-white',
+  },
+  {
+    icon: InstagramIcon,
+    url: 'http://instagram.com/lelebrr',
+    translationKey: 'instagram',
+    color: 'hover:text-[#e1306c]',
+  },
+  {
+    icon: FacebookIcon,
+    url: 'https://www.facebook.com/lelebrr',
+    translationKey: 'facebook',
+    color: 'hover:text-[#1877f2]',
+  },
+  {
+    icon: WhatsappIcon,
+    url: 'https://wa.me/5511984838629?text=Olá%20Vim%20pelo%20seu%20portifólio%20e%20gostaria%20de%20falar%20com%20você!',
+    translationKey: 'whatsapp',
+    color: 'hover:text-[#25d366]',
+  },
+];
+
+const AvailabilityBadge = ({ availabilityLabel }: { availabilityLabel: string }) => (
+  <div className='flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-[clamp(0.6rem,1.5vw,0.7rem)] uppercase tracking-[0.2em] font-bold mb-6 shadow-[0_0_15px_rgba(34,197,94,0.1)]'>
+    <span className='relative flex h-2 w-2'>
+      <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75'></span>
+      <span className='relative inline-flex rounded-full h-2 w-2 bg-green-500'></span>
+    </span>
+    <span>{availabilityLabel}</span>
+  </div>
+);
+
 const Footer: React.FC = () => {
   const location = useLocation();
   const isHome = location.pathname === '/';
@@ -200,39 +242,6 @@ const Footer: React.FC = () => {
     return routeMap[navId] || '/';
   };
 
-  const socialLinks = [
-    {
-      icon: LinkedinIcon,
-      url: 'https://www.linkedin.com/in/leleltv',
-      label: t('footer.linkedin'),
-      color: 'hover:text-[#0077b5]',
-    },
-    {
-      icon: GithubIcon,
-      url: 'https://github.com/lelebrr',
-      label: t('footer.github'),
-      color: 'hover:text-white',
-    },
-    {
-      icon: InstagramIcon,
-      url: 'http://instagram.com/lelebrr',
-      label: t('footer.instagram'),
-      color: 'hover:text-[#e1306c]',
-    },
-    {
-      icon: FacebookIcon,
-      url: 'https://www.facebook.com/lelebrr',
-      label: t('footer.facebook'),
-      color: 'hover:text-[#1877f2]',
-    },
-    {
-      icon: WhatsappIcon,
-      url: 'https://wa.me/5511984838629?text=Olá%20Vim%20pelo%20seu%20portifólio%20e%20gostaria%20de%20falar%20com%20você!',
-      label: t('footer.whatsapp'),
-      color: 'hover:text-[#25d366]',
-    },
-  ];
-
   const { konamiProgress, showUnlockAnimation, simulateKeyPress } = useFooterKonami();
 
   const konamiCodeKeys = [
@@ -268,26 +277,36 @@ const Footer: React.FC = () => {
         <div className='footer-grid grid grid-cols-[repeat(auto-fit,minmax(min(100%,250px),1fr))] gap-[clamp(1.5rem,4vw,2rem)] justify-items-center items-start text-center mb-[clamp(1.5rem,4vw,2rem)]'>
           {/* Coluna 1 - Esquerda: Nome e Descrição */}
           <div className='flex flex-col items-center text-center max-w-sm'>
-            <h2 className='text-[clamp(1.2rem,4vw,1.5rem)] font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent mb-4'>
-              <DynamicText colorMode='auto'>{config.html.fullName}</DynamicText>
+            <AvailabilityBadge availabilityLabel={t('footer.availability', 'Disponível')} />
+            <h2 className='text-[clamp(1.2rem,4vw,1.5rem)] font-bold text-white mb-4 uppercase tracking-tighter' style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
+              {config.html.fullName}
             </h2>
-            <p className='text-[var(--dynamic-text-secondary)] text-[clamp(0.85rem,2.5vw,1rem)] leading-relaxed'>
-              <DynamicText colorMode='auto'>
-                {t('footer.description')}
-              </DynamicText>
+            <p className='text-white/90 text-[clamp(0.85rem,2.5vw,1rem)] leading-relaxed mb-6' style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
+              {t('footer.description')}
             </p>
+            {/* Botão de Download CV Proeminente no Mobile */}
+            <Link
+              to="/curriculo"
+              className="flex lg:hidden items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)] text-white font-bold uppercase tracking-widest text-[0.7rem] shadow-lg shadow-purple-500/20 active:scale-95 transition-transform"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+              </svg>
+              {t('footer.downloadCV')}
+            </Link>
           </div>
 
           {/* Coluna 2 - Meio: Acesso Rápido (ícones do header, menos contato) */}
           <div className='flex flex-col items-center text-center max-w-sm'>
             <h3 className='text-[clamp(0.7rem,2vw,0.85rem)] font-bold uppercase tracking-widest text-[var(--cyber-purple)] mb-6'>
-              <DynamicText colorMode='auto'>{t('footer.quickAccess')}</DynamicText>
+              {t('footer.quickAccess')}
             </h3>
-            <ul className='grid grid-cols-2 gap-x-[clamp(0.5rem,2vw,1rem)] gap-y-[clamp(0.5rem,1vw,0.5rem)] justify-items-center'>
+            <ul className='grid grid-cols-2 gap-x-[clamp(1rem,3vw,1.5rem)] gap-y-2 justify-items-center w-full max-w-[280px]'>
               {navLinks
                 .filter((link) => link.id !== 'contact' && link.id !== 'doom')
                 .map((link) => (
-                  <li key={link.id}>
+                  <li key={link.id} className="w-full">
                     <Link
                       to={getNavLink(link.id)}
                       onClick={() => {
@@ -298,9 +317,9 @@ const Footer: React.FC = () => {
                           }
                         }
                       }}
-                      className='text-[var(--dynamic-text-secondary)] hover:text-white text-[clamp(0.75rem,2vw,0.9rem)] transition-colors composited-hover focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-xl px-[clamp(0.5rem,1vw,0.75rem)] py-1 min-h-[44px] flex items-center gap-2'
+                      className='text-white/90 hover:text-white text-[clamp(0.7rem,2vw,0.85rem)] transition-all duration-300 composited-hover focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-xl px-3 py-2 min-h-[44px] flex items-center justify-center border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/10 w-full'
                     >
-                      <DynamicText colorMode='auto'>{t(`nav.${link.id}`)}</DynamicText>
+                      {t(`nav.${link.id}`, link.id)}
                     </Link>
                   </li>
                 ))}
@@ -310,42 +329,48 @@ const Footer: React.FC = () => {
           {/* Coluna 3 - Direita: Contato */}
           <div className='flex flex-col items-center text-center max-w-sm'>
             <h3 className='text-[clamp(0.7rem,2vw,0.85rem)] font-bold uppercase tracking-widest text-[var(--cyber-purple)] mb-6'>
-              <DynamicText colorMode='auto'>{t('nav.contact')}</DynamicText>
+              {t('nav.contact')}
             </h3>
             <a
               href={`mailto:${config.html.email}`}
               aria-label={t('footer.emailUs')}
-              className='flex items-center gap-[clamp(0.75rem,1.5vw,1rem)] text-[clamp(0.75rem,2vw,0.9rem)] text-[var(--dynamic-text-secondary)] hover:text-white composited-hover focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-2xl px-[clamp(0.75rem,1.5vw,1rem)] py-[clamp(0.5rem,1vw,0.5rem)] transition-colors mb-[clamp(1rem,2vw,1rem)] min-h-[44px] break-all'
+              className='flex items-center gap-[clamp(0.75rem,1.5vw,1rem)] text-[clamp(0.75rem,2vw,0.9rem)] text-white/90 hover:text-white composited-hover focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-2xl px-[clamp(0.75rem,1.5vw,1rem)] py-[clamp(0.5rem,1vw,0.5rem)] transition-colors mb-[clamp(1rem,2vw,1rem)] min-h-[44px] break-all'
             >
               <EnvelopeIcon className='text-[var(--cyber-purple)]' />
-              <span>
-                <DynamicText colorMode='auto'>{config.html.email}</DynamicText>
-              </span>
+              <span>{config.html.email}</span>
             </a>
 
-            <div className='social-links-container flex items-center gap-[clamp(0.75rem,1.5vw,1rem)] mb-[clamp(1rem,2vw,1rem)]'>
-              {socialLinks.map(({ icon: Icon, url, label, color }) => (
-                <m.a
-                  key={label}
-                  href={url}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  whileHover={{ y: -4, scale: 1.2 }}
-                  aria-label={label}
-                  className={`text-[var(--dynamic-text-secondary)] ${color} social-icon-composited composited-hover transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)]`}
-                >
-                  <Icon size={24} />
-                </m.a>
-              ))}
+            <div className='social-links-container flex flex-wrap items-center justify-center gap-[clamp(0.75rem,2vw,1.25rem)] mb-[clamp(1.5rem,3vw,2rem)]'>
+              {socialLinksRaw.map(({ icon: Icon, url, translationKey, color }) => {
+                const label = t(`footer.${translationKey}`);
+                return (
+                  <m.a
+                    key={translationKey}
+                    href={url}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    whileHover={{ y: -4, scale: 1.1 }}
+                    aria-label={label}
+                    className={`flex flex-col items-center gap-1.5 text-white/90 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] group`}
+                  >
+                    <div className={`p-3 rounded-xl bg-white/[0.03] border border-white/5 group-hover:border-white/20 group-hover:bg-white/[0.06] ${color} transition-all`}>
+                      <Icon size={20} />
+                    </div>
+                    <span className="text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block">
+                      {label}
+                    </span>
+                  </m.a>
+                );
+              })}
             </div>
 
             <button
               type='button'
               onClick={scrollToTop}
               aria-label={t('footer.backToTopLabel')}
-              className='group flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-[var(--dynamic-text-secondary)] hover:text-white focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)]'
+              className='group flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-white/90 hover:text-white focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)]'
             >
-              <DynamicText colorMode='auto'>{t('footer.backToTop')}</DynamicText>
+              <span className='text-white/90'>{t('footer.backToTop')}</span>
               <div className='rounded-2xl border border-white/10 bg-white/5 p-3 group-hover:border-[var(--cyber-purple)] composited-hover transition-all'>
                 <ArrowUpIcon className='text-xs group-active:animate-bounce' />
               </div>
@@ -358,8 +383,8 @@ const Footer: React.FC = () => {
           {/* Easter Egg Interativo - Só renderiza quando visível */}
           {easterEggVisible && (
             <div className='easter-egg-container flex flex-col items-center gap-2'>
-              <p className='text-[7px] text-[var(--dynamic-text-secondary)] uppercase tracking-[0.2em] opacity-50 text-center'>
-                <DynamicText colorMode='auto'>{t('footer.easterEggHint')}</DynamicText>
+              <p className='text-[7px] text-white/50 uppercase tracking-[0.2em] opacity-50 text-center'>
+                {t('footer.easterEggHint')}
               </p>
 
               {/* Tela de desbloqueio */}
@@ -411,7 +436,7 @@ const Footer: React.FC = () => {
                             ? 'bg-gradient-to-br from-[#915EFF] via-[#6366f1] to-[#8b5cf6] border-[#915EFF] text-white shadow-[0_0_15px_rgba(145,94,255,0.5)]'
                             : isCurrent
                               ? 'bg-gradient-to-br from-purple-900/40 to-blue-900/30 border-[#915EFF] text-[#915EFF] shadow-[0_0_10px_rgba(145,94,255,0.4)]'
-                              : 'bg-gradient-to-br from-white/10 to-white/5 border-white/20 text-[var(--dynamic-text-secondary)] hover:border-[#915EFF]/50 hover:shadow-[0_0_10px_rgba(145,94,255,0.3)]'
+                              : 'bg-gradient-to-br from-white/10 to-white/5 border-white/20 text-white/60 hover:border-[#915EFF]/50 hover:shadow-[0_0_10px_rgba(145,94,255,0.3)]'
                           }
                         `}
                       >
@@ -434,7 +459,7 @@ const Footer: React.FC = () => {
           {/* Placeholder do Easter Egg - mostra hint antes de carregar */}
           {!easterEggVisible && (
             <div className='easter-egg-placeholder h-12 flex items-center justify-center'>
-              <p className='text-[7px] text-[var(--dynamic-text-secondary)] uppercase tracking-[0.2em] opacity-30'>
+              <p className='text-[7px] text-white/30 uppercase tracking-[0.2em] opacity-30'>
                 ...
               </p>
             </div>

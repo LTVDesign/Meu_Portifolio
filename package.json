@@ -72,7 +72,7 @@
       "react": "^18.3.1",
       "react-dom": "^18.3.1"
     },
-    "glob": "^10.4.5",
+    "glob": "^13.0.0",
     "inflight": "npm:lru-cache@latest",
     "three-mesh-bvh": "^0.9.9"
   }

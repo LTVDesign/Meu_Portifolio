@@ -3,320 +3,211 @@
 // a cor do texto dinamicamente contra backgrounds animados.
 
 import { useCallback, useEffect, useRef } from 'react';
-import { useParticleConfig } from '../contexts/ParticleConfigContext';
 
 /**
 * Faz amostragem de pixels do canvas de background em tempo real
 * e atualiza CSS variables globais para que textos se adaptem.
 *
-* Estratégia híbrida:
-* - Canvas 2D: leitura direta de pixels (Particles, Matrix, Particulate)
-* - WebGL/Three.js: leitura de pixels com preserveDrawingBuffer habilitado
-* - Fallback: usa cores do config se não conseguir ler pixels
-*
-* Otimizações:
-* - Cache de canvas elements (evita querySelector a cada frame)
-* - Cache de dimensões via ResizeObserver (evita reflow síncrono)
-* - Throttle a ~8fps para performance
-* - Double RAF para evitar reflows forçados
+* Otimizações de Performance:
+* 1. Cache de Contextos: Evita .getContext() síncrono a cada frame.
+* 2. Throttling Inteligente: Amostragem a ~12fps (independente do anim rate).
+* 3. Batching de DOM: Atualiza variáveis CSS apenas quando necessário.
+* 4. Zero Reflow: Usa ResizeObserver para cache de dimensões.
 */
 
-// Cache global de canvas elements
-let cachedCanvases: HTMLCanvasElement[] | null = null;
-let lastCanvasQueryTime = 0;
-const CANVAS_QUERY_INTERVAL = 1000; // Re-query canvas a cada 1s
+interface CanvasEntry {
+  canvas: HTMLCanvasElement;
+  ctx2d: CanvasRenderingContext2D | null;
+  gl: WebGLRenderingContext | WebGL2RenderingContext | null;
+  type: '2d' | 'webgl';
+}
+
+// Singleton Cache para evitar buscas no DOM e inicializações caras de contexto
+let cachedCanvasEntries: CanvasEntry[] | null = null;
+let lastCanvasDiscoveryTime = 0;
+const DISCOVERY_INTERVAL = 2000; // Re-procura backgrounds a cada 2s
+const SAMPLING_FPS = 12;
+const SAMPLING_INTERVAL = 1000 / SAMPLING_FPS;
 
 export function useBackgroundColorSampler() {
-  const { config } = useParticleConfig();
   const rafRef = useRef<number | null>(null);
   const lastUpdateRef = useRef(0);
-  const lastColorRef = useRef('#000000');
-  const lastTextRef = useRef('#ffffff');
-  const frameCountRef = useRef(0);
+  const lastAppliedColors = useRef({ bg: '', text: '' });
+  
+  // Cache de dimensões para evitar reflow síncrono
+  const dimensionsRef = useRef({ vw: window.innerWidth, vh: window.innerHeight });
 
-  // Cache de dimensões atualizado por ResizeObserver (evita reflow síncrono)
-  const dimensionsRef = useRef({ vw: 0, vh: 0 });
-
-  // Pontos de amostragem (viewport-relative)
+  // Pontos de amostragem estratégicos (viewport-relative)
   const samplePoints = useRef([
-    { x: 0.5, y: 0.15 }, // centro-topo (Hero)
-    { x: 0.5, y: 0.3 }, // centro-meio
-    { x: 0.5, y: 0.5 }, // centro
-    { x: 0.25, y: 0.4 }, // esquerda
-    { x: 0.75, y: 0.4 }, // direita
-    { x: 0.5, y: 0.7 }, // centro-baixo
+    { x: 0.5, y: 0.15 }, // Hero Area
+    { x: 0.5, y: 0.5 },  // Middle
+    { x: 0.2, y: 0.4 },  // Left
+    { x: 0.8, y: 0.4 },  // Right
+    { x: 0.5, y: 0.85 }, // Footer/Bottom
   ]);
 
-  const getPixelFromCanvas2D = useCallback((canvas: HTMLCanvasElement, x: number, y: number): [number, number, number] | null => {
-    try {
-      const ctx = canvas.getContext('2d', { willReadFrequently: true });
-      if (!ctx) return null;
-
-      const dpr = window.devicePixelRatio || 1;
-      const px = Math.min(Math.floor(x * dpr), canvas.width - 1);
-      const py = Math.min(Math.floor(y * dpr), canvas.height - 1);
-
-      if (px < 0 || py < 0) return null;
-
-      const imageData = ctx.getImageData(px, py, 1, 1);
-      const d = imageData.data;
-
-      // Ignora pixels completamente transparentes
-      if (d[3] < 10) return null;
-
-      return [d[0], d[1], d[2]];
-    } catch {
-      return null;
-    }
-  }, []);
-
-  const getPixelFromWebGL = useCallback((canvas: HTMLCanvasElement, x: number, y: number): [number, number, number] | null => {
-    try {
-      const gl = (canvas.getContext('webgl2', { preserveDrawingBuffer: true }) ||
-        canvas.getContext('webgl', { preserveDrawingBuffer: true })) as WebGLRenderingContext | null;
-      if (!gl) return null;
-
-      const dpr = window.devicePixelRatio || 1;
-      const px = Math.min(Math.floor(x * dpr), canvas.width - 1);
-      // WebGL Y invertido
-      const py = Math.max(0, canvas.height - Math.floor(y * dpr) - 1);
-
-      const pixels = new Uint8Array(4);
-      gl.readPixels(px, py, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
-
-      // Ignora pixels transparentes ou pretos puros (podem ser buffer vazio)
-      if (pixels[3] < 10 && pixels[0] === 0 && pixels[1] === 0 && pixels[2] === 0) return null;
-
-      return [pixels[0], pixels[1], pixels[2]];
-    } catch {
-      return null;
-    }
-  }, []);
-
-  // Fallback: calcula cor do texto baseado nas cores da configuração
-  const getConfigBasedColor = useCallback((): { text: string; secondary: string; bg: string; luminance: number } => {
-    let bgHex = '#050816';
-
-    switch (config.backgroundType) {
-      case 'solid':
-        bgHex = config.solidColor1 || '#050816';
-        break;
-      case 'liquid':
-        bgHex = config.liquidColor1 || '#050816';
-        break;
-      case 'wavefield':
-        bgHex = config.wavefieldColor || '#050816';
-        break;
-      case 'cyberpunk':
-        bgHex = '#0a0a1a';
-        break;
-      case 'matrix':
-        bgHex = config.matrixBackgroundColor || '#000000';
-        break;
-      case 'bolhas':
-        bgHex = '#0a0a2e';
-        break;
-      case 'particulate':
-        bgHex = config.particulateColor1 || '#0a0a1a';
-        break;
-      case 'particles':
-        bgHex = '#050816';
-        break;
-    }
-
-    // Parse hex
-    const r = parseInt(bgHex.slice(1, 3), 16) / 255;
-    const g = parseInt(bgHex.slice(3, 5), 16) / 255;
-    const b = parseInt(bgHex.slice(5, 7), 16) / 255;
-    const rLin = r <= 0.03928 ? r / 12.92 : Math.pow((r + 0.055) / 1.055, 2.4);
-    const gLin = g <= 0.03928 ? g / 12.92 : Math.pow((g + 0.055) / 1.055, 2.4);
-    const bLin = b <= 0.03928 ? b / 12.92 : Math.pow((b + 0.055) / 1.055, 2.4);
-    const luminance = 0.2126 * rLin + 0.7152 * gLin + 0.0722 * bLin;
-
-    return {
-      text: luminance > 0.4 ? '#000000' : '#ffffff',
-      secondary: luminance > 0.4 ? '#333333' : '#d1d5db',
-      bg: bgHex,
-      luminance,
-    };
-  }, [config]);
-
-  // Função para obter canvas de forma eficiente (com cache)
-  const getBackgroundCanvases = useCallback((): HTMLCanvasElement[] => {
+  /**
+   * Descobre canvases de background e inicializa seus contextos uma única vez.
+   */
+  const discoverBackgrounds = useCallback((): CanvasEntry[] => {
     const now = Date.now();
-
-    // Usa cache se ainda é válido
-    if (cachedCanvases && (now - lastCanvasQueryTime) < CANVAS_QUERY_INTERVAL) {
-      return cachedCanvases;
+    if (cachedCanvasEntries && (now - lastCanvasDiscoveryTime) < DISCOVERY_INTERVAL) {
+      return cachedCanvasEntries;
     }
 
-    lastCanvasQueryTime = now;
-    const canvases: HTMLCanvasElement[] = [];
+    const entries: CanvasEntry[] = [];
+    const canvases = document.querySelectorAll<HTMLCanvasElement>('canvas');
+    
+    canvases.forEach(canvas => {
+      // Filtra por atributos ou posição fixa (estratégia de detecção de bg)
+      const isBg = canvas.hasAttribute('data-bg-type') || 
+                   canvas.getAttribute('id')?.includes('particle') ||
+                   window.getComputedStyle(canvas).position === 'fixed';
+      
+      if (!isBg) return;
 
-    // Encontra todos os canvas dentro do container de background
-    const bgContainer = document.querySelector('[data-background]');
-    if (bgContainer) {
-      bgContainer.querySelectorAll<HTMLCanvasElement>('canvas').forEach(c => canvases.push(c));
-    }
+      let type: '2d' | 'webgl' = '2d';
+      let ctx2d: CanvasRenderingContext2D | null = null;
+      let gl: any = null;
 
-    // Canvas do ParticlesCanvas (id específico)
-    const particlesCanvas = document.getElementById('particles-canvas') as HTMLCanvasElement | null;
-    if (particlesCanvas && !canvases.includes(particlesCanvas)) {
-      canvases.push(particlesCanvas);
-    }
+      // Tenta obter contexto 2D primeiro se não for explicitamente WebGL
+      if (!canvas.getAttribute('data-bg-type')?.includes('liquid') && 
+          !canvas.getAttribute('data-bg-type')?.includes('tunnel') &&
+          !canvas.getAttribute('data-bg-type')?.includes('wavefield')) {
+        ctx2d = canvas.getContext('2d', { willReadFrequently: true });
+        if (ctx2d) type = '2d';
+      }
 
-    // Canvas fixos que podem ser backgrounds (apenas se não estiver no container)
-    document.querySelectorAll<HTMLCanvasElement>('canvas').forEach(c => {
-      if (canvases.includes(c)) return;
-      const style = window.getComputedStyle(c);
-      if (style.position === 'fixed') {
-        canvases.push(c);
+      // Se falhou 2D ou é explicitamente WebGL
+      if (!ctx2d) {
+        gl = canvas.getContext('webgl2', { preserveDrawingBuffer: true }) ||
+             canvas.getContext('webgl', { preserveDrawingBuffer: true });
+        if (gl) type = 'webgl';
+      }
+
+      if (ctx2d || gl) {
+        entries.push({ canvas, ctx2d, gl, type });
       }
     });
 
-    cachedCanvases = canvases;
-    return canvases;
+    cachedCanvasEntries = entries;
+    lastCanvasDiscoveryTime = now;
+    return entries;
   }, []);
 
-  const sampleBackground = useCallback(() => {
-    const now = Date.now();
-    // Throttle: ~8fps (125ms) - suficiente para parecer em tempo real
-    if (now - lastUpdateRef.current < 125) {
-      rafRef.current = requestAnimationFrame(sampleBackground);
+  const getPixel = (entry: CanvasEntry, x: number, y: number): [number, number, number] | null => {
+    const { canvas, ctx2d, gl, type } = entry;
+    if (canvas.width === 0 || canvas.height === 0) return null;
+
+    const dpr = window.devicePixelRatio || 1;
+    const px = Math.min(Math.floor(x * dpr), canvas.width - 1);
+    const py = Math.min(Math.floor(y * dpr), canvas.height - 1);
+
+    if (px < 0 || py < 0) return null;
+
+    try {
+      if (type === '2d' && ctx2d) {
+        const data = ctx2d.getImageData(px, py, 1, 1).data;
+        if (data[3] < 10) return null; // Transparente
+        return [data[0], data[1], data[2]];
+      } 
+      
+      if (type === 'webgl' && gl) {
+        const pixels = new Uint8Array(4);
+        // WebGL Y é invertido (bottom-to-top)
+        const glPy = canvas.height - py - 1;
+        gl.readPixels(px, glPy, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+        if (pixels[3] < 10 && pixels[0] === 0 && pixels[1] === 0 && pixels[2] === 0) return null;
+        return [pixels[0], pixels[1], pixels[2]];
+      }
+    } catch (e) {
+      return null;
+    }
+    return null;
+  };
+
+  const updateColors = useCallback(() => {
+    const now = performance.now();
+    if (now - lastUpdateRef.current < SAMPLING_INTERVAL) {
+      rafRef.current = requestAnimationFrame(updateColors);
       return;
     }
     lastUpdateRef.current = now;
-    frameCountRef.current++;
 
-    // Obtém canvas de forma eficiente (com cache)
-    const canvases = getBackgroundCanvases();
+    const entries = discoverBackgrounds();
+    if (entries.length === 0) {
+      rafRef.current = requestAnimationFrame(updateColors);
+      return;
+    }
 
-    let totalR = 0, totalG = 0, totalB = 0, validSamples = 0;
-    // Usa dimensões cacheadas pelo ResizeObserver (evita reflow síncrono)
-    const vw = dimensionsRef.current.vw || 1024;
-    const vh = dimensionsRef.current.vh || 768;
+    let r = 0, g = 0, b = 0, count = 0;
+    const { vw, vh } = dimensionsRef.current;
 
-    for (const canvas of canvases) {
-      if (canvas.width === 0 || canvas.height === 0) continue;
-
-      for (const point of samplePoints.current) {
-        const screenX = point.x * vw;
-        const screenY = point.y * vh;
-
-        // Tenta Canvas 2D primeiro (mais confiável)
-        let color = getPixelFromCanvas2D(canvas, screenX, screenY);
-
-        // Se falhou, tenta WebGL
-        if (!color) {
-          color = getPixelFromWebGL(canvas, screenX, screenY);
-        }
-
+    for (const entry of entries) {
+      for (const p of samplePoints.current) {
+        const color = getPixel(entry, p.x * vw, p.y * vh);
         if (color) {
-          totalR += color[0];
-          totalG += color[1];
-          totalB += color[2];
-          validSamples++;
+          r += color[0]; g += color[1]; b += color[2];
+          count++;
         }
       }
     }
 
-    let textColor: string;
-    let textSecondary: string;
-    let bgHex: string;
-    let luminance: number;
+    if (count > 0) {
+      const avgR = Math.round(r / count);
+      const avgG = Math.round(g / count);
+      const avgB = Math.round(b / count);
 
-    if (validSamples >= 2) {
-      // Usa amostragem real
-      const avgR = Math.round(totalR / validSamples);
-      const avgG = Math.round(totalG / validSamples);
-      const avgB = Math.round(totalB / validSamples);
+      // Conversão SRGB para Luminância linear (WCAG)
+      const rs = avgR / 255, gs = avgG / 255, bs = avgB / 255;
+      const rl = rs <= 0.03928 ? rs / 12.92 : Math.pow((rs + 0.055) / 1.055, 2.4);
+      const gl = gs <= 0.03928 ? gs / 12.92 : Math.pow((gs + 0.055) / 1.055, 2.4);
+      const bl = bs <= 0.03928 ? bs / 12.92 : Math.pow((bs + 0.055) / 1.055, 2.4);
+      const luminance = 0.2126 * rl + 0.7152 * gl + 0.0722 * bl;
 
-      // Luminância relativa WCAG
-      const rNorm = avgR / 255;
-      const gNorm = avgG / 255;
-      const bNorm = avgB / 255;
-      const rLin = rNorm <= 0.03928 ? rNorm / 12.92 : Math.pow((rNorm + 0.055) / 1.055, 2.4);
-      const gLin = gNorm <= 0.03928 ? gNorm / 12.92 : Math.pow((gNorm + 0.055) / 1.055, 2.4);
-      const bLin = bNorm <= 0.03928 ? bNorm / 12.92 : Math.pow((bNorm + 0.055) / 1.055, 2.4);
-      luminance = 0.2126 * rLin + 0.7152 * gLin + 0.0722 * bLin;
+      const bgHex = `#${avgR.toString(16).padStart(2, '0')}${avgG.toString(16).padStart(2, '0')}${avgB.toString(16).padStart(2, '0')}`;
+      const isDark = luminance < 0.45; // Threshold balanceado para legibilidade
+      const textColor = isDark ? '#ffffff' : '#000000';
+      const textSecondary = isDark ? '#d1d5db' : '#374151';
 
-      bgHex = `#${avgR.toString(16).padStart(2, '0')}${avgG.toString(16).padStart(2, '0')}${avgB.toString(16).padStart(2, '0')}`;
-      // Garante contraste adequado: fundo claro = texto escuro, fundo escuro = texto claro
-      // Threshold mais baixo (0.3) para detectar fundos claros mais cedo
-      const isLightBackground = luminance > 0.3;
-      const isVeryLightBackground = luminance > 0.7;
-      textColor = isLightBackground ? '#000000' : '#ffffff';
-      // Para fundos muito claros (branco), usa cinza escuro para melhor contraste
-      textSecondary = isVeryLightBackground ? '#333333' : isLightBackground ? '#1a1a1a' : '#d1d5db';
-    } else {
-      // Fallback: usa config
-      const fallback = getConfigBasedColor();
-      textColor = fallback.text;
-      textSecondary = fallback.secondary;
-      bgHex = fallback.bg;
-      luminance = fallback.luminance;
+      // Batch DOM update: Só mexe no CSS se realmente mudou significativamente
+      if (lastAppliedColors.current.bg !== bgHex || lastAppliedColors.current.text !== textColor) {
+        lastAppliedColors.current = { bg: bgHex, text: textColor };
+        
+        requestAnimationFrame(() => {
+          const root = document.documentElement;
+          root.style.setProperty('--dynamic-text-color', textColor);
+          root.style.setProperty('--dynamic-text-secondary', textSecondary);
+          root.style.setProperty('--dynamic-bg-color', bgHex);
+          root.style.setProperty('--dynamic-bg-luminance', luminance.toFixed(3));
+          root.style.setProperty('--dynamic-text-is-dark', isDark ? 'true' : 'false');
+        });
+      }
     }
 
-    // Só atualiza DOM se mudou (evita repaints desnecessários)
-    if (bgHex !== lastColorRef.current || textColor !== lastTextRef.current) {
-      lastColorRef.current = bgHex;
-      lastTextRef.current = textColor;
-
-      // Usa double RAF para evitar reflow forçado
-      requestAnimationFrame(() => {
-        const root = document.documentElement;
-        root.style.setProperty('--dynamic-text-color', textColor);
-        root.style.setProperty('--dynamic-text-secondary', textSecondary);
-        root.style.setProperty('--dynamic-bg-color', bgHex);
-        root.style.setProperty('--dynamic-bg-luminance', luminance.toFixed(3));
-        root.style.setProperty('--dynamic-text-is-dark', luminance > 0.4 ? 'true' : 'false');
-      });
-    }
-
-    rafRef.current = requestAnimationFrame(sampleBackground);
-  }, [getPixelFromCanvas2D, getPixelFromWebGL, getConfigBasedColor, getBackgroundCanvases]);
+    rafRef.current = requestAnimationFrame(updateColors);
+  }, [discoverBackgrounds]);
 
   useEffect(() => {
-    // Inicializa o cache de dimensões de forma assíncrona
-    const updateDimensions = () => {
-      // Usa visualViewport se disponível (mais eficiente)
-      if (window.visualViewport) {
+    // Observer de redimensionamento para atualizar cache de dimensões sem causar reflow
+    const ro = new ResizeObserver(entries => {
+      for (const entry of entries) {
         dimensionsRef.current = {
-          vw: Math.round(window.visualViewport.width),
-          vh: Math.round(window.visualViewport.height)
-        };
-      } else {
-        dimensionsRef.current = {
-          vw: window.innerWidth,
-          vh: window.innerHeight
+          vw: Math.round(entry.contentRect.width),
+          vh: Math.round(entry.contentRect.height)
         };
       }
-    };
-
-    // Atualiza uma vez no início de forma assíncrona
-    requestAnimationFrame(updateDimensions);
-
-    // ResizeObserver para atualizações (evita leitura síncrona durante requestAnimationFrame)
-    const ro = new ResizeObserver(() => {
-      requestAnimationFrame(updateDimensions);
     });
-    ro.observe(document.documentElement);
 
-    // Inicia a amostragem após delay para backgrounds carregarem
-    const timer = setTimeout(() => {
-      rafRef.current = requestAnimationFrame(sampleBackground);
-    }, 500);
+    ro.observe(document.documentElement);
+    rafRef.current = requestAnimationFrame(updateColors);
 
     return () => {
       ro.disconnect();
-      clearTimeout(timer);
-      if (rafRef.current !== null) {
-        cancelAnimationFrame(rafRef.current);
-      }
-      // Limpa cache de canvas
-      cachedCanvases = null;
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      cachedCanvasEntries = null;
     };
-  }, [sampleBackground]);
+  }, [updateColors]);
 
   return null;
 }

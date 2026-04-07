@@ -44,7 +44,9 @@
     "home": "Início"
   },
   "hero": {
-    "title": "Olá, eu sou Leandro Barbosa",
+    "title": "Olá, eu sou  Leandro Barbosa",
+    "titlePart1": "Olá, eu sou  ",
+    "titlePart2": "Leandro Barbosa",
     "backgroundSelectorHint": "Abrir seletor de background",
     "subtitle": [
       "Bem-vindo à minha vida profissional",
@@ -90,7 +92,7 @@
     "viewDetails": "Ver Detalhes"
   },
   "experience": {
-    "p": "O que fiz até agora",
+    "p": "Por onde andei",
     "h2": "Experiência Profissional",
     "verMais": "Ver Mais Experiências",
     "titles": {
@@ -176,6 +178,9 @@
       "abrakebabs3": "Criação de artes para panfletos, logo e site",
       "abrakebabs4": "Criação de website e redes sociais",
       "abrakebabs5": "Controle de fluxo de caixa e análise de indicadores de desempenho",
+      "abrakebabs6": "Gestão de fornecedores e relacionamento com clientes B2B",
+      "abrakebabs7": "Desenvolvimento de estratégias de marketing local e campanhas promocionais",
+      "abrakebabs8": "Análise de dados de vendas para otimização de cardápio e preços",
       "trader1": "Suporte ao cliente para instalação",
       "trader2": "Configuração de softwares",
       "trader3": "Compra e reembolso",
@@ -361,6 +366,8 @@
   },
   "footer": {
     "quickAccess": "Acesso Rápido",
+    "availability": "Disponível para novos desafios",
+    "downloadCV": "Baixar Currículo",
     "allRightsReserved": "Todos os direitos reservados.",
     "backToTop": "Voltar ao Topo",
     "backToTopLabel": "Voltar para o topo da página",
@@ -913,7 +920,7 @@
     "settings": "Configurações",
     "backgroundType": "Tipo de Background",
     "editBackground": "Editar Background",
-    "openSettings": "Abrir configurações de background"
+    "openSettings": "Clique para personalizar o plano de fundo conforme seu gosto"
   },
   "backgroundEditor": {
     "closeEditor": "Fechar editor",

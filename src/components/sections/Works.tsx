@@ -180,7 +180,10 @@ const Works = () => {
                   {project.tags?.slice(0, 3).map((tag, i) => (
                     <span
                       key={i}
-                      className='text-[clamp(0.55rem,1.5vw,0.65rem)] px-[clamp(0.5rem,1.5vw,0.75rem)] py-[clamp(0.125rem,0.5vw,0.25rem)] bg-white/5 border border-white/10 rounded-full text-[var(--text-secondary)] font-medium'
+                      className='text-[clamp(0.55rem,1.5vw,0.65rem)] px-[clamp(0.5rem,1.5vw,0.75rem)] py-[clamp(0.125rem,0.5vw,0.25rem)] bg-white/5 border border-white/10 rounded-full text-white/80 font-medium'
+                      style={{
+                        textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)',
+                      }}
                     >
                       #{tag.name}
                     </span>
@@ -191,7 +194,10 @@ const Works = () => {
                   {projectName}
                 </h3>
 
-                <p className='mt-[clamp(0.5rem,1.5vw,0.75rem)] text-[var(--text-secondary)] line-clamp-3 text-[clamp(0.75rem,2vw,0.875rem)] flex-1 leading-relaxed'>
+                <p className='mt-[clamp(0.5rem,1.5vw,0.75rem)] text-white/80 line-clamp-3 text-[clamp(0.75rem,2vw,0.875rem)] flex-1 leading-relaxed'
+                  style={{
+                    textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)',
+                  }}>
                   {projectDescription}
                 </p>
 

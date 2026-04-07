@@ -122,7 +122,7 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
     const camera = new PerspectiveCamera(cameraFOV, w / h, 0.01, 2000);
     camera.position.z = 5;
     cameraRef.current = camera;
-    const renderer = new WebGLRenderer({ antialias: false, alpha: true });
+    const renderer = new WebGLRenderer({ antialias: false, alpha: true, preserveDrawingBuffer: true });
     renderer.setClearAlpha(0);
     renderer.setSize(w, h);
     renderer.toneMapping = ACESFilmicToneMapping;

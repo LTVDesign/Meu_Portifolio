@@ -111,7 +111,10 @@ const ExperienceCard = forwardRef<
           {experience.points.map((point: string, i: number) => (
             <li
               key={i}
-              className='text-[var(--text-secondary)] text-[clamp(0.75rem,2vw,0.875rem)] flex gap-[clamp(0.5rem,2vw,0.75rem)] leading-relaxed'
+              className='text-white/80 text-[clamp(0.75rem,2vw,0.875rem)] flex gap-[clamp(0.5rem,2vw,0.75rem)] leading-relaxed'
+              style={{
+                textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)',
+              }}
             >
               <span className='text-[var(--cyber-cyan)] mt-1.5 flex-shrink-0 animate-pulse text-[clamp(1rem,2vw,1.25rem)] leading-none'>
                 •
@@ -218,7 +221,10 @@ const Experience = () => {
                 transition={{ duration: 0.8, delay: 0.7 }}
                 className='prose prose-invert max-w-none'
               >
-                <p className='text-[var(--text-secondary)] leading-relaxed text-[clamp(0.875rem,2vw,1.125rem)] mb-[clamp(1.5rem,3vw,1.5rem)]'>
+                <p className='text-white/80 leading-relaxed text-[clamp(0.875rem,2vw,1.125rem)] mb-[clamp(1.5rem,3vw,1.5rem)]'
+                  style={{
+                    textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)',
+                  }}>
                   {t('about.content')}
                 </p>
               </m.div>

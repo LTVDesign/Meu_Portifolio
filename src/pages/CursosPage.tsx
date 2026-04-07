@@ -1,12 +1,15 @@
+import { useNavigate } from 'react-router-dom';
 import AllCursos from '../components/sections/AllCursos';
-import Cursos from '../components/sections/Cursos';
 
 const CursosPage = () => {
+  const navigate = useNavigate();
+
   return (
-    <>
-      <Cursos />
-      <AllCursos />
-    </>
+    <AllCursos 
+      isOpen={true} 
+      isPage={true}
+      onClose={() => navigate('/#cursos')} 
+    />
   );
 };
 

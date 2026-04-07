@@ -83,7 +83,7 @@ const CyberpunkTunnelBackground: React.FC<CyberpunkTunnelBackgroundProps> = ({
     fogRef.current = scene.fog as FogExp2;
     const camera = new PerspectiveCamera(60, w / h, 0.1, 1000);
     camera.position.z = 3;
-    const renderer = new WebGLRenderer({ antialias: false }); // Desativado para performance
+    const renderer = new WebGLRenderer({ antialias: false, preserveDrawingBuffer: true }); // Desativado para performance, mas habilitado Buffer para precisão de cor
     renderer.setSize(w, h);
     renderer.toneMapping = ACESFilmicToneMapping;
     renderer.outputColorSpace = SRGBColorSpace;

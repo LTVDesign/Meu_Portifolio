@@ -2,7 +2,6 @@ import type React from 'react';
 import { m } from 'framer-motion';
 
 import { styles } from '../../constants/styles';
-import DynamicText from './DynamicText';
 
 interface IHeader {
   useMotion: boolean;
@@ -87,13 +86,14 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
           }}
         >
           <h2
-            className={`${styles.sectionHeadText} relative z-10`}
+            className={`${styles.sectionHeadText} relative z-10 text-white`}
             style={{
               filter:
                 'drop-shadow(0 0 20px rgba(145,94,255,0.6)) drop-shadow(0 0 40px rgba(0,255,255,0.4)) drop-shadow(0 0 60px rgba(145,94,255,0.3))',
+              textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(145, 94, 255, 0.3)',
             }}
           >
-            <DynamicText colorMode='auto'>{h2}</DynamicText>
+            {h2}
           </h2>
           {/* Efeito de brilho atrás do texto */}
           <m.div
@@ -102,19 +102,20 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
             animate={{ opacity: [0.3, 0.5, 0.3], scale: [1, 1.1, 1] }}
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <DynamicText colorMode='auto'>{h2}</DynamicText>
+            {h2}
           </m.div>
         </m.div>
         <div className='relative'>
           <m.p
             variants={subtitleVariants}
-            className={`${styles.sectionSubText} relative`}
+            className={`${styles.sectionSubText} relative text-white/90`}
             style={{
               filter:
                 'drop-shadow(0 0 10px rgba(0,255,255,0.4)) drop-shadow(0 0 20px rgba(145,94,255,0.3))',
+              textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)',
             }}
           >
-            <DynamicText colorMode='auto'>{p}</DynamicText>
+            {p}
           </m.p>
           {/* Linha animada abaixo do subtítulo */}
           <m.div
@@ -133,27 +134,29 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
     <div className='text-center flex flex-col items-center justify-center'>
       <div className='mb-4 relative'>
         <h2
-          className={`${styles.sectionHeadText} relative z-10`}
+          className={`${styles.sectionHeadText} relative z-10 text-white`}
           style={{
             filter:
               'drop-shadow(0 0 20px rgba(145,94,255,0.6)) drop-shadow(0 0 40px rgba(0,255,255,0.4))',
+            textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(145, 94, 255, 0.3)',
           }}
         >
-          <DynamicText colorMode='auto'>{h2}</DynamicText>
+          {h2}
         </h2>
         <div className='absolute inset-0 bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] bg-clip-text text-transparent blur-xl opacity-30 -z-10'>
-          <DynamicText colorMode='auto'>{h2}</DynamicText>
+          {h2}
         </div>
       </div>
       <div className='relative'>
         <p
-          className={`${styles.sectionSubText} relative`}
+          className={`${styles.sectionSubText} relative text-white/90`}
           style={{
             filter:
               'drop-shadow(0 0 10px rgba(0,255,255,0.4)) drop-shadow(0 0 20px rgba(145,94,255,0.3))',
+            textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)',
           }}
         >
-          <DynamicText colorMode='auto'>{p}</DynamicText>
+          {p}
         </p>
         <div className='absolute -bottom-2 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)] to-transparent w-0 group-hover:w-full transition-all duration-500' />
       </div>

@@ -96,14 +96,17 @@ const AllWorks = () => {
       <div className='flex w-full justify-between items-center'>
         <m.p
           variants={fadeIn('up', 'tween', 0.1, 1)}
-          className='text-[var(--dynamic-text-secondary)] transition-colors composited-hover duration-500 mt-3 text-[17px] leading-[30px]'
+          className='text-white/80 transition-colors duration-500 mt-3 text-[17px] leading-[30px]'
+          style={{
+            textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)',
+          }}
         >
           {t('works.content')}
         </m.p>
         <button
           type='button'
           onClick={() => navigate('/')}
-          className='bg-primary text-[var(--dynamic-text-color)] px-6 py-3 rounded-lg hover:bg-primary/80 transition-colors mt-3'
+          className='bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/80 transition-colors mt-3'
         >
           {t('allWorks.backToHome')}
         </button>

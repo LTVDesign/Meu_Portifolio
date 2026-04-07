@@ -41,18 +41,16 @@ const notifyListeners = () => {
 };
 
 // Função para ler dimensões com RAF (evita layout thrashing)
-// Usa double RAF para garantir que estamos após o paint
 const updateSizeWithRAF = () => {
-    if (rafId !== null) {
-        cancelAnimationFrame(rafId);
-    }
+    if (rafId !== null) return; // Se já há um frame agendado, não faz nada (throttling natural)
+
     rafId = requestAnimationFrame(() => {
-        // Double RAF para garantir que estamos após o browser paint
+        // Double RAF para garantir que estamos após o browser layout/paint
         requestAnimationFrame(() => {
             const newWidth = window.innerWidth;
             const newHeight = window.innerHeight;
 
-            // Só atualiza se houve mudança
+            // Só atualiza se houve mudança real
             if (sharedState.width !== newWidth || sharedState.height !== newHeight) {
                 sharedState = { width: newWidth, height: newHeight };
                 notifyListeners();

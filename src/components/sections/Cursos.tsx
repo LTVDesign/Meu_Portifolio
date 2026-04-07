@@ -15,11 +15,9 @@ import ipedImg from '../../assets/images/logos/ipad.webp';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms';
 import CursoDetailModal from '../atoms/CursoDetailModal';
-import CursosModal from '../atoms/CursosModal';
 import type { Curso } from '../../types';
 
 const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const [selectedCurso, setSelectedCurso] = useState<Curso | null>(null);
   const { t, i18n } = useTranslation();
@@ -195,7 +193,10 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
               </div>
             </div>
 
-            <p className='text-[var(--text-secondary)] text-sm flex-1 leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity'>
+            <p className='text-white/80 text-sm flex-1 leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity'
+              style={{
+                textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)',
+              }}>
               {curso.summary}
             </p>
 
@@ -235,7 +236,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
 
       <div className='mt-10 sm:mt-20 flex justify-center'>
         <m.button
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => window.open('/cursos', '_blank')}
           whileHover={{
             scale: 1.05,
             y: -3,
@@ -261,11 +262,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
         </m.button>
       </div>
 
-      <CursosModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        cursos={allCursos}
-      />
+
 
       <CursoDetailModal
         isOpen={isDetailOpen}

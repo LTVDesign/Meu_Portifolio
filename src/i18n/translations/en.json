@@ -44,7 +44,9 @@
     "home": "Home"
   },
   "hero": {
-    "title": "Hello, I'm Leandro Barbosa",
+    "title": "Hello, I'm  Leandro Barbosa",
+    "titlePart1": "Hello, I'm  ",
+    "titlePart2": "Leandro Barbosa",
     "backgroundSelectorHint": "Open background selector",
     "subtitle": [
       "Welcome to my professional life",
@@ -367,6 +369,8 @@
   },
   "footer": {
     "quickAccess": "Quick Access",
+    "availability": "Available for new challenges",
+    "downloadCV": "Download CV",
     "allRightsReserved": "All rights reserved.",
     "backToTop": "Back to Top",
     "backToTopLabel": "Back to top of the page",
@@ -913,7 +917,7 @@
     "settings": "Settings",
     "backgroundType": "Background Type",
     "editBackground": "Edit Background",
-    "openSettings": "Open background settings"
+    "openSettings": "Click to customize the background to your liking"
   },
   "backgroundEditor": {
     "closeEditor": "Close editor",
@@ -1036,6 +1040,7 @@
     "watchMode": "Watch Mode",
     "normalMode": "Normal Mode"
   },
+
   "experienceCard": {
     "viewMore": "View more",
     "viewLess": "View less",

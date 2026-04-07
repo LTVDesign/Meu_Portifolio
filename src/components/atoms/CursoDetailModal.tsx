@@ -56,13 +56,13 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
                   {curso.platform}
                 </p>
                 <div className='flex flex-wrap items-center gap-2 sm:gap-4 mt-2'>
-                  <span className='text-xs text-[var(--text-secondary)]'>
+                  <span className='text-xs text-white/80' style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}>
                     📅 {curso.date}
                   </span>
-                  <span className='text-xs text-[var(--text-secondary)]'>
+                  <span className='text-xs text-white/80' style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}>
                     ⏱ {curso.duration}
                   </span>
-                  <span className='text-xs text-[var(--text-secondary)]'>
+                  <span className='text-xs text-white/80' style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}>
                     ⏳ {curso.workload}
                   </span>
                   {curso.isProfessionalCertificate && (
@@ -82,7 +82,7 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
               <h4 className='text-sm font-bold text-[var(--cyber-cyan)] uppercase tracking-wider mb-2'>
                 {t('cursoDetailModal.summary')}
               </h4>
-              <p className='text-[var(--text-secondary)] text-sm leading-relaxed'>
+              <p className='text-white/80 text-sm leading-relaxed' style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}>
                 {curso.summary}
               </p>
             </div>
@@ -92,7 +92,7 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
               <h4 className='text-sm font-bold text-[var(--cyber-cyan)] uppercase tracking-wider mb-2'>
                 {t('cursoDetailModal.detailedDescription')}
               </h4>
-              <p className='text-[var(--text-secondary)] text-sm leading-relaxed'>
+              <p className='text-white/80 text-sm leading-relaxed' style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}>
                 {curso.description}
               </p>
             </div>
@@ -107,7 +107,7 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
                   {curso.modules.map((module: string, index: number) => (
                     <li
                       key={index}
-                      className='flex items-start gap-2 text-sm text-[var(--text-secondary)]'
+                      className='flex items-start gap-2 text-sm text-white/80' style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}
                     >
                       <span className='text-[var(--cyber-cyan)] mt-1'>▸</span>
                       <span>{module}</span>

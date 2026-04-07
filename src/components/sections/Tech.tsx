@@ -181,7 +181,7 @@ const Tech = () => {
 
       {/* Informação adicional */}
       <div className='mt-10 sm:mt-16 text-center'>
-        <p className='text-[var(--text-secondary)] text-sm'>
+        <p className='text-white/80 text-sm' style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}>
           {t('tech.clickInfo')}
         </p>
       </div>

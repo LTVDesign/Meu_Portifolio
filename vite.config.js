@@ -21,7 +21,7 @@ export default defineConfig({
     }),
     ViteImageOptimizer({
       test: /\.(jpe?g|png|gif|tiff|webp|svg|avif)$/i,
-      exclude: [/node_modules/, /public\/assets\/3d-models\/desktop-pc\/webp/],
+      exclude: [/node_modules/, /public\/assets\/3d-models\/desktop-pc\/webp/, /config\.svg$/],
       png: {
         quality: 80,
         compressionLevel: 6,
@@ -68,6 +68,10 @@ export default defineConfig({
   ],
 
   resolve: {
+    alias: {
+      'react': path.resolve(__dirname, './node_modules/react'),
+      'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
+    },
     dedupe: ['react', 'react-dom'],
   },
 
@@ -75,11 +79,29 @@ export default defineConfig({
     modulePreload: true,
     sourcemap: true,
     minify: 'terser',
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 1500,
     cssCodeSplit: true,
     assetsInlineLimit: 4096,
     rollupOptions: {
       output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('three') || id.includes('@react-three')) {
+              return 'vendor-three';
+            }
+            if (id.includes('framer-motion')) {
+              return 'vendor-motion';
+            }
+            // Put all React-related core libs in one chunk
+            if (id.includes('react') || id.includes('scheduler') || id.includes('prop-types')) {
+               return 'vendor-core';
+            }
+            if (id.includes('i18next')) {
+              return 'vendor-i18n';
+            }
+            // Don't name the catch-all chunk to let Vite handle it
+          }
+        },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: (assetInfo) => {

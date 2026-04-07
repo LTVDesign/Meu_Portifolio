@@ -41,7 +41,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
           {project.title || project.name}
         </h3>
 
-        <p className='mt-4 text-[var(--text-secondary)] line-clamp-4 flex-1'>
+        <p className='mt-4 text-white/80 line-clamp-4 flex-1' style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}>
           {project.description}
         </p>
 

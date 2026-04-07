@@ -324,6 +324,8 @@ const experiences: TExperience[] = [
       'experience.points.abrakebabs4',
       'experience.points.abrakebabs5',
       'experience.points.abrakebabs6',
+      'experience.points.abrakebabs7',
+      'experience.points.abrakebabs8',
     ],
   },
   {

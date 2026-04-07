@@ -21,9 +21,10 @@ import CursoDetailModal from '../atoms/CursoDetailModal';
 interface AllCursosProps {
   isOpen?: boolean;
   onClose?: () => void;
+  isPage?: boolean;
 }
 
-const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
+const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCursosProps) => {
   const [filter, setFilter] = useState('');
   const [platformFilter, setPlatformFilter] = useState<string>('all');
   const [certificateFilter, setCertificateFilter] = useState<string>('all');
@@ -160,11 +161,13 @@ const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className='fixed inset-0 z-[100] flex flex-col bg-black/95 backdrop-blur-md'
-        role='presentation'
+        className={isPage
+          ? 'relative w-full min-h-screen pt-20 sm:pt-28 flex flex-col bg-transparent'
+          : 'fixed inset-0 z-[100] flex flex-col bg-black/95 backdrop-blur-md'}
+        role={isPage ? 'main' : 'presentation'}
       >
         {/* Header da Modal - Botão Fechar no Topo */}
-        <div className='sticky top-0 z-30 flex items-center justify-between p-4 sm:p-6 border-b border-white/10 bg-black/90 backdrop-blur-xl'>
+        <div className={`sticky ${isPage ? 'top-16 sm:top-20' : 'top-0'} z-30 flex items-center justify-between p-4 sm:p-6 border-b border-white/10 bg-black/90 backdrop-blur-xl`}>
           <div className='flex items-center gap-3 sm:gap-4'>
             <div className='w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-[var(--cyber-purple)] to-[var(--cyber-cyan)] flex items-center justify-center'>
               <span className='text-white text-lg sm:text-xl'>📚</span>
@@ -178,25 +181,27 @@ const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
               </p>
             </div>
           </div>
-          <m.button
-            onClick={onClose}
-            whileHover={{ scale: 1.1, rotate: 90 }}
-            whileTap={{ scale: 0.9 }}
-            className='p-3 rounded-xl bg-white/10 hover:bg-white/20 transition-all duration-300 border border-white/10 hover:border-white/20'
-            aria-label={t('common.close')}
-          >
-            <img src={close} alt='' className='w-5 h-5 sm:w-6 sm:h-6 brightness-0 invert' />
-          </m.button>
+          {!isPage && (
+            <m.button
+              onClick={onClose}
+              whileHover={{ scale: 1.1, rotate: 90 }}
+              whileTap={{ scale: 0.9 }}
+              className='p-3 rounded-xl bg-white/10 hover:bg-white/20 transition-all duration-300 border border-white/10 hover:border-white/20'
+              aria-label={t('common.close')}
+            >
+              <img src={close} alt='' className='w-5 h-5 sm:w-6 sm:h-6 brightness-0 invert' />
+            </m.button>
+          )}
         </div>
 
         {/* Conteúdo Principal */}
         <div
           ref={modalRef}
-          className='flex-1 overflow-y-auto p-4 sm:p-6'
+          className={`flex-1 ${!isPage ? 'overflow-y-auto' : ''} p-4 sm:p-6`}
           role='dialog'
-          aria-modal='true'
+          aria-modal={!isPage}
           aria-labelledby={modalTitleId}
-          tabIndex={-1}
+          tabIndex={isPage ? undefined : -1}
         >
           <div className='max-w-7xl mx-auto'>
             {/* Barra de Filtros e Organização */}
@@ -360,7 +365,10 @@ const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
                       </div>
                     </div>
 
-                    <p className='text-[var(--text-secondary)] text-sm flex-1 leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity'>
+                    <p className='text-white/80 text-sm flex-1 leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity'
+                      style={{
+                        textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)',
+                      }}>
                       {curso.summary}
                     </p>
 
@@ -453,29 +461,30 @@ const AllCursos = ({ isOpen = true, onClose = () => { } }: AllCursosProps) => {
           </div>
         </div>
 
-        {/* Footer da Modal */}
-        <div className='sticky bottom-0 z-20 p-4 sm:p-6 border-t border-white/10 bg-black/90 backdrop-blur-xl'>
-          <div className='max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4'>
-            <div className='flex items-center gap-3 sm:gap-4'>
-              <div className='text-xs sm:text-sm text-white/50'>
-                {t('allCursos.footerTotalCourses', { count: sortedCursos.length })}
+        {!isPage && (
+          <div className='sticky bottom-0 z-20 p-4 sm:p-6 border-t border-white/10 bg-black/90 backdrop-blur-xl'>
+            <div className='max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4'>
+              <div className='flex items-center gap-3 sm:gap-4'>
+                <div className='text-xs sm:text-sm text-white/50'>
+                  {t('allCursos.footerTotalCourses', { count: sortedCursos.length })}
+                </div>
+              </div>
+              <div className='flex items-center gap-3'>
+                <p className='text-xs text-white/40'>{t('allCursos.footerCopyright')}</p>
+                <m.button
+                  onClick={onClose}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className='px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)] text-white font-bold text-xs sm:text-sm uppercase tracking-wider hover:shadow-lg hover:shadow-[var(--cyber-cyan)]/30 transition-all duration-300 flex items-center gap-2 min-h-[44px]'
+                  aria-label={t('common.close')}
+                >
+                  <img src={close} alt='' className='w-4 h-4' />
+                  <span>{t('common.close')}</span>
+                </m.button>
               </div>
             </div>
-            <div className='flex items-center gap-3'>
-              <p className='text-xs text-white/40'>{t('allCursos.footerCopyright')}</p>
-              <m.button
-                onClick={onClose}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className='px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)] text-white font-bold text-xs sm:text-sm uppercase tracking-wider hover:shadow-lg hover:shadow-[var(--cyber-cyan)]/30 transition-all duration-300 flex items-center gap-2 min-h-[44px]'
-                aria-label={t('common.close')}
-              >
-                <img src={close} alt='' className='w-4 h-4' />
-                <span>{t('common.close')}</span>
-              </m.button>
-            </div>
           </div>
-        </div>
+        )}
 
         <CursoDetailModal
           isOpen={isDetailOpen}

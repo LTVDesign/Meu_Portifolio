@@ -52,21 +52,52 @@
 
   /* Apenas estilos que NÃO estão no critical.css */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
   }
 
   ::-webkit-scrollbar-track {
     background: var(--tertiary);
+    border-radius: 8px;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--cyber-purple);
-    border-radius: 4px;
+    background: linear-gradient(135deg, var(--cyber-purple), var(--cyber-cyan));
+    border-radius: 5px;
+    border: 2px solid var(--tertiary);
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--cyber-glow);
+    background: linear-gradient(135deg, var(--cyber-cyan), var(--cyber-purple));
+    border-radius: 5px;
+  }
+
+  /* Scrollbar para cards arredondados - combina com border-radius dos cards */
+  .glass-card ::-webkit-scrollbar-track,
+  .glass ::-webkit-scrollbar-track,
+  [class*='rounded'] ::-webkit-scrollbar-track {
+    border-radius: inherit;
+  }
+
+  .glass-card ::-webkit-scrollbar-thumb,
+  .glass ::-webkit-scrollbar-thumb,
+  [class*='rounded'] ::-webkit-scrollbar-thumb {
+    border-radius: calc(inherit * 0.5);
+    min-height: 30px;
+  }
+
+  /* Scrollbar para tabelas com overflow */
+  .overflow-x-auto ::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .overflow-x-auto ::-webkit-scrollbar-track {
+    border-radius: 4px;
+  }
+
+  .overflow-x-auto ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    min-width: 30px;
   }
 
   * {
@@ -91,13 +122,36 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
-  h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); @apply font-bold; }
-  h2 { font-size: clamp(2rem, 4vw, 3.5rem); @apply font-bold; }
-  h3 { font-size: clamp(1.5rem, 3vw, 2.5rem); @apply font-semibold; }
-  h4 { font-size: clamp(1.25rem, 2.5vw, 2rem); @apply font-semibold; }
-  h5 { font-size: clamp(1.125rem, 2vw, 1.5rem); @apply font-medium; }
-  h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); @apply font-medium; }
+
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    @apply font-bold;
+  }
+
+  h2 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    @apply font-bold;
+  }
+
+  h3 {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    @apply font-semibold;
+  }
+
+  h4 {
+    font-size: clamp(1.25rem, 2.5vw, 2rem);
+    @apply font-semibold;
+  }
+
+  h5 {
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    @apply font-medium;
+  }
+
+  h6 {
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    @apply font-medium;
+  }
 
   html {
     scroll-behavior: smooth;
@@ -255,6 +309,18 @@
   .dynamic-text-blend {
     color: var(--dynamic-text-color, #ffffff);
     transition: color 0.15s ease-out;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Garantir contraste alto para textos estáticos */
+  .text-high-contrast {
+    color: #ffffff !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(145, 94, 255, 0.3);
+  }
+
+  .text-secondary-high-contrast {
+    color: #e5e5e5 !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
   }
 
   /* Shine animation for neon lines - otimizado para GPU */

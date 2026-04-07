@@ -49,7 +49,7 @@ const EducationCard = ({ item, index }: EducationCardProps) => {
           </p>
           <p className='text-sm text-white/70 mt-1'>{item.period}</p>
 
-          <p className='mt-6 text-[var(--text-secondary)] leading-relaxed flex-1'>
+          <p className='mt-6 text-white/80 leading-relaxed flex-1' style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}>
             {item.description}
           </p>
 

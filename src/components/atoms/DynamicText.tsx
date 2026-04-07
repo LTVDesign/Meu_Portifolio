@@ -36,10 +36,12 @@ const DynamicText = forwardRef<HTMLElement, DynamicTextProps>(
     },
     ref
   ) => {
-    // Proteção contra children complexos
     const safeChildren = useMemo(() => {
       if (React.isValidElement(children)) return children;
-      return String(children);
+      if (Array.isArray(children)) {
+        return children.map((child) => (React.isValidElement(child) ? child : String(child)));
+      }
+      return children == null ? '' : String(children);
     }, [children]);
 
     return (

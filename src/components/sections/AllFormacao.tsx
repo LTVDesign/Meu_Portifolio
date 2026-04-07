@@ -22,14 +22,17 @@ const AllFormacao = () => {
       <div className='flex w-full justify-between items-center'>
         <m.p
           variants={prefersReduced ? {} : fadeIn('up', 'tween', 0.1, 1)}
-          className='text-[var(--dynamic-text-secondary)] transition-colors composited-hover duration-500 mt-3 max-w-3xl text-[17px] leading-[30px]'
+          className='text-white/80 transition-colors duration-500 mt-3 max-w-3xl text-[17px] leading-[30px]'
+          style={{
+            textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)',
+          }}
         >
           {t('formacao.content')}
         </m.p>
         <button
           type='button'
           onClick={() => navigate('/')}
-          className='bg-primary text-[var(--dynamic-text-color)] px-6 py-3 rounded-lg hover:bg-primary/80 transition-colors mt-3'
+          className='bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/80 transition-colors mt-3'
         >
           {t('allFormacao.backToHome')}
         </button>
@@ -76,7 +79,7 @@ const AllFormacao = () => {
 
       {/* Histórico Acadêmico Completo */}
       <div className='mt-16 min-h-screen'>
-        <h3 className='text-[24px] font-bold text-[var(--dynamic-text-color)] mb-8 text-center'>
+        <h3 className='text-[24px] font-bold text-white mb-8 text-center' style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(145, 94, 255, 0.3)' }}>
           {t('allFormacao.semesterHistory')}
         </h3>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
@@ -117,7 +120,7 @@ const AllFormacao = () => {
           style={{ backgroundImage: `url(${diplomaImg})` }}
         />
         <div className='relative z-10'>
-          <h3 className='text-[24px] font-bold text-[var(--dynamic-text-color)] mb-8 text-center'>
+          <h3 className='text-[24px] font-bold text-white mb-8 text-center'>
             {t('allFormacao.authenticityVerification')}
           </h3>
           <div className='max-w-2xl mx-auto bg-tertiary rounded-2xl p-8'>

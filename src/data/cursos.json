@@ -46,7 +46,7 @@
     },
     {
       "id": "3",
-      "title": "Introduction to Software Product Management (PT)",
+      "title": "Introdução ao Gerenciamento de Produtos de Software",
       "platform": "University of Alberta (via Coursera)",
       "date": "2023",
       "duration": "Aproximadamente 6 semanas",
@@ -62,79 +62,13 @@
         "Papéis e responsabilidades do Product Manager"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/WKNDJF2YGF88",
-      "link": "/certificados/ID_3_Intro_Software_Product_Management.pdf",
+      "link": "/certificados/ID_3_introducao_ao_gerenciamento_de_produtos_de_software_university_of_alberta_via_coursera.pdf",
       "isProfessionalCertificate": false,
       "icon": "alberta"
     },
     {
       "id": "4",
-      "title": "Redes de Computadores",
-      "platform": "Google (via Coursera)",
-      "date": "2023",
-      "duration": "Aproximadamente 2 meses",
-      "workload": "Cerca de 40 horas",
-      "summary": "Curso completo sobre redes de computadores, cobrindo desde os fundamentos de comunicação de dados até protocolos, arquiteturas de rede, segurança e troubleshooting. Essencial para profissionais de TI e desenvolvimento.",
-      "description": "Este curso oferece uma compreensão abrangente das redes de computadores, desde os conceitos básicos de comunicação de dados até arquiteturas de rede complexas. Aborda protocolos, modelos de referência (OSI/TCP-IP), dispositivos de rede, segurança cibernética e técnicas de diagnóstico e resolução de problemas. Fundamental para qualquer profissional de tecnologia que trabalhe com sistemas conectados.",
-      "modules": [
-        "Fundamentos de comunicação de dados",
-        "Modelos de referência (OSI e TCP/IP)",
-        "Protocolos de rede (IP, TCP, UDP, HTTP, DNS)",
-        "Dispositivos de rede (roteadores, switches, firewalls)",
-        "Segurança de redes e criptografia",
-        "Troubleshooting e monitoramento de redes"
-      ],
-      "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
-      "link": "/certificados/ID_4_Redes_Computadores_Google.pdf",
-      "isProfessionalCertificate": false,
-      "icon": "google"
-    },
-    {
-      "id": "5",
-      "title": "Sistemas Operacionais",
-      "platform": "Google (via Coursera)",
-      "date": "2023",
-      "duration": "Aproximadamente 2 meses",
-      "workload": "Cerca de 40 horas",
-      "summary": "Curso completo sobre sistemas operacionais, abordando instalação, configuração, gerenciamento de processos, memória, armazenamento e segurança. Essencial para profissionais de TI que trabalham com infraestrutura.",
-      "description": "Este curso oferece uma compreensão profunda dos sistemas operacionais modernos, incluindo Windows e Linux. Aborda conceitos fundamentais como processos, threads, memória virtual, sistemas de arquivos, entrada/saída, segurança e virtualização. Você aprenderá a instalar, configurar, otimizar e solucionar problemas em sistemas operacionais, habilidades essenciais para administradores de sistemas e profissionais de infraestrutura de TI.",
-      "modules": [
-        "Introdução aos sistemas operacionais",
-        "Gerenciamento de processos e threads",
-        "Gerenciamento de memória e memória virtual",
-        "Sistemas de arquivos e armazenamento",
-        "Entrada e saída (I/O) e dispositivos",
-        "Segurança e virtualização"
-      ],
-      "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
-      "link": "/certificados/ID_5_Sistemas_Operacionais_Google.pdf",
-      "isProfessionalCertificate": false,
-      "icon": "google"
-    },
-    {
-      "id": "6",
-      "title": "Segurança de TI",
-      "platform": "Google (via Coursera)",
-      "date": "2023",
-      "duration": "Aproximadamente 4 meses",
-      "workload": "Cerca de 80 horas",
-      "summary": "Curso completo sobre segurança da informação e cibersegurança, abordando ameaças, vulnerabilidades, controles de acesso, criptografia, segurança de redes e resposta a incidentes. Formação para profissionais de segurança de TI.",
-      "description": "Este curso fornece conhecimentos fundamentais e práticos em segurança da informação e cibersegurança. Aborda os principais conceitos, como confidencialidade, integridade e disponibilidade, além de técnicas de identificação de ameaças, implementação de controles de segurança, criptografia, segurança de redes, segurança de aplicações e resposta a incidentes. É uma base sólida para quem deseja atuar na área de segurança da informação ou complementar conhecimentos em TI.",
-      "modules": [
-        "Fundamentos de segurança da informação",
-        "Ameaças e vulnerabilidades",
-        "Controles de acesso e autenticação",
-        "Criptografia e segurança de dados",
-        "Segurança de redes e firewalls",
-        "Resposta a incidentes e recuperação"
-      ],
-      "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
-      "link": "/certificados/ID_6_Seguranca_TI_Google.pdf",
-      "isProfessionalCertificate": true,
-      "icon": "google"
-    },
-    {
-      "id": "7",
-      "title": "Introduction to Technical Support",
+      "title": "Introdução ao Suporte Técnico",
       "platform": "IBM (via Coursera)",
       "date": "2023",
       "duration": "Aproximadamente 2 meses",
@@ -150,12 +84,12 @@
         "Resolução de problemas e troubleshooting"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/Y3TYLH6K7N4V",
-      "link": "/certificados/ID_7_Intro_Technical_Support_IBM.pdf",
+      "link": "/certificados/ID_4_introducao_ao_suporte_tecnico_ibm_via_coursera.pdf",
       "isProfessionalCertificate": false,
       "icon": "ibm"
     },
     {
-      "id": "8",
+      "id": "5",
       "title": "Inteligência Artificial e Data Science",
       "platform": "IBM (via Coursera)",
       "date": "2024",
@@ -177,7 +111,7 @@
       "icon": "ibm"
     },
     {
-      "id": "9",
+      "id": "6",
       "title": "TCP/IP",
       "platform": "Yonsei University (via Coursera)",
       "date": "2024",
@@ -199,7 +133,7 @@
       "icon": "yonsei"
     },
     {
-      "id": "10",
+      "id": "7",
       "title": "HTML, CSS e JavaScript para Desenvolvedores Web",
       "platform": "Johns Hopkins University (via Coursera)",
       "date": "2025",
@@ -216,13 +150,13 @@
         "APIs modernas e boas práticas"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/FU6BSD4ECJFD",
-      "link": "/certificados/ID_10_HTML_CSS_JS_Johns_Hopkins.pdf",
+      "link": "/certificados/ID_7_HTML_CSS_JS_Johns_Hopkins.pdf",
       "isProfessionalCertificate": false,
       "icon": "johns"
     },
     {
-      "id": "11",
-      "title": "Introduction to Scrum Master Profession",
+      "id": "8",
+      "title": "Introdução à Profissão Scrum Master",
       "platform": "Google (via Coursera)",
       "date": "2025",
       "duration": "Aproximadamente 2 meses",
@@ -238,13 +172,13 @@
         "Impedimentos, coaching e melhoria contínua"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/XP3ESDW5Z0F9",
-      "link": "/certificados/ID_11_Scrum_Master_Google.pdf",
+      "link": "/certificados/ID_8_introducao_a_profissao_scrum_master_google_via_coursera.pdf",
       "isProfessionalCertificate": false,
       "icon": "google"
     },
     {
-      "id": "12",
-      "title": "Foundations of Cybersecurity",
+      "id": "9",
+      "title": "Fundamentos de Cibersegurança",
       "platform": "Google (via Coursera)",
       "date": "2025",
       "duration": "Aproximadamente 6 meses",
@@ -260,34 +194,34 @@
         "Monitoramento, detecção e resposta a incidentes"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/H8G4LMDO77NR",
-      "link": "/certificados/ID_12_Foundations_Cybersecurity_Google.pdf",
+      "link": "/certificados/ID_9_fundamentos_de_ciberseguranca_google_via_coursera.pdf",
       "isProfessionalCertificate": false,
       "icon": "google"
     },
     {
-      "id": "13",
+      "id": "10",
       "title": "Nivelamento em Cibersegurança",
       "platform": "Hackers do Bem (SENAI/RNP)",
       "date": "2024",
       "summary": "Curso de nivelamento em cibersegurança, abrangendo redes TCP/IP, desenvolvimento de sistemas, sistema operacional, internet e sistemas web. É o passo inicial para uma carreira em cibersegurança.",
       "description": "Esse curso possui módulos online e assíncronos, abrangendo redes TCP/IP, desenvolvimento de sistemas, sistema operacional, internet e sistemas web. O curso é o passo inicial para uma carreira em cibersegurança.",
       "verificationLink": "https://ava.hackersdobem.org.br/mod/customcert/verify_certificate.php?contextid=366&code=EzFXn4WcDw&qrcode=1",
-      "link": "/certificados/ID_13_Nivelamento_Hackers_do_Bem.pdf",
+      "link": "/certificados/ID_10_Nivelamento_Hackers_do_Bem.pdf",
       "icon": "hackers"
     },
     {
-      "id": "14",
+      "id": "11",
       "title": "Fundamentos de TI",
       "platform": "Fundação Bradesco",
       "date": "2023",
       "summary": "Conceitos essenciais de arquitetura de computadores, hardware e lógica operacional.",
       "description": "Conceitos essenciais de arquitetura de computadores, hardware e lógica operacional.",
       "icon": "bradesco",
-      "link": "/certificados/ID_14_Fundamentos_TI_Bradesco.pdf",
+      "link": "/certificados/ID_11_Fundamentos_TI_Bradesco.pdf",
       "workload": "7 horas"
     },
     {
-      "id": "15",
+      "id": "12",
       "title": "Implementando Bancos de Dados",
       "platform": "Fundação Bradesco",
       "date": "2023",
@@ -295,76 +229,53 @@
       "summary": "Focado na criação física de bancos de dados, usando linguagens de consulta e estruturação.",
       "description": "Focado na criação física de bancos de dados, usando linguagens de consulta e estruturação.",
       "verificationLink": "https://www.ev.org.br/validar-certificado",
-      "link": "/certificados/ID_15_Implementando_BD_Bradesco.pdf",
+      "link": "/certificados/ID_12_Implementando_BD_Bradesco.pdf",
       "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923",
       "icon": "bradesco"
     },
     {
-      "id": "16",
-      "title": "Administração de Bancos de Dados",
-      "platform": "Fundação Bradesco",
-      "date": "2023",
-      "workload": "15 horas",
-      "summary": "Gerenciamento de segurança, usuários, integridade e manutenção de sistemas de bancos de dados.",
-      "description": "Gerenciamento de segurança, usuários, integridade e manutenção de sistemas de bancos de dados.",
-      "verificationLink": "https://www.ev.org.br/validar-certificado",
-      "link": "/certificados/ID_16_Administracao_BD_Bradesco.pdf",
-      "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923",
-      "icon": "bradesco"
-    },
-    {
-      "id": "17",
+      "id": "13",
       "title": "Segurança de TI",
       "platform": "Fundação Bradesco",
       "date": "2023",
       "summary": "Princípios de segurança de dados, políticas de segurança e defesa de perímetro.",
       "description": "Princípios de segurança de dados, políticas de segurança e defesa de perímetro.",
       "icon": "bradesco",
-      "link": "/certificados/ID_17_Seguranca_TI_Bradesco.pdf",
+      "link": "/certificados/ID_13_Seguranca_TI_Bradesco.pdf",
       "workload": "12 horas"
     },
     {
-      "id": "18",
-      "title": "Exame de Certificação Search Ads 360",
+      "id": "14",
+      "title": "Certificação Search Ads 360",
       "platform": "Google Skillshop",
       "date": "2022",
       "summary": "Certificação avançada para gerenciamento e otimização de campanhas publicitárias em larga escala.",
       "description": "Certificação avançada para gerenciamento e otimização de campanhas publicitárias em larga escala.",
       "icon": "google",
-      "link": "/certificados/ID_18_Search_Ads_360_Google.pdf"
+      "link": "/certificados/ID_14_Search_Ads_360_Google.pdf"
     },
     {
-      "id": "19",
+      "id": "15",
       "title": "Fundamentos do Waze Ads",
       "platform": "Google Skillshop",
       "date": "2022",
       "summary": "Fundamentos para criação de publicidade direcionada a motoristas em tempo real.",
       "description": "Fundamentos para criação de publicidade direcionada a motoristas em tempo real.",
       "icon": "google",
-      "link": "/certificados/ID_19_Waze_Ads_Fundamentals_Google.pdf"
+      "link": "/certificados/ID_15_Waze_Ads_Fundamentals_Google.pdf"
     },
     {
-      "id": "20",
+      "id": "16",
       "title": "Google Meu Negócio (Perfil da Empresa)",
       "platform": "Google Skillshop",
       "date": "2022",
       "summary": "Ferramentas para otimizar a presença local de negócios no Google Maps e pesquisa.",
       "description": "Ferramentas para otimizar a presença local de negócios no Google Maps e pesquisa.",
       "icon": "google",
-      "link": "/certificados/ID_20_Google_Meu_Negocio.pdf"
+      "link": "/certificados/ID_16_Google_Meu_Negocio.pdf"
     },
     {
-      "id": "21",
-      "title": "Exame de Certificação Criativo",
-      "platform": "Google Skillshop",
-      "date": "2023",
-      "summary": "Teste de conhecimento sobre desenvolvimento de criativos publicitários eficazes para plataformas Google.",
-      "description": "Teste de conhecimento sobre desenvolvimento de criativos publicitários eficazes para plataformas Google.",
-      "icon": "google",
-      "link": "/certificados/ID_21_Creative_Certification_Google.pdf"
-    },
-    {
-      "id": "22",
+      "id": "17",
       "title": "Gerar Satisfação de Clientes",
       "platform": "IPED",
       "date": "2021",
@@ -377,43 +288,153 @@
         "Capítulo 3: Estratégia e Retenção, precificação e valor"
       ],
       "verificationLink": "https://www.iped.com.br/certificado?numero=1173384",
-      "link": "/certificados/ID_22_Satisfacao_Clientes_IPED.pdf",
+      "link": "/certificados/ID_17_Satisfacao_Clientes_IPED.pdf",
       "authCode": "1173384",
       "isProfessionalCertificate": false,
       "icon": "iped"
     },
     {
-      "id": "23",
+      "id": "18",
       "title": "Atendimento ao Cliente",
       "platform": "IPED",
       "date": "2021",
       "summary": "Técnicas de abordagem, postura profissional e resolução ágil de problemas durante o suporte.",
       "description": "Técnicas de abordagem, postura profissional e resolução ágil de problemas durante o suporte.",
       "icon": "iped",
-      "link": "/certificados/ID_23_Atendimento_Cliente_IPED.pdf",
+      "link": "/certificados/ID_18_Atendimento_Cliente_IPED.pdf",
       "workload": "80 horas"
     },
     {
-      "id": "24",
+      "id": "19",
       "title": "Ética, Política e Cidadania",
       "platform": "IPED",
       "date": "2021",
       "summary": "Estudo de conduta ética no ambiente de trabalho e o papel social do profissional.",
       "description": "Estudo de conduta ética no ambiente de trabalho e o papel social do profissional.",
       "icon": "iped",
-      "link": "/certificados/ID_24_Etica_Politica_Cidadania_IPED.pdf",
+      "link": "/certificados/ID_19_Etica_Politica_Cidadania_IPED.pdf",
       "workload": "4 horas"
     },
     {
-      "id": "25",
+      "id": "20",
       "title": "Boas Práticas de Manipulação de Alimentos",
       "platform": "CATe",
       "date": "2022",
       "summary": "Normas de higiene e segurança alimentar para processos de produção e manipulação.",
       "description": "Normas de higiene e segurança alimentar para processos de produção e manipulação.",
       "icon": "iped",
-      "link": "/certificados/ID_25_Boas_Praticas_Alimentos_IPED.pdf",
+      "link": "/certificados/ID_20_Boas_Praticas_Alimentos_IPED.pdf",
       "workload": "8 horas"
+    },
+    {
+      "id": "21",
+      "title": "Certificação de Otimização de Conversão",
+      "platform": "Google Skillshop",
+      "date": "2025-04-06",
+      "expirationDate": "2027-04-06",
+      "duration": "Aproximadamente 1 hora e 15 minutos",
+      "workload": "1 hora e 15 minutos",
+      "summary": "Certificação da Google Marketing Platform que identifica usuários qualificados que demonstram habilidade em executar tarefas e fluxos de trabalho críticos com produtos da plataforma. Este exame testa conhecimentos sobre otimização de taxa de conversão e experiência do usuário em dispositivos móveis.",
+      "description": "A certificação Google Marketing Platform identifica usuários qualificados que demonstram a capacidade de executar tarefas e fluxos de trabalho críticos com produtos da plataforma. Este exame foi projetado para usuários com experiência prática e testa critérios predeterminados alinhados com tarefas de trabalho essenciais. Demonstre sua maestria em impulsionar o crescimento com experiências móveis. O exame testa conhecimentos em uma ampla gama de tópicos relacionados à experiência do usuário móvel. Os usuários que completarem este exame devem estar familiarizados com o mobile como canal de aquisição e entender seu papel no comportamento online. Ao obter a certificação Google Ads Drive Growth with Mobile, a Google reconhece sua capacidade de: avaliar o impacto da experiência do usuário além do clique; colaborar com parceiros-chave para construir uma organização mais focada no usuário; descrever os componentes principais e o valor da otimização de taxa de conversão; explicar o papel dos profissionais de marketing em garantir experiências móveis rápidas; explicar o papel dos profissionais de marketing na criação de uma experiência de usuário contínua; implementar as melhores práticas para aumentar a personalização na experiência do usuário em dispositivos móveis.",
+      "modules": [
+        "Avaliar o impacto da experiência do usuário além do clique",
+        "Colaborar com parceiros-chave para construir uma organização focada no usuário",
+        "Descrever os componentes e valor da otimização de taxa de conversão (CRO)",
+        "Explicar o papel dos marketers em garantir experiências móveis rápidas",
+        "Explicar o papel dos marketers na criação de experiência de usuário contínua",
+        "Implementar melhores práticas para aumentar personalização em mobile"
+      ],
+      "verificationLink": "https://skillshop.credential.net/7946491a-d272-4797-b550-69167baca020",
+      "link": "/certificados/ID_21_exame_de_certificacao_de_otimizacao_de_conversao_google_skillshop.pdf",
+      "isProfessionalCertificate": false,
+      "icon": "google"
+    },
+    {
+      "id": "22",
+      "title": "Certificação Criativa",
+      "platform": "Google Skillshop",
+      "date": "2026-04-06",
+      "expirationDate": "2027-04-06",
+      "duration": "1 hora",
+      "workload": "1 hora",
+      "summary": "Certificação da Google Marketing Platform que valida a capacidade de configurar criativos rich media usando Google Web Design e Creative, além de publicar e medir resultados no Campaign Manager.",
+      "description": "As certificações de produtos da Google Marketing Platform identificam usuários qualificados que demonstram a capacidade de executar tarefas e fluxos de trabalho críticos com produtos da plataforma. Os exames de certificação são projetados para usuários com experiência prática real no uso de produtos da Google Marketing Platform e testam critérios predeterminados específicos alinhados com tarefas de trabalho críticas. Os exames de certificação não são recomendados para usuários que não têm experiência direta com o produto.\n\nSobre este exame\n\nO exame de Certificação Criativa abrange a configuração de criativos rich media usando Google Web Design e Creative para criar criativos HTML5 e dinâmicos. Também avalia as etapas para visualizar, realizar QA e publicar criativos no Campaign Manager e, em seguida, medir os resultados.\n\nOs usuários que completarem este exame devem ter experiência com Studio e fluxos de trabalho dinâmicos, trabalho com feeds e produção de anúncios display com Google Web Designer e criativos codificados manualmente. Este exame também abrange conhecimento relacionado à integração de fluxo de trabalho com tráfego e campanhas programáticas.\n\nO conhecimento testado neste exame normalmente se alinha com as seguintes funções:\n\n- Gerente de Projeto\n- Desenvolvedor Criativo\n- Designer/Animador\n- Diretor Criativo",
+      "modules": [
+        "Configuração de criativos rich media usando Google Web Design e Creative",
+        "Criação de criativos HTML5 e dinâmicos",
+        "Visualização, QA e publicação de criativos no Campaign Manager",
+        "Medição de resultados",
+        "Studio e fluxos de trabalho dinâmicos",
+        "Trabalho com feeds",
+        "Produção de anúncios display com Google Web Designer",
+        "Criativos codificados manualmente",
+        "Integração de fluxo de trabalho com tráfego e campanhas programáticas"
+      ],
+      "verificationLink": "https://skillshop.credential.net/auth?success_url=https%3A%2F%2Fskillshop.credential.net%2F23790651-f725-4565-a66a-b2344f066f21",
+      "link": "/certificados/ID_22_Creative_Certification_Exam_Google.pdf",
+      "isProfessionalCertificate": false,
+      "icon": "google"
+    },
+    {
+      "id": "23",
+      "title": "Certificação Google Analytics 4",
+      "platform": "Google Skillshop",
+      "date": "2026-04-06",
+      "expirationDate": "2027-04-06",
+      "duration": "1 hora",
+      "workload": "1 hora",
+      "summary": "Mostre sua capacidade de usar o Google Analytics 4 para obter insights valiosos e tomar decisões de marketing. Usuários certificados demonstrarão compreensão do Google Analytics, incluindo como configurar e estruturar uma propriedade, e usar várias ferramentas e recursos de relatórios.",
+      "description": "Demonstre sua habilidade em usar o Google Analytics 4 para obter insights valiosos e tomar decisões de marketing. Usuários certificados demonstrarão compreensão do Google Analytics, incluindo como configurar e estruturar uma propriedade, e usar várias ferramentas e recursos de relatórios.\n\nAo obter a Certificação Google Analytics 4, a Google reconhece sua capacidade de:\n\n- Configurar uma propriedade do Google Analytics 4 para um site ou aplicativo\n- Coletar os dados necessários para o seu negócio e usar as várias ferramentas e recursos de relatórios\n- Reconhecer recursos de medição importantes que podem mostrar a eficácia de seus esforços de marketing online\n- Desbloquear insights e recursos adicionais conectando o Google Analytics com outros produtos",
+      "modules": [
+        "Configurar uma propriedade do Google Analytics 4 para um site ou aplicativo",
+        "Coletar dados para o negócio e usar ferramentas de relatórios",
+        "Reconhecer recursos de medição para marketing online",
+        "Conectar Google Analytics com outros produtos"
+      ],
+      "verificationLink": "https://skillshop.credential.net/5e24b132-e0a9-499c-baac-f5503cfa8779",
+      "link": "/certificados/ID_23_Certificacao_Google_Analytics_4.pdf",
+      "isProfessionalCertificate": false,
+      "icon": "google"
+    },
+    {
+      "id": "24",
+      "title": "Certificação Google Analytics",
+      "platform": "Google Skillshop",
+      "date": "2026-04-06",
+      "expirationDate": "2027-04-06",
+      "duration": "4 horas 33 minutos",
+      "workload": "4 horas 33 minutos",
+      "summary": "Demonstre sua habilidade em usar o Google Analytics 4 para obter insights valiosos e tomar decisões de marketing. Usuários certificados demonstrarão compreensão do Google Analytics, incluindo como configurar e estruturar uma propriedade, e usar várias ferramentas e recursos de relatórios.",
+      "description": "Demonstre sua habilidade em usar o Google Analytics 4 para obter insights valiosos e tomar decisões de marketing. Usuários certificados demonstrarão compreensão do Google Analytics, incluindo como configurar e estruturar uma propriedade, e usar várias ferramentas e recursos de relatórios.\n\nAo obter a Certificação Google Analytics, a Google reconhece sua capacidade de:\n\n- Configurar uma propriedade do Google Analytics 4 para um site ou aplicativo\n- Coletar os dados necessários para o seu negócio e usar as várias ferramentas e recursos de relatórios\n- Reconhecer recursos de medição importantes que podem mostrar a eficácia de seus esforços de marketing online",
+      "modules": [
+        "Configurar uma propriedade do Google Analytics 4 para um site ou aplicativo",
+        "Coletar dados para o negócio e usar ferramentas de relatórios",
+        "Reconhecer recursos de medição para marketing online"
+      ],
+      "verificationLink": "https://skillshop.credential.net/auth?success_url=https%3A%2F%2Fskillshop.credential.net%2Fdc3ea334-0f53-4649-b316-742620589e60",
+      "link": "/certificados/ID_24_Google_Analytics_Certification.pdf",
+      "isProfessionalCertificate": true,
+      "icon": "google"
+    },
+    {
+      "id": "25",
+      "title": "Certificação Google Analytics",
+      "platform": "Google Skillshop",
+      "date": "2026-04-06",
+      "expirationDate": "2027-04-06",
+      "duration": "4 horas 33 minutos",
+      "workload": "4 horas 33 minutos",
+      "summary": "Demonstre sua habilidade em usar o Google Analytics 4 para obter insights valiosos e tomar decisões de marketing. Usuários certificados demonstrarão compreensão do Google Analytics, incluindo como configurar e estruturar uma propriedade, e usar várias ferramentas e recursos de relatórios.",
+      "description": "Demonstre sua habilidade em usar o Google Analytics 4 para obter insights valiosos e tomar decisões de marketing. Usuários certificados demonstrarão compreensão do Google Analytics, incluindo como configurar e estruturar uma propriedade, e usar várias ferramentas e recursos de relatórios.\n\nAo obter a Certificação Google Analytics, a Google reconhece sua capacidade de:\n\n- Configurar uma propriedade do Google Analytics 4 para um site ou aplicativo\n- Coletar os dados necessários para o seu negócio e usar as várias ferramentas e recursos de relatórios\n- Reconhecer recursos de medição importantes que podem mostrar a eficácia de seus esforços de marketing online",
+      "modules": [
+        "Configurar uma propriedade do Google Analytics 4 para um site ou aplicativo",
+        "Coletar dados para o negócio e usar ferramentas de relatórios",
+        "Reconhecer recursos de medição para marketing online"
+      ],
+      "verificationLink": "https://skillshop.credential.net/dc3ea334-0f53-4649-b316-742620589e60#acc.O7zRWfM0",
+      "link": "/certificados/ID_25_Google_Analytics_Certification.pdf",
+      "isProfessionalCertificate": true,
+      "icon": "google"
     }
   ],
   "en": [
@@ -485,72 +506,6 @@
     },
     {
       "id": "4",
-      "title": "Computer Networks",
-      "platform": "Google (via Coursera)",
-      "date": "2023",
-      "duration": "Approximately 2 months",
-      "workload": "About 40 hours",
-      "summary": "Complete course on computer networks, covering from data communication fundamentals to protocols, network architectures, security, and troubleshooting. Essential for IT and development professionals.",
-      "description": "This course provides a comprehensive understanding of computer networks, from basic data communication concepts to complex network architectures. It covers protocols, reference models (OSI/TCP-IP), network devices, cybersecurity, and diagnostic and problem-solving techniques. Fundamental for any technology professional working with connected systems.",
-      "modules": [
-        "Data communication fundamentals",
-        "Reference models (OSI and TCP/IP)",
-        "Network protocols (IP, TCP, UDP, HTTP, DNS)",
-        "Network devices (routers, switches, firewalls)",
-        "Network security and cryptography",
-        "Network troubleshooting and monitoring"
-      ],
-      "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
-      "link": "/certificados/ID_4_Redes_Computadores_Google.pdf",
-      "isProfessionalCertificate": false,
-      "icon": "google"
-    },
-    {
-      "id": "5",
-      "title": "Operating Systems",
-      "platform": "Google (via Coursera)",
-      "date": "2023",
-      "duration": "Approximately 2 months",
-      "workload": "About 40 hours",
-      "summary": "Complete course on operating systems, covering installation, configuration, process management, memory, storage, and security. Essential for IT infrastructure professionals.",
-      "description": "This course provides a deep understanding of modern operating systems, including Windows and Linux. It covers fundamental concepts such as processes, threads, virtual memory, file systems, input/output, security, and virtualization. You will learn to install, configure, optimize, and troubleshoot operating systems—essential skills for system administrators and IT infrastructure professionals.",
-      "modules": [
-        "Introduction to operating systems",
-        "Process and thread management",
-        "Memory management and virtual memory",
-        "File systems and storage",
-        "Input/Output (I/O) and devices",
-        "Security and virtualization"
-      ],
-      "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
-      "link": "/certificados/ID_5_Sistemas_Operacionais_Google.pdf",
-      "isProfessionalCertificate": true,
-      "icon": "google"
-    },
-    {
-      "id": "6",
-      "title": "IT Security",
-      "platform": "Google (via Coursera)",
-      "date": "2023",
-      "duration": "Approximately 4 months",
-      "workload": "About 80 hours",
-      "summary": "Complete course on information security and cybersecurity, covering threats, vulnerabilities, access controls, encryption, network security, and incident response. Training for IT security professionals.",
-      "description": "This course provides fundamental and practical knowledge in information security and cybersecurity. It covers key concepts such as confidentiality, integrity, and availability, along with threat identification, security control implementation, encryption, network security, application security, and incident response. It's a solid foundation for those wanting to work in information security or complement their IT knowledge.",
-      "modules": [
-        "Information security fundamentals",
-        "Threats and vulnerabilities",
-        "Access controls and authentication",
-        "Encryption and data security",
-        "Network security and firewalls",
-        "Incident response and recovery"
-      ],
-      "verificationLink": "https://www.coursera.org/account/accomplishments/specialization/DFXUPFCXH965",
-      "link": "/certificados/ID_6_Seguranca_TI_Google.pdf",
-      "isProfessionalCertificate": true,
-      "icon": "google"
-    },
-    {
-      "id": "7",
       "title": "Introduction to Technical Support",
       "platform": "IBM (via Coursera)",
       "date": "2023",
@@ -567,12 +522,12 @@
         "Problem solving and troubleshooting"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/Y3TYLH6K7N4V",
-      "link": "/certificados/ID_7_Intro_Technical_Support_IBM.pdf",
+      "link": "/certificados/ID_4_Intro_Technical_Support_IBM.pdf",
       "isProfessionalCertificate": false,
       "icon": "ibm"
     },
     {
-      "id": "8",
+      "id": "5",
       "title": "Artificial Intelligence and Data Science",
       "platform": "IBM (via Coursera)",
       "date": "2024",
@@ -594,7 +549,7 @@
       "icon": "ibm"
     },
     {
-      "id": "9",
+      "id": "6",
       "title": "TCP/IP",
       "platform": "Yonsei University (via Coursera)",
       "date": "2024",
@@ -616,7 +571,7 @@
       "icon": "cate"
     },
     {
-      "id": "10",
+      "id": "7",
       "title": "HTML, CSS, and JavaScript for Web Developers",
       "platform": "Johns Hopkins University (via Coursera)",
       "date": "2025",
@@ -633,12 +588,12 @@
         "Modern APIs and best practices"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/FU6BSD4ECJFD",
-      "link": "/certificados/ID_10_HTML_CSS_JS_Johns_Hopkins.pdf",
+      "link": "/certificados/ID_7_HTML_CSS_JS_Johns_Hopkins.pdf",
       "isProfessionalCertificate": true,
       "icon": "johns"
     },
     {
-      "id": "11",
+      "id": "8",
       "title": "Introduction to Scrum Master Profession",
       "platform": "Google (via Coursera)",
       "date": "2025",
@@ -655,12 +610,12 @@
         "Impediments, coaching, and continuous improvement"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/XP3ESDW5Z0F9",
-      "link": "/certificados/ID_11_Scrum_Master_Google.pdf",
+      "link": "/certificados/ID_8_Scrum_Master_Google.pdf",
       "isProfessionalCertificate": false,
       "icon": "google"
     },
     {
-      "id": "12",
+      "id": "9",
       "title": "Foundations of Cybersecurity",
       "platform": "Google (via Coursera)",
       "date": "2025",
@@ -677,33 +632,33 @@
         "Monitoring, detection, and incident response"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/H8G4LMDO77NR",
-      "link": "/certificados/ID_12_Foundations_Cybersecurity_Google.pdf",
+      "link": "/certificados/ID_9_Foundations_Cybersecurity_Google.pdf",
       "isProfessionalCertificate": true,
       "icon": "google"
     },
     {
-      "id": "13",
+      "id": "10",
       "title": "Cybersecurity Leveling",
       "platform": "Hackers do Bem (SENAI/RNP)",
       "date": "2024",
       "summary": "Leveling course in cybersecurity, covering TCP/IP networks, systems development, operating systems, internet and web systems. It is the first step for a career in cybersecurity.",
       "description": "This course features online and asynchronous modules, covering TCP/IP networks, systems development, operating systems, internet and web systems. The course is the first step for a career in cybersecurity.",
       "verificationLink": "https://ava.hackersdobem.org.br/mod/customcert/verify_certificate.php?contextid=366&code=EzFXn4WcDw&qrcode=1",
-      "link": "/certificados/ID_13_Nivelamento_Hackers_do_Bem.pdf",
+      "link": "/certificados/ID_10_Nivelamento_Hackers_do_Bem.pdf",
       "icon": "hackers"
     },
     {
-      "id": "14",
+      "id": "11",
       "title": "IT Fundamentals",
       "platform": "Fundação Bradesco",
       "date": "2023",
       "summary": "Essential concepts of computer architecture, hardware and operating logic.",
       "description": "Essential concepts of computer architecture, hardware and operating logic.",
-      "link": "/certificados/ID_14_Fundamentos_TI_Bradesco.pdf",
+      "link": "/certificados/ID_11_Fundamentos_TI_Bradesco.pdf",
       "workload": "7 hours"
     },
     {
-      "id": "15",
+      "id": "12",
       "title": "Implementing Databases",
       "platform": "Fundação Bradesco",
       "date": "2023",
@@ -711,69 +666,48 @@
       "summary": "Focused on physical database creation, using query and structuring languages.",
       "description": "Focused on physical database creation, using query and structuring languages.",
       "verificationLink": "https://www.ev.org.br/validar-certificate",
-      "link": "/certificados/ID_15_Implementando_BD_Bradesco.pdf",
+      "link": "/certificados/ID_12_Implementando_BD_Bradesco.pdf",
       "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923"
     },
     {
-      "id": "16",
-      "title": "Database Administration",
-      "platform": "Fundação Bradesco",
-      "date": "2023",
-      "workload": "15 hours",
-      "summary": "Security management, users, integrity and database systems maintenance.",
-      "description": "Security management, users, integrity and database systems maintenance.",
-      "verificationLink": "https://www.ev.org.br/validar-certificate",
-      "link": "/certificados/ID_16_Administracao_BD_Bradesco.pdf",
-      "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923"
-    },
-    {
-      "id": "17",
+      "id": "13",
       "title": "IT Security",
       "platform": "Fundação Bradesco",
       "date": "2023",
       "summary": "Data security principles, security policies and perimeter defense.",
       "description": "Data security principles, security policies and perimeter defense.",
-      "link": "/certificados/ID_17_Seguranca_TI_Bradesco.pdf",
+      "link": "/certificados/ID_13_Seguranca_TI_Bradesco.pdf",
       "workload": "12 hours"
     },
     {
-      "id": "18",
-      "title": "Search Ads 360 Certification Exam",
+      "id": "14",
+      "title": "Search Ads 360 Certification",
       "platform": "Google Skillshop",
       "date": "2022",
       "summary": "Advanced certification for managing and optimizing large-scale advertising campaigns.",
       "description": "Advanced certification for managing and optimizing large-scale advertising campaigns.",
-      "link": "/certificados/ID_18_Search_Ads_360_Google.pdf"
+      "link": "/certificados/ID_14_Search_Ads_360_Google.pdf"
     },
     {
-      "id": "19",
+      "id": "15",
       "title": "Waze Ads Fundamentals",
       "platform": "Google Skillshop",
       "date": "2022",
       "summary": "Fundamentals for creating real-time driver-targeted advertising.",
       "description": "Fundamentals for creating real-time driver-targeted advertising.",
-      "link": "/certificados/ID_19_Waze_Ads_Fundamentals_Google.pdf"
+      "link": "/certificados/ID_15_Waze_Ads_Fundamentals_Google.pdf"
     },
     {
-      "id": "20",
+      "id": "16",
       "title": "Google My Business (Company Profile)",
       "platform": "Google Skillshop",
       "date": "2022",
       "summary": "Tools to optimize local business presence on Google Maps and search.",
       "description": "Tools to optimize local business presence on Google Maps and search.",
-      "link": "/certificados/ID_20_Google_Meu_Negocio.pdf"
+      "link": "/certificados/ID_16_Google_Meu_Negocio.pdf"
     },
     {
-      "id": "21",
-      "title": "Creative Certification Exam",
-      "platform": "Google Skillshop",
-      "date": "2023",
-      "summary": "Knowledge test about developing effective advertising creatives for Google platforms.",
-      "description": "Knowledge test about developing effective advertising creatives for Google platforms.",
-      "link": "/certificados/ID_21_Creative_Certification_Google.pdf"
-    },
-    {
-      "id": "22",
+      "id": "17",
       "title": "Customer Satisfaction Generation",
       "platform": "IPED",
       "date": "2021",
@@ -786,40 +720,150 @@
         "Chapter 3: Strategy and Retention, pricing and value"
       ],
       "verificationLink": "https://www.iped.com.br/certificado?numero=1173384",
-      "link": "/certificados/ID_22_Satisfacao_Clientes_IPED.pdf",
+      "link": "/certificados/ID_17_Satisfacao_Clientes_IPED.pdf",
       "authCode": "1173384",
       "isProfessionalCertificate": false,
       "icon": "iped"
     },
     {
-      "id": "23",
+      "id": "18",
       "title": "Customer Service",
       "platform": "IPED",
       "date": "2021",
       "summary": "Approach techniques, professional posture and agile problem resolution during support.",
       "description": "Approach techniques, professional posture and agile problem resolution during support.",
-      "link": "/certificados/ID_23_Atendimento_Cliente_IPED.pdf",
+      "link": "/certificados/ID_18_Atendimento_Cliente_IPED.pdf",
       "workload": "80 hours"
     },
     {
-      "id": "24",
+      "id": "19",
       "title": "Ethics, Policy and Citizenship",
       "platform": "IPED",
       "date": "2021",
       "summary": "Study of ethical conduct in the work environment and the professional's social role.",
       "description": "Study of ethical conduct in the work environment and the professional's social role.",
-      "link": "/certificados/ID_24_Etica_Politica_Cidadania_IPED.pdf",
+      "link": "/certificados/ID_19_Etica_Politica_Cidadania_IPED.pdf",
       "workload": "4 hours"
     },
     {
-      "id": "25",
+      "id": "20",
       "title": "Good Food Handling Practices",
       "platform": "CATe",
       "date": "2022",
       "summary": "Hygiene and food safety standards for production and handling processes.",
       "description": "Hygiene and food safety standards for production and handling processes.",
-      "link": "/certificados/ID_25_Boas_Praticas_Alimentos_IPED.pdf",
+      "link": "/certificados/ID_20_Boas_Praticas_Alimentos_IPED.pdf",
       "workload": "8 hours"
+    },
+    {
+      "id": "21",
+      "title": "Conversion Optimization Certification",
+      "platform": "Google Skillshop",
+      "date": "2025-04-06",
+      "expirationDate": "2027-04-06",
+      "duration": "Approximately 1 hour and 15 minutes",
+      "workload": "1 hour and 15 minutes",
+      "summary": "Google Marketing Platform product certifications identify qualified users who demonstrate the ability to perform critical tasks and workflows with Platform products. This certification exam is designed for users with hands-on experience, and will test on specific predetermined criteria aligned with critical job tasks.",
+      "description": "Google Marketing Platform product certifications identify qualified users who demonstrate the ability to perform critical tasks and workflows with Platform products. This certification exam is designed for users with hands-on experience, and will test on specific predetermined criteria aligned with critical job tasks. Demonstrate your mastery of driving growth with mobile experiences. This exam tests knowledge across a broad range of topics related to mobile user experience. Users completing this exam should have a familiarity with mobile as an acquisition channel and understand its role in online behavior. By earning the Google Ads Drive Growth with Mobile Certification, Google Recognizes your ability to: Assess the impact of user experience beyond the click; Collaborate with key partners to build a more user-focused organization; Describe the core components and value of conversion rate optimization; Explain the role marketers play in ensuring fast mobile experiences; Explain the role marketers play in creating a seamless user experience; Implement best practices to increase personalization in the user experience on mobile.",
+      "modules": [
+        "Assess the impact of user experience beyond the click",
+        "Collaborate with key partners to build a more user-focused organization",
+        "Describe the core components and value of conversion rate optimization",
+        "Explain the role marketers play in ensuring fast mobile experiences",
+        "Explain the role marketers play in creating a seamless user experience",
+        "Implement best practices to increase personalization in the user experience on mobile"
+      ],
+      "verificationLink": "https://skillshop.credential.net/7946491a-d272-4797-b550-69167baca020",
+      "link": "/certificados/ID_21_Conversion_Optimization_Certification_Exam_Skillshop.pdf",
+      "isProfessionalCertificate": false,
+      "icon": "google"
+    },
+    {
+      "id": "22",
+      "title": "Creative Certification",
+      "platform": "Google Skillshop",
+      "date": "2026-04-06",
+      "expirationDate": "2027-04-06",
+      "duration": "1 hour",
+      "workload": "1 hour",
+      "summary": "Google Marketing Platform certification that validates the ability to set up rich media creatives using Google Web Design and Creative, as well as publish and measure results in Campaign Manager.",
+      "description": "Google Marketing Platform Product Certifications identify qualified users who demonstrate the ability to perform critical tasks and workflows with Platform products. The certification exams are designed for users with real-world, hands-on experience using Google Marketing Platform products, and test on specific predetermined criteria aligned with critical job tasks. The certification exams are not recommended for users who don't have direct product experience.\n\nAbout this exam\n\nThe Creative Certification exam covers rich media creative setup using Google Web Design and Creative to build HTML5 and dynamic creatives. It also assesses the steps to preview, QA, and publish creatives to Campaign Manager, and then measure results.\n\nUsers completing this exam should have experience with Studio and dynamic workflows, working with feeds, and the production of display ads with Google Web Designer and hand-coded creatives. This exam also covers knowledge related to workflow integration with trafficking and programmatic campaigns.\n\nThe knowledge tested in this exam typically aligns with the following roles:\n\n- Project Manager\n- Creative Developer\n- Designer/Animators\n- Creative Director",
+      "modules": [
+        "Rich media creative setup using Google Web Design and Creative",
+        "Building HTML5 and dynamic creatives",
+        "Previewing, QA, and publishing creatives to Campaign Manager",
+        "Measuring results",
+        "Studio and dynamic workflows",
+        "Working with feeds",
+        "Display ad production with Google Web Designer",
+        "Hand-coded creatives",
+        "Workflow integration with trafficking and programmatic campaigns"
+      ],
+      "verificationLink": "https://skillshop.credential.net/auth?success_url=https%3A%2F%2Fskillshop.credential.net%2F23790651-f725-4565-a66a-b2344f066f21",
+      "link": "/certificados/ID_22_Creative_Certification_Exam_Google.pdf",
+      "isProfessionalCertificate": false,
+      "icon": "google"
+    },
+    {
+      "id": "23",
+      "title": "Google Analytics 4 Certification",
+      "platform": "Google Skillshop",
+      "date": "2026-04-06",
+      "expirationDate": "2027-04-06",
+      "duration": "1 hour",
+      "workload": "1 hour",
+      "summary": "Showcase your ability to use Google Analytics 4 to gain valuable insights and make marketing decisions. Certified users will demonstrate an understanding of Google Analytics, including how to set up and structure a property, and use various reporting tools and features.",
+      "description": "Demonstrate your ability to use Google Analytics 4 to gain valuable insights and make marketing decisions. Certified users will demonstrate an understanding of Google Analytics, including how to set up and structure a property, and use various reporting tools and features.\n\nBy earning the Google Analytics 4 Certification, Google recognizes your ability to:\n\n- Set up a Google Analytics 4 property for a website or an app\n- Collect the data you need for your business and use the various reporting tools and features\n- Recognize key measurement features that can show the effectiveness of your online marketing efforts\n- Unlock additional insights and capabilities by connecting Google Analytics with other products",
+      "modules": [
+        "Set up a Google Analytics 4 property for a website or an app",
+        "Collect the data you need for your business and use reporting tools",
+        "Recognize key measurement features for online marketing",
+        "Connect Google Analytics with other products"
+      ],
+      "verificationLink": "https://skillshop.credential.net/5e24b132-e0a9-499c-baac-f5503cfa8779",
+      "link": "/certificados/ID_23_Certificacao_Google_Analytics_4.pdf",
+      "isProfessionalCertificate": false,
+      "icon": "google"
+    },
+    {
+      "id": "24",
+      "title": "Google Analytics Certification",
+      "platform": "Google Skillshop",
+      "date": "2026-04-06",
+      "expirationDate": "2027-04-06",
+      "duration": "4 hours 33 minutes",
+      "workload": "4 hours 33 minutes",
+      "summary": "Showcase your ability to use Google Analytics 4 to gain valuable insights and make marketing decisions. Certified users will demonstrate an understanding of Google Analytics, including how to set up and structure a property, and use various reporting tools and features.",
+      "description": "Demonstrate your ability to use Google Analytics 4 to gain valuable insights and make marketing decisions. Certified users will demonstrate an understanding of Google Analytics, including how to set up and structure a property, and use various reporting tools and features.\n\nBy earning the Google Analytics Certification, Google recognizes your ability to:\n\n- Set up a Google Analytics 4 property for a website or an app\n- Collect the data you need for your business and use the various reporting tools and features\n- Recognize key measurement features that can show the effectiveness of your online marketing efforts",
+      "modules": [
+        "Set up a Google Analytics 4 property for a website or an app",
+        "Collect the data you need for your business and use reporting tools",
+        "Recognize key measurement features for online marketing"
+      ],
+      "verificationLink": "https://skillshop.credential.net/auth?success_url=https%3A%2F%2Fskillshop.credential.net%2Fdc3ea334-0f53-4649-b316-742620589e60",
+      "link": "/certificados/ID_24_Google_Analytics_Certification.pdf",
+      "isProfessionalCertificate": true,
+      "icon": "google"
+    },
+    {
+      "id": "25",
+      "title": "Google Analytics Certification",
+      "platform": "Google Skillshop",
+      "date": "2026-04-06",
+      "expirationDate": "2027-04-06",
+      "duration": "4 hours 33 minutes",
+      "workload": "4 hours 33 minutes",
+      "summary": "Showcase your ability to use Google Analytics 4 to gain valuable insights and make marketing decisions. Certified users will demonstrate an understanding of Google Analytics, including how to set up and structure a property, and use various reporting tools and features.",
+      "description": "Demonstrate your ability to use Google Analytics 4 to gain valuable insights and make marketing decisions. Certified users will demonstrate an understanding of Google Analytics, including how to set up and structure a property, and use various reporting tools and features.\n\nBy earning the Google Analytics Certification, Google recognizes your ability to:\n\n- Set up a Google Analytics 4 property for a website or an app\n- Collect the data you need for your business and use the various reporting tools and features\n- Recognize key measurement features that can show the effectiveness of your online marketing efforts",
+      "modules": [
+        "Set up a Google Analytics 4 property for a website or an app",
+        "Collect the data you need for your business and use reporting tools",
+        "Recognize key measurement features for online marketing"
+      ],
+      "verificationLink": "https://skillshop.credential.net/dc3ea334-0f53-4649-b316-742620589e60#acc.O7zRWfM0",
+      "link": "/certificados/ID_25_Google_Analytics_Certification.pdf",
+      "isProfessionalCertificate": true,
+      "icon": "google"
     }
   ]
 }
