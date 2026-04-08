@@ -13,9 +13,7 @@ const STATIC_ASSETS = [
     '/favicon-16x16.png',
     '/apple-touch-icon.png',
     '/android-chrome-192x192.png',
-    '/android-chrome-512x512.png',
-    '/logo.png',
-    '/logo.webp'
+    '/android-chrome-512x512.png'
 ];
 
 // Instalação do Service Worker

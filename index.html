@@ -2,7 +2,6 @@
 <html lang="pt-BR">
 
 <head>
-  <link rel="preload" as="image" href="/logo.webp" type="image/webp" fetchpriority="high">
   <meta charset="UTF-8">
   <link rel="manifest" href="/manifest.json">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,17 +11,17 @@
 
   <!-- CSP (Content Security Policy) -->
   <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    script-src 'self' 'unsafe-inline' 'unsafe-eval' data: https://cdn.jsdelivr.net https://unpkg.com https://va.vercel-scripts.com https://cdnjs.cloudflare.com;
-    style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
-    img-src 'self' data: https:;
-    font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com;
-    connect-src 'self' https://api.emailjs.com ws://localhost:5174 ws://localhost:5173 https://va.vercel-scripts.com;
-    frame-src 'self';
-    object-src 'none';
-    base-uri 'self';
-    form-action 'self';
-  ">
+  default-src 'self';
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' data: https://cdn.jsdelivr.net https://unpkg.com https://va.vercel-scripts.com https://cdnjs.cloudflare.com;
+  style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
+  img-src 'self' data: https:;
+  font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com;
+  connect-src 'self' https://api.emailjs.com ws://localhost:5174 ws://localhost:5173 https://va.vercel-scripts.com;
+  frame-src 'self';
+  object-src 'none';
+  base-uri 'self';
+  form-action 'self';
+">
 
   <!-- Google Fonts: Inter — Async load to prevent render blocking -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,11 +33,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
       rel="stylesheet">
   </noscript>
-
-  <!-- Preload estratégico de chunks principais -->
-  <link rel="preload" href="/assets/js/vendor-core-B82mEZB-.js" as="script" crossorigin>
-  <link rel="preload" href="/assets/js/vendor-router.js" as="script" crossorigin>
-  <link rel="preload" href="/assets/js/index-DaY8sPHQ.js" as="script" crossorigin>
 
   <!-- EmailJS: carregado sob demanda no formulário de contato -->
   <link rel="dns-prefetch" href="https://api.emailjs.com">
@@ -52,14 +46,14 @@
   <meta property="og:title" content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial">
   <meta property="og:description"
     content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial — Desenvolvedor Full Stack especializado em React, Node.js, Three.js e aplicações web modernas de alto desempenho.">
-  <meta property="og:image" content="https://leandrobarbosa.dev/logo.webp">
+  <meta property="og:image" content="https://portifoliolele.vercel.app/logo.webp">
   <meta property="og:url" content="https://leandrobarbosa.dev">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial">
   <meta name="twitter:description"
     content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial — Desenvolvedor Full Stack">
-  <meta name="twitter:image" content="https://leandrobarbosa.dev/logo.webp">
+  <meta name="twitter:image" content="https://portifoliolele.vercel.app/logo.webp">
   <script>
     console.clear();
     // Force unregister all service workers to clear stale/broken chunks
@@ -100,7 +94,7 @@
         "@type": "Person",
         "name": "Leandro Barbosa",
         "url": "https://leandrobarbosa.dev",
-        "image": "https://leandrobarbosa.dev/logo.webp",
+        "image": "https://portifoliolele.vercel.app/logo.webp",
         "jobTitle": "Desenvolvedor Full Stack & Especialista em IA",
         "sameAs": [
           "https://github.com/lelebrr",

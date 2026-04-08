@@ -8,7 +8,7 @@ import { LinkAnimado } from '../atoms';
 import Tooltip from '../atoms/Tooltip';
 
 // Logo da raiz (public) - servido estaticamente
-const logo = '/assets/icons/logo.png';
+const logo = '/logo.webp';
 
 const Navbar = memo(() => {
   const [active, setActive] = useState<string | null>(null);
