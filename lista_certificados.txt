@@ -1,0 +1,46 @@
+LISTA COMPLETA DE CURSOS E CERTIFICADOS
+==================================================
+
+✅ = Arquivo PDF EXISTE
+❌ = Arquivo PDF FALTANDO
+
+-----------------------------------------------------------------------------
+| ID | NOME DO CURSO                                              | EMPRESA                      | PDF EXISTE | LINK DO CERTIFICADO
+-----------------------------------------------------------------------------
+|  1 | Administração de Sistemas, Serviços e Infraestrutura de TI | Google (via Coursera)        | ✅         | /certificados/ID_1_Administracao_Sistemas_Google.pdf
+|  2 | Fundamentos do Suporte Técnico                             | Google (via Coursera)        | ✅         | /certificados/ID_2_Fundamentos_Suporte_Tecnico_Google.pdf
+|  3 | Introdução ao Gerenciamento de Produtos de Software        | University of Alberta        | ✅         | /certificados/ID_3_Intro_Software_Product_Management.pdf
+|  4 | Introdução ao Suporte Técnico                              | IBM (via Coursera)           | ✅         | /certificados/ID_7_Intro_Technical_Support_IBM.pdf
+|  5 | Inteligência Artificial e Data Science                     | IBM (via Coursera)           | ❌         | https://www.coursera.org/learn/introduction-to-ai
+|  6 | TCP/IP                                                      | Yonsei University            | ❌         | https://www.coursera.org/learn/tcpip
+|  7 | HTML, CSS e JavaScript para Desenvolvedores Web             | Johns Hopkins University     | ✅         | /certificados/ID_10_HTML_CSS_JS_Johns_Hopkins.pdf
+|  8 | Introdução à Profissão Scrum Master                         | Google (via Coursera)        | ✅         | /certificados/ID_11_Scrum_Master_Google.pdf
+|  9 | Fundamentos de Cibersegurança                               | Google (via Coursera)        | ✅         | /certificados/ID_12_Foundations_Cybersecurity_Google.pdf
+| 10 | Nivelamento em Cibersegurança                               | Hackers do Bem (SENAI/RNP)   | ✅         | /certificados/ID_13_Nivelamento_Hackers_do_Bem.pdf
+| 11 | Fundamentos de TI                                            | Fundação Bradesco            | ✅         | /certificados/ID_14_Fundamentos_TI_Bradesco.pdf
+| 12 | Implementando Bancos de Dados                                | Fundação Bradesco            | ✅         | /certificados/ID_15_Implementando_BD_Bradesco.pdf
+| 13 | Segurança de TI                                              | Fundação Bradesco            | ✅         | /certificados/ID_17_Seguranca_TI_Bradesco.pdf
+| 14 | Certificação Search Ads 360                                  | Google Skillshop             | ✅         | /certificados/ID_18_Search_Ads_360_Google.pdf
+| 15 | Fundamentos do Waze Ads                                      | Google Skillshop             | ✅         | /certificados/ID_19_Waze_Ads_Fundamentals_Google.pdf
+| 16 | Google Meu Negócio (Perfil da Empresa)                       | Google Skillshop             | ✅         | /certificados/ID_20_Google_Meu_Negocio.pdf
+| 17 | Gerar Satisfação de Clientes                                 | IPED                         | ✅         | /certificados/ID_22_Satisfacao_Clientes_IPED.pdf
+| 18 | Atendimento ao Cliente                                       | IPED                         | ✅         | /certificados/ID_23_Atendimento_Cliente_IPED.pdf
+| 19 | Ética, Política e Cidadania                                  | IPED                         | ✅         | /certificados/ID_24_Etica_Politica_Cidadania_IPED.pdf
+| 20 | Boas Práticas de Manipulação de Alimentos                    | CATe                         | ✅         | /certificados/ID_25_Boas_Praticas_Alimentos_IPED.pdf
+| 21 | Certificação de Otimização de Conversão                      | Google Skillshop             | ✅         | /certificados/ID_26_Conversion_Optimization_Certification_Exam_Skillshop.pdf
+| 22 | Certificação Criativa                                        | Google Skillshop             | ✅         | /certificados/ID_22_Creative_Certification_Exam_Google.pdf
+| 23 | Certificação Google Analytics 4                              | Google Skillshop             | ✅         | /certificados/ID_23_Certificacao_Google_Analytics_4.pdf
+| 24 | Certificação Google Analytics                                | Google Skillshop             | ✅         | /certificados/ID_24_Google_Analytics_Certification.pdf
+| 25 | Certificação Google Analytics                                | Google Skillshop             | ✅         | /certificados/ID_25_Google_Analytics_Certification.pdf
+| 26 | Segurança de TI: Defesa contra as Artes das Trevas           | Google (via Coursera)        | ✅         | /certificados/Defesa Contra as Artes Obscuras.pdf
+| 27 | IBM: Fundamentos de Suporte Técnico                          | IBM                          | ✅         | /certificados/ID_7_Intro_Technical_Support_IBM.pdf
+| 28 | Certificado Profissional de Suporte em TI do Google          | Google                       | ✅         | /certificados/CertificadoProfissionaldeSuporteemTIdoGoogle_Badge20230225-28-1iiyqbg.pdf
+-----------------------------------------------------------------------------
+
+RESUMO:
+✅ 26 Cursos com certificado PDF existente
+❌  2 Cursos faltando arquivo PDF
+📊 Total: 28 Cursos cadastrados
+
+✅ ARQUIVOS LOCALIZADOS COM SUCESSO NO BACKUP: D:\Projetos\sites\pdfff\
+Todos os certificados foram encontrados no diretório de backup. Apenas 2 cursos continuam sem arquivo PDF.

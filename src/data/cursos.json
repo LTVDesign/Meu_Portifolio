@@ -62,7 +62,7 @@
         "Papéis e responsabilidades do Product Manager"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/WKNDJF2YGF88",
-      "link": "/certificados/ID_3_introducao_ao_gerenciamento_de_produtos_de_software_university_of_alberta_via_coursera.pdf",
+      "link": "/certificados/ID_3_Intro_Software_Product_Management.pdf",
       "isProfessionalCertificate": false,
       "icon": "alberta"
     },
@@ -84,30 +84,28 @@
         "Resolução de problemas e troubleshooting"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/Y3TYLH6K7N4V",
-      "link": "/certificados/ID_4_introducao_ao_suporte_tecnico_ibm_via_coursera.pdf",
+      "link": "/certificados/ID_7_Intro_Technical_Support_IBM.pdf",
       "isProfessionalCertificate": false,
       "icon": "ibm"
     },
     {
       "id": "5",
-      "title": "Inteligência Artificial e Data Science",
+      "title": "Introduction to Artificial Intelligence (AI)",
       "platform": "IBM (via Coursera)",
       "date": "2024",
       "duration": "Aproximadamente 2 meses",
       "workload": "Cerca de 40 horas",
-      "summary": "Curso introdutório sobre Inteligência Artificial, cobrindo conceitos fundamentais de IA, machine learning, redes neurais e aplicações práticas. Ideal para iniciantes que desejam entender o básico de IA.",
-      "description": "Este curso oferece uma introdução acessível ao mundo da Inteligência Artificial. Aborda os conceitos fundamentais de IA, diferenças entre IA, machine learning e deep learning, funcionamento de redes neurais, e aplicações práticas em diversos setores. Você aprenderá como os sistemas de IA tomam decisões, reconhecem padrões e interagem com o mundo real. É o ponto de partida perfeito para quem quer entrar na área de IA ou entender suas possibilidades.",
+      "summary": "Curso introdutório completo sobre Inteligência Artificial, cobrindo conceitos fundamentais, machine learning, deep learning, redes neurais, IA generativa, LLMs, ética e aplicações práticas. Inclui laboratórios e projeto final.",
+      "description": "A Inteligência Artificial (IA) está em toda parte, integrada perfeitamente em nossa vida diária e trabalho. Este curso aborda conceitos fundamentais da IA, incluindo deep learning, machine learning e redes neurais. Você examinará modelos de IA generativa, incluindo grandes modelos de linguagem (LLMs) e suas capacidades. Além disso, analisará aplicações de IA em domínios como processamento de linguagem natural, visão computacional e robótica, descobrindo como esses avanços impulsionam a inovação e casos de uso. O curso inclui laboratórios práticos e um projeto, proporcionando oportunidade para explorar casos de uso e aplicações da IA.",
       "modules": [
-        "Introdução à Inteligência Artificial",
-        "História e evolução da IA",
-        "Machine Learning vs Deep Learning",
-        "Redes neurais e neurônios artificiais",
-        "Aplicações práticas de IA",
-        "Ética e futuro da IA"
+        "Fundamentos da Inteligência Artificial",
+        "Conceitos Fundamentais da IA",
+        "Aplicações de IA nos Negócios",
+        "Ética e Governança da IA"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/CVHSSYAKTBJQ",
-      "link": "https://www.coursera.org/learn/introduction-to-ai",
-      "isProfessionalCertificate": false,
+      "link": "/certificados/Coursera CVHSSYAKTBJQ.pdf",
+      "isProfessionalCertificate": true,
       "icon": "ibm"
     },
     {
@@ -117,19 +115,18 @@
       "date": "2024",
       "duration": "Aproximadamente 1 mês",
       "workload": "Cerca de 20 horas",
-      "summary": "Curso completo sobre o protocolo TCP/IP, abordando arquitetura, camadas, endereçamento IP, roteamento, DNS e comunicação de redes. Essencial para profissionais de TI e redes.",
-      "description": "Este curso oferece um entendimento profundo do conjunto de protocolos TCP/IP, a base da internet e das redes modernas. Aborda a arquitetura em camadas, endereçamento IP (IPv4 e IPv6), roteamento, DNS, DHCP, e os protocolos essenciais como TCP, UDP, HTTP e HTTPS. Você aprenderá como os dados são transmitidos através da rede, como configurar redes e solucionar problemas de conectividade. Fundamental para qualquer profissional de TI que trabalhe com redes.",
+      "summary": "Curso completo sobre o protocolo TCP/IP, abordando operações da Internet, IPv4, IPv6, TCP, UDP, endereçamento, roteamento, nomes de domínio, segurança e configuração de gateway. Inclui experimentos práticos com Wireshark.",
+      "description": "Neste curso 'Introdução ao TCP/IP', você aprenderá as funções operacionais das tecnologias da Internet (incluindo IPv4, IPv6, TCP, UDP, endereçamento, roteamento, nomes de domínio, etc.) e os princípios básicos de segurança e configuração de gateway da Internet do seu PC/laptop. Através de um experimento simples com Wireshark, você verá os pacotes TCP/IP e sistemas de segurança em ação que atendem o seu PC/laptop.",
       "modules": [
-        "Introdução ao TCP/IP e arquitetura de redes",
-        "Camadas do modelo TCP/IP",
-        "Endereçamento IP e sub-redes",
-        "Protocolos de transporte (TCP e UDP)",
-        "DNS, DHCP e serviços de rede",
-        "Roteamento e troubleshooting de redes"
+        "Internet e Gateway do Meu PC",
+        "Protocolo TCP/IP",
+        "Roteamento e Funções da Internet",
+        "Segurança na Internet",
+        "Projeto Internet com Wireshark"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/3U83PYVA9SZZ",
-      "link": "https://www.coursera.org/learn/tcpip",
-      "isProfessionalCertificate": false,
+      "link": "/certificados/Coursera 3U83PYVA9SZZ.pdf",
+      "isProfessionalCertificate": true,
       "icon": "yonsei"
     },
     {
@@ -150,7 +147,7 @@
         "APIs modernas e boas práticas"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/FU6BSD4ECJFD",
-      "link": "/certificados/ID_7_HTML_CSS_JS_Johns_Hopkins.pdf",
+      "link": "/certificados/ID_10_HTML_CSS_JS_Johns_Hopkins.pdf",
       "isProfessionalCertificate": false,
       "icon": "johns"
     },
@@ -172,7 +169,7 @@
         "Impedimentos, coaching e melhoria contínua"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/XP3ESDW5Z0F9",
-      "link": "/certificados/ID_8_introducao_a_profissao_scrum_master_google_via_coursera.pdf",
+      "link": "/certificados/ID_11_Scrum_Master_Google.pdf",
       "isProfessionalCertificate": false,
       "icon": "google"
     },
@@ -194,7 +191,7 @@
         "Monitoramento, detecção e resposta a incidentes"
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/H8G4LMDO77NR",
-      "link": "/certificados/ID_9_fundamentos_de_ciberseguranca_google_via_coursera.pdf",
+      "link": "/certificados/ID_12_Foundations_Cybersecurity_Google.pdf",
       "isProfessionalCertificate": false,
       "icon": "google"
     },
@@ -345,7 +342,7 @@
         "Implementar melhores práticas para aumentar personalização em mobile"
       ],
       "verificationLink": "https://skillshop.credential.net/7946491a-d272-4797-b550-69167baca020",
-      "link": "/certificados/ID_21_exame_de_certificacao_de_otimizacao_de_conversao_google_skillshop.pdf",
+      "link": "/certificados/ID_26_Conversion_Optimization_Certification_Exam_Skillshop.pdf",
       "isProfessionalCertificate": false,
       "icon": "google"
     },
@@ -370,7 +367,7 @@
         "Criativos codificados manualmente",
         "Integração de fluxo de trabalho com tráfego e campanhas programáticas"
       ],
-      "verificationLink": "https://skillshop.credential.net/auth?success_url=https%3A%2F%2Fskillshop.credential.net%2F23790651-f725-4565-a66a-b2344f066f21",
+      "verificationLink": "https://skillshop.docebosaas.com/learn/courses/13263/creative-certification-exam?hash=9d62917935104607a9a34fcd5b5235e3b0797401&generated_by=2685905",
       "link": "/certificados/ID_22_Creative_Certification_Exam_Google.pdf",
       "isProfessionalCertificate": false,
       "icon": "google"
