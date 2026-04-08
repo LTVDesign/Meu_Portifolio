@@ -132,7 +132,8 @@ export default defineConfig({
   },
   optimizeDeps: {
     // Forçar pré-bundling de React para garantir ordem correta
-    force: false
+    force: true,
+    include: ['react', 'react-dom']
   },
 
   server: {

@@ -1,7 +1,7 @@
 import React, { useState, useCallback, memo, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { SpeedInsights } from '@vercel/speed-insights/react';
+// import { SpeedInsights } from '@vercel/speed-insights/react';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
 
@@ -176,7 +176,7 @@ function App() {
             </DynamicTextProvider>
           </PerformanceProvider>
 
-          <SpeedInsights />
+          {/* <SpeedInsights /> */}
         </ParticleConfigProvider>
       </I18nextProvider>
     </HelmetProvider>

@@ -4,16 +4,17 @@ import {
   FiDownload,
   FiPrinter,
 } from 'react-icons/fi';
-import { experiences, technologies, projects } from '../constants';
+import { useMemo, useCallback } from 'react';
+import { experiences, projects } from '../constants';
 import cursosData from '../data/cursos.json';
 
 const OnlineResume = () => {
   const { t, i18n } = useTranslation();
-oi para
-  const currentLang = (i18n.language.startsWith('pt') ? 'pt' : 'en') as 'pt' | 'en';
-  const allCourses = (cursosData[currentLang] || cursosData.en) as any[];
 
-  const handlePrint = () => window.print();
+  const currentLang = useMemo(() => (i18n.language.startsWith('pt') ? 'pt' : 'en') as 'pt' | 'en', [i18n.language]);
+  const allCourses = useMemo(() => (cursosData[currentLang] || cursosData.en) as any[], [currentLang]);
+
+  const handlePrint = useCallback(() => window.print(), []);
 
   return (
     <div className='min-h-screen bg-[#050816] text-white pt-32 pb-12 px-4 sm:px-6 lg:px-8'>
@@ -23,7 +24,7 @@ oi para
       </Helmet>
 
       {/* Toolbar - visível na tela online */}
-      <div className='max-w-5xl mx-auto mb-8 flex justify-end gap-4 print:hidden relative z-10'>
+      <div className='max-w-5xl mx-auto mb-8 flex justify-end gap-4 print:hidden relative z-10 print:hidden'>
         <button
           onClick={handlePrint}
           className='flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg transition-all text-sm'
@@ -31,7 +32,7 @@ oi para
           <FiPrinter className="text-[var(--cyber-cyan)]" /> {t('common.print', 'Imprimir')}
         </button>
         <a
-          href='/formacao/DiplomaDigital.pdf'
+          href='/certificados/ID_28_Google_IT_Support_Professional.pdf'
           download
           className='flex items-center gap-2 px-4 py-2 bg-[var(--cyber-purple)] hover:opacity-90 text-white rounded-lg transition-all text-sm shadow-lg shadow-[var(--cyber-purple)]/20'
         >
@@ -40,7 +41,7 @@ oi para
       </div>
 
       {/* Header com gradiente */}
-      <div className='max-w-4xl mx-auto mb-0 p-8 rounded-t-2xl bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400'>
+      <div className='max-w-4xl mx-auto mb-0 p-8 rounded-t-2xl bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 print:hidden'>
         <div className='flex justify-between items-center'>
           <div>
             <h1 className='text-5xl font-bold mb-3 text-black'>Leandro Barbosa</h1>
@@ -48,20 +49,16 @@ oi para
           </div>
           <div className='flex flex-col gap-3 text-right text-black'>
             <div className='flex items-center gap-3'>
-              <span className='bg-white/20 p-2 rounded-full'>📧</span>
-              <span className='text-lg'>lelebrr@gmail.com</span>
-            </div>
-            <div className='flex items-center gap-3'>
               <span className='bg-white/20 p-2 rounded-full'>📱</span>
               <span className='text-lg'>+55 11 98483-8629</span>
             </div>
             <div className='flex items-center gap-3'>
               <span className='bg-white/20 p-2 rounded-full'>💼</span>
-              <span className='text-lg'>linkedin.com/in/lelebrr</span>
+              <a href='https://linkedin.com/in/lelebrr' target='_blank' rel='noopener noreferrer' className='text-lg hover:underline'>linkedin.com/in/lelebrr</a>
             </div>
             <div className='flex items-center gap-3'>
-              <span className='bg-white/20 p-2 rounded-full'>📍</span>
-              <span className='text-lg'>São Paulo, SP</span>
+              <span className='bg-white/20 p-2 rounded-full'>📧</span>
+              <a href='mailto:lelebrr@gmail.com' className='text-lg hover:underline'>lelebrr@gmail.com</a>
             </div>
           </div>
         </div>
@@ -79,7 +76,7 @@ oi para
               <div>💼 linkedin.com/in/lelebrr | 📍 São Paulo, SP</div>
             </div>
           </div>
-          <div className='flex-shrink-0'>
+          <div className='flex-shrink-0 hidden print:block'>
             <img
               src="/qrcode.png"
               alt="QR Code"
@@ -266,7 +263,7 @@ oi para
         </div>
 
         {/* Rodapé */}
-        <div className='text-center mt-6 pt-4 border-t border-gray-200 text-xs' style={{ color: 'black' }}>
+        <div className='text-center mt-6 pt-4 border-t border-gray-200 text-xs print:hidden' style={{ color: 'black' }}>
           <p>Este currículo foi gerado digitalmente em {new Date().toLocaleDateString('pt-BR')}</p>
           <p className='font-bold mt-1' style={{ color: 'black' }}>leandrobarbosa.dev | linkedin.com/in/lelebrr</p>
         </div>
@@ -275,8 +272,7 @@ oi para
       {/* Page Styles */}
       <style dangerouslySetInnerHTML={{
         __html: `
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-        
+
         :root {
           --cyber-purple: #9747FF;
           --cyber-cyan: #00F0FF;
@@ -294,24 +290,47 @@ oi para
             color: black !important; 
             padding: 0 !important; 
             margin: 0 !important; 
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
           }
-          * {
+          
+          /* Mostrar header gradiente também na impressão */
+          .bg-gradient-to-r {
+            background: linear-gradient(to right, #a855f7, #3b82f6, #22d3ee) !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+          
+          .bg-white\\/20 {
+            background-color: rgba(255, 255, 255, 0.2) !important;
+            -webkit-print-color-adjust: exact !important;
+          }
+
+          .max-w-4xl.bg-white * {
             color: black !important;
           }
-          h1, h2, h3, h4 {
+          .max-w-4xl.bg-white h1, 
+          .max-w-4xl.bg-white h2, 
+          .max-w-4xl.bg-white h3, 
+          .max-w-4xl.bg-white h4 {
             color: black !important; 
             border-color: black !important;
           }
-          p, span, li, div {
+          .max-w-4xl.bg-white p, 
+          .max-w-4xl.bg-white span, 
+          .max-w-4xl.bg-white li, 
+          .max-w-4xl.bg-white div {
             color: black !important;
           }
-          .text-gray-600, .text-gray-700, .text-gray-800 {
+          .max-w-4xl.bg-white .text-gray-600, 
+          .max-w-4xl.bg-white .text-gray-700, 
+          .max-w-4xl.bg-white .text-gray-800 {
             color: black !important;
           }
-          .bg-gray-100 {
+          .max-w-4xl.bg-white .bg-gray-100 {
             background-color: #f5f5f5 !important;
           }
-          .border-gray-300 {
+          .max-w-4xl.bg-white .border-gray-300 {
             border-color: #d1d1d1 !important;
           }
         }

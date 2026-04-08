@@ -53,7 +53,12 @@ self.addEventListener('fetch', (event) => {
 
     // Ignorar requisições para API de analytics e outros serviços
     if (url.hostname.includes('va.vercel-scripts.com') ||
-        url.hostname.includes('api.emailjs.com')) {
+        url.hostname.includes('api.emailjs.com') ||
+        url.pathname.startsWith('/@vite/') ||
+        url.pathname.startsWith('/@react-refresh') ||
+        url.pathname.startsWith('/src/') ||
+        url.protocol === 'ws:' ||
+        url.protocol === 'wss:') {
         return;
     }
 
@@ -91,7 +96,8 @@ function isSupportedScheme(url) {
 
 // Estratégia: Cache First
 async function cacheFirst(request) {
-    const cachedResponse = await caches.match(request);
+    // Ignora query strings ao buscar no cache (resolvendo o problema do ?v=hash no Vite)
+    const cachedResponse = await caches.match(request, { ignoreSearch: true });
     if (cachedResponse) {
         return cachedResponse;
     }
@@ -105,7 +111,18 @@ async function cacheFirst(request) {
         return networkResponse;
     } catch (error) {
         console.log('[SW] Erro ao buscar recurso:', error);
-        throw error;
+
+        // Para módulos JS/TS, NÃO retornar resposta falsa
+        // Deixe o erro passar para que o navegador lide corretamente
+        if (request.destination === 'script' || request.destination === 'module') {
+            throw error;
+        }
+
+        // Retorna resposta 204 No Content apenas para outros tipos de recurso
+        return new Response(null, {
+            status: 204,
+            statusText: 'No Content'
+        });
     }
 }
 
@@ -123,7 +140,20 @@ async function networkFirst(request) {
         if (cachedResponse) {
             return cachedResponse;
         }
-        throw error;
+
+        console.log('[SW] Erro ao buscar recurso (Network First):', error);
+
+        // Para módulos JS/TS, não mascarar o erro
+        // Permitir que o navegador receba o erro de rede original
+        if (request.destination === 'script' || request.destination === 'module') {
+            throw error;
+        }
+
+        // Fallback gracioso apenas para outros tipos de recurso
+        return new Response(null, {
+            status: 204,
+            statusText: 'No Content'
+        });
     }
 }
 
