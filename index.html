@@ -2,10 +2,13 @@
 <html lang="pt-BR">
 
 <head>
-  <link rel="preload" as="image" href="/logo.svg" type="image/svg+xml" fetchpriority="high">
+  <link rel="preload" as="image" href="/logo.webp" type="image/webp" fetchpriority="high">
   <meta charset="UTF-8">
   <link rel="manifest" href="/manifest.json">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Critical CSS - Melhora o FCP -->
+  <link rel="stylesheet" href="/src/critical.css">
 
   <!-- CSP (Content Security Policy) -->
   <meta http-equiv="Content-Security-Policy" content="
@@ -25,10 +28,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.onload=null;this.removeAttribute('media');">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" media="print" onload="this.onload=null;this.removeAttribute('media');">
   <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
   </noscript>
+
+  <!-- Preload estratégico de chunks principais -->
+  <link rel="preload" href="/assets/js/vendor-core-B82mEZB-.js" as="script" crossorigin>
+  <link rel="preload" href="/assets/js/vendor-router.js" as="script" crossorigin>
+  <link rel="preload" href="/assets/js/index-DaY8sPHQ.js" as="script" crossorigin>
 
   <!-- EmailJS: carregado sob demanda no formulário de contato -->
   <link rel="dns-prefetch" href="https://api.emailjs.com">
@@ -54,19 +64,33 @@
     console.clear();
     // Force unregister all service workers to clear stale/broken chunks
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(function(registrations) {
-        for(let registration of registrations) {
+      navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        for (let registration of registrations) {
           registration.unregister();
           console.log('[RECOVERY] Service Worker unregistered successfully');
         }
-      }).catch(function(err) {
+      }).catch(function (err) {
         console.log('[RECOVERY] Service Worker unregistration failed: ', err);
       });
     }
-  </script>
-  <title>Leandro Saturnino Barbosa | Portfólio 3D - React &amp; Three.js</title>
 
-  <!-- CSS será importado via main.tsx -->
+    // Performance optimization: Preload critical resources
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => {
+        // Prefetch less critical routes
+        const link1 = document.createElement('link');
+        link1.rel = 'prefetch';
+        link1.href = '/formacao';
+        document.head.appendChild(link1);
+
+        const link2 = document.createElement('link');
+        link2.rel = 'prefetch';
+        link2.href = '/projetos';
+        document.head.appendChild(link2);
+      });
+    }
+  </script>
+  <title>Leandro Saturnino Barbosa | Portfólio 3D - React & Three.js</title>
 
   <!-- DNS Prefetch para APIs externas -->
   <link rel="dns-prefetch" href="https://api.emailjs.com">
@@ -101,7 +125,12 @@
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <!-- Skeleton loader while content loads -->
+    <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+      <div class="skeleton" style="width: 200px; height: 200px; border-radius: 8px;"></div>
+    </div>
+  </div>
   <script>
     window.addEventListener('error', function (e) {
       console.error('GLOBAL ERROR:', e.message, e.filename, e.lineno, e.colno, e.error);

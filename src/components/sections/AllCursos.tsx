@@ -1,19 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { createPortal } from 'react-dom';
 import close from '../../assets/close.svg';
 import { SectionWrapper } from '../../hoc';
-import anhangueraImg from '../../assets/anhanguera.svg';
-import albertaImg from '../../assets/images/logos/alberta.webp';
-import bradescoImg from '../../assets/images/logos/bradesco.webp';
-import cateImg from '../../assets/images/logos/cate.webp';
-import yonseiImg from '../../assets/images/logos/yonsei.png';
-import googleImg from '../../assets/images/logos/google.webp';
-import ibmImg from '../../assets/images/logos/ibm.webp';
-import johnsImg from '../../assets/images/logos/johns.webp';
-import hackersImg from '../../assets/images/logos/hackers.webp';
-import skillImg from '../../assets/images/logos/skill.webp';
-import ipedImg from '../../assets/images/logos/ipad.webp';
+import { alberta, bradesco, cate, google, ibm, hackers, ipad, yonsei, johns } from '../../assets';
 import cursosData from '../../data/cursos.json';
 import type { Curso } from '../../types';
 import CursoDetailModal from '../atoms/CursoDetailModal';
@@ -34,6 +25,13 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
   const modalRef = useRef<HTMLDivElement>(null);
   const lastFocusedElement = useRef<HTMLElement | null>(null);
   const { t, i18n } = useTranslation();
+
+  // Rolar para o topo quando o modal de detalhes abrir na página dedicada
+  useEffect(() => {
+    if (isDetailOpen && isPage) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [isDetailOpen, isPage]);
 
   useEffect(() => {
     if (isOpen) {
@@ -88,17 +86,15 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
   const allCursos: Curso[] = useMemo(() => {
     const cursos = cursosData[currentLanguage] || cursosData.pt;
     return cursos.map((curso) => {
-      let iconSrc = googleImg;
-      if (curso.icon === 'alberta') iconSrc = albertaImg;
-      else if (curso.icon === 'ibm') iconSrc = ibmImg;
-      else if (curso.icon === 'anhanguera') iconSrc = anhangueraImg;
-      else if (curso.icon === 'cate') iconSrc = cateImg;
-      else if (curso.icon === 'yonsei') iconSrc = yonseiImg;
-      else if (curso.icon === 'johns') iconSrc = johnsImg;
-      else if (curso.icon === 'hackers') iconSrc = hackersImg;
-      else if (curso.icon === 'bradesco') iconSrc = bradescoImg;
-      else if (curso.icon === 'skill') iconSrc = skillImg;
-      else if (curso.icon === 'iped') iconSrc = ipedImg;
+      let iconSrc = google;
+      if (curso.icon === 'alberta') iconSrc = alberta;
+      else if (curso.icon === 'ibm') iconSrc = ibm;
+      else if (curso.icon === 'cate') iconSrc = cate;
+      else if (curso.icon === 'yonsei') iconSrc = yonsei;
+      else if (curso.icon === 'johns') iconSrc = johns;
+      else if (curso.icon === 'hackers') iconSrc = hackers;
+      else if (curso.icon === 'bradesco') iconSrc = bradesco;
+      else if (curso.icon === 'iped') iconSrc = ipad;
 
       return {
         ...curso,
@@ -163,7 +159,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
         exit={{ opacity: 0 }}
         className={isPage
           ? 'relative w-full min-h-screen pt-20 sm:pt-28 flex flex-col bg-transparent'
-          : 'fixed inset-0 z-[100] flex flex-col bg-black/95 backdrop-blur-md'}
+          : 'fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md'}
         role={isPage ? 'main' : 'presentation'}
       >
         {/* Header da Modal - Botão Fechar no Topo */}
@@ -217,7 +213,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                     placeholder={t('allCursos.searchPlaceholder')}
                     value={filter}
                     onChange={(e) => setFilter(e.target.value)}
-                    className='w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-[var(--cyber-cyan)] focus:ring-2 focus:ring-[var(--cyber-cyan)]/20 transition-all text-sm sm:text-base'
+                    className='w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl bg-white/5 border border-white/10 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-[var(--cyber-cyan)] focus:ring-2 focus:ring-[var(--cyber-cyan)]/20 transition-all text-sm sm:text-base'
                     aria-label={t('allCursos.searchCourses')}
                   />
                 </div>
@@ -230,7 +226,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                   <select
                     value={platformFilter}
                     onChange={(e) => setPlatformFilter(e.target.value)}
-                    className='w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[var(--cyber-cyan)] focus:ring-2 focus:ring-[var(--cyber-cyan)]/20 transition-all text-sm sm:text-base'
+                    className='w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl bg-white/5 border border-white/10 text-gray-900 focus:outline-none focus:border-[var(--cyber-cyan)] focus:ring-2 focus:ring-[var(--cyber-cyan)]/20 transition-all text-sm sm:text-base'
                     aria-label='Filtrar por plataforma'
                   >
                     <option value='all'>{t('allCursos.allPlatforms')}</option>
@@ -248,7 +244,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                   <select
                     value={certificateFilter}
                     onChange={(e) => setCertificateFilter(e.target.value)}
-                    className='w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[var(--cyber-cyan)] focus:ring-2 focus:ring-[var(--cyber-cyan)]/20 transition-all text-sm sm:text-base'
+                    className='w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl bg-white/5 border border-white/10 text-gray-900 focus:outline-none focus:border-[var(--cyber-cyan)] focus:ring-2 focus:ring-[var(--cyber-cyan)]/20 transition-all text-sm sm:text-base'
                     aria-label='Filtrar por tipo de certificado'
                   >
                     <option value='all'>{t('allCursos.allTypes')}</option>
@@ -267,7 +263,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                     onChange={(e) =>
                       setSortBy(e.target.value as 'year' | 'duration' | 'company' | 'name')
                     }
-                    className='w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[var(--cyber-cyan)] focus:ring-2 focus:ring-[var(--cyber-cyan)]/20 transition-all text-sm sm:text-base'
+                    className='w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl bg-white/5 border border-white/10 text-gray-900 focus:outline-none focus:border-[var(--cyber-cyan)] focus:ring-2 focus:ring-[var(--cyber-cyan)]/20 transition-all text-sm sm:text-base'
                     aria-label='Ordenar cursos'
                   >
                     <option value='year'>{t('allCursos.mostRecent')}</option>
@@ -485,7 +481,10 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
             </div>
           </div>
         )}
+      </m.div>
 
+      {/* Modal de detalhes renderizado via portal para evitar problemas de overflow */}
+      {createPortal(
         <CursoDetailModal
           isOpen={isDetailOpen}
           onClose={() => {
@@ -493,8 +492,9 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
             setSelectedCurso(null);
           }}
           curso={selectedCurso}
-        />
-      </m.div>
+        />,
+        document.body
+      )}
     </AnimatePresence>
   );
 };

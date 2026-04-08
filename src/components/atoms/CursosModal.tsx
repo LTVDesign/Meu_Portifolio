@@ -2,17 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import close from '../../assets/close.svg';
-import anhangueraImg from '../../assets/anhanguera.svg';
-import albertaImg from '../../assets/images/logos/alberta.webp';
-import bradescoImg from '../../assets/images/logos/bradesco.webp';
-import cateImg from '../../assets/images/logos/cate.webp';
-import yonseiImg from '../../assets/images/logos/yonsei.png';
-import googleImg from '../../assets/images/logos/google.webp';
-import ibmImg from '../../assets/images/logos/ibm.webp';
-import johnsImg from '../../assets/images/logos/johns.webp';
-import hackersImg from '../../assets/images/logos/hackers.webp';
-import skillImg from '../../assets/images/logos/skill.webp';
-import ipedImg from '../../assets/images/logos/ipad.webp';
+import { alberta, bradesco, cate, google, ibm, hackers, ipad, skill, yonsei, johns } from '../../assets';
 import type { Curso } from '../../types';
 
 interface CursosModalProps {
@@ -78,17 +68,16 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
 
   const getLogo = (iconName: string | undefined, platform: string) => {
     const logoMap: { [key: string]: string } = {
-      'alberta': albertaImg,
-      'bradesco': bradescoImg,
-      'cate': cateImg,
-      'google': googleImg,
-      'ibm': ibmImg,
-      'johns': johnsImg,
-      'hackers': hackersImg,
-      'skill': skillImg,
-      'iped': ipedImg,
-      'anhanguera': anhangueraImg,
-      'yonsei': yonseiImg,
+      'alberta': alberta,
+      'bradesco': bradesco,
+      'cate': cate,
+      'google': google,
+      'ibm': ibm,
+      'johns': johns,
+      'hackers': hackers,
+      'skill': skill,
+      'iped': ipad,
+      'yonsei': yonsei,
     };
 
     if (iconName && logoMap[iconName]) {
@@ -96,19 +85,18 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
     }
 
     const platformLower = platform.toLowerCase();
-    if (platformLower.includes('google')) return googleImg;
-    if (platformLower.includes('ibm')) return ibmImg;
-    if (platformLower.includes('johns')) return johnsImg;
-    if (platformLower.includes('bradesco')) return bradescoImg;
-    if (platformLower.includes('iped')) return ipedImg;
-    if (platformLower.includes('alberta')) return albertaImg;
-    if (platformLower.includes('hackers')) return hackersImg;
-    if (platformLower.includes('cate')) return cateImg;
-    if (platformLower.includes('skill')) return skillImg;
-    if (platformLower.includes('anhanguera')) return anhangueraImg;
-    if (platformLower.includes('yonsei')) return yonseiImg;
+    if (platformLower.includes('google')) return google;
+    if (platformLower.includes('ibm')) return ibm;
+    if (platformLower.includes('johns')) return johns;
+    if (platformLower.includes('bradesco')) return bradesco;
+    if (platformLower.includes('iped')) return ipad;
+    if (platformLower.includes('alberta')) return alberta;
+    if (platformLower.includes('hackers')) return hackers;
+    if (platformLower.includes('cate')) return cate;
+    if (platformLower.includes('skill')) return skill;
+    if (platformLower.includes('yonsei')) return yonsei;
 
-    return googleImg;
+    return google;
   };
 
   const filteredCursos = cursos.filter(

@@ -2,6 +2,8 @@ import React, { useState, useCallback, memo, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { SpeedInsights } from '@vercel/speed-insights/react';
+import { I18nextProvider } from 'react-i18next';
+import i18n from './i18n';
 
 // Providers
 import { ParticleConfigProvider, useBackgroundMenu, useParticleConfig } from './contexts/ParticleConfigContext';
@@ -109,46 +111,8 @@ const AppContent = () => {
   const [loadBackgrounds, setLoadBackgrounds] = useState(false);
 
   useEffect(() => {
-    // Usar eventos de interação do usuário OU um timeout maior para
-    // diferir o carregamento do 3D pesado e resolver "Unused JavaScript" do PageSpeed
-    let isLoaded = false;
-
-    const scheduleLoad = () => {
-      if (isLoaded) return;
-      isLoaded = true;
-
-      // Quando for interagir, podemos usar requestIdleCallback para não engasgar a thread
-      if ('requestIdleCallback' in window) {
-        (window as Window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(() => {
-          setLoadBackgrounds(true);
-        }, { timeout: 5000 });
-      } else {
-        setLoadBackgrounds(true);
-      }
-
-      // Limpar listeners
-      window.removeEventListener('mousemove', scheduleLoad);
-      window.removeEventListener('touchstart', scheduleLoad);
-      window.removeEventListener('scroll', scheduleLoad);
-      window.removeEventListener('keydown', scheduleLoad);
-    };
-
-    // Bind listeners
-    window.addEventListener('mousemove', scheduleLoad, { once: true, passive: true });
-    window.addEventListener('touchstart', scheduleLoad, { once: true, passive: true });
-    window.addEventListener('scroll', scheduleLoad, { once: true, passive: true });
-    window.addEventListener('keydown', scheduleLoad, { once: true, passive: true });
-
-    // Fallback: carregar após 8000ms (evita de ser pego pelo trace de performance inicial)
-    const timer = setTimeout(scheduleLoad, 8000);
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('mousemove', scheduleLoad);
-      window.removeEventListener('touchstart', scheduleLoad);
-      window.removeEventListener('scroll', scheduleLoad);
-      window.removeEventListener('keydown', scheduleLoad);
-    };
+    // Carregar backgrounds imediatamente
+    setLoadBackgrounds(true);
   }, []);
 
   return (
@@ -161,7 +125,7 @@ const AppContent = () => {
       )}
 
       {loadBackgrounds && (
-        <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="fixed inset-0 z-[1] pointer-events-none">
           <ParticlesCanvas />
         </div>
       )}
@@ -196,20 +160,22 @@ const AppContent = () => {
   );
 };
 
-const App = () => {
+function App() {
   return (
     <HelmetProvider>
-      <ParticleConfigProvider>
-        <PerformanceProvider>
-          <DynamicTextProvider>
-            <MotionProvider>
-              <AppContent />
-            </MotionProvider>
-          </DynamicTextProvider>
-        </PerformanceProvider>
+      <I18nextProvider i18n={i18n}>
+        <ParticleConfigProvider>
+          <PerformanceProvider>
+            <DynamicTextProvider>
+              <MotionProvider>
+                <AppContent />
+              </MotionProvider>
+            </DynamicTextProvider>
+          </PerformanceProvider>
 
-        <SpeedInsights />
-      </ParticleConfigProvider>
+          <SpeedInsights />
+        </ParticleConfigProvider>
+      </I18nextProvider>
     </HelmetProvider>
   );
 };

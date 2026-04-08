@@ -10,7 +10,9 @@
 				"EXA_API_KEY": "dac912f4-48b1-4bbf-a6ed-c84754e9d759"
 			},
 			"alwaysAllow": [
-				"get_code_context_exa"
+				"get_code_context_exa",
+				"crawling_exa",
+				"web_search_exa"
 			]
 		}
 	}

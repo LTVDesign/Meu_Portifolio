@@ -5,7 +5,6 @@ import App from './App';
 import './i18n';
 // Importação de CSS - Vite vai processar e injetar automaticamente
 // Critical CSS carrega primeiro para evitar FOUC
-import './critical-base.css';
 import './critical.css';
 // Globals CSS carrega após critical para não bloquear renderização inicial
 import './globals.css';

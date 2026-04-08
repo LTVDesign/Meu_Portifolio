@@ -14,7 +14,6 @@ const Works = () => {
     const projectUrls: Record<string, string> = {
       'GetNexo v1.0+': 'https://getnexo.ai',
       'Component Tester PRO v2.0': 'https://github.com/lelebrr/Component_Tester',
-      'Willy Cyber-Multitool': 'https://github.com/lelebrr/Willy',
     };
 
     const url = projectUrls[projectName] || '#';

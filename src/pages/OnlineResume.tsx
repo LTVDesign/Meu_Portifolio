@@ -2,12 +2,12 @@ import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { m } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { 
-  FiMail, 
-  FiPhone, 
-  FiLinkedin, 
-  FiMapPin, 
-  FiDownload, 
+import {
+  FiMail,
+  FiPhone,
+  FiLinkedin,
+  FiMapPin,
+  FiDownload,
   FiPrinter,
   FiAward,
   FiBookOpen,
@@ -24,13 +24,13 @@ import cursosData from '../data/cursos.json';
 const OnlineResume = () => {
   const { t, i18n } = useTranslation();
   const resumeRef = useRef<HTMLDivElement>(null);
-  
+
   const currentLang = (i18n.language.startsWith('pt') ? 'pt' : 'en') as 'pt' | 'en';
   const allCourses = (cursosData[currentLang] || cursosData.en) as any[];
 
   // Professional Certificates
   const professionalCerts = allCourses.filter(c => c.isProfessionalCertificate);
-  
+
   // Group technologies
   const techCategories = technologies.reduce((acc, tech) => {
     const category = tech.category || 'other';
@@ -50,13 +50,13 @@ const OnlineResume = () => {
 
       {/* Toolbar */}
       <div className='max-w-5xl mx-auto mb-8 flex justify-end gap-4 print:hidden relative z-10'>
-        <button 
+        <button
           onClick={handlePrint}
           className='flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg transition-all text-sm'
         >
           <FiPrinter className="text-[var(--cyber-cyan)]" /> {t('common.print', 'Imprimir')}
         </button>
-        <a 
+        <a
           href='/formacao/DiplomaDigital.pdf'
           download
           className='flex items-center gap-2 px-4 py-2 bg-[var(--cyber-purple)] hover:opacity-90 text-white rounded-lg transition-all text-sm shadow-lg shadow-[var(--cyber-purple)]/20'
@@ -65,7 +65,7 @@ const OnlineResume = () => {
         </a>
       </div>
 
-      <m.div 
+      <m.div
         ref={resumeRef}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -85,7 +85,7 @@ const OnlineResume = () => {
                 <div className='p-2 bg-white/10 rounded-lg print:hidden'><FiMail /></div> {t('common.email')}
               </a>
               <div className='flex items-center gap-3'>
-                <div className='p-2 bg-white/10 rounded-lg print:hidden'><FiPhone /></div> +55 (11) 97793-1994
+                <div className='p-2 bg-white/10 rounded-lg print:hidden'><FiPhone /></div> +55 11 98483-8629
               </div>
               <a href="https://linkedin.com/in/lelebrr" target="_blank" className='flex items-center gap-3 hover:text-white/80 transition-colors'>
                 <div className='p-2 bg-white/10 rounded-lg print:hidden'><FiLinkedin /></div> linkedin.com/in/lelebrr
@@ -268,7 +268,8 @@ const OnlineResume = () => {
       </m.div>
 
       {/* Page Styles */}
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         
         :root {

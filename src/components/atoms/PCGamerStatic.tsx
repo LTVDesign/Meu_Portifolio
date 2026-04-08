@@ -1,6 +1,6 @@
 // Componente de PC Gamer estático para mobile/tablet
 const PCGamerStatic = () => (
-    <div className="relative w-full max-w-3xl mx-auto flex items-center justify-center -mt-[clamp(2rem,5vh,4rem)]">
+    <div className="relative w-full max-w-3xl mx-auto flex items-center justify-center">
         <img
             src="/assets/images/pc-gamer.png"
             alt="PC Gamer Setup"

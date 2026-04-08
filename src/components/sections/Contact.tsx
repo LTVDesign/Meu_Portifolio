@@ -5,13 +5,10 @@ import { FaBuilding, FaEnvelope, FaPaperPlane, FaPhone, FaUser } from 'react-ico
 import { z } from 'zod';
 import { SectionWrapper } from '../../hoc';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
-import { useBreakpoints } from '../../hooks/useDebouncedResize';
 import { emailService } from '../../utils/emailService';
 import { slideIn } from '../../utils/motion';
 import { Header } from '../atoms';
-import { lazy, Suspense } from 'react';
-
-const EarthCanvas = lazy(() => import('../canvas/Earth'));
+import StaticGlobe from '../atoms/StaticGlobe';
 
 type ContactForm = {
   name: string;
@@ -42,8 +39,6 @@ const Contact = () => {
   >({});
   const { t } = useTranslation();
   const prefersReduced = useReducedMotion();
-  const { width } = useBreakpoints();
-  const isMobileOrTablet = width <= 1024;
   const canvasContainerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(canvasContainerRef, { once: true, amount: 0.1 });
 
@@ -458,26 +453,15 @@ const Contact = () => {
             </div>
           </m.div>
 
-          {/* Canvas 3D - Em desktop mostra EarthCanvas 3D, em mobile/tablet mostra globo estático */}
+          {/* Globo estático - mostra em todos os dispositivos */}
           <m.div
             ref={canvasContainerRef}
             variants={slideIn('right', 'tween', 0.2, 1)}
             className='flex flex-1 w-full xl:w-[50vw] h-[clamp(300px,50vw,600px)] items-center justify-center relative overflow-hidden'
           >
             <div className='w-full h-full flex items-center justify-center'>
-              {isMobileOrTablet ? null : isInView ? (
-                <Suspense fallback={
-                  <div className="flex items-center justify-center w-full h-full">
-                    <div className="w-10 h-10 border-4 border-[var(--cyber-purple)]/30 border-t-[var(--cyber-cyan)] rounded-full animate-spin" />
-                  </div>
-                }>
-                  <EarthCanvas />
-                </Suspense>
-              ) : (
-                <div className="flex flex-col items-center justify-center w-full h-full gap-4 opacity-50">
-                  <div className="w-10 h-10 border-4 border-[var(--cyber-purple)]/30 border-t-[var(--cyber-cyan)] rounded-full animate-spin" />
-                  <span className="text-xs text-[var(--cyber-cyan)] uppercase tracking-widest">{t('common.loading3d', 'Iniciando ambiente 3D...')}</span>
-                </div>
+              {isInView && (
+                <StaticGlobe />
               )}
             </div>
           </m.div>

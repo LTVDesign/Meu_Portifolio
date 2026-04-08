@@ -15,7 +15,7 @@ const STATIC_ASSETS = [
     '/android-chrome-192x192.png',
     '/android-chrome-512x512.png',
     '/logo.png',
-    '/logo.svg'
+    '/logo.webp'
 ];
 
 // Instalação do Service Worker

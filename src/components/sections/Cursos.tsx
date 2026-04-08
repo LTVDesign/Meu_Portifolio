@@ -3,15 +3,7 @@ import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import cursosData from '../../data/cursos.json';
 import { SectionWrapper } from '../../hoc';
-import albertaImg from '../../assets/images/logos/alberta.webp';
-import bradescoImg from '../../assets/images/logos/bradesco.webp';
-import cateImg from '../../assets/images/logos/cate.webp';
-import googleImg from '../../assets/images/logos/google.webp';
-import ibmImg from '../../assets/images/logos/ibm.webp';
-import johnsImg from '../../assets/images/logos/johns.webp';
-import hackersImg from '../../assets/images/logos/hackers.webp';
-import skillImg from '../../assets/images/logos/skill.webp';
-import ipedImg from '../../assets/images/logos/ipad.webp';
+import { alberta, bradesco, cate, google, ibm, hackers, ipad, skill, yonsei, johns } from '../../assets';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms';
 import CursoDetailModal from '../atoms/CursoDetailModal';
@@ -27,15 +19,16 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
   const allCursos: Curso[] = useMemo(() => {
     const cursos = cursosData[currentLanguage] || cursosData.pt;
     return cursos.map((curso) => {
-      let iconSrc = googleImg;
-      if (curso.icon === 'alberta') iconSrc = albertaImg;
-      else if (curso.icon === 'ibm') iconSrc = ibmImg;
-      else if (curso.icon === 'cate') iconSrc = cateImg;
-      else if (curso.icon === 'johns') iconSrc = johnsImg;
-      else if (curso.icon === 'hackers') iconSrc = hackersImg;
-      else if (curso.icon === 'bradesco') iconSrc = bradescoImg;
-      else if (curso.icon === 'skill') iconSrc = skillImg;
-      else if (curso.icon === 'iped') iconSrc = ipedImg;
+      let iconSrc = google;
+      if (curso.icon === 'alberta') iconSrc = alberta;
+      else if (curso.icon === 'ibm') iconSrc = ibm;
+      else if (curso.icon === 'cate') iconSrc = cate;
+      else if (curso.icon === 'johns') iconSrc = johns;
+      else if (curso.icon === 'hackers') iconSrc = hackers;
+      else if (curso.icon === 'bradesco') iconSrc = bradesco;
+      else if (curso.icon === 'skill') iconSrc = skill;
+      else if (curso.icon === 'iped') iconSrc = ipad;
+      else if (curso.icon === 'yonsei') iconSrc = yonsei;
 
       return {
         ...curso,

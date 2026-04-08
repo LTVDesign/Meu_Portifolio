@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
-import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import compression from 'vite-plugin-compression';
 import path from 'path';
 
@@ -18,36 +17,6 @@ export default defineConfig({
       jsxRuntime: 'automatic',
       fastRefresh: true,
       importSource: 'react',
-    }),
-    ViteImageOptimizer({
-      test: /\.(jpe?g|png|gif|tiff|webp|svg|avif)$/i,
-      exclude: [/node_modules/, /public\/assets\/3d-models\/desktop-pc\/webp/, /config\.svg$/],
-      png: {
-        quality: 80,
-        compressionLevel: 6,
-      },
-      jpeg: {
-        quality: 82,
-        progressive: true,
-        mozjpeg: true,
-      },
-      webp: {
-        quality: 80,
-        lossless: false,
-      },
-      gif: {
-        compressionLevel: 3,
-      },
-      svg: {
-        multipass: true,
-        precision: 3,
-      },
-      avif: {
-        quality: 70,
-        speed: 6,
-      },
-      cache: true,
-      logStats: true,
     }),
     compression({
       algorithm: 'brotliCompress',
@@ -79,27 +48,53 @@ export default defineConfig({
     modulePreload: true,
     sourcemap: true,
     minify: 'terser',
-    chunkSizeWarningLimit: 1500,
+    chunkSizeWarningLimit: 2000,
     cssCodeSplit: true,
     assetsInlineLimit: 4096,
+    cssMinify: true,
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('three') || id.includes('@react-three')) {
-              return 'vendor-three';
-            }
-            if (id.includes('framer-motion')) {
-              return 'vendor-motion';
-            }
-            // Put all React-related core libs in one chunk
-            if (id.includes('react') || id.includes('scheduler') || id.includes('prop-types')) {
-               return 'vendor-core';
-            }
-            if (id.includes('i18next')) {
-              return 'vendor-i18n';
-            }
-            // Don't name the catch-all chunk to let Vite handle it
+          if (!id.includes('node_modules')) return;
+
+          // Three.js e relacionados
+          if (id.includes('three') || id.includes('@react-three/fiber') || id.includes('@react-three/drei')) {
+            return 'vendor-three';
+          }
+
+          // Framer Motion
+          if (id.includes('framer-motion')) {
+            return 'vendor-motion';
+          }
+
+          // React core
+          if (id.includes('react') || id.includes('scheduler') || id.includes('prop-types')) {
+            return 'vendor-core';
+          }
+
+          // i18n
+          if (id.includes('i18next') || id.includes('react-i18next')) {
+            return 'vendor-i18n';
+          }
+
+          // Router
+          if (id.includes('react-router-dom')) {
+            return 'vendor-router';
+          }
+
+          // UI components
+          if (id.includes('react-icons') || id.includes('react-vertical-timeline-component') || id.includes('react-parallax-tilt')) {
+            return 'vendor-ui';
+          }
+
+          // Utilitários
+          if (id.includes('zod')) {
+            return 'vendor-utils';
+          }
+
+          // Lucide icons (ícones leves, mas podem ser separados)
+          if (id.includes('lucide-react')) {
+            return 'vendor-icons';
           }
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
@@ -136,7 +131,6 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'framer-motion', '@react-three/fiber', '@react-three/drei'],
     // Forçar pré-bundling de React para garantir ordem correta
     force: false
   },

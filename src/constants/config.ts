@@ -54,7 +54,7 @@ export const config: TConfig = {
     github: 'https://github.com/lelebrr',
     instagram: 'https://instagram.com/lelebrr',
     facebook: 'https://facebook.com/lelebrr',
-    whatsapp: 'https://wa.me/5511999999999',
+    whatsapp: 'https://wa.me/5511984838629',
   },
   html: {
     title: 'Portfólio',

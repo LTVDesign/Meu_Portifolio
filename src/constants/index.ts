@@ -14,7 +14,6 @@ import {
   html,
   javascript,
   kali,
-  // Novas tecnologias
   linux,
   microsoft365,
   mobile,
@@ -30,7 +29,6 @@ import {
   ubiquiti,
   vscode,
   web,
-  willy,
   windows,
 } from '../assets';
 import type {
@@ -278,7 +276,7 @@ const experiences: TExperience[] = [
   {
     title: 'experience.titles.computerTechnician',
     companyName: 'experience.companies.autonomous',
-    icon: '/logo.svg',
+    icon: vscode,
     iconBg: '#E6DEDD',
     date: 'experience.dates.autonomo',
     points: [
@@ -506,32 +504,6 @@ const projects: TProject[] = [
     sourceCodeLink: 'https://github.com/lelebrr/Component_Tester',
     status: 'status_finished',
     category: 'category_hardware',
-  },
-  {
-    name: 'Willy Cyber-Multitool',
-    description: 'constants.projects.willy',
-    tags: [
-      {
-        name: 'esp32',
-        color: 'blue-text-gradient',
-      },
-      {
-        name: 'cybersecurity',
-        color: 'green-text-gradient',
-      },
-      {
-        name: 'lvgl-gui',
-        color: 'pink-text-gradient',
-      },
-      {
-        name: 'rf-protocols',
-        color: 'orange-text-gradient',
-      },
-    ],
-    image: willy,
-    sourceCodeLink: 'https://github.com/lelebrr/Willy',
-    status: 'status_ongoing',
-    category: 'category_security',
   },
 ];
 

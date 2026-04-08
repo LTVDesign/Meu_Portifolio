@@ -8,7 +8,7 @@ import { LinkAnimado } from '../atoms';
 import Tooltip from '../atoms/Tooltip';
 
 // Logo da raiz (public) - servido estaticamente
-const logo = '/logo.svg';
+const logo = '/assets/icons/logo.png';
 
 const Navbar = memo(() => {
   const [active, setActive] = useState<string | null>(null);
@@ -136,14 +136,15 @@ const Navbar = memo(() => {
     <nav
       className='critical-navbar glass transition-all duration-300'
       style={{
-        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5)',
+        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.2)',
+        padding: '0.25rem 0',
       }}
     >
-      {/* Logo Flutuante - Tamanho responsivo usando clamp */}
+      {/* Logo Flutuante - Menor e saindo do header */}
       <Link
         to='/'
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className={`absolute left-[clamp(0.25rem,2vw,1.5rem)] top-[clamp(0.25rem,1vw,0.5rem)] z-50 w-[clamp(2rem,5vw,4rem)] h-[clamp(2rem,5vw,4rem)] pointer-events-auto logo-float block`}
+        className={`absolute left-[clamp(0.5rem,2vw,1rem)] top-[-clamp(1rem,2vw,1.5rem)] z-50 w-[clamp(3rem,8vw,6rem)] h-[clamp(3rem,8vw,6rem)] pointer-events-auto logo-float block`}
         aria-label={t('nav.logo')}
       >
         <m.div
@@ -183,10 +184,10 @@ const Navbar = memo(() => {
       </div>
 
       <div
-        className={`w-[min(100%,_var(--max-width,100vw))] mx-auto flex items-center justify-between gap-[clamp(0.5rem,2vw,1rem)] px-[clamp(0.5rem,5vw,4rem)] py-[clamp(0.25rem,1vw,0.75rem)]`}
+        className={`w-[min(100%,_var(--max-width,100vw))] mx-auto flex items-center justify-between gap-1 px-[clamp(0.25rem,1vw,1rem)] py-0.5`}
       >
         {/* Left side: Brand and Tagline */}
-        <div className={`flex items-center gap-[clamp(0.5rem,3vw,1.5rem)] ml-[clamp(3rem,6vw,5rem)]`}>
+        <div className={`flex items-center gap-[clamp(0.5rem,3vw,1.5rem)] ml-[clamp(8rem,12vw,10rem)]`}>
           <Link
             to='/'
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -215,8 +216,8 @@ const Navbar = memo(() => {
         </div>
 
         {/* Right aligned Menu - Desktop/Tablet - Agora alinhado com o breakpoint LG */}
-        <div className='hidden lg:flex items-center gap-2 lg:gap-4'>
-          <ul className='flex items-center gap-0.5 lg:gap-1 xl:gap-2'>
+        <div className='hidden lg:flex items-center gap-1 lg:gap-2'>
+          <ul className='flex items-center gap-0.5 lg:gap-1 xl:gap-1.5'>
             {navLinks.map((nav) => {
               const isActive = active === nav.id;
               return (
@@ -228,7 +229,7 @@ const Navbar = memo(() => {
                         handleNavClick(e, nav.id);
                       }
                     }}
-                    className={`navbar-link composited-hover py-[clamp(0.25rem,0.6vw,0.5rem)] px-[clamp(0.3rem,1vw,0.75rem)] text-[clamp(0.65rem,1.2vw,0.85rem)] font-bold uppercase tracking-widest transition-all duration-300 hover:text-[var(--cyber-cyan)] relative group/link ${isActive ? 'text-white active-menu-glow' : 'text-white/70'}`}
+                    className={`navbar-link composited-hover py-[clamp(0.15rem,0.4vw,0.35rem)] px-[clamp(0.2rem,0.8vw,0.5rem)] text-[clamp(0.35rem,0.8vw,0.55rem)] font-bold uppercase tracking-wider transition-all duration-300 hover:text-[var(--cyber-cyan)] relative group/link ${isActive ? 'text-white active-menu-glow' : 'text-white/70'}`}
                   >
                     {String(t(`nav.${nav.id}`))}
                     <m.div
@@ -242,12 +243,12 @@ const Navbar = memo(() => {
           </ul>
 
           {/* Language Selector */}
-          <div className='flex items-center gap-1.5 pl-2 md:pl-4 border-l border-white/10'>
+          <div className='flex items-center gap-1 pl-2 md:pl-4 border-l border-white/10'>
             <Tooltip content='Idioma: Português' position='bottom'>
               <m.button
                 onClick={() => i18n.changeLanguage('pt')}
                 whileHover={{ scale: 1.15 }}
-                className={`relative w-5 h-3 rounded overflow-hidden transition-all duration-200 ${i18n.language === 'pt' ? 'ring-2 ring-[var(--cyber-purple)]' : 'opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}
+                className={`relative w-4 h-2.5 rounded overflow-hidden transition-all duration-200 ${i18n.language === 'pt' ? 'ring-2 ring-[var(--cyber-purple)]' : 'opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}
                 aria-label="Português"
               >
                 <div
@@ -262,7 +263,7 @@ const Navbar = memo(() => {
               <m.button
                 onClick={() => i18n.changeLanguage('en')}
                 whileHover={{ scale: 1.15 }}
-                className={`relative w-5 h-3 rounded overflow-hidden transition-all duration-200 ${i18n.language === 'en' ? 'ring-2 ring-[var(--cyber-cyan)]' : 'opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}
+                className={`relative w-4 h-2.5 rounded overflow-hidden transition-all duration-200 ${i18n.language === 'en' ? 'ring-2 ring-[var(--cyber-cyan)]' : 'opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}
                 aria-label="English"
               >
                 <div
@@ -331,7 +332,7 @@ const Navbar = memo(() => {
                 i18n.changeLanguage('pt');
                 setToggle(false);
               }}
-              className={`relative rounded overflow-hidden min-w-[44px] min-h-[44px] flex items-center justify-center w-[clamp(2rem,6vw,2.5rem)] h-[clamp(1.25rem,4vw,1.5rem)]`}
+              className={`relative rounded overflow-hidden min-w-[44px] min-h-[44px] flex items-center justify-center w-[clamp(2.5rem,7vw,3rem)] h-[clamp(1.5rem,5vw,1.875rem)]`}
               aria-label="Português"
             >
               <div
@@ -349,7 +350,7 @@ const Navbar = memo(() => {
                 i18n.changeLanguage('en');
                 setToggle(false);
               }}
-              className={`relative rounded overflow-hidden min-w-[44px] min-h-[44px] flex items-center justify-center w-[clamp(2rem,6vw,2.5rem)] h-[clamp(1.25rem,4vw,1.5rem)]`}
+              className={`relative rounded overflow-hidden min-w-[44px] min-h-[44px] flex items-center justify-center w-[clamp(2.5rem,7vw,3rem)] h-[clamp(1.5rem,5vw,1.875rem)]`}
               aria-label="English"
             >
               <div

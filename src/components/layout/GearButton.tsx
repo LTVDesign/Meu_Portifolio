@@ -12,11 +12,16 @@ const GearButton = ({ onClick }: GearButtonProps) => {
   const { width: screenWidth } = useViewport();
   const { t } = useTranslation();
 
+  console.log('[GearButton] Renderizando, isMounted:', isMounted, 'screenWidth:', screenWidth);
+
   useEffect(() => {
+    console.log('[GearButton] useEffect executado, setando isMounted para true');
     setIsMounted(true);
   }, []);
 
   const targetScale = Math.max(0.35, Math.min(1.2, screenWidth / 1024 + 0.15));
+
+  console.log('[GearButton] Renderizando return, isMounted:', isMounted);
 
   return (
     <AnimatePresence>
@@ -219,7 +224,10 @@ const GearButton = ({ onClick }: GearButtonProps) => {
 
                   {/* Botão - SEM box-shadow animado (usa opacity em vez disso) */}
                   <m.button
-                    onClick={onClick}
+                    onClick={() => {
+                      console.log('[GearButton] Botão clicado!');
+                      onClick();
+                    }}
                     aria-label={t('backgroundMenu.openSettings')}
                     className='relative w-16 h-16 rounded-full flex items-center justify-center bg-[#0a0a0a]/95 backdrop-blur-xl border border-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 transition-all duration-300 cursor-pointer'
                     style={{

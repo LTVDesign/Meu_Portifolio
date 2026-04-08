@@ -1,4 +1,4 @@
-import { AdaptiveDpr, AdaptiveEvents, OrbitControls, useGLTF } from '@react-three/drei';
+import { AdaptiveDpr, AdaptiveEvents, ContactShadows, OrbitControls, useGLTF } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import type React from 'react';
 import { Suspense, useEffect, useState } from 'react';
@@ -11,17 +11,15 @@ import CanvasLoader from './Loader';
 // O preload será feito após o componente montar, não no nível do módulo
 
 // Fluid configuration parameters based on container width
-const getFluidConfig = (width: number) => {
-  // Base scale calculation: linear interpolation scaled by width
-  // From 0.28 (at 280px) to 1.3 (at 3840px)
-  const scale = Math.max(0.28, Math.min(1.3, width / 1800 + 0.15));
-  
-  // Position adjustments based on width
-  const posY = Math.max(-3.5, Math.min(-1.5, -1.5 - ((width - 280) / 2000) * 1.5));
-  const posZ = Math.max(-2, Math.min(0, -((width - 640) / 1000) * 1.5));
-  
-  // FOV adjustments: wider FOV on smaller screens
-  const fov = Math.max(20, Math.min(60, 60 - ((width - 280) / 1500) * 35));
+  const getFluidConfig = (width: number) => {
+    // Escala original para evitar "tamanho absurdo"
+    const scaleBase = width < 1024 ? 0.6 : 0.75;
+    const scale = Math.max(0.4, Math.min(1.0, scaleBase + (width - 1024) / 2500));
+    
+    // Posicionamento original
+    const posY = -3.0;
+    const posZ = -1.5;
+    const fov = 25;
   
   // DPR adjustments
   const dprMax = width < 640 ? 1 : width < 1024 ? 1.5 : 2;
@@ -61,21 +59,34 @@ const ComputersContent: React.FC<{ viewportWidth: number }> = ({ viewportWidth }
 
   return (
     <mesh>
-      {/* HemisphereLight - luz ambiente suave */}
+      {/* HemisphereLight - luz ambiente potente para eliminar silhuetas pretas */}
       <hemisphereLight
-        intensity={viewportWidth < 380 ? 0.2 : 0.15}
+        intensity={viewportWidth < 380 ? 1.2 : 1.4}
         groundColor='black'
       />
-      {/* SpotLight - luz direcional principal */}
-      <spotLight
-        position={[-20, 50, 10]}
-        angle={0.12}
-        penumbra={1}
-        intensity={0.8}
+      {/* DirectionalLight - Luz de Studio Principal (Highlight) */}
+      <directionalLight 
+        position={[10, 10, 10]} 
+        intensity={2.8} 
         castShadow={false}
       />
-      {/* PointLight - luz pontual adicional */}
-      <pointLight intensity={0.8} />
+      {/* Frontal PointLight - lluminando a parte frontal dos periféricos e monitor */}
+      <pointLight position={[0, 5, 20]} intensity={2.0} />
+      {/* Case Internal Light - Realçando o hardware dentro do gabinete */}
+      <pointLight position={[3.5, -1, -3]} intensity={1.5} color="#00ffff" />
+      {/* Back/Rim Light - Definindo contornos */}
+      <pointLight position={[-15, 0, -10]} intensity={1.2} />
+
+      {/* Sombras de Contato para aterramento realista (custo baixo de performance) */}
+      <ContactShadows 
+         opacity={0.4} 
+         scale={20} 
+         blur={2.4} 
+         far={4.5} 
+         resolution={256} 
+         color="#000000"
+         position={[0, -3.01, 0]}
+      />
       {/* Modelo 3D do computador */}
       <primitive
         object={computer.scene}
@@ -182,10 +193,10 @@ const ThreeExperience: React.FC = () => {
         gl={{
           preserveDrawingBuffer: true,
           antialias: viewportWidth >= 1024,
-          powerPreference: viewportWidth < 380 ? 'low-power' : 'high-performance',
+          powerPreference: "high-performance",
+          alpha: true,
           stencil: false,
           depth: true,
-          // Reduzir qualidade em mobile para melhorar performance
           precision: viewportWidth < 380 ? 'lowp' : 'mediump',
         }}
         dpr={dpr}

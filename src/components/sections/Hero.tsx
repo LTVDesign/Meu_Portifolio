@@ -4,15 +4,13 @@ import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useBackgroundMenu } from '../../contexts/ParticleConfigContext';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
-import { useBreakpoints } from '../../hooks/useDebouncedResize';
+import { useBreakpoints } from '../../hooks/useBreakpoints';
 import TerminalText from '../atoms/TerminalText';
 import { PCGamerStatic } from '../atoms';
+import GearButton from '../layout/GearButton';
 
 // Lazy load do ThreeExperience (Three.js + @react-three/fiber + @react-three/drei)
 const ThreeExperience = lazy(() => import('../canvas/ThreeExperience'));
-
-// LCP Optimization: Lazy loading do GearButton - botão flutuante não é crítico para LCP
-const GearButton = lazy(() => import('../layout/GearButton'));
 
 /**
  * Hero - Seção principal da página
@@ -40,10 +38,12 @@ const Hero = () => {
     const scheduleLoad = () => {
       if (isLoaded) return;
       isLoaded = true;
+      // Carregar 3D mais rapidamente - após 1 segundo ou requestIdleCallback
       if ('requestIdleCallback' in window) {
-        (window as Window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(() => setLoad3D(true), { timeout: 5000 });
+        (window as Window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(() => setLoad3D(true), { timeout: 3000 });
       } else {
-        setLoad3D(true);
+        // Fallback: carregar após 1.5 segundos
+        setTimeout(() => setLoad3D(true), 1500);
       }
 
       window.removeEventListener('mousemove', scheduleLoad);
@@ -52,12 +52,14 @@ const Hero = () => {
       window.removeEventListener('keydown', scheduleLoad);
     };
 
+    // Adicionar listeners de interação
     window.addEventListener('mousemove', scheduleLoad, { once: true, passive: true });
     window.addEventListener('touchstart', scheduleLoad, { once: true, passive: true });
     window.addEventListener('scroll', scheduleLoad, { once: true, passive: true });
     window.addEventListener('keydown', scheduleLoad, { once: true, passive: true });
 
-    const timer = setTimeout(scheduleLoad, 8000);
+    // Timer de fallback - carregar após 3 segundos mesmo sem interação
+    const timer = setTimeout(scheduleLoad, 3000);
 
     return () => {
       clearTimeout(timer);
@@ -88,7 +90,7 @@ const Hero = () => {
         whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
         transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: 'easeOut' }}
         viewport={prefersReduced ? {} : { once: true, amount: 0.25 }}
-        className='relative min-h-[70vh] lg:min-h-screen flex items-start justify-center pt-0 overflow-hidden'
+        className='relative min-h-[70vh] lg:min-h-screen flex items-start justify-center pt-[clamp(7rem,12vh,9rem)] overflow-hidden'
         style={{ touchAction: 'pan-y' }}
       >
         <Helmet>
@@ -98,7 +100,7 @@ const Hero = () => {
 
         {/* Texto de introdução - acima do 3D, abaixo do menu */}
         <div
-          className="relative z-10 w-full flex flex-col items-center justify-center pointer-events-none pt-[clamp(2rem,5vh,3rem)] pb-[clamp(0.5rem,2vh,2rem)]"
+          className="relative z-10 w-full flex flex-col items-center justify-center pointer-events-none pt-2 pb-[clamp(0.5rem,2vh,2rem)]"
         >
           {/* LCP Critical: h1 renderiza imediatamente sem delay para melhor LCP */}
           <m.h1
@@ -106,6 +108,7 @@ const Hero = () => {
             initial={prefersReduced ? {} : { opacity: 0 }}
             animate={prefersReduced ? {} : { opacity: 1 }}
             transition={prefersReduced ? { duration: 0 } : { duration: 0.8, ease: 'easeOut' }}
+
             style={{
               color: '#ffffff',
               textShadow: '0 2px 8px rgba(0, 0, 0, 0.8)',
@@ -114,6 +117,7 @@ const Hero = () => {
             <span className="inline-block relative">
               {t('hero.titlePart1')}
             </span>
+            {"\u00A0\u00A0"}
             <m.span
               className="inline-block relative"
               initial={prefersReduced ? {} : { opacity: 0, y: 20, scale: 0.95 }}
@@ -153,7 +157,7 @@ const Hero = () => {
 
         {/* Canvas 3D do Computador - abaixo do texto */}
         {/* Em desktop: mostra o ThreeExperience 3D. Em mobile/tablet: mostra imagem estática de PC gamer */}
-        <div className='absolute inset-0 z-0 pointer-events-auto flex items-center justify-center -mt-[clamp(2rem,5vh,4rem)]'>
+        <div className='absolute inset-0 z-0 pointer-events-auto flex items-center justify-center'>
           {isMobileOrTablet ? (
             // Imagem estática de PC gamer para mobile/tablet
             <PCGamerStatic />
@@ -183,30 +187,34 @@ const Hero = () => {
         {/* Scroll / Interact Icon - Responsivo usando Fluid Design */}
         {/* Ocultar em mobile/tablet quando está usando PC estático */}
         {!isMobileOrTablet && (
-          <div className="absolute bottom-[clamp(6rem,15vh,9rem)] w-full flex justify-center items-center z-20 pointer-events-none">
+          <div className="absolute bottom-[clamp(2rem,6vh,4rem)] w-full flex justify-center items-center z-20 pointer-events-none">
             <m.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 2 }}
               className="flex flex-col items-center"
             >
               {/* Glow ring behind the scroll indicator */}
               <div className="relative mb-3">
-                <div className="absolute inset-0 rounded-3xl border-2 border-[var(--cyber-cyan)]/30 blur-sm w-[clamp(2rem,6vw,3rem)] h-[clamp(3.5rem,10vh,5rem)]" />
-                <div className="relative rounded-3xl border-2 border-[var(--cyber-cyan)]/60 flex justify-center p-2 backdrop-blur-sm bg-black/20 w-[clamp(1.5rem,4vw,1.875rem)] h-[clamp(2.5rem,8vh,3.125rem)]">
-                  <div className="rounded-full bg-gradient-to-br from-[var(--cyber-cyan)] to-[var(--cyber-purple)] mb-1 shadow-[0_0_12px_rgba(0,255,255,0.9),0_0_20px_rgba(145,94,255,0.6)] w-2.5 h-2.5" />
+                <div className="absolute inset-0 rounded-3xl border-2 border-[var(--cyber-cyan)]/50 blur-sm w-[clamp(1.6rem,4.5vw,2.4rem)] h-[clamp(2.8rem,7vh,4rem)]" />
+                <div className="relative rounded-3xl border-2 border-[var(--cyber-cyan)] flex justify-center p-2 backdrop-blur-sm bg-black/80 w-[clamp(1.2rem,3vw,1.5rem)] h-[clamp(2rem,6vh,2.5rem)]">
+                  <m.div
+                    animate={{ y: [0, 12, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    className="rounded-full bg-gradient-to-br from-[#007777] to-[#5522AA] mb-1 shadow-[0_0_15px_rgba(0,255,255,0.4),0_6px_10px_rgba(0,0,0,0.9)] w-2.5 h-2.5"
+                  />
                 </div>
               </div>
 
               {/* Text with enhanced effects */}
               <div className='flex flex-col items-center gap-1'>
                 <span
-                  className="font-black tracking-[0.3em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] via-white to-[var(--cyber-purple)] bg-clip-text text-transparent text-[clamp(0.6rem,1.5vw,0.85rem)] text-center"
+                  className="font-black tracking-[0.3em] uppercase bg-gradient-to-r from-[#008888] to-[#5522AA] bg-clip-text text-transparent text-[clamp(0.5rem,1.2vw,0.7rem)] text-center drop-shadow-[0_2px_8px_rgba(0,0,0,1)]"
                 >
                   {String(t('hero.dragToRotate'))}
                 </span>
                 <span
-                  className="font-bold tracking-[0.2em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] to-[var(--cyber-purple)] bg-clip-text text-transparent text-[clamp(0.55rem,1.2vw,0.75rem)] text-center mt-1"
+                  className="font-bold tracking-[0.2em] uppercase bg-gradient-to-r from-[#007777] to-[#4B1199] bg-clip-text text-transparent text-[clamp(0.45rem,1vw,0.6rem)] text-center mt-1 drop-shadow-[0_2px_6px_rgba(0,0,0,1)]"
                 >
                   {String(t('hero.dragToRotateSubtitle'))}
                 </span>
@@ -225,9 +233,7 @@ const Hero = () => {
 
       {/* Engrenagem flutuante esquerda - Background selector (Componente GearButton com Efeitos RGB) */}
       {/* Movido para fora do m.section para não herdar transforms que quebram o position: fixed */}
-      <Suspense fallback={null}>
-        <GearButton onClick={handleBackgroundClick} />
-      </Suspense>
+      <GearButton onClick={handleBackgroundClick} />
     </>
   );
 };

@@ -299,7 +299,7 @@ const Footer: React.FC = () => {
 
           {/* Coluna 2 - Meio: Acesso Rápido (ícones do header, menos contato) */}
           <div className='flex flex-col items-center text-center max-w-sm'>
-            <h3 className='text-[clamp(0.7rem,2vw,0.85rem)] font-bold uppercase tracking-widest text-[var(--cyber-purple)] mb-6'>
+            <h3 className='text-[clamp(0.7rem,2vw,0.85rem)] font-bold uppercase tracking-widest text-white mb-6' style={{ textShadow: '0 0 10px rgba(145, 94, 255, 0.6)' }}>
               {t('footer.quickAccess')}
             </h3>
             <ul className='grid grid-cols-2 gap-x-[clamp(1rem,3vw,1.5rem)] gap-y-2 justify-items-center w-full max-w-[280px]'>
@@ -317,7 +317,7 @@ const Footer: React.FC = () => {
                           }
                         }
                       }}
-                      className='text-white/90 hover:text-white text-[clamp(0.7rem,2vw,0.85rem)] transition-all duration-300 composited-hover focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-xl px-3 py-2 min-h-[44px] flex items-center justify-center border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/10 w-full'
+                      className='text-white hover:text-white text-[clamp(0.7rem,2vw,0.85rem)] transition-all duration-300 composited-hover focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-xl px-3 py-2 min-h-[44px] flex items-center justify-center border border-white/20 bg-black/20 hover:bg-black/30 hover:border-[var(--cyber-purple)]/50 w-full'
                     >
                       {t(`nav.${link.id}`, link.id)}
                     </Link>
@@ -328,7 +328,7 @@ const Footer: React.FC = () => {
 
           {/* Coluna 3 - Direita: Contato */}
           <div className='flex flex-col items-center text-center max-w-sm'>
-            <h3 className='text-[clamp(0.7rem,2vw,0.85rem)] font-bold uppercase tracking-widest text-[var(--cyber-purple)] mb-6'>
+            <h3 className='text-[clamp(0.7rem,2vw,0.85rem)] font-bold uppercase tracking-widest text-white mb-6' style={{ textShadow: '0 0 10px rgba(145, 94, 255, 0.6)' }}>
               {t('nav.contact')}
             </h3>
             <a
@@ -468,7 +468,7 @@ const Footer: React.FC = () => {
 
         {/* Copyright */}
         <div className='footer-copyright mt-4 pt-3 border-t border-white/5 flex flex-col items-center gap-1'>
-          <p className='text-[clamp(0.625rem,1.5vw,0.75rem)] text-white/30 text-center tracking-wide'>
+          <p className='text-[clamp(0.625rem,1.5vw,0.75rem)] text-white/60 text-center tracking-wide' style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}>
             © {new Date().getFullYear()} Leandro Saturnino Barbosa. {t('footer.allRightsReserved', 'All rights reserved.')}
           </p>
         </div>
