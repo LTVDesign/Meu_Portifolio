@@ -11,8 +11,8 @@ import './globals.css';
 
 // Preload de recursos críticos após carregamento inicial
 if (typeof window !== 'undefined') {
-  // Registrar Service Worker para cache avançado
-  if ('serviceWorker' in navigator) {
+  // Registrar Service Worker apenas em produção para evitar problemas de cache em desenvolvimento
+  if ('serviceWorker' in navigator && import.meta.env.PROD) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/sw.js')
         .then((registration) => {

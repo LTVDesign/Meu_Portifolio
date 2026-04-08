@@ -11,7 +11,7 @@ LISTA COMPLETA DE CURSOS E CERTIFICADOS
 |  2 | Fundamentos do Suporte Técnico                             | Google (via Coursera)        | ✅         | /certificados/ID_2_Fundamentos_Suporte_Tecnico_Google.pdf
 |  3 | Introdução ao Gerenciamento de Produtos de Software        | University of Alberta        | ✅         | /certificados/ID_3_Intro_Software_Product_Management.pdf
 |  4 | Introdução ao Suporte Técnico                              | IBM (via Coursera)           | ✅         | /certificados/ID_7_Intro_Technical_Support_IBM.pdf
-|  5 | Inteligência Artificial e Data Science                     | IBM (via Coursera)           | ❌         | https://www.coursera.org/learn/introduction-to-ai
+|  5 | c                    | IBM (via Coursera)           | ❌         | https://www.coursera.org/learn/introduction-to-ai
 |  6 | TCP/IP                                                      | Yonsei University            | ❌         | https://www.coursera.org/learn/tcpip
 |  7 | HTML, CSS e JavaScript para Desenvolvedores Web             | Johns Hopkins University     | ✅         | /certificados/ID_10_HTML_CSS_JS_Johns_Hopkins.pdf
 |  8 | Introdução à Profissão Scrum Master                         | Google (via Coursera)        | ✅         | /certificados/ID_11_Scrum_Master_Google.pdf

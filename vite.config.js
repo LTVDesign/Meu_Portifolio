@@ -40,18 +40,17 @@ export default defineConfig({
     alias: {
       'react': path.resolve(__dirname, './node_modules/react'),
       'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
-      'react-reconciler/constants': path.resolve(__dirname, './src/shims/react-reconciler-constants.ts'),
-      'react-reconciler': path.resolve(__dirname, './src/shims/react-reconciler-shim.ts'),
-      '@react-three/fiber/node_modules/react-reconciler': path.resolve(__dirname, './src/shims/react-reconciler-shim.ts')
+      // Fix for 'Multiple instances of Three.js'
+      'three': path.resolve(__dirname, './node_modules/three'),
+      'three/build/three.module.js': path.resolve(__dirname, './node_modules/three/build/three.module.js'),
     },
-    dedupe: ['react', 'react-dom', 'react-reconciler'],
+    dedupe: ['react', 'react-dom', 'three', 'react-reconciler', 'scheduler', 'prop-types'],
   },
 
   build: {
     modulePreload: {
       polyfill: true,
       resolveDependencies: (filename, deps) => {
-        // Não preload Three.js chunks - carregam sob demanda
         if (filename.includes('vendor-three') || filename.includes('three-') || filename.includes('r3f-')) return [];
         return deps;
       }
@@ -69,34 +68,18 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (!id.includes('node_modules')) return;
-
-          // Three.js e relacionados - DIVIDIDO EM CHUNKS MENORES
           if (id.includes('/three/src/') || id.includes('/three/build/')) return 'three-core';
           if (id.includes('@react-three/fiber')) return 'r3f-core';
           if (id.includes('@react-three/drei')) return 'r3f-drei';
           if (id.includes('troika')) return 'vendor-troika';
           if (id.includes('three-stdlib')) return 'three-stdlib';
           if (id.includes('three-mesh-bvh')) return 'three-bvh';
-
-          // Framer Motion
           if (id.includes('framer-motion')) return 'vendor-motion';
-
-          // React core
           if (id.includes('react') || id.includes('scheduler') || id.includes('prop-types')) return 'vendor-core';
-
-          // i18n
           if (id.includes('i18next') || id.includes('react-i18next')) return 'vendor-i18n';
-
-          // Router
           if (id.includes('react-router-dom')) return 'vendor-router';
-
-          // UI components
           if (id.includes('react-icons') || id.includes('react-vertical-timeline-component') || id.includes('react-parallax-tilt')) return 'vendor-ui';
-
-          // Utilitários
           if (id.includes('zod')) return 'vendor-utils';
-
-          // Lucide icons (ícones leves, mas podem ser separados)
           if (id.includes('lucide-react')) return 'vendor-icons';
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
@@ -111,7 +94,6 @@ export default defineConfig({
         hoistTransitiveImports: false
       }
     },
-    // Otimizações de tree-shaking
     terserOptions: {
       ecma: 2022,
       compress: {
@@ -135,8 +117,7 @@ export default defineConfig({
   },
   optimizeDeps: {
     force: true,
-    include: ['react', 'react-dom', 'react-reconciler'],
-    exclude: ['three', '@react-three/fiber', '@react-three/drei', 'troika-three-text']
+    include: ['react', 'react-dom', 'three', '@react-three/fiber', '@react-three/drei', 'use-sync-external-store/shim/with-selector'],
   },
 
   server: {

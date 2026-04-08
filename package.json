@@ -33,6 +33,7 @@
     "react-router-dom": "^6.22.1",
     "react-vertical-timeline-component": "^3.6.0",
     "three": "^0.160.0",
+    "use-sync-external-store": "^1.6.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
@@ -68,6 +69,12 @@
   "overrides": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-reconciler": "^0.29.0",
+    "scheduler": "^0.23.2",
+    "@react-three/fiber": {
+      "react-reconciler": "^0.29.0",
+      "scheduler": "^0.23.2"
+    },
     "framer-motion": {
       "react": "^18.3.1",
       "react-dom": "^18.3.1"
