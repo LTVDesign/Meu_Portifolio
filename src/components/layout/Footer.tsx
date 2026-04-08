@@ -181,7 +181,7 @@ const socialLinksRaw = [
 ];
 
 const AvailabilityBadge = ({ availabilityLabel }: { availabilityLabel: string }) => (
-  <div className='flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-[clamp(0.6rem,1.5vw,0.7rem)] uppercase tracking-[0.2em] font-bold mb-4 shadow-[0_0_15px_rgba(34,197,94,0.1)]'>
+  <div className='flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-[clamp(0.6rem,1.5vw,0.7rem)] uppercase tracking-[0.2em] font-bold mb-6 shadow-[0_0_15px_rgba(34,197,94,0.1)]'>
     <span className='relative flex h-2 w-2'>
       <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75'></span>
       <span className='relative inline-flex rounded-full h-2 w-2 bg-green-500'></span>
@@ -265,7 +265,7 @@ const Footer: React.FC = () => {
   return (
     <footer
       ref={footerRef}
-      className='footer-stable relative mt-[clamp(1rem,3vw,1.5rem)] pt-[clamp(0.75rem,2vw,1.25rem)] pb-[clamp(0.25rem,1vw,0.5rem)]'
+      className='footer-stable relative mt-[clamp(1rem,3vw,1.5rem)] pt-[clamp(1.5rem,4vw,2rem)] pb-[clamp(0.5rem,1.5vw,1rem)]'
       role='contentinfo'
     >
       {/* Fundo com cor sólida igual ao header */}
@@ -274,17 +274,27 @@ const Footer: React.FC = () => {
 
       <div className='footer-content max-w-7xl mx-auto px-[clamp(1rem,4vw,4rem)] relative z-10'>
         {/* Grid de colunas */}
-        <div className='footer-grid grid grid-cols-[repeat(auto-fit,minmax(min(100%,250px),1fr))] gap-[clamp(1.5rem,4vw,2rem)] justify-items-center items-start text-center mb-[clamp(0.75rem,2.5vw,1.25rem)]'>
+        <div className='footer-grid grid grid-cols-[repeat(auto-fit,minmax(min(100%,250px),1fr))] gap-[clamp(1.5rem,4vw,2rem)] justify-items-center items-start text-center mb-[clamp(1.5rem,4vw,2rem)]'>
           {/* Coluna 1 - Esquerda: Nome e Descrição */}
           <div className='flex flex-col items-center text-center max-w-sm'>
             <AvailabilityBadge availabilityLabel={t('footer.availability', 'Disponível')} />
             <h2 className='text-[clamp(1.2rem,4vw,1.5rem)] font-bold text-white mb-4 uppercase tracking-tighter' style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
               {config.html.fullName}
             </h2>
-            <p className='text-white/90 text-[clamp(0.85rem,2.5vw,1rem)] leading-relaxed mb-4' style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
+            <p className='text-white/90 text-[clamp(0.85rem,2.5vw,1rem)] leading-relaxed mb-6' style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
               {t('footer.description')}
             </p>
-
+            {/* Botão de Download CV Proeminente no Mobile */}
+            <Link
+              to="/curriculo"
+              className="flex lg:hidden items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)] text-white font-bold uppercase tracking-widest text-[0.7rem] shadow-lg shadow-purple-500/20 active:scale-95 transition-transform"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+              </svg>
+              {t('footer.downloadCV')}
+            </Link>
           </div>
 
           {/* Coluna 2 - Meio: Acesso Rápido (ícones do header, menos contato) */}
@@ -318,19 +328,19 @@ const Footer: React.FC = () => {
 
           {/* Coluna 3 - Direita: Contato */}
           <div className='flex flex-col items-center text-center max-w-sm'>
-            <h3 className='text-[clamp(0.7rem,2vw,0.85rem)] font-bold uppercase tracking-widest text-white mb-4' style={{ textShadow: '0 0 10px rgba(145, 94, 255, 0.6)' }}>
+            <h3 className='text-[clamp(0.7rem,2vw,0.85rem)] font-bold uppercase tracking-widest text-white mb-6' style={{ textShadow: '0 0 10px rgba(145, 94, 255, 0.6)' }}>
               {t('nav.contact')}
             </h3>
             <a
               href={`mailto:${config.html.email}`}
               aria-label={t('footer.emailUs')}
-              className='flex items-center gap-[clamp(0.75rem,1.5vw,1rem)] text-[clamp(0.75rem,2vw,0.9rem)] text-white/90 hover:text-white composited-hover focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-2xl px-[clamp(0.75rem,1.5vw,1rem)] py-[clamp(0.5rem,1vw,0.5rem)] transition-colors mb-[clamp(0.5rem,1.5vw,0.75rem)] min-h-[44px] break-all'
+              className='flex items-center gap-[clamp(0.75rem,1.5vw,1rem)] text-[clamp(0.75rem,2vw,0.9rem)] text-white/90 hover:text-white composited-hover focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] rounded-2xl px-[clamp(0.75rem,1.5vw,1rem)] py-[clamp(0.5rem,1vw,0.5rem)] transition-colors mb-[clamp(1rem,2vw,1rem)] min-h-[44px] break-all'
             >
               <EnvelopeIcon className='text-[var(--cyber-purple)]' />
               <span>{config.html.email}</span>
             </a>
 
-            <div className='social-links-container flex items-center justify-center gap-[clamp(0.5rem,1.5vw,1rem)] mb-[clamp(0.75rem,2vw,1.25rem)]'>
+            <div className='social-links-container flex flex-wrap items-center justify-center gap-[clamp(0.75rem,2vw,1.25rem)] mb-[clamp(1.5rem,3vw,2rem)]'>
               {socialLinksRaw.map(({ icon: Icon, url, translationKey, color }) => {
                 const label = t(`footer.${translationKey}`);
                 return (
@@ -343,8 +353,8 @@ const Footer: React.FC = () => {
                     aria-label={label}
                     className={`flex flex-col items-center gap-1.5 text-white/90 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] group`}
                   >
-                    <div className={`p-2.5 rounded-xl bg-white/[0.03] border border-white/5 group-hover:border-white/20 group-hover:bg-white/[0.06] ${color} transition-all`}>
-                      <Icon size={18} />
+                    <div className={`p-3 rounded-xl bg-white/[0.03] border border-white/5 group-hover:border-white/20 group-hover:bg-white/[0.06] ${color} transition-all`}>
+                      <Icon size={20} />
                     </div>
                     <span className="text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block">
                       {label}
@@ -361,7 +371,7 @@ const Footer: React.FC = () => {
               className='group flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-white/90 hover:text-white focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)]'
             >
               <span className='text-white/90'>{t('footer.backToTop')}</span>
-              <div className='rounded-2xl border border-white/10 bg-white/5 p-2.5 group-hover:border-[var(--cyber-purple)] composited-hover transition-all'>
+              <div className='rounded-2xl border border-white/10 bg-white/5 p-3 group-hover:border-[var(--cyber-purple)] composited-hover transition-all'>
                 <ArrowUpIcon className='text-xs group-active:animate-bounce' />
               </div>
             </button>
@@ -457,7 +467,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Copyright */}
-        <div className='footer-copyright mt-2 pt-2 border-t border-white/5 flex flex-col items-center gap-1'>
+        <div className='footer-copyright mt-4 pt-3 border-t border-white/5 flex flex-col items-center gap-1'>
           <p className='text-[clamp(0.625rem,1.5vw,0.75rem)] text-white/60 text-center tracking-wide' style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}>
             © {new Date().getFullYear()} Leandro Saturnino Barbosa. {t('footer.allRightsReserved', 'All rights reserved.')}
           </p>

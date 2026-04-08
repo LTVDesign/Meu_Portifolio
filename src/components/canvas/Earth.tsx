@@ -5,7 +5,7 @@ import { PCFShadowMap, SRGBColorSpace } from 'three';
 import type { Mesh } from 'three';
 // Import textures as Vite assets to ensure correct paths in production build
 // Usando WebP otimizado para melhor performance
-const planetBaseColor = '/assets/3d-models/planet/textures/Planet_baseColor.png';
+import planetBaseColor from '/assets/3d-models/planet/textures/Planet_baseColor.png?url';
 import { useTouchScrollGuard } from '../../hooks/useTouchScrollGuard';
 
 
@@ -16,37 +16,20 @@ const Earth = () => {
   useEffect(() => {
     if (texture) {
       texture.colorSpace = SRGBColorSpace;
-      texture.anisotropy = 16;
     }
   }, [texture]);
 
   useFrame((_, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.15;
+      meshRef.current.rotation.y += delta * 0.1;
     }
   });
 
   return (
-    <group>
-      {/* Luz focalizada para realçar relevo e texturas */}
-      <spotLight
-        position={[10, 10, 10]}
-        angle={0.15}
-        penumbra={1}
-        intensity={2}
-        castShadow
-      />
-      <mesh ref={meshRef}>
-        <sphereGeometry args={[2.5, 64, 64]} />
-        <meshStandardMaterial 
-          map={texture} 
-          roughness={0.4} 
-          metalness={0.1}
-          emissive="#112244"
-          emissiveIntensity={0.2}
-        />
-      </mesh>
-    </group>
+    <mesh ref={meshRef}>
+      <sphereGeometry args={[1, 64, 64]} />
+      <meshStandardMaterial map={texture} roughness={0.7} metalness={0.0} />
+    </mesh>
   );
 };
 
@@ -96,7 +79,7 @@ const EarthCanvas = () => {
           fov: 45,
           near: 0.1,
           far: 200,
-          position: [0, 0, 10],
+          position: [0, 0, 5],
         }}
       >
         <ambientLight intensity={0.5} />

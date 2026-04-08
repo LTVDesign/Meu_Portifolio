@@ -24399,7 +24399,7 @@
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_1.webp"
     },
     {
       "mimeType": "image/png",
@@ -24483,7 +24483,7 @@
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_20.webp"
     },
     {
       "mimeType": "image/png",
@@ -24491,27 +24491,27 @@
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_21.webp"
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_22.webp"
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_23.webp"
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_24.webp"
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_25.webp"
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_26.webp"
     },
     {
       "mimeType": "image/png",
@@ -24519,15 +24519,15 @@
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_27.webp"
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_28.webp"
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_29.webp"
     },
     {
       "mimeType": "image/png",
@@ -24535,43 +24535,43 @@
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_30.webp"
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_31.webp"
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_32.webp"
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_33.webp"
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_34.webp"
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_35.webp"
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_36.webp"
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_37.webp"
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_38.webp"
     },
     {
       "mimeType": "image/png",
-      "uri": "baseColor_2.webp"
+      "uri": "baseColor_39.webp"
     }
   ],
   "buffers": [
@@ -49357,7 +49357,8 @@
     "EXT_mesh_gpu_instancing",
     "KHR_materials_clearcoat",
     "KHR_materials_emissive_strength",
-    "KHR_materials_specular"
+    "KHR_materials_specular",
+    "EXT_texture_webp"
   ],
   "extensionsRequired": [
     "EXT_mesh_gpu_instancing"

@@ -2,10 +2,13 @@ import { memo, useCallback, useEffect, useState } from 'react';
 import { m, useScroll, useSpring } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
-import { logo, navLinks } from '../../constants';
+import { navLinks } from '../../constants';
 import { useViewport } from '../../hooks/useViewport';
 import { LinkAnimado } from '../atoms';
 import Tooltip from '../atoms/Tooltip';
+
+// Logo da raiz (public) - servido estaticamente
+const logo = '/assets/icons/logo.png';
 
 const Navbar = memo(() => {
   const [active, setActive] = useState<string | null>(null);
@@ -240,17 +243,13 @@ const Navbar = memo(() => {
           </ul>
 
           {/* Language Selector */}
-          <div className='flex items-center gap-3 pl-2 md:pl-4 border-l border-white/10'>
+          <div className='flex items-center gap-1 pl-2 md:pl-4 border-l border-white/10'>
             <Tooltip content='Idioma: Português' position='bottom'>
               <m.button
                 onClick={() => i18n.changeLanguage('pt')}
                 whileHover={{ scale: 1.15 }}
                 className={`relative w-4 h-2.5 rounded overflow-hidden transition-all duration-200 ${i18n.language === 'pt' ? 'ring-2 ring-[var(--cyber-purple)]' : 'opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}
                 aria-label="Português"
-                style={{
-                  padding: '18px',
-                  backgroundClip: 'content-box'
-                }}
               >
                 <div
                   className='absolute inset-0 bg-cover bg-center'
@@ -266,10 +265,6 @@ const Navbar = memo(() => {
                 whileHover={{ scale: 1.15 }}
                 className={`relative w-4 h-2.5 rounded overflow-hidden transition-all duration-200 ${i18n.language === 'en' ? 'ring-2 ring-[var(--cyber-cyan)]' : 'opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}
                 aria-label="English"
-                style={{
-                  padding: '18px',
-                  backgroundClip: 'content-box'
-                }}
               >
                 <div
                   className='absolute inset-0 bg-cover bg-center'

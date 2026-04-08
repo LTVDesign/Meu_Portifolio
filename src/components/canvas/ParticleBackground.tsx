@@ -25,16 +25,16 @@ interface ParticleBackgroundProps {
 }
 
 const ParticleBackground = ({
-  particleColor = '#915EFF',
+  particleColor = '#00FFFF',
   speed = 1,
-  intensity = 0.7,
+  intensity = 0.8,
   quantity = 100,
   zoom = 1,
-  particleSize = 1.5,
-  particleConnectDistance = 120,
-  lineThickness = 1.0,
-  particleOpacity = 0.8,
-  particleLineColor = '#915EFF',
+  particleSize = 1.2,
+  particleConnectDistance = 150,
+  lineThickness = 1.2,
+  particleOpacity = 0.9,
+  particleLineColor = '#00FFFF',
 }: ParticleBackgroundProps) => {
   const { isLowPerformance, level } = usePerformance();
   const { config } = useParticleConfig();

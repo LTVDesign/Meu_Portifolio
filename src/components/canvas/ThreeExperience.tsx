@@ -1,4 +1,4 @@
-import { AdaptiveDpr, AdaptiveEvents, ContactShadows, OrbitControls, useGLTF } from '@react-three/drei';
+import { AdaptiveDpr, AdaptiveEvents, OrbitControls, useGLTF, ContactShadows } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import type React from 'react';
 import { Suspense, useEffect, useState } from 'react';
@@ -11,15 +11,17 @@ import CanvasLoader from './Loader';
 // O preload será feito após o componente montar, não no nível do módulo
 
 // Fluid configuration parameters based on container width
-  const getFluidConfig = (width: number) => {
-    // Escala original para evitar "tamanho absurdo"
-    const scaleBase = width < 1024 ? 0.6 : 0.75;
-    const scale = Math.max(0.4, Math.min(1.0, scaleBase + (width - 1024) / 2500));
-    
-    // Posicionamento original
-    const posY = -3.0;
-    const posZ = -1.5;
-    const fov = 25;
+const getFluidConfig = (width: number) => {
+  // Escala reduzida conforme pedido (um pouco menor ainda)
+  const scaleBase = width < 1024 ? 0.6 : 0.65;
+  const scale = Math.max(0.4, Math.min(1.0, scaleBase + (width - 1024) / 3000));
+  
+  // Posicionamento Y sincronizado com o repositório original (~ -2.8 a -3.0)
+  const posY = -3.0;
+  const posZ = Math.max(-2, Math.min(0, -((width - 640) / 1000) * 1.5));
+  
+  // FOV padrão do projeto original (25) com leve ajuste de aproximação para desktop
+  const fov = 25;
   
   // DPR adjustments
   const dprMax = width < 640 ? 1 : width < 1024 ? 1.5 : 2;
@@ -58,35 +60,55 @@ const ComputersContent: React.FC<{ viewportWidth: number }> = ({ viewportWidth }
   }
 
   return (
-    <mesh>
-      {/* HemisphereLight - luz ambiente potente para eliminar silhuetas pretas */}
+    <group>
+      {/* HemisphereLight - luz ambiente suave que ilumina as sombras */}
       <hemisphereLight
-        intensity={viewportWidth < 380 ? 1.2 : 1.4}
+        intensity={0.4}
         groundColor='black'
       />
-      {/* DirectionalLight - Luz de Studio Principal (Highlight) */}
-      <directionalLight 
-        position={[10, 10, 10]} 
-        intensity={2.8} 
-        castShadow={false}
-      />
-      {/* Frontal PointLight - lluminando a parte frontal dos periféricos e monitor */}
-      <pointLight position={[0, 5, 20]} intensity={2.0} />
-      {/* Case Internal Light - Realçando o hardware dentro do gabinete */}
-      <pointLight position={[3.5, -1, -3]} intensity={1.5} color="#00ffff" />
-      {/* Back/Rim Light - Definindo contornos */}
-      <pointLight position={[-15, 0, -10]} intensity={1.2} />
+      
+      {/* Luz Ambiente - eleva o brilho geral das partes pretas */}
+      <ambientLight intensity={0.5} />
 
-      {/* Sombras de Contato para aterramento realista (custo baixo de performance) */}
-      <ContactShadows 
-         opacity={0.4} 
-         scale={20} 
-         blur={2.4} 
-         far={4.5} 
-         resolution={256} 
-         color="#000000"
-         position={[0, -3.01, 0]}
+      {/* SpotLight Principal - define a forma e volume do computador */}
+      <spotLight
+        position={[-15, 10, 10]}
+        angle={0.25}
+        penumbra={1}
+        intensity={3}
+        castShadow
       />
+
+      {/* PointLight Lateral (Direita) - Luz de preenchimento ciano para áreas escuras */}
+      <pointLight 
+        position={[10, -1, 5]} 
+        intensity={1.8} 
+        color="#00FFFF" 
+      />
+
+      {/* PointLight Traseira (Rim Light) - Ajuda a destacar a silhueta da mesa e PC */}
+      <pointLight 
+        position={[-5, 5, -10]} 
+        intensity={1.2} 
+        color="#915EFF" 
+      />
+
+      {/* PointLight Frontal - Garante que o painel frontal não fique totalmente preto */}
+      <pointLight 
+        position={[0, 2, 8]} 
+        intensity={1.0} 
+        color="#ffffff" 
+      />
+
+      {/* ContactShadows - Sombras de contato suaves no chão */}
+      <ContactShadows
+        position={[0, -3.5, 0]}
+        opacity={0.4}
+        scale={20}
+        blur={2.4}
+        far={4.5}
+      />
+
       {/* Modelo 3D do computador */}
       <primitive
         object={computer.scene}
@@ -94,7 +116,7 @@ const ComputersContent: React.FC<{ viewportWidth: number }> = ({ viewportWidth }
         position={cfg.position}
         rotation={[-0.01, -0.2, -0.1]}
       />
-    </mesh>
+    </group>
   );
 };
 
@@ -193,10 +215,10 @@ const ThreeExperience: React.FC = () => {
         gl={{
           preserveDrawingBuffer: true,
           antialias: viewportWidth >= 1024,
-          powerPreference: "high-performance",
-          alpha: true,
+          powerPreference: viewportWidth < 380 ? 'low-power' : 'high-performance',
           stencil: false,
           depth: true,
+          // Reduzir qualidade em mobile para melhorar performance
           precision: viewportWidth < 380 ? 'lowp' : 'mediump',
         }}
         dpr={dpr}

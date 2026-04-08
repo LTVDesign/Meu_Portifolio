@@ -2,15 +2,17 @@ import { lazy, Suspense, useState, useEffect } from 'react';
 import { m } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
-
+import { useBackgroundMenu } from '../../contexts/ParticleConfigContext';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
-import { useBreakpoints } from '../../hooks/useBreakpoints';
+import { useBreakpoints } from '../../hooks/useDebouncedResize';
 import TerminalText from '../atoms/TerminalText';
 import { PCGamerStatic } from '../atoms';
 
-
 // Lazy load do ThreeExperience (Three.js + @react-three/fiber + @react-three/drei)
 const ThreeExperience = lazy(() => import('../canvas/ThreeExperience'));
+
+// LCP Optimization: Lazy loading do GearButton - botão flutuante não é crítico para LCP
+const GearButton = lazy(() => import('../layout/GearButton'));
 
 /**
  * Hero - Seção principal da página
@@ -24,7 +26,7 @@ const ThreeExperience = lazy(() => import('../canvas/ThreeExperience'));
 const Hero = () => {
   const { t } = useTranslation();
   const prefersReduced = useReducedMotion();
-
+  const { openBgMenu } = useBackgroundMenu();
   // Hook otimizado com RAF debounce para evitar reflows
   const { width, isWatch } = useBreakpoints();
   const isMobileOrTablet = width <= 1024;
@@ -70,7 +72,9 @@ const Hero = () => {
     };
   }, []);
 
-
+  const handleBackgroundClick = () => {
+    openBgMenu();
+  };
 
   const subtitles = [
     t('hero.subtitle.0'),
@@ -185,34 +189,30 @@ const Hero = () => {
         {/* Scroll / Interact Icon - Responsivo usando Fluid Design */}
         {/* Ocultar em mobile/tablet quando está usando PC estático */}
         {!isMobileOrTablet && (
-          <div className="absolute bottom-[clamp(2rem,6vh,4rem)] w-full flex justify-center items-center z-20 pointer-events-none">
+          <div className="absolute bottom-[clamp(6rem,15vh,9rem)] w-full flex justify-center items-center z-20 pointer-events-none">
             <m.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 2 }}
               className="flex flex-col items-center"
             >
               {/* Glow ring behind the scroll indicator */}
               <div className="relative mb-3">
-                <div className="absolute inset-0 rounded-3xl border-2 border-[var(--cyber-cyan)]/50 blur-sm w-[clamp(1.6rem,4.5vw,2.4rem)] h-[clamp(2.8rem,7vh,4rem)]" />
-                <div className="relative rounded-3xl border-2 border-[var(--cyber-cyan)] flex justify-center p-2 backdrop-blur-sm bg-black/80 w-[clamp(1.2rem,3vw,1.5rem)] h-[clamp(2rem,6vh,2.5rem)]">
-                  <m.div
-                    animate={{ y: [0, 12, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                    className="rounded-full bg-gradient-to-br from-[#007777] to-[#5522AA] mb-1 shadow-[0_0_15px_rgba(0,255,255,0.4),0_6px_10px_rgba(0,0,0,0.9)] w-2.5 h-2.5"
-                  />
+                <div className="absolute inset-0 rounded-3xl border-2 border-[var(--cyber-cyan)]/30 blur-sm w-[clamp(2rem,6vw,3rem)] h-[clamp(3.5rem,10vh,5rem)]" />
+                <div className="relative rounded-3xl border-2 border-[var(--cyber-cyan)]/60 flex justify-center p-2 backdrop-blur-sm bg-black/20 w-[clamp(1.5rem,4vw,1.875rem)] h-[clamp(2.5rem,8vh,3.125rem)]">
+                  <div className="rounded-full bg-gradient-to-br from-[var(--cyber-cyan)] to-[var(--cyber-purple)] mb-1 shadow-[0_0_12px_rgba(0,255,255,0.9),0_0_20px_rgba(145,94,255,0.6)] w-2.5 h-2.5" />
                 </div>
               </div>
 
               {/* Text with enhanced effects */}
               <div className='flex flex-col items-center gap-1'>
                 <span
-                  className="font-black tracking-[0.3em] uppercase bg-gradient-to-r from-[#008888] to-[#5522AA] bg-clip-text text-transparent text-[clamp(0.5rem,1.2vw,0.7rem)] text-center drop-shadow-[0_2px_8px_rgba(0,0,0,1)]"
+                  className="font-black tracking-[0.3em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] via-white to-[var(--cyber-purple)] bg-clip-text text-transparent text-[clamp(0.6rem,1.5vw,0.85rem)] text-center"
                 >
                   {String(t('hero.dragToRotate'))}
                 </span>
                 <span
-                  className="font-bold tracking-[0.2em] uppercase bg-gradient-to-r from-[#007777] to-[#4B1199] bg-clip-text text-transparent text-[clamp(0.45rem,1vw,0.6rem)] text-center mt-1 drop-shadow-[0_2px_6px_rgba(0,0,0,1)]"
+                  className="font-bold tracking-[0.2em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] to-[var(--cyber-purple)] bg-clip-text text-transparent text-[clamp(0.55rem,1.2vw,0.75rem)] text-center mt-1"
                 >
                   {String(t('hero.dragToRotateSubtitle'))}
                 </span>
@@ -229,7 +229,11 @@ const Hero = () => {
         )}
       </m.section>
 
-
+      {/* Engrenagem flutuante esquerda - Background selector (Componente GearButton com Efeitos RGB) */}
+      {/* Movido para fora do m.section para não herdar transforms que quebram o position: fixed */}
+      <Suspense fallback={null}>
+        <GearButton onClick={handleBackgroundClick} />
+      </Suspense>
     </>
   );
 };

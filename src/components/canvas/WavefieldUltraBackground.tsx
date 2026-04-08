@@ -323,18 +323,8 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
 
     let startTime: number | null = null;
     let animationId: number;
-    let lastFrameTime = 0;
-    const targetFPS = 60;
-    const frameInterval = 1000 / targetFPS;
-
     function animate(time: number) {
       animationId = requestAnimationFrame(animate);
-
-      // Throttle frame rate para reduzir carga na thread principal
-      const delta = time - lastFrameTime;
-      if (delta < frameInterval) return;
-      lastFrameTime = time;
-
       if (startTime === null) startTime = time;
       const currentTime = performance.now();
       const elapsedTime = (currentTime - startTime) * 0.001;
@@ -342,11 +332,7 @@ const WavefieldUltraBackground: React.FC<WavefieldUltraBackgroundProps> = ({
 
       mouse.lerp(targetMouse, 0.05);
       uniforms.mouse.value.copy(mouse);
-
-      // Executa renderização fora da thread principal quando possível
-      requestAnimationFrame(() => {
-        renderer.render(scene, camera);
-      });
+      renderer.render(scene, camera);
     }
 
     init();

@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import type React from 'react';
 import { LazyMotion, domAnimation } from 'framer-motion';
 
 /**
@@ -11,10 +11,10 @@ import { LazyMotion, domAnimation } from 'framer-motion';
  * </MotionProvider>
  */
 interface MotionProviderProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
-export const MotionProvider = ({ children }: MotionProviderProps) => {
+export const MotionProvider: React.FC<MotionProviderProps> = ({ children }) => {
   return (
     <LazyMotion features={domAnimation} strict>
       {children}

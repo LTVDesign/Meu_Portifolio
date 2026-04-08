@@ -1,7 +1,7 @@
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { useBreakpoints } from '../../hooks/useBreakpoints';
+import { useBreakpoints } from '../../hooks/useDebouncedResize';
 
 const BG_TYPES = ['bolhas', 'particles', 'liquid', 'particulate', 'cyberpunk', 'wavefield', 'solid', 'matrix'];
 
