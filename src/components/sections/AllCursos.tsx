@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { createPortal } from 'react-dom';
 import close from '../../assets/close.svg';
-import { SectionWrapper } from '../../hoc';
+
 import { alberta, bradesco, cate, google, ibm, hackers, ipad, yonsei, johns } from '../../assets';
 import cursosData from '../../data/cursos.json';
 import type { Curso } from '../../types';
@@ -34,6 +33,9 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
   }, [isDetailOpen, isPage]);
 
   useEffect(() => {
+    // SE FOR PÁGINA DEDICADA NÃO EXECUTA NADA DESSE EFFECT
+    if (isPage) return;
+
     if (isOpen) {
       lastFocusedElement.current = document.activeElement as HTMLElement;
 
@@ -79,7 +81,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
         }
       };
     }
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, isPage]);
 
   const currentLanguage = (i18n.language || 'pt') as keyof typeof cursosData;
 
@@ -103,9 +105,20 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
     });
   }, [currentLanguage]);
 
-  // Extrair plataformas únicas para o filtro
+  // Função para normalizar nomes de plataformas (agrupar variações da mesma empresa)
+  const normalizePlatform = (platform: string): string => {
+    const platformLower = platform.toLowerCase();
+
+    if (platformLower.includes('google')) return 'Google';
+    if (platformLower.includes('ibm')) return 'IBM';
+
+    // Se não tiver regra específica retorna o nome original
+    return platform;
+  };
+
+  // Extrair plataformas únicas normalizadas para o filtro
   const platforms = useMemo(() => {
-    const uniquePlatforms = [...new Set(allCursos.map(curso => curso.platform))];
+    const uniquePlatforms = [...new Set(allCursos.map(curso => normalizePlatform(curso.platform)))];
     return uniquePlatforms.sort();
   }, [allCursos]);
 
@@ -115,8 +128,8 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
       curso.title.toLowerCase().includes(filter.toLowerCase()) ||
       curso.platform.toLowerCase().includes(filter.toLowerCase());
 
-    // Filtro por plataforma
-    const matchesPlatform = platformFilter === 'all' || curso.platform === platformFilter;
+    // Filtro por plataforma (usa nome normalizado para agrupar todas as variações)
+    const matchesPlatform = platformFilter === 'all' || normalizePlatform(curso.platform) === platformFilter;
 
     // Filtro por certificado profissional
     const matchesCertificate =
@@ -193,7 +206,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
         {/* Conteúdo Principal */}
         <div
           ref={modalRef}
-          className={`flex-1 ${!isPage ? 'overflow-y-auto' : ''} p-4 sm:p-6`}
+          className={`flex-1 p-4 sm:p-6`}
           role='dialog'
           aria-modal={!isPage}
           aria-labelledby={modalTitleId}
@@ -372,6 +385,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                       <m.button
                         onClick={(e) => {
                           e.stopPropagation();
+                          e.preventDefault();
                           setSelectedCurso(curso);
                           setIsDetailOpen(true);
                         }}
@@ -483,20 +497,28 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
         )}
       </m.div>
 
-      {/* Modal de detalhes renderizado via portal para evitar problemas de overflow */}
-      {createPortal(
-        <CursoDetailModal
-          isOpen={isDetailOpen}
-          onClose={() => {
-            setIsDetailOpen(false);
-            setSelectedCurso(null);
-          }}
-          curso={selectedCurso}
-        />,
-        document.body
-      )}
+      {/* MODAL REMOVIDO DO PORTAL - O PORTAL ESTAVA QUEBRANDO NO SERVIDOR */}
+      <CursoDetailModal
+        isOpen={isDetailOpen}
+        onClose={() => {
+          setIsDetailOpen(false);
+          setSelectedCurso(null);
+        }}
+        curso={selectedCurso}
+      />
+
+      <style>
+        {`
+          /* Workaround z-index conflito */
+          .fixed.z-\\[200\\] {
+            z-index: 999999 !important;
+          }
+        `}
+      </style>
     </AnimatePresence>
   );
 };
 
-export default SectionWrapper(AllCursos, 'allcourses');
+// ✅ Não usar o SectionWrapper na página de cursos! Ele aplica overflow:hidden que bloqueia scroll!
+// O HOC é ótimo para seções na home mas destrói a página dedicada
+export default AllCursos;

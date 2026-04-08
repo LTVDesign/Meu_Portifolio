@@ -31,16 +31,15 @@ const OnlineResume = () => {
         >
           <FiPrinter className="text-[var(--cyber-cyan)]" /> {t('common.print', 'Imprimir')}
         </button>
-        <a
-          href='/certificados/ID_28_Google_IT_Support_Professional.pdf'
-          download
+        <button
+          onClick={handlePrint}
           className='flex items-center gap-2 px-4 py-2 bg-[var(--cyber-purple)] hover:opacity-90 text-white rounded-lg transition-all text-sm shadow-lg shadow-[var(--cyber-purple)]/20'
         >
-          <FiDownload /> {t('allCurriculo.downloadCV', 'Download PDF')}
-        </a>
+          <FiDownload /> {t('allCurriculo.saveAsPDF', 'Salvar como PDF')}
+        </button>
       </div>
 
-      {/* Header com gradiente */}
+      {/* Header com gradiente - SOMENTE TELA */}
       <div className='max-w-4xl mx-auto mb-0 p-8 rounded-t-2xl bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 print:hidden'>
         <div className='flex justify-between items-center'>
           <div>
@@ -65,18 +64,19 @@ const OnlineResume = () => {
       </div>
 
       {/* Versão principal - otimizada para impressão (máx 2 páginas) */}
-      <div className='max-w-4xl mx-auto bg-white text-black p-6 font-size-9'>
-        {/* Cabeçalho com QR Code */}
-        <div className='flex justify-between items-start mb-6'>
+      <div className='max-w-4xl mx-auto bg-white text-black print:p-0 print:m-0 p-6'>
+        {/* Cabeçalho com QR Code - SOMENTE IMPRESSÃO */}
+        <div className='flex justify-between items-start mb-6 print:flex'>
           <div>
             <h1 className='text-2xl font-bold mb-1' style={{ color: 'black' }}>Leandro Barbosa</h1>
             <p className='text-sm text-gray-700 mb-2' style={{ color: 'black' }}>Engenheiro de Software | Tecnólogo em ADS | Pós-Graduando IA & Data Science</p>
             <div className='text-xs space-y-1' style={{ color: 'black' }}>
               <div>📧 lelebrr@gmail.com | 📱 +55 11 98483-8629</div>
-              <div>💼 linkedin.com/in/lelebrr | 📍 São Paulo, SP</div>
+              <div>💼 linkedin.com/in/lelebrr | 📍 Freguesia do Ó, São Paulo - SP</div>
+              <div>🎂 Nascimento: 1987</div>
             </div>
           </div>
-          <div className='flex-shrink-0 hidden print:block'>
+          <div className='flex-shrink-0'>
             <img
               src="/qrcode.png"
               alt="QR Code"
@@ -217,45 +217,34 @@ const OnlineResume = () => {
             </div>
           </div>
 
-          {/* Soft Skills e Metodologias */}
-          <div>
-            <h2 className='text-lg font-bold mb-3 text-gray-800 border-b border-gray-300 pb-1' style={{ color: 'black' }}>COMPETÊNCIAS COMPORTAMENTAIS</h2>
-            <div className='grid grid-cols-2 gap-2 text-xs'>
-              <div>
-                <span className='font-medium text-gray-700 block mb-1' style={{ color: 'black' }}>Liderança</span>
-                <div className='flex flex-wrap gap-1'>
-                  {['Gestão de Equipes', 'Mentoria', 'Coordenação'].map(skill => (
-                    <span key={skill} className='px-2 py-0.5 bg-gray-100 rounded-full text-xs text-gray-700' style={{ color: 'black' }}>{skill}</span>
-                  ))}
-                </div>
-              </div>
+          {/* Quebra de página EXATA para impressão */}
+          <div className="break-before-page print:break-before-page" />
+
+          {/* Soft Skills e Metodologias - OTIMIZADO */}
+          <div className='print:mt-4'>
+            <h2 className='text-lg font-bold mb-2 text-gray-800 border-b border-gray-300 pb-1' style={{ color: 'black' }}>COMPETÊNCIAS ADICIONAIS</h2>
+            <div className='grid grid-cols-3 gap-2 text-xs'>
               <div>
                 <span className='font-medium text-gray-700 block mb-1' style={{ color: 'black' }}>Metodologias</span>
                 <div className='flex flex-wrap gap-1'>
                   {['Scrum', 'Kanban', 'Ágil', 'DevOps'].map(skill => (
-                    <span key={skill} className='px-2 py-0.5 bg-gray-100 rounded-full text-xs text-gray-700' style={{ color: 'black' }}>{skill}</span>
+                    <span key={skill} className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700' style={{ color: 'black' }}>{skill}</span>
                   ))}
                 </div>
               </div>
               <div>
-                <span className='font-medium text-gray-700 block mb-1' style={{ color: 'black' }}>Habilidades Pessoais</span>
+                <span className='font-medium text-gray-700 block mb-1' style={{ color: 'black' }}>Habilidades</span>
                 <div className='flex flex-wrap gap-1'>
-                  {['Comunicação', 'Trabalho em Equipe', 'Resolução de Problemas', 'Gestão de Tempo'].map(skill => (
-                    <span key={skill} className='px-2 py-0.5 bg-gray-100 rounded-full text-xs text-gray-700' style={{ color: 'black' }}>{skill}</span>
+                  {['Liderança', 'Mentoria', 'Comunicação', 'Resolução de Problemas'].map(skill => (
+                    <span key={skill} className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700' style={{ color: 'black' }}>{skill}</span>
                   ))}
                 </div>
               </div>
               <div>
                 <span className='font-medium text-gray-700 block mb-1' style={{ color: 'black' }}>Idiomas</span>
-                <div className='space-y-1'>
-                  <div className='flex justify-between'>
-                    <span style={{ color: 'black' }}>Português</span>
-                    <span className='font-medium' style={{ color: 'black' }}>Nativo</span>
-                  </div>
-                  <div className='flex justify-between'>
-                    <span style={{ color: 'black' }}>Inglês</span>
-                    <span className='font-medium' style={{ color: 'black' }}>Intermediário</span>
-                  </div>
+                <div className='flex flex-wrap gap-1'>
+                  <span className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700' style={{ color: 'black' }}>Português Nativo</span>
+                  <span className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700' style={{ color: 'black' }}>Inglês Intermediário</span>
                 </div>
               </div>
             </div>
@@ -284,21 +273,34 @@ const OnlineResume = () => {
           color: white;
         }
 
-        @media print {
-          body { 
-            background: white !important; 
-            color: black !important; 
-            padding: 0 !important; 
-            margin: 0 !important; 
+         @media print {
+           @page {
+             size: A4;
+             margin: 7mm 6mm 7mm 6mm;
+             marks: none;
+             bleed: 0;
+           }
+
+           html, body { 
+             background: white !important; 
+             color: black !important; 
+             padding: 0 !important; 
+             margin: 0 !important; 
+             width: 210mm !important;
+             height: 297mm !important;
+             -webkit-print-color-adjust: exact !important;
+             print-color-adjust: exact !important;
+             font-size: 10.5pt !important;
+             line-height: 1.3 !important;
+           }
+
+          * {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
           
-          /* Mostrar header gradiente também na impressão */
           .bg-gradient-to-r {
-            background: linear-gradient(to right, #a855f7, #3b82f6, #22d3ee) !important;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
+            background: linear-gradient(to right, #9747FF, #3b82f6, #00F0FF) !important;
           }
           
           .bg-white\\/20 {
@@ -330,10 +332,77 @@ const OnlineResume = () => {
           .max-w-4xl.bg-white .bg-gray-100 {
             background-color: #f5f5f5 !important;
           }
-          .max-w-4xl.bg-white .border-gray-300 {
-            border-color: #d1d1d1 !important;
-          }
-        }
+           .max-w-4xl.bg-white .border-gray-300 {
+             border-color: #d1d1d1 !important;
+           }
+
+           /* Otimizações de espaçamento para caber exatamente em 2 páginas */
+           .max-w-4xl.bg-white {
+             margin: 0 !important;
+             padding: 0 !important;
+             max-width: 100% !important;
+           }
+
+           .max-w-4xl.bg-white h2 {
+             font-size: 12pt !important;
+             margin-top: 8px !important;
+             margin-bottom: 6px !important;
+             padding-bottom: 2px !important;
+           }
+
+           .max-w-4xl.bg-white div,
+           .max-w-4xl.bg-white p,
+           .max-w-4xl.bg-white li {
+             margin: 0 !important;
+             padding: 1px 0 !important;
+           }
+
+           .break-before-page {
+             page-break-before: always !important;
+           }
+
+           /* REMOVE todos os elementos desnecessarios na impressao */
+           .print\\:hidden,
+           .bg-gradient-to-r,
+           button,
+           header,
+           footer,
+           nav {
+             display: none !important;
+           }
+
+           /* Apenas o header clean para impressao */
+           .print\\:flex {
+             display: flex !important;
+             margin-bottom: 8px !important;
+             padding-bottom: 8px !important;
+             border-bottom: 1px solid #333 !important;
+           }
+
+           ul, li {
+             margin-left: 4px !important;
+             padding-left: 2px !important;
+           }
+
+           /* Remove headers e footers padrão do navegador */
+           @page :first {
+             margin-top: 6mm;
+           }
+
+           html {
+             -webkit-print-color-adjust: exact;
+             print-color-adjust: exact;
+           }
+
+           /* Garante que nao existe overflow e cabem exatamente 2 paginas */
+           * {
+             page-break-inside: avoid !important;
+           }
+
+           h2 {
+             page-break-after: avoid !important;
+           }
+         }
       `}} />
     </div>
   );

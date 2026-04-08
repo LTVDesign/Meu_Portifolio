@@ -134,6 +134,15 @@ const AppContent = () => {
 
       {/* Conteúdo principal - renderiza primeiro para LCP */}
       <div className="relative z-20 min-h-screen flex flex-col">
+        <style>
+          {`
+            /* Corrige bug scroll página cursos */
+            html, body {
+              overflow-y: auto !important;
+              height: auto !important;
+            }
+          `}
+        </style>
         <Navbar />
         <GearButton onClick={openBgMenu} />
 
