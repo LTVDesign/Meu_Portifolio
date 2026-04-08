@@ -11,13 +11,10 @@ const Works = () => {
   const prefersReduced = useReducedMotion();
 
   const handleProjectClick = (projectName: string) => {
-    const projectUrls: Record<string, string> = {
-      'GetNexo v1.0+': 'https://getnexo.ai',
-      'Component Tester PRO v2.0': 'https://github.com/lelebrr/Component_Tester',
-    };
-
-    const url = projectUrls[projectName] || '#';
-    window.open(url, '_blank');
+    const project = projects.find(p => p.name === projectName);
+    if (project) {
+      window.open(project.sourceCodeLink, '_blank');
+    }
   };
 
 
@@ -238,13 +235,15 @@ const Works = () => {
 
       <div className='mt-[clamp(2.5rem,8vw,4rem)] flex justify-center'>
         <m.a
-          href='/cursos'
+          href='https://github.com/lelebrr'
+          target='_blank'
+          rel='noopener noreferrer'
           whileHover={{
             scale: 1.05,
             y: -3,
           }}
           whileTap={{ scale: 0.95 }}
-          className='relative px-[clamp(1.5rem,5vw,2rem)] py-[clamp(0.75rem,2.5vw,1rem)] text-[clamp(0.625rem,1.5vw,0.75rem)] font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)] shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
+          className='relative px-[clamp(1.5rem,5vw,2rem)] py-[clamp(0.75rem,2.5vw,1rem)] text-[clamp(0.625rem,1.5vw,0.75rem)] font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-white backdrop-blur-sm group/btn flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)] shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
         >
           <m.div
             className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'

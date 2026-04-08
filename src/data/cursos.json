@@ -435,6 +435,69 @@
       "link": "/certificados/ID_25_Google_Analytics_Certification.pdf",
       "isProfessionalCertificate": true,
       "icon": "google"
+    },
+    {
+      "id": "26",
+      "title": "Segurança de TI: Defesa contra as Artes das Trevas",
+      "platform": "Google (via Coursera)",
+      "date": "2023",
+      "duration": "Aproximadamente 2 meses",
+      "workload": "Cerca de 30 horas",
+      "summary": "Um mergulho profundo nos fundamentos da segurança da informação, abordando criptografia, autenticação e defesa contra phishing e malware.",
+      "description": "Este curso cobre o conjunto diversificado de ameaças, ataques e vulnerabilidades de segurança que os profissionais de TI enfrentam hoje. Você aprenderá os conceitos fundamentais de segurança, como a tríade CIA, e como implementar controles de segurança eficazes para proteger redes e dados.",
+      "modules": [
+        "Compreender como os algoritmos de criptografia funcionam",
+        "Diferentes tipos de autenticação e seus pontos fortes",
+        "Diferença entre autenticação e autorização",
+        "Como proteger as redes contra ataques comuns",
+        "Estratégias para mitigar riscos de segurança"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/verify/93NRYWTPM33B",
+      "link": "/certificados/ID_26_Seguranca_Artes_Trevas.pdf",
+      "isProfessionalCertificate": false,
+      "icon": "google"
+    },
+    {
+      "id": "27",
+      "title": "IBM: Fundamentos de Suporte Técnico",
+      "platform": "IBM",
+      "date": "2023",
+      "duration": "Aproximadamente 1 mês",
+      "workload": "Cerca de 20 horas",
+      "summary": "Fundamentos essenciais para suporte técnico profissional, focando em hardware, software e processos de help desk da IBM.",
+      "description": "Este curso de nível iniciante apresenta o mundo do suporte técnico de TI. Você aprenderá sobre o papel de um técnico de suporte de TI, as ferramentas usadas no dia a dia e como fornecer um excelente atendimento ao cliente.",
+      "modules": [
+        "O papel do suporte técnico em uma organização",
+        "Hardware de computador e componentes internos",
+        "Sistemas operacionais e instalação de software",
+        "Noções básicas de redes e internet",
+        "Habilidades de atendimento ao cliente e comunicação"
+      ],
+      "verificationLink": "https://www.credly.com/badges/c7c2c0e8-0797-4d7a-8f1d-a0b87514936d",
+      "link": "/certificados/ID_27_IBM_TechSupport_Basics.pdf",
+      "isProfessionalCertificate": false,
+      "icon": "ibm"
+    },
+    {
+      "id": "28",
+      "title": "Certificado Profissional de Suporte em TI do Google",
+      "platform": "Google",
+      "date": "2023",
+      "duration": "Aproximadamente 6 meses",
+      "workload": "Cerca de 120 horas",
+      "summary": "Especialização abrangente que prepara para funções de suporte de TI de nível básico, validando competências em todo o espectro do suporte técnico.",
+      "description": "Este programa de cinco cursos, desenvolvido pelo Google, inclui um currículo prático projetado para prepará-lo para uma função de nível básico em suporte de TI. A certificação valida habilidades em solução de problemas, atendimento ao cliente, redes, sistemas operacionais e segurança.",
+      "modules": [
+        "Fundamentos do suporte técnico",
+        "Os bits e bytes das redes de computadores",
+        "Sistemas operacionais e você: tornando-se um usuário avançado",
+        "Administração de sistemas e serviços de infraestrutura de TI",
+        "Segurança de TI: Defesa contra as artes das trevas"
+      ],
+      "verificationLink": "https://www.credly.com/badges/b573280d-6af1-4a73-8cf2-c1e434693c9f/public_url",
+      "link": "/certificados/ID_28_Google_IT_Support_Professional.pdf",
+      "isProfessionalCertificate": true,
+      "icon": "google"
     }
   ],
   "en": [
@@ -862,6 +925,69 @@
       ],
       "verificationLink": "https://skillshop.credential.net/dc3ea334-0f53-4649-b316-742620589e60#acc.O7zRWfM0",
       "link": "/certificados/ID_25_Google_Analytics_Certification.pdf",
+      "isProfessionalCertificate": true,
+      "icon": "google"
+    },
+    {
+      "id": "26",
+      "title": "IT Security: Defense Against the Dark Arts",
+      "platform": "Google (via Coursera)",
+      "date": "2023",
+      "duration": "Approximately 2 months",
+      "workload": "About 30 hours",
+      "summary": "A deep dive into information security fundamentals, covering encryption, authentication, and defense against phishing and malware.",
+      "description": "This course covers the diverse set of security threats, attacks, and vulnerabilities that IT professionals face today. You will learn the core security concepts like the CIA triad and how to implement effective security controls to protect networks and data.",
+      "modules": [
+        "Understanding how encryption algorithms work",
+        "Different types of authentication and their strengths",
+        "Difference between authentication and authorization",
+        "How to secure networks against common attacks",
+        "Strategies for mitigating security risks"
+      ],
+      "verificationLink": "https://www.coursera.org/account/accomplishments/verify/93NRYWTPM33B",
+      "link": "/certificados/ID_26_Seguranca_Artes_Trevas.pdf",
+      "isProfessionalCertificate": false,
+      "icon": "google"
+    },
+    {
+      "id": "27",
+      "title": "IBM: Technical Support Basics",
+      "platform": "IBM",
+      "date": "2023",
+      "duration": "Approximately 1 month",
+      "workload": "About 20 hours",
+      "summary": "Essential fundamentals for professional technical support, focusing on IBM's hardware, software, and help desk processes.",
+      "description": "This beginner-level course introduces the world of IT technical support. You will learn about the role of an IT support technician, the tools used daily, and how to provide excellent customer service.",
+      "modules": [
+        "The role of technical support in an organization",
+        "Computer hardware and internal components",
+        "Operating systems and software installation",
+        "Basic networking and internet concepts",
+        "Customer service skills and communication"
+      ],
+      "verificationLink": "https://www.credly.com/badges/c7c2c0e8-0797-4d7a-8f1d-a0b87514936d",
+      "link": "/certificados/ID_27_IBM_TechSupport_Basics.pdf",
+      "isProfessionalCertificate": false,
+      "icon": "ibm"
+    },
+    {
+      "id": "28",
+      "title": "Google IT Support Professional Certificate",
+      "platform": "Google",
+      "date": "2023",
+      "duration": "Approximately 6 months",
+      "workload": "About 120 hours",
+      "summary": "Comprehensive specialization preparing for entry-level IT support roles, validating skills across the entire spectrum of technical support.",
+      "description": "This five-course program, developed by Google, includes a hands-on curriculum designed to prepare you for an entry-level role in IT support. The certification validates troubleshoot skills, customer service, networking, operating systems, and security.",
+      "modules": [
+        "Technical support fundamentals",
+        "The bits and bytes of computer networking",
+        "Operating systems and you: becoming a power user",
+        "System administration and IT infrastructure services",
+        "IT Security: Defense against the dark arts"
+      ],
+      "verificationLink": "https://www.credly.com/badges/b573280d-6af1-4a73-8cf2-c1e434693c9f/public_url",
+      "link": "/certificados/ID_28_Google_IT_Support_Professional.pdf",
       "isProfessionalCertificate": true,
       "icon": "google"
     }

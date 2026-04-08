@@ -55,7 +55,7 @@ const ExperienceCard = forwardRef<
 
       {/* Logo badge - responsivo */}
       <div
-        className='absolute left-[clamp(-0.5rem,-1vw,-0.25rem)] top-0 w-[clamp(3.5rem,8vw,5rem)] h-[clamp(3.5rem,8vw,5rem)] rounded-full bg-white border-2 border-[var(--cyber-cyan)] z-10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:scale-110'
+        className='absolute left-[clamp(-0.5rem,-1vw,-0.25rem)] top-0 w-[clamp(3.5rem,8vw,5rem)] h-[clamp(3.5rem,8vw,5rem)] rounded-full bg-white border-2 border-[var(--cyber-cyan)] z-10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:scale-110 shadow-[0_0_20px_rgba(0,255,255,0.2)]'
       >
         {/* External orbiting glow */}
         <m.div

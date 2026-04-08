@@ -2,13 +2,10 @@ import { memo, useCallback, useEffect, useState } from 'react';
 import { m, useScroll, useSpring } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
-import { navLinks } from '../../constants';
+import { logo, navLinks } from '../../constants';
 import { useViewport } from '../../hooks/useViewport';
 import { LinkAnimado } from '../atoms';
 import Tooltip from '../atoms/Tooltip';
-
-// Logo da raiz (public) - servido estaticamente
-const logo = '/logo.webp';
 
 const Navbar = memo(() => {
   const [active, setActive] = useState<string | null>(null);

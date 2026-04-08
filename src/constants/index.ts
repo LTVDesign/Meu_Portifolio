@@ -15,6 +15,7 @@ import {
   javascript,
   kali,
   linux,
+  logo,
   microsoft365,
   mobile,
   nodejs,
@@ -30,6 +31,7 @@ import {
   vscode,
   web,
   windows,
+  willy,
 } from '../assets';
 import type {
   TExperience,
@@ -276,7 +278,7 @@ const experiences: TExperience[] = [
   {
     title: 'experience.titles.computerTechnician',
     companyName: 'experience.companies.autonomous',
-    icon: vscode,
+    icon: logo,
     iconBg: '#E6DEDD',
     date: 'experience.dates.autonomo',
     points: [
@@ -505,6 +507,18 @@ const projects: TProject[] = [
     status: 'status_finished',
     category: 'category_hardware',
   },
-];
+  {
+    name: 'Willy Cyber-Multitool',
+    description: 'Willy Cyber-Multitool: Kit completo de ferramentas de cibersegurança e administração de sistemas integrando múltiplas ferramentas de segurança e recursos de automação.',
+    tags: [
+      { name: 'cybersecurity', color: 'purple-text-gradient' },
+      { name: 'automation', color: 'blue-text-gradient' },
+    ],
+    image: willy,
+    sourceCodeLink: 'https://github.com/lelebrr/Willy_ESP32_S3',
+    status: 'status_ongoing',
+    category: 'category_security',
+  }
+]
 
-export { experiences, projects, services, technologies, testimonials };
+export { logo, experiences, projects, services, technologies, testimonials };

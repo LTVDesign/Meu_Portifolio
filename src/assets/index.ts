@@ -1,4 +1,5 @@
 import close from './close.svg';
+import logo from './logo.webp';
 import diplomaPdf from './formacao/DiplomaDigital.pdf?url';
 // Formação
 import diploma from './formacao/diploma.png';
@@ -48,6 +49,7 @@ import creator from './images/projects/creator.webp';
 import getnexo from './images/projects/getnexo.webp';
 import mobile from './images/projects/mobile.webp';
 import web from './images/projects/web.webp';
+import willy from './images/projects/willy.webp';
 
 export {
   alberta,
@@ -78,6 +80,7 @@ export {
   johns,
   kali,
   linux,
+  logo,
   microsoft365,
   mobile,
   nodejs,
@@ -95,5 +98,6 @@ export {
   vscode,
   web,
   windows,
+  willy,
   yonsei,
 };

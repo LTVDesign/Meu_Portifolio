@@ -8,7 +8,8 @@ import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { emailService } from '../../utils/emailService';
 import { slideIn } from '../../utils/motion';
 import { Header } from '../atoms';
-import StaticGlobe from '../atoms/StaticGlobe';
+import { EarthCanvas } from '../canvas';
+import { useViewport } from '../../hooks/useViewport';
 
 type ContactForm = {
   name: string;
@@ -41,6 +42,10 @@ const Contact = () => {
   const prefersReduced = useReducedMotion();
   const canvasContainerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(canvasContainerRef, { once: true, amount: 0.1 });
+  const { width: viewportWidth } = useViewport();
+
+  // Show globe only on Desktop, Notebooks, TVs (width >= 1024px)
+  const showGlobe = viewportWidth >= 1024;
 
   // Create validation schema with translated messages
   const contactSchema = useMemo(
@@ -453,18 +458,20 @@ const Contact = () => {
             </div>
           </m.div>
 
-          {/* Globo estático - mostra em todos os dispositivos */}
-          <m.div
-            ref={canvasContainerRef}
-            variants={slideIn('right', 'tween', 0.2, 1)}
-            className='flex flex-1 w-full xl:w-[50vw] h-[clamp(300px,50vw,600px)] items-center justify-center relative overflow-hidden'
-          >
-            <div className='w-full h-full flex items-center justify-center'>
-              {isInView && (
-                <StaticGlobe />
-              )}
-            </div>
-          </m.div>
+          {/* Globo 3D - mostra apenas em Desktop/Notebook/TV (>= 1024px) */}
+          {showGlobe && (
+            <m.div
+              ref={canvasContainerRef}
+              variants={slideIn('right', 'tween', 0.2, 1)}
+              className='flex flex-1 w-full xl:w-[50vw] h-[clamp(400px,60vw,700px)] items-center justify-center relative overflow-hidden'
+            >
+              <div className='w-full h-full flex items-center justify-center translate-x-0 xl:translate-x-10'>
+                {isInView && (
+                  <EarthCanvas />
+                )}
+              </div>
+            </m.div>
+          )}
         </div>
       </div>
     </div>

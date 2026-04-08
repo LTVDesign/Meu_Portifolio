@@ -17,6 +17,7 @@ import BackgroundMenu from './components/layout/BackgroundMenu';
 import BackgroundEditorModal from './components/layout/BackgroundEditorModal';
 import ParticlesCanvas from './components/layout/ParticlesCanvas';
 import Footer from './components/layout/Footer';
+import GearButton from './components/layout/GearButton';
 
 // Componentes Síncronos (Restauração de Estabilidade)
 import BackgroundManager from './components/canvas/BackgroundManager';
@@ -109,6 +110,7 @@ BackgroundOverlays.displayName = 'BackgroundOverlays';
 const AppContent = () => {
   // LCP Optimization: Carregar backgrounds após LCP ser pintado
   const [loadBackgrounds, setLoadBackgrounds] = useState(false);
+  const { openBgMenu } = useBackgroundMenu();
 
   useEffect(() => {
     // Carregar backgrounds imediatamente
@@ -133,6 +135,7 @@ const AppContent = () => {
       {/* Conteúdo principal - renderiza primeiro para LCP */}
       <div className="relative z-20 min-h-screen flex flex-col">
         <Navbar />
+        <GearButton onClick={openBgMenu} />
 
         <main className="relative z-10 flex-1 w-[min(100%,_var(--max-width,100vw))] mx-auto">
           <ErrorBoundary>
