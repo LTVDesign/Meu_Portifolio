@@ -371,6 +371,26 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                             </span>
                           </div>
                         )}
+
+                        {curso.withHonors && (
+                          <m.div
+                            animate={{
+                              scale: [1, 1.15, 1],
+                              opacity: [0.7, 1, 0.7],
+                            }}
+                            transition={{
+                              duration: 2.5,
+                              repeat: Infinity,
+                              ease: "easeInOut"
+                            }}
+                            className='mt-2 flex items-center gap-1.5'
+                          >
+                            <span className='text-amber-300' style={{ textShadow: '0 0 8px rgba(251, 191, 36, 0.7)' }}>⭐</span>
+                            <span className='text-xs text-amber-300 font-black uppercase tracking-wider' style={{ textShadow: '0 0 6px rgba(251, 191, 36, 0.6)' }}>
+                              {t('allCursos.withHonors')}
+                            </span>
+                          </m.div>
+                        )}
                       </div>
                     </div>
 

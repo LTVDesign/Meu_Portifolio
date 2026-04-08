@@ -105,7 +105,7 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/CVHSSYAKTBJQ",
       "link": "/certificados/Coursera CVHSSYAKTBJQ.pdf",
-      "isProfessionalCertificate": true,
+      "withHonors": true,
       "icon": "ibm"
     },
     {
@@ -208,38 +208,40 @@
     },
     {
       "id": "11",
-      "title": "Fundamentos de TI",
+      "title": "Fundamentos de TI: Hardware e Software",
       "platform": "Fundação Bradesco",
       "date": "2023",
-      "summary": "Conceitos essenciais de arquitetura de computadores, hardware e lógica operacional.",
-      "description": "Conceitos essenciais de arquitetura de computadores, hardware e lógica operacional.",
-      "icon": "bradesco",
-      "link": "/certificados/ID_11_Fundamentos_TI_Bradesco.pdf",
-      "workload": "7 horas"
+      "workload": "7 horas",
+      "summary": "Conceitos básicos da informática, componentes de computadores, sistemas operacionais e princípios de segurança da informação.",
+      "description": "Curso que apresenta os conceitos básicos da informática, os componentes dos computadores, os sistemas lógicos e as principais funções de armazenamento e processamento que envolvem o poder computacional. Aborda também os sistemas operacionais e os princípios de segurança da informação, essenciais para manter a privacidade e confiabilidade das informações. Explica a evolução da computação, o funcionamento das primeiras máquinas, a diferença entre hardware e software, componentes internos e externos de um computador e o processo de montagem de máquinas.",
+      "verificationLink": "https://www.ev.org.br/cursos/fundamentos-de-ti-hardware-e-software",
+      "link": "/certificados/fundamentos_de_ti_-_Fundação_Bradesco.pdf",
+      "icon": "bradesco"
     },
     {
       "id": "12",
-      "title": "Implementando Bancos de Dados",
+      "title": "Implementando Banco de Dados",
       "platform": "Fundação Bradesco",
       "date": "2023",
       "workload": "15 horas",
-      "summary": "Focado na criação física de bancos de dados, usando linguagens de consulta e estruturação.",
-      "description": "Focado na criação física de bancos de dados, usando linguagens de consulta e estruturação.",
-      "verificationLink": "https://www.ev.org.br/validar-certificado",
-      "link": "/certificados/ID_12_Implementando_BD_Bradesco.pdf",
+      "summary": "Introdução à implementação de banco de dados, técnicas de modelagem, bancos relacionais e SQL Server.",
+      "description": "Curso sobre introdução a implementação de banco de dados, compreendendo suas particularidades e utilização do SQL Server. Aborda terminologias aplicadas na implementação, passo a passo para criação, técnicas de modelagem de dados, com destaque aos bancos de dados relacionais, além de aspectos conceituais, lógicos e físicos de um banco de dados.",
+      "verificationLink": "https://www.ev.org.br/cursos/implementando-banco-de-dados",
+      "link": "/certificados/Implementando_Banco_de_Dados_-_Fundação_Bradesco.pdf",
       "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923",
       "icon": "bradesco"
     },
     {
       "id": "13",
-      "title": "Segurança de TI",
+      "title": "Segurança em Tecnologia da Informação",
       "platform": "Fundação Bradesco",
       "date": "2023",
-      "summary": "Princípios de segurança de dados, políticas de segurança e defesa de perímetro.",
-      "description": "Princípios de segurança de dados, políticas de segurança e defesa de perímetro.",
-      "icon": "bradesco",
-      "link": "/certificados/ID_13_Seguranca_TI_Bradesco.pdf",
-      "workload": "12 horas"
+      "workload": "12 horas",
+      "summary": "Aspectos fundamentais da segurança em TI, boas práticas contra riscos, ameaças e ataques virtuais.",
+      "description": "Curso sobre os aspectos fundamentais da segurança em tecnologia da informação e boas práticas para combater riscos, ameaças e ataques virtuais. Aborda o contexto de riscos na internet, armazenamento seguro de informações estratégicas e confidenciais, senhas, dados pessoais, cadastros e integridade de informações para corporações e pessoas físicas.",
+      "verificationLink": "https://www.ev.org.br/cursos/seguranca-em-tecnologia-da-informacao",
+      "link": "/certificados/Segurança_em_Tecnologia_da_Informação_-_Fundação_Bradesco.pdf",
+      "icon": "bradesco"
     },
     {
       "id": "14",
@@ -284,9 +286,8 @@
         "Capítulo 2: Psicologia de Marketing e Vendas, transparência e prospecção",
         "Capítulo 3: Estratégia e Retenção, precificação e valor"
       ],
-      "verificationLink": "https://www.iped.com.br/certificado?numero=1173384",
-      "link": "/certificados/ID_17_Satisfacao_Clientes_IPED.pdf",
-      "authCode": "1173384",
+      "verificationLink": "https://www.iped.com.br/cursos-gratis/cotidiano/curso-rapido/etica-politica-cidadania",
+      "link": "/certificados/etica_politica_e_cidadania.pdf",
       "isProfessionalCertificate": false,
       "icon": "iped"
     },
@@ -298,8 +299,23 @@
       "summary": "Técnicas de abordagem, postura profissional e resolução ágil de problemas durante o suporte.",
       "description": "Técnicas de abordagem, postura profissional e resolução ágil de problemas durante o suporte.",
       "icon": "iped",
-      "link": "/certificados/ID_18_Atendimento_Cliente_IPED.pdf",
-      "workload": "80 horas"
+      "verificationLink": "https://www.iped.com.br/publicidade-marketing/curso/atendimento-cliente",
+      "link": "/certificados/Atendimento_ao_cliente_IPED.pdf",
+      "workload": "80 horas",
+      "modules": [
+        "Introdução ao Curso de Atendimento ao Cliente",
+        "Conhecendo seu Cliente",
+        "Entendendo a Necessidade do seu Cliente",
+        "Abordagem e Métodos de Atendimento",
+        "Valorização das Boas Práticas",
+        "Omnicanal",
+        "O Cliente e as Mídias Sociais",
+        "Como Fidelizar seus Clientes",
+        "Atender é ir além das Expectativas",
+        "Transparência e seu Cliente andam Juntos",
+        "E quando tudo dá errado?",
+        "O Cliente quer Comprar um Sonho"
+      ]
     },
     {
       "id": "19",
@@ -315,13 +331,14 @@
     {
       "id": "20",
       "title": "Boas Práticas de Manipulação de Alimentos",
-      "platform": "CATe",
+      "platform": "CATe Prefeitura de São Paulo",
       "date": "2022",
-      "summary": "Normas de higiene e segurança alimentar para processos de produção e manipulação.",
-      "description": "Normas de higiene e segurança alimentar para processos de produção e manipulação.",
-      "icon": "iped",
-      "link": "/certificados/ID_20_Boas_Praticas_Alimentos_IPED.pdf",
-      "workload": "8 horas"
+      "workload": "8 horas",
+      "summary": "Curso oficial com certificado válido em todo território nacional sobre normas de higiene e segurança alimentar.",
+      "description": "Curso oficial e certificado pelo órgão municipal de vigilância em saúde (SEI nº 6064.2018/0002216-1). Aborda todas as práticas obrigatórias por lei para manipulação segura de alimentos, prevenção de contaminações, garantia de qualidade e segurança para o consumidor. Válido para estabelecimentos de varejo, comércio de rua, feiras, açougues, padarias e todos os profissionais que trabalham com alimentos.",
+      "verificationLink": "https://cate.prefeitura.sp.gov.br/cursos/gastronomia/boas-praticas-de-manipulacao-de-alimentos/",
+      "link": "/certificados/Boas_Praticas_de_Manipulacao_de_Alimentos.pdf",
+      "icon": "cate"
     },
     {
       "id": "21",
@@ -449,7 +466,7 @@
         "Como proteger as redes contra ataques comuns",
         "Estratégias para mitigar riscos de segurança"
       ],
-      "verificationLink": "https://www.coursera.org/account/accomplishments/verify/93NRYWTPM33B",
+      "verificationLink": "https://www.coursera.org/learn/seguranca-de-it",
       "link": "/certificados/ID_26_Seguranca_Artes_Trevas.pdf",
       "isProfessionalCertificate": false,
       "icon": "google"
@@ -457,7 +474,7 @@
     {
       "id": "27",
       "title": "IBM: Fundamentos de Suporte Técnico",
-      "platform": "IBM",
+      "platform": "IBM (via Coursera)",
       "date": "2023",
       "duration": "Aproximadamente 1 mês",
       "workload": "Cerca de 20 horas",
@@ -470,7 +487,7 @@
         "Noções básicas de redes e internet",
         "Habilidades de atendimento ao cliente e comunicação"
       ],
-      "verificationLink": "https://www.credly.com/badges/c7c2c0e8-0797-4d7a-8f1d-a0b87514936d",
+      "verificationLink": "https://www.credly.com/badges/9e4ffc1d-e220-4723-84d2-41249ffad4b5/print",
       "link": "/certificados/ID_27_IBM_TechSupport_Basics.pdf",
       "isProfessionalCertificate": false,
       "icon": "ibm"
@@ -715,7 +732,8 @@
       "summary": "Essential concepts of computer architecture, hardware and operating logic.",
       "description": "Essential concepts of computer architecture, hardware and operating logic.",
       "link": "/certificados/ID_11_Fundamentos_TI_Bradesco.pdf",
-      "workload": "7 hours"
+      "workload": "7 hours",
+      "icon": "bradesco"
     },
     {
       "id": "12",
@@ -727,7 +745,8 @@
       "description": "Focused on physical database creation, using query and structuring languages.",
       "verificationLink": "https://www.ev.org.br/validar-certificate",
       "link": "/certificados/ID_12_Implementando_BD_Bradesco.pdf",
-      "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923"
+      "authCode": "AD76C8BE-50C2-46A8-84B1-81078939B923",
+      "icon": "bradesco"
     },
     {
       "id": "13",
@@ -737,7 +756,8 @@
       "summary": "Data security principles, security policies and perimeter defense.",
       "description": "Data security principles, security policies and perimeter defense.",
       "link": "/certificados/ID_13_Seguranca_TI_Bradesco.pdf",
-      "workload": "12 hours"
+      "workload": "12 hours",
+      "icon": "bradesco"
     },
     {
       "id": "14",
@@ -779,9 +799,7 @@
         "Chapter 2: Marketing and Sales Psychology, transparency and prospection",
         "Chapter 3: Strategy and Retention, pricing and value"
       ],
-      "verificationLink": "https://www.iped.com.br/certificado?numero=1173384",
-      "link": "/certificados/ID_17_Satisfacao_Clientes_IPED.pdf",
-      "authCode": "1173384",
+      "link": "/certificados/Satistação_de_clientes_IPED.pdf",
       "isProfessionalCertificate": false,
       "icon": "iped"
     },
@@ -949,7 +967,7 @@
     {
       "id": "27",
       "title": "IBM: Technical Support Basics",
-      "platform": "IBM",
+      "platform": "IBM (via Coursera)",
       "date": "2023",
       "duration": "Approximately 1 month",
       "workload": "About 20 hours",

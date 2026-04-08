@@ -956,6 +956,7 @@
     "coursesAvailable_plural": "{{count}} courses available",
     "totalCoursesLabel": "Total courses",
     "professionalCertificates": "Professional Certificates",
+    "withHonors": "⭐ WITH HONORS",
     "platforms": "Platforms",
     "differentYears": "Different years",
     "noCoursesFound": "No courses found",
@@ -1045,7 +1046,6 @@
     "watchMode": "Watch Mode",
     "normalMode": "Normal Mode"
   },
-
   "experienceCard": {
     "viewMore": "View more",
     "viewLess": "View less",

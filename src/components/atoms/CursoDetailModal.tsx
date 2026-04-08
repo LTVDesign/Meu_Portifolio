@@ -70,6 +70,24 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
                       {t('cursoDetailModal.professionalCertificate')}
                     </span>
                   )}
+
+                  {curso.withHonors && (
+                    <m.span
+                      animate={{
+                        scale: [1, 1.2, 1],
+                        opacity: [0.8, 1, 0.8],
+                      }}
+                      transition={{
+                        duration: 2.2,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                      className='text-xs text-amber-300 font-black flex items-center gap-1.5 drop-shadow-lg'
+                      style={{ textShadow: '0 0 12px rgba(251, 191, 36, 0.8)' }}
+                    >
+                      ⭐ WITH HONORS
+                    </m.span>
+                  )}
                 </div>
               </div>
             </div>

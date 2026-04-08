@@ -121,6 +121,7 @@ export interface Curso {
   modules?: string[];
   verificationLink?: string;
   isProfessionalCertificate?: boolean;
+  withHonors?: boolean;
   link?: string;
   authCode?: string;
 }
