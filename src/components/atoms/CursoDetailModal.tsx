@@ -137,14 +137,22 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
           </div>
 
           {/* Footer */}
-          <div className='p-4 sm:p-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-3'>
+          <div className='p-4 sm:p-6 border-t border-white/10 flex flex-wrap items-center justify-center gap-3'>
             <a
-              href={curso.link}
+              href={curso.verificationLink}
               target='_blank'
               rel='noopener noreferrer'
               className='px-4 sm:px-6 py-2.5 bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)] text-white font-bold text-xs uppercase tracking-widest rounded-lg hover:scale-105 transition-transform shadow-[0_0_20px_rgba(145,94,255,0.4)] min-h-[44px] flex items-center'
             >
               {t('cursoDetailModal.accessCourse')}
+            </a>
+            <a
+              href={curso.link}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='px-4 sm:px-6 py-2.5 bg-white/10 border border-[var(--cyber-cyan)]/50 text-[var(--cyber-cyan)] font-bold text-xs uppercase tracking-widest rounded-lg hover:scale-105 hover:bg-[var(--cyber-cyan)]/10 transition-all min-h-[44px] flex items-center gap-2'
+            >
+              📄 Ver Certificado
             </a>
             <button
               onClick={onClose}
