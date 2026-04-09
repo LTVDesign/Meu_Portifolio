@@ -16,7 +16,6 @@
     "optimize:textures": "node scripts/optimize-textures.js"
   },
   "dependencies": {
-    "@exodus/bytes": "^1.15.0",
     "@react-three/drei": "^9.112.0",
     "@react-three/fiber": "^8.17.8",
     "@tailwindcss/vite": "^4.2.2",

@@ -1,53 +1,67 @@
 import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
-import en from './translations/en.json';
-import pt from './translations/pt.json';
 
-const resources = {
-  pt: { translation: pt },
-  en: { translation: en },
+// Otimização: Traduções carregadas dinamicamente para reduzir o bundle inicial em ~100KB
+// i18next suporta backends assíncronos para carregar recursos sob demanda
+const loadResources = async (language: string) => {
+  try {
+    const resources = await import(`./translations/${language}.json`);
+    return resources.default;
+  } catch (error) {
+    console.error(`[i18n] Erro ao carregar traduções para ${language}:`, error);
+    // Fallback para pt caso falhe
+    if (language !== 'pt') {
+      const ptResources = await import('./translations/pt.json');
+      return ptResources.default;
+    }
+    return {};
+  }
 };
 
-(i18next as any)
+const i18nInitiator = (i18next as any)
   .use(LanguageDetector)
-  .use(initReactI18next)
-  .init(
-    {
-      resources,
-      fallbackLng: 'pt',
-      lng: 'pt',
-      detection: {
-        order: ['localStorage', 'navigator', 'htmlTag'],
-        caches: ['localStorage'],
-      },
-      interpolation: {
-        escapeValue: false,
-      },
-    },
-    (err: any) => {
-      if (err) {
-        console.error('[i18n] Erro ao inicializar i18n:', err);
-      } else {
-        console.log(
-          '[i18n] i18n inicializado com sucesso, língua:',
-          (i18next as any).language
-        );
-        console.log('[i18n] Traduções disponíveis:', Object.keys(resources));
+  .use(initReactI18next);
 
-        // Testar se as traduções principais estão carregadas
-        setTimeout(() => {
-          try {
-            const testPt = (i18next as any).t('about.p');
-            const testEn = (i18next as any).t('about.p', { lng: 'en' });
-            console.log('[i18n] Teste de tradução PT:', testPt?.substring(0, 50));
-            console.log('[i18n] Teste de tradução EN:', testEn?.substring(0, 50));
-          } catch (e) {
-            console.error('[i18n] Erro ao testar traduções:', e);
-          }
-        }, 100);
-      }
+// Inicialização com as configurações básicas
+i18nInitiator.init(
+  {
+    fallbackLng: 'pt',
+    lng: 'pt', // Definimos pt como inicial e carregamos abaixo
+    detection: {
+      order: ['localStorage', 'navigator', 'htmlTag'],
+      caches: ['localStorage'],
+    },
+    interpolation: {
+      escapeValue: false,
+    },
+    // Suspense é crucial para carregar as traduções dinamicamente sem erro
+    react: {
+      useSuspense: true,
+    },
+  },
+  async (err: any) => {
+    if (err) {
+      console.error('[i18n] Erro ao inicializar i18n:', err);
+      return;
     }
-  );
+
+    // Carregar a língua detectada/inicial
+    const currentLanguage = (i18next as any).language || 'pt';
+    const resources = await loadResources(currentLanguage);
+    (i18next as any).addResourceBundle(currentLanguage, 'translation', resources, true, true);
+
+    console.log(`[i18n] i18n inicializado com sucesso, língua carregada: ${currentLanguage}`);
+  }
+);
+
+// Listener para carregar novas línguas quando o usuário mudar
+(i18next as any).on('languageChanged', async (lng: string) => {
+  if (!(i18next as any).hasResourceBundle(lng, 'translation')) {
+    const resources = await loadResources(lng);
+    (i18next as any).addResourceBundle(lng, 'translation', resources, true, true);
+    console.log(`[i18n] Novas traduções carregadas para: ${lng}`);
+  }
+});
 
 export default i18next;
