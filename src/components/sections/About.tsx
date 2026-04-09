@@ -11,7 +11,7 @@ const About = () => {
 
   return (
     <div className='w-full mx-auto px-[clamp(1rem,5vw,2rem)]'>
-      <div className='flex flex-wrap lg:flex-nowrap gap-[clamp(1.5rem,4vw,3rem)] items-start justify-center'>
+      <div className='flex flex-nowrap gap-[clamp(1.5rem,4vw,3rem)] items-start justify-center'>
         {/* Box de texto informativo grande */}
         <m.div
           initial={{ opacity: 0, y: 30 }}

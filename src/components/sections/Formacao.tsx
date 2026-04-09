@@ -420,7 +420,7 @@ const Formacao = () => {
   }, [selectedFormation]);
 
   return (
-    <div className='max-w-7xl mx-auto px-4 sm:px-6 relative'>
+    <div className='max-w-7xl mx-auto px-[clamp(1rem,4vw,1.5rem)] relative'>
 
       <Header useMotion={true} p={t('formacao.p')} h2={t('formacao.h2')} />
 
@@ -466,13 +466,13 @@ const Formacao = () => {
         </div>
       </m.div>
 
-      <div className='mt-8 sm:mt-16 grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-8'>
+      <div className='mt-[clamp(2rem,5vw,4rem)] grid grid-cols-[repeat(auto-fit,minmax(clamp(16rem,40vw,28rem),1fr))] gap-[clamp(1.25rem,3vw,2rem)]'>
         {formacoes.map((item, index) => (
           <m.div
             key={item.title}
             variants={prefersReduced ? {} : fadeIn('up', 'spring', index * 0.1, 0.75)}
             onClick={() => openModal(item)}
-            className='glass-card group relative overflow-hidden p-5 sm:p-8 md:p-10 flex flex-col h-full neon-hover border border-white/10 cursor-pointer'
+            className='glass-card group relative overflow-hidden p-[clamp(1.25rem,4vw,2.5rem)] flex flex-col h-full neon-hover border border-white/10 cursor-pointer'
           >
             <div
               className={`absolute top-4 right-4 px-5 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-full text-white shadow-[0_0_15px_rgba(145,94,255,0.5)] border border-white/30 z-20 backdrop-blur-sm ${item.status === t('status.concluido')
@@ -483,17 +483,17 @@ const Formacao = () => {
               {item.status}
             </div>
 
-            <div className='flex flex-col sm:flex-row items-start gap-4 sm:gap-8 pt-4 sm:pt-6'>
-              <div className='w-20 h-20 sm:w-28 sm:h-28 flex-shrink-0 rounded-2xl overflow-hidden bg-black/50 p-3 sm:p-4 flex items-center justify-center shadow-inner relative z-10'>
+            <div className='flex items-start gap-[clamp(1rem,3vw,2rem)] pt-[clamp(1rem,3vw,1.5rem)]'>
+              <div className='w-[clamp(5rem,10vw,7rem)] h-[clamp(5rem,10vw,7rem)] flex-shrink-0 rounded-2xl overflow-hidden bg-black/50 p-[clamp(0.75rem,2vw,1rem)] flex items-center justify-center shadow-inner relative z-10'>
                 <img
                   src={facul}
                   alt={item.institution}
-                  className='w-14 h-14 sm:w-20 sm:h-20 object-contain transition-transform duration-500 ease-out group-hover:scale-110'
+                  className='w-[clamp(3.5rem,8vw,5rem)] h-[clamp(3.5rem,8vw,5rem)] object-contain transition-transform duration-500 ease-out group-hover:scale-110'
                 />
               </div>
 
               <div className='flex-1 relative z-10'>
-                <h3 className='text-xl md:text-2xl font-black text-white group-hover:text-[var(--cyber-cyan)] transition-colors tracking-tight'>
+                <h3 className='text-[clamp(1.25rem,3vw,1.5rem)] font-black text-white group-hover:text-[var(--cyber-cyan)] transition-colors tracking-tight'>
                   {item.title}
                 </h3>
                 <p className='text-[var(--cyber-purple)] font-bold uppercase tracking-widest mt-2 text-sm'>
@@ -503,21 +503,21 @@ const Formacao = () => {
                   {t('education.period')}: {item.period}
                 </div>
 
-                <p className='mt-4 text-white/80 leading-relaxed text-sm md:text-base opacity-80 group-hover:opacity-100 transition-opacity line-clamp-4' style={{ textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}>
+                <p className='mt-4 text-white/80 leading-relaxed text-[clamp(0.75rem,1.5vw,1rem)] opacity-80 group-hover:opacity-100 transition-opacity line-clamp-4' style={{ textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}>
                   {item.description}
                 </p>
                 {/* Ajuste de layout para cards de formação */}
               </div>
             </div>
 
-            <div className='mt-auto pt-6 sm:pt-10 flex justify-center'>
+            <div className='mt-auto pt-[clamp(1.5rem,3vw,2.5rem)] flex justify-center'>
               <m.button
                 whileHover={{
                   scale: 1.05,
                   y: -3,
                 }}
                 whileTap={{ scale: 0.95 }}
-                className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
+                className='relative px-[clamp(1.25rem,3vw,2rem)] py-[clamp(0.75rem,2vw,1rem)] text-[clamp(0.625rem,1.5vw,0.75rem)] font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)] shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
               >
                 <m.div
                   className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'
@@ -614,7 +614,7 @@ const Formacao = () => {
                     {t('education.semesterHistory')}
                   </h4>
                   <div className='overflow-x-auto -mx-1 px-1 scrollbar-thin' style={{ WebkitOverflowScrolling: 'touch' }}>
-                    <p className='text-[8px] text-white/30 mb-1 sm:hidden text-right'>← {t('education.scrollToSee', 'deslize para ver')} →</p>
+                    <p className='text-[8px] text-white/30 mb-1 text-right'>← {t('education.scrollToSee', 'deslize para ver')} →</p>
                     <table className='w-full text-[10px] min-w-[400px]'>
                       <thead>
                         <tr className='border-b border-white/10'>

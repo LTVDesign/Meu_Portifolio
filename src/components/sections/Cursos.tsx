@@ -40,16 +40,16 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
   const displayedCursos = isHomePage ? allCursos.slice(0, 6) : allCursos;
 
   return (
-    <div className='max-w-7xl mx-auto px-4 sm:px-6 font-primary'>
+    <div className='max-w-7xl mx-auto px-[clamp(1rem,4vw,1.5rem)] font-primary'>
       {/* Box de texto informativo com animação */}
       <m.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className='mb-8 sm:mb-16'
+        className='mb-[clamp(2rem,5vw,4rem)]'
       >
-        <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-6 sm:p-8 md:p-12 shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
+        <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-[clamp(1.5rem,5vw,3rem)] shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
           {/* Efeito de brilho animado no fundo */}
           <div className='absolute inset-0 opacity-30'>
             <m.div
@@ -128,7 +128,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.7 }}
-              className='flex flex-wrap justify-center gap-2 sm:gap-3 mt-4'
+              className='flex flex-wrap justify-center gap-[clamp(0.5rem,1.5vw,0.75rem)] mt-4'
             >
               {(() => {
                 const badges = t('courses.badges', { returnObjects: true });
@@ -137,7 +137,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
                   <m.span
                     key={idx}
                     whileHover={{ scale: 1.05, y: -2 }}
-                    className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
+                    className={`px-[clamp(0.75rem,2vw,1rem)] py-[clamp(0.375rem,1vw,0.5rem)] rounded-full text-[clamp(0.625rem,1.5vw,0.75rem)] font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
                   >
                     {badge.text}
                   </m.span>
@@ -152,15 +152,15 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
         </div>
       </m.div>
 
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8 md:gap-10'>
+      <div className='grid grid-cols-[repeat(auto-fit,minmax(clamp(14rem,28vw,20rem),1fr))] gap-[clamp(1.25rem,4vw,2.5rem)]'>
         {displayedCursos.map((curso, index) => (
           <m.div
             key={curso.id}
             variants={fadeIn('up', 'spring', index * 0.1, 0.75)}
-            className='glass-card p-5 sm:p-8 md:p-10 group neon-hover flex flex-col h-full border border-white/10'
+            className='glass-card p-[clamp(1.25rem,4vw,2.5rem)] group neon-hover flex flex-col h-full border border-white/10'
           >
-            <div className='flex items-center gap-4 sm:gap-6 mb-5 sm:mb-8'>
-              <div className='w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/5 transition-transform group-hover:scale-110 overflow-hidden p-2 sm:p-3'>
+            <div className='flex items-center gap-[clamp(1rem,3vw,1.5rem)] mb-[clamp(1.25rem,3vw,2rem)]'>
+              <div className='w-[clamp(4rem,8vw,5rem)] h-[clamp(4rem,8vw,5rem)] rounded-2xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/5 transition-transform group-hover:scale-110 overflow-hidden p-[clamp(0.5rem,1.5vw,0.75rem)]'>
                 <img
                   src={curso.icon}
                   alt={curso.platform}
@@ -169,7 +169,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
                 />
               </div>
               <div className='flex-1'>
-                <h3 className='text-base sm:text-xl font-black text-white group-hover:text-[var(--cyber-cyan)] transition-colors leading-tight'>
+                <h3 className='text-[clamp(1rem,2.5vw,1.25rem)] font-black text-white group-hover:text-[var(--cyber-cyan)] transition-colors leading-tight'>
                   {curso.title}
                 </h3>
                 <p className='text-xs text-[var(--cyber-purple)] font-black uppercase tracking-widest mt-2'>
@@ -193,7 +193,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
               {curso.summary}
             </p>
 
-            <div className='mt-6 sm:mt-10 pt-5 sm:pt-8 border-t border-white/5 flex items-center justify-center'>
+            <div className='mt-[clamp(1.5rem,3vw,2.5rem)] pt-[clamp(1.25rem,3vw,2rem)] border-t border-white/5 flex items-center justify-center'>
               <m.button
                 onClick={() => {
                   setSelectedCurso(curso);
@@ -204,7 +204,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
                   y: -3,
                 }}
                 whileTap={{ scale: 0.95 }}
-                className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
+                className='relative px-[clamp(1.25rem,3vw,2rem)] py-[clamp(0.75rem,2vw,1rem)] text-[clamp(0.625rem,1.5vw,0.75rem)] font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)] shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
               >
                 <m.div
                   className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'
@@ -227,7 +227,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
         ))}
       </div>
 
-      <div className='mt-10 sm:mt-20 flex justify-center'>
+      <div className='mt-[clamp(2.5rem,5vw,5rem)] flex justify-center'>
         <m.button
           onClick={() => window.open('/cursos', '_blank')}
           whileHover={{
@@ -235,7 +235,7 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
             y: -3,
           }}
           whileTap={{ scale: 0.95 }}
-          className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
+          className='relative px-[clamp(1.25rem,3vw,2rem)] py-[clamp(0.75rem,2vw,1rem)] text-[clamp(0.625rem,1.5vw,0.75rem)] font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)] shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
         >
           <m.div
             className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'

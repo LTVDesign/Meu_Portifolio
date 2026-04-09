@@ -29,7 +29,7 @@ const Tech = () => {
   });
 
   return (
-    <div className='max-w-7xl mx-auto px-4 sm:px-6'>
+    <div className='max-w-7xl mx-auto px-[clamp(1rem,4vw,1.5rem)]'>
       {/* Box de texto informativo com animação */}
       <m.div
         initial={{ opacity: 0, y: 30 }}
@@ -105,7 +105,7 @@ const Tech = () => {
       </m.div>
 
       {/* Grid de tecnologias com escadinhas */}
-      <div className='space-y-10 sm:space-y-16'>
+      <div className='space-y-[clamp(2.5rem,5vw,4rem)]'>
         {Object.entries(technologiesByCategory).map(([category, techs]) => (
           <div key={category}>
             {/* Título da categoria */}
@@ -180,8 +180,8 @@ const Tech = () => {
       </div>
 
       {/* Informação adicional */}
-      <div className='mt-10 sm:mt-16 text-center'>
-        <p className='text-white/80 text-sm' style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}>
+      <div className='mt-[clamp(2.5rem,5vw,4rem)] text-center'>
+        <p className='text-white/80 text-[clamp(0.75rem,1.5vw,0.875rem)]' style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}>
           {t('tech.clickInfo')}
         </p>
       </div>

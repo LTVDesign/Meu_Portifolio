@@ -13,7 +13,7 @@ const ExperiencePage = () => {
       <AllWorks />
       
       <Suspense fallback={
-        <div className="h-[600px] md:h-screen flex items-center justify-center bg-zinc-950">
+        <div className="h-screen flex items-center justify-center bg-zinc-950">
           <p className="text-zinc-400">Carregando experiência 3D...</p>
         </div>
       }>

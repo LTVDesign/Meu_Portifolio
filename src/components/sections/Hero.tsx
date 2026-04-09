@@ -92,7 +92,7 @@ const Hero = () => {
         whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
         transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: 'easeOut' }}
         viewport={prefersReduced ? {} : { once: true, amount: 0.25 }}
-        className='relative min-h-[70vh] lg:min-h-screen flex items-start justify-center pt-[clamp(7rem,12vh,9rem)] overflow-hidden'
+        className='relative min-h-screen flex items-start justify-center pt-[clamp(7rem,12vh,9rem)] overflow-hidden'
         style={{ touchAction: 'pan-y' }}
       >
         <Helmet>
@@ -167,8 +167,8 @@ const Hero = () => {
             <Suspense fallback={
               <div className={`${isMobileOrTablet ? 'h-[20vh]' : 'h-screen'} w-full shimmer-loading flex items-center justify-center`}>
                 <div className="flex flex-col items-center gap-3">
-                  <div className="w-6 h-6 sm:w-10 sm:h-10 border-2 border-[var(--cyber-purple)]/30 border-t-[var(--cyber-cyan)] rounded-full animate-spin" />
-                  <span className="text-[9px] sm:text-xs text-white/30 uppercase tracking-[0.3em] font-medium">{t('common.loading3d')}</span>
+                <div className="w-[clamp(1.5rem,4vw,2.5rem)] h-[clamp(1.5rem,4vw,2.5rem)] border-2 border-[var(--cyber-purple)]/30 border-t-[var(--cyber-cyan)] rounded-full animate-spin" />
+                <span className="text-[clamp(0.5rem,1vw,0.75rem)] text-white/30 uppercase tracking-[0.3em] font-medium">{t('common.loading3d')}</span>
                 </div>
               </div>
             }>
@@ -177,8 +177,8 @@ const Hero = () => {
           ) : (
             <div className={`${isMobileOrTablet ? 'h-[5vh]' : 'h-screen'} w-full shimmer-loading flex items-center justify-center pointer-events-none`}>
               <div className="flex flex-col items-center gap-3">
-                <div className="w-6 h-6 sm:w-10 sm:h-10 border-2 border-[var(--cyber-purple)]/30 border-t-[var(--cyber-cyan)] rounded-full animate-spin" />
-                <span className="text-[9px] sm:text-xs text-white/30 uppercase tracking-[0.3em] font-medium min-w-[200px] text-center">
+                <div className="w-[clamp(1.5rem,4vw,2.5rem)] h-[clamp(1.5rem,4vw,2.5rem)] border-2 border-[var(--cyber-purple)]/30 border-t-[var(--cyber-cyan)] rounded-full animate-spin" />
+                <span className="text-[clamp(0.5rem,1vw,0.75rem)] text-white/30 uppercase tracking-[0.3em] font-medium min-w-[200px] text-center">
                   {t('common.loading3d', 'Iniciando ambiente 3D...')}
                 </span>
               </div>
@@ -219,7 +219,7 @@ const Hero = () => {
               </div>
 
               {/* Decorative lines */}
-              <div className="flex items-center gap-2 mt-2 hidden sm:flex">
+              <div className="flex items-center gap-2 mt-2">
                 <div className="h-[1px] bg-gradient-to-r from-transparent to-[var(--cyber-cyan)] w-4" />
                 <div className="w-1 h-1 rounded-full bg-[var(--cyber-purple)] opacity-60" />
                 <div className="h-[1px] bg-gradient-to-l from-transparent to-[var(--cyber-purple)] w-4" />

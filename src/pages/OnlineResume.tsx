@@ -17,7 +17,7 @@ const OnlineResume = () => {
   const handlePrint = useCallback(() => window.print(), []);
 
   return (
-    <div className='min-h-screen bg-[#050816] text-white pt-32 pb-12 px-4 sm:px-6 lg:px-8'>
+    <div className='min-h-screen bg-[#050816] text-white pt-[clamp(6rem,12vw,8rem)] pb-[clamp(2rem,6vw,4rem)] px-[clamp(1rem,4vw,2rem)]'>
       <Helmet>
         <title>{t('common.name')} | {t('allCurriculo.title')}</title>
         <meta name="description" content={t('hero.descriptionMeta')} />
@@ -40,31 +40,31 @@ const OnlineResume = () => {
       </div>
 
       {/* Header com gradiente - SOMENTE TELA */}
-      <div className='max-w-4xl mx-auto mb-0 p-8 rounded-t-2xl bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 print:hidden'>
+      <div className='max-w-4xl mx-auto mb-0 p-[clamp(1.5rem,4vw,2rem)] rounded-t-2xl bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 print:hidden'>
         <div className='flex justify-between items-center'>
           <div>
-            <h1 className='text-5xl font-bold mb-3 text-black'>Leandro Barbosa</h1>
-            <p className='text-2xl font-medium mb-2 text-black'>Engenheiro de Software • Tecnólogo em ADS • Pós-Graduando em IA & Data Science</p>
+            <h1 className='text-[clamp(2rem,6vw,3rem)] font-bold mb-3 text-black'>Leandro Barbosa</h1>
+            <p className='text-[clamp(1rem,3vw,1.5rem)] font-medium mb-2 text-black'>Engenheiro de Software • Tecnólogo em ADS • Pós-Graduando em IA & Data Science</p>
           </div>
           <div className='flex flex-col gap-3 text-right text-black'>
-            <div className='flex items-center gap-3'>
-              <span className='bg-white/20 p-2 rounded-full'>📱</span>
-              <span className='text-lg'>+55 11 98483-8629</span>
+            <div className='flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)]'>
+              <span className='bg-white/20 p-[clamp(0.4rem,1vw,0.5rem)] rounded-full text-[clamp(1rem,2vw,1.25rem)]'>📱</span>
+              <span className='text-[clamp(0.875rem,2vw,1rem)]'>+55 11 98483-8629</span>
             </div>
-            <div className='flex items-center gap-3'>
-              <span className='bg-white/20 p-2 rounded-full'>💼</span>
-              <a href='https://linkedin.com/in/lelebrr' target='_blank' rel='noopener noreferrer' className='text-lg hover:underline'>linkedin.com/in/lelebrr</a>
+            <div className='flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)]'>
+              <span className='bg-white/20 p-[clamp(0.4rem,1vw,0.5rem)] rounded-full text-[clamp(1rem,2vw,1.25rem)]'>💼</span>
+              <a href='https://linkedin.com/in/lelebrr' target='_blank' rel='noopener noreferrer' className='text-[clamp(0.875rem,2vw,1rem)] hover:underline'>linkedin.com/in/lelebrr</a>
             </div>
-            <div className='flex items-center gap-3'>
-              <span className='bg-white/20 p-2 rounded-full'>📧</span>
-              <a href='mailto:lelebrr@gmail.com' className='text-lg hover:underline'>lelebrr@gmail.com</a>
+            <div className='flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)]'>
+              <span className='bg-white/20 p-[clamp(0.4rem,1vw,0.5rem)] rounded-full text-[clamp(1rem,2vw,1.25rem)]'>📧</span>
+              <a href='mailto:lelebrr@gmail.com' className='text-[clamp(0.875rem,2vw,1rem)] hover:underline'>lelebrr@gmail.com</a>
             </div>
           </div>
         </div>
       </div>
 
       {/* Versão principal - otimizada para impressão (máx 2 páginas) */}
-      <div className='max-w-4xl mx-auto bg-white text-black print:p-0 print:m-0 p-6'>
+      <div className='max-w-4xl mx-auto bg-white text-black print:p-0 print:m-0 p-[clamp(1rem,4vw,1.5rem)]'>
         {/* Cabeçalho com QR Code - SOMENTE IMPRESSÃO */}
         <div className='flex justify-between items-start mb-6 print:flex'>
           <div>

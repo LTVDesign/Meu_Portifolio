@@ -75,7 +75,7 @@ const BackgroundEditorModal = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className='fixed inset-0 z-[2147483647] flex items-center justify-center bg-black/60 backdrop-blur-md p-2 sm:p-4'
+          className='fixed inset-0 z-[2147483647] flex items-center justify-center bg-black/60 backdrop-blur-md p-[clamp(0.5rem,2vw,1rem)]'
           onClick={onClose}
         >
           <m.div
@@ -83,11 +83,11 @@ const BackgroundEditorModal = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 30 }}
             transition={{ type: 'spring', damping: 30, stiffness: 400 }}
-            className='bg-gradient-to-br from-[#0a0820]/95 to-[#1a1433]/95 backdrop-blur-2xl border border-[#915EFF]/50 rounded-2xl sm:rounded-3xl w-full max-w-lg max-h-[92vh] sm:max-h-[85vh] overflow-hidden shadow-2xl floating-effect'
+            className='bg-gradient-to-br from-[#0a0820]/95 to-[#1a1433]/95 backdrop-blur-2xl border border-[#915EFF]/50 rounded-[clamp(1rem,3vw,1.5rem)] w-[clamp(20rem,90vw,36rem)] max-h-[92vh] overflow-hidden shadow-2xl floating-effect'
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header com botão de fechar */}
-            <div className='relative px-4 sm:px-6 py-3 sm:py-5 border-b border-white/10 bg-gradient-to-r from-[#1a1433]/80 to-[#0a0820]/80'>
+            <div className='relative px-[clamp(1rem,3vw,2rem)] py-[clamp(0.75rem,2vw,1.25rem)] border-b border-white/10 bg-gradient-to-r from-[#1a1433]/80 to-[#0a0820]/80'>
               <m.button
                 onClick={onClose}
                 whileHover={{ scale: 1.1, rotate: 90 }}
@@ -123,7 +123,7 @@ const BackgroundEditorModal = ({
             </div>
 
             {/* Corpo do editor */}
-            <div className='p-6 overflow-y-auto max-h-[calc(85vh-140px)] custom-scrollbar'>
+            <div className='p-[clamp(1rem,4vw,2rem)] overflow-y-auto max-h-[calc(85vh-140px)] custom-scrollbar'>
               {renderEditor()}
             </div>
 

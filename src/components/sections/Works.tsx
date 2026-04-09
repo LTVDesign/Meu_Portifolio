@@ -70,7 +70,7 @@ const Works = () => {
             >
               <div className='h-[1px] bg-gradient-to-r from-transparent via-[var(--cyber-cyan)] to-transparent relative'>
                 <m.div
-                  className='absolute top-1/2 -translate-y-1/2 w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-[var(--cyber-cyan)] blur-sm'
+                  className='absolute top-1/2 -translate-y-1/2 w-[clamp(0.75rem,1.5vw,1rem)] h-[clamp(0.75rem,1.5vw,1rem)] rounded-full bg-[var(--cyber-cyan)] blur-sm'
                   style={{ left: '50%' }}
                   animate={{
                     left: ['50%', '0%', '50%'],
@@ -84,7 +84,7 @@ const Works = () => {
                   }}
                 />
                 <m.div
-                  className='absolute top-1/2 -translate-y-1/2 w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-[var(--cyber-purple)] blur-sm'
+                  className='absolute top-1/2 -translate-y-1/2 w-[clamp(0.75rem,1.5vw,1rem)] h-[clamp(0.75rem,1.5vw,1rem)] rounded-full bg-[var(--cyber-purple)] blur-sm'
                   style={{ right: '50%' }}
                   animate={{
                     right: ['50%', '0%', '50%'],

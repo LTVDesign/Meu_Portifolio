@@ -22,9 +22,9 @@ const ProjectCard: React.FC<{ index: number } & Pick<TProject, 'tags' | 'image' 
   return (
     <m.div
       variants={prefersReduced ? {} : fadeIn('up', 'spring', index * 0.5, 0.75)}
-      className='glass-card p-5 sm:w-[300px]'
+      className='glass-card p-[var(--fluid-space-s)] w-full'
     >
-      <div className='relative h-[230px] w-full'>
+      <div className='relative h-[clamp(150px,25vw,230px)] w-full'>
         <img
           src={image}
           alt={t(`projects.list.${index}.name`)}
@@ -112,7 +112,7 @@ const AllWorks = () => {
         </button>
       </div>
 
-      <div className='mt-[var(--fluid-space-2xl)] flex flex-wrap gap-[var(--fluid-space-l)]'>
+      <div className='mt-[var(--fluid-space-2xl)] grid grid-cols-[repeat(auto-fit,minmax(clamp(15rem,25vw,20rem),1fr))] gap-[var(--fluid-space-l)]'>
         {visibleProjects.map((project, index) => (
           <ProjectCard
             key={`project-${index}`}

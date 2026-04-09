@@ -23,7 +23,7 @@ const AllCurriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void })
         {t('curriculo.content')}
       </m.p>
 
-      <div className='mt-[var(--fluid-space-xl)] flex flex-wrap gap-[var(--fluid-space-l)] justify-center'>
+      <div className='mt-[var(--fluid-space-xl)] flex flex-row flex-nowrap gap-[var(--fluid-space-l)] justify-center'>
         <button
           type='button'
           onClick={() => setViewMode?.('default')}

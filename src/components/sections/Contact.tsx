@@ -183,7 +183,7 @@ const Contact = () => {
 
   return (
     <div className='py-[clamp(3rem,8vw,6rem)]'>
-      <div className='max-w-7xl mx-auto px-4 sm:px-6'>
+      <div className='max-w-7xl mx-auto px-[clamp(1rem,4vw,1.5rem)]'>
         {/* Box de texto informativo com animação */}
         <m.div
           initial={{ opacity: 0, y: 30 }}
@@ -293,7 +293,7 @@ const Contact = () => {
           </div>
         </m.div>
 
-        <div className='flex flex-col xl:flex-row gap-[clamp(2rem,6vw,5rem)] items-center'>
+        <div className='flex flex-row gap-[clamp(2rem,6vw,5rem)] items-center'>
           {/* Formulário */}
           <m.div
             variants={prefersReduced ? {} : slideIn('left', 'tween', 0.2, 1)}
@@ -463,9 +463,9 @@ const Contact = () => {
             <m.div
               ref={canvasContainerRef}
               variants={slideIn('right', 'tween', 0.2, 1)}
-              className='flex flex-1 w-full xl:w-[50vw] h-[clamp(400px,60vw,700px)] items-center justify-center relative overflow-hidden'
+              className='flex flex-1 w-full h-[clamp(400px,60vw,700px)] items-center justify-center relative overflow-hidden'
             >
-              <div className='w-full h-full flex items-center justify-center translate-x-0 xl:translate-x-10'>
+              <div className='w-full h-full flex items-center justify-center'>
                 {isInView && (
                   <EarthCanvas />
                 )}

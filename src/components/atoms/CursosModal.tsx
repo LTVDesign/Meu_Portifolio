@@ -139,9 +139,9 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
         role='presentation'
       >
         {/* Header da Modal */}
-        <div className='sticky top-0 z-20 flex items-center justify-between p-4 sm:p-6 border-b border-white/10 bg-black/80 backdrop-blur-md'>
-          <div className='flex items-center gap-4'>
-            <h2 id={modalTitleId} className='text-lg sm:text-2xl font-bold text-white'>
+        <div className='sticky top-0 z-20 flex items-center justify-between p-[clamp(1rem,3vw,1.5rem)] border-b border-white/10 bg-black/80 backdrop-blur-md'>
+          <div className='flex items-center gap-[clamp(0.75rem,2vw,1rem)]'>
+            <h2 id={modalTitleId} className='text-[clamp(1.125rem,3vw,1.5rem)] font-bold text-white'>
               {t('courses.allTitle')}
             </h2>
           </div>
@@ -152,7 +152,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
               className='p-2 rounded-lg hover:bg-white/10 transition-colors'
               aria-label={t('common.close')}
             >
-              <img src={close} alt='' className='w-6 h-6' />
+              <img src={close} alt='' className='w-[clamp(1.25rem,2.5vw,1.5rem)] h-[clamp(1.25rem,2.5vw,1.5rem)]' />
             </button>
           </div>
         </div>
@@ -160,7 +160,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
         {/* Conteúdo Principal */}
         <div
           ref={modalRef}
-          className='flex-1 overflow-y-auto p-4 sm:p-6'
+          className='flex-1 overflow-y-auto p-[clamp(1rem,3vw,1.5rem)]'
           role='dialog'
           aria-modal='true'
           aria-labelledby={modalTitleId}
@@ -168,22 +168,22 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
         >
           <div className='max-w-7xl mx-auto'>
             {/* Barra de Filtros e Organização */}
-            <div className='mb-5 sm:mb-8 flex flex-col gap-3 sm:gap-4 items-center justify-between sm:flex-row'>
-              <div className='relative w-full sm:w-96'>
+            <div className='mb-[clamp(1.25rem,4vw,2rem)] flex flex-row flex-nowrap gap-[clamp(0.75rem,2vw,1rem)] items-center justify-between'>
+              <div className='relative flex-1 max-w-[clamp(15rem,40vw,24rem)]'>
                 <input
                   type='text'
                   placeholder={t('courses.filterPlaceholder')}
                   value={filter}
                   onChange={(e) => setFilter(e.target.value)}
-                  className='w-full px-4 sm:px-6 py-3 pl-10 sm:pl-12 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:border-[var(--cyber-cyan)] transition-colors min-h-[44px]'
+                  className='w-full px-[clamp(1rem,2vw,1.5rem)] py-[clamp(0.5rem,1.5vw,0.75rem)] pl-[clamp(2.5rem,5vw,3rem)] rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:border-[var(--cyber-cyan)] transition-colors min-h-[44px] text-[clamp(0.75rem,1.5vw,0.875rem)]'
                   aria-label={t('courses.filterPlaceholder')}
                 />
-                <span className='absolute left-4 top-1/2 -translate-y-1/2 text-white/50'>
+                <span className='absolute left-[clamp(0.75rem,2vw,1rem)] top-1/2 -translate-y-1/2 text-white/50 text-[clamp(0.875rem,1.5vw,1rem)]'>
                   🔍
                 </span>
               </div>
 
-              <div className='flex items-center gap-3 w-full sm:w-auto'>
+              <div className='flex items-center gap-3 w-auto'>
                 <span className='text-white/60 text-sm whitespace-nowrap'>
                   {t('courses.sortBy')}:
                 </span>
@@ -192,7 +192,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                   onChange={(e) =>
                     setSortBy(e.target.value as 'year' | 'duration' | 'company' | 'name')
                   }
-                  className='flex-1 sm:flex-none px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[var(--cyber-cyan)] transition-colors min-h-[44px]'
+                  className='flex-none px-[clamp(0.75rem,2vw,1rem)] py-[clamp(0.5rem,1.5vw,0.75rem)] rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[var(--cyber-cyan)] transition-colors min-h-[44px] text-[clamp(0.75rem,1.5vw,0.875rem)]'
                   aria-label={t('courses.sortBy')}
                 >
                   <option value='year'>{t('courses.sortYear')}</option>
@@ -204,19 +204,19 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
             </div>
 
             {/* Grid de Cursos - Todos juntos */}
-            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8'>
+            <div className='grid grid-cols-[repeat(auto-fit,minmax(clamp(14rem,28vw,20rem),1fr))] gap-[clamp(1.25rem,4vw,2.5rem)]'>
               {sortedCursos.map((curso, index) => (
                 <m.div
                   key={curso.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className='glass-card p-8 neon-hover flex flex-col group border border-white/10'
+                  className='glass-card p-[clamp(1.25rem,4vw,2rem)] neon-hover flex flex-col group border border-white/10'
                 >
                   <div className='flex-1'>
                     {/* Header com logotipo */}
-                    <div className='flex items-start gap-4 mb-4'>
-                      <div className='w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 flex items-center justify-center flex-shrink-0 shadow-lg shadow-[var(--cyber-purple)]/20 border border-white/10 overflow-hidden p-2 sm:p-2.5'>
+                    <div className='flex items-start gap-[clamp(0.75rem,2vw,1rem)] mb-[clamp(1rem,2.5vw,1.5rem)]'>
+                      <div className='w-[clamp(3rem,8vw,5rem)] h-[clamp(3rem,8vw,5rem)] rounded-xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 flex items-center justify-center flex-shrink-0 shadow-lg shadow-[var(--cyber-purple)]/20 border border-white/10 overflow-hidden p-[clamp(0.4rem,1.5vw,0.625rem)]'>
                         <img
                           src={getLogo(curso.icon, curso.platform)}
                           alt={curso.platform}
@@ -226,7 +226,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                       </div>
                       <div className='flex-1 min-w-0'>
                         <div className='flex items-start justify-between mb-2'>
-                          <h3 className='text-xl font-bold text-white group-hover:text-[var(--cyber-cyan)] transition-colors leading-tight'>
+                          <h3 className='text-[clamp(1rem,2vw,1.25rem)] font-bold text-white group-hover:text-[var(--cyber-cyan)] transition-colors leading-tight'>
                             {curso.title}
                           </h3>
                           {curso.isProfessionalCertificate && (
@@ -235,7 +235,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                             </span>
                           )}
                         </div>
-                        <p className='text-[var(--cyber-purple)] font-bold uppercase tracking-widest text-sm'>
+                        <p className='text-[var(--cyber-purple)] font-bold uppercase tracking-widest text-[clamp(0.625rem,1.5vw,0.75rem)]'>
                           {curso.platform}
                         </p>
                       </div>

@@ -54,7 +54,7 @@ const ParticlesCanvas = () => {
       />
       <button
         ref={btnRef}
-        className='fixed left-2 sm:left-4 top-1/2 -translate-y-1/2 w-14 h-14 pointer-events-none opacity-0'
+        className='fixed left-[clamp(0.5rem,1.5vw,1rem)] top-1/2 -translate-y-1/2 w-14 h-14 pointer-events-none opacity-0'
         aria-hidden='true'
       />
     </>

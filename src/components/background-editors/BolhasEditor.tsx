@@ -15,7 +15,7 @@ const INTERACTION_MODES = [
 ] as const;
 
 const BolhasEditor: React.FC<BolhasEditorProps> = ({ config, updateConfig }) => (
-  <div className='grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8 text-[11px]'>
+  <div className='grid grid-cols-[repeat(auto-fit,minmax(clamp(12rem,25vw,18rem),1fr))] gap-[clamp(1rem,3vw,2rem)] text-[clamp(0.6rem,1.5vw,0.7rem)]'>
     <div className='space-y-2.5'>
       <div>
         <h4 className='text-gray-400 text-[9px] uppercase tracking-widest mb-4 font-bold border-b border-white/5 pb-2'>

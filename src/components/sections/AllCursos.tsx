@@ -171,21 +171,21 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         className={isPage
-          ? 'relative w-full min-h-screen pt-[var(--fluid-padding-y)] sm:pt-[var(--fluid-space-xl)] flex flex-col bg-transparent'
+          ? 'relative w-full min-h-screen pt-[var(--fluid-space-xl)] flex flex-col bg-transparent'
           : 'fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md'}
         role={isPage ? 'main' : 'presentation'}
       >
         {/* Header da Modal - Botão Fechar no Topo */}
-        <div className={`sticky ${isPage ? 'top-16 sm:top-20' : 'top-0'} z-30 flex items-center justify-between p-4 sm:p-6 border-b border-white/10 bg-black/90 backdrop-blur-xl`}>
-          <div className='flex items-center gap-3 sm:gap-4'>
-            <div className='w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-[var(--cyber-purple)] to-[var(--cyber-cyan)] flex items-center justify-center'>
-              <span className='text-white text-lg sm:text-xl'>📚</span>
+        <div className={`sticky ${isPage ? 'top-[clamp(4rem,10vw,5rem)]' : 'top-0'} z-30 flex items-center justify-between p-[clamp(1rem,3vw,1.5rem)] border-b border-white/10 bg-black/90 backdrop-blur-xl`}>
+          <div className='flex items-center gap-[clamp(0.75rem,2vw,1rem)]'>
+            <div className='w-[clamp(2.5rem,5vw,3rem)] h-[clamp(2.5rem,5vw,3rem)] rounded-xl bg-gradient-to-br from-[var(--cyber-purple)] to-[var(--cyber-cyan)] flex items-center justify-center'>
+              <span className='text-white text-[clamp(1.125rem,2.5vw,1.25rem)]'>📚</span>
             </div>
             <div>
-              <h2 id={modalTitleId} className='text-xl sm:text-2xl font-bold text-white'>
+              <h2 id={modalTitleId} className='text-[clamp(1.25rem,3.5vw,1.5rem)] font-bold text-white'>
                 {t('courses.allTitle')}
               </h2>
-              <p className='text-xs sm:text-sm text-white/60 mt-1'>
+              <p className='text-[clamp(0.7rem,1.5vw,0.875rem)] text-white/60 mt-1'>
                 {t(sortedCursos.length === 1 ? 'allCursos.coursesAvailable' : 'allCursos.coursesAvailable_plural', { count: sortedCursos.length })}
               </p>
             </div>
@@ -195,10 +195,10 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
               onClick={onClose}
               whileHover={{ scale: 1.1, rotate: 90 }}
               whileTap={{ scale: 0.9 }}
-              className='p-3 rounded-xl bg-white/10 hover:bg-white/20 transition-all duration-300 border border-white/10 hover:border-white/20'
+              className='p-[clamp(0.5rem,1.5vw,0.75rem)] rounded-xl bg-white/10 hover:bg-white/20 transition-all duration-300 border border-white/10 hover:border-white/20'
               aria-label={t('common.close')}
             >
-              <img src={close} alt='' className='w-5 h-5 sm:w-6 sm:h-6 brightness-0 invert' />
+              <img src={close} alt='' className='w-[clamp(1.25rem,2.5vw,1.5rem)] h-[clamp(1.25rem,2.5vw,1.5rem)] brightness-0 invert' />
             </m.button>
           )}
         </div>
@@ -206,7 +206,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
         {/* Conteúdo Principal */}
         <div
           ref={modalRef}
-          className={`flex-1 p-4 sm:p-6`}
+          className='flex-1 p-[clamp(1rem,4vw,1.5rem)]'
           role='dialog'
           aria-modal={!isPage}
           aria-labelledby={modalTitleId}
@@ -214,11 +214,11 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
         >
           <div className='max-w-7xl mx-auto'>
             {/* Barra de Filtros e Organização */}
-            <div className='mb-[var(--fluid-space-l)] p-4 sm:p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm'>
-              <div className='flex flex-col lg:flex-row gap-4 sm:gap-6'>
+            <div className='mb-[var(--fluid-space-l)] p-[clamp(1rem,4vw,1.5rem)] rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm'>
+              <div className='flex flex-wrap items-end gap-[clamp(1rem,3vw,1.5rem)]'>
                 {/* Busca por texto */}
-                <div className='flex-1'>
-                  <label className='block text-xs sm:text-sm font-medium text-white/80 mb-2'>
+                <div className='flex-1 min-w-[200px]'>
+                  <label className='block text-[clamp(0.7rem,1.5vw,0.875rem)] font-medium text-white/80 mb-2'>
                     {t('allCursos.searchCourses')}
                   </label>
                   <input
@@ -226,20 +226,20 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                     placeholder={t('allCursos.searchPlaceholder')}
                     value={filter}
                     onChange={(e) => setFilter(e.target.value)}
-                    className='w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl bg-white/5 border border-white/10 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-[var(--cyber-cyan)] focus:ring-2 focus:ring-[var(--cyber-cyan)]/20 transition-all text-sm sm:text-base'
+                    className='w-full px-[clamp(0.75rem,2vw,1.25rem)] py-[clamp(0.5rem,1.5vw,0.75rem)] rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[var(--cyber-cyan)] focus:ring-2 focus:ring-[var(--cyber-cyan)]/20 transition-all text-[clamp(0.75rem,1.5vw,1rem)]'
                     aria-label={t('allCursos.searchCourses')}
                   />
                 </div>
 
                 {/* Filtro por Plataforma */}
-                <div className='w-full lg:w-48'>
-                  <label className='block text-xs sm:text-sm font-medium text-white/80 mb-2'>
+                <div className='w-full max-w-[clamp(10rem,20vw,14rem)] min-w-[150px]'>
+                  <label className='block text-[clamp(0.7rem,1.5vw,0.875rem)] font-medium text-white/80 mb-2'>
                     {t('allCursos.filterByPlatform')}
                   </label>
                   <select
                     value={platformFilter}
                     onChange={(e) => setPlatformFilter(e.target.value)}
-                    className='w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl bg-white/5 border border-white/10 text-gray-900 focus:outline-none focus:border-[var(--cyber-cyan)] focus:ring-2 focus:ring-[var(--cyber-cyan)]/20 transition-all text-sm sm:text-base'
+                    className='w-full px-[clamp(0.75rem,2vw,1.25rem)] py-[clamp(0.5rem,1.5vw,0.75rem)] rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[var(--cyber-cyan)] focus:ring-2 focus:ring-[var(--cyber-cyan)]/20 transition-all text-[clamp(0.75rem,1.5vw,1rem)]'
                     aria-label='Filtrar por plataforma'
                   >
                     <option value='all'>{t('allCursos.allPlatforms')}</option>
@@ -250,14 +250,14 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                 </div>
 
                 {/* Filtro por Tipo de Certificado */}
-                <div className='w-full lg:w-48'>
-                  <label className='block text-xs sm:text-sm font-medium text-white/80 mb-2'>
+                <div className='w-full max-w-[clamp(10rem,20vw,14rem)] min-w-[150px]'>
+                  <label className='block text-[clamp(0.7rem,1.5vw,0.875rem)] font-medium text-white/80 mb-2'>
                     {t('allCursos.filterByCertificate')}
                   </label>
                   <select
                     value={certificateFilter}
                     onChange={(e) => setCertificateFilter(e.target.value)}
-                    className='w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl bg-white/5 border border-white/10 text-gray-900 focus:outline-none focus:border-[var(--cyber-cyan)] focus:ring-2 focus:ring-[var(--cyber-cyan)]/20 transition-all text-sm sm:text-base'
+                    className='w-full px-[clamp(0.75rem,2vw,1.25rem)] py-[clamp(0.5rem,1.5vw,0.75rem)] rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[var(--cyber-cyan)] focus:ring-2 focus:ring-[var(--cyber-cyan)]/20 transition-all text-[clamp(0.75rem,1.5vw,1rem)]'
                     aria-label='Filtrar por tipo de certificado'
                   >
                     <option value='all'>{t('allCursos.allTypes')}</option>
@@ -267,8 +267,8 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                 </div>
 
                 {/* Ordenação */}
-                <div className='w-full lg:w-48'>
-                  <label className='block text-xs sm:text-sm font-medium text-white/80 mb-2'>
+                <div className='w-full max-w-[clamp(10rem,20vw,14rem)] min-w-[150px]'>
+                  <label className='block text-[clamp(0.7rem,1.5vw,0.875rem)] font-medium text-white/80 mb-2'>
                     {t('allCursos.sortBy')}
                   </label>
                   <select
@@ -276,7 +276,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                     onChange={(e) =>
                       setSortBy(e.target.value as 'year' | 'duration' | 'company' | 'name')
                     }
-                    className='w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl bg-white/5 border border-white/10 text-gray-900 focus:outline-none focus:border-[var(--cyber-cyan)] focus:ring-2 focus:ring-[var(--cyber-cyan)]/20 transition-all text-sm sm:text-base'
+                    className='w-full px-[clamp(0.75rem,2vw,1.25rem)] py-[clamp(0.5rem,1.5vw,0.75rem)] rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[var(--cyber-cyan)] focus:ring-2 focus:ring-[var(--cyber-cyan)]/20 transition-all text-[clamp(0.75rem,1.5vw,1rem)]'
                     aria-label='Ordenar cursos'
                   >
                     <option value='year'>{t('allCursos.mostRecent')}</option>
@@ -324,14 +324,14 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
 
             {/* Grid de Cursos - Design igual à página inicial */}
             {sortedCursos.length > 0 ? (
-              <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8 md:gap-10'>
+              <div className='grid grid-cols-[repeat(auto-fit,minmax(clamp(14rem,28vw,20rem),1fr))] gap-[clamp(1.25rem,4vw,2.5rem)]'>
                 {sortedCursos.map((curso, index) => (
                   <m.div
                     key={curso.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.05 }}
-                    className='glass-card p-5 sm:p-8 md:p-10 group neon-hover flex flex-col h-full border border-white/10 cursor-pointer'
+                    className='glass-card p-[clamp(1.25rem,4vw,2.5rem)] group neon-hover flex flex-col h-full border border-white/10 cursor-pointer'
                     onClick={() => {
                       setSelectedCurso(curso);
                       setIsDetailOpen(true);
@@ -347,8 +347,8 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                     }}
                     aria-label={`${t('cursos.viewDetails')} ${curso.title}`}
                   >
-                    <div className='flex items-center gap-4 sm:gap-6 mb-5 sm:mb-8'>
-                      <div className='w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/5 transition-transform group-hover:scale-110 overflow-hidden p-2 sm:p-3'>
+                    <div className='flex items-center gap-[clamp(1rem,3vw,1.5rem)] mb-[clamp(1.25rem,3vw,2rem)]'>
+                      <div className='w-[clamp(4rem,8vw,5rem)] h-[clamp(4rem,8vw,5rem)] rounded-2xl bg-gradient-to-br from-[var(--cyber-purple)]/20 to-[var(--cyber-cyan)]/10 flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/5 transition-transform group-hover:scale-110 overflow-hidden p-[clamp(0.5rem,1.5vw,0.75rem)]'>
                         <img
                           src={curso.icon}
                           alt={curso.platform}
@@ -357,7 +357,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                         />
                       </div>
                       <div className='flex-1'>
-                        <h3 className='text-base sm:text-xl font-black text-white group-hover:text-[var(--cyber-cyan)] transition-colors leading-tight'>
+                        <h3 className='text-[clamp(1rem,2.5vw,1.25rem)] font-black text-white group-hover:text-[var(--cyber-cyan)] transition-colors leading-tight'>
                           {curso.title}
                         </h3>
                         <p className='text-xs text-[var(--cyber-purple)] font-black uppercase tracking-widest mt-2'>
@@ -401,7 +401,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                       {curso.summary}
                     </p>
 
-                    <div className='mt-6 sm:mt-10 pt-5 sm:pt-8 border-t border-white/5 flex items-center justify-center'>
+                    <div className='mt-[clamp(1.5rem,3vw,2.5rem)] pt-[clamp(1.25rem,3vw,2rem)] border-t border-white/5 flex items-center justify-center'>
                       <m.button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -414,7 +414,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                           y: -3,
                         }}
                         whileTap={{ scale: 0.95 }}
-                        className='relative px-5 sm:px-8 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-2 sm:gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
+                        className='relative px-[clamp(1.25rem,3vw,2rem)] py-[clamp(0.75rem,2vw,1rem)] text-[clamp(0.625rem,1.5vw,0.75rem)] font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)] shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
                       >
                         <m.div
                           className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'
@@ -435,11 +435,11 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                 ))}
               </div>
             ) : (
-              <div className='text-center py-16 sm:py-20'>
-                <div className='w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-6 rounded-full bg-white/5 flex items-center justify-center'>
-                  <span className='text-3xl sm:text-4xl'>🔍</span>
+              <div className='text-center py-[clamp(4rem,10vw,6rem)]'>
+                <div className='w-[clamp(4rem,8vw,6rem)] h-[clamp(4rem,8vw,6rem)] mx-auto mb-6 rounded-full bg-white/5 flex items-center justify-center'>
+                  <span className='text-[clamp(1.5rem,4vw,2.5rem)]'>🔍</span>
                 </div>
-                <p className='text-white/50 text-base sm:text-lg mb-2'>{t('allCursos.noCoursesFound')}</p>
+                <p className='text-white/50 text-[clamp(0.875rem,2vw,1.125rem)] mb-2'>{t('allCursos.noCoursesFound')}</p>
                 <p className='text-white/30 text-sm'>{t('allCursos.adjustFilters')}</p>
               </div>
             )}
@@ -450,38 +450,38 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className='mt-[var(--fluid-space-l)] p-4 sm:p-6 rounded-2xl bg-gradient-to-r from-[var(--cyber-purple)]/10 to-[var(--cyber-cyan)]/10 border border-white/10'
+                className='mt-[var(--fluid-space-l)] p-[clamp(1rem,4vw,1.5rem)] rounded-2xl bg-gradient-to-r from-[var(--cyber-purple)]/10 to-[var(--cyber-cyan)]/10 border border-white/10'
               >
-                <div className='grid grid-cols-2 sm:grid-cols-4 gap-4 text-center'>
-                  <div>
-                    <div className='text-2xl sm:text-3xl font-bold text-[var(--cyber-cyan)]'>
+                <div className='grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-4'>
+                  <div className='text-center'>
+                    <div className='text-[clamp(1.25rem,3vw,1.75rem)] font-bold text-[var(--cyber-cyan)]'>
                       {sortedCursos.length}
                     </div>
-                    <div className='text-xs sm:text-sm text-white/60 mt-1'>
+                    <div className='text-[clamp(0.6rem,1.5vw,0.75rem)] text-white/60 mt-1'>
                       {t('allCursos.totalCoursesLabel')}
                     </div>
                   </div>
-                  <div>
-                    <div className='text-2xl sm:text-3xl font-bold text-[var(--cyber-purple)]'>
+                  <div className='text-center border-l border-white/10'>
+                    <div className='text-[clamp(1.25rem,3vw,1.75rem)] font-bold text-[var(--cyber-purple)]'>
                       {sortedCursos.filter(c => c.isProfessionalCertificate).length}
                     </div>
-                    <div className='text-xs sm:text-sm text-white/60 mt-1'>
+                    <div className='text-[clamp(0.6rem,1.5vw,0.75rem)] text-white/60 mt-1'>
                       {t('allCursos.professionalCertificates')}
                     </div>
                   </div>
-                  <div>
-                    <div className='text-2xl sm:text-3xl font-bold text-yellow-400'>
+                  <div className='text-center border-l border-white/10'>
+                    <div className='text-[clamp(1.25rem,3vw,1.75rem)] font-bold text-yellow-400'>
                       {platforms.length}
                     </div>
-                    <div className='text-xs sm:text-sm text-white/60 mt-1'>
+                    <div className='text-[clamp(0.6rem,1.5vw,0.75rem)] text-white/60 mt-1'>
                       {t('allCursos.platforms')}
                     </div>
                   </div>
-                  <div>
-                    <div className='text-2xl sm:text-3xl font-bold text-green-400'>
+                  <div className='text-center border-l border-white/10'>
+                    <div className='text-[clamp(1.25rem,3vw,1.75rem)] font-bold text-green-400'>
                       {new Set(sortedCursos.map(c => c.date)).size}
                     </div>
-                    <div className='text-xs sm:text-sm text-white/60 mt-1'>
+                    <div className='text-[clamp(0.6rem,1.5vw,0.75rem)] text-white/60 mt-1'>
                       {t('allCursos.differentYears')}
                     </div>
                   </div>
@@ -492,10 +492,10 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
         </div>
 
         {!isPage && (
-          <div className='sticky bottom-0 z-20 p-4 sm:p-6 border-t border-white/10 bg-black/90 backdrop-blur-xl'>
-            <div className='max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4'>
-              <div className='flex items-center gap-3 sm:gap-4'>
-                <div className='text-xs sm:text-sm text-white/50'>
+          <div className='sticky bottom-0 z-20 p-[clamp(0.75rem,2vw,1.5rem)] border-t border-white/10 bg-black/90 backdrop-blur-xl'>
+            <div className='max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-[clamp(0.5rem,2vw,1rem)]'>
+              <div className='flex items-center gap-[clamp(0.5rem,2vw,1rem)]'>
+                <div className='text-[clamp(0.6rem,1.5vw,0.875rem)] text-white/50'>
                   {t('allCursos.footerTotalCourses', { count: sortedCursos.length })}
                 </div>
               </div>
@@ -505,7 +505,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                   onClick={onClose}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className='px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)] text-white font-bold text-xs sm:text-sm uppercase tracking-wider hover:shadow-lg hover:shadow-[var(--cyber-cyan)]/30 transition-all duration-300 flex items-center gap-2 min-h-[44px]'
+                  className='px-[clamp(1rem,3vw,1.5rem)] py-[clamp(0.5rem,1.5vw,0.75rem)] rounded-xl bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)] text-white font-bold text-[clamp(0.7rem,1.5vw,0.875rem)] uppercase tracking-wider hover:shadow-lg hover:shadow-[var(--cyber-cyan)]/30 transition-all duration-300 flex items-center gap-2 min-h-[44px]'
                   aria-label={t('common.close')}
                 >
                   <img src={close} alt='' className='w-4 h-4' />

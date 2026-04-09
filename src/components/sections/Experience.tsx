@@ -150,7 +150,7 @@ const Experience = () => {
         <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-[clamp(1.5rem,5vw,3rem)] shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
           {/* Conteúdo da box */}
           <div className='relative z-10'>
-            <div className='mb-6 sm:mb-8 text-center'>
+            <div className='mb-[clamp(1.5rem,3vw,2rem)] text-center'>
               <m.h3
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}

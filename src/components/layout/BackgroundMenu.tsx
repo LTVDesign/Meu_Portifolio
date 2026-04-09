@@ -56,9 +56,9 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
     // Desktop: posicionamento ao lado direito da engrenagem
     return {
       top: 'calc(50% - 10px)',
-      left: '140px',
-      width: 'calc(100vw - 140px)',
-      maxWidth: '340px',
+      left: 'clamp(5rem, 15vw, 10rem)',
+      width: 'auto',
+      maxWidth: 'clamp(16rem, 85vw, 22rem)',
       minWidth: 'unset',
     };
   };
@@ -81,13 +81,13 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
         animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: isMobile ? -10 : 0, x: isMobile ? 0 : 20 }}
         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-        className='fixed bg-black/85 backdrop-blur-3xl rounded-3xl shadow-2xl p-0 z-[99999] border border-white/20 overflow-hidden pointer-events-auto w-full sm:max-w-md lg:max-w-lg'
+        className='fixed bg-black/85 backdrop-blur-3xl rounded-3xl shadow-2xl p-0 z-[99999] border border-white/20 overflow-hidden pointer-events-auto w-[clamp(16rem,85vw,22rem)]'
         style={menuStyle}
         onClick={handleBackdropClick}
       >
         {/* Header com botão de fechar */}
-        <div className={`relative bg-gradient-to-r from-[#1a1433] to-black border-b border-white/10 ${isWatch ? 'px-3 py-2' : 'px-6 py-4'}`}>
-          <h3 className={`text-white font-bold uppercase tracking-widest text-center ${isWatch ? 'text-[10px]' : 'text-sm'}`}>
+        <div className={`relative bg-gradient-to-r from-[#1a1433] to-black border-b border-white/10 px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.5rem,1.5vw,1rem)]`}>
+          <h3 className={`text-white font-bold uppercase tracking-widest text-center text-[clamp(0.6rem,1.5vw,0.875rem)]`}>
             {t('backgroundMenu.settings')}
           </h3>
 
@@ -99,8 +99,8 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
             aria-label={t('backgroundMenu.closeMenu')}
           >
             <svg
-              width={isWatch ? '10' : '14'}
-              height={isWatch ? '10' : '14'}
+              width='14'
+              height='14'
               viewBox='0 0 24 24'
               fill='none'
               stroke='currentColor'

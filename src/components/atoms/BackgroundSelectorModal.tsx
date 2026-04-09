@@ -121,7 +121,7 @@ const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = ({
 
             {/* Grid de backgrounds */}
             <div className='p-8 overflow-y-auto max-h-[50vh] custom-scrollbar'>
-              <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+              <div className='grid grid-cols-[repeat(auto-fit,minmax(clamp(14rem,30vw,20rem),1fr))] gap-[clamp(1rem,3vw,2rem)]'>
                 {backgrounds.map((bg, index) => (
                   <m.div
                     key={bg.id}

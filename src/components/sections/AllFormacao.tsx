@@ -44,7 +44,7 @@ const AllFormacao = () => {
             <m.div
               key={index}
               variants={fadeIn('up', 'spring', index * 0.5, 0.75)}
-              className='w-full rounded-[20px] glass-card p-5 sm:w-[360px]'
+              className='w-full rounded-[20px] glass-card p-[clamp(1.25rem,4vw,2.5rem)]'
             >
               <div className='flex items-center gap-4 mb-4'>
                 <img
@@ -64,7 +64,7 @@ const AllFormacao = () => {
               <div className='mt-5'>
                 <LinkAnimado
                   href='#curriculo'
-                  className='text-[var(--fluid-text-xl)] font-bold text-white hover:text-secondary transition-colors sm:text-[var(--fluid-text-xl)]'
+                  className='text-[var(--fluid-text-xl)] font-bold text-white hover:text-secondary transition-colors'
                 >
                   {t(`allFormacao.educationList.${index}.title`)}
                 </LinkAnimado>
@@ -82,7 +82,7 @@ const AllFormacao = () => {
         <h3 className='text-[var(--fluid-text-xl)] font-bold text-white mb-8 text-center' style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(145, 94, 255, 0.3)' }}>
           {t('allFormacao.semesterHistory')}
         </h3>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
+        <div className='grid grid-cols-[repeat(auto-fit,minmax(clamp(12rem,25vw,18rem),1fr))] gap-4'>
           {[
             { semestre: '1º Semestre', media: 8.5 },
             { semestre: '2º Semestre', media: 8.8 },

@@ -137,7 +137,7 @@ const Curriculo = () => {
         </div>
       </m.div>
 
-      <div className='mt-[clamp(1.5rem,4vw,3rem)] flex flex-col sm:flex-row flex-wrap items-center justify-center gap-[clamp(0.75rem,2vw,1.5rem)]'>
+      <div className='mt-[clamp(1.5rem,4vw,3rem)] flex flex-row flex-nowrap items-center justify-center gap-[clamp(0.75rem,2vw,1.5rem)]'>
         <m.a
           variants={prefersReduced ? {} : fadeIn('right', 'spring', 0.3, 0.75)}
           href='/online-cv'

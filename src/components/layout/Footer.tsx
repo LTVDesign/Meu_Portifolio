@@ -287,7 +287,7 @@ const Footer: React.FC = () => {
             {/* Botão de Download CV Proeminente no Mobile */}
             <Link
               to="/curriculo"
-              className="flex lg:hidden items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)] text-white font-bold uppercase tracking-widest text-[0.7rem] shadow-lg shadow-purple-500/20 active:scale-95 transition-transform"
+              className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-[var(--cyber-purple)] to-[var(--cyber-cyan)] text-white font-bold uppercase tracking-widest text-[0.7rem] shadow-lg shadow-purple-500/20 active:scale-95 transition-transform"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
@@ -340,7 +340,7 @@ const Footer: React.FC = () => {
               <span>{config.html.email}</span>
             </a>
 
-            <div className='social-links-container flex flex-nowrap items-center justify-center gap-2 sm:gap-4 mb-[clamp(1.5rem,3vw,2rem)]'>
+            <div className='social-links-container flex flex-nowrap items-center justify-center gap-[clamp(0.5rem,1.5vw,1rem)] mb-[clamp(1.5rem,3vw,2rem)]'>
               {socialLinksRaw.map(({ icon: Icon, url, translationKey, color }) => {
                 const label = t(`footer.${translationKey}`);
                 return (
@@ -353,10 +353,10 @@ const Footer: React.FC = () => {
                     aria-label={label}
                     className={`flex flex-col items-center gap-1.5 text-white/90 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] group`}
                   >
-                    <div className={`p-2 sm:p-3 rounded-xl bg-white/[0.03] border border-white/5 group-hover:border-white/20 group-hover:bg-white/[0.06] ${color} transition-all`}>
+                    <div className={`p-[clamp(0.5rem,1vw,0.75rem)] rounded-xl bg-white/[0.03] border border-white/5 group-hover:border-white/20 group-hover:bg-white/[0.06] ${color} transition-all`}>
                       <Icon size={20} />
                     </div>
-                    <span className="text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block">
+                    <span className="text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
                       {label}
                     </span>
                   </m.a>
@@ -379,7 +379,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Barra Inferior - Easter Egg com Lazy Load - Hidden on mobile/tablet */}
-        <div className='pt-4 border-t border-white/5 hidden lg:flex flex-col items-center gap-2'>
+        <div className='pt-4 border-t border-white/5 flex flex-col items-center gap-2'>
           {/* Easter Egg Interativo - Só renderiza quando visível */}
           {easterEggVisible && (
             <div className='easter-egg-container flex flex-col items-center gap-2'>

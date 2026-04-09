@@ -77,7 +77,7 @@ const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className='fixed inset-0 z-[100] flex items-start justify-center p-2 md:p-4 bg-black/80 backdrop-blur-sm pt-20 md:pt-24'
+        className='fixed inset-0 z-[100] flex items-start justify-center p-[clamp(0.5rem,2vw,1rem)] bg-black/80 backdrop-blur-sm pt-[clamp(4rem,10vw,6rem)]'
         onClick={onClose}
         role='presentation'
       >
@@ -87,7 +87,7 @@ const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className='relative w-full max-w-[90vw] md:max-w-3xl max-h-[80vh] overflow-y-auto glass-card border border-white/20 shadow-2xl'
+          className='relative w-full max-w-[clamp(18rem,85vw,48rem)] max-h-[80vh] overflow-y-auto glass-card border border-white/20 shadow-2xl'
           onClick={(e) => e.stopPropagation()}
           role='dialog'
           aria-modal='true'
@@ -95,17 +95,17 @@ const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
           tabIndex={-1}
         >
           {/* Header */}
-          <div className='sticky top-0 z-10 flex items-center justify-between p-2 md:p-3 border-b border-white/10 bg-black/80 backdrop-blur-md gap-2'>
+          <div className='sticky top-0 z-10 flex items-center justify-between p-[clamp(0.5rem,1.5vw,0.75rem)] border-b border-white/10 bg-black/80 backdrop-blur-md gap-2'>
             <h2
               id={modalTitleId}
-              className='text-xs md:text-base font-bold text-white break-words line-clamp-2 flex-1 min-w-0'
+              className='text-[clamp(0.75rem,2vw,1rem)] font-bold text-white break-words line-clamp-2 flex-1 min-w-0'
             >
               {title}
             </h2>
             <button
               type="button"
               onClick={onClose}
-              className='p-1 md:p-1.5 rounded hover:bg-white/10 transition-colors flex-shrink-0'
+              className='p-[clamp(0.25rem,1vw,0.5rem)] rounded hover:bg-white/10 transition-colors flex-shrink-0'
               aria-label={t('modal.closeModal')}
             >
               <img src={close} alt='' className='w-4 h-4' />
@@ -113,7 +113,7 @@ const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
           </div>
 
           {/* Content */}
-          <div className='p-1.5 md:p-3'>{children}</div>
+          <div className='p-[clamp(0.4rem,1.5vw,0.75rem)]'>{children}</div>
         </m.div>
       </m.div>
     </AnimatePresence>

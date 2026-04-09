@@ -30,7 +30,7 @@ const Navbar = memo(() => {
     if (screenWidth >= 1280 && toggle) {
       setToggle(false);
     }
-  }, [screenWidth, toggle]);
+  }, [screenWidth]);
 
   // Ativar o link correto baseado na rota atual
   useEffect(() => {
@@ -215,9 +215,9 @@ const Navbar = memo(() => {
           </Link>
         </div>
 
-        {/* Right aligned Menu - Desktop/Tablet - Agora alinhado com o breakpoint LG */}
-        <div className='hidden lg:flex items-center gap-1 lg:gap-2'>
-          <ul className='flex items-center gap-0.5 lg:gap-1 xl:gap-1.5'>
+        {/* Right aligned Menu - Always visible, fluid scaling */}
+        <div className='flex items-center gap-[clamp(0.25rem,0.5vw,0.5rem)]'>
+          <ul className='flex items-center gap-[clamp(0.125rem,0.4vw,0.375rem)]'>
             {navLinks.map((nav) => {
               const isActive = active === nav.id;
               return (
@@ -243,12 +243,12 @@ const Navbar = memo(() => {
           </ul>
 
           {/* Language Selector */}
-          <div className='flex items-center gap-1 pl-2 md:pl-4 border-l border-white/10'>
+          <div className='flex items-center gap-[clamp(0.25rem,0.5vw,0.375rem)] pl-[clamp(0.5rem,1vw,1rem)] border-l border-white/10'>
             <Tooltip content='Idioma: Português' position='bottom'>
               <m.button
                 onClick={() => i18n.changeLanguage('pt')}
                 whileHover={{ scale: 1.15 }}
-                className={`relative w-4 h-2.5 rounded overflow-hidden transition-all duration-200 ${i18n.language === 'pt' ? 'ring-2 ring-[var(--cyber-purple)]' : 'opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}
+                className={`relative w-[clamp(0.75rem,1.5vw,1rem)] h-[clamp(0.5rem,1vw,0.625rem)] rounded overflow-hidden transition-all duration-200 ${i18n.language === 'pt' ? 'ring-2 ring-[var(--cyber-purple)]' : 'opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}
                 aria-label="Português"
               >
                 <div
@@ -263,7 +263,7 @@ const Navbar = memo(() => {
               <m.button
                 onClick={() => i18n.changeLanguage('en')}
                 whileHover={{ scale: 1.15 }}
-                className={`relative w-4 h-2.5 rounded overflow-hidden transition-all duration-200 ${i18n.language === 'en' ? 'ring-2 ring-[var(--cyber-cyan)]' : 'opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}
+                className={`relative w-[clamp(0.75rem,1.5vw,1rem)] h-[clamp(0.5rem,1vw,0.625rem)] rounded overflow-hidden transition-all duration-200 ${i18n.language === 'en' ? 'ring-2 ring-[var(--cyber-cyan)]' : 'opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}
                 aria-label="English"
               >
                 <div
@@ -276,99 +276,9 @@ const Navbar = memo(() => {
             </Tooltip>
           </div>
         </div>
-
-        {/* Mobile Toggle - Agora aparece em telas menores que LG (iPad Air incluso) */}
-        <div className='lg:hidden flex items-center'>
-          <Tooltip content={t('backgroundMenu.openSettings')} position='bottom'>
-            <button
-              onClick={() => setToggle(!toggle)}
-              className='text-white hover:text-[var(--cyber-cyan)] composited-hover transition-colors p-2 min-w-[44px] min-h-[44px] flex items-center justify-center'
-              aria-label={toggle ? 'Fechar menu' : 'Abrir menu'}
-              aria-expanded={toggle}
-            >
-              <div className={`flex flex-col justify-between items-end w-[clamp(1rem,4vw,1.5rem)] h-[clamp(0.875rem,3vw,1.25rem)]`}>
-                <span
-                  className={`h-[clamp(1px,0.2vh,2px)] bg-current transition-all duration-300 ${toggle ? 'w-full translate-y-[clamp(4px,1vw,7px)] -rotate-45' : 'w-full'}`}
-                />
-                <span
-                  className={`h-[clamp(1px,0.2vh,2px)] bg-current transition-all duration-300 ${toggle ? 'opacity-0' : 'w-[75%]'}`}
-                />
-                <span
-                  className={`h-[clamp(1px,0.2vh,2px)] bg-current transition-all duration-300 ${toggle ? 'w-full -translate-y-[clamp(4px,1vw,7px)] rotate-45' : 'w-[85%]'}`}
-                />
-              </div>
-            </button>
-          </Tooltip>
-        </div>
       </div>
-
-      {/* Mobile Menu Content - Ajustado para iPad e Mobile com scroll interno */}
-      <div
-        className={`lg:hidden absolute top-full left-0 right-0 glass border-t border-white/10 transition-all duration-300 ease-out z-50 overflow-y-auto overflow-x-hidden ${toggle ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-4 pointer-events-none'}`}
-        style={{
-          maxHeight: toggle ? 'calc(100dvh - clamp(40px, 10vh, 80px))' : '0',
-          overscrollBehavior: 'contain',
-          width: '100%',
-          backgroundColor: 'rgba(5, 8, 22, 0.95)',
-        }}
-      >
-        <div className="px-[clamp(0.75rem,3vw,1.5rem)] py-[clamp(1rem,4vw,1.5rem)]">
-          <ul className="flex flex-col font-bold uppercase tracking-widest mb-4 gap-[clamp(0.5rem,1.5vw,1rem)] text-[clamp(0.75rem,2vw,0.875rem)]">
-            {navLinks.map((nav) => (
-              <li key={nav.id}>
-                <Link
-                  to={getNavLink(nav.id)}
-                  onClick={() => setToggle(false)}
-                  className={`text-white/80 hover:text-white composited-hover transition-colors block py-[clamp(0.5rem,1.5vw,0.625rem)] min-h-[clamp(36px,10vw,48px)] flex items-center gap-3 px-2 rounded-xl active:bg-white/5 ${active === nav.id ? 'text-[var(--cyber-cyan)] font-bold border-l-2 border-[var(--cyber-cyan)] pl-4' : ''}`}
-                >
-                  <span className='text-white/80'>{t(`nav.${nav.id}`)}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="flex items-center justify-center gap-[clamp(0.5rem,2vw,1rem)] border-t border-white/10 pt-[clamp(0.75rem,2vw,1rem)]">
-            <button
-              onClick={() => {
-                i18n.changeLanguage('pt');
-                setToggle(false);
-              }}
-              className={`relative rounded overflow-hidden min-w-[44px] min-h-[44px] flex items-center justify-center w-[clamp(2.5rem,7vw,3rem)] h-[clamp(1.5rem,5vw,1.875rem)]`}
-              aria-label="Português"
-            >
-              <div
-                className='absolute inset-0 bg-cover bg-center'
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 700'%3E%3Crect fill='%23009c3b' width='1000' height='700'/%3E%3Cpolygon fill='%23ffdf00' points='500,80 920,350 500,620 80,350'/%3E%3Ccircle fill='%23002776' cx='500' cy='350' r='170'/%3E%3Cpath fill='white' d='M500,180 a170,170 0 1,0 0,340 a130,130 0 1,1 0,-340'/%3E%3C/svg%3E")`,
-                }}
-              />
-              {i18n.language === 'pt' && (
-                <div className='absolute inset-0 ring-2 ring-[var(--cyber-purple)] rounded' />
-              )}
-            </button>
-            <button
-              onClick={() => {
-                i18n.changeLanguage('en');
-                setToggle(false);
-              }}
-              className={`relative rounded overflow-hidden min-w-[44px] min-h-[44px] flex items-center justify-center w-[clamp(2.5rem,7vw,3rem)] h-[clamp(1.5rem,5vw,1.875rem)]`}
-              aria-label="English"
-            >
-              <div
-                className='absolute inset-0 bg-cover bg-center'
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 700'%3E%3Crect fill='%23bf0a30' width='1000' height='700'/%3E%3Cpath fill='white' d='M0,100 h1000 M0,200 h1000 M0,300 h1000 M0,400 h1000 M0,500 h1000 M0,600 h1000' stroke='white' stroke-width='50'/%3E%3Crect fill='%23002868' width='400' height='350'/%3E%3Cg fill='white'%3E%3Cpolygon points='50,30 53,45 68,45 56,54 60,69 50,60 40,69 44,54 32,45 47,45'/%3E%3C/g%3E%3C/svg%3E")`,
-                }}
-              />
-              {i18n.language === 'en' && (
-                <div className='absolute inset-0 ring-2 ring-[var(--cyber-cyan)] rounded' />
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
-    </nav >
+    </nav>
   );
 });
 
 export default Navbar;
-
