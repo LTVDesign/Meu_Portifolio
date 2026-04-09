@@ -65,15 +65,19 @@ export default defineConfig({
     modulePreload: {
       polyfill: true,
       resolveDependencies: (filename, deps) => {
-        if (filename.includes('vendor-3d')) return [];
-        return deps;
+        // Não precarregar chunks 3D, router e i18n — eles serão lazy-loaded
+        if (filename.includes('vendor-3d') || filename.includes('vendor-3d-ext')) return [];
+        // Filtrar deps de vendor-3d e vendor-3d-ext das dependências de outros chunks
+        return deps.filter(dep =>
+          !dep.includes('vendor-3d') && !dep.includes('vendor-3d-ext')
+        );
       }
     },
     // Configurações adicionais para compatibilidade com Vercel
     minify: 'terser',
     chunkSizeWarningLimit: 1000,
-    cssCodeSplit: true,
-    assetsInlineLimit: 4096,
+    cssCodeSplit: false,
+    assetsInlineLimit: 8192,
     cssMinify: true,
     reportCompressedSize: false,
     incremental: true,
@@ -85,17 +89,32 @@ export default defineConfig({
           if (!id.includes('node_modules')) return;
 
           // Vendor 3D: ONLY pure Three.js engine (no React dependencies)
-          if ((id.includes('three') || id.includes('three-mesh-bvh')) && !id.includes('@react-three')) {
+          if (id.includes('three') && !id.includes('@react-three') && !id.includes('three-mesh-bvh')) {
             return 'vendor-3d';
           }
 
+          // Three.js extensions (BVH, etc) — separado para não inflar vendor-3d
+          if (id.includes('three-mesh-bvh')) {
+            return 'vendor-3d-ext';
+          }
+
+          // React Router — separado do core porque as pages são lazy-loaded
+          if (id.includes('react-router')) {
+            return 'vendor-router';
+          }
+
           // Vendor Core: React + React-dependent libs (including @react-three which uses React hooks)
-          if (id.includes('react') || id.includes('scheduler') || id.includes('react-router') || id.includes('react-dom') || id.includes('use-sync-external-store') || id.includes('@react-three') || id.includes('react-reconciler')) {
+          if (id.includes('react') || id.includes('scheduler') || id.includes('react-dom') || id.includes('use-sync-external-store') || id.includes('@react-three') || id.includes('react-reconciler')) {
             return 'vendor-core';
           }
 
+          // i18n — separado para não inflar vendor-utils
+          if (id.includes('i18next')) {
+            return 'vendor-i18n';
+          }
+
           // Vendor UI: Animações e ícones
-          if (id.includes('framer-motion') || id.includes('lucide') || id.includes('react-icons')) {
+          if (id.includes('framer-motion') || id.includes('react-icons')) {
             return 'vendor-ui';
           }
 
@@ -117,19 +136,23 @@ export default defineConfig({
     terserOptions: {
       ecma: 2022,
       compress: {
-        drop_console: false, // Manter console para depuração em produção
+        drop_console: false,
         drop_debugger: true,
-        pure_funcs: ['console.debug', 'console.info'], // Remover apenas logs de debug e info
-        passes: 2, // Reduzir passes para evitar otimização excessiva
-        pure_getters: false, // Desativar para evitar problemas de undefined
+        pure_funcs: ['console.debug', 'console.info', 'console.log'],
+        passes: 3,
+        pure_getters: true,
         unsafe: false,
         unsafe_comps: false,
         unsafe_math: false,
         unsafe_methods: false,
+        dead_code: true,
+        collapse_vars: true,
+        reduce_vars: true,
+        toplevel: true,
       },
       mangle: {
         safari10: true,
-        // keep_fnames não é suportado em versões antigas do Terser
+        toplevel: true,
       },
       format: {
         comments: false,

@@ -172,6 +172,7 @@ const Navbar = memo(() => {
             width='128'
             height='128'
             decoding='sync'
+            fetchPriority='high'
           />
         </m.div>
       </Link>

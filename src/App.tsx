@@ -4,16 +4,16 @@ import { HelmetProvider } from 'react-helmet-async';
 import { I18nextProvider } from 'react-i18next';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { DynamicTextProvider } from './components/atoms/DynamicTextProvider';
-// Componentes Síncronos (Restauração de Estabilidade)
-import BackgroundManager from './components/canvas/BackgroundManager';
-import BackgroundEditorModal from './components/layout/BackgroundEditorModal';
-import BackgroundMenu from './components/layout/BackgroundMenu';
-import Footer from './components/layout/Footer';
-import GearButton from './components/layout/GearButton';
+// Componentes não-críticos para LCP — lazy-loaded para reduzir JS inicial
+const BackgroundManager = React.lazy(() => import('./components/canvas/BackgroundManager'));
+const BackgroundEditorModal = React.lazy(() => import('./components/layout/BackgroundEditorModal'));
+const BackgroundMenu = React.lazy(() => import('./components/layout/BackgroundMenu'));
+const Footer = React.lazy(() => import('./components/layout/Footer'));
+const GearButton = React.lazy(() => import('./components/layout/GearButton'));
 import { MotionProvider } from './components/layout/MotionProvider';
-// Layouts e Componentes
+// Layouts e Componentes - Navbar é crítico para LCP
 import Navbar from './components/layout/Navbar';
-import ParticlesCanvas from './components/layout/ParticlesCanvas';
+const ParticlesCanvas = React.lazy(() => import('./components/layout/ParticlesCanvas'));
 // Providers
 import {
   ParticleConfigProvider,
@@ -118,15 +118,19 @@ const AppContent = () => {
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       {/* LCP Optimization: Backgrounds só carregam após LCP */}
       {loadBackgrounds && (
-        <div className='fixed inset-0 z-0 pointer-events-none'>
-          <BackgroundManager />
-        </div>
+        <React.Suspense fallback={null}>
+          <div className='fixed inset-0 z-0 pointer-events-none'>
+            <BackgroundManager />
+          </div>
+        </React.Suspense>
       )}
 
       {loadBackgrounds && (
-        <div className='fixed inset-0 z-[1] pointer-events-none'>
-          <ParticlesCanvas />
-        </div>
+        <React.Suspense fallback={null}>
+          <div className='fixed inset-0 z-[1] pointer-events-none'>
+            <ParticlesCanvas />
+          </div>
+        </React.Suspense>
       )}
 
       {/* Conteúdo principal - renderiza primeiro para LCP */}
@@ -141,7 +145,9 @@ const AppContent = () => {
           `}
         </style>
         <Navbar />
-        <GearButton onClick={openBgMenu} />
+        <React.Suspense fallback={null}>
+          <GearButton onClick={openBgMenu} />
+        </React.Suspense>
 
         <main className='relative z-10 flex-1 w-[min(100%,_var(--max-width,100vw))] mx-auto'>
           <ErrorBoundary>
@@ -163,44 +169,21 @@ const AppContent = () => {
           </ErrorBoundary>
         </main>
 
-        {/* Footer síncrono para estabilidade */}
-        <Footer />
+        {/* Footer lazy-loaded — não é crítico para LCP */}
+        <React.Suspense fallback={<div className="h-20" />}>
+          <Footer />
+        </React.Suspense>
       </div>
 
       {/* Overlays de Background */}
-      <BackgroundOverlays />
+      <React.Suspense fallback={null}>
+        <BackgroundOverlays />
+      </React.Suspense>
     </Router>
   );
 };
 
 function App() {
-  // Carregamento progressivo de providers para evitar race conditions
-  const [providersLoaded, setProvidersLoaded] = React.useState(false);
-
-  React.useEffect(() => {
-    // Carregar providers sequencialmente para evitar problemas de inicialização
-    const loadProviders = async () => {
-      try {
-        // Pequeno delay para garantir que o DOM esteja pronto
-        await new Promise(resolve => setTimeout(resolve, 100));
-        setProvidersLoaded(true);
-      } catch (error) {
-        console.error('Erro ao carregar providers:', error);
-        setProvidersLoaded(true); // Continuar mesmo com erro
-      }
-    };
-
-    loadProviders();
-  }, []);
-
-  if (!providersLoaded) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-black">
-        <div className="w-12 h-12 border-4 border-[var(--cyber-purple)]/30 border-t-[var(--cyber-cyan)] rounded-full animate-spin" />
-      </div>
-    );
-  }
-
   return (
     <HelmetProvider>
       <I18nextProvider i18n={i18n}>

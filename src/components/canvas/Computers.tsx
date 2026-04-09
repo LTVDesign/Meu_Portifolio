@@ -5,8 +5,8 @@ import { Suspense, useEffect, useState } from 'react';
 import { useTouchScrollGuard } from '../../hooks/useTouchScrollGuard';
 import { useViewport } from '../../hooks/useViewport';
 
-// Preload do modelo para melhorar performance
-useGLTF.preload('/desktop_pc/scene-optimized.gltf');
+// Preload removido do nível do módulo — feito via useEffect em ThreeExperience.tsx
+// para não bloquear a thread principal durante a inicialização
 
 type ScreenSize = 'watch' | 'mobileSmall' | 'mobile' | 'tablet' | 'desktop' | 'tv' | '4k';
 

@@ -4,9 +4,8 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './i18n';
 // Importação de CSS - Vite vai processar e injetar automaticamente
-// Critical CSS carrega primeiro para evitar FOUC
-import './critical.css';
-// Globals CSS carrega após critical para não bloquear renderização inicial
+// Critical CSS está inlined no index.html para eliminar render-blocking request
+// Globals CSS carrega via JS para não bloquear renderização inicial
 import './globals.css';
 
 // Preload de recursos críticos após carregamento inicial
@@ -25,21 +24,7 @@ if (typeof window !== 'undefined') {
     });
   }
 
-  // Prefetch de rotas após idle
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(() => {
-      // Prefetch das rotas mais acessadas
-      const link1 = document.createElement('link');
-      link1.rel = 'prefetch';
-      link1.href = '/formacao';
-      document.head.appendChild(link1);
-
-      const link2 = document.createElement('link');
-      link2.rel = 'prefetch';
-      link2.href = '/projetos';
-      document.head.appendChild(link2);
-    });
-  }
+  // Prefetch de rotas é feito no index.html via requestIdleCallback
 }
 
 // Detect reduced motion

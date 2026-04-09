@@ -5,9 +5,11 @@ const PCGamerStatic = () => (
       src='/assets/images/pc-gamer.webp'
       alt='PC Gamer Setup'
       className='w-full h-auto drop-shadow-2xl'
-      width='600'
-      height='600'
+      width='412'
+      height='412'
       loading='lazy'
+      decoding='async'
+      sizes='(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 412px'
     />
   </div>
 );
