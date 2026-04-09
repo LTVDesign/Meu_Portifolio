@@ -1,26 +1,31 @@
-import { useTranslation } from 'react-i18next';
+import { useCallback, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
-import {
-  FiDownload,
-  FiPrinter,
-} from 'react-icons/fi';
-import { useMemo, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import { FiDownload, FiPrinter } from 'react-icons/fi';
 import { experiences, projects } from '../constants';
 import cursosData from '../data/cursos.json';
 
 const OnlineResume = () => {
   const { t, i18n } = useTranslation();
 
-  const currentLang = useMemo(() => (i18n.language.startsWith('pt') ? 'pt' : 'en') as 'pt' | 'en', [i18n.language]);
-  const allCourses = useMemo(() => (cursosData[currentLang] || cursosData.en) as any[], [currentLang]);
+  const currentLang = useMemo(
+    () => (i18n.language.startsWith('pt') ? 'pt' : 'en') as 'pt' | 'en',
+    [i18n.language]
+  );
+  const allCourses = useMemo(
+    () => (cursosData[currentLang] || cursosData.en) as any[],
+    [currentLang]
+  );
 
   const handlePrint = useCallback(() => window.print(), []);
 
   return (
     <div className='min-h-screen bg-[#050816] text-white pt-[clamp(6rem,12vw,8rem)] pb-[clamp(2rem,6vw,4rem)] px-[clamp(1rem,4vw,2rem)]'>
       <Helmet>
-        <title>{t('common.name')} | {t('allCurriculo.title')}</title>
-        <meta name="description" content={t('hero.descriptionMeta')} />
+        <title>
+          {t('common.name')} | {t('allCurriculo.title')}
+        </title>
+        <meta name='description' content={t('hero.descriptionMeta')} />
       </Helmet>
 
       {/* Toolbar - visível na tela online */}
@@ -29,7 +34,8 @@ const OnlineResume = () => {
           onClick={handlePrint}
           className='flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg transition-all text-sm'
         >
-          <FiPrinter className="text-[var(--cyber-cyan)]" /> {t('common.print', 'Imprimir')}
+          <FiPrinter className='text-[var(--cyber-cyan)]' />{' '}
+          {t('common.print', 'Imprimir')}
         </button>
         <button
           onClick={handlePrint}
@@ -43,21 +49,44 @@ const OnlineResume = () => {
       <div className='max-w-4xl mx-auto mb-0 p-[clamp(1.5rem,4vw,2rem)] rounded-t-2xl bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 print:hidden'>
         <div className='flex justify-between items-center'>
           <div>
-            <h1 className='text-[clamp(2rem,6vw,3rem)] font-bold mb-3 text-black'>Leandro Barbosa</h1>
-            <p className='text-[clamp(1rem,3vw,1.5rem)] font-medium mb-2 text-black'>Engenheiro de Software • Tecnólogo em ADS • Pós-Graduando em IA & Data Science</p>
+            <h1 className='text-[clamp(2rem,6vw,3rem)] font-bold mb-3 text-black'>
+              Leandro Barbosa
+            </h1>
+            <p className='text-[clamp(1rem,3vw,1.5rem)] font-medium mb-2 text-black'>
+              Engenheiro de Software • Tecnólogo em ADS • Pós-Graduando em IA & Data
+              Science
+            </p>
           </div>
           <div className='flex flex-col gap-3 text-right text-black'>
             <div className='flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)]'>
-              <span className='bg-white/20 p-[clamp(0.4rem,1vw,0.5rem)] rounded-full text-[clamp(1rem,2vw,1.25rem)]'>📱</span>
+              <span className='bg-white/20 p-[clamp(0.4rem,1vw,0.5rem)] rounded-full text-[clamp(1rem,2vw,1.25rem)]'>
+                📱
+              </span>
               <span className='text-[clamp(0.875rem,2vw,1rem)]'>+55 11 98483-8629</span>
             </div>
             <div className='flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)]'>
-              <span className='bg-white/20 p-[clamp(0.4rem,1vw,0.5rem)] rounded-full text-[clamp(1rem,2vw,1.25rem)]'>💼</span>
-              <a href='https://linkedin.com/in/lelebrr' target='_blank' rel='noopener noreferrer' className='text-[clamp(0.875rem,2vw,1rem)] hover:underline'>linkedin.com/in/lelebrr</a>
+              <span className='bg-white/20 p-[clamp(0.4rem,1vw,0.5rem)] rounded-full text-[clamp(1rem,2vw,1.25rem)]'>
+                💼
+              </span>
+              <a
+                href='https://linkedin.com/in/lelebrr'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='text-[clamp(0.875rem,2vw,1rem)] hover:underline'
+              >
+                linkedin.com/in/lelebrr
+              </a>
             </div>
             <div className='flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)]'>
-              <span className='bg-white/20 p-[clamp(0.4rem,1vw,0.5rem)] rounded-full text-[clamp(1rem,2vw,1.25rem)]'>📧</span>
-              <a href='mailto:lelebrr@gmail.com' className='text-[clamp(0.875rem,2vw,1rem)] hover:underline'>lelebrr@gmail.com</a>
+              <span className='bg-white/20 p-[clamp(0.4rem,1vw,0.5rem)] rounded-full text-[clamp(1rem,2vw,1.25rem)]'>
+                📧
+              </span>
+              <a
+                href='mailto:lelebrr@gmail.com'
+                className='text-[clamp(0.875rem,2vw,1rem)] hover:underline'
+              >
+                lelebrr@gmail.com
+              </a>
             </div>
           </div>
         </div>
@@ -68,8 +97,12 @@ const OnlineResume = () => {
         {/* Cabeçalho com QR Code - SOMENTE IMPRESSÃO */}
         <div className='flex justify-between items-start mb-6 print:flex'>
           <div>
-            <h1 className='text-2xl font-bold mb-1' style={{ color: 'black' }}>Leandro Barbosa</h1>
-            <p className='text-sm text-gray-700 mb-2' style={{ color: 'black' }}>Engenheiro de Software | Tecnólogo em ADS | Pós-Graduando IA & Data Science</p>
+            <h1 className='text-2xl font-bold mb-1' style={{ color: 'black' }}>
+              Leandro Barbosa
+            </h1>
+            <p className='text-sm text-gray-700 mb-2' style={{ color: 'black' }}>
+              Engenheiro de Software | Tecnólogo em ADS | Pós-Graduando IA & Data Science
+            </p>
             <div className='text-xs space-y-1' style={{ color: 'black' }}>
               <div>📧 lelebrr@gmail.com | 📱 +55 11 98483-8629</div>
               <div>💼 linkedin.com/in/lelebrr | 📍 Freguesia do Ó, São Paulo - SP</div>
@@ -77,75 +110,168 @@ const OnlineResume = () => {
             </div>
           </div>
           <div className='flex-shrink-0'>
-            <img
-              src="/qrcode.png"
-              alt="QR Code"
-              className='w-16 h-16'
-            />
+            <img src='/qrcode.png' alt='QR Code' className='w-16 h-16' />
           </div>
         </div>
 
         <div className='grid grid-cols-1 gap-6'>
           {/* Sumário Profissional - Primeiro elemento para chamar atenção */}
           <div>
-            <h2 className='text-lg font-bold mb-3 text-gray-800 border-b border-gray-300 pb-1' style={{ color: 'black' }}>SUMÁRIO PROFISSIONAL</h2>
-            <p className='text-sm text-gray-700 leading-relaxed' style={{ color: 'black' }}>
-              Engenheiro de Software com formação em Tecnologia de Análise e Desenvolvimento de Sistemas e pós-graduando em IA & Data Science.
-              Experiência em desenvolvimento full-stack, arquitetura de software e liderança de equipes.
-              Focado em criar soluções inovadoras e otimizadas para negócios, com forte habilidade em tecnologias cloud e metodologias ágeis.
+            <h2
+              className='text-lg font-bold mb-3 text-gray-800 border-b border-gray-300 pb-1'
+              style={{ color: 'black' }}
+            >
+              SUMÁRIO PROFISSIONAL
+            </h2>
+            <p
+              className='text-sm text-gray-700 leading-relaxed'
+              style={{ color: 'black' }}
+            >
+              Engenheiro de Software com formação em Tecnologia de Análise e
+              Desenvolvimento de Sistemas e pós-graduando em IA & Data Science.
+              Experiência em desenvolvimento full-stack, arquitetura de software e
+              liderança de equipes. Focado em criar soluções inovadoras e otimizadas para
+              negócios, com forte habilidade em tecnologias cloud e metodologias ágeis.
             </p>
           </div>
 
           {/* Competências Técnicas - Destaque para ATS */}
           <div>
-            <h2 className='text-lg font-bold mb-3 text-gray-800 border-b border-gray-300 pb-1' style={{ color: 'black' }}>COMPETÊNCIAS TÉCNICAS</h2>
+            <h2
+              className='text-lg font-bold mb-3 text-gray-800 border-b border-gray-300 pb-1'
+              style={{ color: 'black' }}
+            >
+              COMPETÊNCIAS TÉCNICAS
+            </h2>
             <div className='grid grid-cols-2 gap-3 text-xs'>
               <div>
-                <span className='font-medium text-gray-700 block mb-1' style={{ color: 'black' }}>Linguagens</span>
+                <span
+                  className='font-medium text-gray-700 block mb-1'
+                  style={{ color: 'black' }}
+                >
+                  Linguagens
+                </span>
                 <div className='flex flex-wrap gap-1'>
-                  {['JavaScript', 'TypeScript', 'Python', 'Java', 'C#', 'SQL', 'HTML/CSS'].map(skill => (
-                    <span key={skill} className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700' style={{ color: 'black' }}>{skill}</span>
+                  {[
+                    'JavaScript',
+                    'TypeScript',
+                    'Python',
+                    'Java',
+                    'C#',
+                    'SQL',
+                    'HTML/CSS',
+                  ].map((skill) => (
+                    <span
+                      key={skill}
+                      className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
+                      style={{ color: 'black' }}
+                    >
+                      {skill}
+                    </span>
                   ))}
                 </div>
               </div>
               <div>
-                <span className='font-medium text-gray-700 block mb-1' style={{ color: 'black' }}>Frontend</span>
+                <span
+                  className='font-medium text-gray-700 block mb-1'
+                  style={{ color: 'black' }}
+                >
+                  Frontend
+                </span>
                 <div className='flex flex-wrap gap-1'>
-                  {['React', 'Next.js', 'Angular', 'Vue.js', 'Tailwind', 'Bootstrap'].map(skill => (
-                    <span key={skill} className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700' style={{ color: 'black' }}>{skill}</span>
+                  {['React', 'Next.js', 'Angular', 'Vue.js', 'Tailwind', 'Bootstrap'].map(
+                    (skill) => (
+                      <span
+                        key={skill}
+                        className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
+                        style={{ color: 'black' }}
+                      >
+                        {skill}
+                      </span>
+                    )
+                  )}
+                </div>
+              </div>
+              <div>
+                <span
+                  className='font-medium text-gray-700 block mb-1'
+                  style={{ color: 'black' }}
+                >
+                  Backend
+                </span>
+                <div className='flex flex-wrap gap-1'>
+                  {['Node.js', 'Express', '.NET', 'Spring', 'Django', 'FastAPI'].map(
+                    (skill) => (
+                      <span
+                        key={skill}
+                        className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
+                        style={{ color: 'black' }}
+                      >
+                        {skill}
+                      </span>
+                    )
+                  )}
+                </div>
+              </div>
+              <div>
+                <span
+                  className='font-medium text-gray-700 block mb-1'
+                  style={{ color: 'black' }}
+                >
+                  Banco de Dados
+                </span>
+                <div className='flex flex-wrap gap-1'>
+                  {['MySQL', 'PostgreSQL', 'MongoDB', 'Redis', 'Oracle'].map((skill) => (
+                    <span
+                      key={skill}
+                      className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
+                      style={{ color: 'black' }}
+                    >
+                      {skill}
+                    </span>
                   ))}
                 </div>
               </div>
               <div>
-                <span className='font-medium text-gray-700 block mb-1' style={{ color: 'black' }}>Backend</span>
+                <span
+                  className='font-medium text-gray-700 block mb-1'
+                  style={{ color: 'black' }}
+                >
+                  Cloud & DevOps
+                </span>
                 <div className='flex flex-wrap gap-1'>
-                  {['Node.js', 'Express', '.NET', 'Spring', 'Django', 'FastAPI'].map(skill => (
-                    <span key={skill} className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700' style={{ color: 'black' }}>{skill}</span>
-                  ))}
+                  {['AWS', 'Azure', 'Docker', 'Kubernetes', 'CI/CD', 'Git'].map(
+                    (skill) => (
+                      <span
+                        key={skill}
+                        className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
+                        style={{ color: 'black' }}
+                      >
+                        {skill}
+                      </span>
+                    )
+                  )}
                 </div>
               </div>
               <div>
-                <span className='font-medium text-gray-700 block mb-1' style={{ color: 'black' }}>Banco de Dados</span>
+                <span
+                  className='font-medium text-gray-700 block mb-1'
+                  style={{ color: 'black' }}
+                >
+                  Ferramentas
+                </span>
                 <div className='flex flex-wrap gap-1'>
-                  {['MySQL', 'PostgreSQL', 'MongoDB', 'Redis', 'Oracle'].map(skill => (
-                    <span key={skill} className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700' style={{ color: 'black' }}>{skill}</span>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <span className='font-medium text-gray-700 block mb-1' style={{ color: 'black' }}>Cloud & DevOps</span>
-                <div className='flex flex-wrap gap-1'>
-                  {['AWS', 'Azure', 'Docker', 'Kubernetes', 'CI/CD', 'Git'].map(skill => (
-                    <span key={skill} className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700' style={{ color: 'black' }}>{skill}</span>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <span className='font-medium text-gray-700 block mb-1' style={{ color: 'black' }}>Ferramentas</span>
-                <div className='flex flex-wrap gap-1'>
-                  {['VS Code', 'IntelliJ', 'Postman', 'Jira', 'Figma', 'Swagger'].map(skill => (
-                    <span key={skill} className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700' style={{ color: 'black' }}>{skill}</span>
-                  ))}
+                  {['VS Code', 'IntelliJ', 'Postman', 'Jira', 'Figma', 'Swagger'].map(
+                    (skill) => (
+                      <span
+                        key={skill}
+                        className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
+                        style={{ color: 'black' }}
+                      >
+                        {skill}
+                      </span>
+                    )
+                  )}
                 </div>
               </div>
             </div>
@@ -153,17 +279,36 @@ const OnlineResume = () => {
 
           {/* Experiência Profissional */}
           <div>
-            <h2 className='text-lg font-bold mb-3 text-gray-800 border-b border-gray-300 pb-1' style={{ color: 'black' }}>EXPERIÊNCIA PROFISSIONAL</h2>
+            <h2
+              className='text-lg font-bold mb-3 text-gray-800 border-b border-gray-300 pb-1'
+              style={{ color: 'black' }}
+            >
+              EXPERIÊNCIA PROFISSIONAL
+            </h2>
             {experiences.map((exp, index) => (
               <div key={index} className='mb-4'>
                 <div className='flex justify-between items-start mb-1'>
-                  <h3 className='font-bold text-sm' style={{ color: 'black' }}>{t(exp.title)}</h3>
-                  <span className='text-xs text-gray-600' style={{ color: 'black' }}>{t(exp.date)}</span>
+                  <h3 className='font-bold text-sm' style={{ color: 'black' }}>
+                    {t(exp.title)}
+                  </h3>
+                  <span className='text-xs text-gray-600' style={{ color: 'black' }}>
+                    {t(exp.date)}
+                  </span>
                 </div>
-                <p className='text-xs text-gray-700 font-medium mb-2' style={{ color: 'black' }}>{t(exp.companyName)}</p>
-                <ul className='list-disc list-inside text-xs space-y-1' style={{ color: 'black' }}>
+                <p
+                  className='text-xs text-gray-700 font-medium mb-2'
+                  style={{ color: 'black' }}
+                >
+                  {t(exp.companyName)}
+                </p>
+                <ul
+                  className='list-disc list-inside text-xs space-y-1'
+                  style={{ color: 'black' }}
+                >
                   {exp.points.map((point, pIndex) => (
-                    <li key={pIndex} style={{ color: 'black' }}>{t(point)}</li>
+                    <li key={pIndex} style={{ color: 'black' }}>
+                      {t(point)}
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -172,18 +317,41 @@ const OnlineResume = () => {
 
           {/* Projetos Relevantes */}
           <div>
-            <h2 className='text-lg font-bold mb-3 text-gray-800 border-b border-gray-300 pb-1' style={{ color: 'black' }}>PROJETOS DESTACADOS</h2>
+            <h2
+              className='text-lg font-bold mb-3 text-gray-800 border-b border-gray-300 pb-1'
+              style={{ color: 'black' }}
+            >
+              PROJETOS DESTACADOS
+            </h2>
             <div className='space-y-3'>
               {projects.slice(0, 3).map((project, index) => (
                 <div key={index} className='mb-3'>
                   <div className='flex justify-between items-start mb-1'>
-                    <h3 className='font-bold text-sm' style={{ color: 'black' }}>{project.name}</h3>
-                    <span className='text-xs bg-gray-100 px-2 py-0.5 rounded text-gray-700' style={{ color: 'black' }}>{project.category}</span>
+                    <h3 className='font-bold text-sm' style={{ color: 'black' }}>
+                      {project.name}
+                    </h3>
+                    <span
+                      className='text-xs bg-gray-100 px-2 py-0.5 rounded text-gray-700'
+                      style={{ color: 'black' }}
+                    >
+                      {project.category}
+                    </span>
                   </div>
-                  <p className='text-xs text-gray-700 leading-relaxed' style={{ color: 'black' }}>{t(project.description)}</p>
+                  <p
+                    className='text-xs text-gray-700 leading-relaxed'
+                    style={{ color: 'black' }}
+                  >
+                    {t(project.description)}
+                  </p>
                   <div className='flex flex-wrap gap-1 mt-1'>
                     {project.tags.slice(0, 3).map((tag, tIdx) => (
-                      <span key={tIdx} className='text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700' style={{ color: 'black' }}>#{tag.name}</span>
+                      <span
+                        key={tIdx}
+                        className='text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700'
+                        style={{ color: 'black' }}
+                      >
+                        #{tag.name}
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -193,58 +361,124 @@ const OnlineResume = () => {
 
           {/* Formação e Certificações */}
           <div>
-            <h2 className='text-lg font-bold mb-3 text-gray-800 border-b border-gray-300 pb-1' style={{ color: 'black' }}>FORMAÇÃO E CERTIFICAÇÕES</h2>
+            <h2
+              className='text-lg font-bold mb-3 text-gray-800 border-b border-gray-300 pb-1'
+              style={{ color: 'black' }}
+            >
+              FORMAÇÃO E CERTIFICAÇÕES
+            </h2>
             <div className='space-y-3 text-xs'>
               <div>
-                <h3 className='font-bold text-sm' style={{ color: 'black' }}>Pós-Graduação em IA & Data Science</h3>
-                <p className='text-gray-600' style={{ color: 'black' }}>Anhanguera | Cursando</p>
+                <h3 className='font-bold text-sm' style={{ color: 'black' }}>
+                  Pós-Graduação em IA & Data Science
+                </h3>
+                <p className='text-gray-600' style={{ color: 'black' }}>
+                  Anhanguera | Cursando
+                </p>
               </div>
               <div>
-                <h3 className='font-bold text-sm' style={{ color: 'black' }}>Tecnólogo em Análise e Desenvolvimento de Sistemas</h3>
-                <p className='text-gray-600' style={{ color: 'black' }}>Unopar Anhanguera | 2025</p>
+                <h3 className='font-bold text-sm' style={{ color: 'black' }}>
+                  Tecnólogo em Análise e Desenvolvimento de Sistemas
+                </h3>
+                <p className='text-gray-600' style={{ color: 'black' }}>
+                  Unopar Anhanguera | 2025
+                </p>
               </div>
               <div>
-                <h3 className='font-bold text-sm mb-2' style={{ color: 'black' }}>Certificações Relevantes</h3>
+                <h3 className='font-bold text-sm mb-2' style={{ color: 'black' }}>
+                  Certificações Relevantes
+                </h3>
                 <div className='space-y-1'>
-                  {allCourses.filter(c => c.isProfessionalCertificate).slice(0, 2).map(course => (
-                    <div key={course.id}>
-                      <p className='text-gray-700' style={{ color: 'black' }}>{course.title}</p>
-                      <p className='text-gray-600 text-xs' style={{ color: 'black' }}>{course.platform} | {course.date}</p>
-                    </div>
-                  ))}
+                  {allCourses
+                    .filter((c) => c.isProfessionalCertificate)
+                    .slice(0, 2)
+                    .map((course) => (
+                      <div key={course.id}>
+                        <p className='text-gray-700' style={{ color: 'black' }}>
+                          {course.title}
+                        </p>
+                        <p className='text-gray-600 text-xs' style={{ color: 'black' }}>
+                          {course.platform} | {course.date}
+                        </p>
+                      </div>
+                    ))}
                 </div>
               </div>
             </div>
           </div>
 
           {/* Quebra de página EXATA para impressão */}
-          <div className="break-before-page print:break-before-page" />
+          <div className='break-before-page print:break-before-page' />
 
           {/* Soft Skills e Metodologias - OTIMIZADO */}
           <div className='print:mt-4'>
-            <h2 className='text-lg font-bold mb-2 text-gray-800 border-b border-gray-300 pb-1' style={{ color: 'black' }}>COMPETÊNCIAS ADICIONAIS</h2>
+            <h2
+              className='text-lg font-bold mb-2 text-gray-800 border-b border-gray-300 pb-1'
+              style={{ color: 'black' }}
+            >
+              COMPETÊNCIAS ADICIONAIS
+            </h2>
             <div className='grid grid-cols-3 gap-2 text-xs'>
               <div>
-                <span className='font-medium text-gray-700 block mb-1' style={{ color: 'black' }}>Metodologias</span>
+                <span
+                  className='font-medium text-gray-700 block mb-1'
+                  style={{ color: 'black' }}
+                >
+                  Metodologias
+                </span>
                 <div className='flex flex-wrap gap-1'>
-                  {['Scrum', 'Kanban', 'Ágil', 'DevOps'].map(skill => (
-                    <span key={skill} className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700' style={{ color: 'black' }}>{skill}</span>
+                  {['Scrum', 'Kanban', 'Ágil', 'DevOps'].map((skill) => (
+                    <span
+                      key={skill}
+                      className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
+                      style={{ color: 'black' }}
+                    >
+                      {skill}
+                    </span>
                   ))}
                 </div>
               </div>
               <div>
-                <span className='font-medium text-gray-700 block mb-1' style={{ color: 'black' }}>Habilidades</span>
+                <span
+                  className='font-medium text-gray-700 block mb-1'
+                  style={{ color: 'black' }}
+                >
+                  Habilidades
+                </span>
                 <div className='flex flex-wrap gap-1'>
-                  {['Liderança', 'Mentoria', 'Comunicação', 'Resolução de Problemas'].map(skill => (
-                    <span key={skill} className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700' style={{ color: 'black' }}>{skill}</span>
-                  ))}
+                  {['Liderança', 'Mentoria', 'Comunicação', 'Resolução de Problemas'].map(
+                    (skill) => (
+                      <span
+                        key={skill}
+                        className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
+                        style={{ color: 'black' }}
+                      >
+                        {skill}
+                      </span>
+                    )
+                  )}
                 </div>
               </div>
               <div>
-                <span className='font-medium text-gray-700 block mb-1' style={{ color: 'black' }}>Idiomas</span>
+                <span
+                  className='font-medium text-gray-700 block mb-1'
+                  style={{ color: 'black' }}
+                >
+                  Idiomas
+                </span>
                 <div className='flex flex-wrap gap-1'>
-                  <span className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700' style={{ color: 'black' }}>Português Nativo</span>
-                  <span className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700' style={{ color: 'black' }}>Inglês Intermediário</span>
+                  <span
+                    className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
+                    style={{ color: 'black' }}
+                  >
+                    Português Nativo
+                  </span>
+                  <span
+                    className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
+                    style={{ color: 'black' }}
+                  >
+                    Inglês Intermediário
+                  </span>
                 </div>
               </div>
             </div>
@@ -252,15 +486,24 @@ const OnlineResume = () => {
         </div>
 
         {/* Rodapé */}
-        <div className='text-center mt-6 pt-4 border-t border-gray-200 text-xs print:hidden' style={{ color: 'black' }}>
-          <p>Este currículo foi gerado digitalmente em {new Date().toLocaleDateString('pt-BR')}</p>
-          <p className='font-bold mt-1' style={{ color: 'black' }}>leandrobarbosa.dev | linkedin.com/in/lelebrr</p>
+        <div
+          className='text-center mt-6 pt-4 border-t border-gray-200 text-xs print:hidden'
+          style={{ color: 'black' }}
+        >
+          <p>
+            Este currículo foi gerado digitalmente em{' '}
+            {new Date().toLocaleDateString('pt-BR')}
+          </p>
+          <p className='font-bold mt-1' style={{ color: 'black' }}>
+            leandrobarbosa.dev | linkedin.com/in/lelebrr
+          </p>
         </div>
       </div>
 
       {/* Page Styles */}
-      <style dangerouslySetInnerHTML={{
-        __html: `
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
 
         :root {
           --cyber-purple: #9747FF;
@@ -403,7 +646,9 @@ const OnlineResume = () => {
              page-break-after: avoid !important;
            }
          }
-      `}} />
+      `,
+        }}
+      />
     </div>
   );
 };

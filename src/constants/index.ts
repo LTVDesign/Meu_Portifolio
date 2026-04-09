@@ -1,4 +1,3 @@
-import { styles } from './styles';
 import {
   android,
   arduino,
@@ -31,8 +30,8 @@ import {
   ubiquiti,
   vscode,
   web,
-  windows,
   willy,
+  windows,
 } from '../assets';
 import type {
   TExperience,
@@ -42,6 +41,7 @@ import type {
   TTechnology,
   TTestimonial,
 } from '../types';
+import { styles } from './styles';
 
 export const navLinks: TNavLink[] = [
   {
@@ -314,7 +314,7 @@ const experiences: TExperience[] = [
   },
   {
     title: 'experience.titles.generalManager',
-    companyName: "experience.companies.abraKebabs",
+    companyName: 'experience.companies.abraKebabs',
     icon: '/empresas/abrakebab.webp',
     iconBg: '#E6DEDD',
     date: 'experience.dates.abrakebabs',
@@ -510,7 +510,8 @@ const projects: TProject[] = [
   },
   {
     name: 'Willy Cyber-Multitool',
-    description: 'Willy Cyber-Multitool: Kit completo de ferramentas de cibersegurança e administração de sistemas integrando múltiplas ferramentas de segurança e recursos de automação.',
+    description:
+      'Willy Cyber-Multitool: Kit completo de ferramentas de cibersegurança e administração de sistemas integrando múltiplas ferramentas de segurança e recursos de automação.',
     tags: [
       { name: 'cybersecurity', color: 'purple-text-gradient' },
       { name: 'automation', color: 'blue-text-gradient' },
@@ -519,7 +520,7 @@ const projects: TProject[] = [
     sourceCodeLink: 'https://github.com/lelebrr/Willy_ESP32_S3',
     status: 'status_ongoing',
     category: 'category_security',
-  }
-]
+  },
+];
 
-export { logo, experiences, projects, services, technologies, testimonials, styles };
+export { experiences, logo, projects, services, styles, technologies, testimonials };

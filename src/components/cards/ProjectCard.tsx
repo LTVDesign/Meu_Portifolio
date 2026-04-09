@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next';
 import { m } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { fadeIn } from '../../utils/motion';
 
 interface ProjectCardProps {
@@ -41,7 +41,10 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
           {project.title || project.name}
         </h3>
 
-        <p className='mt-4 text-white/80 line-clamp-4 flex-1' style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}>
+        <p
+          className='mt-4 text-white/80 line-clamp-4 flex-1'
+          style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}
+        >
           {project.description}
         </p>
 
@@ -79,7 +82,11 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
             }}
             whileTap={{ scale: 0.95 }}
             onClick={() =>
-              window.open(project.sourceCodeLink || project.sourceCode, '_blank', 'noopener,noreferrer')
+              window.open(
+                project.sourceCodeLink || project.sourceCode,
+                '_blank',
+                'noopener,noreferrer'
+              )
             }
             className='relative px-8 py-4 text-xs font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-3 shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden btn-glow-cyan'
           >

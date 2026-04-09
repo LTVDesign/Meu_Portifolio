@@ -44,11 +44,7 @@ const isTouchDevice = () =>
 export const useTouchScrollGuard = (
   options: TouchScrollGuardOptions = {}
 ): TouchScrollGuardReturn => {
-  const {
-    verticalThreshold = 30,
-    intentThreshold = 8,
-    enabled = true,
-  } = options;
+  const { verticalThreshold = 30, intentThreshold = 8, enabled = true } = options;
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [isTouchInteracting, setIsTouchInteracting] = useState(false);
@@ -112,7 +108,7 @@ export const useTouchScrollGuard = (
       intentDecidedRef.current = true;
 
       // Calcula o ângulo do gesto em relação ao eixo vertical
-      // Atan2(dx, dy) -> dx é o oposto, dy é o adjacente. 
+      // Atan2(dx, dy) -> dx é o oposto, dy é o adjacente.
       // Se dx for pequeno (horizontal pequeno) e dy grande (vertical grande), o ângulo será pequeno.
       const angleFromVertical = (Math.atan2(dx, dy) * 180) / Math.PI;
 

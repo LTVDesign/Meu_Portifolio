@@ -1,15 +1,15 @@
+import { m, useInView } from 'framer-motion';
 import { useMemo, useRef, useState } from 'react';
-import { useInView, m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { FaBuilding, FaEnvelope, FaPaperPlane, FaPhone, FaUser } from 'react-icons/fa';
 import { z } from 'zod';
 import { SectionWrapper } from '../../hoc';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
+import { useViewport } from '../../hooks/useViewport';
 import { emailService } from '../../utils/emailService';
 import { slideIn } from '../../utils/motion';
 import { Header } from '../atoms';
 import { EarthCanvas } from '../canvas';
-import { useViewport } from '../../hooks/useViewport';
 
 type ContactForm = {
   name: string;
@@ -51,11 +51,20 @@ const Contact = () => {
   const contactSchema = useMemo(
     () =>
       z.object({
-        name: z.string().min(1, t('contact.validationErrors.nameRequired')).max(100, t('contact.validationErrors.nameTooLong')),
+        name: z
+          .string()
+          .min(1, t('contact.validationErrors.nameRequired'))
+          .max(100, t('contact.validationErrors.nameTooLong')),
         email: z.string().email(t('contact.validationErrors.emailInvalid')),
         phone: z.string().max(20, t('contact.validationErrors.phoneTooLong')).default(''),
-        company: z.string().max(100, t('contact.validationErrors.companyTooLong')).default(''),
-        message: z.string().min(20, t('contact.validationErrors.messageTooShort')).max(1000, t('contact.validationErrors.messageTooLong')),
+        company: z
+          .string()
+          .max(100, t('contact.validationErrors.companyTooLong'))
+          .default(''),
+        message: z
+          .string()
+          .min(20, t('contact.validationErrors.messageTooShort'))
+          .max(1000, t('contact.validationErrors.messageTooLong')),
         website: z.string().optional(),
       }),
     [t]
@@ -272,9 +281,18 @@ const Contact = () => {
                 className='flex flex-wrap justify-center gap-[clamp(0.5rem,1.5vw,0.75rem)] mt-[clamp(1.5rem,3vw,2rem)]'
               >
                 {[
-                  { text: t('contactPage.secureEmail'), color: 'from-blue-500 to-cyan-500' },
-                  { text: t('contactPage.quickResponse'), color: 'from-green-500 to-emerald-500' },
-                  { text: t('contactPage.directContact'), color: 'from-purple-500 to-pink-500' },
+                  {
+                    text: t('contactPage.secureEmail'),
+                    color: 'from-blue-500 to-cyan-500',
+                  },
+                  {
+                    text: t('contactPage.quickResponse'),
+                    color: 'from-green-500 to-emerald-500',
+                  },
+                  {
+                    text: t('contactPage.directContact'),
+                    color: 'from-purple-500 to-pink-500',
+                  },
                 ].map((badge, idx) => (
                   <m.span
                     key={idx}
@@ -300,7 +318,11 @@ const Contact = () => {
             className='flex-1 w-full'
           >
             <div className='glass p-[clamp(1.25rem,4vw,3rem)]'>
-              <form ref={formRef} onSubmit={handleSubmit} className='mt-[clamp(1.5rem,4vw,2.5rem)] space-y-[clamp(1.25rem,3vw,2rem)]'>
+              <form
+                ref={formRef}
+                onSubmit={handleSubmit}
+                className='mt-[clamp(1.5rem,4vw,2.5rem)] space-y-[clamp(1.25rem,3vw,2rem)]'
+              >
                 {/* Honeypot: campo oculto para bots */}
                 <div className='hidden' aria-hidden='true'>
                   <label htmlFor='website'>Não preencha este campo</label>
@@ -466,9 +488,7 @@ const Contact = () => {
               className='flex flex-1 w-full h-[clamp(400px,60vw,700px)] items-center justify-center relative overflow-hidden'
             >
               <div className='w-full h-full flex items-center justify-center'>
-                {isInView && (
-                  <EarthCanvas />
-                )}
+                {isInView && <EarthCanvas />}
               </div>
             </m.div>
           )}

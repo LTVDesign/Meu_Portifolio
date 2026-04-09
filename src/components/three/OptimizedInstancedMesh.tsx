@@ -54,7 +54,7 @@ const OptimizedInstancedMesh = ({
 
       dummy.position.copy(pos);
 
-      if (scales && scales[i]) {
+      if (scales?.[i]) {
         dummy.scale.copy(scales[i]);
       } else {
         const s = isLowPerformance ? 0.6 : 1.0;
@@ -64,7 +64,7 @@ const OptimizedInstancedMesh = ({
       dummy.updateMatrix();
       mesh.setMatrixAt(i, dummy.matrix);
 
-      if (colors && colors[i] && mesh.instanceColor) {
+      if (colors?.[i] && mesh.instanceColor) {
         mesh.setColorAt(i, colors[i]);
       }
     }

@@ -1,4 +1,10 @@
-import { AdaptiveDpr, AdaptiveEvents, OrbitControls, useGLTF, ContactShadows } from '@react-three/drei';
+import {
+  AdaptiveDpr,
+  AdaptiveEvents,
+  ContactShadows,
+  OrbitControls,
+  useGLTF,
+} from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import type React from 'react';
 import { Suspense, useEffect, useState } from 'react';
@@ -30,7 +36,7 @@ const getFluidConfig = (width: number) => {
     scale,
     position: [0, posY, posZ] as [number, number, number],
     fov,
-    dprMax
+    dprMax,
   };
 };
 
@@ -62,10 +68,7 @@ const ComputersContent: React.FC<{ viewportWidth: number }> = ({ viewportWidth }
   return (
     <group>
       {/* HemisphereLight - luz ambiente suave que ilumina as sombras */}
-      <hemisphereLight
-        intensity={0.4}
-        groundColor='black'
-      />
+      <hemisphereLight intensity={0.4} groundColor='black' />
 
       {/* Luz Ambiente - eleva o brilho geral das partes pretas */}
       <ambientLight intensity={0.5} />
@@ -80,25 +83,13 @@ const ComputersContent: React.FC<{ viewportWidth: number }> = ({ viewportWidth }
       />
 
       {/* PointLight Lateral (Direita) - Luz de preenchimento ciano para áreas escuras */}
-      <pointLight
-        position={[10, -1, 5]}
-        intensity={1.8}
-        color="#00FFFF"
-      />
+      <pointLight position={[10, -1, 5]} intensity={1.8} color='#00FFFF' />
 
       {/* PointLight Traseira (Rim Light) - Ajuda a destacar a silhueta da mesa e PC */}
-      <pointLight
-        position={[-5, 5, -10]}
-        intensity={1.2}
-        color="#915EFF"
-      />
+      <pointLight position={[-5, 5, -10]} intensity={1.2} color='#915EFF' />
 
       {/* PointLight Frontal - Garante que o painel frontal não fique totalmente preto */}
-      <pointLight
-        position={[0, 2, 8]}
-        intensity={1.0}
-        color="#ffffff"
-      />
+      <pointLight position={[0, 2, 8]} intensity={1.0} color='#ffffff' />
 
       {/* ContactShadows - Sombras de contato suaves no chão */}
       <ContactShadows
@@ -122,13 +113,13 @@ const ComputersContent: React.FC<{ viewportWidth: number }> = ({ viewportWidth }
 
 /**
  * ThreeExperience - Componente principal da experiência Three.js
- * 
+ *
  * Este componente encapsula toda a experiência 3D incluindo:
  * - Canvas configurado com otimizações de performance
  * - OrbitControls para interação
  * - AdaptiveDpr e AdaptiveEvents para performance adaptativa
  * - Modelo 3D do computador com luzes
- * 
+ *
  * Otimizações:
  * - frameloop="demand" para renderizar apenas quando necessário
  * - DPR adaptativo baseado no dispositivo
@@ -153,8 +144,6 @@ const ThreeExperience: React.FC = () => {
     return () => clearTimeout(preloadTimer);
   }, []);
 
-
-
   // Carregamento lazy com IntersectionObserver
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -168,7 +157,7 @@ const ThreeExperience: React.FC = () => {
       },
       {
         threshold: 0.05,
-        rootMargin: viewportWidth < 380 ? '50px' : '200px'
+        rootMargin: viewportWidth < 380 ? '50px' : '200px',
       }
     );
 
@@ -224,7 +213,8 @@ const ThreeExperience: React.FC = () => {
           stencil: false,
           depth: true,
           // Ajuste de precisão adaptativo
-          precision: viewportWidth < 640 ? 'lowp' : viewportWidth < 1024 ? 'mediump' : 'highp',
+          precision:
+            viewportWidth < 640 ? 'lowp' : viewportWidth < 1024 ? 'mediump' : 'highp',
           // Otimizações de performance
           alpha: true,
         }}

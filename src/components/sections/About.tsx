@@ -1,10 +1,9 @@
-import { useTranslation } from 'react-i18next';
 import { m } from 'framer-motion';
-import { SectionWrapper } from '../../hoc';
-import { Header } from '../atoms';
-
+import { useTranslation } from 'react-i18next';
 // Importando a foto pessoal de src/assets/images/
 import eu from '../../assets/images/eu.jpg';
+import { SectionWrapper } from '../../hoc';
+import { Header } from '../atoms';
 
 const About = () => {
   const { t } = useTranslation();

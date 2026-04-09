@@ -1,5 +1,5 @@
-import type React from 'react';
 import { m } from 'framer-motion';
+import type React from 'react';
 
 import { styles } from '../../constants/styles';
 
@@ -90,7 +90,8 @@ export const Header: React.FC<IHeader> = ({ useMotion, p, h2 }) => {
             style={{
               filter:
                 'drop-shadow(0 0 20px rgba(145,94,255,0.6)) drop-shadow(0 0 40px rgba(0,255,255,0.4)) drop-shadow(0 0 60px rgba(145,94,255,0.3))',
-              textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(145, 94, 255, 0.3)',
+              textShadow:
+                '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(145, 94, 255, 0.3)',
             }}
           >
             {h2}

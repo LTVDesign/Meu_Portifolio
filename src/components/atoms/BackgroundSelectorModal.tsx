@@ -1,5 +1,5 @@
-import type React from 'react';
 import { AnimatePresence, m } from 'framer-motion';
+import type React from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface BackgroundSelectorModalProps {
@@ -19,11 +19,27 @@ const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = ({
       name: t('backgrounds.cyberpunk'),
       gradient: 'from-[var(--cyber-purple)] to-[var(--cyber-cyan)]',
     },
-    { id: 'matrix', name: t('backgrounds.matrix'), gradient: 'from-green-500 to-emerald-700' },
+    {
+      id: 'matrix',
+      name: t('backgrounds.matrix'),
+      gradient: 'from-green-500 to-emerald-700',
+    },
     { id: 'ocean', name: t('backgrounds.ocean'), gradient: 'from-blue-500 to-cyan-500' },
-    { id: 'sunset', name: t('backgrounds.sunset'), gradient: 'from-orange-500 to-pink-500' },
-    { id: 'aurora', name: t('backgrounds.aurora'), gradient: 'from-purple-500 to-teal-400' },
-    { id: 'minimal', name: t('backgrounds.minimal'), gradient: 'from-gray-700 to-gray-900' },
+    {
+      id: 'sunset',
+      name: t('backgrounds.sunset'),
+      gradient: 'from-orange-500 to-pink-500',
+    },
+    {
+      id: 'aurora',
+      name: t('backgrounds.aurora'),
+      gradient: 'from-purple-500 to-teal-400',
+    },
+    {
+      id: 'minimal',
+      name: t('backgrounds.minimal'),
+      gradient: 'from-gray-700 to-gray-900',
+    },
   ];
 
   const handleSelectBackground = (bgId: string) => {
@@ -191,9 +207,7 @@ const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = ({
                 {t('backgrounds.cancel')}
               </m.button>
 
-              <div className='text-white/40 text-sm'>
-                {t('backgrounds.hint')}
-              </div>
+              <div className='text-white/40 text-sm'>{t('backgrounds.hint')}</div>
             </div>
           </m.div>
         </m.div>

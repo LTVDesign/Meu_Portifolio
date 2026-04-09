@@ -1,13 +1,13 @@
-import { type ReactNode, forwardRef } from 'react'
-import { m } from 'framer-motion'
+import { m } from 'framer-motion';
+import { forwardRef, type ReactNode } from 'react';
 
 interface Props {
-  href: string
-  children: ReactNode
-  className?: string
-  target?: string
-  rel?: string
-  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void
+  href: string;
+  children: ReactNode;
+  className?: string;
+  target?: string;
+  rel?: string;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
 const LinkAnimado = forwardRef<HTMLAnchorElement, Props>(
@@ -25,8 +25,8 @@ const LinkAnimado = forwardRef<HTMLAnchorElement, Props>(
     >
       {children}
     </m.a>
-  ),
-)
+  )
+);
 
-LinkAnimado.displayName = 'LinkAnimado'
-export default LinkAnimado
+LinkAnimado.displayName = 'LinkAnimado';
+export default LinkAnimado;

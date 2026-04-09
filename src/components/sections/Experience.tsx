@@ -1,5 +1,5 @@
-import { forwardRef, useState } from 'react';
 import { m } from 'framer-motion';
+import { forwardRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { experiences } from '../../constants';
 import { SectionWrapper } from '../../hoc';
@@ -33,7 +33,8 @@ const ExperienceCard = forwardRef<
       <div
         className='absolute left-[clamp(1.4375rem,3.5vw,1.9375rem)] top-0 h-full w-[2px] bg-gradient-to-b from-[var(--cyber-cyan)] via-white/10 to-transparent group-last:h-16'
         style={{
-          boxShadow: '0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3), 0 0 30px rgba(0, 255, 255, 0.2)'
+          boxShadow:
+            '0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3), 0 0 30px rgba(0, 255, 255, 0.2)',
         }}
       >
         {/* Animated glow that travels down the line */}
@@ -42,21 +43,19 @@ const ExperienceCard = forwardRef<
           animate={{
             top: ['0%', '100%'],
             scale: [1, 0.8, 1],
-            opacity: [1, 0.6, 1]
+            opacity: [1, 0.6, 1],
           }}
           transition={{
             duration: 3,
             repeat: Infinity,
             ease: 'easeInOut',
-            delay: index * 0.5
+            delay: index * 0.5,
           }}
         />
       </div>
 
       {/* Logo badge - responsivo */}
-      <div
-        className='absolute left-[clamp(-0.5rem,-1vw,-0.25rem)] top-0 w-[clamp(3.5rem,8vw,5rem)] h-[clamp(3.5rem,8vw,5rem)] rounded-full bg-white border-2 border-[var(--cyber-cyan)] z-10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:scale-110 shadow-[0_0_20px_rgba(0,255,255,0.2)]'
-      >
+      <div className='absolute left-[clamp(-0.5rem,-1vw,-0.25rem)] top-0 w-[clamp(3.5rem,8vw,5rem)] h-[clamp(3.5rem,8vw,5rem)] rounded-full bg-white border-2 border-[var(--cyber-cyan)] z-10 flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:scale-110 shadow-[0_0_20px_rgba(0,255,255,0.2)]'>
         {/* External orbiting glow */}
         <m.div
           className='absolute w-[clamp(0.5rem,1.5vw,0.75rem)] h-[clamp(0.5rem,1.5vw,0.75rem)] rounded-full bg-[var(--cyber-cyan)]'
@@ -64,13 +63,13 @@ const ExperienceCard = forwardRef<
             x: [0, 30, 0, -30, 0],
             y: [-30, 0, 30, 0, -30],
             scale: [1, 1.5, 1],
-            opacity: [0.7, 1, 0.7]
+            opacity: [0.7, 1, 0.7],
           }}
           transition={{
             duration: 4,
             repeat: Infinity,
             ease: 'linear',
-            delay: index * 1.5
+            delay: index * 1.5,
           }}
         />
         {isLoading ? (
@@ -221,10 +220,12 @@ const Experience = () => {
                 transition={{ duration: 0.8, delay: 0.7 }}
                 className='prose prose-invert max-w-none'
               >
-                <p className='text-white/80 leading-relaxed text-[clamp(0.875rem,2vw,1.125rem)] mb-[clamp(1.5rem,3vw,1.5rem)]'
+                <p
+                  className='text-white/80 leading-relaxed text-[clamp(0.875rem,2vw,1.125rem)] mb-[clamp(1.5rem,3vw,1.5rem)]'
                   style={{
                     textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)',
-                  }}>
+                  }}
+                >
                   {t('about.content')}
                 </p>
               </m.div>
@@ -238,10 +239,22 @@ const Experience = () => {
                 className='flex flex-wrap justify-center gap-[clamp(0.5rem,1.5vw,0.75rem)] mt-[clamp(1.5rem,3vw,2rem)]'
               >
                 {[
-                  { text: t('services.gestaoBadge'), color: 'from-purple-500 to-pink-500' },
-                  { text: t('services.scrumMasterBadge'), color: 'from-green-500 to-emerald-500' },
-                  { text: t('services.cibersegurancaBadge'), color: 'from-red-500 to-orange-500' },
-                  { text: t('services.iaDadosBadge'), color: 'from-cyan-500 to-blue-500' },
+                  {
+                    text: t('services.gestaoBadge'),
+                    color: 'from-purple-500 to-pink-500',
+                  },
+                  {
+                    text: t('services.scrumMasterBadge'),
+                    color: 'from-green-500 to-emerald-500',
+                  },
+                  {
+                    text: t('services.cibersegurancaBadge'),
+                    color: 'from-red-500 to-orange-500',
+                  },
+                  {
+                    text: t('services.iaDadosBadge'),
+                    color: 'from-cyan-500 to-blue-500',
+                  },
                 ].map((badge, idx) => (
                   <m.span
                     key={idx}
@@ -263,9 +276,7 @@ const Experience = () => {
 
       <div className='relative pt-2'>
         {/* Timeline Line (Background) */}
-        <div
-          className='absolute left-[clamp(1.4375rem,3.5vw,1.9375rem)] top-[clamp(1rem,3vw,1rem)] bottom-0 w-[2px] bg-gradient-to-b from-[var(--cyber-cyan)]/30 via-white/10 to-transparent'
-        />
+        <div className='absolute left-[clamp(1.4375rem,3.5vw,1.9375rem)] top-[clamp(1rem,3vw,1rem)] bottom-0 w-[2px] bg-gradient-to-b from-[var(--cyber-cyan)]/30 via-white/10 to-transparent' />
 
         {displayedExperiences.map((exp, index) => (
           <ExperienceCard key={exp.title + exp.date} experience={exp} index={index} />

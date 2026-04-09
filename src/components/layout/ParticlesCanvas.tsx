@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { initLaunchParticles } from '../../utils/particles/launchParticles';
 import { usePerformance } from '../../contexts/PerformanceContext';
+import { initLaunchParticles } from '../../utils/particles/launchParticles';
 
 const ParticlesCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -24,7 +24,7 @@ const ParticlesCanvas = () => {
     btn.addEventListener('mouseenter', handleMouseEnter);
     btn.addEventListener('mouseleave', handleMouseLeave);
 
-    let cleanup = () => { };
+    let cleanup = () => {};
 
     // Só inicializa quando ativo
     if (isActive) {
@@ -55,7 +55,6 @@ const ParticlesCanvas = () => {
       <button
         ref={btnRef}
         className='fixed left-[clamp(0.5rem,1.5vw,1rem)] top-1/2 -translate-y-1/2 w-14 h-14 pointer-events-none opacity-0'
-        aria-hidden='true'
       />
     </>
   );

@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next';
 import { m } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { FiDownload, FiExternalLink } from 'react-icons/fi';
 import { SectionWrapper } from '../../hoc';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
@@ -100,7 +100,8 @@ const Curriculo = () => {
               transition={{ duration: 0.6, delay: 0.5 }}
               className='text-white transition-colors composited-hover duration-500 mt-[clamp(1rem,3vw,1.5rem)] text-[clamp(0.875rem,2vw,1.0625rem)] leading-relaxed text-center max-w-3xl mx-auto'
               style={{
-                textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(145, 94, 255, 0.3)',
+                textShadow:
+                  '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(145, 94, 255, 0.3)',
               }}
             >
               {t('curriculo.content')}
@@ -117,7 +118,10 @@ const Curriculo = () => {
               {[
                 { text: t('curriculo.badgeOnline'), color: 'from-cyan-500 to-blue-500' },
                 { text: t('curriculo.badgePDF'), color: 'from-green-500 to-emerald-500' },
-                { text: t('curriculo.badgeExperience'), color: 'from-purple-500 to-pink-500' },
+                {
+                  text: t('curriculo.badgeExperience'),
+                  color: 'from-purple-500 to-pink-500',
+                },
                 { text: t('curriculo.badgeSkills'), color: 'from-orange-500 to-red-500' },
               ].map((badge, idx) => (
                 <m.span

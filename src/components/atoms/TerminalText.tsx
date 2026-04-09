@@ -67,7 +67,9 @@ const TerminalText: React.FC<TerminalTextProps> = ({
       }
 
       const currentWords = wordsRef.current;
-      const shouldContinue = !typeOnceRef.current || (typeOnceRef.current && letterCountRef.current <= currentWords[0].length + 1);
+      const shouldContinue =
+        !typeOnceRef.current ||
+        (typeOnceRef.current && letterCountRef.current <= currentWords[0].length + 1);
 
       if (!shouldContinue) {
         return;
@@ -141,13 +143,12 @@ const TerminalText: React.FC<TerminalTextProps> = ({
 
   return (
     <div className={`${className}`} style={style}>
-      <span style={{ color: currentColor.current }}>
-        {displayText}
-      </span>
+      <span style={{ color: currentColor.current }}>{displayText}</span>
       <span
         style={{ color: currentColor.current }}
-        className={`inline-block relative -top-[0.14em] ml-[10px] select-none ${showCursor ? 'opacity-100' : 'opacity-0'
-          } ${cursorClassName}`}
+        className={`inline-block relative -top-[0.14em] ml-[10px] select-none ${
+          showCursor ? 'opacity-100' : 'opacity-0'
+        } ${cursorClassName}`}
       >
         &#95;
       </span>

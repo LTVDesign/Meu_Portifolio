@@ -1,6 +1,5 @@
 import type React from 'react';
 import { useEffect, useRef } from 'react';
-import { useViewport } from '../../hooks/useViewport';
 // Tree-shakeable Three.js imports for better performance
 import {
   ACESFilmicToneMapping,
@@ -27,6 +26,7 @@ import {
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
+import { useViewport } from '../../hooks/useViewport';
 
 interface CyberpunkUltraBackgroundProps {
   bloomStrength: number;
@@ -122,7 +122,11 @@ const CyberpunkUltraBackground: React.FC<CyberpunkUltraBackgroundProps> = ({
     const camera = new PerspectiveCamera(cameraFOV, w / h, 0.01, 2000);
     camera.position.z = 5;
     cameraRef.current = camera;
-    const renderer = new WebGLRenderer({ antialias: false, alpha: true, preserveDrawingBuffer: true });
+    const renderer = new WebGLRenderer({
+      antialias: false,
+      alpha: true,
+      preserveDrawingBuffer: true,
+    });
     renderer.setClearAlpha(0);
     renderer.setSize(w, h);
     renderer.toneMapping = ACESFilmicToneMapping;

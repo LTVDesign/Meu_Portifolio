@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next';
 import { m } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { technologies } from '../../constants';
 import { SectionWrapper } from '../../hoc';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
@@ -13,7 +13,7 @@ const Tech = () => {
 
   const handleTechClick = (techName: string) => {
     // Abre uma busca sobre a tecnologia em uma nova aba
-    const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(techName + ' tutorial')}`;
+    const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(`${techName} tutorial`)}`;
     window.open(searchUrl, '_blank');
   };
 
@@ -181,7 +181,10 @@ const Tech = () => {
 
       {/* Informação adicional */}
       <div className='mt-[clamp(2.5rem,5vw,4rem)] text-center'>
-        <p className='text-white/80 text-[clamp(0.75rem,1.5vw,0.875rem)]' style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}>
+        <p
+          className='text-white/80 text-[clamp(0.75rem,1.5vw,0.875rem)]'
+          style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}
+        >
           {t('tech.clickInfo')}
         </p>
       </div>

@@ -1,5 +1,5 @@
-import { memo, useCallback, useEffect, useState } from 'react';
 import { m, useScroll, useSpring } from 'framer-motion';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { navLinks } from '../../constants';
@@ -8,7 +8,7 @@ import { LinkAnimado } from '../atoms';
 import Tooltip from '../atoms/Tooltip';
 
 // Logo da raiz (public) - servido estaticamente
-const logo = '/assets/icons/logo.png';
+const logo = '/assets/icons/logo.webp';
 
 const Navbar = memo(() => {
   const [active, setActive] = useState<string | null>(null);
@@ -73,13 +73,13 @@ const Navbar = memo(() => {
           const sectionId = entry.target.id;
           // Mapear IDs das seções para IDs dos navLinks
           const sectionToNavMap: Record<string, string> = {
-            'about': 'about',
-            'formacao': 'formacao',
-            'experience': 'experience',
-            'cursos': 'cursos',
-            'curriculo': 'curriculo',
-            'works': 'works',
-            'contact': 'contact',
+            about: 'about',
+            formacao: 'formacao',
+            experience: 'experience',
+            cursos: 'cursos',
+            curriculo: 'curriculo',
+            works: 'works',
+            contact: 'contact',
           };
           if (sectionToNavMap[sectionId]) {
             setActive(sectionToNavMap[sectionId]);
@@ -106,23 +106,26 @@ const Navbar = memo(() => {
   }, [location.pathname]);
 
   // Scroll otimizado com RAF para evitar reflow forçado
-  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    if (isHome) {
-      // RAF para deferir leitura do DOM e scrollIntoView
-      requestAnimationFrame(() => {
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-          setActive(id);
-          setToggle(false);
-          window.history.pushState(null, '', `#${id}`);
-        }
-      });
-    } else {
-      setToggle(false);
-    }
-  }, [isHome, setActive, setToggle]);
+  const handleNavClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+      e.preventDefault();
+      if (isHome) {
+        // RAF para deferir leitura do DOM e scrollIntoView
+        requestAnimationFrame(() => {
+          const element = document.getElementById(id);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+            setActive(id);
+            setToggle(false);
+            window.history.pushState(null, '', `#${id}`);
+          }
+        });
+      } else {
+        setToggle(false);
+      }
+    },
+    [isHome, setActive, setToggle]
+  );
 
   const getNavLink = (navId: string) => {
     if (navId === 'doom') {
@@ -168,7 +171,7 @@ const Navbar = memo(() => {
             className='w-full h-full object-contain drop-shadow-[0_0_20px_rgba(145,94,255,0.8)]'
             width='128'
             height='128'
-            decoding="sync"
+            decoding='sync'
           />
         </m.div>
       </Link>
@@ -187,7 +190,9 @@ const Navbar = memo(() => {
         className={`w-[min(100%,_var(--max-width,100vw))] mx-auto flex items-center justify-between gap-1 px-[clamp(0.25rem,1vw,1rem)] py-0.5`}
       >
         {/* Left side: Brand and Tagline */}
-        <div className={`flex items-center gap-[clamp(0.5rem,3vw,1.5rem)] ml-[clamp(8rem,12vw,10rem)]`}>
+        <div
+          className={`flex items-center gap-[clamp(0.5rem,3vw,1.5rem)] ml-[clamp(8rem,12vw,10rem)]`}
+        >
           <Link
             to='/'
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -206,7 +211,10 @@ const Navbar = memo(() => {
                   <div className='name-glow-layer' />
                   {String(t('nav.brand_part1'))}
                 </span>
-                <span className='name-part name-accent' data-text={String(t('nav.brand_part2'))}>
+                <span
+                  className='name-part name-accent'
+                  data-text={String(t('nav.brand_part2'))}
+                >
                   <div className='name-glow-layer' />
                   {String(t('nav.brand_part2'))}
                 </span>
@@ -249,7 +257,7 @@ const Navbar = memo(() => {
                 onClick={() => i18n.changeLanguage('pt')}
                 whileHover={{ scale: 1.15 }}
                 className={`relative w-[clamp(0.75rem,1.5vw,1rem)] h-[clamp(0.5rem,1vw,0.625rem)] rounded overflow-hidden transition-all duration-200 ${i18n.language === 'pt' ? 'ring-2 ring-[var(--cyber-purple)]' : 'opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}
-                aria-label="Português"
+                aria-label='Português'
               >
                 <div
                   className='absolute inset-0 bg-cover bg-center'
@@ -264,7 +272,7 @@ const Navbar = memo(() => {
                 onClick={() => i18n.changeLanguage('en')}
                 whileHover={{ scale: 1.15 }}
                 className={`relative w-[clamp(0.75rem,1.5vw,1rem)] h-[clamp(0.5rem,1vw,0.625rem)] rounded overflow-hidden transition-all duration-200 ${i18n.language === 'en' ? 'ring-2 ring-[var(--cyber-cyan)]' : 'opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}
-                aria-label="English"
+                aria-label='English'
               >
                 <div
                   className='absolute inset-0 bg-cover bg-center'

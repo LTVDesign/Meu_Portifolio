@@ -11,7 +11,7 @@ interface VirtualListProps<T> {
 
 /**
  * VirtualList - Lista virtualizada otimizada para performance
- * 
+ *
  * Otimizações aplicadas:
  * 1. RAF para deferir leitura de scrollTop (evita reflow forçado)
  * 2. Threshold para evitar atualizações desnecessárias (mudança mínima de 8px)
@@ -54,7 +54,6 @@ function VirtualList<T>({
       rafRef.current = null;
     });
   }, []);
-
 
   const startIndex = Math.max(0, Math.floor(scrollTop / itemHeight) - overscan);
   const endIndex = Math.min(

@@ -56,10 +56,7 @@ function Mesh({ data }: { data: any }) {
 
   return (
     <Float>
-      <mesh
-        ref={meshRef}
-        {...data}
-      />
+      <mesh ref={meshRef} {...data} />
     </Float>
   );
 }

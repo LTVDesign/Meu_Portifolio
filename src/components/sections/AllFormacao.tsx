@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next';
 import { m } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { anhangueraPng } from '../../assets';
 import { SectionWrapper } from '../../hoc';
@@ -79,7 +79,12 @@ const AllFormacao = () => {
 
       {/* Histórico Acadêmico Completo */}
       <div className='mt-[var(--fluid-space-2xl)] min-h-screen'>
-        <h3 className='text-[var(--fluid-text-xl)] font-bold text-white mb-8 text-center' style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(145, 94, 255, 0.3)' }}>
+        <h3
+          className='text-[var(--fluid-text-xl)] font-bold text-white mb-8 text-center'
+          style={{
+            textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(145, 94, 255, 0.3)',
+          }}
+        >
           {t('allFormacao.semesterHistory')}
         </h3>
         <div className='grid grid-cols-[repeat(auto-fit,minmax(clamp(12rem,25vw,18rem),1fr))] gap-4'>

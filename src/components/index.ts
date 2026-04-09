@@ -6,9 +6,4 @@ import ErrorBoundary from './ErrorBoundary';
 import MotionLoader from './layout/MotionLoader';
 import Navbar from './layout/Navbar';
 
-export {
-  ErrorBoundary,
-  LinkAnimado,
-  MotionLoader,
-  Navbar,
-};
+export { ErrorBoundary, LinkAnimado, MotionLoader, Navbar };

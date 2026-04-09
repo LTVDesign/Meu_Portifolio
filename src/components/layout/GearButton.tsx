@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useViewport } from '../../hooks/useViewport';
 
@@ -34,10 +34,10 @@ const GearButton = ({ onClick }: GearButtonProps) => {
             scale: { duration: 0.5 },
             x: { duration: 0.5 },
           }}
-          className="fixed top-1/2 -translate-y-1/2 z-[10000] origin-left"
+          className='fixed top-1/2 -translate-y-1/2 z-[10000] origin-left'
           style={{
             transformOrigin: 'left center',
-            left: 'clamp(0px, 2vw, 1.5rem)'
+            left: 'clamp(0px, 2vw, 1.5rem)',
           }}
         >
           <m.div
@@ -50,7 +50,13 @@ const GearButton = ({ onClick }: GearButtonProps) => {
               ease: 'easeInOut',
             }}
           >
-            <div className='relative' style={{ width: 'clamp(80px, 15vw, 140px)', height: 'clamp(80px, 15vw, 140px)' }}>
+            <div
+              className='relative'
+              style={{
+                width: 'clamp(80px, 15vw, 140px)',
+                height: 'clamp(80px, 15vw, 140px)',
+              }}
+            >
               {/* ========== SOMBRAS RGB EXTERNAS GIRANDO ========== */}
               <m.div
                 className='absolute rounded-full pointer-events-none'
@@ -61,7 +67,8 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                   height: '180px',
                   marginTop: '-90px',
                   marginLeft: '-90px',
-                  background: 'conic-gradient(from 0deg, #FF0000, #FF7700, #FFDD00, #00FF00, #00DDFF, #0077FF, #FF00FF, #FF0000)',
+                  background:
+                    'conic-gradient(from 0deg, #FF0000, #FF7700, #FFDD00, #00FF00, #00DDFF, #0077FF, #FF00FF, #FF0000)',
                   filter: 'blur(40px)',
                   opacity: 0.6,
                 }}
@@ -79,7 +86,8 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                   height: '120px',
                   marginTop: '-60px',
                   marginLeft: '-60px',
-                  background: 'conic-gradient(from 90deg, #FFD700, #FF00FF, #00D4FF, #00FF88, #FFD700)',
+                  background:
+                    'conic-gradient(from 90deg, #FFD700, #FF00FF, #00D4FF, #00FF88, #FFD700)',
                   filter: 'blur(25px)',
                   opacity: 0.7,
                 }}
@@ -201,7 +209,12 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                   scale: [1, 1.8, 1],
                   opacity: [0.4, 0, 0.4],
                 }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: 'easeOut', delay: 0.5 }}
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: 'easeOut',
+                  delay: 0.5,
+                }}
               />
 
               {/* ========== BOTÃO PRINCIPAL ========== */}
@@ -211,7 +224,8 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                   <m.div
                     className='absolute inset-[-50%] opacity-70'
                     style={{
-                      background: 'conic-gradient(from 0deg, #FF00FF, #00D4FF, #FFD700, #00FF88, #FF6B35, #FF00FF)',
+                      background:
+                        'conic-gradient(from 0deg, #FF00FF, #00D4FF, #FFD700, #00FF88, #FF6B35, #FF00FF)',
                     }}
                     animate={{ rotate: 360 }}
                     transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
@@ -239,11 +253,18 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                       fill='none'
                       aria-hidden='true'
                       style={{
-                        filter: 'drop-shadow(0 0 6px rgba(0, 212, 255, 0.8)) drop-shadow(0 0 12px rgba(255, 0, 255, 0.5))',
+                        filter:
+                          'drop-shadow(0 0 6px rgba(0, 212, 255, 0.8)) drop-shadow(0 0 12px rgba(255, 0, 255, 0.5))',
                       }}
                     >
                       <defs>
-                        <linearGradient id='gearGradientEnhanced' x1='0%' y1='0%' x2='100%' y2='100%'>
+                        <linearGradient
+                          id='gearGradientEnhanced'
+                          x1='0%'
+                          y1='0%'
+                          x2='100%'
+                          y2='100%'
+                        >
                           <stop stopColor='#00D4FF' offset='0%' />
                           <stop stopColor='#FF00FF' offset='50%' />
                           <stop stopColor='#FFD700' offset='100%' />

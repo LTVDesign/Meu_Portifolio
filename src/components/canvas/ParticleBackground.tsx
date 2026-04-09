@@ -1,4 +1,4 @@
-import { useEffect, useRef, memo } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 import { usePerformance } from '../../contexts/PerformanceContext';
 import { useViewport } from '../../hooks/useViewport';
@@ -39,7 +39,7 @@ const ParticleBackground = ({
   const { isLowPerformance, level } = usePerformance();
   const { config } = useParticleConfig();
   const { width: viewportWidth, height: viewportHeight } = useViewport();
-  
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number | null>(null);
   const particlesRef = useRef<Particle[]>([]);
@@ -49,7 +49,9 @@ const ParticleBackground = ({
 
   const mouseInteractionRadius = isLowPerformance ? 80 : 150;
   const mouseForce = isLowPerformance ? 0.08 : 0.2;
-  const adjustedConnectDistance = isLowPerformance ? Math.min(particleConnectDistance, 80) : particleConnectDistance;
+  const adjustedConnectDistance = isLowPerformance
+    ? Math.min(particleConnectDistance, 80)
+    : particleConnectDistance;
   const maxConnectionsLimit = isLowPerformance ? 20 : 50;
 
   const resizeCanvas = () => {
@@ -90,9 +92,12 @@ const ParticleBackground = ({
     particlesRef.current = [];
 
     // Ajusta quantidade baseado na performance
-    const adjustedQuantity = level === 'low' ? Math.min(quantity, 30) :
-      level === 'medium' ? Math.min(quantity, 60) :
-        quantity;
+    const adjustedQuantity =
+      level === 'low'
+        ? Math.min(quantity, 30)
+        : level === 'medium'
+          ? Math.min(quantity, 60)
+          : quantity;
 
     for (let i = 0; i < adjustedQuantity; i++) {
       particlesRef.current.push({

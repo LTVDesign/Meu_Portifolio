@@ -1,9 +1,18 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import {
+  alberta,
+  bradesco,
+  cate,
+  google,
+  hackers,
+  ibm,
+  ipad,
+  johns,
+  yonsei,
+} from '../../assets';
 import close from '../../assets/close.svg';
-
-import { alberta, bradesco, cate, google, ibm, hackers, ipad, yonsei, johns } from '../../assets';
 import cursosData from '../../data/cursos.json';
 import type { Curso } from '../../types';
 import CursoDetailModal from '../atoms/CursoDetailModal';
@@ -14,7 +23,11 @@ interface AllCursosProps {
   isPage?: boolean;
 }
 
-const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCursosProps) => {
+const AllCursos = ({
+  isOpen = true,
+  onClose = () => {},
+  isPage = false,
+}: AllCursosProps) => {
   const [filter, setFilter] = useState('');
   const [platformFilter, setPlatformFilter] = useState<string>('all');
   const [certificateFilter, setCertificateFilter] = useState<string>('all');
@@ -118,7 +131,9 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
 
   // Extrair plataformas únicas normalizadas para o filtro
   const platforms = useMemo(() => {
-    const uniquePlatforms = [...new Set(allCursos.map(curso => normalizePlatform(curso.platform)))];
+    const uniquePlatforms = [
+      ...new Set(allCursos.map((curso) => normalizePlatform(curso.platform))),
+    ];
     return uniquePlatforms.sort();
   }, [allCursos]);
 
@@ -129,7 +144,8 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
       curso.platform.toLowerCase().includes(filter.toLowerCase());
 
     // Filtro por plataforma (usa nome normalizado para agrupar todas as variações)
-    const matchesPlatform = platformFilter === 'all' || normalizePlatform(curso.platform) === platformFilter;
+    const matchesPlatform =
+      platformFilter === 'all' || normalizePlatform(curso.platform) === platformFilter;
 
     // Filtro por certificado profissional
     const matchesCertificate =
@@ -142,7 +158,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
 
   const sortedCursos = [...filteredCursos].sort((a, b) => {
     if (sortBy === 'year') {
-      return parseInt(b.date) - parseInt(a.date);
+      return parseInt(b.date, 10) - parseInt(a.date, 10);
     } else if (sortBy === 'company') {
       return a.platform.localeCompare(b.platform);
     } else if (sortBy === 'name') {
@@ -151,7 +167,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
       const extractNumber = (duration: string | undefined): number => {
         if (!duration) return 0;
         const match = duration.match(/(\d+)/);
-        return match ? parseInt(match[1]) : 0;
+        return match ? parseInt(match[1], 10) : 0;
       };
       const durationA = extractNumber(a.duration);
       const durationB = extractNumber(b.duration);
@@ -170,23 +186,35 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className={isPage
-          ? 'relative w-full min-h-screen pt-[var(--fluid-space-xl)] flex flex-col bg-transparent'
-          : 'fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md'}
+        className={
+          isPage
+            ? 'relative w-full min-h-screen pt-[var(--fluid-space-xl)] flex flex-col bg-transparent'
+            : 'fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md'
+        }
         role={isPage ? 'main' : 'presentation'}
       >
         {/* Header da Modal - Botão Fechar no Topo */}
-        <div className={`sticky ${isPage ? 'top-[clamp(4rem,10vw,5rem)]' : 'top-0'} z-30 flex items-center justify-between p-[clamp(1rem,3vw,1.5rem)] border-b border-white/10 bg-black/90 backdrop-blur-xl`}>
+        <div
+          className={`sticky ${isPage ? 'top-[clamp(4rem,10vw,5rem)]' : 'top-0'} z-30 flex items-center justify-between p-[clamp(1rem,3vw,1.5rem)] border-b border-white/10 bg-black/90 backdrop-blur-xl`}
+        >
           <div className='flex items-center gap-[clamp(0.75rem,2vw,1rem)]'>
             <div className='w-[clamp(2.5rem,5vw,3rem)] h-[clamp(2.5rem,5vw,3rem)] rounded-xl bg-gradient-to-br from-[var(--cyber-purple)] to-[var(--cyber-cyan)] flex items-center justify-center'>
               <span className='text-white text-[clamp(1.125rem,2.5vw,1.25rem)]'>📚</span>
             </div>
             <div>
-              <h2 id={modalTitleId} className='text-[clamp(1.25rem,3.5vw,1.5rem)] font-bold text-white'>
+              <h2
+                id={modalTitleId}
+                className='text-[clamp(1.25rem,3.5vw,1.5rem)] font-bold text-white'
+              >
                 {t('courses.allTitle')}
               </h2>
               <p className='text-[clamp(0.7rem,1.5vw,0.875rem)] text-white/60 mt-1'>
-                {t(sortedCursos.length === 1 ? 'allCursos.coursesAvailable' : 'allCursos.coursesAvailable_plural', { count: sortedCursos.length })}
+                {t(
+                  sortedCursos.length === 1
+                    ? 'allCursos.coursesAvailable'
+                    : 'allCursos.coursesAvailable_plural',
+                  { count: sortedCursos.length }
+                )}
               </p>
             </div>
           </div>
@@ -198,7 +226,11 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
               className='p-[clamp(0.5rem,1.5vw,0.75rem)] rounded-xl bg-white/10 hover:bg-white/20 transition-all duration-300 border border-white/10 hover:border-white/20'
               aria-label={t('common.close')}
             >
-              <img src={close} alt='' className='w-[clamp(1.25rem,2.5vw,1.5rem)] h-[clamp(1.25rem,2.5vw,1.5rem)] brightness-0 invert' />
+              <img
+                src={close}
+                alt=''
+                className='w-[clamp(1.25rem,2.5vw,1.5rem)] h-[clamp(1.25rem,2.5vw,1.5rem)] brightness-0 invert'
+              />
             </m.button>
           )}
         </div>
@@ -244,7 +276,9 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                   >
                     <option value='all'>{t('allCursos.allPlatforms')}</option>
                     {platforms.map((platform) => (
-                      <option key={platform} value={platform}>{platform}</option>
+                      <option key={platform} value={platform}>
+                        {platform}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -261,7 +295,9 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                     aria-label='Filtrar por tipo de certificado'
                   >
                     <option value='all'>{t('allCursos.allTypes')}</option>
-                    <option value='professional'>{t('allCursos.professionalCertificate')}</option>
+                    <option value='professional'>
+                      {t('allCursos.professionalCertificate')}
+                    </option>
                     <option value='regular'>{t('allCursos.regularCertificate')}</option>
                   </select>
                 </div>
@@ -274,7 +310,9 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                   <select
                     value={sortBy}
                     onChange={(e) =>
-                      setSortBy(e.target.value as 'year' | 'duration' | 'company' | 'name')
+                      setSortBy(
+                        e.target.value as 'year' | 'duration' | 'company' | 'name'
+                      )
                     }
                     className='w-full px-[clamp(0.75rem,2vw,1.25rem)] py-[clamp(0.5rem,1.5vw,0.75rem)] rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[var(--cyber-cyan)] focus:ring-2 focus:ring-[var(--cyber-cyan)]/20 transition-all text-[clamp(0.75rem,1.5vw,1rem)]'
                     aria-label='Ordenar cursos'
@@ -291,7 +329,9 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
               {(filter || platformFilter !== 'all' || certificateFilter !== 'all') && (
                 <div className='mt-4 pt-4 border-t border-white/10'>
                   <div className='flex flex-wrap items-center gap-2'>
-                    <span className='text-xs text-white/60'>{t('allCursos.activeFilters')}</span>
+                    <span className='text-xs text-white/60'>
+                      {t('allCursos.activeFilters')}
+                    </span>
                     {filter && (
                       <span className='px-3 py-1 rounded-full bg-[var(--cyber-cyan)]/20 text-[var(--cyber-cyan)] text-xs font-medium'>
                         {t('allCursos.searchFilter', { filter })}
@@ -304,7 +344,9 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                     )}
                     {certificateFilter !== 'all' && (
                       <span className='px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-xs font-medium'>
-                        {certificateFilter === 'professional' ? t('allCursos.professionalCertificate') : t('allCursos.regularCertificate')}
+                        {certificateFilter === 'professional'
+                          ? t('allCursos.professionalCertificate')
+                          : t('allCursos.regularCertificate')}
                       </span>
                     )}
                     <button
@@ -381,12 +423,20 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                             transition={{
                               duration: 2.5,
                               repeat: Infinity,
-                              ease: "easeInOut"
+                              ease: 'easeInOut',
                             }}
                             className='mt-2 flex items-center gap-1.5'
                           >
-                            <span className='text-amber-300' style={{ textShadow: '0 0 8px rgba(251, 191, 36, 0.7)' }}>⭐</span>
-                            <span className='text-xs text-amber-300 font-black uppercase tracking-wider' style={{ textShadow: '0 0 6px rgba(251, 191, 36, 0.6)' }}>
+                            <span
+                              className='text-amber-300'
+                              style={{ textShadow: '0 0 8px rgba(251, 191, 36, 0.7)' }}
+                            >
+                              ⭐
+                            </span>
+                            <span
+                              className='text-xs text-amber-300 font-black uppercase tracking-wider'
+                              style={{ textShadow: '0 0 6px rgba(251, 191, 36, 0.6)' }}
+                            >
                               {t('allCursos.withHonors')}
                             </span>
                           </m.div>
@@ -394,10 +444,12 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                       </div>
                     </div>
 
-                    <p className='text-white/80 text-sm flex-1 leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity'
+                    <p
+                      className='text-white/80 text-sm flex-1 leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity'
                       style={{
                         textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)',
-                      }}>
+                      }}
+                    >
                       {curso.summary}
                     </p>
 
@@ -427,7 +479,9 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                             ease: 'linear',
                           }}
                         />
-                        <span className='relative z-10'>{t('cursos.verCertificado')}</span>
+                        <span className='relative z-10'>
+                          {t('cursos.verCertificado')}
+                        </span>
                         <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300' />
                       </m.button>
                     </div>
@@ -439,7 +493,9 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                 <div className='w-[clamp(4rem,8vw,6rem)] h-[clamp(4rem,8vw,6rem)] mx-auto mb-6 rounded-full bg-white/5 flex items-center justify-center'>
                   <span className='text-[clamp(1.5rem,4vw,2.5rem)]'>🔍</span>
                 </div>
-                <p className='text-white/50 text-[clamp(0.875rem,2vw,1.125rem)] mb-2'>{t('allCursos.noCoursesFound')}</p>
+                <p className='text-white/50 text-[clamp(0.875rem,2vw,1.125rem)] mb-2'>
+                  {t('allCursos.noCoursesFound')}
+                </p>
                 <p className='text-white/30 text-sm'>{t('allCursos.adjustFilters')}</p>
               </div>
             )}
@@ -463,7 +519,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                   </div>
                   <div className='text-center border-l border-white/10'>
                     <div className='text-[clamp(1.25rem,3vw,1.75rem)] font-bold text-[var(--cyber-purple)]'>
-                      {sortedCursos.filter(c => c.isProfessionalCertificate).length}
+                      {sortedCursos.filter((c) => c.isProfessionalCertificate).length}
                     </div>
                     <div className='text-[clamp(0.6rem,1.5vw,0.75rem)] text-white/60 mt-1'>
                       {t('allCursos.professionalCertificates')}
@@ -479,7 +535,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                   </div>
                   <div className='text-center border-l border-white/10'>
                     <div className='text-[clamp(1.25rem,3vw,1.75rem)] font-bold text-green-400'>
-                      {new Set(sortedCursos.map(c => c.date)).size}
+                      {new Set(sortedCursos.map((c) => c.date)).size}
                     </div>
                     <div className='text-[clamp(0.6rem,1.5vw,0.75rem)] text-white/60 mt-1'>
                       {t('allCursos.differentYears')}

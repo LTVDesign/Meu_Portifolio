@@ -14,7 +14,8 @@ if (typeof window !== 'undefined') {
   // Registrar Service Worker apenas em produção para evitar problemas de cache em desenvolvimento
   if ('serviceWorker' in navigator && import.meta.env.PROD) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
+      navigator.serviceWorker
+        .register('/sw.js')
         .then((registration) => {
           console.log('[SW] Service Worker registrado com sucesso:', registration.scope);
         })

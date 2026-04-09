@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import close from '../../assets/close.svg';
 
@@ -103,7 +103,7 @@ const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
               {title}
             </h2>
             <button
-              type="button"
+              type='button'
               onClick={onClose}
               className='p-[clamp(0.25rem,1vw,0.5rem)] rounded hover:bg-white/10 transition-colors flex-shrink-0'
               aria-label={t('modal.closeModal')}

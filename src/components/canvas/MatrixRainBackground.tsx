@@ -132,7 +132,17 @@ const MatrixRainBackground: React.FC<MatrixRainBackgroundProps> = ({
       cancelAnimationFrame(animationId);
       window.removeEventListener('resize', handleResize);
     };
-  }, [density, speed, fontSize, color, backgroundColor, charSet, glowIntensity, viewportWidth, viewportHeight]);
+  }, [
+    density,
+    speed,
+    fontSize,
+    color,
+    backgroundColor,
+    charSet,
+    glowIntensity,
+    viewportWidth,
+    viewportHeight,
+  ]);
 
   return (
     <canvas

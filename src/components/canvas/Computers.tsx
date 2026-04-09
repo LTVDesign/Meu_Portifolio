@@ -5,8 +5,6 @@ import { Suspense, useEffect, useState } from 'react';
 import { useTouchScrollGuard } from '../../hooks/useTouchScrollGuard';
 import { useViewport } from '../../hooks/useViewport';
 
-
-
 // Preload do modelo para melhorar performance
 useGLTF.preload('/desktop_pc/scene-optimized.gltf');
 
@@ -22,12 +20,15 @@ const getScreenSize = (width: number): ScreenSize => {
   return 'desktop';
 };
 
-const SCREEN_CONFIG: Record<ScreenSize, {
-  position: [number, number, number];
-  scale: number;
-  fov: number;
-  dprMax: number;
-}> = {
+const SCREEN_CONFIG: Record<
+  ScreenSize,
+  {
+    position: [number, number, number];
+    scale: number;
+    fov: number;
+    dprMax: number;
+  }
+> = {
   watch: { position: [0, -1.2, -1.0], scale: 0.65, fov: 32, dprMax: 1 },
   mobileSmall: { position: [0, -1.4, -1.0], scale: 0.75, fov: 30, dprMax: 1.5 },
   mobile: { position: [0, -1.6, -1.0], scale: 0.85, fov: 28, dprMax: 1.5 },
@@ -43,9 +44,12 @@ const ComputersContent: React.FC<{ screenSize: ScreenSize }> = ({ screenSize }) 
 
   useEffect(() => {
     // Delay adaptativo: menor em desktop, maior em mobile para priorizar LCP
-    const delay = screenSize === 'watch' || screenSize === 'mobileSmall' ? 600
-      : screenSize === 'mobile' ? 400
-        : 300;
+    const delay =
+      screenSize === 'watch' || screenSize === 'mobileSmall'
+        ? 600
+        : screenSize === 'mobile'
+          ? 400
+          : 300;
 
     const timer = setTimeout(() => {
       setShouldLoadModel(true);
@@ -111,7 +115,8 @@ export const ComputersCanvas = () => {
       },
       {
         threshold: 0.05,
-        rootMargin: screenSize === 'watch' || screenSize === 'mobileSmall' ? '50px' : '200px'
+        rootMargin:
+          screenSize === 'watch' || screenSize === 'mobileSmall' ? '50px' : '200px',
       }
     );
 
@@ -156,12 +161,17 @@ export const ComputersCanvas = () => {
         }}
         gl={{
           preserveDrawingBuffer: false,
-          antialias: screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k',
-          powerPreference: (screenSize === 'watch' || screenSize === 'mobileSmall') ? 'low-power' : 'high-performance',
+          antialias:
+            screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k',
+          powerPreference:
+            screenSize === 'watch' || screenSize === 'mobileSmall'
+              ? 'low-power'
+              : 'high-performance',
           stencil: false,
           depth: true,
           // Reduzir qualidade em mobile para melhorar performance
-          precision: (screenSize === 'watch' || screenSize === 'mobileSmall') ? 'lowp' : 'mediump',
+          precision:
+            screenSize === 'watch' || screenSize === 'mobileSmall' ? 'lowp' : 'mediump',
         }}
         dpr={dpr}
         performance={{
@@ -183,7 +193,12 @@ export const ComputersCanvas = () => {
             enableDamping={true}
             dampingFactor={0.05}
             // Só permite rotação touch quando o guard detectou intenção de interação 3D
-            enabled={isTouchInteracting || screenSize === 'desktop' || screenSize === 'tv' || screenSize === '4k'}
+            enabled={
+              isTouchInteracting ||
+              screenSize === 'desktop' ||
+              screenSize === 'tv' ||
+              screenSize === '4k'
+            }
           />
           {shouldLoad && <ComputersContent screenSize={screenSize} />}
         </Suspense>

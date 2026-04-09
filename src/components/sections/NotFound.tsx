@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next';
 import { m } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { SectionWrapper } from '../../hoc';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
@@ -34,9 +34,9 @@ const NotFound = () => {
               prefersReduced
                 ? {}
                 : {
-                  x: [-2, 2, -2, 2, 0],
-                  opacity: [0.5, 0.8, 0.5, 0.8, 0],
-                }
+                    x: [-2, 2, -2, 2, 0],
+                    opacity: [0.5, 0.8, 0.5, 0.8, 0],
+                  }
             }
             transition={
               prefersReduced
@@ -106,20 +106,20 @@ const NotFound = () => {
                   prefersReduced
                     ? {}
                     : {
-                      scale: [0, 1, 0],
-                      opacity: [0, 1, 0],
-                      rotate: [0, 180, 360],
-                    }
+                        scale: [0, 1, 0],
+                        opacity: [0, 1, 0],
+                        rotate: [0, 180, 360],
+                      }
                 }
                 transition={
                   prefersReduced
                     ? { duration: 0 }
                     : {
-                      duration: 2,
-                      repeat: Infinity,
-                      delay: i * 0.3,
-                      ease: 'easeInOut',
-                    }
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: i * 0.3,
+                        ease: 'easeInOut',
+                      }
                 }
                 className='absolute w-2 h-2 rounded-full bg-[var(--cyber-cyan)]'
                 style={{

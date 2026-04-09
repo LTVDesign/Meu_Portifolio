@@ -1,15 +1,14 @@
 import { memo, useState } from 'react';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
-
+import BolhasBackground from './BolhasBackground';
+import CyberpunkBackground from './CyberpunkUltraBackground';
+import LiquidBackground from './LiquidUltraBackground';
+import MatrixRainBackground from './MatrixRainBackground';
 // Lazy load heavy backgrounds
 import ParticleBackground from './ParticleBackground';
-import LiquidBackground from './LiquidUltraBackground';
-import CyberpunkBackground from './CyberpunkUltraBackground';
-import WavefieldBackground from './WavefieldUltraBackground';
 import ParticulateBackground from './ParticulateShatterBackground';
 import SolidBackground from './SolidColorBackground';
-import BolhasBackground from './BolhasBackground';
-import MatrixRainBackground from './MatrixRainBackground';
+import WavefieldBackground from './WavefieldUltraBackground';
 
 /**
  * Centrally manages and switches between different background types based on user configuration.

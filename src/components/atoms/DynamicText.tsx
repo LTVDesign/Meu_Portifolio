@@ -3,8 +3,8 @@
 // Usa CSS variable --dynamic-text-color atualizada pelo useBackgroundColorSampler
 // + mix-blend-mode: difference como fallback para inversão pixel a pixel.
 
-import React, { forwardRef, useMemo } from 'react';
 import { m } from 'framer-motion';
+import React, { forwardRef, useMemo } from 'react';
 
 interface DynamicTextProps {
   children: React.ReactNode;
@@ -17,11 +17,11 @@ interface DynamicTextProps {
 
 /**
  * DynamicText - Texto com inversão de cor em tempo real.
- * 
+ *
  * Combina duas estratégias:
  * 1. CSS variable --dynamic-text-color (atualizada ~8fps pelo sampler)
  * 2. mix-blend-mode: difference (inversão pixel-a-pixel em tempo real)
- * 
+ *
  * A cor se adapta automaticamente a qualquer background animado.
  */
 const DynamicText = forwardRef<HTMLElement, DynamicTextProps>(
@@ -39,7 +39,9 @@ const DynamicText = forwardRef<HTMLElement, DynamicTextProps>(
     const safeChildren = useMemo(() => {
       if (React.isValidElement(children)) return children;
       if (Array.isArray(children)) {
-        return children.map((child) => (React.isValidElement(child) ? child : String(child)));
+        return children.map((child) =>
+          React.isValidElement(child) ? child : String(child)
+        );
       }
       return children == null ? '' : String(children);
     }, [children]);

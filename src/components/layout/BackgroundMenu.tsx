@@ -1,9 +1,18 @@
-import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 import { useBreakpoints } from '../../hooks/useDebouncedResize';
 
-const BG_TYPES = ['bolhas', 'particles', 'liquid', 'particulate', 'cyberpunk', 'wavefield', 'solid', 'matrix'];
+const BG_TYPES = [
+  'bolhas',
+  'particles',
+  'liquid',
+  'particulate',
+  'cyberpunk',
+  'wavefield',
+  'solid',
+  'matrix',
+];
 
 interface BackgroundMenuProps {
   onEdit: () => void;
@@ -12,7 +21,7 @@ interface BackgroundMenuProps {
 
 /**
  * BackgroundMenu - Menu de seleção de background
- * 
+ *
  * Otimizações:
  * - usa useBreakpoints hook com RAF debounce para resize
  * - contain: layout style paint para isolar animações
@@ -86,8 +95,12 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
         onClick={handleBackdropClick}
       >
         {/* Header com botão de fechar */}
-        <div className={`relative bg-gradient-to-r from-[#1a1433] to-black border-b border-white/10 px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.5rem,1.5vw,1rem)]`}>
-          <h3 className={`text-white font-bold uppercase tracking-widest text-center text-[clamp(0.6rem,1.5vw,0.875rem)]`}>
+        <div
+          className={`relative bg-gradient-to-r from-[#1a1433] to-black border-b border-white/10 px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.5rem,1.5vw,1rem)]`}
+        >
+          <h3
+            className={`text-white font-bold uppercase tracking-widest text-center text-[clamp(0.6rem,1.5vw,0.875rem)]`}
+          >
             {t('backgroundMenu.settings')}
           </h3>
 
@@ -118,10 +131,14 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
         <div className={isWatch ? 'p-3 pt-2' : 'p-6 pt-4'}>
           {/* Seção: Tipo de Background */}
           <div className={isWatch ? 'mb-3' : 'mb-6'}>
-            <h4 className={`text-white/60 font-bold uppercase tracking-wider ${isWatch ? 'text-[9px] mb-2' : 'text-xs mb-3'}`}>
+            <h4
+              className={`text-white/60 font-bold uppercase tracking-wider ${isWatch ? 'text-[9px] mb-2' : 'text-xs mb-3'}`}
+            >
               {t('backgroundMenu.backgroundType')}
             </h4>
-            <div className={`grid gap-2 ${isWatch ? 'grid-cols-2' : isMobileSmall ? 'grid-cols-2' : 'grid-cols-2'}`}>
+            <div
+              className={`grid gap-2 ${isWatch ? 'grid-cols-2' : isMobileSmall ? 'grid-cols-2' : 'grid-cols-2'}`}
+            >
               {BG_TYPES.map((type) => (
                 <m.button
                   key={type}
@@ -131,10 +148,11 @@ const BackgroundMenu = ({ onEdit, onClose }: BackgroundMenuProps) => {
                   }}
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  className={`w-full font-bold uppercase tracking-widest rounded-2xl transition-all relative overflow-hidden min-h-[44px] ${isWatch ? 'py-2 text-[9px]' : 'py-3 text-xs'} ${config.backgroundType === type
-                    ? 'bg-gradient-to-r from-[#915EFF] to-[#00D4FF] text-white shadow-[0_0_20px_rgba(145,94,255,0.5)]'
-                    : 'bg-white/10 text-white/80 hover:bg-white/20 hover:shadow-[0_0_15px_rgba(145,94,255,0.2)]'
-                    }`}
+                  className={`w-full font-bold uppercase tracking-widest rounded-2xl transition-all relative overflow-hidden min-h-[44px] ${isWatch ? 'py-2 text-[9px]' : 'py-3 text-xs'} ${
+                    config.backgroundType === type
+                      ? 'bg-gradient-to-r from-[#915EFF] to-[#00D4FF] text-white shadow-[0_0_20px_rgba(145,94,255,0.5)]'
+                      : 'bg-white/10 text-white/80 hover:bg-white/20 hover:shadow-[0_0_15px_rgba(145,94,255,0.2)]'
+                  }`}
                 >
                   <span className='relative z-10'>{t(`backgrounds.${type}`)}</span>
                   {config.backgroundType === type && (

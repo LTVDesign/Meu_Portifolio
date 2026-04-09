@@ -1,6 +1,5 @@
 import type React from 'react';
 import { useEffect, useRef } from 'react';
-import { useViewport } from '../../hooks/useViewport';
 // Tree-shakeable Three.js imports for better performance
 import {
   Color,
@@ -12,6 +11,7 @@ import {
   Vector2,
   WebGLRenderer,
 } from 'three';
+import { useViewport } from '../../hooks/useViewport';
 
 interface LiquidUltraBackgroundProps {
   resolution: number;

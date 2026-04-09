@@ -1,5 +1,5 @@
-import type React from 'react';
 import { AnimatePresence, m } from 'framer-motion';
+import type React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Curso } from '../../types';
 
@@ -56,13 +56,22 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
                   {curso.platform}
                 </p>
                 <div className='flex flex-wrap items-center gap-[clamp(0.5rem,1.5vw,1rem)] mt-2'>
-                  <span className='text-xs text-white/80' style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}>
+                  <span
+                    className='text-xs text-white/80'
+                    style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}
+                  >
                     📅 {curso.date}
                   </span>
-                  <span className='text-xs text-white/80' style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}>
+                  <span
+                    className='text-xs text-white/80'
+                    style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}
+                  >
                     ⏱ {curso.duration}
                   </span>
-                  <span className='text-xs text-white/80' style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}>
+                  <span
+                    className='text-xs text-white/80'
+                    style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}
+                  >
                     ⏳ {curso.workload}
                   </span>
                   {curso.isProfessionalCertificate && (
@@ -80,7 +89,7 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
                       transition={{
                         duration: 2.2,
                         repeat: Infinity,
-                        ease: "easeInOut"
+                        ease: 'easeInOut',
                       }}
                       className='text-xs text-amber-300 font-black flex items-center gap-1.5 drop-shadow-lg'
                       style={{ textShadow: '0 0 12px rgba(251, 191, 36, 0.8)' }}
@@ -100,7 +109,10 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
               <h4 className='text-sm font-bold text-[var(--cyber-cyan)] uppercase tracking-wider mb-2'>
                 {t('cursoDetailModal.summary')}
               </h4>
-              <p className='text-white/80 text-sm leading-relaxed' style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}>
+              <p
+                className='text-white/80 text-sm leading-relaxed'
+                style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}
+              >
                 {curso.summary}
               </p>
             </div>
@@ -110,7 +122,10 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
               <h4 className='text-sm font-bold text-[var(--cyber-cyan)] uppercase tracking-wider mb-2'>
                 {t('cursoDetailModal.detailedDescription')}
               </h4>
-              <p className='text-white/80 text-sm leading-relaxed' style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}>
+              <p
+                className='text-white/80 text-sm leading-relaxed'
+                style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}
+              >
                 {curso.description}
               </p>
             </div>
@@ -125,7 +140,8 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
                   {curso.modules.map((module: string, index: number) => (
                     <li
                       key={index}
-                      className='flex items-start gap-2 text-sm text-white/80' style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}
+                      className='flex items-start gap-2 text-sm text-white/80'
+                      style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}
                     >
                       <span className='text-[var(--cyber-cyan)] mt-1'>▸</span>
                       <span>{module}</span>

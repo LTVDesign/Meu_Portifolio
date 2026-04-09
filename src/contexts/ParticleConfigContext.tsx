@@ -238,5 +238,4 @@ const ParticleConfigProvider: FC<ParticleConfigProviderProps> = ({ children }) =
   );
 };
 
-export { ParticleConfigProvider, useParticleConfig, useBackgroundMenu };
-
+export { ParticleConfigProvider, useBackgroundMenu, useParticleConfig };

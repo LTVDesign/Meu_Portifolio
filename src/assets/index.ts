@@ -1,13 +1,12 @@
+import anhangueraPng from './anhanguera.webp';
 import close from './close.svg';
-import logo from './logo.webp';
+import facul from './facul.webp';
 import diplomaPdf from './formacao/DiplomaDigital.pdf?url';
 // Formação
-import diploma from './formacao/diploma.png';
-import qrcode from './formacao/qrcode.png';
-import facul from './facul.webp';
+import diploma from './formacao/diploma.webp';
+import qrcode from './formacao/qrcode.webp';
 // Logos de instituições de ensino
 import alberta from './images/logos/alberta.webp';
-import anhangueraPng from './anhanguera.png';
 import bradesco from './images/logos/bradesco.webp';
 import cate from './images/logos/cate.webp';
 import google from './images/logos/google.webp';
@@ -16,7 +15,16 @@ import ibm from './images/logos/ibm.webp';
 import ipad from './images/logos/ipad.webp';
 import johns from './images/logos/johns.webp';
 import skill from './images/logos/skill.webp';
-import yonsei from './images/logos/yonsei.png';
+import yonsei from './images/logos/yonsei.webp';
+// Projetos
+import backend from './images/projects/backend.webp';
+import comptester from './images/projects/comptester.webp';
+import creator from './images/projects/creator.webp';
+import getnexo from './images/projects/getnexo.webp';
+import mobile from './images/projects/mobile.webp';
+import web from './images/projects/web.webp';
+import willy from './images/projects/willy.webp';
+import logo from './logo.webp';
 // Ícones de tecnologias
 import android from './tech/android.webp';
 import arduino from './tech/arduino.webp';
@@ -43,19 +51,11 @@ import typescript from './tech/typescript.webp';
 import ubiquiti from './tech/ubiquiti.webp';
 import vscode from './tech/vscode.webp';
 import windows from './tech/windows.webp';
-// Projetos
-import backend from './images/projects/backend.webp';
-import comptester from './images/projects/comptester.webp';
-import creator from './images/projects/creator.webp';
-import getnexo from './images/projects/getnexo.webp';
-import mobile from './images/projects/mobile.webp';
-import web from './images/projects/web.webp';
-import willy from './images/projects/willy.webp';
 
 export {
   alberta,
-  anhangueraPng,
   android,
+  anhangueraPng,
   arduino,
   backend,
   bradesco,
@@ -99,7 +99,7 @@ export {
   ubiquiti,
   vscode,
   web,
-  windows,
   willy,
+  windows,
   yonsei,
 };

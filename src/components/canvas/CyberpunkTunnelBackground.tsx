@@ -1,6 +1,5 @@
 import type React from 'react';
 import { useEffect, useRef } from 'react';
-import { useViewport } from '../../hooks/useViewport';
 // Tree-shakeable Three.js imports for better performance
 import {
   ACESFilmicToneMapping,
@@ -24,6 +23,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
+import { useViewport } from '../../hooks/useViewport';
 
 interface CyberpunkTunnelBackgroundProps {
   bloomStrength: number;
@@ -95,8 +95,8 @@ const CyberpunkTunnelBackground: React.FC<CyberpunkTunnelBackgroundProps> = ({
     controls.dampingFactor = 0.03;
     // Desabilita interação touch para não bloquear scroll da página
     controls.touches = {
-      ONE: 0,  // NONE
-      TWO: 0,  // NONE
+      ONE: 0, // NONE
+      TWO: 0, // NONE
     };
 
     const renderScene = new RenderPass(scene, camera);

@@ -1,8 +1,19 @@
-import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import {
+  alberta,
+  bradesco,
+  cate,
+  google,
+  hackers,
+  ibm,
+  ipad,
+  johns,
+  skill,
+  yonsei,
+} from '../../assets';
 import close from '../../assets/close.svg';
-import { alberta, bradesco, cate, google, ibm, hackers, ipad, skill, yonsei, johns } from '../../assets';
 import type { Curso } from '../../types';
 
 interface CursosModalProps {
@@ -68,16 +79,16 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
 
   const getLogo = (iconName: string | undefined, platform: string) => {
     const logoMap: { [key: string]: string } = {
-      'alberta': alberta,
-      'bradesco': bradesco,
-      'cate': cate,
-      'google': google,
-      'ibm': ibm,
-      'johns': johns,
-      'hackers': hackers,
-      'skill': skill,
-      'iped': ipad,
-      'yonsei': yonsei,
+      alberta: alberta,
+      bradesco: bradesco,
+      cate: cate,
+      google: google,
+      ibm: ibm,
+      johns: johns,
+      hackers: hackers,
+      skill: skill,
+      iped: ipad,
+      yonsei: yonsei,
     };
 
     if (iconName && logoMap[iconName]) {
@@ -141,18 +152,25 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
         {/* Header da Modal */}
         <div className='sticky top-0 z-20 flex items-center justify-between p-[clamp(1rem,3vw,1.5rem)] border-b border-white/10 bg-black/80 backdrop-blur-md'>
           <div className='flex items-center gap-[clamp(0.75rem,2vw,1rem)]'>
-            <h2 id={modalTitleId} className='text-[clamp(1.125rem,3vw,1.5rem)] font-bold text-white'>
+            <h2
+              id={modalTitleId}
+              className='text-[clamp(1.125rem,3vw,1.5rem)] font-bold text-white'
+            >
               {t('courses.allTitle')}
             </h2>
           </div>
           <div className='flex items-center gap-4'>
             <button
-              type="button"
+              type='button'
               onClick={onClose}
               className='p-2 rounded-lg hover:bg-white/10 transition-colors'
               aria-label={t('common.close')}
             >
-              <img src={close} alt='' className='w-[clamp(1.25rem,2.5vw,1.5rem)] h-[clamp(1.25rem,2.5vw,1.5rem)]' />
+              <img
+                src={close}
+                alt=''
+                className='w-[clamp(1.25rem,2.5vw,1.5rem)] h-[clamp(1.25rem,2.5vw,1.5rem)]'
+              />
             </button>
           </div>
         </div>
@@ -241,7 +259,10 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                       </div>
                     </div>
 
-                    <p className='text-white/80 text-sm leading-relaxed mb-4' style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}>
+                    <p
+                      className='text-white/80 text-sm leading-relaxed mb-4'
+                      style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}
+                    >
                       {curso.summary}
                     </p>
                     <div className='flex flex-wrap gap-3 text-xs text-white/50 font-mono mb-4'>
@@ -264,7 +285,8 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                           {curso.modules.slice(0, 3).map((module, idx) => (
                             <li
                               key={idx}
-                              className='text-xs text-white/80 flex items-start gap-2' style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}
+                              className='text-xs text-white/80 flex items-start gap-2'
+                              style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)' }}
                             >
                               <span className='text-[var(--cyber-cyan)]'>▸</span>
                               <span>{module}</span>
@@ -272,7 +294,9 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
                           ))}
                           {curso.modules.length > 3 && (
                             <li className='text-xs text-white/40 italic'>
-                              {t('cursosModal.moreModules', { count: curso.modules.length - 3 })}
+                              {t('cursosModal.moreModules', {
+                                count: curso.modules.length - 3,
+                              })}
                             </li>
                           )}
                         </ul>
@@ -320,7 +344,7 @@ const CursosModal = ({ isOpen, onClose, cursos }: CursosModalProps) => {
             <div className='flex items-center gap-4'>
               <p>{t('cursosModal.footerCopyright')}</p>
               <button
-                type="button"
+                type='button'
                 onClick={onClose}
                 className='p-2 rounded-lg hover:bg-white/10 transition-colors'
                 aria-label={t('common.close')}

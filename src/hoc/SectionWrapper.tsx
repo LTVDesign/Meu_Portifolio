@@ -1,5 +1,4 @@
-
-import type { ComponentType, PropsWithChildren, ReactNode } from "react";
+import type { ComponentType, PropsWithChildren, ReactNode } from 'react';
 
 interface SectionWrapperProps {
   children: ReactNode;
@@ -13,7 +12,7 @@ interface SectionWrapperProps {
 const SectionWrapperComponent = ({
   children,
   id,
-  className = "",
+  className = '',
 }: SectionWrapperProps) => {
   return (
     <section
@@ -41,10 +40,10 @@ const SectionWrapper = <P extends object>(
     );
   };
 
-  HOC.displayName = `SectionWrapper(${Component.displayName || Component.name || "Component"})`;
+  HOC.displayName = `SectionWrapper(${Component.displayName || Component.name || 'Component'})`;
 
   return HOC;
 };
 
-export { SectionWrapperComponent, SectionWrapper };
+export { SectionWrapper, SectionWrapperComponent };
 export default SectionWrapper;

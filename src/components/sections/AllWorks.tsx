@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { m } from 'framer-motion';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,12 +10,9 @@ import type { TProject } from '../../types';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms/Header';
 
-const ProjectCard: React.FC<{ index: number } & Pick<TProject, 'tags' | 'image' | 'sourceCodeLink'>> = ({
-  index,
-  tags,
-  image,
-  sourceCodeLink,
-}) => {
+const ProjectCard: React.FC<
+  { index: number } & Pick<TProject, 'tags' | 'image' | 'sourceCodeLink'>
+> = ({ index, tags, image, sourceCodeLink }) => {
   const prefersReduced = useReducedMotion();
   const { t } = useTranslation();
 
@@ -44,7 +41,7 @@ const ProjectCard: React.FC<{ index: number } & Pick<TProject, 'tags' | 'image' 
                   if (['http:', 'https:'].includes(url.protocol)) {
                     window.open(sourceCodeLink, '_blank', 'noopener,noreferrer');
                   }
-                } catch { }
+                } catch {}
               }
             }}
             className='black-gradient flex h-10 w-10 cursor-pointer items-center justify-center rounded-full'
@@ -61,7 +58,9 @@ const ProjectCard: React.FC<{ index: number } & Pick<TProject, 'tags' | 'image' 
         </div>
       </div>
       <div className='mt-5'>
-        <h3 className='text-[var(--fluid-text-xl)] font-bold text-white'>{t(`projects.list.${index}.name`)}</h3>
+        <h3 className='text-[var(--fluid-text-xl)] font-bold text-white'>
+          {t(`projects.list.${index}.name`)}
+        </h3>
         <p className='text-gray-300 mt-2 text-[var(--fluid-text-sm)]'>
           {t(`projects.list.${index}.description`)}
         </p>

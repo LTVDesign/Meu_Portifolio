@@ -61,7 +61,7 @@ const OptimizedTexture = ({
   useEffect(() => {
     return () => {
       textureRefs.current.forEach((tex) => {
-        if (tex && tex.dispose) {
+        if (tex?.dispose) {
           tex.dispose();
         }
       });

@@ -42,11 +42,7 @@ const BallCanvas: React.FC<{ icon: string }> = memo(({ icon }) => {
   });
 
   return (
-    <div
-      ref={containerRef}
-      className='w-full h-full'
-      style={touchStyle}
-    >
+    <div ref={containerRef} className='w-full h-full' style={touchStyle}>
       <Canvas frameloop='demand' dpr={[1, 2]} gl={{ preserveDrawingBuffer: true }}>
         <Suspense fallback={<CanvasLoader />}>
           {/* OrbitControls só ativo em touch quando há intenção de interação 3D */}

@@ -1,6 +1,6 @@
+import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { testimonials } from '../../constants';
-import { m } from 'framer-motion';
 
 import type { TTestimonial } from '../../types';
 import { fadeIn } from '../../utils/motion';
@@ -57,9 +57,7 @@ const Feedbacks = () => {
       <div className='p-[var(--fluid-space-l)] bg-tertiary min-h-[var(--fluid-space-2xl)] rounded-2xl'>
         <Header useMotion={true} p={t('feedbacks.p')} h2={t('feedbacks.h2')} />
       </div>
-      <div
-        className='px-[var(--fluid-space-l)] -mt-[var(--fluid-space-2xl)] grid grid-cols-[repeat(auto-fit,minmax(clamp(16rem,22vw,22rem),1fr))] gap-[var(--fluid-space-l)] pb-[var(--fluid-space-xl)] items-stretch justify-items-center'
-      >
+      <div className='px-[var(--fluid-space-l)] -mt-[var(--fluid-space-2xl)] grid grid-cols-[repeat(auto-fit,minmax(clamp(16rem,22vw,22rem),1fr))] gap-[var(--fluid-space-l)] pb-[var(--fluid-space-xl)] items-stretch justify-items-center'>
         {testimonials.map((testimonial, index) => (
           <FeedbackCard key={testimonial.name} index={index} {...testimonial} />
         ))}

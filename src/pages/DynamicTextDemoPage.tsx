@@ -115,13 +115,13 @@ export default function DynamicTextDemoPage() {
         }}
       >
         <h1 className='text-4xl font-bold mb-4'>{t('dynamicTextDemo.pageTitle')}</h1>
-        <p className='text-xl mb-4'>
-          {t('dynamicTextDemo.pageDescription')}
-        </p>
+        <p className='text-xl mb-4'>{t('dynamicTextDemo.pageDescription')}</p>
         <p className='text-lg mb-4'>
           {t('dynamicTextDemo.backgroundInfo', { bgColor, mode })}
         </p>
-        <button className='px-6 py-3 border rounded'>{t('dynamicTextDemo.buttonText')}</button>
+        <button className='px-6 py-3 border rounded'>
+          {t('dynamicTextDemo.buttonText')}
+        </button>
       </DynamicText>
     </>
   );

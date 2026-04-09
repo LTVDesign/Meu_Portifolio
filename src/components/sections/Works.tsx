@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next';
 import { m } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { projects } from '../../constants';
 import { SectionWrapper } from '../../hoc';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
@@ -11,13 +11,11 @@ const Works = () => {
   const prefersReduced = useReducedMotion();
 
   const handleProjectClick = (projectName: string) => {
-    const project = projects.find(p => p.name === projectName);
+    const project = projects.find((p) => p.name === projectName);
     if (project) {
       window.open(project.sourceCodeLink, '_blank');
     }
   };
-
-
 
   return (
     <div className='w-full mx-auto px-[clamp(1rem,5vw,2rem)]'>
@@ -190,10 +188,12 @@ const Works = () => {
                   {projectName}
                 </h3>
 
-                <p className='mt-[clamp(0.5rem,1.5vw,0.75rem)] text-white/80 line-clamp-3 text-[clamp(0.75rem,2vw,0.875rem)] flex-1 leading-relaxed'
+                <p
+                  className='mt-[clamp(0.5rem,1.5vw,0.75rem)] text-white/80 line-clamp-3 text-[clamp(0.75rem,2vw,0.875rem)] flex-1 leading-relaxed'
                   style={{
                     textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)',
-                  }}>
+                  }}
+                >
                   {projectDescription}
                 </p>
 

@@ -2,7 +2,7 @@
 export const motion = new Proxy(
   {},
   {
-    get: (_target, prop) => {
+    get: (_target, _prop) => {
       // Retorna um componente que renderiza seus filhos
       return ({ children, ...props }: any) => children;
     },

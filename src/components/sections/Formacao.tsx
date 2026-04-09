@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
 import { m } from 'framer-motion';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { diploma, diplomaPdf, qrcode } from '../../assets';
 import anhanguera from '../../assets/anhanguera.svg';
@@ -10,8 +10,6 @@ import type { Disciplina, FormacaoData } from '../../types';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms';
 import Modal from '../atoms/Modal';
-
-
 
 const Formacao = () => {
   const [selectedFormation, setSelectedFormation] = useState<FormacaoData | null>(null);
@@ -367,18 +365,18 @@ const Formacao = () => {
   ];
 
   const stats = useMemo(() => {
-    if (!selectedFormation || !selectedFormation.disciplinas) return null;
+    if (!selectedFormation?.disciplinas) return null;
     const items = selectedFormation.disciplinas.filter(
       (d) => typeof d !== 'string'
     ) as Disciplina[];
     if (items.length === 0) return null;
 
     // Filtrar apenas disciplinas com nota numérica para cálculos de média
-    const itemsComNota = items.filter((d) => !isNaN(Number(d.nota)));
+    const itemsComNota = items.filter((d) => !Number.isNaN(Number(d.nota)));
 
-    const totalCH = items.reduce((acc, d) => acc + parseInt(d.cargaHoraria), 0);
+    const totalCH = items.reduce((acc, d) => acc + parseInt(d.cargaHoraria, 10), 0);
     const weightedSum = itemsComNota.reduce(
-      (acc, d) => acc + Number(d.nota) * parseInt(d.cargaHoraria),
+      (acc, d) => acc + Number(d.nota) * parseInt(d.cargaHoraria, 10),
       0
     );
     const average = itemsComNota.length > 0 ? weightedSum / totalCH : 0;
@@ -395,11 +393,11 @@ const Formacao = () => {
           };
         }
         // Só adiciona à soma se for nota numérica
-        if (!isNaN(Number(d.nota))) {
+        if (!Number.isNaN(Number(d.nota))) {
           acc[sem].sum += Number(d.nota);
           acc[sem].count += 1;
         }
-        acc[sem].ch += parseInt(d.cargaHoraria);
+        acc[sem].ch += parseInt(d.cargaHoraria, 10);
         acc[sem].disciplinas.push(d);
         return acc;
       },
@@ -421,7 +419,6 @@ const Formacao = () => {
 
   return (
     <div className='max-w-7xl mx-auto px-[clamp(1rem,4vw,1.5rem)] relative'>
-
       <Header useMotion={true} p={t('formacao.p')} h2={t('formacao.h2')} />
 
       {/* Linha com animação discreta de brilho */}
@@ -475,10 +472,11 @@ const Formacao = () => {
             className='glass-card group relative overflow-hidden p-[clamp(1.25rem,4vw,2.5rem)] flex flex-col h-full neon-hover border border-white/10 cursor-pointer'
           >
             <div
-              className={`absolute top-4 right-4 px-5 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-full text-white shadow-[0_0_15px_rgba(145,94,255,0.5)] border border-white/30 z-20 backdrop-blur-sm ${item.status === t('status.concluido')
-                ? 'bg-gradient-to-r from-green-600 to-emerald-600'
-                : 'bg-gradient-to-r from-yellow-600 to-orange-600'
-                }`}
+              className={`absolute top-4 right-4 px-5 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-full text-white shadow-[0_0_15px_rgba(145,94,255,0.5)] border border-white/30 z-20 backdrop-blur-sm ${
+                item.status === t('status.concluido')
+                  ? 'bg-gradient-to-r from-green-600 to-emerald-600'
+                  : 'bg-gradient-to-r from-yellow-600 to-orange-600'
+              }`}
             >
               {item.status}
             </div>
@@ -503,7 +501,10 @@ const Formacao = () => {
                   {t('education.period')}: {item.period}
                 </div>
 
-                <p className='mt-4 text-white/80 leading-relaxed text-[clamp(0.75rem,1.5vw,1rem)] opacity-80 group-hover:opacity-100 transition-opacity line-clamp-4' style={{ textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}>
+                <p
+                  className='mt-4 text-white/80 leading-relaxed text-[clamp(0.75rem,1.5vw,1rem)] opacity-80 group-hover:opacity-100 transition-opacity line-clamp-4'
+                  style={{ textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}
+                >
                   {item.description}
                 </p>
                 {/* Ajuste de layout para cards de formação */}
@@ -613,8 +614,13 @@ const Formacao = () => {
                   <h4 className='text-xs font-bold text-white mb-2'>
                     {t('education.semesterHistory')}
                   </h4>
-                  <div className='overflow-x-auto -mx-1 px-1 scrollbar-thin' style={{ WebkitOverflowScrolling: 'touch' }}>
-                    <p className='text-[8px] text-white/30 mb-1 text-right'>← {t('education.scrollToSee', 'deslize para ver')} →</p>
+                  <div
+                    className='overflow-x-auto -mx-1 px-1 scrollbar-thin'
+                    style={{ WebkitOverflowScrolling: 'touch' }}
+                  >
+                    <p className='text-[8px] text-white/30 mb-1 text-right'>
+                      ← {t('education.scrollToSee', 'deslize para ver')} →
+                    </p>
                     <table className='w-full text-[10px] min-w-[400px]'>
                       <thead>
                         <tr className='border-b border-white/10'>

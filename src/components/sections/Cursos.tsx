@@ -1,13 +1,24 @@
-import { useMemo, useState } from 'react';
 import { m } from 'framer-motion';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import {
+  alberta,
+  bradesco,
+  cate,
+  google,
+  hackers,
+  ibm,
+  ipad,
+  johns,
+  skill,
+  yonsei,
+} from '../../assets';
 import cursosData from '../../data/cursos.json';
 import { SectionWrapper } from '../../hoc';
-import { alberta, bradesco, cate, google, ibm, hackers, ipad, skill, yonsei, johns } from '../../assets';
+import type { Curso } from '../../types';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms';
 import CursoDetailModal from '../atoms/CursoDetailModal';
-import type { Curso } from '../../types';
 
 const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
@@ -133,15 +144,17 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
               {(() => {
                 const badges = t('courses.badges', { returnObjects: true });
                 if (!Array.isArray(badges)) return null;
-                return badges.map((badge: { text: string, color: string }, idx: number) => (
-                  <m.span
-                    key={idx}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    className={`px-[clamp(0.75rem,2vw,1rem)] py-[clamp(0.375rem,1vw,0.5rem)] rounded-full text-[clamp(0.625rem,1.5vw,0.75rem)] font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
-                  >
-                    {badge.text}
-                  </m.span>
-                ));
+                return badges.map(
+                  (badge: { text: string; color: string }, idx: number) => (
+                    <m.span
+                      key={idx}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      className={`px-[clamp(0.75rem,2vw,1rem)] py-[clamp(0.375rem,1vw,0.5rem)] rounded-full text-[clamp(0.625rem,1.5vw,0.75rem)] font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
+                    >
+                      {badge.text}
+                    </m.span>
+                  )
+                );
               })()}
             </m.div>
           </div>
@@ -186,10 +199,12 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
               </div>
             </div>
 
-            <p className='text-white/80 text-sm flex-1 leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity'
+            <p
+              className='text-white/80 text-sm flex-1 leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity'
               style={{
                 textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)',
-              }}>
+              }}
+            >
               {curso.summary}
             </p>
 
@@ -254,8 +269,6 @@ const Cursos = ({ isHomePage = false }: { isHomePage?: boolean }) => {
           <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300' />
         </m.button>
       </div>
-
-
 
       <CursoDetailModal
         isOpen={isDetailOpen}

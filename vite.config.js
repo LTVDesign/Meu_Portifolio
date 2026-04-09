@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import compression from 'vite-plugin-compression';
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import path from 'path';
 
 export default defineConfig({
@@ -17,6 +18,19 @@ export default defineConfig({
       jsxRuntime: 'automatic',
       fastRefresh: true,
       importSource: 'react',
+    }),
+    ViteImageOptimizer({
+      png: { quality: 80 },
+      jpeg: { quality: 80 },
+      jpg: { quality: 80 },
+      webp: { quality: 80 },
+      avif: { quality: 70 },
+      svg: {
+        plugins: [
+          { name: 'removeViewBox', active: false },
+          { name: 'sortAttrs' },
+        ],
+      },
     }),
     compression({
       algorithm: 'brotliCompress',
@@ -57,9 +71,9 @@ export default defineConfig({
     },
     sourcemap: false,
     minify: 'terser',
-    chunkSizeWarningLimit: 500,
+    chunkSizeWarningLimit: 600,
     cssCodeSplit: true,
-    assetsInlineLimit: 8192,
+    assetsInlineLimit: 4096,
     cssMinify: true,
     reportCompressedSize: false,
     incremental: true,
@@ -68,19 +82,17 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (!id.includes('node_modules')) return;
-          if (id.includes('/three/src/') || id.includes('/three/build/')) return 'three-core';
-          if (id.includes('@react-three/fiber')) return 'r3f-core';
-          if (id.includes('@react-three/drei')) return 'r3f-drei';
-          if (id.includes('troika')) return 'vendor-troika';
-          if (id.includes('three-stdlib')) return 'three-stdlib';
-          if (id.includes('three-mesh-bvh')) return 'three-bvh';
+          
+          // Especialização de chunks para reduzir blocking time
+          if (id.includes('/three/src/') || id.includes('/three/build/')) return 'vendor-three';
+          if (id.includes('@react-three/fiber')) return 'vendor-r3f';
+          if (id.includes('@react-three/drei')) return 'vendor-drei';
           if (id.includes('framer-motion')) return 'vendor-motion';
-          if (id.includes('react') || id.includes('scheduler') || id.includes('prop-types')) return 'vendor-core';
-          if (id.includes('i18next') || id.includes('react-i18next')) return 'vendor-i18n';
-          if (id.includes('react-router-dom')) return 'vendor-router';
-          if (id.includes('react-icons') || id.includes('react-vertical-timeline-component') || id.includes('react-parallax-tilt')) return 'vendor-ui';
-          if (id.includes('zod')) return 'vendor-utils';
+          if (id.includes('react') || id.includes('scheduler') || id.includes('prop-types')) return 'vendor-framework';
+          if (id.includes('i18next')) return 'vendor-i18n';
           if (id.includes('lucide-react')) return 'vendor-icons';
+          
+          return 'vendor-others';
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',

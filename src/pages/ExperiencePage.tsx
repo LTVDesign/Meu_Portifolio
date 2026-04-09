@@ -11,12 +11,14 @@ const ExperiencePage = () => {
       <Experience />
       <Works />
       <AllWorks />
-      
-      <Suspense fallback={
-        <div className="h-screen flex items-center justify-center bg-zinc-950">
-          <p className="text-zinc-400">Carregando experiência 3D...</p>
-        </div>
-      }>
+
+      <Suspense
+        fallback={
+          <div className='h-screen flex items-center justify-center bg-zinc-950'>
+            <p className='text-zinc-400'>Carregando experiência 3D...</p>
+          </div>
+        }
+      >
         <ThreeExperience />
       </Suspense>
     </>

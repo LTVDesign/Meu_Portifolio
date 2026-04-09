@@ -1,21 +1,41 @@
-import { createPortal } from 'react-dom';
 import { AnimatePresence, m } from 'framer-motion';
-import { useParticleConfig } from '../../contexts/ParticleConfigContext';
+import type React from 'react';
+import { lazy, Suspense } from 'react';
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
-import React, { Suspense, lazy } from 'react';
+import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 
 // Dynamic imports para carregar apenas o editor necessário
-const BolhasEditor = lazy(() => import('../background-editors/BolhasEditor').then(m => ({ default: m.default })));
-const CyberpunkEditor = lazy(() => import('../background-editors/CyberpunkEditor').then(m => ({ default: m.default })));
-const LiquidEditor = lazy(() => import('../background-editors/LiquidEditor').then(m => ({ default: m.default })));
-const MatrixEditor = lazy(() => import('../background-editors/MatrixEditor').then(m => ({ default: m.default })));
-const ParticlesEditor = lazy(() => import('../background-editors/ParticlesEditor').then(m => ({ default: m.default })));
-const ParticulateEditor = lazy(() => import('../background-editors/ParticulateEditor').then(m => ({ default: m.default })));
-const SolidEditor = lazy(() => import('../background-editors/SolidEditor').then(m => ({ default: m.default })));
-const WavefieldEditor = lazy(() => import('../background-editors/WavefieldEditor').then(m => ({ default: m.default })));
+const BolhasEditor = lazy(() =>
+  import('../background-editors/BolhasEditor').then((m) => ({ default: m.default }))
+);
+const CyberpunkEditor = lazy(() =>
+  import('../background-editors/CyberpunkEditor').then((m) => ({ default: m.default }))
+);
+const LiquidEditor = lazy(() =>
+  import('../background-editors/LiquidEditor').then((m) => ({ default: m.default }))
+);
+const MatrixEditor = lazy(() =>
+  import('../background-editors/MatrixEditor').then((m) => ({ default: m.default }))
+);
+const ParticlesEditor = lazy(() =>
+  import('../background-editors/ParticlesEditor').then((m) => ({ default: m.default }))
+);
+const ParticulateEditor = lazy(() =>
+  import('../background-editors/ParticulateEditor').then((m) => ({ default: m.default }))
+);
+const SolidEditor = lazy(() =>
+  import('../background-editors/SolidEditor').then((m) => ({ default: m.default }))
+);
+const WavefieldEditor = lazy(() =>
+  import('../background-editors/WavefieldEditor').then((m) => ({ default: m.default }))
+);
 
 // Mapeamento de editores para carregamento dinâmico
-const editorComponents: Record<string, React.LazyExoticComponent<React.ComponentType<any>>> = {
+const editorComponents: Record<
+  string,
+  React.LazyExoticComponent<React.ComponentType<any>>
+> = {
   bolhas: BolhasEditor,
   particles: ParticlesEditor,
   liquid: LiquidEditor,
@@ -28,9 +48,9 @@ const editorComponents: Record<string, React.LazyExoticComponent<React.Component
 
 // Componente de fallback para o Suspense
 const EditorLoadingFallback = () => (
-  <div className="flex flex-col items-center justify-center py-16 gap-4">
-    <div className="w-10 h-10 border-4 border-[#915EFF]/30 border-t-[#915EFF] rounded-full animate-spin" />
-    <p className="text-gray-400 text-sm">Carregando editor...</p>
+  <div className='flex flex-col items-center justify-center py-16 gap-4'>
+    <div className='w-10 h-10 border-4 border-[#915EFF]/30 border-t-[#915EFF] rounded-full animate-spin' />
+    <p className='text-gray-400 text-sm'>Carregando editor...</p>
   </div>
 );
 
