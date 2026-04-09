@@ -84,13 +84,13 @@ export default defineConfig({
         manualChunks(id) {
           if (!id.includes('node_modules')) return;
 
-          // Vendor 3D: Three.js e ecossistema R3F
-          if (id.includes('three') || id.includes('@react-three') || id.includes('three-mesh-bvh')) {
+          // Vendor 3D: ONLY pure Three.js engine (no React dependencies)
+          if ((id.includes('three') || id.includes('three-mesh-bvh')) && !id.includes('@react-three')) {
             return 'vendor-3d';
           }
 
-          // Vendor Core: React e infraestrutura
-          if (id.includes('react') || id.includes('scheduler') || id.includes('react-router') || id.includes('react-dom') || id.includes('use-sync-external-store')) {
+          // Vendor Core: React + React-dependent libs (including @react-three which uses React hooks)
+          if (id.includes('react') || id.includes('scheduler') || id.includes('react-router') || id.includes('react-dom') || id.includes('use-sync-external-store') || id.includes('@react-three') || id.includes('react-reconciler')) {
             return 'vendor-core';
           }
 
