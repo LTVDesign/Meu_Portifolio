@@ -54,6 +54,7 @@ const ParticlesCanvas = () => {
       />
       <button
         ref={btnRef}
+        aria-label='Efeito de Partículas Interativo'
         className='fixed left-[clamp(0.5rem,1.5vw,1rem)] top-1/2 -translate-y-1/2 w-14 h-14 pointer-events-none opacity-0'
       />
     </>

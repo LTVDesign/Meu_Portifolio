@@ -255,6 +255,7 @@
   section[id] {
     content-visibility: auto;
     contain-intrinsic-size: 0 500px;
+    scroll-margin-top: clamp(80px, 10vh, 120px);
   }
 
   .navbar,

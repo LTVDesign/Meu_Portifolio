@@ -311,7 +311,7 @@ const Contact = () => {
           </div>
         </m.div>
 
-        <div className='flex flex-row gap-[clamp(2rem,6vw,5rem)] items-center'>
+        <div className='flex flex-row gap-[clamp(2rem,6vw,5rem)] items-stretch'>
           {/* Formulário */}
           <m.div
             variants={prefersReduced ? {} : slideIn('left', 'tween', 0.2, 1)}
@@ -485,7 +485,7 @@ const Contact = () => {
             <m.div
               ref={canvasContainerRef}
               variants={slideIn('right', 'tween', 0.2, 1)}
-              className='flex flex-1 w-full h-[clamp(400px,60vw,700px)] items-center justify-center relative overflow-hidden'
+              className='flex-1 w-full relative overflow-hidden'
             >
               <div className='w-full h-full flex items-center justify-center'>
                 {isInView && <EarthCanvas />}

@@ -1,9 +1,41 @@
 import { useCallback, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
-import { FiDownload, FiPrinter } from 'react-icons/fi';
-import { experiences, projects } from '../constants';
+import { m } from 'framer-motion';
+import { FiDownload, FiPrinter, FiMapPin, FiMail, FiLinkedin, FiAward, FiBook } from 'react-icons/fi';
+import { FaWhatsapp } from 'react-icons/fa';
+import { experiences, projects, technologies } from '../constants';
 import cursosData from '../data/cursos.json';
+import cvFile from '../assets/docs/Leandro_Barbosa_curriculo.pdf';
+
+const fadeIn = (direction: 'up' | 'down' | 'left' | 'right', type: string, delay: number, duration: number) => ({
+  hidden: {
+    x: direction === 'left' ? 100 : direction === 'right' ? -100 : 0,
+    y: direction === 'up' ? 100 : direction === 'down' ? -100 : 0,
+    opacity: 0,
+  },
+  show: {
+    x: 0,
+    y: 0,
+    opacity: 1,
+    transition: {
+      type,
+      delay,
+      duration,
+      ease: 'easeOut',
+    },
+  },
+});
+
+const staggerContainer = (staggerChildren?: number, delayChildren?: number) => ({
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren,
+      delayChildren: delayChildren || 0,
+    },
+  },
+});
 
 const OnlineResume = () => {
   const { t, i18n } = useTranslation();
@@ -20,490 +52,411 @@ const OnlineResume = () => {
   const handlePrint = useCallback(() => window.print(), []);
 
   return (
-    <div className='min-h-screen bg-[#050816] text-white pt-[clamp(6rem,12vw,8rem)] pb-[clamp(2rem,6vw,4rem)] px-[clamp(1rem,4vw,2rem)]'>
+    <div className='min-h-screen bg-[#050816] text-white pt-[clamp(6rem,12vw,8rem)] pb-[clamp(4rem,8vw,6rem)] px-[clamp(1rem,5vw,2rem)] overflow-x-hidden relative'>
+      {/* Background Decorativo */}
+      <div className='absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20 print:hidden'>
+        <div className='absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[var(--cyber-cyan)] blur-[150px] rounded-full' />
+        <div className='absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[var(--cyber-purple)] blur-[150px] rounded-full' />
+      </div>
+
       <Helmet>
-        <title>
-          {t('common.name')} | {t('allCurriculo.title')}
-        </title>
+        <title>{t('common.name')} | {t('allCurriculo.title')}</title>
         <meta name='description' content={t('hero.descriptionMeta')} />
       </Helmet>
 
-      {/* Toolbar - visível na tela online */}
-      <div className='max-w-5xl mx-auto mb-8 flex justify-end gap-4 print:hidden relative z-10 print:hidden'>
-        <button
-          onClick={handlePrint}
-          className='flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg transition-all text-sm'
-        >
-          <FiPrinter className='text-[var(--cyber-cyan)]' />{' '}
-          {t('common.print', 'Imprimir')}
-        </button>
-        <button
-          onClick={handlePrint}
-          className='flex items-center gap-2 px-4 py-2 bg-[var(--cyber-purple)] hover:opacity-90 text-white rounded-lg transition-all text-sm shadow-lg shadow-[var(--cyber-purple)]/20'
-        >
-          <FiDownload /> {t('allCurriculo.saveAsPDF', 'Salvar como PDF')}
-        </button>
-      </div>
-
-      {/* Header com gradiente - SOMENTE TELA */}
-      <div className='max-w-4xl mx-auto mb-0 p-[clamp(1.5rem,4vw,2rem)] rounded-t-2xl bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 print:hidden'>
-        <div className='flex justify-between items-center'>
-          <div>
-            <h1 className='text-[clamp(2rem,6vw,3rem)] font-bold mb-3 text-black'>
-              Leandro Barbosa
-            </h1>
-            <p className='text-[clamp(1rem,3vw,1.5rem)] font-medium mb-2 text-black'>
-              Engenheiro de Software • Tecnólogo em ADS • Pós-Graduando em IA & Data
-              Science
-            </p>
-          </div>
-          <div className='flex flex-col gap-3 text-right text-black'>
-            <div className='flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)]'>
-              <span className='bg-white/20 p-[clamp(0.4rem,1vw,0.5rem)] rounded-full text-[clamp(1rem,2vw,1.25rem)]'>
-                📱
-              </span>
-              <span className='text-[clamp(0.875rem,2vw,1rem)]'>+55 11 98483-8629</span>
-            </div>
-            <div className='flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)]'>
-              <span className='bg-white/20 p-[clamp(0.4rem,1vw,0.5rem)] rounded-full text-[clamp(1rem,2vw,1.25rem)]'>
-                💼
-              </span>
-              <a
-                href='https://linkedin.com/in/lelebrr'
-                target='_blank'
-                rel='noopener noreferrer'
-                className='text-[clamp(0.875rem,2vw,1rem)] hover:underline'
-              >
-                linkedin.com/in/lelebrr
-              </a>
-            </div>
-            <div className='flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)]'>
-              <span className='bg-white/20 p-[clamp(0.4rem,1vw,0.5rem)] rounded-full text-[clamp(1rem,2vw,1.25rem)]'>
-                📧
-              </span>
-              <a
-                href='mailto:lelebrr@gmail.com'
-                className='text-[clamp(0.875rem,2vw,1rem)] hover:underline'
-              >
-                lelebrr@gmail.com
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Versão principal - otimizada para impressão (máx 2 páginas) */}
-      <div className='max-w-4xl mx-auto bg-white text-black print:p-0 print:m-0 p-[clamp(1rem,4vw,1.5rem)]'>
-        {/* Cabeçalho com QR Code - SOMENTE IMPRESSÃO */}
-        <div className='flex justify-between items-start mb-6 print:flex'>
-          <div>
-            <h1 className='text-2xl font-bold mb-1' style={{ color: 'black' }}>
-              Leandro Barbosa
-            </h1>
-            <p className='text-sm text-gray-700 mb-2' style={{ color: 'black' }}>
-              Engenheiro de Software | Tecnólogo em ADS | Pós-Graduando IA & Data Science
-            </p>
-            <div className='text-xs space-y-1' style={{ color: 'black' }}>
-              <div>📧 lelebrr@gmail.com | 📱 +55 11 98483-8629</div>
-              <div>💼 linkedin.com/in/lelebrr | 📍 Freguesia do Ó, São Paulo - SP</div>
-              <div>🎂 Nascimento: 1987</div>
-            </div>
-          </div>
-          <div className='flex-shrink-0'>
-            <img src='/qrcode.png' alt='QR Code' className='w-16 h-16' />
-          </div>
+      {/* Banner de Aviso & Toolbar */}
+      <m.div 
+        variants={fadeIn('down', 'tween', 0.1, 0.8)}
+        initial='hidden'
+        whileInView='show'
+        viewport={{ once: true }}
+        className='max-w-6xl mx-auto mb-12 bg-white/5 backdrop-blur-xl border border-white/10 p-[clamp(1.5rem,4vw,2rem)] rounded-[2.5rem] flex flex-col lg:flex-row items-center justify-between gap-8 print:hidden relative z-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]'
+      >
+        <div className='flex-1 text-center lg:text-left'>
+          <h3 className='text-[clamp(1.25rem,3vw,1.5rem)] font-black mb-3 flex items-center justify-center lg:justify-start gap-3 bg-gradient-to-r from-[var(--cyber-cyan)] to-[var(--cyber-purple)] bg-clip-text text-transparent'>
+            🚀 {t('allCurriculo.bannerTitle', 'Portal de Currículo Interativo')}
+          </h3>
+          <p className='text-[clamp(0.9rem,1.8vw,1.05rem)] text-gray-300 leading-relaxed font-medium max-w-2xl'>
+            {t('allCurriculo.bannerText', 'Esta página é uma experiência imersiva com meu arsenal completo.')} 
+            <br />
+            {t('allCurriculo.bannerSubtext', 'Para apresentações formais, utilize as ferramentas de exportação ao lado.')}
+          </p>
         </div>
 
-        <div className='grid grid-cols-1 gap-6'>
-          {/* Sumário Profissional - Primeiro elemento para chamar atenção */}
-          <div>
-            <h2
-              className='text-lg font-bold mb-3 text-gray-800 border-b border-gray-300 pb-1'
-              style={{ color: 'black' }}
-            >
-              SUMÁRIO PROFISSIONAL
-            </h2>
-            <p
-              className='text-sm text-gray-700 leading-relaxed'
-              style={{ color: 'black' }}
-            >
-              Engenheiro de Software com formação em Tecnologia de Análise e
-              Desenvolvimento de Sistemas e pós-graduando em IA & Data Science.
-              Experiência em desenvolvimento full-stack, arquitetura de software e
-              liderança de equipes. Focado em criar soluções inovadoras e otimizadas para
-              negócios, com forte habilidade em tecnologias cloud e metodologias ágeis.
+        <div className='flex flex-wrap items-center justify-center gap-4 shrink-0'>
+          <button 
+            onClick={handlePrint} 
+            className='flex items-center gap-3 px-8 py-3.5 bg-gradient-to-r from-[var(--cyber-cyan)] to-blue-500 hover:shadow-[0_10px_30px_rgba(0,240,255,0.3)] text-white rounded-2xl transition-all text-sm font-extrabold active:scale-95'
+          >
+            <FiPrinter className='text-lg' />
+            {t('common.print', 'Imprimir')}
+          </button>
+
+          <a 
+            href={cvFile} 
+            download="Leandro_Barbosa_curriculo.pdf"
+            className='flex items-center gap-3 px-8 py-3.5 bg-gradient-to-r from-[var(--cyber-purple)] to-blue-600 hover:shadow-[0_10px_30px_rgba(151,71,255,0.3)] text-white rounded-2xl transition-all text-sm font-extrabold active:scale-95'
+          >
+            <FiDownload className='text-lg' />
+            {t('allCurriculo.downloadCv', 'Download do Currículo')}
+          </a>
+          
+          <a 
+            href={cvFile} 
+            download="Leandro_Barbosa_curriculo.pdf"
+            className='flex items-center gap-3 px-8 py-3.5 bg-gradient-to-r from-[#FF007A] to-[#9747FF] hover:shadow-[0_10px_30px_rgba(255,0,122,0.3)] text-white rounded-2xl transition-all text-sm font-extrabold active:scale-95'
+          >
+            <FiDownload className='text-lg' />
+            {t('allCurriculo.saveAsPdf', 'Salvar como PDF')}
+          </a>
+        </div>
+      </m.div>
+
+      {/* Conteúdo Principal Estilizado */}
+      <m.div 
+        variants={staggerContainer(0.1)}
+        initial='hidden'
+        whileInView='show'
+        viewport={{ once: true }}
+        className='max-w-6xl mx-auto space-y-12 relative z-10 online-content print:hidden'
+      >
+        {/* Header Visual */}
+        <m.section variants={fadeIn('up', 'spring', 0.2, 1)} className='grid grid-cols-1 lg:grid-cols-3 gap-8 items-center bg-white/5 backdrop-blur-md border border-white/10 rounded-[3rem] p-[clamp(2rem,6vw,4rem)] overflow-hidden relative'>
+          <div className='absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[var(--cyber-cyan)] to-[var(--cyber-purple)]' />
+          
+          <div className='lg:col-span-2 space-y-6'>
+            <div>
+              <m.h1 className='text-[clamp(2.5rem,8vw,4.5rem)] font-black leading-tight tracking-tighter bg-gradient-to-br from-white via-white to-gray-500 bg-clip-text text-transparent'>
+                Leandro Barbosa
+              </m.h1>
+              <p className='text-[clamp(1.1rem,3vw,1.6rem)] font-bold text-[var(--cyber-cyan)] mt-2 uppercase tracking-[0.2em]'>
+                {t('allCurriculo.role', 'Software Engineer')}
+              </p>
+            </div>
+            
+            <p className='text-gray-400 text-lg leading-relaxed max-w-2xl font-medium'>
+              {t('allCurriculo.shortSummary')}
             </p>
+
+            <div className='flex flex-wrap gap-6'>
+              <div className='flex items-center gap-3 text-gray-300 hover:text-[var(--cyber-cyan)] transition-colors group'>
+                <div className='w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-[var(--cyber-cyan)]/50 transition-all'>
+                  <FaWhatsapp className='text-xl' />
+                </div>
+                <div>
+                  <p className='text-xs text-gray-500 font-bold uppercase tracking-widest'>WhatsApp</p>
+                  <p className='font-bold'>+55 11 98483-8629</p>
+                </div>
+              </div>
+              <div className='flex items-center gap-3 text-gray-300 hover:text-[var(--cyber-purple)] transition-colors group'>
+                <div className='w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-[var(--cyber-purple)]/50 transition-all'>
+                  <FiLinkedin className='text-xl' />
+                </div>
+                <div>
+                  <p className='text-xs text-gray-500 font-bold uppercase tracking-widest'>LinkedIn</p>
+                  <p className='font-bold'>/in/lelebrr</p>
+                </div>
+              </div>
+              <div className='flex items-center gap-3 text-gray-300 hover:text-white transition-colors group'>
+                <div className='w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-white/30 transition-all'>
+                  <FiMapPin className='text-xl' />
+                </div>
+                <div>
+                  <p className='text-xs text-gray-500 font-bold uppercase tracking-widest'>{t('allCurriculo.locationLabel', 'Location')}</p>
+                  <p className='font-bold text-gray-200'>{t('allCurriculo.location', 'São Paulo, SP')}</p>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Competências Técnicas - Destaque para ATS */}
-          <div>
-            <h2
-              className='text-lg font-bold mb-3 text-gray-800 border-b border-gray-300 pb-1'
-              style={{ color: 'black' }}
-            >
-              COMPETÊNCIAS TÉCNICAS
-            </h2>
-            <div className='grid grid-cols-2 gap-3 text-xs'>
-              <div>
-                <span
-                  className='font-medium text-gray-700 block mb-1'
-                  style={{ color: 'black' }}
-                >
-                  Linguagens
-                </span>
-                <div className='flex flex-wrap gap-1'>
-                  {[
-                    'JavaScript',
-                    'TypeScript',
-                    'Python',
-                    'Java',
-                    'C#',
-                    'SQL',
-                    'HTML/CSS',
-                  ].map((skill) => (
-                    <span
-                      key={skill}
-                      className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
-                      style={{ color: 'black' }}
-                    >
+          <div className='flex justify-center'>
+            <div className='relative group'>
+              <div className='absolute -inset-4 bg-gradient-to-r from-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-pulse' />
+              <div className='relative bg-[#050816] border border-white/10 rounded-[2rem] p-6 shadow-2xl'>
+                <img src='/qrcode.png' alt='QR Code' className='w-32 h-32 grayscale brightness-125 hover:grayscale-0 transition-all duration-500 cursor-crosshair' />
+                <p className='text-[10px] text-center mt-3 font-mono text-gray-500 uppercase tracking-widest'>{t('allCurriculo.scanText', 'Scan for full experience')}</p>
+              </div>
+            </div>
+          </div>
+        </m.section>
+
+        {/* Arsenal & Competências - Grid Moderno */}
+        <m.section variants={fadeIn('up', 'spring', 0.3, 1)} className='space-y-8'>
+          <div className='flex items-center gap-4'>
+            <h2 className='text-3xl font-black uppercase tracking-tighter'>{t('allCurriculo.skillsTitle', 'Arsenal Técnico')}</h2>
+            <div className='h-[2px] flex-1 bg-gradient-to-r from-[var(--cyber-cyan)] to-transparent opacity-30' />
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start'>
+            {Object.entries(
+              technologies.reduce((acc, tech) => {
+                const category = t(tech.category);
+                if (!acc[category]) acc[category] = [];
+                acc[category].push(tech.name);
+                return acc;
+              }, {} as Record<string, string[]>)
+            ).map(([category, skills], idx) => (
+              <m.div 
+                key={category} 
+                variants={fadeIn('up', 'spring', 0.1 * idx, 0.75)}
+                className='group bg-white/5 backdrop-blur-md border border-white/10 rounded-[2rem] p-8 hover:bg-white/10 transition-all hover:-translate-y-2 relative overflow-hidden'
+              >
+                <div className='absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-30 transition-opacity'>
+                  <FiAward className='text-4xl text-[var(--cyber-cyan)]' />
+                </div>
+                <h4 className='text-xl font-black mb-6 flex items-center gap-3 text-white uppercase tracking-wider'>
+                  <span className='w-2 h-6 bg-[var(--cyber-cyan)] rounded-full' />
+                  {category}
+                </h4>
+                <div className='flex flex-wrap gap-2'>
+                  {skills.map((skill) => (
+                    <span key={skill} className='px-4 py-2 bg-white/5 border border-white/5 rounded-full text-xs font-bold text-gray-300 hover:text-[var(--cyber-cyan)] hover:border-[var(--cyber-cyan)]/30 transition-all cursor-default'>
                       {skill}
                     </span>
                   ))}
                 </div>
-              </div>
-              <div>
-                <span
-                  className='font-medium text-gray-700 block mb-1'
-                  style={{ color: 'black' }}
-                >
-                  Frontend
-                </span>
-                <div className='flex flex-wrap gap-1'>
-                  {['React', 'Next.js', 'Angular', 'Vue.js', 'Tailwind', 'Bootstrap'].map(
-                    (skill) => (
-                      <span
-                        key={skill}
-                        className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
-                        style={{ color: 'black' }}
-                      >
-                        {skill}
-                      </span>
-                    )
-                  )}
-                </div>
-              </div>
-              <div>
-                <span
-                  className='font-medium text-gray-700 block mb-1'
-                  style={{ color: 'black' }}
-                >
-                  Backend
-                </span>
-                <div className='flex flex-wrap gap-1'>
-                  {['Node.js', 'Express', '.NET', 'Spring', 'Django', 'FastAPI'].map(
-                    (skill) => (
-                      <span
-                        key={skill}
-                        className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
-                        style={{ color: 'black' }}
-                      >
-                        {skill}
-                      </span>
-                    )
-                  )}
-                </div>
-              </div>
-              <div>
-                <span
-                  className='font-medium text-gray-700 block mb-1'
-                  style={{ color: 'black' }}
-                >
-                  Banco de Dados
-                </span>
-                <div className='flex flex-wrap gap-1'>
-                  {['MySQL', 'PostgreSQL', 'MongoDB', 'Redis', 'Oracle'].map((skill) => (
-                    <span
-                      key={skill}
-                      className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
-                      style={{ color: 'black' }}
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <span
-                  className='font-medium text-gray-700 block mb-1'
-                  style={{ color: 'black' }}
-                >
-                  Cloud & DevOps
-                </span>
-                <div className='flex flex-wrap gap-1'>
-                  {['AWS', 'Azure', 'Docker', 'Kubernetes', 'CI/CD', 'Git'].map(
-                    (skill) => (
-                      <span
-                        key={skill}
-                        className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
-                        style={{ color: 'black' }}
-                      >
-                        {skill}
-                      </span>
-                    )
-                  )}
-                </div>
-              </div>
-              <div>
-                <span
-                  className='font-medium text-gray-700 block mb-1'
-                  style={{ color: 'black' }}
-                >
-                  Ferramentas
-                </span>
-                <div className='flex flex-wrap gap-1'>
-                  {['VS Code', 'IntelliJ', 'Postman', 'Jira', 'Figma', 'Swagger'].map(
-                    (skill) => (
-                      <span
-                        key={skill}
-                        className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
-                        style={{ color: 'black' }}
-                      >
-                        {skill}
-                      </span>
-                    )
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Experiência Profissional */}
-          <div>
-            <h2
-              className='text-lg font-bold mb-3 text-gray-800 border-b border-gray-300 pb-1'
-              style={{ color: 'black' }}
-            >
-              EXPERIÊNCIA PROFISSIONAL
-            </h2>
-            {experiences.map((exp, index) => (
-              <div key={index} className='mb-4'>
-                <div className='flex justify-between items-start mb-1'>
-                  <h3 className='font-bold text-sm' style={{ color: 'black' }}>
-                    {t(exp.title)}
-                  </h3>
-                  <span className='text-xs text-gray-600' style={{ color: 'black' }}>
-                    {t(exp.date)}
-                  </span>
-                </div>
-                <p
-                  className='text-xs text-gray-700 font-medium mb-2'
-                  style={{ color: 'black' }}
-                >
-                  {t(exp.companyName)}
-                </p>
-                <ul
-                  className='list-disc list-inside text-xs space-y-1'
-                  style={{ color: 'black' }}
-                >
-                  {exp.points.map((point, pIndex) => (
-                    <li key={pIndex} style={{ color: 'black' }}>
-                      {t(point)}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              </m.div>
             ))}
           </div>
+        </m.section>
 
-          {/* Projetos Relevantes */}
-          <div>
-            <h2
-              className='text-lg font-bold mb-3 text-gray-800 border-b border-gray-300 pb-1'
-              style={{ color: 'black' }}
-            >
-              PROJETOS DESTACADOS
-            </h2>
-            <div className='space-y-3'>
-              {projects.slice(0, 3).map((project, index) => (
-                <div key={index} className='mb-3'>
-                  <div className='flex justify-between items-start mb-1'>
-                    <h3 className='font-bold text-sm' style={{ color: 'black' }}>
-                      {project.name}
-                    </h3>
-                    <span
-                      className='text-xs bg-gray-100 px-2 py-0.5 rounded text-gray-700'
-                      style={{ color: 'black' }}
-                    >
-                      {project.category}
+        {/* Experiência - Timeline Visual */}
+        <m.section variants={fadeIn('up', 'spring', 0.4, 1)} className='space-y-12'>
+          <div className='flex items-center gap-4'>
+            <h2 className='text-3xl font-black uppercase tracking-tighter'>{t('allCurriculo.experienceTitle', 'Carreira Profissional')}</h2>
+            <div className='h-[2px] flex-1 bg-gradient-to-r from-[var(--cyber-purple)] to-transparent opacity-30' />
+          </div>
+
+          <div className='space-y-8'>
+            {experiences.map((exp, index) => (
+              <m.div 
+                key={index} 
+                variants={fadeIn('left', 'spring', 0.2 * index, 0.75)}
+                className='relative pl-12 group'
+              >
+                <div className='absolute left-0 top-0 w-[2px] h-full bg-gradient-to-b from-[var(--cyber-purple)] to-blue-900 group-last:h-12 opacity-50' />
+                <div className='absolute left-[-6px] top-6 w-3.5 h-3.5 rounded-full bg-[var(--cyber-purple)] shadow-[0_0_15px_rgba(151,71,255,1)] group-hover:scale-150 transition-transform' />
+                
+                <div className='bg-white/5 border border-white/10 rounded-[2.5rem] p-[clamp(1.5rem,4vw,2.5rem)] hover:bg-white/[0.08] transition-all relative overflow-hidden group-hover:shadow-[0_20px_50px_rgba(151,71,255,0.05)]'>
+                  <div className='flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8'>
+                    <div>
+                      <h3 className='text-2xl font-black text-white mb-1'>{t(exp.title)}</h3>
+                      <p className='text-[var(--cyber-purple)] font-black uppercase tracking-widest text-sm'>
+                        {t(exp.companyName)}
+                      </p>
+                    </div>
+                    <span className='px-6 py-2 bg-white/5 border border-white/10 rounded-full text-xs font-bold text-gray-400'>
+                      {t(exp.date)}
                     </span>
                   </div>
-                  <p
-                    className='text-xs text-gray-700 leading-relaxed'
-                    style={{ color: 'black' }}
-                  >
-                    {t(project.description)}
-                  </p>
-                  <div className='flex flex-wrap gap-1 mt-1'>
-                    {project.tags.slice(0, 3).map((tag, tIdx) => (
-                      <span
-                        key={tIdx}
-                        className='text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700'
-                        style={{ color: 'black' }}
-                      >
-                        #{tag.name}
-                      </span>
+                  
+                  <ul className='space-y-4'>
+                    {exp.points.map((point, pIndex) => (
+                      <li key={pIndex} className='flex items-start gap-4 text-gray-400 group/item'>
+                        <span className='w-1.5 h-1.5 rounded-full bg-[var(--cyber-cyan)] mt-2 shrink-0 group-hover/item:scale-150 transition-transform' />
+                        <span className='leading-relaxed font-medium group-hover/item:text-gray-200 transition-colors'>
+                          {t(point)}
+                        </span>
+                      </li>
                     ))}
+                  </ul>
+                </div>
+              </m.div>
+            ))}
+          </div>
+        </m.section>
+
+        {/* Formação & Acadêmico */}
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 items-start'>
+          <m.section variants={fadeIn('right', 'spring', 0.5, 1)} className='space-y-8 p-10 bg-white/5 border border-white/10 rounded-[3rem] relative overflow-hidden'>
+            <div className='absolute top-0 right-0 p-10 opacity-5'>
+              <FiBook className='text-[10rem] text-[var(--cyber-cyan)]' />
+            </div>
+            <h2 className='text-2xl font-black uppercase tracking-tighter flex items-center gap-3'>
+              <FiBook className='text-[var(--cyber-cyan)]' /> {t('allCurriculo.academicsTitle', 'Formação Acadêmica')}
+            </h2>
+            <div className='space-y-8'>
+              <div className='relative pl-6 border-l-2 border-[var(--cyber-cyan)]/30'>
+                <h4 className='text-xl font-bold mb-2'>{t('allCurriculo.academicsAndLanguages', 'Pós-Graduação em IA & Data Science')}</h4>
+                <p className='text-gray-400 font-medium'>Anhanguera | <span className='text-[var(--cyber-cyan)] uppercase text-xs font-black'>{t('allCurriculo.currentlyStudying', 'Cursando')}</span></p>
+              </div>
+              <div className='relative pl-6 border-l-2 border-white/10'>
+                <h4 className='text-xl font-bold mb-2'>TADS - Análise e Desiv. de Sistemas</h4>
+                <p className='text-gray-400 font-medium'>Anhanguera | Dez 2025</p>
+                <div className='mt-3 flex gap-4 text-xs font-mono text-gray-500'>
+                  <span>CR: 10.0</span>
+                  <span>CH: 2100h</span>
+                </div>
+              </div>
+            </div>
+          </m.section>
+
+          <m.section variants={fadeIn('left', 'spring', 0.6, 1)} className='space-y-8 p-10 bg-white/5 border border-white/10 rounded-[3rem]'>
+            <h2 className='text-2xl font-black uppercase tracking-tighter flex items-center gap-3'>
+              <FiAward className='text-[var(--cyber-purple)]' /> {t('allCurriculo.specializationsTitle', 'Especializações')}
+            </h2>
+            <div className='space-y-4 max-h-[400px] overflow-y-auto custom-scrollbar pr-4'>
+              {allCourses.map((course) => (
+                <div key={course.id} className='p-5 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 transition-all border-l-4 border-l-transparent hover:border-l-[var(--cyber-purple)] group cursor-default'>
+                  <h5 className='font-bold group-hover:text-[var(--cyber-purple)] transition-colors'>{course.title}</h5>
+                  <div className='flex justify-between items-center mt-2'>
+                    <span className='text-xs text-gray-500 font-bold uppercase'>{course.platform}</span>
+                    <span className='text-[10px] text-gray-600'>{course.date}</span>
                   </div>
                 </div>
               ))}
             </div>
-          </div>
+          </m.section>
+        </div>
+      </m.div>
 
-          {/* Formação e Certificações */}
-          <div>
-            <h2
-              className='text-lg font-bold mb-3 text-gray-800 border-b border-gray-300 pb-1'
-              style={{ color: 'black' }}
-            >
-              FORMAÇÃO E CERTIFICAÇÕES
-            </h2>
-            <div className='space-y-3 text-xs'>
-              <div>
-                <h3 className='font-bold text-sm' style={{ color: 'black' }}>
-                  Pós-Graduação em IA & Data Science
-                </h3>
-                <p className='text-gray-600' style={{ color: 'black' }}>
-                  Anhanguera | Cursando
-                </p>
-              </div>
-              <div>
-                <h3 className='font-bold text-sm' style={{ color: 'black' }}>
-                  Tecnólogo em Análise e Desenvolvimento de Sistemas
-                </h3>
-                <p className='text-gray-600' style={{ color: 'black' }}>
-                  Unopar Anhanguera | 2025
-                </p>
-              </div>
-              <div>
-                <h3 className='font-bold text-sm mb-2' style={{ color: 'black' }}>
-                  Certificações Relevantes
-                </h3>
-                <div className='space-y-1'>
-                  {allCourses
-                    .filter((c) => c.isProfessionalCertificate)
-                    .slice(0, 2)
-                    .map((course) => (
-                      <div key={course.id}>
-                        <p className='text-gray-700' style={{ color: 'black' }}>
-                          {course.title}
-                        </p>
-                        <p className='text-gray-600 text-xs' style={{ color: 'black' }}>
-                          {course.platform} | {course.date}
-                        </p>
-                      </div>
-                    ))}
-                </div>
-              </div>
+      {/* Versão para impressão - Clean & Professional */}
+      <div className='hidden print:block print-content p-0 m-0 text-gray-900'>
+        {/* Header Colorido */}
+        <div className='flex justify-between items-start mb-8 pb-6 border-b-4 border-[var(--cyber-cyan)]'>
+          <div className='space-y-4'>
+            <div>
+              <h1 className='text-4xl font-black text-[#050816] mb-1 uppercase tracking-tighter'>Leandro Barbosa</h1>
+              <p className='text-lg font-extrabold text-[var(--cyber-purple)] uppercase tracking-widest'>{t('allCurriculo.role')}</p>
+            </div>
+            
+            <div className='grid grid-cols-2 gap-y-2 gap-x-12 text-[10.5pt] font-medium'>
+              <span className='flex items-center gap-2'><FiMail className='text-[var(--cyber-purple)]' /> lelebrr@gmail.com</span>
+              <span className='flex items-center gap-2'><FaWhatsapp className='text-[var(--cyber-purple)]' /> +55 11 98483-8629</span>
+              <span className='flex items-center gap-2'><FiLinkedin className='text-[var(--cyber-purple)]' /> linkedin.com/in/lelebrr</span>
+              <span className='flex items-center gap-2'><FiMapPin className='text-[var(--cyber-purple)]' /> {t('allCurriculo.location')}</span>
             </div>
           </div>
+          <div className='flex flex-col items-center gap-2'>
+            <img src='/qrcode.png' alt='QR Code' className='w-24 h-24 border-2 border-[var(--cyber-cyan)] p-1 rounded-xl' />
+            <p className='text-[8px] font-bold text-gray-400 uppercase tracking-tighter text-center'>{t('allCurriculo.scanText')}</p>
+          </div>
+        </div>
 
-          {/* Quebra de página EXATA para impressão */}
-          <div className='break-before-page print:break-before-page' />
-
-          {/* Soft Skills e Metodologias - OTIMIZADO */}
-          <div className='print:mt-4'>
-            <h2
-              className='text-lg font-bold mb-2 text-gray-800 border-b border-gray-300 pb-1'
-              style={{ color: 'black' }}
-            >
-              COMPETÊNCIAS ADICIONAIS
+        <div className='space-y-8'>
+          {/* Sumário */}
+          <section>
+            <h2 className='text-xl font-black bg-[var(--cyber-cyan)]/10 text-[#050816] px-4 py-2 mb-4 border-l-[6px] border-[var(--cyber-cyan)] uppercase tracking-tight'>
+              {t('allCurriculo.summaryTitle', 'Sumário Profissional')}
             </h2>
-            <div className='grid grid-cols-3 gap-2 text-xs'>
-              <div>
-                <span
-                  className='font-medium text-gray-700 block mb-1'
-                  style={{ color: 'black' }}
-                >
-                  Metodologias
-                </span>
-                <div className='flex flex-wrap gap-1'>
-                  {['Scrum', 'Kanban', 'Ágil', 'DevOps'].map((skill) => (
-                    <span
-                      key={skill}
-                      className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
-                      style={{ color: 'black' }}
-                    >
-                      {skill}
-                    </span>
+            <p className='text-[10.5pt] leading-relaxed text-gray-800 font-medium'>
+              {t('allCurriculo.summary')}
+            </p>
+          </section>
+
+          {/* Arsenal */}
+          <section>
+            <h2 className='text-xl font-black bg-[var(--cyber-purple)]/10 text-[#050816] px-4 py-2 mb-6 border-l-[6px] border-[var(--cyber-purple)] uppercase tracking-tight'>
+              {t('allCurriculo.skillsTitle')}
+            </h2>
+            <div className='grid grid-cols-3 gap-6'>
+              {Object.entries(
+                technologies.reduce((acc, tech) => {
+                  const category = t(tech.category);
+                  if (!acc[category]) acc[category] = [];
+                  acc[category].push(tech.name);
+                  return acc;
+                }, {} as Record<string, string[]>)
+              ).map(([category, skills]) => (
+                <div key={category} className='break-inside-avoid'>
+                  <h4 className='text-[10pt] font-black mb-3 uppercase border-b-2 border-gray-100 text-[var(--cyber-purple)]'>{category}</h4>
+                  <div className='flex flex-wrap gap-1.5'>
+                    {skills.map(s => <span key={s} className='text-[8.5pt] bg-gray-50 border border-gray-200 px-2 py-0.5 rounded-md font-bold text-gray-700'>{s}</span>)}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Experiência */}
+          <section>
+            <h2 className='text-xl font-black bg-[#050816] text-white px-4 py-2 mb-6 border-l-[6px] border-[var(--cyber-cyan)] uppercase tracking-tight'>
+              {t('allCurriculo.experienceTitle')}
+            </h2>
+            <div className='space-y-6'>
+              {experiences.map((exp, i) => (
+                <div key={i} className='break-inside-avoid relative pl-5 border-l-2 border-gray-100'>
+                  <div className='absolute left-[-5px] top-1 w-2 h-2 rounded-full bg-[var(--cyber-cyan)]' />
+                  <div className='flex justify-between items-baseline mb-2'>
+                    <h3 className='font-black text-[11pt] text-[#050816] uppercase'>{t(exp.title)}</h3>
+                    <span className='text-[9pt] font-bold text-[var(--cyber-purple)] bg-[var(--cyber-purple)]/5 px-3 py-0.5 rounded-full'>{t(exp.date)}</span>
+                  </div>
+                  <p className='text-[9.5pt] font-black text-gray-600 mb-3 uppercase tracking-wider'>{t(exp.companyName)}</p>
+                  <ul className='space-y-1.5'>
+                    {exp.points.map((p, pi) => (
+                      <li key={pi} className='text-[9.5pt] text-gray-700 leading-tight flex items-start gap-2'>
+                        <span className='text-[var(--cyber-cyan)] mt-0.5'>•</span>
+                        {t(p)}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Projetos & Certificações */}
+          <section className='break-before-page pt-8'>
+            <h2 className='text-xl font-black bg-gray-100 text-[#050816] px-4 py-2 mb-6 border-l-[6px] border-black uppercase tracking-tight'>
+              {t('allCurriculo.highlightsTitle')}
+            </h2>
+            <div className='grid grid-cols-2 gap-12'>
+              <div className='space-y-6'>
+                <h3 className='text-[11pt] font-black text-[var(--cyber-purple)] border-b-2 border-[var(--cyber-purple)]/20 pb-2 uppercase'>{t('allCurriculo.printProjectsTitle')}</h3>
+                <div className='space-y-4 font-bold'>
+                  {projects.slice(0, 3).map((p, i) => (
+                    <div key={i} className='p-3 bg-gray-50 rounded-lg border border-gray-100'>
+                      <div className='flex justify-between items-baseline mb-1'>
+                        <span className='text-[10pt] text-[#050816]'>{p.name}</span>
+                        <span className='text-[7pt] text-[var(--cyber-purple)] uppercase italic'>{t(`works.${p.category}`)}</span>
+                      </div>
+                      <p className='text-[8.5pt] text-gray-600 font-medium leading-tight'>{t(p.description)}</p>
+                    </div>
                   ))}
                 </div>
               </div>
-              <div>
-                <span
-                  className='font-medium text-gray-700 block mb-1'
-                  style={{ color: 'black' }}
-                >
-                  Habilidades
-                </span>
-                <div className='flex flex-wrap gap-1'>
-                  {['Liderança', 'Mentoria', 'Comunicação', 'Resolução de Problemas'].map(
-                    (skill) => (
-                      <span
-                        key={skill}
-                        className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
-                        style={{ color: 'black' }}
-                      >
-                        {skill}
-                      </span>
-                    )
-                  )}
+              
+              <div className='space-y-6'>
+                <h3 className='text-[11pt] font-black text-[var(--cyber-cyan)] border-b-2 border-[var(--cyber-cyan)]/20 pb-2 uppercase'>{t('allCurriculo.academicsAndLanguages')}</h3>
+                <div className='space-y-4'>
+                   <div>
+                      <p className='font-black text-[10pt] text-[#050816]'>Pós IA & Data Science</p>
+                      <p className='text-[9pt] text-gray-600'>Anhanguera | 2026</p>
+                   </div>
+                   <div>
+                      <p className='font-black text-[10pt] text-[#050816]'>Tecnólogo ADS</p>
+                      <p className='text-[9pt] text-gray-600'>Anhanguera | Dezembro 2025</p>
+                   </div>
                 </div>
-              </div>
-              <div>
-                <span
-                  className='font-medium text-gray-700 block mb-1'
-                  style={{ color: 'black' }}
-                >
-                  Idiomas
-                </span>
-                <div className='flex flex-wrap gap-1'>
-                  <span
-                    className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
-                    style={{ color: 'black' }}
-                  >
-                    Português Nativo
-                  </span>
-                  <span
-                    className='px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-700'
-                    style={{ color: 'black' }}
-                  >
-                    Inglês Intermediário
-                  </span>
+                <div className='flex flex-wrap gap-2 pt-2'>
+                  {['Inglês Intermediário', 'Scrum Master', 'Kanban', 'Azure Fundamentals', 'Ethical Hacking'].map(skill => (
+                    <span key={skill} className='text-[9pt] font-bold border-2 border-gray-100 px-3 py-1 rounded-xl text-gray-700'>{skill}</span>
+                  ))}
+                </div>
+                <div className='pt-4'>
+                  <p className='text-[8pt] italic text-gray-500'>{t('allCurriculo.additionalCerts')}</p>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Rodapé */}
-        <div
-          className='text-center mt-6 pt-4 border-t border-gray-200 text-xs print:hidden'
-          style={{ color: 'black' }}
-        >
-          <p>
-            Este currículo foi gerado digitalmente em{' '}
-            {new Date().toLocaleDateString('pt-BR')}
-          </p>
-          <p className='font-bold mt-1' style={{ color: 'black' }}>
-            leandrobarbosa.dev | linkedin.com/in/lelebrr
-          </p>
+          </section>
         </div>
       </div>
 
-      {/* Page Styles */}
       <style
         dangerouslySetInnerHTML={{
           __html: `
+        /* Estilos Globais e Custom scrollbar */
+        ::-webkit-scrollbar {
+          width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+          background: var(--cyber-cyan);
+          border-radius: 10px;
+          border: 2px solid transparent;
+        }
 
         :root {
           --cyber-purple: #9747FF;
@@ -514,138 +467,81 @@ const OnlineResume = () => {
           font-family: 'Plus Jakarta Sans', sans-serif;
           background: #050816;
           color: white;
+          scroll-behavior: smooth;
         }
 
-         @media print {
-           @page {
-             size: A4;
-             margin: 7mm 6mm 7mm 6mm;
-             marks: none;
-             bleed: 0;
-           }
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: var(--cyber-purple);
+          border-radius: 10px;
+        }
 
-           html, body { 
-             background: white !important; 
-             color: black !important; 
-             padding: 0 !important; 
-             margin: 0 !important; 
-             width: 210mm !important;
-             height: 297mm !important;
-             -webkit-print-color-adjust: exact !important;
-             print-color-adjust: exact !important;
-             font-size: 10.5pt !important;
-             line-height: 1.3 !important;
-           }
+        @media print {
+          @page {
+            size: A4;
+            margin: 15mm 15mm 15mm 15mm;
+          }
 
-          * {
+          /* Reset Geral para Impressão Profissional */
+          html, body {
+            background: white !important;
+            color: #050816 !important;
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            line-height: 1.4 !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
-          
-          .bg-gradient-to-r {
-            background: linear-gradient(to right, #9747FF, #3b82f6, #00F0FF) !important;
-          }
-          
-          .bg-white\\/20 {
-            background-color: rgba(255, 255, 255, 0.2) !important;
-            -webkit-print-color-adjust: exact !important;
+
+          .print-content {
+            display: block !important;
+            background: white !important;
+            color: #050816 !important;
           }
 
-          .max-w-4xl.bg-white * {
-            color: black !important;
+          .online-content, 
+          nav, 
+          footer, 
+          header, 
+          button, 
+          .fixed, 
+          [class*='z-'], 
+          canvas,
+          .bg-gradient-to-r,
+          .blur {
+            display: none !important;
+            visibility: hidden !important;
           }
-          .max-w-4xl.bg-white h1, 
-          .max-w-4xl.bg-white h2, 
-          .max-w-4xl.bg-white h3, 
-          .max-w-4xl.bg-white h4 {
-            color: black !important; 
-            border-color: black !important;
+
+          h2 {
+            page-break-after: avoid !important;
+            break-after: avoid !important;
           }
-          .max-w-4xl.bg-white p, 
-          .max-w-4xl.bg-white span, 
-          .max-w-4xl.bg-white li, 
-          .max-w-4xl.bg-white div {
-            color: black !important;
+
+          section, div, p, li {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
           }
-          .max-w-4xl.bg-white .text-gray-600, 
-          .max-w-4xl.bg-white .text-gray-700, 
-          .max-w-4xl.bg-white .text-gray-800 {
-            color: black !important;
+
+          .break-before-page {
+            page-break-before: always !important;
+            break-before: page !important;
           }
-          .max-w-4xl.bg-white .bg-gray-100 {
-            background-color: #f5f5f5 !important;
-          }
-           .max-w-4xl.bg-white .border-gray-300 {
-             border-color: #d1d1d1 !important;
-           }
-
-           /* Otimizações de espaçamento para caber exatamente em 2 páginas */
-           .max-w-4xl.bg-white {
-             margin: 0 !important;
-             padding: 0 !important;
-             max-width: 100% !important;
-           }
-
-           .max-w-4xl.bg-white h2 {
-             font-size: 12pt !important;
-             margin-top: 8px !important;
-             margin-bottom: 6px !important;
-             padding-bottom: 2px !important;
-           }
-
-           .max-w-4xl.bg-white div,
-           .max-w-4xl.bg-white p,
-           .max-w-4xl.bg-white li {
-             margin: 0 !important;
-             padding: 1px 0 !important;
-           }
-
-           .break-before-page {
-             page-break-before: always !important;
-           }
-
-           /* REMOVE todos os elementos desnecessarios na impressao */
-           .print\\:hidden,
-           .bg-gradient-to-r,
-           button,
-           header,
-           footer,
-           nav {
-             display: none !important;
-           }
-
-           /* Apenas o header clean para impressao */
-           .print\\:flex {
-             display: flex !important;
-             margin-bottom: 8px !important;
-             padding-bottom: 8px !important;
-             border-bottom: 1px solid #333 !important;
-           }
-
-           ul, li {
-             margin-left: 4px !important;
-             padding-left: 2px !important;
-           }
-
-           /* Remove headers e footers padrão do navegador */
-           @page :first {
-             margin-top: 6mm;
-           }
-
-           html {
-             -webkit-print-color-adjust: exact;
-             print-color-adjust: exact;
-           }
-
-           /* Garante que nao existe overflow e cabem exatamente 2 paginas */
-           * {
-             page-break-inside: avoid !important;
-           }
-
-           h2 {
-             page-break-after: avoid !important;
-           }
-         }
+           
+          /* Cores habilitadas no print */
+          .text-[var(--cyber-purple)] { color: #9747FF !important; }
+          .text-[var(--cyber-cyan)] { color: #00F0FF !important; }
+          .bg-[var(--cyber-cyan)]/10 { background-color: rgba(0, 240, 255, 0.1) !important; }
+          .bg-[var(--cyber-purple)]/10 { background-color: rgba(151, 71, 255, 0.1) !important; }
+          .border-[var(--cyber-cyan)] { border-color: #00F0FF !important; }
+          .border-[var(--cyber-purple)] { border-color: #9747FF !important; }
+          .bg-[#050816] { background-color: #050816 !important; }
+          .text-white { color: white !important; }
+        }
       `,
         }}
       />

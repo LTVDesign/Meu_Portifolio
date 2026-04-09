@@ -21,10 +21,10 @@ export default defineConfig({
     }),
     ViteImageOptimizer({
       png: { quality: 80 },
-      jpeg: { quality: 80 },
-      jpg: { quality: 80 },
-      webp: { quality: 80 },
-      avif: { quality: 70 },
+      jpeg: { quality: 75 },
+      jpg: { quality: 75 },
+      webp: { quality: 75 },
+      avif: { quality: 65 },
       svg: {
         plugins: [
           { name: 'removeViewBox', active: false },
@@ -65,13 +65,13 @@ export default defineConfig({
     modulePreload: {
       polyfill: true,
       resolveDependencies: (filename, deps) => {
-        if (filename.includes('vendor-three') || filename.includes('three-') || filename.includes('r3f-')) return [];
+        if (filename.includes('vendor-3d')) return [];
         return deps;
       }
     },
     // Configurações adicionais para compatibilidade com Vercel
     minify: 'terser',
-    chunkSizeWarningLimit: 600,
+    chunkSizeWarningLimit: 1000,
     cssCodeSplit: true,
     assetsInlineLimit: 4096,
     cssMinify: true,
@@ -84,28 +84,23 @@ export default defineConfig({
         manualChunks(id) {
           if (!id.includes('node_modules')) return;
 
-          // Correção de chunk circular - evitar dependências circulares
-          if (id.includes('/three/src/') || id.includes('/three/build/')) return 'vendor-three';
-          if (id.includes('@react-three/fiber')) return 'vendor-r3f';
-          if (id.includes('@react-three/drei')) return 'vendor-drei';
-          if (id.includes('framer-motion')) return 'vendor-motion';
+          // Vendor 3D: Three.js e ecossistema R3F
+          if (id.includes('three') || id.includes('@react-three') || id.includes('three-mesh-bvh')) {
+            return 'vendor-3d';
+          }
 
-          // React e core dependencies em chunks separados para evitar circularidade
-          if (id.includes('react') && !id.includes('scheduler') && !id.includes('prop-types')) return 'vendor-react';
-          if (id.includes('scheduler')) return 'vendor-scheduler';
-          if (id.includes('prop-types')) return 'vendor-proptypes';
+          // Vendor Core: React e infraestrutura
+          if (id.includes('react') || id.includes('scheduler') || id.includes('react-router') || id.includes('react-dom') || id.includes('use-sync-external-store')) {
+            return 'vendor-core';
+          }
 
-          if (id.includes('i18next')) return 'vendor-i18n';
-          if (id.includes('lucide-react')) return 'vendor-icons';
+          // Vendor UI: Animações e ícones
+          if (id.includes('framer-motion') || id.includes('lucide') || id.includes('react-icons')) {
+            return 'vendor-ui';
+          }
 
-          // Separar outros vendors para evitar circularidade
-          if (id.includes('three')) return 'vendor-three';
-          if (id.includes('react-dom')) return 'vendor-react-dom';
-
-          // Evitar chunks vazios - importante para Vercel
-          if (id.includes('use-sync-external-store')) return 'vendor-react';
-
-          return 'vendor-others';
+          // Outros vendors menores
+          return 'vendor-utils';
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',

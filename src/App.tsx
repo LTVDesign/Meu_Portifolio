@@ -61,6 +61,7 @@ class ErrorBoundary extends React.Component<
             </pre>
             <button
               onClick={() => window.location.reload()}
+              aria-label='Recarregar página após erro'
               className='px-6 py-3 bg-white text-black font-semibold rounded-xl hover:bg-gray-200 transition-colors'
             >
               Recarregar página

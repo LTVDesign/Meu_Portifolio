@@ -63,7 +63,7 @@ const Navbar = memo(() => {
 
     const observerOptions = {
       root: null,
-      rootMargin: '-50px 0px -40% 0px',
+      rootMargin: '-80px 0px -50% 0px',
       threshold: 0.05,
     };
 

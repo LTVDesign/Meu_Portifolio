@@ -2,6 +2,7 @@ import anhangueraPng from './anhanguera.webp';
 import close from './close.svg';
 import facul from './facul.webp';
 import diplomaPdf from './formacao/DiplomaDigital.pdf?url';
+import cvPdf from './docs/Leandro_Barbosa_curriculo.pdf?url';
 // Formação
 import diploma from './formacao/diploma.webp';
 import qrcode from './formacao/qrcode.webp';
@@ -25,6 +26,7 @@ import mobile from './images/projects/mobile.webp';
 import web from './images/projects/web.webp';
 import willy from './images/projects/willy.webp';
 import logo from './logo.webp';
+import userPhoto from './images/user-photo.jpg';
 // Ícones de tecnologias
 import android from './tech/android.webp';
 import arduino from './tech/arduino.webp';
@@ -61,6 +63,7 @@ export {
   bradesco,
   cate,
   close,
+  cvPdf,
   comptester,
   creator,
   css,
@@ -102,4 +105,5 @@ export {
   willy,
   windows,
   yonsei,
+  userPhoto,
 };

@@ -9,6 +9,7 @@ interface GearButtonProps {
 
 const GearButton = ({ onClick }: GearButtonProps) => {
   const [isMounted, setIsMounted] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const { width: screenWidth } = useViewport();
   const { t } = useTranslation();
 
@@ -218,7 +219,11 @@ const GearButton = ({ onClick }: GearButtonProps) => {
               />
 
               {/* ========== BOTÃO PRINCIPAL ========== */}
-              <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
+              <div 
+                className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
                 <div className='relative p-[2px] rounded-full overflow-hidden'>
                   {/* Borda RGB sutil */}
                   <m.div
@@ -231,7 +236,7 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                     transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
                   />
 
-                  {/* Botão - SEM box-shadow animado (usa opacity em vez disso) */}
+                  {/* Botão */}
                   <m.button
                     onClick={onClick}
                     aria-label={t('backgroundMenu.openSettings')}
@@ -287,6 +292,31 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                     </m.svg>
                   </m.button>
                 </div>
+
+                <AnimatePresence>
+                  {isHovered && (
+                    <m.div
+                      key="gear-tooltip"
+                      initial={{ opacity: 0, x: -20, filter: 'blur(10px)' }}
+                      animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                      exit={{ opacity: 0, x: -10, filter: 'blur(5px)' }}
+                      className='absolute left-[clamp(80px,18vw,160px)] top-1/2 -translate-y-1/2 pointer-events-none z-[10001]'
+                    >
+                      <div className='relative px-5 py-2.5 rounded-lg bg-[#0a0a0a]/95 backdrop-blur-2xl border border-[#00D4FF]/30 shadow-[0_0_25px_rgba(0,212,255,0.25)] flex items-center gap-3 min-w-max border-l-[3px] border-l-[#FF00FF]'>
+                        <div className='flex flex-col gap-1'>
+                          <div className='w-1 h-1 bg-[#00D4FF] rounded-full animate-pulse' />
+                          <div className='w-1 h-1 bg-[#FF00FF] rounded-full' />
+                        </div>
+                        
+                        <span className='text-white text-[11px] font-black uppercase tracking-[0.2em] drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]'>
+                          {t('backgroundMenu.howToChange')}
+                        </span>
+                        
+                        <div className='absolute right-full top-1/2 -translate-y-1/2 w-8 h-[1px] bg-gradient-to-r from-transparent via-[#FF00FF]/50 to-[#FF00FF]' />
+                      </div>
+                    </m.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
           </m.div>

@@ -5,6 +5,7 @@ import { SectionWrapper } from '../../hoc';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms/Header';
+import { cvPdf } from '../../assets';
 
 const Curriculo = () => {
   const { t } = useTranslation();
@@ -133,6 +134,32 @@ const Curriculo = () => {
                 </m.span>
               ))}
             </m.div>
+
+            {/* Botões de ação dentro do card */}
+            <div className='mt-[clamp(1.5rem,4vw,2.5rem)] flex flex-row flex-wrap items-center justify-center gap-[clamp(0.5rem,1.5vw,1rem)]'>
+              <m.a
+                variants={prefersReduced ? {} : fadeIn('up', 'spring', 0.6, 0.75)}
+                href='/online-cv'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='btn-primary flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)] px-[clamp(1.25rem,3vw,1.75rem)] py-[clamp(0.6rem,1.5vw,0.85rem)] rounded-xl font-bold tracking-wider group shadow-[0_0_20px_rgba(145,94,255,0.3)] min-h-[44px] text-[clamp(0.8rem,1.8vw,0.95rem)] cursor-pointer'
+              >
+                <FiExternalLink className='text-xl group-hover:scale-110 transition-transform' />
+                {t('curriculo.viewOnline')}
+              </m.a>
+
+              <m.a
+                variants={prefersReduced ? {} : fadeIn('up', 'spring', 0.7, 0.75)}
+                href={cvPdf}
+                download="Leandro_Barbosa_curriculo.pdf"
+                className='btn-secondary flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)] px-[clamp(1.25rem,3vw,1.75rem)] py-[clamp(0.6rem,1.5vw,0.85rem)] rounded-xl font-bold tracking-wider group border border-white/10 hover:border-[var(--cyber-cyan)]/50 transition-all shadow-lg min-h-[44px] text-[clamp(0.8rem,1.8vw,0.95rem)]'
+              >
+                <FiDownload className='text-xl text-[var(--cyber-cyan)] group-hover:animate-bounce transition-transform' />
+                <span className='text-white group-hover:text-[var(--cyber-cyan)] transition-colors'>
+                  {t('curriculo.downloadPDF')}
+                </span>
+              </m.a>
+            </div>
           </div>
 
           {/* Borda decorativa com glow */}
@@ -140,31 +167,6 @@ const Curriculo = () => {
           <div className='absolute -inset-1 bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-3xl opacity-20 blur-xl -z-10' />
         </div>
       </m.div>
-
-      <div className='mt-[clamp(1.5rem,4vw,3rem)] flex flex-row flex-nowrap items-center justify-center gap-[clamp(0.75rem,2vw,1.5rem)]'>
-        <m.a
-          variants={prefersReduced ? {} : fadeIn('right', 'spring', 0.3, 0.75)}
-          href='/online-cv'
-          target='_blank'
-          rel='noopener noreferrer'
-          className='btn-primary flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)] px-[clamp(1.25rem,3vw,2rem)] py-[clamp(0.75rem,2vw,1rem)] rounded-xl font-bold tracking-wider group shadow-[0_0_20px_rgba(145,94,255,0.3)] min-h-[44px] text-[clamp(0.875rem,2vw,1rem)] cursor-pointer'
-        >
-          <FiExternalLink className='text-xl group-hover:scale-110 transition-transform' />
-          {t('curriculo.viewOnline')}
-        </m.a>
-
-        <m.a
-          variants={prefersReduced ? {} : fadeIn('left', 'spring', 0.4, 0.75)}
-          href='/formacao/DiplomaDigital.pdf'
-          download
-          className='btn-secondary flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)] px-[clamp(1.25rem,3vw,2rem)] py-[clamp(0.75rem,2vw,1rem)] rounded-xl font-bold tracking-wider group border border-white/10 hover:border-[var(--cyber-cyan)]/50 transition-all shadow-lg min-h-[44px] text-[clamp(0.875rem,2vw,1rem)]'
-        >
-          <FiDownload className='text-xl text-[var(--cyber-cyan)] group-hover:animate-bounce transition-transform' />
-          <span className='text-white group-hover:text-[var(--cyber-cyan)] transition-colors'>
-            {t('curriculo.downloadPDF')}
-          </span>
-        </m.a>
-      </div>
     </>
   );
 };
