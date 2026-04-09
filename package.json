@@ -7,6 +7,8 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "build:ci": "tsc --noEmit && vite build",
+    "build:vercel": "tsc --noEmit && vite build --mode production",
+    "build:vercel:clean": "rm -rf dist && tsc --noEmit && vite build --mode production",
     "preview": "vite preview",
     "test": "jest",
     "optimize:3d": "node scripts/optimize-3d-assets.js",

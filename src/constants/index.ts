@@ -315,7 +315,7 @@ const experiences: TExperience[] = [
   {
     title: 'experience.titles.generalManager',
     companyName: 'experience.companies.abraKebabs',
-    icon: '/empresas/abrakebab.webp',
+    icon: '/empresas/abra.webp',
     iconBg: '#E6DEDD',
     date: 'experience.dates.abrakebabs',
     points: [

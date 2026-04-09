@@ -69,7 +69,7 @@ export default defineConfig({
         return deps;
       }
     },
-    sourcemap: false,
+    // Configurações adicionais para compatibilidade com Vercel
     minify: 'terser',
     chunkSizeWarningLimit: 600,
     cssCodeSplit: true,
@@ -78,20 +78,33 @@ export default defineConfig({
     reportCompressedSize: false,
     incremental: true,
     target: 'es2022',
+    sourcemap: false,
     rollupOptions: {
       output: {
         manualChunks(id) {
           if (!id.includes('node_modules')) return;
-          
-          // Especialização de chunks para reduzir blocking time
+
+          // Correção de chunk circular - evitar dependências circulares
           if (id.includes('/three/src/') || id.includes('/three/build/')) return 'vendor-three';
           if (id.includes('@react-three/fiber')) return 'vendor-r3f';
           if (id.includes('@react-three/drei')) return 'vendor-drei';
           if (id.includes('framer-motion')) return 'vendor-motion';
-          if (id.includes('react') || id.includes('scheduler') || id.includes('prop-types')) return 'vendor-framework';
+
+          // React e core dependencies em chunks separados para evitar circularidade
+          if (id.includes('react') && !id.includes('scheduler') && !id.includes('prop-types')) return 'vendor-react';
+          if (id.includes('scheduler')) return 'vendor-scheduler';
+          if (id.includes('prop-types')) return 'vendor-proptypes';
+
           if (id.includes('i18next')) return 'vendor-i18n';
           if (id.includes('lucide-react')) return 'vendor-icons';
-          
+
+          // Separar outros vendors para evitar circularidade
+          if (id.includes('three')) return 'vendor-three';
+          if (id.includes('react-dom')) return 'vendor-react-dom';
+
+          // Evitar chunks vazios - importante para Vercel
+          if (id.includes('use-sync-external-store')) return 'vendor-react';
+
           return 'vendor-others';
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
@@ -109,18 +122,19 @@ export default defineConfig({
     terserOptions: {
       ecma: 2022,
       compress: {
-        drop_console: true,
+        drop_console: false, // Manter console para depuração em produção
         drop_debugger: true,
-        pure_funcs: ['console.log', 'console.debug', 'console.info'],
-        passes: 3,
-        pure_getters: true,
-        unsafe: true,
-        unsafe_comps: true,
-        unsafe_math: true,
-        unsafe_methods: true,
+        pure_funcs: ['console.debug', 'console.info'], // Remover apenas logs de debug e info
+        passes: 2, // Reduzir passes para evitar otimização excessiva
+        pure_getters: false, // Desativar para evitar problemas de undefined
+        unsafe: false,
+        unsafe_comps: false,
+        unsafe_math: false,
+        unsafe_methods: false,
       },
       mangle: {
         safari10: true,
+        // keep_fnames não é suportado em versões antigas do Terser
       },
       format: {
         comments: false,

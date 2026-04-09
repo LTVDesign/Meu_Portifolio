@@ -251,12 +251,12 @@ const Navbar = memo(() => {
           </ul>
 
           {/* Language Selector */}
-          <div className='flex items-center gap-[clamp(0.25rem,0.5vw,0.375rem)] pl-[clamp(0.5rem,1vw,1rem)] border-l border-white/10'>
+          <div className='flex items-center gap-[clamp(0.4rem,0.8vw,0.6rem)] pl-[clamp(0.5rem,1vw,1rem)] border-l border-white/10'>
             <Tooltip content='Idioma: Português' position='bottom'>
               <m.button
                 onClick={() => i18n.changeLanguage('pt')}
                 whileHover={{ scale: 1.15 }}
-                className={`relative w-[clamp(0.75rem,1.5vw,1rem)] h-[clamp(0.5rem,1vw,0.625rem)] rounded overflow-hidden transition-all duration-200 ${i18n.language === 'pt' ? 'ring-2 ring-[var(--cyber-purple)]' : 'opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}
+                className={`relative w-[clamp(1.2rem,2.2vw,1.8rem)] h-[clamp(0.75rem,1.4vw,1.1rem)] rounded overflow-hidden transition-all duration-200 ${i18n.language === 'pt' ? 'ring-2 ring-[var(--cyber-purple)]' : 'opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}
                 aria-label='Português'
               >
                 <div
@@ -271,7 +271,7 @@ const Navbar = memo(() => {
               <m.button
                 onClick={() => i18n.changeLanguage('en')}
                 whileHover={{ scale: 1.15 }}
-                className={`relative w-[clamp(0.75rem,1.5vw,1rem)] h-[clamp(0.5rem,1vw,0.625rem)] rounded overflow-hidden transition-all duration-200 ${i18n.language === 'en' ? 'ring-2 ring-[var(--cyber-cyan)]' : 'opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}
+                className={`relative w-[clamp(1.2rem,2.2vw,1.8rem)] h-[clamp(0.75rem,1.4vw,1.1rem)] rounded overflow-hidden transition-all duration-200 ${i18n.language === 'en' ? 'ring-2 ring-[var(--cyber-cyan)]' : 'opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}
                 aria-label='English'
               >
                 <div

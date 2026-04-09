@@ -194,7 +194,7 @@ const Hero = () => {
         {/* Scroll / Interact Icon - Responsivo usando Fluid Design */}
         {/* Ocultar em mobile/tablet quando está usando PC estático */}
         {!isMobileOrTablet && (
-          <div className='absolute bottom-[clamp(6rem,15vh,9rem)] w-full flex justify-center items-center z-20 pointer-events-none'>
+          <div className='absolute bottom-[clamp(1.5rem,4vh,3rem)] w-full flex justify-center items-center z-20 pointer-events-none'>
             <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

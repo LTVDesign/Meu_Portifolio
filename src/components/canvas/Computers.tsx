@@ -67,9 +67,10 @@ const ComputersContent: React.FC<{ screenSize: ScreenSize }> = ({ screenSize }) 
   return (
     <mesh>
       <hemisphereLight
-        intensity={screenSize === 'watch' ? 0.2 : 0.15}
-        groundColor='black'
+        intensity={screenSize === 'watch' ? 0.8 : 0.65}
+        groundColor='#2a1a3a' // Slightly brighter lilac/purple for shadows
       />
+      <ambientLight intensity={0.4} />
       <spotLight
         position={[-20, 50, 10]}
         angle={0.12}
