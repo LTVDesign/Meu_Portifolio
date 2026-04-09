@@ -1,24 +1,31 @@
-import React from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 
 interface ErrorBoundaryState {
   hasError: boolean;
   error?: Error;
+  errorInfo?: ErrorInfo;
 }
 
 interface ErrorBoundaryProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  state: ErrorBoundaryState = { hasError: false };
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
+  }
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
     return { hasError: true, error };
   }
 
-  componentDidCatch(_error: Error, _errorInfo: React.ErrorInfo) {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // Em produção, não registra erros no console para segurança
     // Em desenvolvimento, você pode habilitar conforme necessário
+    if (process.env.NODE_ENV === 'development') {
+      console.error('ErrorBoundary capturou um erro:', error, errorInfo);
+    }
   }
 
   render() {
@@ -42,7 +49,22 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
       );
     }
 
-    return this.props.children;
+    // Verificação de segurança para props.children
+    const children = this.props.children;
+    if (!children || Array.isArray(children)) {
+      return (
+        <div className='min-h-screen flex items-center justify-center bg-primary'>
+          <div className='text-center p-8'>
+            <h2 className='text-xl font-bold text-white mb-4'>Componente inválido</h2>
+            <p className='text-gray-300'>
+              O componente não foi renderizado corretamente.
+            </p>
+          </div>
+        </div>
+      );
+    }
+
+    return children;
   }
 }
 

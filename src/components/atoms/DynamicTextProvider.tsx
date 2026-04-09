@@ -13,6 +13,14 @@ export const DynamicTextProvider = ({
   children: ReactNode;
   defaultColorMode?: 'auto' | 'dark' | 'light' | 'high-contrast';
 }) => {
+  // Verificação de segurança para children
+  const safeChildren = children && !Array.isArray(children) ? children : null;
+
+  if (!safeChildren) {
+    console.warn('DynamicTextProvider: children inválido ou ausente');
+    return null;
+  }
+
   const value = useMemo(() => ({ defaultColorMode }), [defaultColorMode]);
 
   // Ativa a amostragem em tempo real do background canvas
@@ -20,7 +28,7 @@ export const DynamicTextProvider = ({
   useBackgroundColorSampler();
 
   return (
-    <DynamicTextContext.Provider value={value}>{children}</DynamicTextContext.Provider>
+    <DynamicTextContext.Provider value={value}>{safeChildren}</DynamicTextContext.Provider>
   );
 };
 

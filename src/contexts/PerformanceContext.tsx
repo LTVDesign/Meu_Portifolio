@@ -13,6 +13,14 @@ interface PerformanceContextType {
 const PerformanceContext = React.createContext<PerformanceContextType | null>(null);
 
 export const PerformanceProvider = ({ children }: { children: React.ReactNode }) => {
+  // Verificação de segurança para children
+  const safeChildren = children && !Array.isArray(children) ? children : null;
+
+  if (!safeChildren) {
+    console.warn('PerformanceProvider: children inválido ou ausente');
+    return null;
+  }
+
   const [level, setLevel] = React.useState<PerformanceLevel>('high');
 
   const isLowPerformance = level === 'low';
@@ -31,7 +39,7 @@ export const PerformanceProvider = ({ children }: { children: React.ReactNode })
   );
 
   return (
-    <PerformanceContext.Provider value={value}>{children}</PerformanceContext.Provider>
+    <PerformanceContext.Provider value={value}>{safeChildren}</PerformanceContext.Provider>
   );
 };
 

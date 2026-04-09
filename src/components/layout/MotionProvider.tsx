@@ -15,9 +15,17 @@ interface MotionProviderProps {
 }
 
 export const MotionProvider: React.FC<MotionProviderProps> = ({ children }) => {
+  // Verificação de segurança para children
+  const safeChildren = children && !Array.isArray(children) ? children : null;
+
+  if (!safeChildren) {
+    console.warn('MotionProvider: children inválido ou ausente');
+    return null;
+  }
+
   return (
     <LazyMotion features={domAnimation} strict>
-      {children}
+      {safeChildren}
     </LazyMotion>
   );
 };

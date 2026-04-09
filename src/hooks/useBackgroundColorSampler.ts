@@ -56,9 +56,20 @@ export function useBackgroundColorSampler() {
     }
 
     const entries: CanvasEntry[] = [];
+
+    // Verificação de segurança para document e DOM
+    if (typeof document === 'undefined' || !document.querySelectorAll) {
+      return entries;
+    }
+
     const canvases = document.querySelectorAll<HTMLCanvasElement>('canvas');
 
     canvases.forEach((canvas) => {
+      // Verificação de segurança para canvas element
+      if (!canvas || !(canvas instanceof HTMLCanvasElement)) {
+        return;
+      }
+
       // Filtra por atributos ou posição fixa (estratégia de detecção de bg)
       const isBg =
         canvas.hasAttribute('data-bg-type') ||

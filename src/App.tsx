@@ -173,6 +173,33 @@ const AppContent = () => {
 };
 
 function App() {
+  // Carregamento progressivo de providers para evitar race conditions
+  const [providersLoaded, setProvidersLoaded] = React.useState(false);
+
+  React.useEffect(() => {
+    // Carregar providers sequencialmente para evitar problemas de inicialização
+    const loadProviders = async () => {
+      try {
+        // Pequeno delay para garantir que o DOM esteja pronto
+        await new Promise(resolve => setTimeout(resolve, 100));
+        setProvidersLoaded(true);
+      } catch (error) {
+        console.error('Erro ao carregar providers:', error);
+        setProvidersLoaded(true); // Continuar mesmo com erro
+      }
+    };
+
+    loadProviders();
+  }, []);
+
+  if (!providersLoaded) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black">
+        <div className="w-12 h-12 border-4 border-[var(--cyber-purple)]/30 border-t-[var(--cyber-cyan)] rounded-full animate-spin" />
+      </div>
+    );
+  }
+
   return (
     <HelmetProvider>
       <I18nextProvider i18n={i18n}>

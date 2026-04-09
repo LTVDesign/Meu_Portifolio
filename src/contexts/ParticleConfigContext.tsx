@@ -159,6 +159,12 @@ const ParticleConfigProvider: FC<ParticleConfigProviderProps> = ({ children }) =
   const closeBgMenu = useCallback(() => setIsBgMenuOpen(false), []);
 
   useEffect(() => {
+    // Verificação de segurança para localStorage e JSON
+    if (typeof localStorage === 'undefined') {
+      console.warn('localStorage não disponível, usando configuração padrão');
+      return;
+    }
+
     const savedConfig = localStorage.getItem('particleConfig');
     if (savedConfig) {
       try {
@@ -170,7 +176,8 @@ const ParticleConfigProvider: FC<ParticleConfigProviderProps> = ({ children }) =
           localStorage.removeItem('particleConfig');
           setConfig(defaultConfig);
         }
-      } catch {
+      } catch (error) {
+        console.warn('Erro ao validar configuração do localStorage:', error);
         setConfig(defaultConfig);
       }
     }
