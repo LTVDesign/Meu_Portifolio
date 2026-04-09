@@ -1,15 +1,1 @@
-export const styles = {
-  paddingX: 'px-[clamp(1rem,5vw,10rem)]',
-  paddingY: 'py-[clamp(1.5rem,8vw,5rem)]',
-  padding: 'px-[clamp(1rem,5vw,10rem)] py-[clamp(1.5rem,8vw,5rem)]',
-
-  heroHeadText:
-    'font-bold text-[var(--dynamic-text-color,#ffffff)] text-[clamp(2.5rem,10vw,6rem)] leading-[1.1] mt-2 transition-colors duration-150',
-  heroSubText:
-    'text-[var(--dynamic-text-secondary,#d1d5db)] font-medium text-[clamp(1rem,3.5vw,2rem)] leading-[1.4] transition-colors duration-150',
-
-  sectionHeadText:
-    'text-[var(--dynamic-text-color,#ffffff)] font-bold text-[clamp(1.8rem,7vw,4rem)] leading-[1.2] transition-colors duration-150',
-  sectionSubText:
-    'text-[clamp(0.9rem,2.5vw,1.3rem)] text-[var(--dynamic-text-secondary,#d1d5db)] uppercase tracking-wider transition-colors duration-150',
-};
+export const styles = {paddingX: 'px-[clamp(1rem,5vw,10rem)]',paddingY: 'py-[clamp(1.5rem,8vw,5rem)]',padding: 'px-[clamp(1rem,5vw,10rem)] py-[clamp(1.5rem,8vw,5rem)]',cardPadding: 'p-[var(--fluid-space-m)]',cardPaddingSm: 'p-[var(--fluid-space-s)]',cardPaddingLg: 'p-[var(--fluid-space-l)]',marginSm: 'mt-[var(--fluid-space-xs)]',marginMd: 'mt-[var(--fluid-space-s)]',marginLg: 'mt-[var(--fluid-space-m)]',marginXl: 'mt-[var(--fluid-space-l)]',gapSm: 'gap-[var(--fluid-space-xs)]',gapMd: 'gap-[var(--fluid-space-s)]',gapLg: 'gap-[var(--fluid-space-m)]',gapXl: 'gap-[var(--fluid-space-l)]',paddingLg: 'px-[var(--fluid-space-l)] py-[var(--fluid-space-m)]',paddingXl: 'px-[var(--fluid-space-xl)] py-[var(--fluid-space-l)]',cardTitle: 'text-[var(--fluid-text-2xl)] font-bold',cardSubtitle: 'text-[var(--fluid-text-lg)] font-medium',cardText: 'text-[var(--fluid-text-base)]',cardTextSm: 'text-[var(--fluid-text-sm)]',cardTextXs: 'text-[var(--fluid-text-xs)]',cardImageHeight: 'h-[clamp(16rem, 25vw, 24rem)]',cardLogoSize: 'w-[clamp(4rem, 8vw, 5rem)] h-[clamp(4rem, 8vw, 5rem)]',btnPaddingSm: 'px-[var(--fluid-space-s)] py-[var(--fluid-space-xs)]',btnPaddingMd: 'px-[var(--fluid-space-m)] py-[var(--fluid-space-s)]',btnPaddingLg: 'px-[var(--fluid-space-l)] py-[var(--fluid-space-m)]',roundedCard: 'rounded-[clamp(0.75rem, 2vw, 1.5rem)]',roundedBtn: 'rounded-[clamp(0.5rem, 1.5vw, 1rem)]',heroHeadText: 'font-bold text-[var(--dynamic-text-color,#ffffff)] text-[clamp(2.5rem,10vw,6rem)] leading-[1.1] mt-2 transition-colors duration-150',heroSubText: 'text-[var(--dynamic-text-secondary,#d1d5db)] font-medium text-[clamp(1rem,3.5vw,2rem)] leading-[1.4] transition-colors duration-150',sectionHeadText: 'text-[var(--dynamic-text-color,#ffffff)] font-bold text-[clamp(1.8rem,7vw,4rem)] leading-[1.2] transition-colors duration-150',sectionSubText: 'text-[clamp(0.9rem,2.5vw,1.3rem)] text-[var(--dynamic-text-secondary,#d1d5db)] uppercase tracking-wider transition-colors duration-150',};

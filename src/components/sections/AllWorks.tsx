@@ -61,14 +61,14 @@ const ProjectCard: React.FC<{ index: number } & Pick<TProject, 'tags' | 'image' 
         </div>
       </div>
       <div className='mt-5'>
-        <h3 className='text-[24px] font-bold text-white'>{t(`projects.list.${index}.name`)}</h3>
-        <p className='text-gray-300 mt-2 text-[14px]'>
+        <h3 className='text-[var(--fluid-text-xl)] font-bold text-white'>{t(`projects.list.${index}.name`)}</h3>
+        <p className='text-gray-300 mt-2 text-[var(--fluid-text-sm)]'>
           {t(`projects.list.${index}.description`)}
         </p>
       </div>
       <div className='mt-4 flex flex-wrap gap-2'>
         {tags.map((tag) => (
-          <p key={tag.name} className={`text-[14px] ${tag.color}`}>
+          <p key={tag.name} className={`text-[var(--fluid-text-sm)] ${tag.color}`}>
             #{tag.name}
           </p>
         ))}
@@ -96,7 +96,7 @@ const AllWorks = () => {
       <div className='flex w-full justify-between items-center'>
         <m.p
           variants={fadeIn('up', 'tween', 0.1, 1)}
-          className='text-white/80 transition-colors duration-500 mt-3 text-[17px] leading-[30px]'
+          className='text-white/80 transition-colors duration-500 mt-3 text-[var(--fluid-text-base)] leading-[var(--fluid-space-l)]'
           style={{
             textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)',
           }}
@@ -112,7 +112,7 @@ const AllWorks = () => {
         </button>
       </div>
 
-      <div className='mt-20 flex flex-wrap gap-7'>
+      <div className='mt-[var(--fluid-space-2xl)] flex flex-wrap gap-[var(--fluid-space-l)]'>
         {visibleProjects.map((project, index) => (
           <ProjectCard
             key={`project-${index}`}
@@ -125,7 +125,7 @@ const AllWorks = () => {
       </div>
 
       {hasMore && (
-        <div className='mt-12 flex justify-center'>
+        <div className='mt-[var(--fluid-space-xl)] flex justify-center'>
           <button
             type='button'
             onClick={handleLoadMore}

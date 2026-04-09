@@ -15,16 +15,16 @@ const getFluidConfig = (width: number) => {
   // Escala reduzida conforme pedido (um pouco menor ainda)
   const scaleBase = width < 1024 ? 0.6 : 0.65;
   const scale = Math.max(0.4, Math.min(1.0, scaleBase + (width - 1024) / 3000));
-  
+
   // Posicionamento Y sincronizado com o repositório original (~ -2.8 a -3.0)
   const posY = -3.0;
   const posZ = Math.max(-2, Math.min(0, -((width - 640) / 1000) * 1.5));
-  
-  // FOV padrão do projeto original (25) com leve ajuste de aproximação para desktop
-  const fov = 25;
-  
-  // DPR adjustments
-  const dprMax = width < 640 ? 1 : width < 1024 ? 1.5 : 2;
+
+  // FOV adaptável para melhor responsividade
+  const fov = width < 640 ? 30 : width < 1024 ? 25 : 20;
+
+  // DPR adjustments com base na densidade de pixels e performance
+  const dprMax = width < 640 ? 1 : width < 1024 ? 1.5 : 2.5;
 
   return {
     scale,
@@ -66,7 +66,7 @@ const ComputersContent: React.FC<{ viewportWidth: number }> = ({ viewportWidth }
         intensity={0.4}
         groundColor='black'
       />
-      
+
       {/* Luz Ambiente - eleva o brilho geral das partes pretas */}
       <ambientLight intensity={0.5} />
 
@@ -80,24 +80,24 @@ const ComputersContent: React.FC<{ viewportWidth: number }> = ({ viewportWidth }
       />
 
       {/* PointLight Lateral (Direita) - Luz de preenchimento ciano para áreas escuras */}
-      <pointLight 
-        position={[10, -1, 5]} 
-        intensity={1.8} 
-        color="#00FFFF" 
+      <pointLight
+        position={[10, -1, 5]}
+        intensity={1.8}
+        color="#00FFFF"
       />
 
       {/* PointLight Traseira (Rim Light) - Ajuda a destacar a silhueta da mesa e PC */}
-      <pointLight 
-        position={[-5, 5, -10]} 
-        intensity={1.2} 
-        color="#915EFF" 
+      <pointLight
+        position={[-5, 5, -10]}
+        intensity={1.2}
+        color="#915EFF"
       />
 
       {/* PointLight Frontal - Garante que o painel frontal não fique totalmente preto */}
-      <pointLight 
-        position={[0, 2, 8]} 
-        intensity={1.0} 
-        color="#ffffff" 
+      <pointLight
+        position={[0, 2, 8]}
+        intensity={1.0}
+        color="#ffffff"
       />
 
       {/* ContactShadows - Sombras de contato suaves no chão */}
@@ -190,23 +190,28 @@ const ThreeExperience: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className='relative h-full w-full'
+      className='relative w-full'
       data-engine='r3f'
       style={{
-        minHeight: viewportWidth >= 1024 ? '100%' : '75%',
-        marginTop: viewportWidth >= 1024 ? '0' : '12%',
-        // Em tablets como o iPad Mini (768px), reduzimos a largura do canvas interativo
-        // para garantir que as bordas da tela permitam o scroll nativo.
-        width: viewportWidth > 640 && viewportWidth < 1024 ? '85%' : '100%',
+        // Altura fluida baseada no tamanho da tela
+        height: viewportWidth >= 1024 ? '100vh' : viewportWidth >= 640 ? '85vh' : '75vh',
+        minHeight: '60vh',
+        maxHeight: '120vh',
+        // Posicionamento responsivo
+        marginTop: viewportWidth >= 1024 ? '0' : '8%',
+        // Largura fluida para diferentes tamanhos de tela
+        width: viewportWidth > 640 && viewportWidth < 1024 ? '90%' : '100%',
         marginRight: 'auto',
         marginLeft: 'auto',
         zIndex: 0,
         pointerEvents: 'auto',
         ...touchStyle,
+        // Containment para performance
+        contain: 'layout style paint',
       }}
     >
       <Canvas
-        frameloop='demand'
+        frameloop={viewportWidth < 640 ? 'demand' : 'always'}
         shadows={false}
         camera={{
           position: [20, 3, 5],
@@ -218,14 +223,16 @@ const ThreeExperience: React.FC = () => {
           powerPreference: viewportWidth < 380 ? 'low-power' : 'high-performance',
           stencil: false,
           depth: true,
-          // Reduzir qualidade em mobile para melhorar performance
-          precision: viewportWidth < 380 ? 'lowp' : 'mediump',
+          // Ajuste de precisão adaptativo
+          precision: viewportWidth < 640 ? 'lowp' : viewportWidth < 1024 ? 'mediump' : 'highp',
+          // Otimizações de performance
+          alpha: true,
         }}
         dpr={dpr}
         performance={{
-          min: 0.5,
-          max: 1,
-          debounce: 200,
+          min: viewportWidth < 640 ? 0.3 : 0.5,
+          max: viewportWidth < 640 ? 0.8 : 1,
+          debounce: viewportWidth < 640 ? 300 : 200,
         }}
       >
         {/* Componentes de performance adaptativa */}
@@ -239,12 +246,17 @@ const ThreeExperience: React.FC = () => {
             enableZoom={false}
             maxPolarAngle={Math.PI / 2}
             minPolarAngle={Math.PI / 4}
-            // Rotação mais suave em touch
-            rotateSpeed={viewportWidth < 280 ? 0.5 : 1}
+            // Rotação adaptável por tamanho de tela
+            rotateSpeed={viewportWidth < 640 ? 0.8 : viewportWidth < 1024 ? 1 : 1.2}
             enableDamping={true}
-            dampingFactor={0.05}
+            dampingFactor={viewportWidth < 640 ? 0.08 : 0.05}
+            // Ajuste de sensibilidade por dispositivo
+            screenSpacePanning={viewportWidth >= 1024}
             // Só permite rotação touch quando o guard detectou intenção de interação 3D
             enabled={isTouchInteracting || viewportWidth >= 1024}
+            // Limites de rotação mais restritos em mobile
+            minDistance={5}
+            maxDistance={30}
           />
 
           {/* Modelo 3D do computador com luzes */}

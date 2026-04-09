@@ -192,7 +192,7 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/H8G4LMDO77NR",
       "link": "/certificados/ID_12_Foundations_Cybersecurity_Google.pdf",
-      "isProfessionalCertificate": false,
+      "isProfessionalCertificate": true,
       "icon": "google"
     },
     {
@@ -518,7 +518,7 @@
     {
       "id": "1",
       "title": "Systems Administration, Services and IT Infrastructure",
-      "platform": "Google (via Coursera)",
+      "platform": "Google (on Coursera)",
       "date": "2023",
       "duration": "Approximately 6 months",
       "workload": "About 120 hours",
@@ -540,7 +540,7 @@
     {
       "id": "2",
       "title": "Technical Support Fundamentals",
-      "platform": "Google (via Coursera)",
+      "platform": "Google (on Coursera)",
       "date": "2023",
       "duration": "Approximately 6 months",
       "workload": "About 120 hours",
@@ -562,7 +562,7 @@
     {
       "id": "3",
       "title": "Introduction to Software Product Management",
-      "platform": "University of Alberta (via Coursera)",
+      "platform": "University of Alberta (on Coursera)",
       "date": "2023",
       "duration": "Approximately 6 weeks",
       "workload": "About 30 hours",
@@ -584,7 +584,7 @@
     {
       "id": "4",
       "title": "Introduction to Technical Support",
-      "platform": "IBM (via Coursera)",
+      "platform": "IBM (on Coursera)",
       "date": "2023",
       "duration": "Approximately 2 months",
       "workload": "About 40 hours",
@@ -606,7 +606,7 @@
     {
       "id": "5",
       "title": "Artificial Intelligence and Data Science",
-      "platform": "IBM (via Coursera)",
+      "platform": "IBM (on Coursera)",
       "date": "2024",
       "duration": "Approximately 2 months",
       "workload": "About 40 hours",
@@ -622,13 +622,14 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/CVHSSYAKTBJQ",
       "link": "https://www.coursera.org/learn/introduction-to-ai",
+      "withHonors": true,
       "isProfessionalCertificate": false,
       "icon": "ibm"
     },
     {
       "id": "6",
       "title": "TCP/IP",
-      "platform": "Yonsei University (via Coursera)",
+      "platform": "Yonsei University (on Coursera)",
       "date": "2024",
       "duration": "Approximately 1 month",
       "workload": "About 20 hours",
@@ -645,12 +646,12 @@
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/3U83PYVA9SZZ",
       "link": "https://www.coursera.org/learn/tcpip",
       "isProfessionalCertificate": true,
-      "icon": "cate"
+      "icon": "yonsei"
     },
     {
       "id": "7",
       "title": "HTML, CSS, and JavaScript for Web Developers",
-      "platform": "Johns Hopkins University (via Coursera)",
+      "platform": "Johns Hopkins University (on Coursera)",
       "date": "2025",
       "duration": "Approximately 3 months",
       "workload": "About 60 hours",
@@ -666,13 +667,13 @@
       ],
       "verificationLink": "https://www.coursera.org/account/accomplishments/verify/FU6BSD4ECJFD",
       "link": "/certificados/ID_7_HTML_CSS_JS_Johns_Hopkins.pdf",
-      "isProfessionalCertificate": true,
+      "isProfessionalCertificate": false,
       "icon": "johns"
     },
     {
       "id": "8",
       "title": "Introduction to Scrum Master Profession",
-      "platform": "Google (via Coursera)",
+      "platform": "Google (on Coursera)",
       "date": "2025",
       "duration": "Approximately 2 months",
       "workload": "About 40 hours",
@@ -694,7 +695,7 @@
     {
       "id": "9",
       "title": "Foundations of Cybersecurity",
-      "platform": "Google (via Coursera)",
+      "platform": "Google (on Coursera)",
       "date": "2025",
       "duration": "Approximately 6 months",
       "workload": "About 120 hours",
@@ -727,7 +728,7 @@
     {
       "id": "11",
       "title": "IT Fundamentals",
-      "platform": "Fundação Bradesco",
+      "platform": "Bradesco Foundation",
       "date": "2023",
       "summary": "Essential concepts of computer architecture, hardware and operating logic.",
       "description": "Essential concepts of computer architecture, hardware and operating logic.",
@@ -738,7 +739,7 @@
     {
       "id": "12",
       "title": "Implementing Databases",
-      "platform": "Fundação Bradesco",
+      "platform": "Bradesco Foundation",
       "date": "2023",
       "workload": "15 hours",
       "summary": "Focused on physical database creation, using query and structuring languages.",
@@ -751,7 +752,7 @@
     {
       "id": "13",
       "title": "IT Security",
-      "platform": "Fundação Bradesco",
+      "platform": "Bradesco Foundation",
       "date": "2023",
       "summary": "Data security principles, security policies and perimeter defense.",
       "description": "Data security principles, security policies and perimeter defense.",
@@ -946,7 +947,7 @@
     {
       "id": "26",
       "title": "IT Security: Defense Against the Dark Arts",
-      "platform": "Google (via Coursera)",
+      "platform": "Google (on Coursera)",
       "date": "2023",
       "duration": "Approximately 2 months",
       "workload": "About 30 hours",
@@ -967,7 +968,7 @@
     {
       "id": "27",
       "title": "IBM: Technical Support Basics",
-      "platform": "IBM (via Coursera)",
+      "platform": "IBM (on Coursera)",
       "date": "2023",
       "duration": "Approximately 1 month",
       "workload": "About 20 hours",

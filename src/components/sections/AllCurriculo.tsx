@@ -15,7 +15,7 @@ const AllCurriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void })
 
       <m.p
         variants={prefersReduced ? {} : fadeIn('up', 'tween', 0.1, 1)}
-        className='text-white/80 transition-colors duration-500 mt-4 text-[17px] leading-[30px] text-center max-w-3xl'
+        className='text-white/80 transition-colors duration-500 mt-4 text-[var(--fluid-text-base)] leading-[var(--fluid-space-l)] text-center max-w-3xl'
         style={{
           textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)',
         }}
@@ -23,7 +23,7 @@ const AllCurriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void })
         {t('curriculo.content')}
       </m.p>
 
-      <div className='mt-12 flex flex-wrap gap-6 justify-center'>
+      <div className='mt-[var(--fluid-space-xl)] flex flex-wrap gap-[var(--fluid-space-l)] justify-center'>
         <button
           type='button'
           onClick={() => setViewMode?.('default')}

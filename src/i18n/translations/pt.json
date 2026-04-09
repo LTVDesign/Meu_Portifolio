@@ -949,6 +949,7 @@
     "footerCopyright": "Leandro Saturnino Barbosa © 2026"
   },
   "allCursos": {
+    "withHonors": "Com Honras",
     "footerTotalCourses": "Total de cursos: {{count}}",
     "footerCopyright": "Leandro Saturnino Barbosa © 2026",
     "coursesAvailable": "{{count}} curso disponível",

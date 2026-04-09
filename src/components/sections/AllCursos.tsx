@@ -171,7 +171,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         className={isPage
-          ? 'relative w-full min-h-screen pt-20 sm:pt-28 flex flex-col bg-transparent'
+          ? 'relative w-full min-h-screen pt-[var(--fluid-padding-y)] sm:pt-[var(--fluid-space-xl)] flex flex-col bg-transparent'
           : 'fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md'}
         role={isPage ? 'main' : 'presentation'}
       >
@@ -214,7 +214,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
         >
           <div className='max-w-7xl mx-auto'>
             {/* Barra de Filtros e Organização */}
-            <div className='mb-8 p-4 sm:p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm'>
+            <div className='mb-[var(--fluid-space-l)] p-4 sm:p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm'>
               <div className='flex flex-col lg:flex-row gap-4 sm:gap-6'>
                 {/* Busca por texto */}
                 <div className='flex-1'>
@@ -450,7 +450,7 @@ const AllCursos = ({ isOpen = true, onClose = () => { }, isPage = false }: AllCu
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className='mt-8 sm:mt-12 p-4 sm:p-6 rounded-2xl bg-gradient-to-r from-[var(--cyber-purple)]/10 to-[var(--cyber-cyan)]/10 border border-white/10'
+                className='mt-[var(--fluid-space-l)] p-4 sm:p-6 rounded-2xl bg-gradient-to-r from-[var(--cyber-purple)]/10 to-[var(--cyber-cyan)]/10 border border-white/10'
               >
                 <div className='grid grid-cols-2 sm:grid-cols-4 gap-4 text-center'>
                   <div>

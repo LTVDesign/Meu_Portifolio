@@ -5,13 +5,17 @@ import { PCFShadowMap, SRGBColorSpace } from 'three';
 import type { Mesh } from 'three';
 // Import textures as Vite assets to ensure correct paths in production build
 // Usando WebP otimizado para melhor performance
-import planetBaseColor from '/assets/3d-models/planet/textures/Planet_baseColor.png?url';
+import earthDayMap from '/assets/3d-models/planet/textures/earth_day_4k.jpg?url';
+import earthClouds from '/assets/3d-models/planet/textures/earth_clouds_1k.png?url';
 import { useTouchScrollGuard } from '../../hooks/useTouchScrollGuard';
 
 
 const Earth = () => {
-  const meshRef = useRef<Mesh>(null);
-  const texture = useTexture(planetBaseColor);
+  const earthRef = useRef<Mesh>(null);
+  const cloudsRef = useRef<Mesh>(null);
+  
+  // Load textures
+  const [texture, clouds] = useTexture([earthDayMap, earthClouds]);
 
   useEffect(() => {
     if (texture) {
@@ -20,22 +24,44 @@ const Earth = () => {
   }, [texture]);
 
   useFrame((_, delta) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.1;
+    if (earthRef.current) {
+      earthRef.current.rotation.y += delta * 0.1;
+    }
+    if (cloudsRef.current) {
+      cloudsRef.current.rotation.y += delta * 0.12; // Clouds rotate at a different speed
     }
   });
 
   return (
-    <mesh ref={meshRef}>
-      <sphereGeometry args={[1, 64, 64]} />
-      <meshStandardMaterial map={texture} roughness={0.7} metalness={0.0} />
-    </mesh>
+    <group>
+      {/* Main Planet Mesh */}
+      <mesh ref={earthRef}>
+        <sphereGeometry args={[1, 64, 64]} />
+        <meshStandardMaterial 
+          map={texture} 
+          roughness={0.8} 
+          metalness={0.1} 
+        />
+      </mesh>
+      
+      {/* Cloud Layer Mesh */}
+      <mesh ref={cloudsRef}>
+        <sphereGeometry args={[1.01, 64, 64]} />
+        <meshStandardMaterial 
+          map={clouds} 
+          transparent 
+          opacity={0.4} 
+          depthWrite={false}
+          blending={2} // Additive blending (AdditiveBlending = 2 in Three.js) 
+        />
+      </mesh>
+    </group>
   );
 };
 
 const EarthCanvas = () => {
   const [shouldLoad, setShouldLoad] = useState(false);
-  const { containerRef, isTouchInteracting, touchStyle } = useTouchScrollGuard({
+  const { containerRef, touchStyle } = useTouchScrollGuard({
     verticalThreshold: 30,
     intentThreshold: 8,
   });
@@ -91,9 +117,9 @@ const EarthCanvas = () => {
                 autoRotate
                 autoRotateSpeed={0.5}
                 enablePan={false}
-                // Em touch: zoom e rotação só quando o guard detectou intenção horizontal
-                enableZoom={isTouchInteracting}
-                enableRotate={isTouchInteracting}
+                // Zoom desabilitado para não atrapalhar o scroll da página.
+                enableZoom={false}
+                enableRotate={true}
                 zoomSpeed={0.6}
                 minDistance={3}
                 maxDistance={10}

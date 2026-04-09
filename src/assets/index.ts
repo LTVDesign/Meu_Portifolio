@@ -7,6 +7,7 @@ import qrcode from './formacao/qrcode.png';
 import facul from './facul.webp';
 // Logos de instituições de ensino
 import alberta from './images/logos/alberta.webp';
+import anhangueraPng from './anhanguera.png';
 import bradesco from './images/logos/bradesco.webp';
 import cate from './images/logos/cate.webp';
 import google from './images/logos/google.webp';
@@ -53,6 +54,7 @@ import willy from './images/projects/willy.webp';
 
 export {
   alberta,
+  anhangueraPng,
   android,
   arduino,
   backend,

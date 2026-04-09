@@ -1,3 +1,4 @@
+import { styles } from './styles';
 import {
   android,
   arduino,
@@ -521,4 +522,4 @@ const projects: TProject[] = [
   }
 ]
 
-export { logo, experiences, projects, services, technologies, testimonials };
+export { logo, experiences, projects, services, technologies, testimonials, styles };

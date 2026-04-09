@@ -340,7 +340,7 @@ const Footer: React.FC = () => {
               <span>{config.html.email}</span>
             </a>
 
-            <div className='social-links-container flex flex-wrap items-center justify-center gap-[clamp(0.75rem,2vw,1.25rem)] mb-[clamp(1.5rem,3vw,2rem)]'>
+            <div className='social-links-container flex flex-nowrap items-center justify-center gap-2 sm:gap-4 mb-[clamp(1.5rem,3vw,2rem)]'>
               {socialLinksRaw.map(({ icon: Icon, url, translationKey, color }) => {
                 const label = t(`footer.${translationKey}`);
                 return (
@@ -353,7 +353,7 @@ const Footer: React.FC = () => {
                     aria-label={label}
                     className={`flex flex-col items-center gap-1.5 text-white/90 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[var(--cyber-purple)] group`}
                   >
-                    <div className={`p-3 rounded-xl bg-white/[0.03] border border-white/5 group-hover:border-white/20 group-hover:bg-white/[0.06] ${color} transition-all`}>
+                    <div className={`p-2 sm:p-3 rounded-xl bg-white/[0.03] border border-white/5 group-hover:border-white/20 group-hover:bg-white/[0.06] ${color} transition-all`}>
                       <Icon size={20} />
                     </div>
                     <span className="text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block">
