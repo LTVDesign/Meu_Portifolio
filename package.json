@@ -81,6 +81,11 @@
     },
     "glob": "^13.0.0",
     "inflight": "npm:lru-cache@latest",
-    "three-mesh-bvh": "^0.9.9"
+    "three-mesh-bvh": "^0.9.9",
+    "rimraf": "^6.1.3",
+    "npmlog": "^7.0.1",
+    "gauge": "^5.0.2",
+    "are-we-there-yet": "^4.0.2",
+    "tar": "^7.5.13"
   }
 }
