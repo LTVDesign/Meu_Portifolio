@@ -2,7 +2,6 @@ import { m } from 'framer-motion';
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
-import { useBackgroundMenu } from '../../contexts/ParticleConfigContext';
 import { useBreakpoints } from '../../hooks/useDebouncedResize';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { PCGamerStatic } from '../atoms';
@@ -12,7 +11,8 @@ import TerminalText from '../atoms/TerminalText';
 const ThreeExperience = lazy(() => import('../canvas/ThreeExperience'));
 
 // LCP Optimization: Lazy loading do GearButton - botão flutuante não é crítico para LCP
-import GearButton from '../layout/GearButton';
+// LCP Optimization: GearButton is now handled globally in App.tsx
+
 
 /**
  * Hero - Seção principal da página
@@ -26,7 +26,6 @@ import GearButton from '../layout/GearButton';
 const Hero = () => {
   const { t } = useTranslation();
   const prefersReduced = useReducedMotion();
-  const { openBgMenu } = useBackgroundMenu();
   // Hook otimizado com RAF debounce para evitar reflows
   const { width, isWatch } = useBreakpoints();
   const isMobileOrTablet = width <= 1024;
@@ -74,9 +73,8 @@ const Hero = () => {
     };
   }, []);
 
-  const handleBackgroundClick = () => {
-    openBgMenu();
-  };
+
+
 
   const subtitles = [
     t('hero.subtitle.0'),
@@ -232,7 +230,8 @@ const Hero = () => {
 
       {/* Engrenagem flutuante esquerda - Background selector (Componente GearButton com Efeitos RGB) */}
       {/* Movido para fora do m.section para não herdar transforms que quebram o position: fixed */}
-      <GearButton onClick={handleBackgroundClick} />
+
+
     </>
   );
 };

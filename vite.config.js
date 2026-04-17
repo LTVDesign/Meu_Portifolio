@@ -65,11 +65,11 @@ export default defineConfig({
     modulePreload: {
       polyfill: true,
       resolveDependencies: (filename, deps) => {
-        // Não precarregar chunks 3D, router e i18n — eles serão lazy-loaded
-        if (filename.includes('vendor-3d') || filename.includes('vendor-3d-ext')) return [];
-        // Filtrar deps de vendor-3d e vendor-3d-ext das dependências de outros chunks
+        // Não precarregar chunks de terceiros — eles serão lazy-loaded
+        if (filename.includes('vendor-libs')) return [];
+        // Filtrar deps de vendor-libs das dependências de outros chunks
         return deps.filter(dep =>
-          !dep.includes('vendor-3d') && !dep.includes('vendor-3d-ext')
+          !dep.includes('vendor-libs')
         );
       }
     },
@@ -88,38 +88,25 @@ export default defineConfig({
         manualChunks(id) {
           if (!id.includes('node_modules')) return;
 
-          // Vendor 3D: ONLY pure Three.js engine (no React dependencies)
-          if (id.includes('three') && !id.includes('@react-three') && !id.includes('three-mesh-bvh')) {
-            return 'vendor-3d';
-          }
-
-          // Three.js extensions (BVH, etc) — separado para não inflar vendor-3d
-          if (id.includes('three-mesh-bvh')) {
-            return 'vendor-3d-ext';
-          }
-
-          // React Router — separado do core porque as pages são lazy-loaded
-          if (id.includes('react-router')) {
-            return 'vendor-router';
-          }
-
-          // Vendor Core: React + React-dependent libs (including @react-three which uses React hooks)
-          if (id.includes('react') || id.includes('scheduler') || id.includes('react-dom') || id.includes('use-sync-external-store') || id.includes('@react-three') || id.includes('react-reconciler')) {
+          // Vendor Core: Only the essential React framework (extremely stable)
+          if (
+            id.match(/node_modules\/(react|react-dom|scheduler|react-reconciler|use-sync-external-store)\//)
+          ) {
             return 'vendor-core';
           }
 
-          // i18n — separado para não inflar vendor-utils
-          if (id.includes('i18next')) {
+          // Vendor Router: Separate because routes are lazy-loaded
+          if (id.includes('node_modules/react-router')) {
+            return 'vendor-router';
+          }
+
+          // Vendor i18n
+          if (id.includes('node_modules/i18next')) {
             return 'vendor-i18n';
           }
 
-          // Vendor UI: Animações e ícones
-          if (id.includes('framer-motion') || id.includes('react-icons')) {
-            return 'vendor-ui';
-          }
-
-          // Outros vendors menores
-          return 'vendor-utils';
+          // Vendor Libs: All other UI/3D/Utility libraries (grouped to avoid circularity)
+          return 'vendor-libs';
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',

@@ -2,13 +2,26 @@ import { useCallback, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { m } from 'framer-motion';
-import { FiDownload, FiPrinter, FiMapPin, FiMail, FiLinkedin, FiAward, FiBook } from 'react-icons/fi';
+import {
+  FiDownload,
+  FiPrinter,
+  FiMapPin,
+  FiMail,
+  FiLinkedin,
+  FiAward,
+  FiBook,
+} from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 import { experiences, projects, technologies } from '../constants';
 import cursosData from '../data/cursos.json';
 import cvFile from '../assets/docs/Leandro_Barbosa_curriculo.pdf';
 
-const fadeIn = (direction: 'up' | 'down' | 'left' | 'right', type: string, delay: number, duration: number) => ({
+const fadeIn = (
+  direction: 'up' | 'down' | 'left' | 'right',
+  type: string,
+  delay: number,
+  duration: number
+) => ({
   hidden: {
     x: direction === 'left' ? 100 : direction === 'right' ? -100 : 0,
     y: direction === 'up' ? 100 : direction === 'down' ? -100 : 0,
@@ -60,12 +73,14 @@ const OnlineResume = () => {
       </div>
 
       <Helmet>
-        <title>{t('common.name')} | {t('allCurriculo.title')}</title>
+        <title>
+          {t('common.name')} | {t('allCurriculo.title')}
+        </title>
         <meta name='description' content={t('hero.descriptionMeta')} />
       </Helmet>
 
       {/* Banner de Aviso & Toolbar */}
-      <m.div 
+      <m.div
         variants={fadeIn('down', 'tween', 0.1, 0.8)}
         initial='hidden'
         whileInView='show'
@@ -77,33 +92,39 @@ const OnlineResume = () => {
             🚀 {t('allCurriculo.bannerTitle', 'Portal de Currículo Interativo')}
           </h3>
           <p className='text-[clamp(0.9rem,1.8vw,1.05rem)] text-gray-300 leading-relaxed font-medium max-w-2xl'>
-            {t('allCurriculo.bannerText', 'Esta página é uma experiência imersiva com meu arsenal completo.')} 
+            {t(
+              'allCurriculo.bannerText',
+              'Esta página é uma experiência imersiva com meu arsenal completo.'
+            )}
             <br />
-            {t('allCurriculo.bannerSubtext', 'Para apresentações formais, utilize as ferramentas de exportação ao lado.')}
+            {t(
+              'allCurriculo.bannerSubtext',
+              'Para apresentações formais, utilize as ferramentas de exportação ao lado.'
+            )}
           </p>
         </div>
 
         <div className='flex flex-wrap items-center justify-center gap-4 shrink-0'>
-          <button 
-            onClick={handlePrint} 
+          <button
+            onClick={handlePrint}
             className='flex items-center gap-3 px-8 py-3.5 bg-gradient-to-r from-[var(--cyber-cyan)] to-blue-500 hover:shadow-[0_10px_30px_rgba(0,240,255,0.3)] text-white rounded-2xl transition-all text-sm font-extrabold active:scale-95'
           >
             <FiPrinter className='text-lg' />
             {t('common.print', 'Imprimir')}
           </button>
 
-          <a 
-            href={cvFile} 
-            download="Leandro_Barbosa_curriculo.pdf"
+          <a
+            href={cvFile}
+            download='Leandro_Barbosa_curriculo.pdf'
             className='flex items-center gap-3 px-8 py-3.5 bg-gradient-to-r from-[var(--cyber-purple)] to-blue-600 hover:shadow-[0_10px_30px_rgba(151,71,255,0.3)] text-white rounded-2xl transition-all text-sm font-extrabold active:scale-95'
           >
             <FiDownload className='text-lg' />
             {t('allCurriculo.downloadCv', 'Download do Currículo')}
           </a>
-          
-          <a 
-            href={cvFile} 
-            download="Leandro_Barbosa_curriculo.pdf"
+
+          <a
+            href={cvFile}
+            download='Leandro_Barbosa_curriculo.pdf'
             className='flex items-center gap-3 px-8 py-3.5 bg-gradient-to-r from-[#FF007A] to-[#9747FF] hover:shadow-[0_10px_30px_rgba(255,0,122,0.3)] text-white rounded-2xl transition-all text-sm font-extrabold active:scale-95'
           >
             <FiDownload className='text-lg' />
@@ -113,7 +134,7 @@ const OnlineResume = () => {
       </m.div>
 
       {/* Conteúdo Principal Estilizado */}
-      <m.div 
+      <m.div
         variants={staggerContainer(0.1)}
         initial='hidden'
         whileInView='show'
@@ -121,9 +142,12 @@ const OnlineResume = () => {
         className='max-w-6xl mx-auto space-y-12 relative z-10 online-content print:hidden'
       >
         {/* Header Visual */}
-        <m.section variants={fadeIn('up', 'spring', 0.2, 1)} className='grid grid-cols-1 lg:grid-cols-3 gap-8 items-center bg-white/5 backdrop-blur-md border border-white/10 rounded-[3rem] p-[clamp(2rem,6vw,4rem)] overflow-hidden relative'>
+        <m.section
+          variants={fadeIn('up', 'spring', 0.2, 1)}
+          className='grid grid-cols-1 lg:grid-cols-3 gap-8 items-center bg-white/5 backdrop-blur-md border border-white/10 rounded-[3rem] p-[clamp(2rem,6vw,4rem)] overflow-hidden relative'
+        >
           <div className='absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[var(--cyber-cyan)] to-[var(--cyber-purple)]' />
-          
+
           <div className='lg:col-span-2 space-y-6'>
             <div>
               <m.h1 className='text-[clamp(2.5rem,8vw,4.5rem)] font-black leading-tight tracking-tighter bg-gradient-to-br from-white via-white to-gray-500 bg-clip-text text-transparent'>
@@ -133,7 +157,7 @@ const OnlineResume = () => {
                 {t('allCurriculo.role', 'Software Engineer')}
               </p>
             </div>
-            
+
             <p className='text-gray-400 text-lg leading-relaxed max-w-2xl font-medium'>
               {t('allCurriculo.shortSummary')}
             </p>
@@ -144,7 +168,9 @@ const OnlineResume = () => {
                   <FaWhatsapp className='text-xl' />
                 </div>
                 <div>
-                  <p className='text-xs text-gray-500 font-bold uppercase tracking-widest'>WhatsApp</p>
+                  <p className='text-xs text-gray-500 font-bold uppercase tracking-widest'>
+                    WhatsApp
+                  </p>
                   <p className='font-bold'>+55 11 98483-8629</p>
                 </div>
               </div>
@@ -153,7 +179,9 @@ const OnlineResume = () => {
                   <FiLinkedin className='text-xl' />
                 </div>
                 <div>
-                  <p className='text-xs text-gray-500 font-bold uppercase tracking-widest'>LinkedIn</p>
+                  <p className='text-xs text-gray-500 font-bold uppercase tracking-widest'>
+                    LinkedIn
+                  </p>
                   <p className='font-bold'>/in/lelebrr</p>
                 </div>
               </div>
@@ -162,8 +190,12 @@ const OnlineResume = () => {
                   <FiMapPin className='text-xl' />
                 </div>
                 <div>
-                  <p className='text-xs text-gray-500 font-bold uppercase tracking-widest'>{t('allCurriculo.locationLabel', 'Location')}</p>
-                  <p className='font-bold text-gray-200'>{t('allCurriculo.location', 'São Paulo, SP')}</p>
+                  <p className='text-xs text-gray-500 font-bold uppercase tracking-widest'>
+                    {t('allCurriculo.locationLabel', 'Location')}
+                  </p>
+                  <p className='font-bold text-gray-200'>
+                    {t('allCurriculo.location', 'São Paulo, SP')}
+                  </p>
                 </div>
               </div>
             </div>
@@ -173,8 +205,14 @@ const OnlineResume = () => {
             <div className='relative group'>
               <div className='absolute -inset-4 bg-gradient-to-r from-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-pulse' />
               <div className='relative bg-[#050816] border border-white/10 rounded-[2rem] p-6 shadow-2xl'>
-                <img src='/qrcode.png' alt='QR Code' className='w-32 h-32 grayscale brightness-125 hover:grayscale-0 transition-all duration-500 cursor-crosshair' />
-                <p className='text-[10px] text-center mt-3 font-mono text-gray-500 uppercase tracking-widest'>{t('allCurriculo.scanText', 'Scan for full experience')}</p>
+                <img
+                  src='/assets/images/eu-hM19CCeb.jpg'
+                  alt='Foto'
+                  className='w-32 h-32 object-cover rounded-full grayscale brightness-125 hover:grayscale-0 transition-all duration-500 cursor-crosshair'
+                />
+                <p className='text-[10px] text-center mt-3 font-mono text-gray-500 uppercase tracking-widest'>
+                  {t('allCurriculo.scanText', 'Scan for full experience')}
+                </p>
               </div>
             </div>
           </div>
@@ -183,21 +221,26 @@ const OnlineResume = () => {
         {/* Arsenal & Competências - Grid Moderno */}
         <m.section variants={fadeIn('up', 'spring', 0.3, 1)} className='space-y-8'>
           <div className='flex items-center gap-4'>
-            <h2 className='text-3xl font-black uppercase tracking-tighter'>{t('allCurriculo.skillsTitle', 'Arsenal Técnico')}</h2>
+            <h2 className='text-3xl font-black uppercase tracking-tighter'>
+              {t('allCurriculo.skillsTitle', 'Arsenal Técnico')}
+            </h2>
             <div className='h-[2px] flex-1 bg-gradient-to-r from-[var(--cyber-cyan)] to-transparent opacity-30' />
           </div>
 
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start'>
             {Object.entries(
-              technologies.reduce((acc, tech) => {
-                const category = t(tech.category);
-                if (!acc[category]) acc[category] = [];
-                acc[category].push(tech.name);
-                return acc;
-              }, {} as Record<string, string[]>)
+              technologies.reduce(
+                (acc, tech) => {
+                  const category = t(tech.category);
+                  if (!acc[category]) acc[category] = [];
+                  acc[category].push(tech.name);
+                  return acc;
+                },
+                {} as Record<string, string[]>
+              )
             ).map(([category, skills], idx) => (
-              <m.div 
-                key={category} 
+              <m.div
+                key={category}
                 variants={fadeIn('up', 'spring', 0.1 * idx, 0.75)}
                 className='group bg-white/5 backdrop-blur-md border border-white/10 rounded-[2rem] p-8 hover:bg-white/10 transition-all hover:-translate-y-2 relative overflow-hidden'
               >
@@ -210,7 +253,10 @@ const OnlineResume = () => {
                 </h4>
                 <div className='flex flex-wrap gap-2'>
                   {skills.map((skill) => (
-                    <span key={skill} className='px-4 py-2 bg-white/5 border border-white/5 rounded-full text-xs font-bold text-gray-300 hover:text-[var(--cyber-cyan)] hover:border-[var(--cyber-cyan)]/30 transition-all cursor-default'>
+                    <span
+                      key={skill}
+                      className='px-4 py-2 bg-white/5 border border-white/5 rounded-full text-xs font-bold text-gray-300 hover:text-[var(--cyber-cyan)] hover:border-[var(--cyber-cyan)]/30 transition-all cursor-default'
+                    >
                       {skill}
                     </span>
                   ))}
@@ -223,24 +269,28 @@ const OnlineResume = () => {
         {/* Experiência - Timeline Visual */}
         <m.section variants={fadeIn('up', 'spring', 0.4, 1)} className='space-y-12'>
           <div className='flex items-center gap-4'>
-            <h2 className='text-3xl font-black uppercase tracking-tighter'>{t('allCurriculo.experienceTitle', 'Carreira Profissional')}</h2>
+            <h2 className='text-3xl font-black uppercase tracking-tighter'>
+              {t('allCurriculo.experienceTitle', 'Carreira Profissional')}
+            </h2>
             <div className='h-[2px] flex-1 bg-gradient-to-r from-[var(--cyber-purple)] to-transparent opacity-30' />
           </div>
 
           <div className='space-y-8'>
             {experiences.map((exp, index) => (
-              <m.div 
-                key={index} 
+              <m.div
+                key={index}
                 variants={fadeIn('left', 'spring', 0.2 * index, 0.75)}
                 className='relative pl-12 group'
               >
                 <div className='absolute left-0 top-0 w-[2px] h-full bg-gradient-to-b from-[var(--cyber-purple)] to-blue-900 group-last:h-12 opacity-50' />
                 <div className='absolute left-[-6px] top-6 w-3.5 h-3.5 rounded-full bg-[var(--cyber-purple)] shadow-[0_0_15px_rgba(151,71,255,1)] group-hover:scale-150 transition-transform' />
-                
+
                 <div className='bg-white/5 border border-white/10 rounded-[2.5rem] p-[clamp(1.5rem,4vw,2.5rem)] hover:bg-white/[0.08] transition-all relative overflow-hidden group-hover:shadow-[0_20px_50px_rgba(151,71,255,0.05)]'>
                   <div className='flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8'>
                     <div>
-                      <h3 className='text-2xl font-black text-white mb-1'>{t(exp.title)}</h3>
+                      <h3 className='text-2xl font-black text-white mb-1'>
+                        {t(exp.title)}
+                      </h3>
                       <p className='text-[var(--cyber-purple)] font-black uppercase tracking-widest text-sm'>
                         {t(exp.companyName)}
                       </p>
@@ -249,10 +299,13 @@ const OnlineResume = () => {
                       {t(exp.date)}
                     </span>
                   </div>
-                  
+
                   <ul className='space-y-4'>
                     {exp.points.map((point, pIndex) => (
-                      <li key={pIndex} className='flex items-start gap-4 text-gray-400 group/item'>
+                      <li
+                        key={pIndex}
+                        className='flex items-start gap-4 text-gray-400 group/item'
+                      >
                         <span className='w-1.5 h-1.5 rounded-full bg-[var(--cyber-cyan)] mt-2 shrink-0 group-hover/item:scale-150 transition-transform' />
                         <span className='leading-relaxed font-medium group-hover/item:text-gray-200 transition-colors'>
                           {t(point)}
@@ -268,20 +321,36 @@ const OnlineResume = () => {
 
         {/* Formação & Acadêmico */}
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 items-start'>
-          <m.section variants={fadeIn('right', 'spring', 0.5, 1)} className='space-y-8 p-10 bg-white/5 border border-white/10 rounded-[3rem] relative overflow-hidden'>
+          <m.section
+            variants={fadeIn('right', 'spring', 0.5, 1)}
+            className='space-y-8 p-10 bg-white/5 border border-white/10 rounded-[3rem] relative overflow-hidden'
+          >
             <div className='absolute top-0 right-0 p-10 opacity-5'>
               <FiBook className='text-[10rem] text-[var(--cyber-cyan)]' />
             </div>
             <h2 className='text-2xl font-black uppercase tracking-tighter flex items-center gap-3'>
-              <FiBook className='text-[var(--cyber-cyan)]' /> {t('allCurriculo.academicsTitle', 'Formação Acadêmica')}
+              <FiBook className='text-[var(--cyber-cyan)]' />{' '}
+              {t('allCurriculo.academicsTitle', 'Formação Acadêmica')}
             </h2>
             <div className='space-y-8'>
               <div className='relative pl-6 border-l-2 border-[var(--cyber-cyan)]/30'>
-                <h4 className='text-xl font-bold mb-2'>{t('allCurriculo.academicsAndLanguages', 'Pós-Graduação em IA & Data Science')}</h4>
-                <p className='text-gray-400 font-medium'>Anhanguera | <span className='text-[var(--cyber-cyan)] uppercase text-xs font-black'>{t('allCurriculo.currentlyStudying', 'Cursando')}</span></p>
+                <h4 className='text-xl font-bold mb-2'>
+                  {t(
+                    'allCurriculo.academicsAndLanguages',
+                    'Pós-Graduação em IA & Data Science'
+                  )}
+                </h4>
+                <p className='text-gray-400 font-medium'>
+                  Anhanguera |{' '}
+                  <span className='text-[var(--cyber-cyan)] uppercase text-xs font-black'>
+                    {t('allCurriculo.currentlyStudying', 'Cursando')}
+                  </span>
+                </p>
               </div>
               <div className='relative pl-6 border-l-2 border-white/10'>
-                <h4 className='text-xl font-bold mb-2'>TADS - Análise e Desiv. de Sistemas</h4>
+                <h4 className='text-xl font-bold mb-2'>
+                  TADS - Análise e Desiv. de Sistemas
+                </h4>
                 <p className='text-gray-400 font-medium'>Anhanguera | Dez 2025</p>
                 <div className='mt-3 flex gap-4 text-xs font-mono text-gray-500'>
                   <span>CR: 10.0</span>
@@ -291,16 +360,27 @@ const OnlineResume = () => {
             </div>
           </m.section>
 
-          <m.section variants={fadeIn('left', 'spring', 0.6, 1)} className='space-y-8 p-10 bg-white/5 border border-white/10 rounded-[3rem]'>
+          <m.section
+            variants={fadeIn('left', 'spring', 0.6, 1)}
+            className='space-y-8 p-10 bg-white/5 border border-white/10 rounded-[3rem]'
+          >
             <h2 className='text-2xl font-black uppercase tracking-tighter flex items-center gap-3'>
-              <FiAward className='text-[var(--cyber-purple)]' /> {t('allCurriculo.specializationsTitle', 'Especializações')}
+              <FiAward className='text-[var(--cyber-purple)]' />{' '}
+              {t('allCurriculo.specializationsTitle', 'Especializações')}
             </h2>
             <div className='space-y-4 max-h-[400px] overflow-y-auto custom-scrollbar pr-4'>
               {allCourses.map((course) => (
-                <div key={course.id} className='p-5 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 transition-all border-l-4 border-l-transparent hover:border-l-[var(--cyber-purple)] group cursor-default'>
-                  <h5 className='font-bold group-hover:text-[var(--cyber-purple)] transition-colors'>{course.title}</h5>
+                <div
+                  key={course.id}
+                  className='p-5 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 transition-all border-l-4 border-l-transparent hover:border-l-[var(--cyber-purple)] group cursor-default'
+                >
+                  <h5 className='font-bold group-hover:text-[var(--cyber-purple)] transition-colors'>
+                    {course.title}
+                  </h5>
                   <div className='flex justify-between items-center mt-2'>
-                    <span className='text-xs text-gray-500 font-bold uppercase'>{course.platform}</span>
+                    <span className='text-xs text-gray-500 font-bold uppercase'>
+                      {course.platform}
+                    </span>
                     <span className='text-[10px] text-gray-600'>{course.date}</span>
                   </div>
                 </div>
@@ -316,20 +396,40 @@ const OnlineResume = () => {
         <div className='flex justify-between items-start mb-8 pb-6 border-b-4 border-[var(--cyber-cyan)]'>
           <div className='space-y-4'>
             <div>
-              <h1 className='text-4xl font-black text-[#050816] mb-1 uppercase tracking-tighter'>Leandro Barbosa</h1>
-              <p className='text-lg font-extrabold text-[var(--cyber-purple)] uppercase tracking-widest'>{t('allCurriculo.role')}</p>
+              <h1 className='text-4xl font-black text-[#050816] mb-1 uppercase tracking-tighter'>
+                Leandro Barbosa
+              </h1>
+              <p className='text-lg font-extrabold text-[var(--cyber-purple)] uppercase tracking-widest'>
+                {t('allCurriculo.role')}
+              </p>
             </div>
-            
+
             <div className='grid grid-cols-2 gap-y-2 gap-x-12 text-[10.5pt] font-medium'>
-              <span className='flex items-center gap-2'><FiMail className='text-[var(--cyber-purple)]' /> lelebrr@gmail.com</span>
-              <span className='flex items-center gap-2'><FaWhatsapp className='text-[var(--cyber-purple)]' /> +55 11 98483-8629</span>
-              <span className='flex items-center gap-2'><FiLinkedin className='text-[var(--cyber-purple)]' /> linkedin.com/in/lelebrr</span>
-              <span className='flex items-center gap-2'><FiMapPin className='text-[var(--cyber-purple)]' /> {t('allCurriculo.location')}</span>
+              <span className='flex items-center gap-2'>
+                <FiMail className='text-[var(--cyber-purple)]' /> lelebrr@gmail.com
+              </span>
+              <span className='flex items-center gap-2'>
+                <FaWhatsapp className='text-[var(--cyber-purple)]' /> +55 11 98483-8629
+              </span>
+              <span className='flex items-center gap-2'>
+                <FiLinkedin className='text-[var(--cyber-purple)]' />{' '}
+                linkedin.com/in/lelebrr
+              </span>
+              <span className='flex items-center gap-2'>
+                <FiMapPin className='text-[var(--cyber-purple)]' />{' '}
+                {t('allCurriculo.location')}
+              </span>
             </div>
           </div>
           <div className='flex flex-col items-center gap-2'>
-            <img src='/qrcode.png' alt='QR Code' className='w-24 h-24 border-2 border-[var(--cyber-cyan)] p-1 rounded-xl' />
-            <p className='text-[8px] font-bold text-gray-400 uppercase tracking-tighter text-center'>{t('allCurriculo.scanText')}</p>
+            <img
+              src='/assets/images/eu-hM19CCeb.jpg'
+              alt='Foto'
+              className='w-24 h-24 object-cover rounded-full border-2 border-[var(--cyber-cyan)] p-1'
+            />
+            <p className='text-[8px] font-bold text-gray-400 uppercase tracking-tighter text-center'>
+              {t('allCurriculo.scanText')}
+            </p>
           </div>
         </div>
 
@@ -351,17 +451,29 @@ const OnlineResume = () => {
             </h2>
             <div className='grid grid-cols-3 gap-6'>
               {Object.entries(
-                technologies.reduce((acc, tech) => {
-                  const category = t(tech.category);
-                  if (!acc[category]) acc[category] = [];
-                  acc[category].push(tech.name);
-                  return acc;
-                }, {} as Record<string, string[]>)
+                technologies.reduce(
+                  (acc, tech) => {
+                    const category = t(tech.category);
+                    if (!acc[category]) acc[category] = [];
+                    acc[category].push(tech.name);
+                    return acc;
+                  },
+                  {} as Record<string, string[]>
+                )
               ).map(([category, skills]) => (
                 <div key={category} className='break-inside-avoid'>
-                  <h4 className='text-[10pt] font-black mb-3 uppercase border-b-2 border-gray-100 text-[var(--cyber-purple)]'>{category}</h4>
+                  <h4 className='text-[10pt] font-black mb-3 uppercase border-b-2 border-gray-100 text-[var(--cyber-purple)]'>
+                    {category}
+                  </h4>
                   <div className='flex flex-wrap gap-1.5'>
-                    {skills.map(s => <span key={s} className='text-[8.5pt] bg-gray-50 border border-gray-200 px-2 py-0.5 rounded-md font-bold text-gray-700'>{s}</span>)}
+                    {skills.map((s) => (
+                      <span
+                        key={s}
+                        className='text-[8.5pt] bg-gray-50 border border-gray-200 px-2 py-0.5 rounded-md font-bold text-gray-700'
+                      >
+                        {s}
+                      </span>
+                    ))}
                   </div>
                 </div>
               ))}
@@ -375,16 +487,28 @@ const OnlineResume = () => {
             </h2>
             <div className='space-y-6'>
               {experiences.map((exp, i) => (
-                <div key={i} className='break-inside-avoid relative pl-5 border-l-2 border-gray-100'>
+                <div
+                  key={i}
+                  className='break-inside-avoid relative pl-5 border-l-2 border-gray-100'
+                >
                   <div className='absolute left-[-5px] top-1 w-2 h-2 rounded-full bg-[var(--cyber-cyan)]' />
                   <div className='flex justify-between items-baseline mb-2'>
-                    <h3 className='font-black text-[11pt] text-[#050816] uppercase'>{t(exp.title)}</h3>
-                    <span className='text-[9pt] font-bold text-[var(--cyber-purple)] bg-[var(--cyber-purple)]/5 px-3 py-0.5 rounded-full'>{t(exp.date)}</span>
+                    <h3 className='font-black text-[11pt] text-[#050816] uppercase'>
+                      {t(exp.title)}
+                    </h3>
+                    <span className='text-[9pt] font-bold text-[var(--cyber-purple)] bg-[var(--cyber-purple)]/5 px-3 py-0.5 rounded-full'>
+                      {t(exp.date)}
+                    </span>
                   </div>
-                  <p className='text-[9.5pt] font-black text-gray-600 mb-3 uppercase tracking-wider'>{t(exp.companyName)}</p>
+                  <p className='text-[9.5pt] font-black text-gray-600 mb-3 uppercase tracking-wider'>
+                    {t(exp.companyName)}
+                  </p>
                   <ul className='space-y-1.5'>
                     {exp.points.map((p, pi) => (
-                      <li key={pi} className='text-[9.5pt] text-gray-700 leading-tight flex items-start gap-2'>
+                      <li
+                        key={pi}
+                        className='text-[9.5pt] text-gray-700 leading-tight flex items-start gap-2'
+                      >
                         <span className='text-[var(--cyber-cyan)] mt-0.5'>•</span>
                         {t(p)}
                       </li>
@@ -402,39 +526,65 @@ const OnlineResume = () => {
             </h2>
             <div className='grid grid-cols-2 gap-12'>
               <div className='space-y-6'>
-                <h3 className='text-[11pt] font-black text-[var(--cyber-purple)] border-b-2 border-[var(--cyber-purple)]/20 pb-2 uppercase'>{t('allCurriculo.printProjectsTitle')}</h3>
+                <h3 className='text-[11pt] font-black text-[var(--cyber-purple)] border-b-2 border-[var(--cyber-purple)]/20 pb-2 uppercase'>
+                  {t('allCurriculo.printProjectsTitle')}
+                </h3>
                 <div className='space-y-4 font-bold'>
                   {projects.slice(0, 3).map((p, i) => (
-                    <div key={i} className='p-3 bg-gray-50 rounded-lg border border-gray-100'>
+                    <div
+                      key={i}
+                      className='p-3 bg-gray-50 rounded-lg border border-gray-100'
+                    >
                       <div className='flex justify-between items-baseline mb-1'>
                         <span className='text-[10pt] text-[#050816]'>{p.name}</span>
-                        <span className='text-[7pt] text-[var(--cyber-purple)] uppercase italic'>{t(`works.${p.category}`)}</span>
+                        <span className='text-[7pt] text-[var(--cyber-purple)] uppercase italic'>
+                          {t(`works.${p.category}`)}
+                        </span>
                       </div>
-                      <p className='text-[8.5pt] text-gray-600 font-medium leading-tight'>{t(p.description)}</p>
+                      <p className='text-[8.5pt] text-gray-600 font-medium leading-tight'>
+                        {t(p.description)}
+                      </p>
                     </div>
                   ))}
                 </div>
               </div>
-              
+
               <div className='space-y-6'>
-                <h3 className='text-[11pt] font-black text-[var(--cyber-cyan)] border-b-2 border-[var(--cyber-cyan)]/20 pb-2 uppercase'>{t('allCurriculo.academicsAndLanguages')}</h3>
+                <h3 className='text-[11pt] font-black text-[var(--cyber-cyan)] border-b-2 border-[var(--cyber-cyan)]/20 pb-2 uppercase'>
+                  {t('allCurriculo.academicsAndLanguages')}
+                </h3>
                 <div className='space-y-4'>
-                   <div>
-                      <p className='font-black text-[10pt] text-[#050816]'>Pós IA & Data Science</p>
-                      <p className='text-[9pt] text-gray-600'>Anhanguera | 2026</p>
-                   </div>
-                   <div>
-                      <p className='font-black text-[10pt] text-[#050816]'>Tecnólogo ADS</p>
-                      <p className='text-[9pt] text-gray-600'>Anhanguera | Dezembro 2025</p>
-                   </div>
+                  <div>
+                    <p className='font-black text-[10pt] text-[#050816]'>
+                      Pós IA & Data Science
+                    </p>
+                    <p className='text-[9pt] text-gray-600'>Anhanguera | 2026</p>
+                  </div>
+                  <div>
+                    <p className='font-black text-[10pt] text-[#050816]'>Tecnólogo ADS</p>
+                    <p className='text-[9pt] text-gray-600'>Anhanguera | Dezembro 2025</p>
+                  </div>
                 </div>
                 <div className='flex flex-wrap gap-2 pt-2'>
-                  {['Inglês Intermediário', 'Scrum Master', 'Kanban', 'Azure Fundamentals', 'Ethical Hacking'].map(skill => (
-                    <span key={skill} className='text-[9pt] font-bold border-2 border-gray-100 px-3 py-1 rounded-xl text-gray-700'>{skill}</span>
+                  {[
+                    'Inglês Intermediário',
+                    'Scrum Master',
+                    'Kanban',
+                    'Azure Fundamentals',
+                    'Ethical Hacking',
+                  ].map((skill) => (
+                    <span
+                      key={skill}
+                      className='text-[9pt] font-bold border-2 border-gray-100 px-3 py-1 rounded-xl text-gray-700'
+                    >
+                      {skill}
+                    </span>
                   ))}
                 </div>
                 <div className='pt-4'>
-                  <p className='text-[8pt] italic text-gray-500'>{t('allCurriculo.additionalCerts')}</p>
+                  <p className='text-[8pt] italic text-gray-500'>
+                    {t('allCurriculo.additionalCerts')}
+                  </p>
                 </div>
               </div>
             </div>
