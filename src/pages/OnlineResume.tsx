@@ -197,7 +197,7 @@ const OnlineResume = () => {
               <div className='absolute -inset-4 bg-gradient-to-r from-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-pulse' />
               <div className='relative bg-[#050816] border border-white/10 rounded-[2rem] p-6 shadow-2xl flex flex-col items-center justify-center'>
                 <img
-                  src='/assets/images/eu-hM19CCeb.jpg'
+                  src='/assets/images/eu-hM19CCeb.webp'
                   alt='Foto'
                   className='w-40 h-40 object-cover rounded-full transition-all duration-500'
                 />
@@ -411,7 +411,7 @@ const OnlineResume = () => {
           </div>
           <div className='flex flex-col items-center gap-2'>
             <img
-              src='/assets/images/eu-hM19CCeb.jpg'
+              src='/assets/images/eu-hM19CCeb.webp'
               alt='Foto'
               className='w-24 h-24 object-cover rounded-full border-2 border-[var(--cyber-cyan)] p-1'
             />

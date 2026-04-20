@@ -26,7 +26,7 @@ import mobile from './images/projects/mobile.webp';
 import web from './images/projects/web.webp';
 import willy from './images/projects/willy.webp';
 import logo from './logo.webp';
-import userPhoto from './images/user-photo.jpg';
+import userPhoto from './images/user-photo.webp';
 // Ícones de tecnologias
 import android from './tech/android.webp';
 import arduino from './tech/arduino.webp';

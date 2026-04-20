@@ -8,7 +8,7 @@ import { fadeIn } from '../../utils/motion';
 import { LinkAnimado } from '../atoms';
 import { Header } from '../atoms/Header';
 
-const diplomaImg = '/formacao/diploma.png';
+const diplomaImg = '/formacao/diploma.webp';
 
 const AllFormacao = () => {
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 // Importando a foto pessoal de src/assets/images/
-import eu from '../../assets/images/eu.jpg';
+import eu from '../../assets/images/eu.webp';
 import { SectionWrapper } from '../../hoc';
 import { Header } from '../atoms';
 
