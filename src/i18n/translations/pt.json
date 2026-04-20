@@ -905,9 +905,8 @@
     "webmaster": "webmaster",
     "everything": "everything",
     "awesome": "awesome",
-    "error404": "ERROR 404!\nFILE NOT FOUND!\n",
+    "error404": "ERRO 404!\nARQUIVO NÃO ENCONTRADO!\n",
     "fileNotFound": "O arquivo que você está procurando não está onde você acha que está.",
-    "notFileNotFoundComment": "O arquivo que você está procurando não está onde você acha que está.",
     "viewFull": "Ver em tela cheia"
   },
   "colors": {

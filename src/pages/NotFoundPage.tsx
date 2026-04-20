@@ -19,7 +19,7 @@ const NotFoundPage = () => {
 <span class="orange"><body></span>
 ${t('notFound.error404')}
 ${t('notFound.fileNotFound')}
-<span class="comment"><!--${t('notFileNotFoundComment')}--></span>
+<span class="comment"><!--${t('notFound.fileNotFound')}--></span>
 <span class="orange"></body></span>
 <span class="orange"></html></span>
               `.trim()

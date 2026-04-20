@@ -606,7 +606,6 @@
     "awesome": "awesome",
     "error404": "ERROR 404!\nFILE NOT FOUND!\n",
     "fileNotFound": "The file you are looking for is not where you think it is.",
-    "notFileNotFoundComment": "The file you are looking for is not where you think it is.",
     "viewFull": "View in full"
   },
   "doom": {
