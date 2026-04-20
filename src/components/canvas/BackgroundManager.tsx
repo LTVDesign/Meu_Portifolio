@@ -1,6 +1,8 @@
-import { memo, useState, lazy, Suspense } from 'react';
+import { memo, useState, lazy, Suspense, useEffect } from 'react';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
-// Lazy load heavy backgrounds
+import ParticleBackground from './ParticleBackground';
+
+// Lazy load heavy backgrounds individualmente para não bloquear LCP
 const BolhasBackground = lazy(() => import('./BolhasBackground'));
 const CyberpunkBackground = lazy(() => import('./CyberpunkUltraBackground'));
 const LiquidBackground = lazy(() => import('./LiquidUltraBackground'));
@@ -8,7 +10,6 @@ const MatrixRainBackground = lazy(() => import('./MatrixRainBackground'));
 const ParticulateBackground = lazy(() => import('./ParticulateShatterBackground'));
 const SolidBackground = lazy(() => import('./SolidColorBackground'));
 const WavefieldBackground = lazy(() => import('./WavefieldUltraBackground'));
-import ParticleBackground from './ParticleBackground';
 
 /**
  * Centrally manages and switches between different background types based on user configuration.
@@ -17,8 +18,15 @@ import ParticleBackground from './ParticleBackground';
 const BackgroundManager = memo(() => {
   const { config } = useParticleConfig();
   const [isVisible] = useState(true); // Carregar imediatamente
+  const [showBackground, setShowBackground] = useState(false);
 
-  // Removido delay desnecessário que atrasava o carregamento do background
+  // Carregar o background selecionado após o componente montar
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowBackground(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   const renderBackground = () => {
     switch (config.backgroundType) {
@@ -156,7 +164,7 @@ const BackgroundManager = memo(() => {
       style={{ zIndex: 0, touchAction: 'pan-y' }}
       data-background='true'
     >
-      {isVisible && (
+      {isVisible && showBackground && (
         <Suspense fallback={null}>
           {renderBackground()}
         </Suspense>

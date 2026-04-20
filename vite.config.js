@@ -115,26 +115,6 @@ export default defineConfig({
     sourcemap: false,
     rollupOptions: {
       output: {
-        manualChunks(id) {
-          if (!id.includes('node_modules')) return;
-
-          // Vendor Core: Only the essential React framework (extremely stable)
-          if (
-            id.match(/node_modules\/(react|react-dom|scheduler|react-reconciler|use-sync-external-store)\//)
-          ) {
-            return 'vendor-core';
-          }
-
-          // Vendor Router: Separate because routes are lazy-loaded
-          if (id.includes('node_modules/react-router')) {
-            return 'vendor-router';
-          }
-
-          // Vendor i18n
-          if (id.includes('node_modules/i18next')) {
-            return 'vendor-i18n';
-          }
-        },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: (assetInfo) => {
@@ -175,7 +155,7 @@ export default defineConfig({
   },
   optimizeDeps: {
     force: true,
-    include: ['react', 'react-dom', 'three', '@react-three/fiber', '@react-three/drei', 'use-sync-external-store/shim/with-selector'],
+    include: ['react', 'react-dom', 'three', '@react-three/fiber', '@react-three/drei', 'use-sync-external-store/shim/with-selector', 'framer-motion'],
   },
 
   server: {

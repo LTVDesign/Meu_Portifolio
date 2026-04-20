@@ -13,8 +13,7 @@ import { useViewport } from '../../hooks/useViewport';
 
 import CanvasLoader from './Loader';
 
-// LCP Optimization: Preload movido para dentro do componente para não bloquear renderização inicial
-// O preload será feito após o componente montar, não no nível do módulo
+// LCP Optimization: Preload do modelo 3D pré-carregado imediatamente para reduzir LCP
 
 // Fluid configuration parameters based on container width
 const getFluidConfig = (width: number) => {
@@ -135,13 +134,9 @@ const ThreeExperience: React.FC = () => {
   const [shouldLoad, setShouldLoad] = useState(false);
   const { width: viewportWidth } = useViewport();
 
-  // LCP Optimization: Preload feito após montagem, não no nível do módulo
+  // LCP Optimization: Preload do modelo 3D imediato para reduzir LCP
   useEffect(() => {
-    // Preload após um pequeno delay para não bloquear LCP
-    const preloadTimer = setTimeout(() => {
-      useGLTF.preload('/desktop_pc/scene-optimized.gltf');
-    }, 100);
-    return () => clearTimeout(preloadTimer);
+    useGLTF.preload('/desktop_pc/scene-optimized.gltf');
   }, []);
 
   // Carregamento lazy com IntersectionObserver
