@@ -232,8 +232,8 @@ const OnlineResume = () => {
                 variants={fadeIn('up', 'spring', 0.1 * idx, 0.75)}
                 className='group bg-white/5 backdrop-blur-md border border-white/10 rounded-[2rem] p-8 hover:bg-white/10 transition-all hover:-translate-y-2 relative overflow-hidden'
               >
-                <div className='absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-30 transition-opacity'>
-                  <FiAward className='text-4xl text-[var(--cyber-cyan)]' />
+                <div className='absolute -top-2 -right-2 p-4 opacity-10 group-hover:opacity-30 transition-opacity'>
+                  <FiAward className='text-5xl text-[var(--cyber-cyan)]' />
                 </div>
                 <h4 className='text-xl font-black mb-6 flex items-center gap-3 text-white uppercase tracking-wider'>
                   <span className='w-2 h-6 bg-[var(--cyber-cyan)] rounded-full' />
