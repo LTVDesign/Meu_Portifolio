@@ -1,14 +1,14 @@
-import { memo, useState } from 'react';
+import { memo, useState, lazy, Suspense } from 'react';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
-import BolhasBackground from './BolhasBackground';
-import CyberpunkBackground from './CyberpunkUltraBackground';
-import LiquidBackground from './LiquidUltraBackground';
-import MatrixRainBackground from './MatrixRainBackground';
 // Lazy load heavy backgrounds
+const BolhasBackground = lazy(() => import('./BolhasBackground'));
+const CyberpunkBackground = lazy(() => import('./CyberpunkUltraBackground'));
+const LiquidBackground = lazy(() => import('./LiquidUltraBackground'));
+const MatrixRainBackground = lazy(() => import('./MatrixRainBackground'));
+const ParticulateBackground = lazy(() => import('./ParticulateShatterBackground'));
+const SolidBackground = lazy(() => import('./SolidColorBackground'));
+const WavefieldBackground = lazy(() => import('./WavefieldUltraBackground'));
 import ParticleBackground from './ParticleBackground';
-import ParticulateBackground from './ParticulateShatterBackground';
-import SolidBackground from './SolidColorBackground';
-import WavefieldBackground from './WavefieldUltraBackground';
 
 /**
  * Centrally manages and switches between different background types based on user configuration.
@@ -156,7 +156,11 @@ const BackgroundManager = memo(() => {
       style={{ zIndex: 0, touchAction: 'pan-y' }}
       data-background='true'
     >
-      {isVisible && renderBackground()}
+      {isVisible && (
+        <Suspense fallback={null}>
+          {renderBackground()}
+        </Suspense>
+      )}
     </div>
   );
 });

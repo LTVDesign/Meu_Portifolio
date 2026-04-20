@@ -9,8 +9,10 @@ import { useViewport } from '../../hooks/useViewport';
 import { emailService } from '../../utils/emailService';
 import { slideIn } from '../../utils/motion';
 import { Header } from '../atoms';
-import { EarthCanvas } from '../canvas';
+import { lazy, Suspense } from 'react';
 
+// LCP Optimization: Lazy load EarthCanvas so Contact page load doesn't pull in Three.js
+const EarthCanvas = lazy(() => import('../canvas/Earth'));
 type ContactForm = {
   name: string;
   email: string;
@@ -488,7 +490,11 @@ const Contact = () => {
               className='flex-1 w-full relative overflow-hidden'
             >
               <div className='w-full h-full flex items-center justify-center'>
-                {isInView && <EarthCanvas />}
+                {isInView && (
+                  <Suspense fallback={null}>
+                    <EarthCanvas />
+                  </Suspense>
+                )}
               </div>
             </m.div>
           )}
