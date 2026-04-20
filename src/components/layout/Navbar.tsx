@@ -7,8 +7,7 @@ import { useViewport } from '../../hooks/useViewport';
 import { LinkAnimado } from '../atoms';
 import Tooltip from '../atoms/Tooltip';
 
-// Logo da raiz (public) - servido estaticamente
-const logo = '/assets/icons/logo.webp';
+
 
 const Navbar = memo(() => {
   const [active, setActive] = useState<string | null>(null);
@@ -143,7 +142,7 @@ const Navbar = memo(() => {
         padding: '0.25rem 0',
       }}
     >
-      {/* Logo Flutuante - Menor e saindo do header */}
+      {/* Logo Flutuante - Visível e destacado */}
       <Link
         to='/'
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -166,7 +165,7 @@ const Navbar = memo(() => {
           className='w-full h-full'
         >
           <img
-            src={logo}
+            src='/assets/icons/logo.webp'
             alt={t('nav.logoAlt')}
             className='w-full h-full object-contain drop-shadow-[0_0_25px_rgba(145,94,255,0.9)]'
             width='128'
@@ -192,7 +191,7 @@ const Navbar = memo(() => {
       >
         {/* Left side: Brand and Tagline */}
         <div
-          className={`flex items-center gap-[clamp(0.5rem,3vw,1.5rem)] ml-[clamp(8rem,12vw,10rem)]`}
+          className={`flex items-center gap-[clamp(0.5rem,3vw,1.5rem)]`}
         >
           <Link
             to='/'

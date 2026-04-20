@@ -207,7 +207,18 @@ const Hero = () => {
               <div className='relative mb-3'>
                 <div className='absolute inset-0 rounded-3xl border-2 border-[var(--cyber-cyan)]/30 blur-sm w-[clamp(2rem,6vw,3rem)] h-[clamp(3.5rem,10vh,5rem)]' />
                 <div className='relative rounded-3xl border-2 border-[var(--cyber-cyan)]/60 flex justify-center p-2 backdrop-blur-sm bg-black/20 w-[clamp(1.5rem,4vw,1.875rem)] h-[clamp(2.5rem,8vh,3.125rem)]'>
-                  <div className='rounded-full bg-gradient-to-br from-[var(--cyber-cyan)] to-[var(--cyber-purple)] mb-1 shadow-[0_0_12px_rgba(0,255,255,0.9),0_0_20px_rgba(145,94,255,0.6)] w-2.5 h-2.5' />
+                  <m.div
+                    animate={{
+                      y: [0, 15, 0],
+                      opacity: [1, 0.3, 1],
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    }}
+                    className='rounded-full bg-gradient-to-br from-[var(--cyber-cyan)] to-[var(--cyber-purple)] mb-1 shadow-[0_0_12px_rgba(0,255,255,0.9),0_0_20px_rgba(145,94,255,0.6)] w-2.5 h-2.5'
+                  />
                 </div>
               </div>
 
