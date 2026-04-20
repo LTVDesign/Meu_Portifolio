@@ -7,7 +7,7 @@ import {
 } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import type React from 'react';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useState, useMemo } from 'react';
 import { useTouchScrollGuard } from '../../hooks/useTouchScrollGuard';
 import { useViewport } from '../../hooks/useViewport';
 
@@ -59,7 +59,7 @@ const ComputersContent: React.FC<{ viewportWidth: number }> = ({ viewportWidth }
     return () => clearTimeout(timer);
   }, [viewportWidth]);
 
-  const cfg = getFluidConfig(viewportWidth);
+  const cfg = useMemo(() => getFluidConfig(viewportWidth), [viewportWidth]);
 
   if (!shouldLoadModel || !computer?.scene) {
     return null;
@@ -168,7 +168,7 @@ const ThreeExperience: React.FC = () => {
     return () => observer.disconnect();
   }, [viewportWidth, containerRef]);
 
-  const cfg = getFluidConfig(viewportWidth);
+  const cfg = useMemo(() => getFluidConfig(viewportWidth), [viewportWidth]);
 
   // DPR adaptativo: menor em mobile para economizar bateria e memória
   const dpr = Math.min(

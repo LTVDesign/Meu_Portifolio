@@ -20,11 +20,11 @@ export default defineConfig({
       importSource: 'react',
     }),
     ViteImageOptimizer({
-      png: { quality: 80 },
-      jpeg: { quality: 75 },
-      jpg: { quality: 75 },
-      webp: { quality: 75 },
-      avif: { quality: 65 },
+      png: { quality: 85 },
+      jpeg: { quality: 80 },
+      jpg: { quality: 80 },
+      webp: { quality: 80 },
+      avif: { quality: 70 },
       svg: {
         plugins: [
           { name: 'removeViewBox', active: false },
@@ -47,6 +47,36 @@ export default defineConfig({
       minSize: 0,
       level: 9,
       deleteOriginalFile: false,
+    }),
+    compression({
+      algorithm: 'brotliCompress',
+      ext: '.br',
+      threshold: 10240,
+      minSize: 0,
+      level: 11,
+      deleteOriginalFile: false,
+      filter: (file) => {
+        return file && file.name && (
+          file.name.endsWith('.js') ||
+          file.name.endsWith('.css') ||
+          file.name.endsWith('.html')
+        );
+      },
+    }),
+    compression({
+      algorithm: 'gzip',
+      ext: '.gz',
+      threshold: 10240,
+      minSize: 0,
+      level: 9,
+      deleteOriginalFile: false,
+      filter: (file) => {
+        return file && file.name && (
+          file.name.endsWith('.js') ||
+          file.name.endsWith('.css') ||
+          file.name.endsWith('.html')
+        );
+      },
     }),
   ],
 

@@ -6,15 +6,9 @@
   <link rel="manifest" href="/manifest.json">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Critical CSS - Inlined para eliminar render-blocking request -->
-  <style>
-    body{font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background-color:#050816;color:#fff}
-    .navbar,.critical-navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(5,8,22,0.8);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.1);padding:1rem 2rem}
-  </style>
-
   <!-- LCP Optimization: Preload da imagem LCP com alta prioridade -->
   <link rel="preload" href="/assets/icons/logo.webp" as="image" type="image/webp" fetchpriority="high">
-  <link rel="preload" media="(max-width: 1024px)" href="/assets/images/pc-gamer.webp" as="image" type="image/webp" fetchpriority="high">
+  <link rel="preload" href="/assets/images/pc-gamer.webp" as="image" type="image/webp" fetchpriority="high">
 
   <!-- Preload de assets 3D críticos para reduzir cadeia de dependência de rede -->
   <link rel="preload" href="/desktop_pc/scene-optimized.gltf" as="fetch" crossorigin="anonymous">
@@ -37,6 +31,7 @@
   <!-- Google Fonts: Inter — Async load to prevent render blocking -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
     rel="stylesheet" media="print" onload="this.onload=null;this.removeAttribute('media');">
@@ -92,7 +87,18 @@
         link2.rel = 'prefetch';
         link2.href = '/projetos';
         document.head.appendChild(link2);
-      });
+
+        // Prefetch additional routes
+        const link3 = document.createElement('link');
+        link3.rel = 'prefetch';
+        link3.href = '/cursos';
+        document.head.appendChild(link3);
+
+        const link4 = document.createElement('link');
+        link4.rel = 'prefetch';
+        link4.href = '/contato';
+        document.head.appendChild(link4);
+      }, { timeout: 2000 });
     }
   </script>
   <title>Leandro Saturnino Barbosa | Portfólio 3D - React & Three.js</title>

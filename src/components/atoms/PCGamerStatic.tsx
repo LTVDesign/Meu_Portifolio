@@ -11,6 +11,11 @@ const PCGamerStatic = () => (
       fetchPriority='high'
       decoding='async'
       sizes='(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 412px'
+      style={{
+        contain: 'layout style paint',
+        willChange: 'transform',
+        transform: 'translateZ(0)',
+      }}
     />
   </div>
 );

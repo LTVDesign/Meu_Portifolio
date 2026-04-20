@@ -138,6 +138,9 @@
     height: 100vh;
     pointer-events: none;
     touch-action: pan-y;
+    contain: layout style paint;
+    will-change: transform;
+    transform: translateZ(0);
   }
 
   main,
@@ -155,6 +158,9 @@
     left: 0;
     right: 0;
     z-index: 1000;
+    contain: layout style paint;
+    will-change: transform;
+    transform: translateZ(0);
   }
 
   footer {
@@ -256,6 +262,7 @@
     content-visibility: auto;
     contain-intrinsic-size: 0 500px;
     scroll-margin-top: clamp(80px, 10vh, 120px);
+    contain: layout style paint;
   }
 
   .navbar,
@@ -329,6 +336,7 @@
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     border-radius: 1rem;
     transform: translateZ(0);
+    contain: layout style paint;
   }
 
   .glass-card {
@@ -338,11 +346,10 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     border-radius: 1.25rem;
-    transition:
-      border-color 0.3s ease,
-      box-shadow 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
     will-change: transform, opacity;
     transform: translateZ(0);
+    contain: layout style paint;
   }
 
   .glass-card:hover {
@@ -362,13 +369,12 @@
     padding: clamp(0.875rem, 2vw, 1.25rem) clamp(1.5rem, 4vw, 2.5rem);
     border-radius: clamp(1rem, 2vw, 1.5rem);
     box-shadow: 0 0 25px rgba(145, 94, 255, 0.4);
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     will-change: transform;
     transform: translateZ(0);
     min-height: 48px;
     font-size: clamp(0.8rem, 1.5vw, 1rem);
+    contain: layout style paint;
   }
 
   .btn-primary:hover {
@@ -415,11 +421,10 @@
 
   .form-input {
     @apply bg-black/40 border border-white/20 rounded-xl py-3.5 px-4 text-white text-sm placeholder:text-white/30 focus:border-[var(--cyber-purple)] focus:ring-4 focus:ring-[var(--cyber-purple)]/20 focus:outline-none backdrop-blur-md;
-    transition:
-      border-color 0.3s ease,
-      box-shadow 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
     transform: translateZ(0);
     min-height: 48px;
+    contain: layout style paint;
   }
 
   .composited-hover {
@@ -1326,6 +1331,7 @@ nav,
 
 img {
   content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
 }
 
 @supports (scroll-behavior: smooth) {
