@@ -65,12 +65,12 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
         <div className='mt-auto pt-8 w-full flex flex-col items-center gap-4'>
           <div className='flex flex-col items-center gap-2'>
             {project.category && (
-              <div className='px-3 py-1 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[9px] text-[var(--cyber-cyan)] uppercase tracking-widest shadow-xl'>
+              <div className='px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[9px] text-[var(--cyber-cyan)] uppercase tracking-widest shadow-lg'>
                 {t(project.category)}
               </div>
             )}
             {project.status && (
-              <div className='px-2 py-1 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[8px] text-green-400 uppercase tracking-widest'>
+              <div className='px-2 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[8px] text-green-400 uppercase tracking-widest'>
                 {t(project.status)}
               </div>
             )}

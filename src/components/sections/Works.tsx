@@ -158,12 +158,12 @@ const Works = () => {
                 {/* Badges Container */}
                 <div className='absolute top-[clamp(0.75rem,2vw,1rem)] left-[clamp(0.75rem,2vw,1rem)] right-[clamp(0.75rem,2vw,1rem)] flex flex-col items-start gap-2'>
                   {/* Category Badge */}
-                  <div className='flex-shrink-0 px-[clamp(0.75rem,2vw,1rem)] py-[clamp(0.25rem,1vw,0.375rem)] bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[clamp(0.55rem,1.5vw,0.65rem)] font-bold text-[var(--cyber-cyan)] uppercase tracking-widest shadow-xl'>
+                  <div className='flex-shrink-0 px-[clamp(0.75rem,2vw,1rem)] py-[clamp(0.25rem,1vw,0.375rem)] bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[clamp(0.55rem,1.5vw,0.65rem)] font-bold text-[var(--cyber-cyan)] uppercase tracking-widest shadow-lg'>
                     {projectCategory}
                   </div>
 
                   {/* Status Badge */}
-                  <div className='flex-shrink-0 px-[clamp(0.5rem,1.5vw,0.75rem)] py-[clamp(0.25rem,1vw,0.25rem)] bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-[clamp(0.5rem,1.2vw,0.55rem)] font-bold text-green-400 uppercase tracking-widest'>
+                  <div className='flex-shrink-0 px-[clamp(0.5rem,1.5vw,0.75rem)] py-[clamp(0.25rem,1vw,0.25rem)] bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[clamp(0.5rem,1.2vw,0.55rem)] font-bold text-green-400 uppercase tracking-widest'>
                     {projectStatus}
                   </div>
                 </div>

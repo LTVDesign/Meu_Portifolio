@@ -31,7 +31,7 @@ const EducationCard = ({ item, index }: EducationCardProps) => {
 
       <div className='flex items-start gap-6'>
         {item.logo && (
-          <div className='w-[clamp(4rem,8vw,5rem)] h-[clamp(4rem,8vw,5rem)] flex-shrink-0 rounded-2xl overflow-hidden border border-white/10 bg-black/50 flex items-center justify-center'>
+          <div className='w-[clamp(4rem,8vw,5rem)] h-[clamp(4rem,8vw,5rem)] flex-shrink-0 rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center'>
             <img
               src={item.logo}
               alt={item.institution}

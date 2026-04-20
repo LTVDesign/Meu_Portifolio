@@ -5,26 +5,32 @@ const NotFoundPage = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen bg-[#0414a7] font-[VT323] text-[#e0e2f4]">
-      <main className="container mx-auto w-[90%] max-w-[640px] pt-[10%]">
-        <h1 className="neg title text-center text-[2.75rem]/1.05em">
-          <span className="bg-[#aaaaaa] px-[15px] py-[2px] pb-[13px]">Error - 404</span>
-        </h1>
-        <p>{t('notFound.errorOccurred')}</p>
-        <p>
-          * {t('notFound.returnHome')}<br />
-          * {t('notFound.sendEmail')}
-        </p>
-        <nav className="nav mt-[35px] text-center">
-          <Link to="/" className="link px-[9px] py-[2px] pb-[8px] hover:bg-[#aaaaaa] hover:text-[#0414a7] transition-colors">
-            {t('notFound.index')}
-          </Link>
-          &nbsp;|&nbsp;
-          <a href={`mailto:${t('common.email')}`} className="link px-[9px] py-[2px] pb-[8px] hover:bg-[#aaaaaa] hover:text-[#0414a7] transition-colors">
-            {t('notFound.webmaster')}
-          </a>
-        </nav>
-      </main>
+    <div className="error-page">
+      <div className="error">
+        <div className="wrap">
+          <div className="404">
+            <pre><code dangerouslySetInnerHTML={{
+              __html: `
+<span class="green"><!</span><span>DOCTYPE html</span><span class="green">></span>
+<span class="orange"><html></span>
+<span class="orange"><style></span>
+* {t('notFound.everything')}:<span class="blue">${t('notFound.awesome')}</span>;
+<span class="orange"></style></span>
+<span class="orange"><body></span>
+${t('notFound.error404')}
+${t('notFound.fileNotFound')}
+<span class="comment"><!--${t('notFileNotFoundComment')}--></span>
+<span class="orange"></body></span>
+<span class="orange"></html></span>
+              `.trim()
+            }} />
+            </pre>
+          </div>
+        </div>
+        <div className="info">
+          <Link to="/" className="viewFull">{t('notFound.viewFull')}</Link>
+        </div>
+      </div>
     </div>
   );
 };

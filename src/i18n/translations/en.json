@@ -601,7 +601,13 @@
     "returnHome": "Return to our homepage.",
     "sendEmail": "Send us an e-mail about this error and try later.",
     "index": "index",
-    "webmaster": "webmaster"
+    "webmaster": "webmaster",
+    "everything": "everything",
+    "awesome": "awesome",
+    "error404": "ERROR 404!\nFILE NOT FOUND!\n",
+    "fileNotFound": "The file you are looking for is not where you think it is.",
+    "notFileNotFoundComment": "The file you are looking for is not where you think it is.",
+    "viewFull": "View in full"
   },
   "doom": {
     "p": "Easter Egg - DOOM in Browser",

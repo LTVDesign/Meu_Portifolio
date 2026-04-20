@@ -472,17 +472,16 @@ const Formacao = () => {
             className='glass-card group relative overflow-hidden p-[clamp(1.25rem,4vw,2.5rem)] flex flex-col h-full neon-hover border border-white/10 cursor-pointer'
           >
             <div
-              className={`absolute top-4 right-4 px-5 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-full text-white shadow-[0_0_15px_rgba(145,94,255,0.5)] border border-white/30 z-20 backdrop-blur-sm ${
-                item.status === t('status.concluido')
-                  ? 'bg-gradient-to-r from-green-600 to-emerald-600'
-                  : 'bg-gradient-to-r from-yellow-600 to-orange-600'
-              }`}
+              className={`absolute top-4 right-4 px-5 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-full text-white shadow-[0_0_15px_rgba(145,94,255,0.5)] border border-white/30 z-20 backdrop-blur-sm ${item.status === t('status.concluido')
+                ? 'bg-gradient-to-r from-green-600 to-emerald-600'
+                : 'bg-gradient-to-r from-yellow-600 to-orange-600'
+                }`}
             >
               {item.status}
             </div>
 
             <div className='flex items-start gap-[clamp(1rem,3vw,2rem)] pt-[clamp(1rem,3vw,1.5rem)]'>
-              <div className='w-[clamp(5rem,10vw,7rem)] h-[clamp(5rem,10vw,7rem)] flex-shrink-0 rounded-2xl overflow-hidden bg-black/50 p-[clamp(0.75rem,2vw,1rem)] flex items-center justify-center shadow-inner relative z-10'>
+              <div className='w-[clamp(5rem,10vw,7rem)] h-[clamp(5rem,10vw,7rem)] flex-shrink-0 rounded-2xl overflow-hidden bg-white/5 backdrop-blur-md border border-white/10 p-[clamp(0.75rem,2vw,1rem)] flex items-center justify-center shadow-lg relative z-10'>
                 <img
                   src={facul}
                   alt={item.institution}
@@ -545,7 +544,7 @@ const Formacao = () => {
         <Modal isOpen={isModalOpen} onClose={closeModal} title={selectedFormation.title}>
           <div className='p-2'>
             <div className='flex gap-2 mb-3'>
-              <div className='w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden border border-white/10 bg-black/50 p-2 flex items-center justify-center'>
+              <div className='w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm p-2 flex items-center justify-center'>
                 <img
                   src={selectedFormation.logo}
                   alt={selectedFormation.institution}
@@ -571,7 +570,7 @@ const Formacao = () => {
                   <h4 className='text-xs font-bold text-white'>
                     {t('education.semesterEvolution')}
                   </h4>
-                  <div className='p-1.5 bg-black/60 rounded border border-white/10 flex-shrink-0'>
+                  <div className='p-1.5 bg-white/10 backdrop-blur-sm rounded border border-white/10 flex-shrink-0'>
                     <div className='text-center'>
                       <div className='text-sm font-bold text-[var(--cyber-cyan)]'>
                         {stats.average.toFixed(1)}
@@ -696,7 +695,7 @@ const Formacao = () => {
                 >
                   <div className='p-2'>
                     <div className='flex items-center gap-2'>
-                      <div className='w-10 h-10 rounded overflow-hidden border border-white/20 bg-black/60 p-1 flex items-center justify-center'>
+                      <div className='w-10 h-10 rounded overflow-hidden border border-white/20 bg-white/10 backdrop-blur-sm p-1 flex items-center justify-center'>
                         <img
                           src={selectedFormation.diplomaPreview}
                           alt='Diploma'
