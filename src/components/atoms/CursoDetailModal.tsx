@@ -94,7 +94,7 @@ const CursoDetailModal: React.FC<CursoDetailModalProps> = ({
                       className='text-xs text-amber-300 font-black flex items-center gap-1.5 drop-shadow-lg'
                       style={{ textShadow: '0 0 12px rgba(251, 191, 36, 0.8)' }}
                     >
-                      ⭐ WITH HONORS
+                      ⭐ {t('allCursos.withHonors')}
                     </m.span>
                   )}
                 </div>

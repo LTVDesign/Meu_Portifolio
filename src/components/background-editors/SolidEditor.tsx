@@ -32,98 +32,72 @@ const SolidEditor: React.FC<SolidEditorProps> = ({ config, updateConfig }) => (
 
     <div className='grid grid-cols-2 gap-2 mt-2'>
       <ColorControl
-        label={config.solidType === 'solid' ? 'Cor' : 'Cor 1'}
+        label='Cor 1'
         value={config.solidColor1}
         onChange={(v) => updateConfig({ solidColor1: v as string })}
       />
-      {config.solidType !== 'solid' && (
-        <>
-          <ColorControl
-            label='Cor 2'
-            value={config.solidColor2}
-            onChange={(v) => updateConfig({ solidColor2: v as string })}
-          />
-          <div className='col-span-2'>
-            <ColorControl
-              label='Cor 3'
-              value={config.solidColor3}
-              onChange={(v) => updateConfig({ solidColor3: v as string })}
-            />
-          </div>
-        </>
-      )}
+      <ColorControl
+        label='Cor 2'
+        value={config.solidColor2}
+        onChange={(v) => updateConfig({ solidColor2: v as string })}
+      />
+      <div className='col-span-2'>
+        <ColorControl
+          label='Cor 3'
+          value={config.solidColor3}
+          onChange={(v) => updateConfig({ solidColor3: v as string })}
+        />
+      </div>
     </div>
 
     {/* Controles de transparência (alpha) para cada cor */}
-    {config.solidType === 'solid' && (
-      <SliderControl
-        label='Transparência Cor 1'
-        value={config.solidColor1Alpha ?? 1}
-        min='0'
-        max='1'
-        step='0.01'
-        onChange={(v) => updateConfig({ solidColor1Alpha: v as number })}
-        decimals={2}
-      />
-    )}
+    <SliderControl
+      label='Alpha Cor 1'
+      value={config.solidColor1Alpha ?? 1}
+      min='0'
+      max='1'
+      step='0.01'
+      onChange={(v) => updateConfig({ solidColor1Alpha: v as number })}
+      decimals={2}
+    />
+    <SliderControl
+      label='Alpha Cor 2'
+      value={config.solidColor2Alpha ?? 1}
+      min='0'
+      max='1'
+      step='0.01'
+      onChange={(v) => updateConfig({ solidColor2Alpha: v as number })}
+      decimals={2}
+    />
+    <SliderControl
+      label='Alpha Cor 3'
+      value={config.solidColor3Alpha ?? 1}
+      min='0'
+      max='1'
+      step='0.01'
+      onChange={(v) => updateConfig({ solidColor3Alpha: v as number })}
+      decimals={2}
+    />
 
-    {config.solidType !== 'solid' && (
-      <>
-        <SliderControl
-          label='Alpha Cor 1'
-          value={config.solidColor1Alpha ?? 1}
-          min='0'
-          max='1'
-          step='0.01'
-          onChange={(v) => updateConfig({ solidColor1Alpha: v as number })}
-          decimals={2}
-        />
-        <SliderControl
-          label='Alpha Cor 2'
-          value={config.solidColor2Alpha ?? 1}
-          min='0'
-          max='1'
-          step='0.01'
-          onChange={(v) => updateConfig({ solidColor2Alpha: v as number })}
-          decimals={2}
-        />
-        {config.solidType !== 'radial' && (
-          <SliderControl
-            label='Alpha Cor 3'
-            value={config.solidColor3Alpha ?? 1}
-            min='0'
-            max='1'
-            step='0.01'
-            onChange={(v) => updateConfig({ solidColor3Alpha: v as number })}
-            decimals={2}
-          />
-        )}
-      </>
-    )}
+    <SliderControl
+      label='Ângulo (º)'
+      value={config.solidAngle}
+      min='0'
+      max='360'
+      step='1'
+      onChange={(v) => updateConfig({ solidAngle: v as number })}
+      decimals={0}
+    />
 
-    {config.solidType !== 'solid' && config.solidType !== 'radial' && (
-      <SliderControl
-        label='Ângulo (º)'
-        value={config.solidAngle}
-        min='0'
-        max='360'
-        step='1'
-        onChange={(v) => updateConfig({ solidAngle: v as number })}
-        decimals={0}
-      />
-    )}
-
-    {config.solidType === 'animated' && (
-      <SliderControl
-        label='Velocidade (s)'
-        value={config.solidAnimationSpeed}
-        min='2'
-        max='30'
-        step='1'
-        onChange={(v) => updateConfig({ solidAnimationSpeed: v as number })}
-        decimals={0}
-      />
-    )}
+    <SliderControl
+      label='Velocidade (s)'
+      value={config.solidAnimationSpeed}
+      min='2'
+      max='30'
+      step='1'
+      onChange={(v) => updateConfig({ solidAnimationSpeed: v as number })}
+      decimals={0}
+    />
 
     <label className='flex items-center text-white mt-3 p-2 bg-gray-800/50 rounded-md border border-gray-600/50 cursor-pointer hover:border-[#915EFF] transition-colors group'>
       <input
@@ -158,17 +132,15 @@ const SolidEditor: React.FC<SolidEditorProps> = ({ config, updateConfig }) => (
     />
 
     {/* Controle de escala/zoom para gradientes */}
-    {config.solidType !== 'solid' && (
-      <SliderControl
-        label='Escala do Gradiente'
-        value={config.solidScale ?? 1}
-        min='0.1'
-        max='3'
-        step='0.1'
-        onChange={(v) => updateConfig({ solidScale: v as number })}
-        decimals={1}
-      />
-    )}
+    <SliderControl
+      label='Escala do Gradiente'
+      value={config.solidScale ?? 1}
+      min='0.1'
+      max='3'
+      step='0.1'
+      onChange={(v) => updateConfig({ solidScale: v as number })}
+      decimals={1}
+    />
   </div>
 );
 
