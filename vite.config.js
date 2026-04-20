@@ -75,7 +75,7 @@ export default defineConfig({
     },
     // Configurações adicionais para compatibilidade com Vercel
     minify: 'terser',
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 1500,
     cssCodeSplit: true,
     assetsInlineLimit: 8192,
     cssMinify: true,

@@ -9,8 +9,11 @@ import ptResources from './translations/pt.json';
 const loadResources = async (language: string) => {
   if (language === 'pt') return ptResources;
   try {
-    const resources = await import(`./translations/${language}.json`);
-    return resources.default;
+    if (language === 'en') {
+      const resources = await import('./translations/en.json');
+      return resources.default;
+    }
+    return ptResources;
   } catch (error) {
     console.error(`[i18n] Erro ao carregar traduções para ${language}:`, error);
     // Fallback para pt caso falhe
