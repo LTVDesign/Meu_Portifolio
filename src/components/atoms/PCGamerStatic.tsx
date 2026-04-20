@@ -7,7 +7,8 @@ const PCGamerStatic = () => (
       className='w-full h-auto drop-shadow-2xl'
       width='412'
       height='412'
-      loading='lazy'
+      loading='eager'
+      fetchPriority='high'
       decoding='async'
       sizes='(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 412px'
     />

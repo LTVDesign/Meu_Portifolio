@@ -104,9 +104,6 @@ export default defineConfig({
           if (id.includes('node_modules/i18next')) {
             return 'vendor-i18n';
           }
-
-          // Vendor Libs: All other UI/3D/Utility libraries (grouped to avoid circularity)
-          return 'vendor-libs';
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
