@@ -110,8 +110,11 @@ const AppContent = () => {
   const { openBgMenu } = useBackgroundMenu();
 
   useEffect(() => {
-    // Carregar backgrounds imediatamente
-    setLoadBackgrounds(true);
+    // Adia o carregamento do 3D (canvas) para liberar a thread na hora de renderizar o LCP do texto
+    const timer = setTimeout(() => {
+      setLoadBackgrounds(true);
+    }, 1000); // 1s após a montagem é seguro para o LCP pintar.
+    return () => clearTimeout(timer);
   }, []);
 
   return (

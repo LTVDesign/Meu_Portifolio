@@ -121,15 +121,6 @@ const OnlineResume = () => {
             <FiDownload className='text-lg' />
             {t('allCurriculo.downloadCv', 'Download do Currículo')}
           </a>
-
-          <a
-            href={cvFile}
-            download='Leandro_Barbosa_curriculo.pdf'
-            className='flex items-center gap-3 px-8 py-3.5 bg-gradient-to-r from-[#FF007A] to-[#9747FF] hover:shadow-[0_10px_30px_rgba(255,0,122,0.3)] text-white rounded-2xl transition-all text-sm font-extrabold active:scale-95'
-          >
-            <FiDownload className='text-lg' />
-            {t('allCurriculo.saveAsPdf', 'Salvar como PDF')}
-          </a>
         </div>
       </m.div>
 
@@ -163,7 +154,7 @@ const OnlineResume = () => {
             </p>
 
             <div className='flex flex-wrap gap-6'>
-              <div className='flex items-center gap-3 text-gray-300 hover:text-[var(--cyber-cyan)] transition-colors group'>
+              <a href="https://wa.me/5511984838629" target="_blank" rel="noopener noreferrer" className='flex items-center gap-3 text-gray-300 hover:text-[var(--cyber-cyan)] transition-colors group'>
                 <div className='w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-[var(--cyber-cyan)]/50 transition-all'>
                   <FaWhatsapp className='text-xl' />
                 </div>
@@ -173,8 +164,8 @@ const OnlineResume = () => {
                   </p>
                   <p className='font-bold'>+55 11 98483-8629</p>
                 </div>
-              </div>
-              <div className='flex items-center gap-3 text-gray-300 hover:text-[var(--cyber-purple)] transition-colors group'>
+              </a>
+              <a href="https://www.linkedin.com/in/lelebrr" target="_blank" rel="noopener noreferrer" className='flex items-center gap-3 text-gray-300 hover:text-[var(--cyber-purple)] transition-colors group'>
                 <div className='w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-[var(--cyber-purple)]/50 transition-all'>
                   <FiLinkedin className='text-xl' />
                 </div>
@@ -184,7 +175,7 @@ const OnlineResume = () => {
                   </p>
                   <p className='font-bold'>/in/lelebrr</p>
                 </div>
-              </div>
+              </a>
               <div className='flex items-center gap-3 text-gray-300 hover:text-white transition-colors group'>
                 <div className='w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-white/30 transition-all'>
                   <FiMapPin className='text-xl' />
@@ -201,18 +192,15 @@ const OnlineResume = () => {
             </div>
           </div>
 
-          <div className='flex justify-center'>
+          <div className='flex justify-center items-center h-full'>
             <div className='relative group'>
               <div className='absolute -inset-4 bg-gradient-to-r from-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-pulse' />
-              <div className='relative bg-[#050816] border border-white/10 rounded-[2rem] p-6 shadow-2xl'>
+              <div className='relative bg-[#050816] border border-white/10 rounded-[2rem] p-6 shadow-2xl flex flex-col items-center justify-center'>
                 <img
                   src='/assets/images/eu-hM19CCeb.jpg'
                   alt='Foto'
-                  className='w-32 h-32 object-cover rounded-full grayscale brightness-125 hover:grayscale-0 transition-all duration-500 cursor-crosshair'
+                  className='w-40 h-40 object-cover rounded-full transition-all duration-500'
                 />
-                <p className='text-[10px] text-center mt-3 font-mono text-gray-500 uppercase tracking-widest'>
-                  {t('allCurriculo.scanText', 'Scan for full experience')}
-                </p>
               </div>
             </div>
           </div>
@@ -427,9 +415,6 @@ const OnlineResume = () => {
               alt='Foto'
               className='w-24 h-24 object-cover rounded-full border-2 border-[var(--cyber-cyan)] p-1'
             />
-            <p className='text-[8px] font-bold text-gray-400 uppercase tracking-tighter text-center'>
-              {t('allCurriculo.scanText')}
-            </p>
           </div>
         </div>
 
