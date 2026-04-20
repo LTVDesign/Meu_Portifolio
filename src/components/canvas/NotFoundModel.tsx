@@ -4,6 +4,9 @@ import { useRef } from 'react';
 import type { Mesh as ThreeMesh } from 'three';
 import { MathUtils } from 'three';
 
+// LCP Optimization: Preload do modelo shards.glb
+useGLTF.preload('/medias/shards.glb');
+
 export default function NotFoundModel() {
   const { viewport } = useThree();
   const { nodes } = useGLTF('/medias/shards.glb');

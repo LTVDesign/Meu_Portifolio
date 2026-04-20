@@ -33,6 +33,11 @@ const EarthCanvas = () => {
     intentThreshold: 8,
   });
 
+  // LCP Optimization: Preload do modelo da Terra
+  useEffect(() => {
+    useGLTF.preload('/assets/3d-models/earth/scene.gltf');
+  }, []);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
