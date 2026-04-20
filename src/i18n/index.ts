@@ -1,21 +1,20 @@
 import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
+import ptResources from './translations/pt.json';
 
-// Otimização: Traduções carregadas dinamicamente para reduzir o bundle inicial em ~100KB
-// i18next suporta backends assíncronos para carregar recursos sob demanda
+// Otimização: Traduções carregadas dinamicamente (exceto PT-BR que é crítico para o LCP)
+// Para o "pt" (idioma primário), o import é estático, eliminando as centenas de milissegundos
+// que o navegador ficava aguardando para ler o JSON antes de pintar os textos na tela.
 const loadResources = async (language: string) => {
+  if (language === 'pt') return ptResources;
   try {
     const resources = await import(`./translations/${language}.json`);
     return resources.default;
   } catch (error) {
     console.error(`[i18n] Erro ao carregar traduções para ${language}:`, error);
     // Fallback para pt caso falhe
-    if (language !== 'pt') {
-      const ptResources = await import('./translations/pt.json');
-      return ptResources.default;
-    }
-    return {};
+    return ptResources;
   }
 };
 
