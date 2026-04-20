@@ -136,7 +136,7 @@ const Navbar = memo(() => {
   // Fluid logo logic handled via Tailwind clamp utilities now!
   return (
     <nav
-      className='critical-navbar glass transition-all duration-300'
+      className='critical-navbar glass !overflow-visible transition-all duration-300'
       style={{
         boxShadow: '0 2px 10px rgba(0, 0, 0, 0.2)',
         padding: '0.25rem 0',
@@ -146,7 +146,7 @@ const Navbar = memo(() => {
       <Link
         to='/'
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className={`absolute left-[clamp(0.5rem,2vw,1rem)] top-[-clamp(1rem,2vw,1.5rem)] z-50 w-[clamp(3rem,8vw,6rem)] h-[clamp(3rem,8vw,6rem)] pointer-events-auto logo-float block`}
+        className={`absolute left-[clamp(0.2rem,1vw,1rem)] top-1/2 -translate-y-1/2 z-50 w-[clamp(4.5rem,10vw,8rem)] h-[clamp(4.5rem,10vw,8rem)] pointer-events-auto block`}
         aria-label={t('nav.logo')}
       >
         <m.div
@@ -191,7 +191,7 @@ const Navbar = memo(() => {
       >
         {/* Left side: Brand and Tagline */}
         <div
-          className={`flex items-center gap-[clamp(0.5rem,3vw,1.5rem)] ml-[clamp(3.5rem,10vw,6.5rem)]`}
+          className={`flex items-center gap-[clamp(0.5rem,3vw,1.5rem)] pl-[clamp(4.5rem,10vw,8.5rem)]`}
         >
           <Link
             to='/'
