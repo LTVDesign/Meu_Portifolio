@@ -1,42 +1,30 @@
-import { lazy, Suspense } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-
-// Lazy load Three.js components to reduce initial bundle size
-const NotFoundScene = lazy(() => import('../components/canvas/NotFoundScene'));
+import { useTranslation } from 'react-i18next';
 
 const NotFoundPage = () => {
   const { t } = useTranslation();
 
   return (
-    <div className='relative min-h-screen flex flex-col items-center justify-center'>
-      {/* 3D Canvas Background - Lazy loaded */}
-      <div className='absolute inset-0 z-0'>
-        <Suspense fallback={null}>
-          <NotFoundScene />
-        </Suspense>
-      </div>
-
-      {/* Content Overlay */}
-      <div className='relative z-10 text-center px-6 flex flex-col items-center justify-center min-h-screen'>
-        <h1 className='text-[clamp(6rem,20vw,12rem)] font-black text-transparent bg-clip-text bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] leading-none mb-4'>
-          404
+    <div className="min-h-screen bg-[#0414a7] font-[VT323] text-[#e0e2f4]">
+      <main className="container mx-auto w-[90%] max-w-[640px] pt-[10%]">
+        <h1 className="neg title text-center text-[2.75rem]/1.05em">
+          <span className="bg-[#aaaaaa] px-[15px] py-[2px] pb-[13px]">Error - 404</span>
         </h1>
-
-        <p
-          className='text-white/80 text-lg mt-6 max-w-md mx-auto leading-relaxed'
-          style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}
-        >
-          {t('notFound.description')}
+        <p>{t('notFound.errorOccurred')}</p>
+        <p>
+          * {t('notFound.returnHome')}<br />
+          * {t('notFound.sendEmail')}
         </p>
-
-        {/* Botão de voltar - posicionado na parte inferior */}
-        <div className='mt-auto pb-10'>
-          <Link to='/' className='btn-primary inline-flex items-center gap-3 group'>
-            <span>{t('notFound.backHome')}</span>
+        <nav className="nav mt-[35px] text-center">
+          <Link to="/" className="link px-[9px] py-[2px] pb-[8px] hover:bg-[#aaaaaa] hover:text-[#0414a7] transition-colors">
+            {t('notFound.index')}
           </Link>
-        </div>
-      </div>
+          &nbsp;|&nbsp;
+          <a href={`mailto:${t('common.email')}`} className="link px-[9px] py-[2px] pb-[8px] hover:bg-[#aaaaaa] hover:text-[#0414a7] transition-colors">
+            {t('notFound.webmaster')}
+          </a>
+        </nav>
+      </main>
     </div>
   );
 };

@@ -596,7 +596,12 @@
     "p": "Page not found",
     "h2": "Oops! Something went wrong",
     "description": "The page you are looking for does not exist or has been moved.",
-    "backHome": "Back to Home"
+    "backHome": "Back to Home",
+    "errorOccurred": "An error has occured, to continue:",
+    "returnHome": "Return to our homepage.",
+    "sendEmail": "Send us an e-mail about this error and try later.",
+    "index": "index",
+    "webmaster": "webmaster"
   },
   "doom": {
     "p": "Easter Egg - DOOM in Browser",
@@ -1062,7 +1067,6 @@
     "watchMode": "Watch Mode",
     "normalMode": "Normal Mode"
   },
-
   "experienceCard": {
     "viewMore": "View more",
     "viewLess": "View less",

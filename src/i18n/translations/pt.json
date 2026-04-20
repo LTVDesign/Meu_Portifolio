@@ -897,7 +897,12 @@
     "p": "Página não encontrada",
     "h2": "Ops! Algo deu errado",
     "description": "A página que você está procurando não existe ou foi movida.",
-    "backHome": "Voltar ao Início"
+    "backHome": "Voltar ao Início",
+    "errorOccurred": "Um erro ocorreu. Para continuar:",
+    "returnHome": "Retorne à nossa página inicial.",
+    "sendEmail": "Envie-nos um e-mail sobre este erro e tente mais tarde.",
+    "index": "index",
+    "webmaster": "webmaster"
   },
   "colors": {
     "white": "Branco",
