@@ -147,7 +147,7 @@ const Navbar = memo(() => {
       <Link
         to='/'
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className={`absolute left-[clamp(0.2rem,1vw,1rem)] top-1/2 -translate-y-1/2 z-50 w-[clamp(4.5rem,10vw,8rem)] h-[clamp(4.5rem,10vw,8rem)] pointer-events-auto block`}
+        className={`absolute left-[clamp(0.2rem,1vw,1rem)] top-[0.2rem] z-50 w-[clamp(4.5rem,10vw,8rem)] h-[clamp(4.5rem,10vw,8rem)] pointer-events-auto block`}
         aria-label={t('nav.logo')}
       >
         <m.div
