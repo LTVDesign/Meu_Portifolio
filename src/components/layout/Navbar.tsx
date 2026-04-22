@@ -1,5 +1,6 @@
 import { m, useScroll, useSpring } from 'framer-motion';
 import { memo, useCallback, useEffect, useState } from 'react';
+import { HiMenuAlt3, HiX } from 'react-icons/hi';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { navLinks } from '../../constants';
@@ -225,8 +226,10 @@ const Navbar = memo(() => {
         </div>
 
         {/* Right aligned Menu - Always visible, fluid scaling */}
+        {/* Menu Desktop e Mobile */}
         <div className='flex items-center gap-[clamp(0.25rem,0.5vw,0.5rem)]'>
-          <ul className='flex items-center gap-[clamp(0.125rem,0.4vw,0.375rem)]'>
+          {/* Menu Desktop */}
+          <ul className='hidden xl:flex items-center gap-[clamp(0.125rem,0.4vw,0.375rem)]'>
             {navLinks.map((nav) => {
               const isActive = active === nav.id;
               return (
@@ -250,6 +253,43 @@ const Navbar = memo(() => {
               );
             })}
           </ul>
+
+          {/* Botão Mobile Hamburger */}
+          <div className='xl:hidden flex items-center'>
+            <button
+              onClick={() => setToggle(!toggle)}
+              className='text-white text-3xl focus:outline-none p-2'
+              aria-label='Toggle menu'
+            >
+              {toggle ? <HiX /> : <HiMenuAlt3 />}
+            </button>
+          </div>
+
+          {/* Menu Dropdown Mobile */}
+          <m.div
+            initial={false}
+            animate={toggle ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+            className={`${!toggle ? 'hidden' : 'flex'} p-6 bg-black/90 backdrop-blur-xl absolute top-full right-0 mx-4 my-2 min-w-[200px] z-50 rounded-xl border border-white/10 xl:hidden shadow-2xl`}
+          >
+            <ul className='list-none flex justify-end items-start flex-1 flex-col gap-4'>
+              {navLinks.map((nav) => (
+                <li
+                  key={nav.id}
+                  className={`font-medium cursor-pointer text-[16px] ${
+                    active === nav.id ? 'text-[var(--cyber-cyan)]' : 'text-white/70'
+                  }`}
+                  onClick={() => {
+                    setToggle(false);
+                    setActive(nav.id);
+                  }}
+                >
+                  <a href={getNavLink(nav.id)} onClick={(e) => handleNavClick(e, nav.id)}>
+                    {String(t(`nav.${nav.id}`))}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </m.div>
 
           {/* Language Selector */}
           <div className='flex items-center gap-[clamp(0.6rem,1vw,0.8rem)] pl-[clamp(0.5rem,1vw,1rem)] border-l border-white/10'>
