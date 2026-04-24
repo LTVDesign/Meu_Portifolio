@@ -483,7 +483,7 @@ const projects: TProject[] = [
     category: 'category_saas',
   },
   {
-    name: 'Component Tester PRO v2.0',
+    name: 'SondVolt',
     description: 'constants.projects.comptester',
     tags: [
       {
@@ -499,12 +499,12 @@ const projects: TProject[] = [
         color: 'pink-text-gradient',
       },
       {
-        name: 'pixel-art-ui',
+        name: 'esp32',
         color: 'orange-text-gradient',
       },
     ],
     image: comptester,
-    sourceCodeLink: 'https://github.com/lelebrr/Component_Tester',
+    sourceCodeLink: 'https://github.com/lelebrr/SondVolt',
     status: 'status_finished',
     category: 'category_hardware',
   },

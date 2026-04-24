@@ -880,10 +880,10 @@
         "category": "SaaS & Automação de IA"
       },
       "1": {
-        "name": "Component Tester PRO",
-        "description": "Ferramenta avançada de teste para componentes React com validação em tempo real, métricas de performance e verificações de acessibilidade.",
-        "status": "v2.3 (Estável)",
-        "category": "Ferramentas de Desenvolvimento"
+        "name": "SondVolt",
+        "description": "Ecossistema profissional de diagnóstico para componentes eletrônicos e multímetro True RMS AC/DC baseado em ESP32 (Cheap Yellow Display).",
+        "status": "v2.0 (Estável)",
+        "category": "Hardware & IoT"
       },
       "2": {
         "name": "Willy Cyber-Multitool",
@@ -1082,7 +1082,7 @@
     },
     "projects": {
       "getnexo": "Plataforma All-in-One de automação de vendas e inteligência de atendimento que transforma o WhatsApp em um canal de alta performance com IA Generativa e Realidade Aumentada.",
-      "comptester": "Ecossistema avançado de diagnóstico para componentes eletrônicos com Arduino Uno e interface Pixel Art em TFT.",
+      "comptester": "Ecossistema profissional de diagnóstico para componentes eletrônicos e multímetro True RMS AC/DC baseado em ESP32 (Cheap Yellow Display).",
       "willy": "Multi-ferramenta portátil de segurança com ESP32, protocolos RF multi-banda (Sub-GHz, NFC, IR) e interface LVGL moderna."
     }
   },

@@ -853,8 +853,8 @@
         ]
       },
       "1": {
-        "name": "Component Tester PRO v2.0",
-        "description": "Advanced diagnostic ecosystem for electronic components with Arduino Uno and Pixel Art interface on TFT display.",
+        "name": "SondVolt",
+        "description": "Professional diagnostic ecosystem for electronic components and True RMS AC/DC multimeter based on ESP32 (Cheap Yellow Display).",
         "status": "v2.0 (Stable)",
         "category": "Hardware & IoT",
         "tags": [
@@ -1062,7 +1062,7 @@
     },
     "projects": {
       "getnexo": "All-in-One sales automation and customer service intelligence platform that transforms WhatsApp into a high-performance channel with Generative AI and Augmented Reality.",
-      "comptester": "Advanced diagnostic ecosystem for electronic components with Arduino Uno and Pixel Art interface on TFT display.",
+      "comptester": "Professional diagnostic ecosystem for electronic components and True RMS AC/DC multimeter based on ESP32 (Cheap Yellow Display).",
       "willy": "Portable multi-tool security device with ESP32, multi-band RF protocols (Sub-GHz, NFC, IR) and modern LVGL interface."
     }
   },
