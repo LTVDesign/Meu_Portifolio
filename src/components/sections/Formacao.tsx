@@ -286,21 +286,21 @@ const Formacao = () => {
           semestre: '2026/1',
           materia: 'Redes Neurais',
           professor: 'Corpo Docente',
-          nota: 'CURSANDO',
+          nota: 10.0,
           cargaHoraria: '30h',
         },
         {
           semestre: '2026/1',
           materia: 'Processamento de linguagem natural',
           professor: 'Corpo Docente',
-          nota: 'CURSANDO',
+          nota: 10.0,
           cargaHoraria: '30h',
         },
         {
           semestre: '2026/1',
           materia: 'Visão computacional Generativa',
           professor: 'Corpo Docente',
-          nota: 'CURSANDO',
+          nota: 10.0,
           cargaHoraria: '30h',
         },
         {
@@ -308,14 +308,21 @@ const Formacao = () => {
           materia:
             'Modelos generativos (GANs, Variational Autoencoders (VAEs) e Flow-based Models)',
           professor: 'Corpo Docente',
-          nota: 'CURSANDO',
+          nota: 9.0,
           cargaHoraria: '30h',
         },
         {
           semestre: '2026/2',
           materia: 'Linguagens de programação para ciência de dados (Python com Spark)',
           professor: 'Corpo Docente',
-          nota: 'CURSANDO',
+          nota: 10.0,
+          cargaHoraria: '30h',
+        },
+        {
+          semestre: '2026/2',
+          materia: 'Machine Learning',
+          professor: 'Corpo Docente',
+          nota: 8.0,
           cargaHoraria: '30h',
         },
         {
