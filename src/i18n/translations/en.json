@@ -546,7 +546,9 @@
     "additionalCerts": "* Over 30 additional certifications available in the digital portfolio.",
     "highlightsTitle": "Highlights & Certifications",
     "printProjectsTitle": "Featured Projects",
-    "academicsAndLanguages": "Background & Languages"
+    "academicsAndLanguages": "Background & Languages",
+    "posGradTitle": "Postgraduate in Artificial Intelligence & Data Science",
+    "adsTitle": "TADS - Systems Analysis & Development"
   },
   "allWorks": {
     "title": "All Projects",

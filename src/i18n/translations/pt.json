@@ -654,7 +654,9 @@
     "additionalCerts": "* Mais de 30 certificações adicionais disponíveis no portfólio digital.",
     "highlightsTitle": "Destaques & Certificações",
     "printProjectsTitle": "Projetos em Destaque",
-    "academicsAndLanguages": "Formação & Idiomas"
+    "academicsAndLanguages": "Formação & Idiomas",
+    "posGradTitle": "Pós-Graduação em Inteligência Artificial e Data Science",
+    "adsTitle": "TADS - Análise e Desenvolvimento de Sistemas"
   },
   "allWorks": {
     "title": "Todos os Projetos",

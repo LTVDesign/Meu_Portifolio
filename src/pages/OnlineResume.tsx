@@ -323,10 +323,7 @@ const OnlineResume = () => {
             <div className='space-y-8'>
               <div className='relative pl-6 border-l-2 border-[var(--cyber-cyan)]/30'>
                 <h4 className='text-xl font-bold mb-2'>
-                  {t(
-                    'allCurriculo.academicsAndLanguages',
-                    'Pós-Graduação em IA & Data Science'
-                  )}
+                  {t('allCurriculo.posGradTitle')}
                 </h4>
                 <p className='text-gray-400 font-medium'>
                   Anhanguera |{' '}
@@ -334,10 +331,11 @@ const OnlineResume = () => {
                     {t('allCurriculo.currentlyStudying', 'Cursando')}
                   </span>
                 </p>
+                <p className='text-gray-500 text-sm mt-1'>Início: 10/03/2026 — Previsão: 04/01/2027</p>
               </div>
               <div className='relative pl-6 border-l-2 border-white/10'>
                 <h4 className='text-xl font-bold mb-2'>
-                  TADS - Análise e Desiv. de Sistemas
+                  {t('allCurriculo.adsTitle')}
                 </h4>
                 <p className='text-gray-400 font-medium'>Anhanguera | Dez 2025</p>
                 <div className='mt-3 flex gap-4 text-xs font-mono text-gray-500'>
@@ -541,12 +539,12 @@ const OnlineResume = () => {
                 <div className='space-y-4'>
                   <div>
                     <p className='font-black text-[10pt] text-[#050816]'>
-                      Pós IA & Data Science
+                      {t('allCurriculo.posGradTitle')}
                     </p>
                     <p className='text-[9pt] text-gray-600'>Anhanguera | 2026</p>
                   </div>
                   <div>
-                    <p className='font-black text-[10pt] text-[#050816]'>Tecnólogo ADS</p>
+                    <p className='font-black text-[10pt] text-[#050816]'>{t('allCurriculo.adsTitle')}</p>
                     <p className='text-[9pt] text-gray-600'>Anhanguera | Dezembro 2025</p>
                   </div>
                 </div>
