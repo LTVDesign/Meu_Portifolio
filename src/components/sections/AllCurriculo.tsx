@@ -4,6 +4,7 @@ import { SectionWrapper } from '../../hoc';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms/Header';
+import { cvPdf } from '../../assets';
 
 const AllCurriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) => {
   const { t } = useTranslation();
@@ -33,8 +34,8 @@ const AllCurriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void })
         </button>
 
         <a
-          href='/curriculo.pdf'
-          download='Curriculo_Leandro_Saturnino.pdf'
+          href={cvPdf}
+          download='Leandro_Barbosa_curriculo.pdf'
           className='glass-btn px-8 py-3 rounded-xl font-bold tracking-wider bg-white/5 hover:bg-white/10 hover:scale-105 transition-all flex items-center gap-2'
         >
           <svg
