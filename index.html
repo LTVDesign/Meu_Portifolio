@@ -17,7 +17,7 @@
   <link rel="dns-prefetch" href="https://api.emailjs.com">
 
   <!-- Preload do modelo 3D imediato para reduzir LCP -->
-  <link rel="preload" href="/desktop_pc/scene-optimized.gltf" as="fetch" type="model/gltf">
+  <link rel="preload" href="/desktop_pc/scene-optimized.gltf" as="fetch" type="model/gltf" crossorigin>
 
   <!-- CSP (Content Security Policy) -->
   <meta http-equiv="Content-Security-Policy" content="
@@ -31,7 +31,7 @@
   object-src 'none';
   base-uri 'self';
   form-action 'self';
-  manifest-src 'self' https://vercel.com;
+  manifest-src 'self';
  ">
 
   <!-- Google Fonts: Inter — Async load to prevent render blocking -->
@@ -45,9 +45,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
       rel="stylesheet">
   </noscript>
-
-  <!-- EmailJS: carregado sob demanda no formulário de contato -->
-  <link rel="dns-prefetch" href="https://api.emailjs.com">
 
   <link rel="canonical" href="https://leandrobarbosa.dev">
   <meta name="description"
