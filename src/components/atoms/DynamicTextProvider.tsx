@@ -28,7 +28,9 @@ export const DynamicTextProvider = ({
   useBackgroundColorSampler();
 
   return (
-    <DynamicTextContext.Provider value={value}>{safeChildren}</DynamicTextContext.Provider>
+    <DynamicTextContext.Provider value={value}>
+      {safeChildren}
+    </DynamicTextContext.Provider>
   );
 };
 

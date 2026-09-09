@@ -78,7 +78,23 @@
     "descriptionMeta": "Portfólio interativo 3D com React, Three.js e Tailwind. Especialista em IA, Segurança e Desenvolvimento Full Stack.",
     "dragToRotate": "Clique e Arraste",
     "dragToRotateSubtitle": "360º",
-    "ariaLabelRotate": "Modelo 3D do planeta - Clique e arraste para rotacionar"
+    "ariaLabelRotate": "Modelo 3D do planeta - Clique e arraste para rotacionar",
+    "tagline": "Full-Stack Developer \u00B7 Creative Technologist",
+    "ctaWork": "Ver Projetos",
+    "ctaContact": "Contato",
+    "scroll": "Scroll"
+  },
+  "caseStudy": {
+    "problem": "O Problema",
+    "process": "O Processo",
+    "solution": "A Solução",
+    "results": "Resultados",
+    "behindTheScenes": "Behind the Scenes",
+    "previous": "Anterior",
+    "next": "Próximo"
+  },
+  "currently": {
+    "title": "Atualmente"
   },
   "about": {
     "p": "Engenheiro de Software • Tecnólogo em ADS • Pós-Graduando em IA & Data Science",
@@ -251,7 +267,9 @@
     "category_security": "Cibersegurança & Hardware",
     "status_ongoing": "v1.3 (Em andamento)",
     "status_finished": "v2.0 (Finalizado)",
-    "status_prototype": "v1.0 (Protótipo)"
+    "status_prototype": "v1.0 (Protótipo)",
+    "viewCaseStudy": "Ver Case Study",
+    "projectCount": "Projetos"
   },
   "cursos": {
     "p": "Cursos & Certificados",

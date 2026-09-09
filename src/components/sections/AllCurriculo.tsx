@@ -1,10 +1,10 @@
 import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { cvPdf } from '../../assets';
 import { SectionWrapper } from '../../hoc';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms/Header';
-import { cvPdf } from '../../assets';
 
 const AllCurriculo = ({ setViewMode }: { setViewMode?: (mode: string) => void }) => {
   const { t } = useTranslation();

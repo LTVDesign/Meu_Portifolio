@@ -39,7 +39,9 @@ export const PerformanceProvider = ({ children }: { children: React.ReactNode })
   );
 
   return (
-    <PerformanceContext.Provider value={value}>{safeChildren}</PerformanceContext.Provider>
+    <PerformanceContext.Provider value={value}>
+      {safeChildren}
+    </PerformanceContext.Provider>
   );
 };
 

@@ -17,13 +17,13 @@
   <link rel="dns-prefetch" href="https://api.emailjs.com">
 
   <!-- Preload do modelo 3D imediato para reduzir LCP -->
-  <link rel="preload" href="/desktop_pc/scene-optimized.gltf" as="model" type="model/gltf">
+  <link rel="preload" href="/desktop_pc/scene-optimized.gltf" as="fetch" type="model/gltf">
 
   <!-- CSP (Content Security Policy) -->
   <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
   script-src 'self' 'wasm-unsafe-eval' data: https://cdn.jsdelivr.net https://unpkg.com https://va.vercel-scripts.com https://cdnjs.cloudflare.com;
-  style-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
+  style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
   img-src 'self' data: https:;
   font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com;
   connect-src 'self' https://api.emailjs.com ws://localhost:5174 ws://localhost:5173 https://va.vercel-scripts.com;
@@ -31,6 +31,7 @@
   object-src 'none';
   base-uri 'self';
   form-action 'self';
+  manifest-src 'self' https://vercel.com;
  ">
 
   <!-- Google Fonts: Inter — Async load to prevent render blocking -->
@@ -39,7 +40,7 @@
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet" media="print" onload="this.onload=null;this.removeAttribute('media');">
+    rel="stylesheet" media="print" id="fonts-async">
   <noscript>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
       rel="stylesheet">
@@ -65,76 +66,7 @@
   <meta name="twitter:description"
     content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial — Desenvolvedor Full Stack">
   <meta name="twitter:image" content="https://portifoliolele.vercel.app/logo.webp">
-  <script>
-    console.clear();
-    // Force unregister all service workers to clear stale/broken chunks
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(function (registrations) {
-        for (let registration of registrations) {
-          registration.unregister();
-          console.log('[RECOVERY] Service Worker unregistered successfully');
-        }
-      }).catch(function (err) {
-        console.log('[RECOVERY] Service Worker unregistration failed: ', err);
-      });
-    }
-
-    // Performance optimization: Preload critical resources
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(() => {
-        // Prefetch less critical routes
-        const link1 = document.createElement('link');
-        link1.rel = 'prefetch';
-        link1.href = '/formacao';
-        document.head.appendChild(link1);
-
-        const link2 = document.createElement('link');
-        link2.rel = 'prefetch';
-        link2.href = '/projetos';
-        document.head.appendChild(link2);
-
-        // Prefetch additional routes
-        const link3 = document.createElement('link');
-        link3.rel = 'prefetch';
-        link3.href = '/cursos';
-        document.head.appendChild(link3);
-
-        const link4 = document.createElement('link');
-        link4.rel = 'prefetch';
-        link4.href = '/contato';
-        document.head.appendChild(link4);
-      }, { timeout: 2000 });
-    }
-  </script>
   <title>Leandro Saturnino Barbosa | Portfólio 3D - React & Three.js</title>
-
-  <!-- DNS Prefetch para APIs externas -->
-  <link rel="dns-prefetch" href="https://api.emailjs.com">
-  <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Leandro Barbosa",
-        "url": "https://leandrobarbosa.dev",
-        "image": "https://portifoliolele.vercel.app/logo.webp",
-        "jobTitle": "Desenvolvedor Full Stack & Especialista em IA",
-        "sameAs": [
-          "https://github.com/lelebrr",
-          "https://linkedin.com/in/leandro-saturnino-barbosa"
-        ],
-        "knowsAbout": [
-          "React",
-          "TypeScript",
-          "Three.js",
-          "Inteligência Artificial",
-          "Cibersegurança",
-          "Desenvolvimento Full Stack",
-          "Node.js",
-          "Python"
-        ],
-        "description": "Leandro Barbosa: De Infraestrutura a Inteligência Artificial — Desenvolvedor Full Stack especializado em React, Node.js, Three.js e aplicações web modernas de alto desempenho."
-      }
-    </script>
   <link rel="icon" type="image/png" sizes="196x196" href="/favicon-196.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta name="mobile-web-app-capable" content="yes">
@@ -142,25 +74,13 @@
 
 <body>
   <div id="root">
-    <!-- Skeleton loader while content loads -->
-    <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
-      <div class="skeleton" style="width: 200px; height: 200px; border-radius: 8px;"></div>
+    <div class="skeleton-loader">
+      <div class="skeleton-box"></div>
     </div>
   </div>
-  <script>
-    window.addEventListener('error', function (e) {
-      console.error('GLOBAL ERROR:', e.message, e.filename, e.lineno, e.colno, e.error);
-    });
-    window.addEventListener('unhandledrejection', function (e) {
-      console.error('UNHANDLED REJECTION:', e.reason);
-    });
-    console.log("HTML loaded, waiting for main.tsx");
-    // Forçar scroll para o topo no carregamento da página
-    window.scrollTo(0, 0);
-    window.addEventListener('load', function () {
-      window.scrollTo(0, 0);
-    });
-  </script>
+  <link rel="stylesheet" href="/skeleton.css">
+  <script src="/critical.js"></script>
+  <script src="/font-loader.js"></script>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 

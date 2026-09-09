@@ -327,7 +327,6 @@ const Footer: React.FC = () => {
               {t('footer.description')}
             </p>
             {/* Botão de Download CV Proeminente no Mobile */}
-
           </div>
 
           {/* Coluna 2 - Meio: Acesso Rápido (ícones do header, menos contato) */}

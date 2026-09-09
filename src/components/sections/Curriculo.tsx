@@ -1,11 +1,11 @@
 import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { FiDownload, FiExternalLink } from 'react-icons/fi';
+import { cvPdf } from '../../assets';
 import { SectionWrapper } from '../../hoc';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { fadeIn } from '../../utils/motion';
 import { Header } from '../atoms/Header';
-import { cvPdf } from '../../assets';
 
 const Curriculo = () => {
   const { t } = useTranslation();
@@ -151,7 +151,7 @@ const Curriculo = () => {
               <m.a
                 variants={prefersReduced ? {} : fadeIn('up', 'spring', 0.7, 0.75)}
                 href={cvPdf}
-                download="Leandro_Barbosa_curriculo.pdf"
+                download='Leandro_Barbosa_curriculo.pdf'
                 className='btn-secondary flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)] px-[clamp(1.25rem,3vw,1.75rem)] py-[clamp(0.6rem,1.5vw,0.85rem)] rounded-xl font-bold tracking-wider group border border-white/10 hover:border-[var(--cyber-cyan)]/50 transition-all shadow-lg min-h-[44px] text-[clamp(0.8rem,1.8vw,0.95rem)]'
               >
                 <FiDownload className='text-xl text-[var(--cyber-cyan)] group-hover:animate-bounce transition-transform' />

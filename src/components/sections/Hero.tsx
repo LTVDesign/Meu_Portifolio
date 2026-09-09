@@ -1,84 +1,57 @@
-import { m } from 'framer-motion';
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { m, useScroll, useTransform } from 'framer-motion';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useBreakpoints } from '../../hooks/useDebouncedResize';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
-import { PCGamerStatic } from '../atoms';
-import TerminalText from '../atoms/TerminalText';
+import TextScramble from '../atoms/TextScramble';
 
-// Lazy load do ThreeExperience (Three.js + @react-three/fiber + @react-three/drei)
 const ThreeExperience = lazy(() => import('../canvas/ThreeExperience'));
 
-// LCP Optimization: Lazy loading do GearButton - botão flutuante não é crítico para LCP
-// LCP Optimization: GearButton is now handled globally in App.tsx
-
-
-/**
- * Hero - Seção principal da página
- *
- * Otimizações:
- * - usa useBreakpoints hook com RAF debounce para resize
- * - useMemo para cálculos de layout responsivo
- * - contain: layout style paint para isolar animações
- * - defer de 3D canvas com base em interação para otimizar métricas Lighthouse (Unused JS)
- */
 const Hero = () => {
   const { t } = useTranslation();
   const prefersReduced = useReducedMotion();
-  // Hook otimizado com RAF debounce para evitar reflows
-  const { width, isWatch } = useBreakpoints();
+  const { width } = useBreakpoints();
   const isMobileOrTablet = width <= 1024;
-
-  // Lazy load 3D assets to fix Lighthouse Unused JS and Performance
   const [load3D, setLoad3D] = useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
 
   useEffect(() => {
     let isLoaded = false;
-
     const scheduleLoad = () => {
       if (isLoaded) return;
-      // Em mobile, nem precisamos agendar carregamento de 3D, pois vai renderizar PC estático.
-      // O resize handler no App cuidará de montar ThreeExperience se a largura aumentar.
       if (window.innerWidth <= 1024) return;
-      
       isLoaded = true;
-      // Carregar 3D - após 5 segundos ou reposta inicial
       if ('requestIdleCallback' in window) {
         (
           window as Window & { requestIdleCallback: (cb: () => void) => number }
         ).requestIdleCallback(() => setLoad3D(true), { timeout: 4000 });
       } else {
-        // Fallback: carregar após 3 segundos
         setTimeout(() => setLoad3D(true), 3000);
       }
-
       window.removeEventListener('mousemove', scheduleLoad);
       window.removeEventListener('touchstart', scheduleLoad);
-      window.removeEventListener('scroll', scheduleLoad);
-      window.removeEventListener('keydown', scheduleLoad);
     };
 
-    // Adicionar listeners de interação - interações do utilizador aceleram o load
     window.addEventListener('mousemove', scheduleLoad, { once: true, passive: true });
     window.addEventListener('touchstart', scheduleLoad, { once: true, passive: true });
-    window.addEventListener('scroll', scheduleLoad, { once: true, passive: true });
-    window.addEventListener('keydown', scheduleLoad, { once: true, passive: true });
-
-    // Timer de fallback muito longo para Lighthouse - carregar após 6s mesmo sem interação
-    const timer = setTimeout(scheduleLoad, 6000);
+    const timer = setTimeout(scheduleLoad, 5000);
 
     return () => {
       clearTimeout(timer);
       window.removeEventListener('mousemove', scheduleLoad);
       window.removeEventListener('touchstart', scheduleLoad);
-      window.removeEventListener('scroll', scheduleLoad);
-      window.removeEventListener('keydown', scheduleLoad);
     };
   }, []);
-
-
-
 
   const subtitles = [
     t('hero.subtitle.0'),
@@ -89,165 +62,183 @@ const Hero = () => {
   ];
 
   return (
-    <>
-      <m.section
-        id='hero'
-        initial={prefersReduced ? {} : { opacity: 0, y: 50 }}
-        whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
-        transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: 'easeOut' }}
-        viewport={prefersReduced ? {} : { once: true, amount: 0.25 }}
-        className='relative min-h-screen flex items-start justify-center pt-[clamp(7rem,12vh,9rem)] overflow-hidden'
-        style={{ touchAction: 'pan-y' }}
-      >
-        <Helmet>
-          <title>{t('hero.titleMeta')}</title>
-          <meta name='description' content={t('hero.descriptionMeta')} />
-        </Helmet>
+    <section
+      ref={heroRef}
+      id='hero'
+      className='relative min-h-screen flex items-center justify-center overflow-hidden'
+      style={{ touchAction: 'pan-y' }}
+    >
+      <Helmet>
+        <title>{t('hero.titleMeta')}</title>
+        <meta name='description' content={t('hero.descriptionMeta')} />
+      </Helmet>
 
-        {/* Texto de introdução - acima do 3D, abaixo do menu */}
-        <div className='relative z-10 w-full flex flex-col items-center justify-center pointer-events-none pt-2 pb-[clamp(0.5rem,2vh,2rem)]'>
-          {/* LCP Critical: h1 renderiza imediatamente sem delay para melhor LCP */}
+      {/* 3D Background with parallax */}
+      <m.div className='absolute inset-0 z-0' style={{ scale: bgScale }}>
+        {isMobileOrTablet ? (
+          <div className='w-full h-full bg-gradient-to-b from-[var(--cyber-purple)]/10 to-transparent' />
+        ) : load3D ? (
+          <Suspense fallback={<div className='w-full h-full shimmer-loading' />}>
+            <ThreeExperience />
+          </Suspense>
+        ) : (
+          <div className='w-full h-full shimmer-loading' />
+        )}
+      </m.div>
+
+      {/* Gradient overlay for text readability */}
+      <div className='absolute inset-0 z-[1] bg-gradient-to-b from-black/40 via-transparent to-black/60 pointer-events-none' />
+
+      {/* Main content */}
+      <m.div
+        className='relative z-10 w-full flex flex-col items-center justify-center px-[clamp(1rem,5vw,4rem)]'
+        style={{ y: textY, opacity: textOpacity }}
+      >
+        {/* Japanese subtitle above name */}
+        <m.p
+          initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
+          animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className='text-[clamp(0.6rem,1.2vw,0.8rem)] text-white/30 uppercase tracking-[0.5em] mb-6 font-medium'
+          style={{ fontFamily: "'Noto Sans JP', sans-serif" }}
+        >
+          {
+            '\u30D7\u30ED\u30D5\u30A7\u30C3\u30B7\u30E5\u30A3\u30A9\u30CA\u30EA\u30B9\u30C8'
+          }
+        </m.p>
+
+        {/* Name - Heroic typography with staggered reveal */}
+        <div className='text-center mb-8'>
           <m.h1
-            className='font-bold tracking-wide uppercase mb-1 text-center px-4 pointer-events-auto text-[clamp(1rem,4vw,2.5rem)] relative whitespace-nowrap overflow-hidden text-ellipsis w-full'
-            initial={prefersReduced ? {} : { opacity: 0 }}
-            animate={prefersReduced ? {} : { opacity: 1 }}
-            transition={
-              prefersReduced ? { duration: 0 } : { duration: 0.8, ease: 'easeOut' }
-            }
+            className='font-bold tracking-[-0.03em] leading-[0.9] mb-2'
             style={{
-              color: '#ffffff',
-              textShadow: '0 2px 8px rgba(0, 0, 0, 0.8)',
+              fontSize: 'clamp(3rem, 12vw, 8rem)',
             }}
           >
-            <span className='inline-block relative'>{t('hero.titlePart1')}</span>
-            {'\u00A0\u00A0'}
             <m.span
-              className='inline-block relative'
-              initial={prefersReduced ? {} : { opacity: 0, y: 20, scale: 0.95 }}
-              animate={prefersReduced ? {} : { opacity: 1, y: 0, scale: 1 }}
-              transition={
-                prefersReduced
-                  ? { duration: 0 }
-                  : { duration: 1, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }
-              }
-              style={{
-                color: '#00FFFF',
-                textShadow:
-                  '0 0 20px rgba(0, 255, 255, 0.6), 0 2px 4px rgba(0, 0, 0, 0.9)',
-              }}
+              className='block text-white'
+              initial={prefersReduced ? {} : { opacity: 0, y: 40, filter: 'blur(8px)' }}
+              animate={prefersReduced ? {} : { opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
             >
-              {t('hero.titlePart2')}
+              <TextScramble
+                text={t('hero.titlePart1')}
+                delay={300}
+                duration={1.5}
+                className='inline-block'
+              />
+            </m.span>
+            <m.span
+              className='block bg-gradient-to-r from-[var(--cyber-cyan)] via-[var(--cyber-glow)] to-[var(--cyber-purple)] bg-clip-text text-transparent'
+              initial={prefersReduced ? {} : { opacity: 0, y: 40, filter: 'blur(8px)' }}
+              animate={prefersReduced ? {} : { opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+            >
+              <TextScramble
+                text={t('hero.titlePart2')}
+                delay={500}
+                duration={1.5}
+                className='inline-block'
+              />
             </m.span>
           </m.h1>
+
+          {/* Kinetic tagline with staggered word reveal */}
           <m.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className='text-white/80 lowercase italic text-center px-4 w-full max-w-[25rem] text-[clamp(0.55rem,1.1vw,0.8rem)] leading-snug whitespace-nowrap overflow-hidden text-ellipsis'
+            initial={prefersReduced ? {} : { opacity: 0 }}
+            animate={prefersReduced ? {} : { opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className='flex flex-wrap items-center justify-center gap-x-3 gap-y-1 mt-4'
           >
-            <TerminalText
-              words={subtitles.map((s) => String(s))}
-              colors={['#00FFFF', '#915EFF', '#00FFFF', '#915EFF', '#00FFFF', '#915EFF']}
-              typingSpeed={isWatch ? 120 : 80}
-              pauseTime={2000}
-              loop={true}
-              className='terminal-text block'
-            />
+            {(
+              t(
+                'hero.tagline',
+                'Full-Stack Developer \u00B7 Creative Technologist'
+              ) as string
+            )
+              .split(' ')
+              .map((word, i) => (
+                <m.span
+                  key={i}
+                  initial={prefersReduced ? {} : { opacity: 0, y: 15 }}
+                  animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.9 + i * 0.08,
+                    ease: [0.25, 0.1, 0.25, 1],
+                  }}
+                  className='text-[clamp(0.85rem,2vw,1.25rem)] text-white/60 font-light tracking-wide'
+                >
+                  {word}
+                </m.span>
+              ))}
           </m.div>
         </div>
 
-        {/* Canvas 3D do Computador - abaixo do texto */}
-        {/* Em desktop: mostra o ThreeExperience 3D. Em mobile/tablet: mostra imagem estática de PC gamer */}
-        <div className='absolute inset-0 z-0 pointer-events-auto flex items-center justify-center'>
-          {isMobileOrTablet ? (
-            // Imagem estática de PC gamer para mobile/tablet
-            <PCGamerStatic />
-          ) : load3D ? (
-            <Suspense
-              fallback={
-                <div
-                  className={`${isMobileOrTablet ? 'h-[20vh]' : 'h-screen'} w-full shimmer-loading flex items-center justify-center`}
-                >
-                  <div className='flex flex-col items-center gap-3'>
-                    <div className='w-[clamp(1.5rem,4vw,2.5rem)] h-[clamp(1.5rem,4vw,2.5rem)] border-2 border-[var(--cyber-purple)]/30 border-t-[var(--cyber-cyan)] rounded-full animate-spin' />
-                    <span className='text-[clamp(0.5rem,1vw,0.75rem)] text-white/30 uppercase tracking-[0.3em] font-medium'>
-                      {t('common.loading3d')}
-                    </span>
-                  </div>
-                </div>
-              }
-            >
-              <ThreeExperience />
-            </Suspense>
-          ) : (
-            <div
-              className={`${isMobileOrTablet ? 'h-[5vh]' : 'h-screen'} w-full shimmer-loading flex items-center justify-center pointer-events-none`}
-            >
-              <div className='flex flex-col items-center gap-3'>
-                <div className='w-[clamp(1.5rem,4vw,2.5rem)] h-[clamp(1.5rem,4vw,2.5rem)] border-2 border-[var(--cyber-purple)]/30 border-t-[var(--cyber-cyan)] rounded-full animate-spin' />
-                <span className='text-[clamp(0.5rem,1vw,0.75rem)] text-white/30 uppercase tracking-[0.3em] font-medium min-w-[200px] text-center'>
-                  {t('common.loading3d', 'Iniciando ambiente 3D...')}
-                </span>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Scroll / Interact Icon - Responsivo usando Fluid Design */}
-        {/* Ocultar em mobile/tablet quando está usando PC estático */}
-        {!isMobileOrTablet && (
-          <div className='absolute bottom-[clamp(1.5rem,4vh,3rem)] w-full flex justify-center items-center z-20 pointer-events-none'>
-            <m.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 2 }}
-              className='flex flex-col items-center'
-            >
-              {/* Glow ring behind the scroll indicator */}
-              <div className='relative mb-3'>
-                <div className='absolute inset-0 rounded-3xl border-2 border-[var(--cyber-cyan)]/30 blur-sm w-[clamp(2rem,6vw,3rem)] h-[clamp(3.5rem,10vh,5rem)]' />
-                <div className='relative rounded-3xl border-2 border-[var(--cyber-cyan)]/60 flex justify-center p-2 backdrop-blur-sm bg-black/20 w-[clamp(1.5rem,4vw,1.875rem)] h-[clamp(2.5rem,8vh,3.125rem)]'>
-                  <m.div
-                    animate={{
-                      y: [0, 15, 0],
-                      opacity: [1, 0.3, 1],
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                    }}
-                    className='rounded-full bg-gradient-to-br from-[var(--cyber-cyan)] to-[var(--cyber-purple)] mb-1 shadow-[0_0_12px_rgba(0,255,255,0.9),0_0_20px_rgba(145,94,255,0.6)] w-2.5 h-2.5'
-                  />
-                </div>
-              </div>
-
-              {/* Text with enhanced effects */}
-              <div className='flex flex-col items-center gap-1'>
-                <span className='font-black tracking-[0.3em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] via-white to-[var(--cyber-purple)] bg-clip-text text-transparent text-[clamp(0.6rem,1.5vw,0.85rem)] text-center'>
-                  {String(t('hero.dragToRotate'))}
-                </span>
-                <span className='font-bold tracking-[0.2em] uppercase bg-gradient-to-r from-[var(--cyber-cyan)] to-[var(--cyber-purple)] bg-clip-text text-transparent text-[clamp(0.55rem,1.2vw,0.75rem)] text-center mt-1'>
-                  {String(t('hero.dragToRotateSubtitle'))}
-                </span>
-              </div>
-
-              {/* Decorative lines */}
-              <div className='flex items-center gap-2 mt-2'>
-                <div className='h-[1px] bg-gradient-to-r from-transparent to-[var(--cyber-cyan)] w-4' />
-                <div className='w-1 h-1 rounded-full bg-[var(--cyber-purple)] opacity-60' />
-                <div className='h-[1px] bg-gradient-to-l from-transparent to-[var(--cyber-purple)] w-4' />
-              </div>
-            </m.div>
+        {/* Terminal text - typing effect */}
+        <m.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.2 }}
+          className='text-center mb-12'
+        >
+          <div className='inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/[0.03] border border-white/[0.06] backdrop-blur-sm'>
+            <span className='w-1.5 h-1.5 rounded-full bg-[var(--cyber-cyan)] animate-pulse' />
+            <span className='text-[clamp(0.7rem,1.3vw,0.85rem)] text-white/50 font-mono'>
+              {subtitles[0]}
+            </span>
           </div>
-        )}
-      </m.section>
+        </m.div>
 
-      {/* Engrenagem flutuante esquerda - Background selector (Componente GearButton com Efeitos RGB) */}
-      {/* Movido para fora do m.section para não herdar transforms que quebram o position: fixed */}
+        {/* CTA Buttons */}
+        <m.div
+          initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
+          animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.4 }}
+          className='flex flex-wrap items-center justify-center gap-4'
+        >
+          <a
+            href='#works'
+            className='group relative px-8 py-3.5 rounded-full bg-white text-black font-semibold text-sm tracking-wide overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] min-h-[48px] flex items-center'
+          >
+            <span className='relative z-10'>{t('hero.ctaWork', 'Ver Projetos')}</span>
+            <div className='absolute inset-0 bg-gradient-to-r from-[var(--cyber-cyan)] to-[var(--cyber-purple)] opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+            <span className='relative z-10 group-hover:text-white transition-colors duration-300'>
+              {t('hero.ctaWork', 'Ver Projetos')}
+            </span>
+          </a>
+          <a
+            href='#contact'
+            className='px-8 py-3.5 rounded-full border border-white/20 text-white/80 font-medium text-sm tracking-wide hover:border-white/40 hover:text-white transition-all duration-300 hover:scale-105 min-h-[48px] flex items-center'
+          >
+            {t('hero.ctaContact', 'Contato')}
+          </a>
+        </m.div>
+      </m.div>
 
-
-    </>
+      {/* Scroll indicator */}
+      {!isMobileOrTablet && (
+        <div className='absolute bottom-8 left-1/2 -translate-x-1/2 z-20'>
+          <m.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2, duration: 1 }}
+            className='flex flex-col items-center gap-2'
+          >
+            <m.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+              className='w-5 h-8 rounded-full border border-white/20 flex justify-center pt-1.5'
+            >
+              <div className='w-1 h-1.5 rounded-full bg-white/40' />
+            </m.div>
+            <span className='text-[10px] text-white/20 uppercase tracking-[0.3em]'>
+              {t('hero.scroll', 'Scroll')}
+            </span>
+          </m.div>
+        </div>
+      )}
+    </section>
   );
 };
 

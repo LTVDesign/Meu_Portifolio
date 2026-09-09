@@ -7,7 +7,7 @@ import {
 } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import type React from 'react';
-import { Suspense, useEffect, useState, useMemo } from 'react';
+import { Suspense, useEffect, useMemo, useState } from 'react';
 import { useTouchScrollGuard } from '../../hooks/useTouchScrollGuard';
 import { useViewport } from '../../hooks/useViewport';
 

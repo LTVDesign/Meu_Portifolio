@@ -1,267 +1,207 @@
-import { m } from 'framer-motion';
+import { m, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import type { MouseEvent } from 'react';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { projects } from '../../constants';
 import { SectionWrapper } from '../../hoc';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
-import { fadeIn } from '../../utils/motion';
+import { fadeIn, staggerContainer } from '../../utils/motion';
 import { Header } from '../atoms';
+
+const ProjectSpotlight = ({
+  project,
+  index,
+}: {
+  project: (typeof projects)[0];
+  index: number;
+}) => {
+  const { t } = useTranslation();
+  const cardRef = useRef<HTMLDivElement>(null);
+  const prefersReduced = useReducedMotion();
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useSpring(useTransform(y, [-150, 150], [5, -5]), {
+    stiffness: 300,
+    damping: 30,
+  });
+  const rotateY = useSpring(useTransform(x, [-150, 150], [-5, 5]), {
+    stiffness: 300,
+    damping: 30,
+  });
+
+  const handleMouse = (e: MouseEvent<HTMLDivElement>) => {
+    if (prefersReduced || !cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    x.set(e.clientX - rect.left - rect.width / 2);
+    y.set(e.clientY - rect.top - rect.height / 2);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  const slug = project.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+  return (
+    <m.div variants={prefersReduced ? {} : fadeIn('up', 'spring', index * 0.1, 0.7)}>
+      <Link to={`/projetos/${slug}`} className='block group'>
+        <m.div
+          ref={cardRef}
+          onMouseMove={handleMouse}
+          onMouseLeave={handleMouseLeave}
+          style={{
+            rotateX: prefersReduced ? 0 : rotateX,
+            rotateY: prefersReduced ? 0 : rotateY,
+            transformPerspective: 1200,
+          }}
+          className='relative rounded-3xl overflow-hidden bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500'
+          whileHover={{ scale: 1.01 }}
+        >
+          {/* Image */}
+          <div className='relative aspect-[16/10] overflow-hidden'>
+            <img
+              src={project.image}
+              alt={project.name}
+              className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-105'
+              loading='lazy'
+            />
+            <div className='absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent' />
+
+            {/* Category + Status */}
+            <div className='absolute top-4 left-4 flex gap-2'>
+              <span className='px-3 py-1 bg-white/10 backdrop-blur-md border border-white/10 rounded-full text-[11px] font-bold text-[var(--cyber-cyan)] uppercase tracking-[0.15em]'>
+                {t(`works.${project.category}`)}
+              </span>
+              <span className='px-3 py-1 bg-white/10 backdrop-blur-md border border-white/10 rounded-full text-[11px] font-bold text-green-400 uppercase tracking-[0.15em]'>
+                {t(`works.${project.status}`)}
+              </span>
+            </div>
+
+            {/* Hover overlay */}
+            <div className='absolute inset-0 bg-[var(--cyber-cyan)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
+          </div>
+
+          {/* Content */}
+          <div className='p-6 md:p-8'>
+            {/* Tags */}
+            <div className='flex flex-wrap gap-2 mb-4'>
+              {project.tags?.slice(0, 4).map((tag, i) => (
+                <span
+                  key={i}
+                  className='text-[11px] px-2.5 py-1 bg-white/5 border border-white/5 rounded-full text-white/50 font-medium'
+                >
+                  #{tag.name}
+                </span>
+              ))}
+            </div>
+
+            <h3 className='text-[clamp(1.25rem,3vw,1.75rem)] font-bold text-white group-hover:text-[var(--cyber-cyan)] transition-colors duration-300 mb-3'>
+              {project.name}
+            </h3>
+
+            <p className='text-[clamp(0.8rem,1.8vw,0.95rem)] text-white/50 line-clamp-2 leading-relaxed mb-6'>
+              {t(project.description)}
+            </p>
+
+            {/* CTA */}
+            <div className='flex items-center gap-2 text-[var(--cyber-cyan)] text-sm font-medium group-hover:gap-3 transition-all duration-300'>
+              <span>{t('works.viewCaseStudy', 'Ver Case Study')}</span>
+              <svg
+                className='w-4 h-4 transition-transform duration-300 group-hover:translate-x-1'
+                fill='none'
+                viewBox='0 0 24 24'
+                stroke='currentColor'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={2}
+                  d='M17 8l4 4m0 0l-4 4m4-4H3'
+                />
+              </svg>
+            </div>
+          </div>
+
+          {/* Glow effect on hover */}
+          <div className='absolute -inset-px rounded-3xl bg-gradient-to-r from-[var(--cyber-cyan)]/10 via-transparent to-[var(--cyber-purple)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 blur-xl' />
+        </m.div>
+      </Link>
+    </m.div>
+  );
+};
 
 const Works = () => {
   const { t } = useTranslation();
   const prefersReduced = useReducedMotion();
 
-  const handleProjectClick = (projectName: string) => {
-    const project = projects.find((p) => p.name === projectName);
-    if (project) {
-      window.open(project.sourceCodeLink, '_blank');
-    }
-  };
-
   return (
     <div className='w-full mx-auto px-[clamp(1rem,5vw,2rem)]'>
-      {/* Box de texto informativo com animação */}
+      {/* Section header */}
       <m.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className='mb-[clamp(2.5rem,8vw,4rem)]'
+        transition={{ duration: 0.8 }}
+        className='mb-[clamp(2rem,6vw,4rem)] text-center'
       >
-        <div className='relative rounded-3xl overflow-hidden bg-gradient-to-br from-[var(--cyber-purple)]/10 via-[var(--cyber-cyan)]/5 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/20 backdrop-blur-xl p-[clamp(1.5rem,5vw,3rem)] shadow-2xl group hover:border-[var(--cyber-cyan)]/40 transition-all duration-500'>
-          {/* Efeito de brilho animado no fundo */}
-          <div className='absolute inset-0 opacity-30'>
-            <m.div
-              className='absolute inset-0'
-              style={{
-                background:
-                  'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)',
-              }}
-              animate={{
-                background: [
-                  'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)',
-                  'radial-gradient(circle at 80% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)',
-                  'radial-gradient(circle at 20% 50%, rgba(145, 94, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%)',
-                ],
-              }}
-              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-            />
-          </div>
+        <Header useMotion={true} p={t('works.p')} h2={t('works.h2')} />
 
-          {/* Conteúdo da box */}
-          <div className='relative z-10'>
-            <m.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              <Header useMotion={true} p={t('works.p')} h2={t('works.h2')} />
-            </m.div>
-
-            {/* Linha com animação discreta de brilho */}
-            <m.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className='relative w-full max-w-xl mx-auto my-[clamp(1.5rem,4vw,2rem)]'
-            >
-              <div className='h-[1px] bg-gradient-to-r from-transparent via-[var(--cyber-cyan)] to-transparent relative'>
-                <m.div
-                  className='absolute top-1/2 -translate-y-1/2 w-[clamp(0.75rem,1.5vw,1rem)] h-[clamp(0.75rem,1.5vw,1rem)] rounded-full bg-[var(--cyber-cyan)] blur-sm'
-                  style={{ left: '50%' }}
-                  animate={{
-                    left: ['50%', '0%', '50%'],
-                    opacity: [0.8, 0.3, 0.8],
-                    scale: [1, 0.8, 1],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                />
-                <m.div
-                  className='absolute top-1/2 -translate-y-1/2 w-[clamp(0.75rem,1.5vw,1rem)] h-[clamp(0.75rem,1.5vw,1rem)] rounded-full bg-[var(--cyber-purple)] blur-sm'
-                  style={{ right: '50%' }}
-                  animate={{
-                    right: ['50%', '0%', '50%'],
-                    opacity: [0.8, 0.3, 0.8],
-                    scale: [1, 0.8, 1],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                />
-              </div>
-            </m.div>
-
-            {/* Badges de destaque */}
-            <m.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-              className='flex flex-wrap justify-center gap-[clamp(0.5rem,1.5vw,0.75rem)] mt-[clamp(1rem,3vw,1.5rem)]'
-            >
-              {[
-                { text: t('works.badgeReact'), color: 'from-cyan-500 to-blue-500' },
-                { text: t('works.badgeThree'), color: 'from-purple-500 to-pink-500' },
-                { text: t('works.badgeNode'), color: 'from-green-500 to-emerald-500' },
-                { text: t('works.badgeFullStack'), color: 'from-orange-500 to-red-500' },
-              ].map((badge, idx) => (
-                <m.span
-                  key={idx}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  className={`px-[clamp(0.75rem,2vw,1rem)] py-[clamp(0.375rem,1vw,0.5rem)] rounded-full text-[clamp(0.6rem,1.5vw,0.75rem)] font-bold uppercase tracking-wider bg-gradient-to-r ${badge.color} text-white shadow-lg shadow-[0_0_20px_rgba(145,94,255,0.3)] border border-white/20`}
-                >
-                  {badge.text}
-                </m.span>
-              ))}
-            </m.div>
-          </div>
-
-          {/* Borda decorativa com glow */}
-          <div className='absolute inset-0 rounded-3xl border border-[var(--cyber-cyan)]/10 pointer-events-none' />
-          <div className='absolute -inset-1 bg-gradient-to-r from-[var(--cyber-purple)] via-[var(--cyber-cyan)] to-[var(--cyber-purple)] rounded-3xl opacity-20 blur-xl -z-10' />
-        </div>
+        <m.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className='mt-6 flex items-center justify-center gap-4'
+        >
+          <div className='h-px w-12 bg-gradient-to-r from-transparent to-white/20' />
+          <span className='text-xs text-white/30 uppercase tracking-[0.3em]'>
+            {projects.length} {t('works.projectCount', 'Projetos')}
+          </span>
+          <div className='h-px w-12 bg-gradient-to-l from-transparent to-white/20' />
+        </m.div>
       </m.div>
 
-      {/* Grid de projetos - responsivo */}
-      <div className='mt-[clamp(2rem,6vw,3rem)] grid grid-cols-[repeat(auto-fit,minmax(clamp(250px,25vw,350px),1fr))] gap-[clamp(1.25rem,4vw,2.5rem)]'>
-        {projects.map((project) => {
-          const projectName = project.name; // Nomes de projetos geralmente não mudam entre línguas, mas se mudar use t()
-          const projectDescription = t(project.description);
-          const projectCategory = t(`works.${project.category}`);
-          const projectStatus = t(`works.${project.status}`);
+      {/* Projects grid */}
+      <m.div
+        variants={prefersReduced ? {} : staggerContainer(0.15, 0.2)}
+        initial='hidden'
+        whileInView='show'
+        viewport={{ once: true, amount: 0.1 }}
+        className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8'
+      >
+        {projects.map((project, i) => (
+          <ProjectSpotlight key={project.name} project={project} index={i} />
+        ))}
+      </m.div>
 
-          return (
-            <m.div
-              key={projectName}
-              variants={prefersReduced ? {} : fadeIn('up', 'spring', 0, 0.75)}
-              onClick={() => handleProjectClick(projectName)}
-              className='glass-card group relative overflow-hidden h-full flex flex-col neon-hover border border-white/10 cursor-pointer transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl'
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <div className='relative aspect-video max-h-[clamp(11rem,25vw,16rem)] overflow-hidden'>
-                <img
-                  src={project.image}
-                  alt={projectName}
-                  className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-105'
-                  loading='eager'
-                />
-                <div className='absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent' />
-
-                {/* Badges Container */}
-                <div className='absolute top-[clamp(0.75rem,2vw,1rem)] left-[clamp(0.75rem,2vw,1rem)] right-[clamp(0.75rem,2vw,1rem)] flex flex-col items-start gap-2'>
-                  {/* Category Badge */}
-                  <div className='flex-shrink-0 px-[clamp(0.75rem,2vw,1rem)] py-[clamp(0.25rem,1vw,0.375rem)] bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[clamp(0.55rem,1.5vw,0.65rem)] font-bold text-[var(--cyber-cyan)] uppercase tracking-widest shadow-lg'>
-                    {projectCategory}
-                  </div>
-
-                  {/* Status Badge */}
-                  <div className='flex-shrink-0 px-[clamp(0.5rem,1.5vw,0.75rem)] py-[clamp(0.25rem,1vw,0.25rem)] bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[clamp(0.5rem,1.2vw,0.55rem)] font-bold text-green-400 uppercase tracking-widest'>
-                    {projectStatus}
-                  </div>
-                </div>
-              </div>
-
-              <div className='p-[clamp(1.25rem,4vw,2rem)] flex-1 flex flex-col'>
-                <div className='flex flex-wrap gap-[clamp(0.375rem,1vw,0.5rem)] mb-[clamp(0.75rem,2vw,1rem)]'>
-                  {project.tags?.slice(0, 3).map((tag, i) => (
-                    <span
-                      key={i}
-                      className='text-[clamp(0.55rem,1.5vw,0.65rem)] px-[clamp(0.5rem,1.5vw,0.75rem)] py-[clamp(0.125rem,0.5vw,0.25rem)] bg-white/5 border border-white/10 rounded-full text-white/80 font-medium'
-                      style={{
-                        textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)',
-                      }}
-                    >
-                      #{tag.name}
-                    </span>
-                  ))}
-                </div>
-
-                <h3 className='text-[clamp(1.125rem,3vw,1.5rem)] font-bold text-white group-hover:text-[var(--cyber-cyan)] transition-colors line-clamp-1 mb-[clamp(0.5rem,1.5vw,0.75rem)]'>
-                  {projectName}
-                </h3>
-
-                <p
-                  className='mt-[clamp(0.5rem,1.5vw,0.75rem)] text-white/80 line-clamp-3 text-[clamp(0.75rem,2vw,0.875rem)] flex-1 leading-relaxed'
-                  style={{
-                    textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)',
-                  }}
-                >
-                  {projectDescription}
-                </p>
-
-                <div className='mt-[clamp(1.25rem,4vw,2rem)] w-full flex justify-center'>
-                  <m.button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleProjectClick(projectName);
-                    }}
-                    whileHover={{
-                      scale: 1.05,
-                      y: -3,
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                    className='relative px-[clamp(1.25rem,4vw,2rem)] py-[clamp(0.75rem,2vw,1rem)] text-[clamp(0.625rem,1.5vw,0.75rem)] font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-[var(--cyber-cyan)] backdrop-blur-sm group/btn flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)] shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
-                  >
-                    <m.div
-                      className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'
-                      animate={{
-                        x: ['-100%', '100%'],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: 'linear',
-                      }}
-                    />
-
-                    <span className='relative z-10'>{t('works.accessProject')}</span>
-
-                    <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300' />
-                  </m.button>
-                </div>
-              </div>
-            </m.div>
-          );
-        })}
-      </div>
-
-      <div className='mt-[clamp(2.5rem,8vw,4rem)] flex justify-center'>
-        <m.a
+      {/* View all */}
+      <m.div
+        initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className='mt-12 text-center'
+      >
+        <a
           href='https://github.com/lelebrr'
           target='_blank'
           rel='noopener noreferrer'
-          whileHover={{
-            scale: 1.05,
-            y: -3,
-          }}
-          whileTap={{ scale: 0.95 }}
-          className='relative px-[clamp(1.5rem,5vw,2rem)] py-[clamp(0.75rem,2.5vw,1rem)] text-[clamp(0.625rem,1.5vw,0.75rem)] font-bold uppercase tracking-widest rounded-2xl bg-gradient-to-br from-[var(--cyber-cyan)]/10 to-[var(--cyber-purple)]/10 border border-[var(--cyber-cyan)]/30 text-white backdrop-blur-sm group/btn flex items-center gap-[clamp(0.5rem,1.5vw,0.75rem)] shadow-[0_4px_15px_rgba(0,255,255,0.2)] transition-all duration-300 overflow-hidden min-h-[44px] btn-glow'
+          className='inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 text-white/60 text-sm font-medium hover:border-white/20 hover:text-white transition-all duration-300'
         >
-          <m.div
-            className='absolute inset-0 bg-gradient-to-r from-transparent via-[var(--cyber-cyan)]/20 to-transparent'
-            animate={{
-              x: ['-100%', '100%'],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-          />
-
-          <span className='relative z-10'>{t('works.viewProjects')}</span>
-
-          <div className='absolute inset-0 rounded-2xl border border-[var(--cyber-cyan)]/0 group-hover/btn:border-[var(--cyber-cyan)]/60 transition-all duration-300' />
-        </m.a>
-      </div>
+          <span>{t('works.viewProjects', 'Ver todos no GitHub')}</span>
+          <svg className='w-4 h-4' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth={1.5}
+              d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
+            />
+          </svg>
+        </a>
+      </m.div>
     </div>
   );
 };

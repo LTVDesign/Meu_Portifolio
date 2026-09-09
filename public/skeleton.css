@@ -1,0 +1,11 @@
+.skeleton-loader {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.skeleton-box {
+  width: 200px;
+  height: 200px;
+  border-radius: 8px;
+}

@@ -21,9 +21,7 @@ const loadResources = async (language: string) => {
   }
 };
 
-const i18nInitiator = (i18next as any)
-  .use(LanguageDetector)
-  .use(initReactI18next);
+const i18nInitiator = (i18next as any).use(LanguageDetector).use(initReactI18next);
 
 // Inicialização com as configurações básicas
 i18nInitiator.init(
@@ -51,9 +49,17 @@ i18nInitiator.init(
     // Carregar a língua detectada/inicial
     const currentLanguage = (i18next as any).language || 'pt';
     const resources = await loadResources(currentLanguage);
-    (i18next as any).addResourceBundle(currentLanguage, 'translation', resources, true, true);
+    (i18next as any).addResourceBundle(
+      currentLanguage,
+      'translation',
+      resources,
+      true,
+      true
+    );
 
-    console.log(`[i18n] i18n inicializado com sucesso, língua carregada: ${currentLanguage}`);
+    console.log(
+      `[i18n] i18n inicializado com sucesso, língua carregada: ${currentLanguage}`
+    );
   }
 );
 

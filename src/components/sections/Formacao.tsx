@@ -479,10 +479,11 @@ const Formacao = () => {
             className='glass-card group relative overflow-hidden p-[clamp(1.25rem,4vw,2.5rem)] flex flex-col h-full neon-hover border border-white/10 cursor-pointer'
           >
             <div
-              className={`absolute top-4 right-4 px-5 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-full text-white shadow-[0_0_15px_rgba(145,94,255,0.5)] border border-white/30 z-20 backdrop-blur-sm ${item.status === t('status.concluido')
-                ? 'bg-gradient-to-r from-green-600 to-emerald-600'
-                : 'bg-gradient-to-r from-yellow-600 to-orange-600'
-                }`}
+              className={`absolute top-4 right-4 px-5 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-full text-white shadow-[0_0_15px_rgba(145,94,255,0.5)] border border-white/30 z-20 backdrop-blur-sm ${
+                item.status === t('status.concluido')
+                  ? 'bg-gradient-to-r from-green-600 to-emerald-600'
+                  : 'bg-gradient-to-r from-yellow-600 to-orange-600'
+              }`}
             >
               {item.status}
             </div>

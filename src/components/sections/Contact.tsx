@@ -1,5 +1,5 @@
 import { m, useInView } from 'framer-motion';
-import { useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaBuilding, FaEnvelope, FaPaperPlane, FaPhone, FaUser } from 'react-icons/fa';
 import { z } from 'zod';
@@ -9,7 +9,6 @@ import { useViewport } from '../../hooks/useViewport';
 import { emailService } from '../../utils/emailService';
 import { slideIn } from '../../utils/motion';
 import { Header } from '../atoms';
-import { lazy, Suspense } from 'react';
 
 // LCP Optimization: Lazy load EarthCanvas so Contact page load doesn't pull in Three.js
 const EarthCanvas = lazy(() => import('../canvas/Earth'));

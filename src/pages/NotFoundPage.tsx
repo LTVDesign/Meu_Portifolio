@@ -1,16 +1,18 @@
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const NotFoundPage = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="error-page">
-      <div className="error">
-        <div className="wrap">
-          <div className="404">
-            <pre><code dangerouslySetInnerHTML={{
-              __html: `
+    <div className='error-page'>
+      <div className='error'>
+        <div className='wrap'>
+          <div className='404'>
+            <pre>
+              <code
+                dangerouslySetInnerHTML={{
+                  __html: `
 <span class="green"><!</span><span>DOCTYPE html</span><span class="green">></span>
 <span class="orange"><html></span>
 <span class="orange"><style></span>
@@ -22,13 +24,16 @@ ${t('notFound.fileNotFound')}
 <span class="comment"><!--${t('notFound.fileNotFound')}--></span>
 <span class="orange"></body></span>
 <span class="orange"></html></span>
-              `.trim()
-            }} />
+              `.trim(),
+                }}
+              />
             </pre>
           </div>
         </div>
-        <div className="info">
-          <Link to="/" className="viewFull">{t('notFound.viewFull')}</Link>
+        <div className='info'>
+          <Link to='/' className='viewFull'>
+            {t('notFound.viewFull')}
+          </Link>
         </div>
       </div>
     </div>

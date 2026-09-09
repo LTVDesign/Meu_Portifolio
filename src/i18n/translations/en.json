@@ -78,7 +78,23 @@
     "descriptionMeta": "Interactive 3D portfolio with React, Three.js and Tailwind. Specialist in AI, Security and Full Stack Development.",
     "dragToRotate": "Drag to rotate",
     "dragToRotateSubtitle": "360º",
-    "ariaLabelRotate": "3D Planet Model - Click and drag to rotate"
+    "ariaLabelRotate": "3D Planet Model - Click and drag to rotate",
+    "tagline": "Full-Stack Developer \u00B7 Creative Technologist",
+    "ctaWork": "View Projects",
+    "ctaContact": "Contact",
+    "scroll": "Scroll"
+  },
+  "caseStudy": {
+    "problem": "The Problem",
+    "process": "The Process",
+    "solution": "The Solution",
+    "results": "Results",
+    "behindTheScenes": "Behind the Scenes",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "currently": {
+    "title": "Currently"
   },
   "about": {
     "p": "Software Engineer • ADS Technologist • AI & Data Science Postgraduate Student",
@@ -247,7 +263,9 @@
     "category_security": "Cybersecurity & Hardware",
     "status_ongoing": "v1.3 (Ongoing)",
     "status_finished": "v2.0 (Finished)",
-    "status_prototype": "v1.0 (Prototype)"
+    "status_prototype": "v1.0 (Prototype)",
+    "viewCaseStudy": "View Case Study",
+    "projectCount": "Projects"
   },
   "cursos": {
     "p": "Courses & Certificates",

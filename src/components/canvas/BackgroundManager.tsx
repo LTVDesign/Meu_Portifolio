@@ -1,4 +1,4 @@
-import { memo, useState, lazy, Suspense, useEffect } from 'react';
+import { lazy, memo, Suspense, useEffect, useState } from 'react';
 import { useParticleConfig } from '../../contexts/ParticleConfigContext';
 import ParticleBackground from './ParticleBackground';
 
@@ -165,9 +165,7 @@ const BackgroundManager = memo(() => {
       data-background='true'
     >
       {isVisible && showBackground && (
-        <Suspense fallback={null}>
-          {renderBackground()}
-        </Suspense>
+        <Suspense fallback={null}>{renderBackground()}</Suspense>
       )}
     </div>
   );

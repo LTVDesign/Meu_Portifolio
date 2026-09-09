@@ -219,7 +219,7 @@ const GearButton = ({ onClick }: GearButtonProps) => {
               />
 
               {/* ========== BOTÃO PRINCIPAL ========== */}
-              <div 
+              <div
                 className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
@@ -296,7 +296,7 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                 <AnimatePresence>
                   {isHovered && (
                     <m.div
-                      key="gear-tooltip"
+                      key='gear-tooltip'
                       initial={{ opacity: 0, x: -20, filter: 'blur(10px)' }}
                       animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                       exit={{ opacity: 0, x: -10, filter: 'blur(5px)' }}
@@ -307,11 +307,11 @@ const GearButton = ({ onClick }: GearButtonProps) => {
                           <div className='w-1 h-1 bg-[#00D4FF] rounded-full animate-pulse' />
                           <div className='w-1 h-1 bg-[#FF00FF] rounded-full' />
                         </div>
-                        
+
                         <span className='text-white text-[11px] font-black uppercase tracking-[0.2em] drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]'>
                           {t('backgroundMenu.howToChange')}
                         </span>
-                        
+
                         <div className='absolute right-full top-1/2 -translate-y-1/2 w-8 h-[1px] bg-gradient-to-r from-transparent via-[#FF00FF]/50 to-[#FF00FF]' />
                       </div>
                     </m.div>

@@ -1,20 +1,20 @@
+import { m } from 'framer-motion';
 import { useCallback, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
-import { m } from 'framer-motion';
+import { FaWhatsapp } from 'react-icons/fa';
 import {
-  FiDownload,
-  FiPrinter,
-  FiMapPin,
-  FiMail,
-  FiLinkedin,
   FiAward,
   FiBook,
+  FiDownload,
+  FiLinkedin,
+  FiMail,
+  FiMapPin,
+  FiPrinter,
 } from 'react-icons/fi';
-import { FaWhatsapp } from 'react-icons/fa';
+import cvFile from '../assets/docs/Leandro_Barbosa_curriculo.pdf';
 import { experiences, projects, technologies } from '../constants';
 import cursosData from '../data/cursos.json';
-import cvFile from '../assets/docs/Leandro_Barbosa_curriculo.pdf';
 
 const fadeIn = (
   direction: 'up' | 'down' | 'left' | 'right',
@@ -154,7 +154,12 @@ const OnlineResume = () => {
             </p>
 
             <div className='flex flex-wrap gap-6'>
-              <a href="https://wa.me/5511984838629" target="_blank" rel="noopener noreferrer" className='flex items-center gap-3 text-gray-300 hover:text-[var(--cyber-cyan)] transition-colors group'>
+              <a
+                href='https://wa.me/5511984838629'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='flex items-center gap-3 text-gray-300 hover:text-[var(--cyber-cyan)] transition-colors group'
+              >
                 <div className='w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-[var(--cyber-cyan)]/50 transition-all'>
                   <FaWhatsapp className='text-xl' />
                 </div>
@@ -165,7 +170,12 @@ const OnlineResume = () => {
                   <p className='font-bold'>+55 11 98483-8629</p>
                 </div>
               </a>
-              <a href="https://www.linkedin.com/in/lelebrr" target="_blank" rel="noopener noreferrer" className='flex items-center gap-3 text-gray-300 hover:text-[var(--cyber-purple)] transition-colors group'>
+              <a
+                href='https://www.linkedin.com/in/lelebrr'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='flex items-center gap-3 text-gray-300 hover:text-[var(--cyber-purple)] transition-colors group'
+              >
                 <div className='w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-[var(--cyber-purple)]/50 transition-all'>
                   <FiLinkedin className='text-xl' />
                 </div>
@@ -331,12 +341,12 @@ const OnlineResume = () => {
                     {t('allCurriculo.currentlyStudying', 'Cursando')}
                   </span>
                 </p>
-                <p className='text-gray-500 text-sm mt-1'>Início: 10/03/2026 — Previsão: 04/01/2027</p>
+                <p className='text-gray-500 text-sm mt-1'>
+                  Início: 10/03/2026 — Previsão: 04/01/2027
+                </p>
               </div>
               <div className='relative pl-6 border-l-2 border-white/10'>
-                <h4 className='text-xl font-bold mb-2'>
-                  {t('allCurriculo.adsTitle')}
-                </h4>
+                <h4 className='text-xl font-bold mb-2'>{t('allCurriculo.adsTitle')}</h4>
                 <p className='text-gray-400 font-medium'>Anhanguera | Dez 2025</p>
                 <div className='mt-3 flex gap-4 text-xs font-mono text-gray-500'>
                   <span>CR: 10.0</span>
@@ -544,7 +554,9 @@ const OnlineResume = () => {
                     <p className='text-[9pt] text-gray-600'>Anhanguera | 2026</p>
                   </div>
                   <div>
-                    <p className='font-black text-[10pt] text-[#050816]'>{t('allCurriculo.adsTitle')}</p>
+                    <p className='font-black text-[10pt] text-[#050816]'>
+                      {t('allCurriculo.adsTitle')}
+                    </p>
                     <p className='text-[9pt] text-gray-600'>Anhanguera | Dezembro 2025</p>
                   </div>
                 </div>
