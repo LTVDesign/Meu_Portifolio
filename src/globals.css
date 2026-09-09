@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Gilda+Display");
 @import url("https://fonts.googleapis.com/css?family=VT323");
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap");
 @import "tailwindcss";
 
 /* ===== GLITCHED-OUT 404 PAGE STYLES ===== */
@@ -1474,18 +1473,6 @@ img {
     padding-left: max(0px, env(safe-area-inset-left));
     padding-right: max(0px, env(safe-area-inset-right));
   }
-}
-
-/* ===== JAPANESE TYPOGRAPHY ===== */
-.jp-text {
-  font-family: "Noto Sans JP", sans-serif;
-  letter-spacing: 0.02em;
-}
-
-.jp-decorative {
-  font-family: "Noto Sans JP", sans-serif;
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.08);
 }
 
 /* ===== PAGE TRANSITIONS ===== */

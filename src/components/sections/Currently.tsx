@@ -2,32 +2,28 @@ import { m } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { SectionWrapper } from '../../hoc';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
-import { fadeIn, staggerContainer } from '../../utils/motion';
+import { staggerContainer, fadeIn } from '../../utils/motion';
 
 const currentlyItems = [
   {
     emoji: '\u{1F3A8}',
     label: 'Creative Coding',
     description: 'Exploring generative art with shaders and WebGL',
-    jp: '\u5275\u9020\u7684\u30B3\u30FC\u30C7\u30A3\u30F3\u30B0',
   },
   {
     emoji: '\u{1F916}',
     label: 'AI Integration',
     description: 'Building intelligent interfaces with LLMs',
-    jp: 'AI\u7D44\u8FDB',
   },
   {
     emoji: '\u{1F30A}',
     label: 'WebGL Shaders',
     description: 'Custom GLSL effects for immersive experiences',
-    jp: 'WebGL\u30B7\u30A7\u30FC\u30C0\u30FC',
   },
   {
     emoji: '\u{267B}\uFE0F',
     label: 'Sustainability Tech',
     description: 'Green computing and efficient code patterns',
-    jp: '\u6301\u53EF\u53EF\u80FD\u306A\u30C6\u30AF\u30CE\u30ED\u30B8\u30FC',
   },
 ];
 
@@ -54,12 +50,6 @@ const Currently = () => {
             <h2 className='text-[clamp(1.2rem,3vw,1.5rem)] font-bold text-white uppercase tracking-wider'>
               {t('currently.title', 'Atualmente')}
             </h2>
-            <span
-              className='text-xs text-white/30 font-mono'
-              style={{ fontFamily: "'Noto Sans JP', sans-serif" }}
-            >
-              {'\u73FE\u5728'}
-            </span>
           </div>
 
           {/* Items grid */}
@@ -80,18 +70,10 @@ const Currently = () => {
                 <div className='flex items-start gap-3'>
                   <span className='text-2xl flex-shrink-0 mt-0.5'>{item.emoji}</span>
                   <div className='min-w-0'>
-                    <div className='flex items-center gap-2 mb-1'>
-                      <h3 className='text-sm font-bold text-white group-hover:text-[var(--cyber-cyan)] transition-colors'>
-                        {item.label}
-                      </h3>
-                      <span
-                        className='text-[10px] text-white/20'
-                        style={{ fontFamily: "'Noto Sans JP', sans-serif" }}
-                      >
-                        {item.jp}
-                      </span>
-                    </div>
-                    <p className='text-xs text-white/50 leading-relaxed'>
+                    <h3 className='text-sm font-bold text-white group-hover:text-[var(--cyber-cyan)] transition-colors'>
+                      {item.label}
+                    </h3>
+                    <p className='text-xs text-white/50 leading-relaxed mt-1'>
                       {item.description}
                     </p>
                   </div>

@@ -120,30 +120,6 @@ const CustomCursor = memo(() => {
           className='rounded-full bg-white'
         />
       </m.div>
-
-      {/* Japanese symbol trail on hover */}
-      <m.div
-        className='fixed top-0 left-0 pointer-events-none z-[9998] hidden md:block'
-        style={{
-          x: cursorXSpring,
-          y: cursorYSpring,
-          translateX: '-50%',
-          translateY: '-50%',
-        }}
-      >
-        <m.span
-          animate={{
-            opacity: isHovering ? 0.6 : 0,
-            scale: isHovering ? 1 : 0.5,
-            rotate: isHovering ? 0 : -45,
-          }}
-          transition={{ type: 'spring', damping: 15, stiffness: 200 }}
-          className='text-white text-xs font-bold select-none'
-          style={{ fontFamily: "'Noto Sans JP', sans-serif" }}
-        >
-          {'\u771F'}
-        </m.span>
-      </m.div>
     </>
   );
 });
