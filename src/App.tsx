@@ -1,4 +1,5 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { HelmetProvider } from 'react-helmet-async';
 // import { SpeedInsights } from '@vercel/speed-insights/react';
 import { I18nextProvider } from 'react-i18next';
@@ -200,6 +201,7 @@ function App() {
           </PerformanceProvider>
 
           {/* <SpeedInsights /> */}
+          <Analytics />
         </ParticleConfigProvider>
       </I18nextProvider>
     </HelmetProvider>
