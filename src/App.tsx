@@ -1,4 +1,3 @@
-import { Analytics } from '@vercel/analytics/react';
 import React, { memo, useEffect, useState } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { I18nextProvider } from 'react-i18next';
@@ -209,7 +208,6 @@ function App() {
               </MotionProvider>
             </DynamicTextProvider>
           </PerformanceProvider>
-          <Analytics />
         </ParticleConfigProvider>
       </I18nextProvider>
     </HelmetProvider>

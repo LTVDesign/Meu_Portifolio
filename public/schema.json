@@ -1,9 +1,9 @@
-{
+﻿{
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Leandro Barbosa",
   "url": "https://leandrobarbosa.dev",
-  "image": "https://portifoliolele.vercel.app/logo.webp",
+  "image": "https://lele.dev.br/logo.webp",
   "jobTitle": "Desenvolvedor Full Stack & Especialista em IA",
   "sameAs": [
     "https://github.com/lelebrr",
@@ -21,3 +21,4 @@
   ],
   "description": "Leandro Barbosa: De Infraestrutura a Inteligência Artificial — Desenvolvedor Full Stack especializado em React, Node.js, Three.js e aplicações web modernas de alto desempenho."
 }
+

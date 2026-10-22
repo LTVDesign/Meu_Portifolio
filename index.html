@@ -10,10 +10,12 @@
   <link rel="preload" href="/assets/icons/logo.webp" as="image" type="image/webp" fetchpriority="high">
   <link rel="preload" href="/assets/images/pc-gamer.webp" as="image" type="image/webp" fetchpriority="high">
 
-  <!-- Pré-conexão para Vercel e APIs externas para reduzir latência -->
-  <link rel="preconnect" href="https://portifoliolele.vercel.app" crossorigin>
+  <!-- Pré-conexão para CDN e APIs externas para reduzir latência -->
+  <link rel="preconnect" href="https://lele.dev.br" crossorigin>
+  <link rel="preconnect" href="https://assets.lele.dev.br" crossorigin>
   <link rel="preconnect" href="https://api.emailjs.com" crossorigin>
-  <link rel="dns-prefetch" href="https://portifoliolele.vercel.app">
+  <link rel="dns-prefetch" href="https://lele.dev.br">
+  <link rel="dns-prefetch" href="https://assets.lele.dev.br">
   <link rel="dns-prefetch" href="https://api.emailjs.com">
 
   <!-- Preload do modelo 3D imediato para reduzir LCP -->
@@ -22,16 +24,16 @@
   <!-- CSP (Content Security Policy) -->
   <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'wasm-unsafe-eval' data: https://cdn.jsdelivr.net https://unpkg.com https://va.vercel-scripts.com https://cdnjs.cloudflare.com;
+  script-src 'self' 'wasm-unsafe-eval' data: https://cdn.jsdelivr.net https://unpkg.com https://static.cloudflareinsights.com https://cdnjs.cloudflare.com;
   style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
-  img-src 'self' data: https:;
+  img-src 'self' data: https: https://assets.lele.dev.br;
   font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com;
-  connect-src 'self' https://api.emailjs.com ws://localhost:5174 ws://localhost:5173 https://va.vercel-scripts.com;
+  connect-src 'self' https://api.emailjs.com https://cloudflareinsights.com ws://localhost:5174 ws://localhost:5173;
   frame-src 'self';
   object-src 'none';
   base-uri 'self';
   form-action 'self';
-  manifest-src 'self' https://vercel.com;
+  manifest-src 'self';
  ">
 
   <!-- Google Fonts: Inter — Async load to prevent render blocking -->
@@ -55,14 +57,14 @@
   <meta property="og:title" content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial">
   <meta property="og:description"
     content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial — Desenvolvedor Full Stack especializado em React, Node.js, Three.js e aplicações web modernas de alto desempenho.">
-  <meta property="og:image" content="https://portifoliolele.vercel.app/logo.webp">
+  <meta property="og:image" content="https://lele.dev.br/logo.webp">
   <meta property="og:url" content="https://leandrobarbosa.dev">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial">
   <meta name="twitter:description"
     content="Leandro Barbosa: De Infraestrutura a Inteligência Artificial — Desenvolvedor Full Stack">
-  <meta name="twitter:image" content="https://portifoliolele.vercel.app/logo.webp">
+  <meta name="twitter:image" content="https://lele.dev.br/logo.webp">
   <title>Leandro Saturnino Barbosa | Portfólio 3D - React & Three.js</title>
   <link rel="icon" type="image/png" sizes="196x196" href="/favicon-196.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -82,3 +84,4 @@
 </body>
 
 </html>
+
