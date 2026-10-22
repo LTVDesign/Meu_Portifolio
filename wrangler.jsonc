@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "lele-portfolio",
+  "compatibility_date": "2026-10-19",
+  "routes": [
+    {
+      "pattern": "lele.dev.br",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.lele.dev.br",
+      "custom_domain": true
+    }
+  ],
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}

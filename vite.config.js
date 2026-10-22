@@ -5,6 +5,8 @@ import compression from 'vite-plugin-compression';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import path from 'path';
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 export default defineConfig({
   base: '/',
   define: {
@@ -12,73 +14,65 @@ export default defineConfig({
     'global': 'window',
     '__DEFINES__': JSON.stringify({}),
   },
-  plugins: [
-    tailwindcss(),
-    react({
-      jsxRuntime: 'automatic',
-      fastRefresh: true,
-      importSource: 'react',
-    }),
-    ViteImageOptimizer({
-      png: { quality: 85 },
-      jpeg: { quality: 80 },
-      jpg: { quality: 80 },
-      webp: { quality: 80 },
-      avif: { quality: 70 },
-      svg: {
-        plugins: [
-          { name: 'removeViewBox', active: false },
-          { name: 'sortAttrs' },
-        ],
-      },
-    }),
-    compression({
-      algorithm: 'brotliCompress',
-      ext: '.br',
-      threshold: 10240,
-      minSize: 0,
-      level: 11,
-      deleteOriginalFile: false,
-    }),
-    compression({
-      algorithm: 'gzip',
-      ext: '.gz',
-      threshold: 10240,
-      minSize: 0,
-      level: 9,
-      deleteOriginalFile: false,
-    }),
-    compression({
-      algorithm: 'brotliCompress',
-      ext: '.br',
-      threshold: 10240,
-      minSize: 0,
-      level: 11,
-      deleteOriginalFile: false,
-      filter: (file) => {
-        return file && file.name && (
-          file.name.endsWith('.js') ||
-          file.name.endsWith('.css') ||
-          file.name.endsWith('.html')
-        );
-      },
-    }),
-    compression({
-      algorithm: 'gzip',
-      ext: '.gz',
-      threshold: 10240,
-      minSize: 0,
-      level: 9,
-      deleteOriginalFile: false,
-      filter: (file) => {
-        return file && file.name && (
-          file.name.endsWith('.js') ||
-          file.name.endsWith('.css') ||
-          file.name.endsWith('.html')
-        );
-      },
-    }),
-  ],
+  plugins: [tailwindcss(), react({
+    jsxRuntime: 'automatic',
+    fastRefresh: true,
+    importSource: 'react',
+  }), ViteImageOptimizer({
+    png: { quality: 85 },
+    jpeg: { quality: 80 },
+    jpg: { quality: 80 },
+    webp: { quality: 80 },
+    avif: { quality: 70 },
+    svg: {
+      plugins: [
+        { name: 'removeViewBox', active: false },
+        { name: 'sortAttrs' },
+      ],
+    },
+  }), compression({
+    algorithm: 'brotliCompress',
+    ext: '.br',
+    threshold: 10240,
+    minSize: 0,
+    level: 11,
+    deleteOriginalFile: false,
+  }), compression({
+    algorithm: 'gzip',
+    ext: '.gz',
+    threshold: 10240,
+    minSize: 0,
+    level: 9,
+    deleteOriginalFile: false,
+  }), compression({
+    algorithm: 'brotliCompress',
+    ext: '.br',
+    threshold: 10240,
+    minSize: 0,
+    level: 11,
+    deleteOriginalFile: false,
+    filter: (file) => {
+      return file && file.name && (
+        file.name.endsWith('.js') ||
+        file.name.endsWith('.css') ||
+        file.name.endsWith('.html')
+      );
+    },
+  }), compression({
+    algorithm: 'gzip',
+    ext: '.gz',
+    threshold: 10240,
+    minSize: 0,
+    level: 9,
+    deleteOriginalFile: false,
+    filter: (file) => {
+      return file && file.name && (
+        file.name.endsWith('.js') ||
+        file.name.endsWith('.css') ||
+        file.name.endsWith('.html')
+      );
+    },
+  }), cloudflare()],
 
   resolve: {
     alias: {

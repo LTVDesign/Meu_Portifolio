@@ -1,6 +1,12 @@
 'use strict';
 
 window.Module = {
+  locateFile: function(path, prefix) {
+    if (path.endsWith('.data')) {
+      return 'https://assets.lele.dev.br/doom/' + path;
+    }
+    return prefix + path;
+  },
   monitorRunDependencies: function(toLoad) {
     this.dependencies = Math.max(this.dependencies, toLoad);
   },
