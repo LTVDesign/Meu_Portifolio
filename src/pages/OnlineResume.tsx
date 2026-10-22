@@ -402,7 +402,7 @@ const OnlineResume = () => {
 
             <div className='grid grid-cols-2 gap-y-2 gap-x-12 text-[10.5pt] font-medium'>
               <span className='flex items-center gap-2'>
-                <FiMail className='text-[var(--cyber-purple)]' /> lelebrr@gmail.com
+                <FiMail className='text-[var(--cyber-purple)]' /> leandro@lele.dev.br
               </span>
               <span className='flex items-center gap-2'>
                 <FaWhatsapp className='text-[var(--cyber-purple)]' /> +55 11 98483-8629

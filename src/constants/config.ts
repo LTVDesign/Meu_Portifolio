@@ -59,7 +59,7 @@ export const config: TConfig = {
   html: {
     title: 'Portfólio',
     fullName: 'Meu portfólio',
-    email: import.meta.env.VITE_CONTACT_EMAIL || 'lelebrr@gmail.com',
+    email: import.meta.env.VITE_CONTACT_EMAIL || 'leandro@lele.dev.br',
   },
   hero: {
     name: 'Meu portfólio',

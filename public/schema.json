@@ -1,8 +1,8 @@
-﻿{
+{
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Leandro Barbosa",
-  "url": "https://leandrobarbosa.dev",
+  "url": "https://lele.dev.br",
   "image": "https://lele.dev.br/logo.webp",
   "jobTitle": "Desenvolvedor Full Stack & Especialista em IA",
   "sameAs": [

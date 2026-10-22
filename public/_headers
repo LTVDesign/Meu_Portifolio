@@ -1,0 +1,29 @@
+# Global security and performance headers
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+# HTML files - revalidate so users always get new deploys immediately
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Hashed assets - cache for 1 year immutable
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images and media
+/*.webp
+  Cache-Control: public, max-age=2592000
+/*.png
+  Cache-Control: public, max-age=2592000
+/*.svg
+  Cache-Control: public, max-age=2592000
+/*.ico
+  Cache-Control: public, max-age=2592000
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+/*.pdf
+  Cache-Control: public, max-age=604800
